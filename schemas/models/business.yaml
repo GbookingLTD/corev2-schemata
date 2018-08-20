@@ -1,0 +1,55 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json"
+title: "Business"
+meta:extensible: true
+meta:extends:
+  - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+  - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+properties:
+  businessInfo:
+    $ref: "#/definitions/BusinessInfo"
+  resources:
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+required:
+  - "businessInfo"
+  - "resources"
+
+definitions:
+  BusinessInfo:
+    title: "BusinessInfo"
+    description: "Содержит детальную информацию о бизнесе — название, адрес, график работы и другое"
+    type: "object"
+    properties:
+      revisionVersion:
+        description: ""
+        type: "number"
+      name:
+        description: "Название бизнеса"
+        type: "string"
+      address:
+        description: "Адреса компании или филиала"
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
+      email:
+        description: "Список e-mail адресов компании или филиала"
+        type: "array"
+        items:
+          type: "string"
+      phone:
+        description: "Список телефонов бизнеса"
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      fax:
+        description: ""
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      description:
+        description: ""
+        type: "string"
+      logoURL:
+        description: ""
+        type: "string"

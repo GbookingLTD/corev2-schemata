@@ -1,0 +1,70 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+title: "Timetable"
+description: "таблица регулярного недельного расписания"
+meta:extensible: true
+type: "object"
+properties:
+  active:
+    description: "установлено ли расписание для сущности"
+    type: "boolean"
+  weeklySchedule:
+    type: "object"
+    properties:
+      sun:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+      mon:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+      tue:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+      wed:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+      thu:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+      fri:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+      sat:
+        type: "array"
+        items:
+          $ref: "#/definitions/TimeFrame"
+
+definitions:
+  TimeFrame:
+    type: "object"
+    properties:
+      start:
+        description: "смещение в минутах от начала дня"
+        type: "number"
+      end:
+        description: "смещение в минутах от начала дня"
+        type: "number"
+      resources:
+        type: "array"
+        items:
+          type: "string"
+      roomID:
+        type: "string"
+      capacity:
+        type: "number"
+      extraId:
+        type: "string"
+      startDate:
+        type: "string"
+        format: "date-time"
+      endDate:
+        type: "string"
+        format: "date-time"
+    required: ["start", "end"]
+
+      

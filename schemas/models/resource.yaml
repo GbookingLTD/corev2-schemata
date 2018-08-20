@@ -1,0 +1,247 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+title: "Resource"
+description: "Данные о работнике бизнеса"
+meta:extensible: true
+meta:extends:
+  - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+  - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+definitions:
+  ResourceProfile:
+    title: "Информация о профиле работника"
+    description: "Доступ имеют только пользователи с правами resource или admin"
+    type: "object"
+    properties:
+      email:
+        description: "e-mail профиля работника"
+        type: "string"
+      profileID:
+        description: "идентификатор профиля работника уникальный во всей системе"
+        type: "string"
+      userID:
+        description: "идентификатор работника"
+        type: "string"
+      accessType:
+        description: "тип доступа работника в систему через его учётную запись"
+        type: "string"
+        enum:
+          - "NONE"
+          - "WORKER_SIMPLE"
+          - "WORKER_EXTENDED"
+    required: ["email", "profileID", "userID", "accessType"]
+        
+  ResourceTaxonomyLevel:
+    $id: "ResourceTaxonomyLevel"
+    type: "object"
+    properties:
+      level:
+        description: "уровень скорости"
+        type: "number"
+      id:
+        description: "идентификатор услуги, для которой установлено уровень скорости"
+        type: "string"
+    required: ["level", "id"]
+    
+  ResourceTaxonomyChildren:
+    type: "object"
+    properties:
+      taxonomyID:
+        description: "идентификатор услуги, для которой установлено свойство"
+        type: "string"
+      children:
+        description: "true - детская услуга; false - взрослая услуга"
+        type: "boolean"
+    required: ["taxonomyID", "children"]
+
+  EvenOddTimetable:
+    meta:extensible: true
+    meta:extends:
+      - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+    type: "object"
+    properties:
+      startPeriod:
+        description: "month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели (понедельник считается нечётным)"
+        type: "string"
+        enum: ["week", "month"]
+      even:
+        description: "расписание для чётных дней"
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+      odd:
+        description: "расписание для нечётных дней"
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+    required: ["startPeriod", "even", "odd"]
+
+  ResourceLocation:
+    type: "object"
+    properties:
+      longitude:
+        type: "number"
+      latitude:
+        type: "number"
+      time:
+        description: "время последнего обновления координат"
+        type: "string"
+    required: ["longitude", "latitude", "time"]
+
+properties:
+  revisionVersion:
+    description: "Версия изменений документа"
+    type: "string"
+  rating:
+    description: "Рейтинг работника"
+    type: "number"
+  email:
+    description: "e-mail работника"
+    type: "string"
+    format: "email"
+  capacity:
+    description: "Количество записей, которые может принимать работник единовременно"
+    type: "number"
+  icon_url:
+    description: "url изображения работника; Если указан относительный путь, то используйте http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgUrl) "
+    type: "string"
+  id:
+    description: "внутренний идентификатор работника; уникальный во всей системе GBooking"
+    type: "string"
+  name:
+    description: "имя работника"
+    type: "string"
+  surname:
+    description: "фамилия и отчество работника"
+    type: "string"
+  nickname:
+    description: "внутреннее название работника в Бекофис"
+    type: "string"
+  loaned:
+    description: "не используется"
+    type: "string"
+  loanedTo:
+    description: "не используется"
+    type: "string"
+  loanedFrom:
+    description: "не используется"
+    type: "string"
+  description:
+    description: "краткое описание работника"
+    type: "string"
+  profession:
+    description: "информация о профессии работника, используется в Бекофис"
+    type: "string"
+  extraDescription:
+    description: "информация из внешней информационной системы как есть (при интеграции)"
+    type: "string"
+  extraLink:
+    description: "информация из внешней информационной системы как есть (при интеграции)"
+    type: "string"
+  extraId:
+    description: "информация из внешней информационной системы как есть (при интеграции)"
+    type: "string"
+  additionalExtraId:
+    description: "информация из внешней информационной системы как есть (при интеграции)"
+    type: "string"
+  extraMediaId:
+    description: "информация из внешней информационной системы как есть (при интеграции)"
+    type: "string"
+  departmentId:
+    description: "идентификатор отделения, к которому привязан работник"
+    type: "string"
+  workPlace:
+    description: "рабочее место, которое занимает работник"
+    type: "string"
+  order:
+    description: "индекс сортировки работника"
+    type: "number"
+  profile:
+    $ref: "#/definitions/ResourceProfile"
+  taxonomies:
+    description: "массив идентификаторов услуг, которые выполняет работник"
+    type: "array"
+    items:
+      type: "string"
+  taxonomyLevels:
+    description: "массив уровня скорости выполнения услуги (см так же Resource level)"
+    type: "array"
+    items:
+      $ref: "#/definitions/ResourceTaxonomyLevel"
+  taxonomyChildren:
+    description: "массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны оба или не указаны вовсе для услуги)"
+    type: "array"
+    items:
+      $ref: "#/definitions/ResourceTaxonomyChildren"
+  level:
+    description: "уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)"
+    type: "number"
+  perk:
+    description: "особый навык"
+    type: "string"
+  phone:
+    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+  smsEnabled:
+    description: "включена ли отправка смс уведомлений для данного работника"
+    type: "boolean"
+  emailEnabled:
+    description: "включена ли отправка e-mail уведомлений для данного работника"
+    type: "boolean"
+  displayInWidget:
+    description: "отображать ли данного работника на виджете или любом другом клиенте"
+    type: "boolean"
+  manualChanges:
+    definition: "в случае интеграции производились ли изменения перетирающие данные из информационной системы (если \"ручные\" изменения были, то они не будут перетёрты при последующих интеграциях)"
+    type: "boolean"
+  timetable:
+    definition: "таблица с регулярным еженедельным расписанием работника"
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+  evenOddTimetable:
+    definition: "таблица с разделением расписания по чётным и нечётным дням"
+    $ref: "#/definitions/EvenOddTimetable"
+  status:
+    definition: ""
+    type: "string"
+    enum:
+      - "ACTIVE"
+      - "NOTACTIVE"
+  image:
+    definition: "не используется"
+    type: "string"
+  location:
+    definition: "координаты работника (для uber систем)"
+    $ref: "#/definitions/ResourceLocation"
+required:
+  - "revisionVersion"
+  - "rating"
+  - "email"
+  - "capacity"
+  - "icon_url"
+  - "id"
+  - "name"
+  - "surname"
+  - "nickname"
+  - "loaned"
+  - "loanedTo"
+  - "loanedFrom"
+  - "description"
+  - "profession"
+  - "extraDescription"
+  - "extraLink"
+  - "extraId"
+  - "additionalExtraId"
+  - "extraMediaId"
+  - "departmentId"
+  - "workPlace"
+  - "order"
+  - "taxonomies"
+  - "taxonomyLevels"
+  - "taxonomyChildren"
+  - "level"
+  - "perk"
+  - "phone"
+  - "smsEnabled"
+  - "emailEnabled"
+  - "displayInWidget"
+  - "manualChanges"
+  - "timetable"
+  - "evenOddTimetable"
+  - "status"
+  - "location"
+  
