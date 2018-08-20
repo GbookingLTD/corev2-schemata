@@ -1,0 +1,61 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json",
+    "title": "Timetable",
+    "description": "таблица регулярного недельного расписания",
+    "meta:extensible": true,
+    "type": "object",
+    "properties": {
+        "active": {
+            "description": "установлено ли расписание для сущности",
+            "type": "boolean"
+        },
+        "weeklySchedule": {
+            "type": "object",
+            "properties": {
+                "sun": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                },
+                "mon": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                },
+                "tue": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                },
+                "wed": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                },
+                "thu": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                },
+                "fri": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                },
+                "sat": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}

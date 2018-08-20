@@ -1,0 +1,24 @@
+{
+    "definitions": {
+        "success_response": {
+            "type": "object",
+            "properties": {
+                "business": {
+                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json"
+                }
+            }
+        }
+    },
+    "properties": {
+        "response": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/success_response"
+                },
+                {
+                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
+                }
+            ]
+        }
+    }
+}

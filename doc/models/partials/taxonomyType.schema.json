@@ -1,0 +1,14 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json",
+    "definitions": {
+        "TaxonomyType": {
+            "type": "string",
+            "enum": [
+                "CATEGORY",
+                "SUBCATEGORY",
+                "SERVICE"
+            ],
+            "deafult": "SERVICE"
+        }
+    }
+}
