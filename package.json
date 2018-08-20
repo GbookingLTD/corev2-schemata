@@ -1,7 +1,6 @@
 {
   "name": "corev2-schemata",
   "version": "2.0.0",
-  "description": "",
   "main": "index.js",
   "bin": {
     "corev2-schemata": "errorCodes.js"
@@ -15,5 +14,14 @@
     "js-yaml": "^3.12.0",
     "lodash-node": "^3.10.2",
     "readline": "^1.3.0"
-  }
+  },
+  "directories": {
+    "doc": "doc"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "http://git.dev.gbooking.ru/vitaliy/corev2-schemata.git"
+  },
+  "description": ""
 }
