@@ -204,9 +204,9 @@ definitions:
     type: "object"
     properties:
       currency:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json"
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
       stockAmount:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json"
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
       type:
         type: "string"
         enum: ["equal", "begin_with", "average"]
@@ -332,7 +332,7 @@ definitions:
       allowNextBookingInDaysText:
         type: "string"
       taxonomyType:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json"
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json#/definitions/TaxonomyType"
       designs:
         type: "array"
         items:
