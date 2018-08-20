@@ -1,0 +1,28 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+title: "TimeFrame"
+type: "object"
+properties:
+  start:
+    description: "смещение в минутах от начала дня"
+    type: "number"
+  end:
+    description: "смещение в минутах от начала дня"
+    type: "number"
+  resources:
+    type: "array"
+    items:
+      type: "string"
+  roomID:
+    type: "string"
+  capacity:
+    type: "number"
+  extraId:
+    type: "string"
+  startDate:
+    type: "string"
+    format: "date-time"
+  endDate:
+    type: "string"
+    format: "date-time"
+required: ["start", "end"]
+additionalProperties: false

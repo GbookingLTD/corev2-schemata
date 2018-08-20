@@ -244,4 +244,5 @@ required:
   - "evenOddTimetable"
   - "status"
   - "location"
+additionalProperties: false
   

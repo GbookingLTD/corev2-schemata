@@ -1,4 +1,0 @@
-"business.get_profile_by_id":
-  properties:
-    result:
-      $ref: '#/definitions/Business'

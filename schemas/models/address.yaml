@@ -1,0 +1,66 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
+definitions:
+  MetroStation:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+    required: ["name"]
+    additionalProperties: false
+      
+properties:
+  country:
+    type: "string"
+    enum: ["RU","IL","US","UA","BLR","FR","UK","KZ","HU","LT","LV","DE","CH","ES","AM","GE","UZ","FI","LI","_"]
+  zip_code:
+    type: "string"
+  locality:
+    type: "string"
+  locality_type:
+    type: "string"
+  street:
+    type: "string"
+  street_type:
+    type: "string"
+  number:
+    type: "string"
+  admin_area:
+    type: "string"
+  admin_area_type:
+    type: "string"
+  sub_admin_area:
+    type: "string"
+  sub_admin_area_type:
+    type: "string"
+  sub_locality:
+    type: "string"
+  sub_locality_type:
+    type: "string"
+  corps:
+    type: "string"
+  building:
+    type: "string"
+  possesion:
+    type: "string"
+  kilometer:
+    type: "string"
+  address:
+    type: "string"
+  house_add:
+    type: "string"
+  longitude:
+    type: "string"
+  latitude:
+    type: "string"
+  address_add:
+    type: "string"
+  office:
+    type: "string"
+  metroStations:
+    type: "array"
+    items:
+      $ref: "#/definitions/MetroStation"
+required: ["country"]
+additionalProperties: false

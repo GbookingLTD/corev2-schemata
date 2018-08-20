@@ -1,3 +1,4 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
 title: "ErrorResponse"
 properties:
   jsonrpc:

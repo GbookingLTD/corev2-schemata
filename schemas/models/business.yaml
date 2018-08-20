@@ -5,15 +5,124 @@ meta:extends:
   - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
   - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
 properties:
-  businessInfo:
+  id:
+    type: "number"
+  created_on:
+    type: "string"
+    format: "date-time"
+  general_info:
     $ref: "#/definitions/BusinessInfo"
   resources:
     type: "array"
     items:
       $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+  taxonomies:
+    type: "array"
+    items:
+      $ref: "#/definitions/BusinessTaxonomy"
+  notifications:
+    type: "array"
+  vertical:
+    type: "number"
+  flatTaxonomyDisplay:
+    type: "boolean"
+  allowCategoryBooking:
+    type: "boolean"
+  consumables:
+    type: "array"
+    items:
+      $ref: "#/definitions/Consumable"
+  departments:
+    type: "array"
+    items:
+      $ref: "#/definitions/Department"
+  cabinets:
+    type: "array"
+    items:
+      $ref: "#/definitions/Cabinet"
+  defaultFilteredWorkers:
+    type: "array"
+    items: 
+      type: "string"
+  integration_data:
+    type: "object"
+  yandexFeedType:
+    type: "string"
+  top_services:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+      services:
+        type: "array"
+  mobileData:
+    type: "object"
+  active:
+    type: "boolean"
+  group:
+    type: "string"
+    enum: ["GENERAL", "FRENCH", "HUNGARIAN", "LATVIAN"]
+  backofficeType:
+    type: "string"
+    enum:
+      - "COMMON"
+      - "GT"
+      - "LL"
+      - "MB"
+      - "MU"
+  backofficeConfiguration:
+    type: "object"
+    $ref: "#/definitions/BackofficeConfiguration"
+  additionalSettings:
+    type: "object"
+    properties:
+      appointmentExtensionAmount:
+        type: "number"
+        default: 30
+      appointmentExtensionType:
+        type: "number"
+        enum: ["PERCENT", "MINUTES"]
+        default: "PERCENT"
+  widgetConfiguration:
+    type: "object"
+    $ref: "#/definitions/WidgetConfiguration"
+  miniWidgetConfiguration:
+    type: "object"
+    properties:
+      title1:
+        type: "string"
+      title2:
+        type: "string"
+      fields:
+        type: "array"
+        items:
+          type: "string"
+          enum: ["name", "surname", "email"]
+
+  callbackWidgetConfiguration:
+    type: "object"
+    properties:
+      title1:
+        type: "string"
+      title2:
+        type: "string"
+      
+  taxonomiesComplex:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        taxonomies:
+          type: "array"
+          items:
+            type: "string"      
+      
 required:
   - "businessInfo"
   - "resources"
+additionalProperties: false
 
 definitions:
   BusinessInfo:
@@ -53,3 +162,724 @@ definitions:
       logoURL:
         description: ""
         type: "string"
+    additionalProperties: false
+  Department:
+    title: "Department"
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+    required: ["id", "name"]
+    additionalProperties: false
+    
+  Cabinet:
+    title: "Cabinet"
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      active:
+        type: "string"
+    additionalProperties: false
+    
+  TaxonomyShowcase:
+    title: "TaxonomyShowcase"
+    type: "object"
+    properties:
+      baseBusinessID:
+        type: "string"
+      originBusinessID:
+        type: "string"
+      showcaseItemID:
+        type: "string"
+      isBaseNode:
+        type: "boolean"
+    additionalProperties: false
+  BusinessTaxonomyPrice:
+    title: "BusinessTaxonomyPrice"
+    type: "object"
+    properties:
+      currency:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json"
+      stockAmount:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json"
+      type:
+        type: "string"
+        enum: ["equal", "begin_with", "average"]
+    required: ["resourceLevel"]
+    additionalProperties: false
+
+    
+  AdditionalDuration:
+    title: "AdditionalDuration"
+    type: "object"
+    properties:
+      level:
+        type: "number"
+      duration:
+        type: "number"
+    additionalProperties: false
+        
+  Consumable:
+    title: "Consumable"
+    type: "object"
+    properties:
+      extraID:
+        type: "string"
+      name:
+        type: "string"
+      quantity:
+        type: "number"
+    required: ["extraID", "name", "quantity"]
+  BusinessTaxonomy:
+    title: "BusinessTaxonomy"
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      taxonomyParentID:
+        type: "string"
+      taxonomyCategoryExtraID:
+        type: "string"
+      taxonomyAppExtraID:
+        type: "string"
+      extraId:
+        type: "string"
+      showcases:
+        type: "array"
+        items:
+          $ref: "#/definitions/TaxonomyShowcase"
+      rooms:
+        type: "array"
+        items:
+          type: "string"
+      cabinets:
+        type: "array"
+        items:
+          type: "string"
+      specialCabinet:
+        type: "string"
+      lastModified:
+        type: "string"
+        format: "date-time"
+      price:
+        type: "object"
+        $ref: "#/definitions/BusinessTaxonomyPrice"
+      additionalPrices:
+        type: "array"
+        items:
+          $ref: "#/definitions/BusinessTaxonomyPrice"
+      capacity:
+        type: "number"
+      capacity_decrease:
+        type: "number"
+        default: 1
+      duration:
+        type: "number"
+      popularity:
+        type: "number"
+      active:
+        type: "boolean"
+      extraDescription:
+        type: "string"
+      confirmationAlert:
+        type: "string"
+      extraLink:
+        type: "string"
+      priceLink:
+        type: "string"
+      color:
+        type: "string"
+      order:
+        type: "number"
+      images:
+        type: "string"
+      manualChanges:
+        type: "boolean"
+      discounts:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.json"
+      additionalDurations:
+        type: "array"
+        items:
+          $ref: "#/definitions/AdditionalDuration"
+      additionalTaxonomyExtraId:
+        type: "array"
+        items:
+          type: "object"
+          properies:
+            taxonomyExtraID:
+              type: "string"
+            extraId:
+              type: "string"
+      parallelTaxonomies:
+        type: "array"
+        items:
+          type: "string"
+      onlyAfterTaxonomies:
+        type: "array"
+        items:
+          type: "string"
+          
+      displayInWidget:
+        type: "boolean"
+      allowNextBookingInDays:
+        type: "number"
+        default: 0
+      allowNextBookingInDaysText:
+        type: "string"
+      taxonomyType:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json"
+      designs:
+        type: "array"
+        items:
+          type: "string"
+      isOther:
+        type: "boolean"
+      chargeUnitsStep:
+        type: "number"
+      forPay:
+        type: "boolean"
+        default: false
+      childrenTaxonomyTypes:
+        type: "array"
+        items:
+          type: "string"
+          enum: ["child", "parent", "none"]
+        
+        
+        
+        
+        
+    additionalProperties: false
+  BackofficeConfiguration:
+    title: "BackofficeConfiguration"
+    type: "object"
+    properties:
+      revisionVersion:
+        type: "number"
+      scheduleDefaultWorkersLimit:
+        type: "number"
+        default: 25
+      resourceTimetableType:
+        type: "string"
+        enum: ["DEFAULT", "EVENODD"]
+        default: "DEFAULT"
+      skipServiceFiltering:
+        type: "boolean"
+        default: false
+      showManualChanges:
+        type: "boolean"
+        default: false
+      enableExtendedRecordsClientStatistics:
+        type: "boolean"
+        default: false
+      pastTimeEdit:
+        type: "boolean"
+        default: false
+      cabinetsEnabled:
+        type: "boolean"
+        default: false
+      appointmentFutureMoving:
+        type: "boolean"
+        default: false
+      showClientContractNumber:
+        type: "boolean"
+        default: false
+      showGapWindow:
+        type: "boolean"
+        default: false
+      showFirstAvailableSlot:
+        type: "boolean"
+        default: false
+      noInternetAlert:
+        type: "boolean"
+        default: false
+      showWorkerDescriptionInEvent:
+        type: "boolean"
+        default: false
+      schduleWeekViewIsDefault:
+        type: "boolean"
+        default: false
+      showPassportId:
+        type: "boolean"
+        default: false
+      showFax:
+        type: "boolean"
+        default: false
+      showBirthDate:
+        type: "boolean"
+        default: false
+      showEmail:
+        type: "boolean"
+        default: false
+      showAddress:
+        type: "boolean"
+        default: false
+      showIsraelCity:
+        type: "boolean"
+        default: false
+      showHouseNumber:
+        type: "boolean"
+        default: false
+      showKupatHolim:
+        type: "boolean"
+        default: false
+      showDepartmentFilter:
+        type: "boolean"
+        default: false
+      showDepartments:
+        type: "boolean"
+        default: false
+      showDepartmentsConfiguration:
+        type: "boolean"
+        default: false
+      showRooms:
+        type: "boolean"
+        default: false
+      showClientAppearOnSchedule:
+        type: "boolean"
+        default: false
+      showClientAppear:
+        type: "boolean"
+        default: false
+      skipCancelIfClientNotAppear:
+        type: "boolean"
+        default: false
+      showClientPayment:
+        type: "boolean"
+        default: false
+      showUTM:
+        type: "boolean"
+        default: false
+      showWorkerStatus:
+        type: "boolean"
+        default: false
+      enableBlackList:
+        type: "boolean"
+        default: false
+      enableCalculateShedule:
+        type: "boolean"
+        default: false
+      showSeasonTickets:
+        type: "boolean"
+        default: false
+      showLeadsScreen:
+        type: "boolean"
+        default: false
+      showGeneratableReportsScreen:
+        type: "boolean"
+        default: false
+      schedulerWeekViewType:
+        type: "string"
+        enum: ["week", "workWeek"]
+        default: "week"
+      workWeekStart:
+        type: "number"
+        default: 0
+      workWeekEnd:
+        type: "number"
+        default: 6
+      scheduleWorkerHours:
+        type: "boolean"
+        default: false
+      showTaxonomyLocalization:
+        type: "boolean"
+        default: false
+      highlightedResource:
+        type: "boolean"
+        default: false
+      showAdditionalFields:
+        type: "boolean"
+        default: false
+      exportToExcelRemovedClients:
+        type: "boolean"
+        default: false
+      checkClientOverlapping:
+        type: "boolean"
+        default: false
+      hideCustomerPortalFooter:
+        type: "boolean"
+        default: false
+      readonlyResourceSchedule:
+        type: "boolean"
+        default: false
+      showClientImage:
+        type: "boolean"
+        default: false
+      stateLevelHolidaysNotWorking:
+        type: "boolean"
+        default: false
+      paymentProvider:
+        type: "string"
+        enum: ["yandexMoney", "deltaProcessing", "DISABLE"]
+      showDefaulterBlockscreen:
+        type: "boolean"
+        default: false
+      allowSmsTranslit:
+        type: "boolean"
+        default: false
+      defaultGTScheduleDayView:
+        type: "boolean"
+        default: false
+      enableSourceChoice:
+        type: "boolean"
+        default: true
+      manualExceptionSupport:
+        type: "boolean"
+        default: false
+      showWorkerExtraId:
+        type: "boolean"
+        default: false
+      editAppExtraId:
+        type: "boolean"
+        default: false
+      useGtAppMethod:
+        type: "boolean"
+        default: false
+      disableAppointmentClientInlineEditor:
+        type: "boolean"
+        default: false
+      enableClientCard:
+        type: "boolean"
+        default: false
+      enableClientMedicalCardReport:
+        type: "boolean"
+        default: false
+      enableCustomOnlinePaymentConfirmation:
+        type: "boolean"
+        default: false
+      customOnlinePaymentConfirmationTemplate:
+        type: "boolean"
+        default: false
+      showFiredWorkerAppointmentAlert:
+        type: "boolean"
+        default: false
+      showDeliveryStatus:
+        type: "boolean"
+        default: false
+      showTaxonomyChildren:
+        type: "boolean"
+        default: false
+      editTaxonomyChildren:
+        type: "boolean"
+        default: false
+        
+        
+        
+        
+        
+    additionalProperties: false
+    
+  WidgetConfiguration:
+    title: "WidgetConfiguration"
+    type: "object"
+    properties:
+      revisionVersion:
+        type: "number"
+      crunchv2:
+        type: "boolean"
+        default: false
+      useCRAC:
+        type: "boolean"
+        default: false
+      cracSlotSize:
+        type: "number"
+        enum: [1, 5]
+        default: 5
+      widgetUseCRAC:
+        type: "boolean"
+        default: false
+      skipDaysForward:
+        type: "boolean"
+        default: false
+      daysForward:
+        type: "number"
+        default: 30
+      cracServer:
+        type: "string"
+        enum: ["CRAC", "CRAC_PROD3"]
+      useMedAuth:
+        type: "boolean"
+        default: false
+      useSortByName:
+        type: "boolean"
+        default: false
+      useMiddleName:
+        type: "boolean"
+        default: false
+      showSurnameFirst:
+        type: "boolean"
+        default: false
+      hidePrices:
+        type: "boolean"
+        default: false
+      hideEmptyDays:
+        type: "boolean"
+        default: false
+      showMap:
+        type: "boolean"
+        default: false
+      tentativeTTL:
+        type: "boolean"
+        default: false
+      showDrinkQuestion:
+        type: "boolean"
+        default: false
+      showTalkQuestion:
+        type: "boolean"
+        default: false
+      showClientAddress:
+        type: "boolean"
+        default: false
+      skipMobileMap:
+        type: "boolean"
+        default: false
+      skipAuthentication:
+        type: "boolean"
+        default: false
+      skipServiceSelection:
+        type: "boolean"
+        default: false
+      showTaxonomyConfirmationAlert:
+        type: "boolean"
+        default: false
+      showClientComment:
+        type: "boolean"
+        default: false
+      clientCommentTitle:
+        type: "boolean"
+        default: false
+      calendarMode:
+        type: "boolean"
+        default: false
+      useCoupon:
+        type: "boolean"
+        default: false
+      dontRequireEmail:
+        type: "boolean"
+        default: false
+      emailIsMandatory:
+        type: "boolean"
+        default: false
+      displaySlotSize:
+        type: "number"
+      additionalName:
+        type: "string"
+      shortLink:
+        type: "string"
+      appointmentConfirmationTitle:
+        type: "string"
+      appointmentConfirmationText:
+        type: "string"
+      theme:
+        type: "string"
+        default: "theme1"
+      socialSharing:
+        type: "object"
+        properties: 
+          active:
+            type: "boolean"
+            default: false
+          widgetText:
+            type: string
+          text:
+            type: string
+          discountEnabled:
+            type: "boolean"
+          discountType:
+            type: "string"
+            enum: ["PERCENT"]
+          discountAmount:
+            type: "number"
+      noDefaultImages:
+        type: "boolean"
+        default: false
+      withoutWorkers:
+        type: "boolean"
+        default: false
+      bookableMonthsCount:
+        type: "boolean"
+        default: false
+      dayUnavailableLabel:
+        type: "boolean"
+        default: false
+      dayOffLabel:
+        type: "boolean"
+        default: false
+      useBusinessScheduleForUnavailableLabel:
+        type: "boolean"
+        default: false
+      hideAnyWorkerBooking:
+        type: "boolean"
+        default: false
+      disableMobileWidget:
+        type: "boolean"
+        default: false
+      socialNetworkImage:
+        type: "boolean"
+        default: false
+      payment:
+        type: "string"
+        enum: ["WITHOUT", "OPTIONAL", "REQUIRED"]
+        default: "WITHOUT"
+      paymentProvider:
+        type: "string"
+        enum: ["yandexMoney", "deltaProcessing", "DISABLE"]
+        default: "yandexMoney"
+      alignmentTaxonomySlots:
+        type: "boolean"
+        default: false
+      bookableDateRanges:
+        type: "object"
+        properties:
+          enabled:
+            type: "boolean"
+            default: false
+          start:
+            type: "string"
+            format: "date-time"
+          end:
+            type: "string"
+            format: "date-time"
+      discountedPriceRounding:
+        type: "object"
+        properties:
+          rule:
+            type: "string"
+            enum: ["TWO_DECIMALS", "NEAREST_INTEGER", "CUSTOM"]
+          value:
+            type: "number"
+            default: -1
+      multiServiceBooking:
+        type: "boolean"
+        default: false
+      maxServiceBooking:
+        type: "number"
+        default: 1
+      multiTimeslotBooking:
+        type: "boolean"
+        default: false
+      maxTimeslotBooking:
+        type: "number"
+        default: 1
+      multiTimeslotBookingAllDays:
+        type: "boolean"
+        default: false
+      showAllWorkers:
+        type: "boolean"
+        default: false
+      sortByMostFree:
+        type: "boolean"
+        default: false
+      skipTimeSelection:
+        type: "boolean"
+        default: false
+      skipTimeSelectionServiceIDs:
+        type: "array"
+        items:
+          type: "string"
+      requireAgreement:
+        type: "boolean"
+        default: false
+      requireAgreementLink:
+        type: "string"
+        default: ""
+      hideGraySlots:
+        type: "boolean"
+        default: false
+      extraVisitors:
+        type: "boolean"
+        default: false
+      overrideFooter:
+        type: "string"
+        default: ""
+      enableOverrideFooter:
+        type: "boolean"
+        default: false
+      hideGBookingLogo:
+        type: "boolean"
+        default: false
+      hideCallButton:
+        type: "boolean"
+        default: false
+      hideNewAppointmentButton:
+        type: "boolean"
+        default: false
+      hideSocialNetworksAuthentication:
+        type: "boolean"
+        default: false
+      skipServiceDurationAlignment:
+        type: "boolean"
+        default: false
+      warningContactDataText:
+        type: "string"
+        default: ""
+      enableWarningContactData:
+        type: "boolean"
+        default: false
+      splitName:
+        type: "boolean"
+        default: false
+      useDefaultWorkerImg:
+        type: "boolean"
+        default: false
+      defaultWorkerImgUrl:
+        type: "string"
+        default: ""
+      useClustersMap:
+        type: "boolean"
+        default: false
+      useAppointmentReminder:
+        type: "boolean"
+        default: false
+      disableWidget:
+        type: "boolean"
+        default: false
+      disableWidgetMessage:
+        type: "boolean"
+        default: false
+      denySameTimeRecords:
+        type: "boolean"
+        default: false
+      sortWorkersByWorkload:
+        type: "boolean"
+        default: false
+      mostFreeEnable:
+        type: "boolean"
+        default: false
+      askClientBirthday:
+        type: "boolean"
+        default: false
+      askClientGender:
+        type: "boolean"
+        default: false
+      splitInsuranceClient:
+        type: "boolean"
+        default: false
+      insuranceClientSupportPhone:
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      showDisabledTaxonomies:
+        type: "boolean"
+        default: false
+      disabledTaxonomiesText:
+        type: "string"
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    additionalProperties: false

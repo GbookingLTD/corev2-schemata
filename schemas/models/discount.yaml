@@ -1,0 +1,28 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.json"
+title: "Discount"
+description: "Информация о скидке"
+properties:
+  active:
+    type: "boolean"
+  start:
+    type: "string"
+    format: "date-time"
+  repeats:
+    type: "string"
+    enum: ["none", "daily", "weekly"]
+    default: "none"
+  weeklyRepeat:
+    type: "number"
+    default: 1
+  unlimWeeklyRepeat:
+    type: "boolean"
+    default: false
+  daysOfWeek:
+    type: "string"
+    enum: ["sun","mon","tue","wed","thu","fri","sat"]
+  slots:
+    type: "object"
+    properties:
+      time:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+additionalProperties: false

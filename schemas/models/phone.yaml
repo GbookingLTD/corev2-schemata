@@ -9,3 +9,4 @@ properties:
   number:
     type: "string"
 required: ["countryCode", "areaCode", "number"]
+additionalProperties: false

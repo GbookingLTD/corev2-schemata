@@ -13,58 +13,30 @@ properties:
       sun:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       mon:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       tue:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       wed:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       thu:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       fri:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       sat:
         type: "array"
         items:
-          $ref: "#/definitions/TimeFrame"
-
-definitions:
-  TimeFrame:
-    type: "object"
-    properties:
-      start:
-        description: "смещение в минутах от начала дня"
-        type: "number"
-      end:
-        description: "смещение в минутах от начала дня"
-        type: "number"
-      resources:
-        type: "array"
-        items:
-          type: "string"
-      roomID:
-        type: "string"
-      capacity:
-        type: "number"
-      extraId:
-        type: "string"
-      startDate:
-        type: "string"
-        format: "date-time"
-      endDate:
-        type: "string"
-        format: "date-time"
-    required: ["start", "end"]
-
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+additionalProperties: false
       
