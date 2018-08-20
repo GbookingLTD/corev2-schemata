@@ -1,0 +1,24 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.schema.json",
+    "title": "business.get_profile_by_id",
+    "type": "object",
+    "definitions": {
+        "success_response": {
+            "type": "object",
+            "properties": {
+                "business": {
+                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json"
+                }
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/success_response"
+        },
+        {
+            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
+        }
+    ],
+    "additionalProperties": false
+}

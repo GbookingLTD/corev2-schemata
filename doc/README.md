@@ -17,13 +17,13 @@
 * [Timetable](./models/timetable.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json` (Unknown)
 * [](./models/address.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json` (Unknown)
 
-## /controllers/business/
-
-* [](./controllers/business/get_profile_by_id.schema.md) – `` (Unknown)
-
 ## /models/partials/
 
 * [TimeFrame](./models/partials/timeframe.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json` (Unknown)
 * [](./models/partials/currency.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json` (Unknown)
 * [](./models/partials/taxonomyType.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json` (Unknown)
+
+## /controllers/business/
+
+* [business.get_profile_by_id](./controllers/business/get_profile_by_id.response.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.schema.json` (Unknown)
 
