@@ -3,6 +3,10 @@
     "title": "TimeFrame",
     "type": "object",
     "properties": {
+        "id": {
+            "description": "уникальный идентификатор временного слота",
+            "type": "string"
+        },
         "start": {
             "description": "смещение в минутах от начала дня",
             "type": "number"

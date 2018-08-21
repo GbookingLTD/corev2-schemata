@@ -1,0 +1,14 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json"
+type: "object"
+properties:
+  social_network:
+    type: "string"
+    enum: ["GBooking", "Facebook", "VKontakte", "Odnoklassniki", "Twitter", "LinkedIn", "Mailru", "Yandex", "Yahoo", "Google"]
+  handle:
+    type: "string"
+  url:
+    type: "string"
+  id:
+    description: "network id"
+    type: "string"
+required: ["social_network", "handle", "url", "id"]

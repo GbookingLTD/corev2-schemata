@@ -1,0 +1,25 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json",
+    "definitions": {
+        "LanguageList": {
+            "type": "string",
+            "enum": [
+                "en-us",
+                "ru-ru",
+                "he-il",
+                "fr-fr",
+                "hu-hu",
+                "ee-ee",
+                "lv-lv",
+                "lt-lt",
+                "de-de",
+                "zh-cn",
+                "fi-fi",
+                "am-am",
+                "es-es",
+                "ge-ge",
+                "uz-uz"
+            ]
+        }
+    }
+}

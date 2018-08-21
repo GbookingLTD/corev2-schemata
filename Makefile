@@ -8,7 +8,7 @@ jsonschema2md_install:
 	cd ..
 
 mderrors:
-	bin/errorResponse.sh > errorResponce.yaml
+	bin/error_response.sh > errorResponce.yaml
 	node bin/errors.js > errors.md
 	
 jsondir:

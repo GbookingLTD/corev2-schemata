@@ -8,15 +8,15 @@
 
 | Property | Type | Required |
 |----------|------|----------|
-| [active](#active) | `boolean` | Optional | Timetable (this schema) |
-| [weeklySchedule](#weeklyschedule) | `object` | Optional | Timetable (this schema) |
+| [active](#active) | `boolean` | **Required** | Timetable (this schema) |
+| [week](#week) | `object` | **Required** | Timetable (this schema) |
 
 ## active
 
 установлено ли расписание для сущности
 
 `active`
-* is optional
+* is **required**
 * type: `boolean`
 * defined in this schema
 
@@ -29,15 +29,15 @@
 
 
 
-## weeklySchedule
+## week
 
 
-`weeklySchedule`
-* is optional
+`week`
+* is **required**
 * type: `object`
 * defined in this schema
 
-### weeklySchedule type
+### week type
 
 
 `object` with following properties:
@@ -45,13 +45,13 @@
 
 | Property | Type | Required |
 |----------|------|----------|
-| `sun`| array | Optional |
-| `mon`| array | Optional |
-| `tue`| array | Optional |
-| `wed`| array | Optional |
-| `thu`| array | Optional |
-| `fri`| array | Optional |
-| `sat`| array | Optional |
+| `sun`| array | **Required** |
+| `mon`| array | **Required** |
+| `tue`| array | **Required** |
+| `wed`| array | **Required** |
+| `thu`| array | **Required** |
+| `fri`| array | **Required** |
+| `sat`| array | **Required** |
 
 
 
@@ -60,7 +60,7 @@
 undefined
 
 `fri`
-* is optional
+* is **required**
 * type: `reference[]`
 
 
@@ -87,7 +87,7 @@ All items must be of the type:
 undefined
 
 `mon`
-* is optional
+* is **required**
 * type: `reference[]`
 
 
@@ -114,7 +114,7 @@ All items must be of the type:
 undefined
 
 `sat`
-* is optional
+* is **required**
 * type: `reference[]`
 
 
@@ -141,7 +141,7 @@ All items must be of the type:
 undefined
 
 `sun`
-* is optional
+* is **required**
 * type: `reference[]`
 
 
@@ -168,7 +168,7 @@ All items must be of the type:
 undefined
 
 `thu`
-* is optional
+* is **required**
 * type: `reference[]`
 
 
@@ -195,7 +195,7 @@ All items must be of the type:
 undefined
 
 `tue`
-* is optional
+* is **required**
 * type: `reference[]`
 
 
@@ -222,7 +222,7 @@ All items must be of the type:
 undefined
 
 `wed`
-* is optional
+* is **required**
 * type: `reference[]`
 
 

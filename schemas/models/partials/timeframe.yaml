@@ -2,6 +2,9 @@ $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/ti
 title: "TimeFrame"
 type: "object"
 properties:
+  id:
+    description: "уникальный идентификатор временного слота"
+    type: "string"
   start:
     description: "смещение в минутах от начала дня"
     type: "number"

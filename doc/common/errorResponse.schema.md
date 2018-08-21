@@ -7,7 +7,7 @@
 | Property | Type | Required |
 |----------|------|----------|
 | [jsonrpc](#jsonrpc) | `const` | **Required** | ErrorResponse (this schema) |
-| [id](#id) | `string` | **Required** | ErrorResponse (this schema) |
+| [id](#id) | `number` | **Required** | ErrorResponse (this schema) |
 | [error](#error) | `object` | **Required** | ErrorResponse (this schema) |
 
 ## error
@@ -288,13 +288,13 @@ The value of this property **must** be equal to one of the [known values below](
 
 `id`
 * is **required**
-* type: `string`
+* type: `number`
 * defined in this schema
 
 ### id type
 
 
-`string`
+`number`
 
 
 

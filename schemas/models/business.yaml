@@ -6,24 +6,31 @@ meta:extends:
   - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
 properties:
   id:
-    type: "number"
+    type: "string"
   created_on:
     type: "string"
     format: "date-time"
   general_info:
     $ref: "#/definitions/BusinessInfo"
-  resources:
-    type: "array"
-    items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
   taxonomies:
     type: "array"
     items:
       $ref: "#/definitions/BusinessTaxonomy"
+  resources:
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+  designs:
+    type: "array"
+    items:
+      type: "object"
+  stateLevelHolidaysNotWorking:
+    type: "boolean"
+    default: false
   notifications:
     type: "array"
   vertical:
-    type: "number"
+    type: "string"
   flatTaxonomyDisplay:
     type: "boolean"
   allowCategoryBooking:
@@ -56,7 +63,7 @@ properties:
       services:
         type: "array"
   mobileData:
-    type: "object"
+    type: "array"
   active:
     type: "boolean"
   group:
@@ -80,13 +87,13 @@ properties:
         type: "number"
         default: 30
       appointmentExtensionType:
-        type: "number"
+        type: "string"
         enum: ["PERCENT", "MINUTES"]
         default: "PERCENT"
-  widgetConfiguration:
+  widget_configuration:
     type: "object"
     $ref: "#/definitions/WidgetConfiguration"
-  miniWidgetConfiguration:
+  mini_widget_configuration:
     type: "object"
     properties:
       title1:
@@ -99,7 +106,7 @@ properties:
           type: "string"
           enum: ["name", "surname", "email"]
 
-  callbackWidgetConfiguration:
+  callback_widget_configuration:
     type: "object"
     properties:
       title1:
@@ -120,8 +127,12 @@ properties:
             type: "string"      
       
 required:
-  - "businessInfo"
-  - "resources"
+- "general_info"
+- "widget_configuration"
+- "mini_widget_configuration"
+- "resources"
+- "taxonomies"
+  
 additionalProperties: false
 
 definitions:
@@ -143,10 +154,13 @@ definitions:
           $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
       email:
         description: "Список e-mail адресов компании или филиала"
+        type: "string"
+      phone:
+        description: "Список телефонов бизнеса"
         type: "array"
         items:
-          type: "string"
-      phone:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      mobile:
         description: "Список телефонов бизнеса"
         type: "array"
         items:
@@ -156,12 +170,124 @@ definitions:
         type: "array"
         items:
           $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      timezone:
+        type: "string"
       description:
         description: ""
         type: "string"
-      logoURL:
+      logo_url:
         description: ""
         type: "string"
+      additionalFields:
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json"
+      contactName:
+        type: "string"
+      website:
+        type: "string"
+      timetable:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+      instant_messaging:
+        type: "array"
+        items: 
+          type: "object"
+      social_network:
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json"
+      accepted_currency:
+        type: "array"
+        items:
+          type: "string"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+      paymentMethods:
+        type: "string"
+        enum: ["Visa", "Mastercard", "Amex", "PayPal", "MoneyBookers"]
+      date_joined:
+        type: "string"
+        format: "date-time"
+      additionalInfo:
+        type: "string"
+      phoneMask:
+        type: "string"
+      minimalOrderTime:
+        type: "number"
+      images:
+        type: "array"
+        items:
+          type: "array"
+      metro:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+          distance:
+            type: "number"
+          color:
+            type: "string"
+        required: []
+        additionalProperties: false
+      language:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList"
+      networkID:
+        type: "number"
+      autoAcceptAppointment:
+        type: "boolean"
+        default: false
+      showAppointmentTooltip:
+        type: "boolean"
+        default: false
+      showAppointmentColor:
+        type: "boolean"
+        default: false
+      newboEnabledFor:
+        type: "array"
+        items:
+          type: "string"
+      pricingType:
+        type: "string"
+        enum: ["DEFAULT", "MASTER_TOPMASTER"]
+        default: "DEFAULT"
+      schedulerTick:
+        type: "number"
+        default: 15
+      skipBilling:
+        type: "boolean"
+        default: false
+      showResourceWorkStatistics:
+        type: "boolean"
+        defaulf: false
+      showWorkerProfession:
+        type: "boolean"
+        default: false
+      verticalTranslation:
+        type: "string"
+        enum: ["NONE", "GENERIC", "MEDICAL", "BEAUTY", "FITNESS", "SPORT", "YOGA"]
+        default: "NONE"
+      smsDuplicateFilter:
+        type: "object"
+        properies:
+          active:
+            type: "boolean"
+        additionalProperties: false
+      marketingNotifications:
+        type: "object"
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          accepted:
+            type: "boolean"
+            default: false
+          useSmsAlphaName:
+            type: "boolean"
+            default: false
+        required: ["active", "accepted", "useSmsAlphaName"]
+        additionalProperties: false
+      isShowcase:
+        type: "boolean"
+        default: false
     additionalProperties: false
   Department:
     title: "Department"
@@ -205,12 +331,36 @@ definitions:
     properties:
       currency:
         $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+      amount:
+        type: "string"
+        default: "0"
       stockAmount:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+        type: "string"
+        default: "0"
       type:
         type: "string"
         enum: ["equal", "begin_with", "average"]
-    required: ["resourceLevel"]
+    required: ["currency", "amount", "stockAmount", "type"]
+    additionalProperties: false
+
+  AdditionalBusinessTaxonomyPrice:
+    title: "BusinessTaxonomyPrice"
+    type: "object"
+    properties:
+      resourceLevel:
+        type: "number"
+      currency:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+      amount:
+        type: "string"
+        default: "0"
+      stockAmount:
+        type: "string"
+        default: "0"
+      type:
+        type: "string"
+        enum: ["equal", "begin_with", "average"]
+    required: ["resourceLevel", "currency", "amount", "stockAmount", "type"]
     additionalProperties: false
 
     
@@ -249,6 +399,8 @@ definitions:
         type: "string"
       extraId:
         type: "string"
+      alias:
+        type: "object"
       showcases:
         type: "array"
         items:
@@ -272,7 +424,7 @@ definitions:
       additionalPrices:
         type: "array"
         items:
-          $ref: "#/definitions/BusinessTaxonomyPrice"
+          $ref: "#/definitions/AdditionalBusinessTaxonomyPrice"
       capacity:
         type: "number"
       capacity_decrease:
@@ -297,11 +449,13 @@ definitions:
       order:
         type: "number"
       images:
-        type: "string"
+        type: "array"
+        items:
+          type: "string"
       manualChanges:
         type: "boolean"
       discounts:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.json"
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.schema.json"
       additionalDurations:
         type: "array"
         items:
@@ -349,11 +503,15 @@ definitions:
         items:
           type: "string"
           enum: ["child", "parent", "none"]
-        
-        
-        
-        
-        
+      timetable:
+        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+      exceptions:
+        type: "array"
+        maxItems: 0
+      leaves:
+        type: "array"
+        items:
+          type: "string"
     additionalProperties: false
   BackofficeConfiguration:
     title: "BackofficeConfiguration"
@@ -378,8 +536,8 @@ definitions:
         type: "boolean"
         default: false
       pastTimeEdit:
-        type: "boolean"
-        default: false
+        type: "number"
+        default: 1
       cabinetsEnabled:
         type: "boolean"
         default: false
@@ -702,8 +860,8 @@ definitions:
         type: "boolean"
         default: false
       bookableMonthsCount:
-        type: "boolean"
-        default: false
+        type: "number"
+        default: -1
       dayUnavailableLabel:
         type: "boolean"
         default: false
@@ -740,11 +898,15 @@ definitions:
             type: "boolean"
             default: false
           start:
-            type: "string"
-            format: "date-time"
+            oneOf:
+            - type: "string"
+              format: "date-time"
+            - const: null
           end:
-            type: "string"
-            format: "date-time"
+            oneOf:
+            - type: "string"
+              format: "date-time"
+            - const: null
       discountedPriceRounding:
         type: "object"
         properties:
@@ -869,17 +1031,5 @@ definitions:
         default: false
       disabledTaxonomiesText:
         type: "string"
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
     additionalProperties: false

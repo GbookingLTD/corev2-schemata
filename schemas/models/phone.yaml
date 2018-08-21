@@ -2,11 +2,11 @@ $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schem
 title: "Phone"
 meta:extensible: true
 properties:
-  countryCode:
+  country_code:
     type: "string"
-  areaCode:
+  area_code:
     type: "string"
   number:
     type: "string"
-required: ["countryCode", "areaCode", "number"]
+required: ["country_code", "area_code", "number"]
 additionalProperties: false

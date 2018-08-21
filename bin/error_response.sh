@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ERROR_CODES=`node ./bin/errorCodes.js | awk '{ print "            - " $1; }'`
+ERROR_CODES=`node ./bin/error_codes.js | awk '{ print "            - " $1; }'`
 
 cat << EOF
 ErrorResponseSchema:

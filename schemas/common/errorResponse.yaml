@@ -7,7 +7,7 @@ properties:
     const: "2.0"
   id:
     description: "значение числового типа для идентификации запроса на сервере"
-    type: "string"
+    type: "number"
   error:
     description: "объект, содержащий информацию об ошибке"
     type: "object"

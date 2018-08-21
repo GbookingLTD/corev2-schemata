@@ -1,0 +1,16 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json"
+title: "AdditionalFields"
+properties:
+  name:
+    type: "string"
+  shortName:
+    type: "string"
+  value:
+    type: "string"
+  type:
+    type: "string"
+    enum: ["STRING", "BOOL", "RADIO", "FILE", "COUPON"]
+    default: "STRING"
+  requiredField:
+    type: "boolean"
+required: ["name", "shortName", "value", "type", "requiredField"]

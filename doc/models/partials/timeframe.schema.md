@@ -6,6 +6,7 @@
 
 | Property | Type | Required |
 |----------|------|----------|
+| [id](#id) | `string` | Optional | TimeFrame (this schema) |
 | [start](#start) | `number` | **Required** | TimeFrame (this schema) |
 | [end](#end) | `number` | **Required** | TimeFrame (this schema) |
 | [resources](#resources) | `string[]` | Optional | TimeFrame (this schema) |
@@ -80,6 +81,25 @@
 * defined in this schema
 
 ### extraId type
+
+
+`string`
+
+
+
+
+
+
+## id
+
+уникальный идентификатор временного слота
+
+`id`
+* is optional
+* type: `string`
+* defined in this schema
+
+### id type
 
 
 `string`

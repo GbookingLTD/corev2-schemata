@@ -1,13 +1,12 @@
 $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
 title: "Timetable"
 description: "таблица регулярного недельного расписания"
-meta:extensible: true
 type: "object"
 properties:
   active:
     description: "установлено ли расписание для сущности"
     type: "boolean"
-  weeklySchedule:
+  week:
     type: "object"
     properties:
       sun:
@@ -38,5 +37,8 @@ properties:
         type: "array"
         items:
           $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+    required: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+    additionalProperties: false
+required: ["active", "week"]
 additionalProperties: false
       

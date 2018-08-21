@@ -6,19 +6,19 @@
 
 | Property | Type | Required |
 |----------|------|----------|
-| [countryCode](#countrycode) | `string` | **Required** | Phone (this schema) |
-| [areaCode](#areacode) | `string` | **Required** | Phone (this schema) |
+| [country_code](#country_code) | `string` | **Required** | Phone (this schema) |
+| [area_code](#area_code) | `string` | **Required** | Phone (this schema) |
 | [number](#number) | `string` | **Required** | Phone (this schema) |
 
-## areaCode
+## area_code
 
 
-`areaCode`
+`area_code`
 * is **required**
 * type: `string`
 * defined in this schema
 
-### areaCode type
+### area_code type
 
 
 `string`
@@ -28,15 +28,15 @@
 
 
 
-## countryCode
+## country_code
 
 
-`countryCode`
+`country_code`
 * is **required**
 * type: `string`
 * defined in this schema
 
-### countryCode type
+### country_code type
 
 
 `string`

@@ -4,34 +4,36 @@
 
 
 
-| Property | Type | Required |
-|----------|------|----------|
-| [id](#id) | `number` | Optional | Business (this schema) |
-| [created_on](#created_on) | `string` | Optional | Business (this schema) |
-| [general_info](#general_info) | `BusinessInfo` | Optional | Business (this schema) |
-| [resources](#resources) | Resource | **Required** | Business (this schema) |
-| [taxonomies](#taxonomies) | ``BusinessTaxonomy[]`` | Optional | Business (this schema) |
-| [notifications](#notifications) | `array` | Optional | Business (this schema) |
-| [vertical](#vertical) | `number` | Optional | Business (this schema) |
-| [flatTaxonomyDisplay](#flattaxonomydisplay) | `boolean` | Optional | Business (this schema) |
-| [allowCategoryBooking](#allowcategorybooking) | `boolean` | Optional | Business (this schema) |
-| [consumables](#consumables) | ``Consumable[]`` | Optional | Business (this schema) |
-| [departments](#departments) | ``Department[]`` | Optional | Business (this schema) |
-| [cabinets](#cabinets) | ``Cabinet[]`` | Optional | Business (this schema) |
-| [defaultFilteredWorkers](#defaultfilteredworkers) | `string[]` | Optional | Business (this schema) |
-| [integration_data](#integration_data) | `object` | Optional | Business (this schema) |
-| [yandexFeedType](#yandexfeedtype) | `string` | Optional | Business (this schema) |
-| [top_services](#top_services) | `object` | Optional | Business (this schema) |
-| [mobileData](#mobiledata) | `object` | Optional | Business (this schema) |
-| [active](#active) | `boolean` | Optional | Business (this schema) |
-| [group](#group) | `enum` | Optional | Business (this schema) |
-| [backofficeType](#backofficetype) | `enum` | Optional | Business (this schema) |
-| [backofficeConfiguration](#backofficeconfiguration) | `BackofficeConfiguration` | Optional | Business (this schema) |
-| [additionalSettings](#additionalsettings) | `object` | Optional | Business (this schema) |
-| [widgetConfiguration](#widgetconfiguration) | `WidgetConfiguration` | Optional | Business (this schema) |
-| [miniWidgetConfiguration](#miniwidgetconfiguration) | `object` | Optional | Business (this schema) |
-| [callbackWidgetConfiguration](#callbackwidgetconfiguration) | `object` | Optional | Business (this schema) |
-| [taxonomiesComplex](#taxonomiescomplex) | `object[]` | Optional | Business (this schema) |
+| Property | Type | Required | Default |
+|----------|------|----------|---------|
+| [id](#id) | `string` | Optional |  | Business (this schema) |
+| [created_on](#created_on) | `string` | Optional |  | Business (this schema) |
+| [general_info](#general_info) | `BusinessInfo` | **Required** |  | Business (this schema) |
+| [taxonomies](#taxonomies) | ``BusinessTaxonomy[]`` | **Required** |  | Business (this schema) |
+| [resources](#resources) | Resource | **Required** |  | Business (this schema) |
+| [designs](#designs) | `object[]` | Optional |  | Business (this schema) |
+| [stateLevelHolidaysNotWorking](#statelevelholidaysnotworking) | `boolean` | Optional | `false` | Business (this schema) |
+| [notifications](#notifications) | `array` | Optional |  | Business (this schema) |
+| [vertical](#vertical) | `string` | Optional |  | Business (this schema) |
+| [flatTaxonomyDisplay](#flattaxonomydisplay) | `boolean` | Optional |  | Business (this schema) |
+| [allowCategoryBooking](#allowcategorybooking) | `boolean` | Optional |  | Business (this schema) |
+| [consumables](#consumables) | ``Consumable[]`` | Optional |  | Business (this schema) |
+| [departments](#departments) | ``Department[]`` | Optional |  | Business (this schema) |
+| [cabinets](#cabinets) | ``Cabinet[]`` | Optional |  | Business (this schema) |
+| [defaultFilteredWorkers](#defaultfilteredworkers) | `string[]` | Optional |  | Business (this schema) |
+| [integration_data](#integration_data) | `object` | Optional |  | Business (this schema) |
+| [yandexFeedType](#yandexfeedtype) | `string` | Optional |  | Business (this schema) |
+| [top_services](#top_services) | `object` | Optional |  | Business (this schema) |
+| [mobileData](#mobiledata) | `array` | Optional |  | Business (this schema) |
+| [active](#active) | `boolean` | Optional |  | Business (this schema) |
+| [group](#group) | `enum` | Optional |  | Business (this schema) |
+| [backofficeType](#backofficetype) | `enum` | Optional |  | Business (this schema) |
+| [backofficeConfiguration](#backofficeconfiguration) | `BackofficeConfiguration` | Optional |  | Business (this schema) |
+| [additionalSettings](#additionalsettings) | `object` | Optional |  | Business (this schema) |
+| [widget_configuration](#widget_configuration) | `WidgetConfiguration` | **Required** |  | Business (this schema) |
+| [mini_widget_configuration](#mini_widget_configuration) | `object` | **Required** |  | Business (this schema) |
+| [callback_widget_configuration](#callback_widget_configuration) | `object` | Optional |  | Business (this schema) |
+| [taxonomiesComplex](#taxonomiescomplex) | `object[]` | Optional |  | Business (this schema) |
 
 ## active
 
@@ -67,7 +69,7 @@
 | Property | Type | Required | Default |
 |----------|------|----------|---------|
 | `appointmentExtensionAmount`| number | Optional | `30` |
-| `appointmentExtensionType`| number | Optional | `"PERCENT"` |
+| `appointmentExtensionType`| string | Optional | `"PERCENT"` |
 
 
 
@@ -157,7 +159,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `skipServiceFiltering`| boolean | Optional | `false` |
 | `showManualChanges`| boolean | Optional | `false` |
 | `enableExtendedRecordsClientStatistics`| boolean | Optional | `false` |
-| `pastTimeEdit`| boolean | Optional | `false` |
+| `pastTimeEdit`| number | Optional | `1` |
 | `cabinetsEnabled`| boolean | Optional | `false` |
 | `appointmentFutureMoving`| boolean | Optional | `false` |
 | `showClientContractNumber`| boolean | Optional | `false` |
@@ -670,14 +672,15 @@ undefined
 
 `pastTimeEdit`
 * is optional
-* type: `boolean`
-* default: `false`
+* type: `number`
+* default: `1`
 
 
 ##### pastTimeEdit type
 
 
-`boolean`
+`number`
+
 
 
 
@@ -1727,15 +1730,15 @@ All items must be of the type:
 
 
 
-## callbackWidgetConfiguration
+## callback_widget_configuration
 
 
-`callbackWidgetConfiguration`
+`callback_widget_configuration`
 * is optional
 * type: `object`
 * defined in this schema
 
-### callbackWidgetConfiguration type
+### callback_widget_configuration type
 
 
 `object` with following properties:
@@ -1885,6 +1888,34 @@ All items must be of the type:
 
 
 
+## designs
+
+
+`designs`
+* is optional
+* type: `object[]`
+
+* defined in this schema
+
+### designs type
+
+
+Array type: `object[]`
+
+All items must be of the type:
+`object` with following properties:
+
+
+| Property | Type | Required |
+|----------|------|----------|
+
+
+
+
+
+
+
+
 ## flatTaxonomyDisplay
 
 
@@ -1908,7 +1939,7 @@ All items must be of the type:
 Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
 
 `general_info`
-* is optional
+* is **required**
 * type: `object`
 * defined in this schema
 
@@ -1918,16 +1949,121 @@ All items must be of the type:
 `object` with following properties:
 
 
-| Property | Type | Required |
-|----------|------|----------|
-| `revisionVersion`| number | Optional |
-| `name`| string | Optional |
-| `address`| array | Optional |
-| `email`| array | Optional |
-| `phone`| array | Optional |
-| `fax`| array | Optional |
-| `description`| string | Optional |
-| `logoURL`| string | Optional |
+| Property | Type | Required | Default |
+|----------|------|----------|---------|
+| `revisionVersion`| number | Optional |  |
+| `name`| string | Optional |  |
+| `address`| array | Optional |  |
+| `email`| string | Optional |  |
+| `phone`| array | Optional |  |
+| `mobile`| array | Optional |  |
+| `fax`| array | Optional |  |
+| `timezone`| string | Optional |  |
+| `description`| string | Optional |  |
+| `logo_url`| string | Optional |  |
+| `additionalFields`| array | Optional |  |
+| `contactName`| string | Optional |  |
+| `website`| string | Optional |  |
+| `timetable`|  | Optional |  |
+| `instant_messaging`| array | Optional |  |
+| `social_network`| array | Optional |  |
+| `accepted_currency`| array | Optional |  |
+| `paymentMethods`| string | Optional |  |
+| `date_joined`| string | Optional |  |
+| `additionalInfo`| string | Optional |  |
+| `phoneMask`| string | Optional |  |
+| `minimalOrderTime`| number | Optional |  |
+| `images`| array | Optional |  |
+| `metro`| object | Optional |  |
+| `language`|  | Optional |  |
+| `networkID`| number | Optional |  |
+| `autoAcceptAppointment`| boolean | Optional | `false` |
+| `showAppointmentTooltip`| boolean | Optional | `false` |
+| `showAppointmentColor`| boolean | Optional | `false` |
+| `newboEnabledFor`| array | Optional |  |
+| `pricingType`| string | Optional | `"DEFAULT"` |
+| `schedulerTick`| number | Optional | `15` |
+| `skipBilling`| boolean | Optional | `false` |
+| `showResourceWorkStatistics`| boolean | Optional |  |
+| `showWorkerProfession`| boolean | Optional | `false` |
+| `verticalTranslation`| string | Optional | `"NONE"` |
+| `smsDuplicateFilter`| object | Optional |  |
+| `marketingNotifications`| object | Optional |  |
+| `isShowcase`| boolean | Optional | `false` |
+
+
+
+#### accepted_currency
+
+undefined
+
+`accepted_currency`
+* is optional
+* type: `reference[]`
+
+
+##### accepted_currency type
+
+
+Array type: `reference[]`
+
+All items must be of the type:
+`string`
+
+
+
+
+
+
+
+
+
+
+
+#### additionalFields
+
+undefined
+
+`additionalFields`
+* is optional
+* type: `reference[]`
+
+
+##### additionalFields type
+
+
+Array type: `reference[]`
+
+All items must be of the type:
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json`
+
+
+
+
+
+
+
+
+
+
+#### additionalInfo
+
+undefined
+
+`additionalInfo`
+* is optional
+* type: `string`
+
+##### additionalInfo type
+
+
+`string`
+
+
+
+
+
 
 
 
@@ -1950,6 +2086,68 @@ All items must be of the type:
 * []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json`
 
 
+
+
+
+
+
+
+
+
+#### autoAcceptAppointment
+
+undefined
+
+`autoAcceptAppointment`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### autoAcceptAppointment type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### contactName
+
+undefined
+
+`contactName`
+* is optional
+* type: `string`
+
+##### contactName type
+
+
+`string`
+
+
+
+
+
+
+
+
+#### date_joined
+
+undefined
+
+`date_joined`
+* is optional
+* type: `string`
+
+##### date_joined type
+
+
+`string`
+* format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 
 
@@ -1984,19 +2182,12 @@ All items must be of the type:
 
 `email`
 * is optional
-* type: `string[]`
-
+* type: `string`
 
 ##### email type
 
 
-Array type: `string[]`
-
-All items must be of the type:
 `string`
-
-
-
 
 
 
@@ -2032,18 +2223,244 @@ All items must be of the type:
 
 
 
-#### logoURL
+#### images
+
+undefined
+
+`images`
+* is optional
+* type: `array[]` (nested array)
+
+
+##### images type
+
+
+Nested array type: `array`
 
 
 
-`logoURL`
+
+
+
+
+
+
+
+
+
+#### instant_messaging
+
+undefined
+
+`instant_messaging`
+* is optional
+* type: `object[]`
+
+
+##### instant_messaging type
+
+
+Array type: `object[]`
+
+All items must be of the type:
+`object` with following properties:
+
+
+| Property | Type | Required |
+|----------|------|----------|
+
+
+
+
+
+
+
+
+
+
+#### isShowcase
+
+undefined
+
+`isShowcase`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### isShowcase type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### language
+
+undefined
+
+`language`
+* is optional
+* type: `reference`
+
+##### language type
+
+
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList`
+
+
+
+
+
+
+
+#### logo_url
+
+
+
+`logo_url`
 * is optional
 * type: `string`
 
-##### logoURL type
+##### logo_url type
 
 
 `string`
+
+
+
+
+
+
+
+
+#### marketingNotifications
+
+undefined
+
+`marketingNotifications`
+* is optional
+* type: `object`
+
+##### marketingNotifications type
+
+Unknown type `object`.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean",
+      "default": false
+    },
+    "accepted": {
+      "type": "boolean",
+      "default": false
+    },
+    "useSmsAlphaName": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "active",
+    "accepted",
+    "useSmsAlphaName"
+  ],
+  "additionalProperties": false,
+  "simpletype": "`object`"
+}
+```
+
+
+
+
+
+
+
+#### metro
+
+undefined
+
+`metro`
+* is optional
+* type: `object`
+
+##### metro type
+
+Unknown type `object`.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "distance": {
+      "type": "number"
+    },
+    "color": {
+      "type": "string"
+    }
+  },
+  "required": [],
+  "additionalProperties": false,
+  "simpletype": "`object`"
+}
+```
+
+
+
+
+
+
+
+#### minimalOrderTime
+
+undefined
+
+`minimalOrderTime`
+* is optional
+* type: `number`
+
+##### minimalOrderTime type
+
+
+`number`
+
+
+
+
+
+
+
+
+#### mobile
+
+Список телефонов бизнеса
+
+`mobile`
+* is optional
+* type: `reference[]`
+
+
+##### mobile type
+
+
+Array type: `reference[]`
+
+All items must be of the type:
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
+
+
 
 
 
@@ -2066,6 +2483,77 @@ All items must be of the type:
 `string`
 
 
+
+
+
+
+
+
+#### networkID
+
+undefined
+
+`networkID`
+* is optional
+* type: `number`
+
+##### networkID type
+
+
+`number`
+
+
+
+
+
+
+
+
+#### newboEnabledFor
+
+undefined
+
+`newboEnabledFor`
+* is optional
+* type: `string[]`
+
+
+##### newboEnabledFor type
+
+
+Array type: `string[]`
+
+All items must be of the type:
+`string`
+
+
+
+
+
+
+
+
+
+
+
+#### paymentMethods
+
+undefined
+
+`paymentMethods`
+* is optional
+* type: `enum`
+
+The value of this property **must** be equal to one of the [known values below](#general_info-known-values).
+
+##### paymentMethods known values
+| Value | Description |
+|-------|-------------|
+| `Visa` |  |
+| `Mastercard` |  |
+| `Amex` |  |
+| `PayPal` |  |
+| `MoneyBookers` |  |
 
 
 
@@ -2099,6 +2587,48 @@ All items must be of the type:
 
 
 
+#### phoneMask
+
+undefined
+
+`phoneMask`
+* is optional
+* type: `string`
+
+##### phoneMask type
+
+
+`string`
+
+
+
+
+
+
+
+
+#### pricingType
+
+undefined
+
+`pricingType`
+* is optional
+* type: `enum`
+* default: `"DEFAULT"`
+
+The value of this property **must** be equal to one of the [known values below](#general_info-known-values).
+
+##### pricingType known values
+| Value | Description |
+|-------|-------------|
+| `DEFAULT` |  |
+| `MASTER_TOPMASTER` |  |
+
+
+
+
+
+
 #### revisionVersion
 
 
@@ -2111,6 +2641,276 @@ All items must be of the type:
 
 
 `number`
+
+
+
+
+
+
+
+
+#### schedulerTick
+
+undefined
+
+`schedulerTick`
+* is optional
+* type: `number`
+* default: `15`
+
+
+##### schedulerTick type
+
+
+`number`
+
+
+
+
+
+
+
+
+#### showAppointmentColor
+
+undefined
+
+`showAppointmentColor`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### showAppointmentColor type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### showAppointmentTooltip
+
+undefined
+
+`showAppointmentTooltip`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### showAppointmentTooltip type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### showResourceWorkStatistics
+
+undefined
+
+`showResourceWorkStatistics`
+* is optional
+* type: `boolean`
+
+##### showResourceWorkStatistics type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### showWorkerProfession
+
+undefined
+
+`showWorkerProfession`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### showWorkerProfession type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### skipBilling
+
+undefined
+
+`skipBilling`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### skipBilling type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### smsDuplicateFilter
+
+undefined
+
+`smsDuplicateFilter`
+* is optional
+* type: `object`
+
+##### smsDuplicateFilter type
+
+Unknown type `object`.
+
+```json
+{
+  "type": "object",
+  "properies": {
+    "active": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "simpletype": "`object`"
+}
+```
+
+
+
+
+
+
+
+#### social_network
+
+undefined
+
+`social_network`
+* is optional
+* type: `reference[]`
+
+
+##### social_network type
+
+
+Array type: `reference[]`
+
+All items must be of the type:
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json`
+
+
+
+
+
+
+
+
+
+
+#### timetable
+
+undefined
+
+`timetable`
+* is optional
+* type: `reference`
+
+##### timetable type
+
+
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
+
+
+
+
+
+
+
+#### timezone
+
+undefined
+
+`timezone`
+* is optional
+* type: `string`
+
+##### timezone type
+
+
+`string`
+
+
+
+
+
+
+
+
+#### verticalTranslation
+
+undefined
+
+`verticalTranslation`
+* is optional
+* type: `enum`
+* default: `"NONE"`
+
+The value of this property **must** be equal to one of the [known values below](#general_info-known-values).
+
+##### verticalTranslation known values
+| Value | Description |
+|-------|-------------|
+| `NONE` |  |
+| `GENERIC` |  |
+| `MEDICAL` |  |
+| `BEAUTY` |  |
+| `FITNESS` |  |
+| `SPORT` |  |
+| `YOGA` |  |
+
+
+
+
+
+
+#### website
+
+undefined
+
+`website`
+* is optional
+* type: `string`
+
+##### website type
+
+
+`string`
 
 
 
@@ -2148,13 +2948,13 @@ The value of this property **must** be equal to one of the [known values below](
 
 `id`
 * is optional
-* type: `number`
+* type: `string`
 * defined in this schema
 
 ### id type
 
 
-`number`
+`string`
 
 
 
@@ -2183,15 +2983,15 @@ The value of this property **must** be equal to one of the [known values below](
 
 
 
-## miniWidgetConfiguration
+## mini_widget_configuration
 
 
-`miniWidgetConfiguration`
-* is optional
+`mini_widget_configuration`
+* is **required**
 * type: `object`
 * defined in this schema
 
-### miniWidgetConfiguration type
+### mini_widget_configuration type
 
 
 `object` with following properties:
@@ -2280,17 +3080,14 @@ undefined
 
 `mobileData`
 * is optional
-* type: `object`
+* type: `array`
+
 * defined in this schema
 
 ### mobileData type
 
 
-`object` with following properties:
-
-
-| Property | Type | Required |
-|----------|------|----------|
+Array type: `array`
 
 
 
@@ -2341,11 +3138,29 @@ All items must be of the type:
 
 
 
+## stateLevelHolidaysNotWorking
+
+
+`stateLevelHolidaysNotWorking`
+* is optional
+* type: `boolean`
+* default: `false`
+* defined in this schema
+
+### stateLevelHolidaysNotWorking type
+
+
+`boolean`
+
+
+
+
+
 ## taxonomies
 ### `BusinessTaxonomy[]`
 
 `taxonomies`
-* is optional
+* is **required**
 * type: `reference[]`
 
 * defined in this schema
@@ -2513,28 +3328,28 @@ undefined
 
 `vertical`
 * is optional
-* type: `number`
+* type: `string`
 * defined in this schema
 
 ### vertical type
 
 
-`number`
+`string`
 
 
 
 
 
 
-## widgetConfiguration
+## widget_configuration
 ### WidgetConfiguration
 
-`widgetConfiguration`
-* is optional
+`widget_configuration`
+* is **required**
 * type: `object`
 * defined in this schema
 
-### widgetConfiguration type
+### widget_configuration type
 
 
 `object` with following properties:
@@ -2580,7 +3395,7 @@ undefined
 | `socialSharing`| object | Optional |  |
 | `noDefaultImages`| boolean | Optional | `false` |
 | `withoutWorkers`| boolean | Optional | `false` |
-| `bookableMonthsCount`| boolean | Optional | `false` |
+| `bookableMonthsCount`| number | Optional | `-1` |
 | `dayUnavailableLabel`| boolean | Optional | `false` |
 | `dayOffLabel`| boolean | Optional | `false` |
 | `useBusinessScheduleForUnavailableLabel`| boolean | Optional | `false` |
@@ -2777,12 +3592,26 @@ Unknown type `object`.
       "default": false
     },
     "start": {
-      "type": "string",
-      "format": "date-time"
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "const": null
+        }
+      ]
     },
     "end": {
-      "type": "string",
-      "format": "date-time"
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "const": null
+        }
+      ]
     }
   },
   "simpletype": "`object`"
@@ -2801,14 +3630,15 @@ undefined
 
 `bookableMonthsCount`
 * is optional
-* type: `boolean`
-* default: `false`
+* type: `number`
+* default: `-1`
 
 
 ##### bookableMonthsCount type
 
 
-`boolean`
+`number`
+
 
 
 
@@ -2866,7 +3696,7 @@ undefined
 * is optional
 * type: `enum`
 
-The value of this property **must** be equal to one of the [known values below](#widgetconfiguration-known-values).
+The value of this property **must** be equal to one of the [known values below](#widget_configuration-known-values).
 
 ##### cracServer known values
 | Value | Description |
@@ -2888,7 +3718,7 @@ undefined
 * type: `enum`
 * default: `5`
 
-The value of this property **must** be equal to one of the [known values below](#widgetconfiguration-known-values).
+The value of this property **must** be equal to one of the [known values below](#widget_configuration-known-values).
 
 ##### cracSlotSize known values
 | Value | Description |
@@ -3651,7 +4481,7 @@ undefined
 * type: `enum`
 * default: `"WITHOUT"`
 
-The value of this property **must** be equal to one of the [known values below](#widgetconfiguration-known-values).
+The value of this property **must** be equal to one of the [known values below](#widget_configuration-known-values).
 
 ##### payment known values
 | Value | Description |
@@ -3674,7 +4504,7 @@ undefined
 * type: `enum`
 * default: `"yandexMoney"`
 
-The value of this property **must** be equal to one of the [known values below](#widgetconfiguration-known-values).
+The value of this property **must** be equal to one of the [known values below](#widget_configuration-known-values).
 
 ##### paymentProvider known values
 | Value | Description |

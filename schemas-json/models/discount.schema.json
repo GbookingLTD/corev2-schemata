@@ -1,5 +1,5 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.json",
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.schema.json",
     "title": "Discount",
     "description": "Информация о скидке",
     "properties": {

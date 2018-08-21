@@ -8,63 +8,73 @@
 
 * Resource `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json`
   * [Phone](phone.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
+  * [Timetable](timetable.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
 
 
 
 | Property | Type | Required |
 |----------|------|----------|
-| [revisionVersion](#revisionversion) | `string` | **Required** | Resource (this schema) |
-| [rating](#rating) | `number` | **Required** | Resource (this schema) |
+| [revisionVersion](#revisionversion) | `number` | **Required** | Resource (this schema) |
+| [rating](#rating) | `number` | Optional | Resource (this schema) |
 | [email](#email) | `string` | **Required** | Resource (this schema) |
 | [capacity](#capacity) | `number` | **Required** | Resource (this schema) |
-| [icon_url](#icon_url) | `string` | **Required** | Resource (this schema) |
+| [icon_url](#icon_url) | `string` | Optional | Resource (this schema) |
 | [id](#id) | `string` | **Required** | Resource (this schema) |
 | [name](#name) | `string` | **Required** | Resource (this schema) |
 | [surname](#surname) | `string` | **Required** | Resource (this schema) |
 | [nickname](#nickname) | `string` | **Required** | Resource (this schema) |
-| [loaned](#loaned) | `string` | **Required** | Resource (this schema) |
-| [loanedTo](#loanedto) | `string` | **Required** | Resource (this schema) |
-| [loanedFrom](#loanedfrom) | `string` | **Required** | Resource (this schema) |
+| [loaned](#loaned) | `boolean` | **Required** | Resource (this schema) |
+| [loanedTo](#loanedto) | `string` | Optional | Resource (this schema) |
+| [loanedFrom](#loanedfrom) | `string` | Optional | Resource (this schema) |
 | [description](#description) | `string` | **Required** | Resource (this schema) |
-| [profession](#profession) | `string` | **Required** | Resource (this schema) |
-| [extraDescription](#extradescription) | `string` | **Required** | Resource (this schema) |
-| [extraLink](#extralink) | `string` | **Required** | Resource (this schema) |
-| [extraId](#extraid) | `string` | **Required** | Resource (this schema) |
-| [additionalExtraId](#additionalextraid) | `string` | **Required** | Resource (this schema) |
-| [extraMediaId](#extramediaid) | `string` | **Required** | Resource (this schema) |
-| [departmentId](#departmentid) | `string` | **Required** | Resource (this schema) |
-| [workPlace](#workplace) | `string` | **Required** | Resource (this schema) |
+| [profession](#profession) | `string` | Optional | Resource (this schema) |
+| [extraDescription](#extradescription) | `string` | Optional | Resource (this schema) |
+| [extraLink](#extralink) | `string` | Optional | Resource (this schema) |
+| [extraId](#extraid) | `string` | Optional | Resource (this schema) |
+| [additionalExtraId](#additionalextraid) | `string[]` | Optional | Resource (this schema) |
+| [extraMediaId](#extramediaid) | `string` | Optional | Resource (this schema) |
+| [departmentId](#departmentid) | `string` | Optional | Resource (this schema) |
+| [workPlace](#workplace) | `string` | Optional | Resource (this schema) |
 | [order](#order) | `number` | **Required** | Resource (this schema) |
 | [profile](#profile) | `Информация о профиле работника` | Optional | Resource (this schema) |
 | [taxonomies](#taxonomies) | `string[]` | **Required** | Resource (this schema) |
 | [taxonomyLevels](#taxonomylevels) | ``undefined[]`` | **Required** | Resource (this schema) |
 | [taxonomyChildren](#taxonomychildren) | ``undefined[]`` | **Required** | Resource (this schema) |
 | [level](#level) | `number` | **Required** | Resource (this schema) |
-| [perk](#perk) | `string` | **Required** | Resource (this schema) |
+| [perk](#perk) | `string` | Optional | Resource (this schema) |
 | [phone](#phone) | Phone | **Required** | Resource (this schema) |
 | [smsEnabled](#smsenabled) | `boolean` | **Required** | Resource (this schema) |
-| [emailEnabled](#emailenabled) | `boolean` | **Required** | Resource (this schema) |
+| [emailEnabled](#emailenabled) | `boolean` | Optional | Resource (this schema) |
 | [displayInWidget](#displayinwidget) | `boolean` | **Required** | Resource (this schema) |
 | [manualChanges](#manualchanges) | `boolean` | **Required** | Resource (this schema) |
 | [timetable](#timetable) | Timetable | **Required** | Resource (this schema) |
 | [evenOddTimetable](#evenoddtimetable) | `object` | **Required** | Resource (this schema) |
-| [status](#status) | `enum` | **Required** | Resource (this schema) |
+| [status](#status) | `enum` | Optional | Resource (this schema) |
 | [image](#image) | `string` | Optional | Resource (this schema) |
 | [location](#location) | `object` | **Required** | Resource (this schema) |
+| [exceptions](#exceptions) | `array` | Optional | Resource (this schema) |
+| [userData](#userdata) | `object` | Optional | Resource (this schema) |
 
 ## additionalExtraId
 
 информация из внешней информационной системы как есть (при интеграции)
 
 `additionalExtraId`
-* is **required**
-* type: `string`
+* is optional
+* type: `string[]`
+
 * defined in this schema
 
 ### additionalExtraId type
 
 
+Array type: `string[]`
+
+All items must be of the type:
 `string`
+
+
+
 
 
 
@@ -95,7 +105,7 @@
 идентификатор отделения, к которому привязан работник
 
 `departmentId`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -159,7 +169,6 @@ e-mail работника
 
 
 `string`
-* format: `email` – email address (according to [RFC 5322, section 3.4.1](https://tools.ietf.org/html/rfc5322))
 
 
 
@@ -171,7 +180,7 @@ e-mail работника
 включена ли отправка e-mail уведомлений для данного работника
 
 `emailEnabled`
-* is **required**
+* is optional
 * type: `boolean`
 * defined in this schema
 
@@ -201,8 +210,8 @@ e-mail работника
 | Property | Type | Required |
 |----------|------|----------|
 | `startPeriod`| string | **Required** |
-| `even`|  | **Required** |
-| `odd`|  | **Required** |
+| `even`| array | **Required** |
+| `odd`| array | **Required** |
 
 
 
@@ -212,13 +221,20 @@ e-mail работника
 
 `even`
 * is **required**
-* type: `reference`
+* type: `reference[]`
+
 
 ##### even type
 
 
+Array type: `reference[]`
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
+All items must be of the type:
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+
+
+
 
 
 
@@ -232,13 +248,20 @@ e-mail работника
 
 `odd`
 * is **required**
-* type: `reference`
+* type: `reference[]`
+
 
 ##### odd type
 
 
+Array type: `reference[]`
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
+All items must be of the type:
+
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+
+
+
 
 
 
@@ -270,12 +293,31 @@ The value of this property **must** be equal to one of the [known values below](
 
 
 
+## exceptions
+
+
+`exceptions`
+* is optional
+* type: `array`
+* no more than `0` items in the array
+* defined in this schema
+
+### exceptions type
+
+
+Array type: `array`
+
+
+
+
+
+
 ## extraDescription
 
 информация из внешней информационной системы как есть (при интеграции)
 
 `extraDescription`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -294,7 +336,7 @@ The value of this property **must** be equal to one of the [known values below](
 информация из внешней информационной системы как есть (при интеграции)
 
 `extraId`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -313,7 +355,7 @@ The value of this property **must** be equal to one of the [known values below](
 информация из внешней информационной системы как есть (при интеграции)
 
 `extraLink`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -332,7 +374,7 @@ The value of this property **must** be equal to one of the [known values below](
 информация из внешней информационной системы как есть (при интеграции)
 
 `extraMediaId`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -351,7 +393,7 @@ The value of this property **must** be equal to one of the [known values below](
 url изображения работника; Если указан относительный путь, то используйте http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgUrl) 
 
 `icon_url`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -427,14 +469,13 @@ url изображения работника; Если указан относ�
 
 `loaned`
 * is **required**
-* type: `string`
+* type: `boolean`
 * defined in this schema
 
 ### loaned type
 
 
-`string`
-
+`boolean`
 
 
 
@@ -445,7 +486,7 @@ url изображения работника; Если указан относ�
 не используется
 
 `loanedFrom`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -464,7 +505,7 @@ url изображения работника; Если указан относ�
 не используется
 
 `loanedTo`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -494,9 +535,9 @@ url изображения работника; Если указан относ�
 
 | Property | Type | Required |
 |----------|------|----------|
-| `longitude`| number | **Required** |
-| `latitude`| number | **Required** |
-| `time`| string | **Required** |
+| `longitude`| number | Optional |
+| `latitude`| number | Optional |
+| `time`| string | Optional |
 
 
 
@@ -505,7 +546,7 @@ url изображения работника; Если указан относ�
 undefined
 
 `latitude`
-* is **required**
+* is optional
 * type: `number`
 
 ##### latitude type
@@ -525,7 +566,7 @@ undefined
 undefined
 
 `longitude`
-* is **required**
+* is optional
 * type: `number`
 
 ##### longitude type
@@ -545,7 +586,7 @@ undefined
 время последнего обновления координат
 
 `time`
-* is **required**
+* is optional
 * type: `string`
 
 ##### time type
@@ -642,7 +683,7 @@ undefined
 особый навык
 
 `perk`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -679,7 +720,7 @@ undefined
 информация о профессии работника, используется в Бекофис
 
 `profession`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -808,7 +849,7 @@ e-mail профиля работника
 Рейтинг работника
 
 `rating`
-* is **required**
+* is optional
 * type: `number`
 * defined in this schema
 
@@ -828,13 +869,13 @@ e-mail профиля работника
 
 `revisionVersion`
 * is **required**
-* type: `string`
+* type: `number`
 * defined in this schema
 
 ### revisionVersion type
 
 
-`string`
+`number`
 
 
 
@@ -863,7 +904,7 @@ e-mail профиля работника
 
 
 `status`
-* is **required**
+* is optional
 * type: `enum`
 * defined in this schema
 
@@ -983,19 +1024,34 @@ All items must be of the type:
 `timetable`
 * is **required**
 * type: Timetable
-
 * defined in this schema
 
 ### timetable type
 
 
-Array type: Timetable
-
-All items must be of the type:
 
 * [Timetable](timetable.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
 
 
+
+
+
+## userData
+
+
+`userData`
+* is optional
+* type: `object`
+* defined in this schema
+
+### userData type
+
+
+`object` with following properties:
+
+
+| Property | Type | Required |
+|----------|------|----------|
 
 
 
@@ -1007,7 +1063,7 @@ All items must be of the type:
 рабочее место, которое занимает работник
 
 `workPlace`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 

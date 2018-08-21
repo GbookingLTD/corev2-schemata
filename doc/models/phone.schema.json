@@ -3,10 +3,10 @@
     "title": "Phone",
     "meta:extensible": true,
     "properties": {
-        "countryCode": {
+        "country_code": {
             "type": "string"
         },
-        "areaCode": {
+        "area_code": {
             "type": "string"
         },
         "number": {
@@ -14,8 +14,8 @@
         }
     },
     "required": [
-        "countryCode",
-        "areaCode",
+        "country_code",
+        "area_code",
         "number"
     ],
     "additionalProperties": false

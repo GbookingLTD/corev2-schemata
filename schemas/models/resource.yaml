@@ -64,10 +64,14 @@ definitions:
         enum: ["week", "month"]
       even:
         description: "расписание для чётных дней"
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
       odd:
         description: "расписание для нечётных дней"
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+        type: "array"
+        items:
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
     required: ["startPeriod", "even", "odd"]
 
   ResourceLocation:
@@ -80,19 +84,18 @@ definitions:
       time:
         description: "время последнего обновления координат"
         type: "string"
-    required: ["longitude", "latitude", "time"]
+    required: []
 
 properties:
   revisionVersion:
     description: "Версия изменений документа"
-    type: "string"
+    type: "number"
   rating:
     description: "Рейтинг работника"
     type: "number"
   email:
     description: "e-mail работника"
     type: "string"
-    format: "email"
   capacity:
     description: "Количество записей, которые может принимать работник единовременно"
     type: "number"
@@ -113,7 +116,7 @@ properties:
     type: "string"
   loaned:
     description: "не используется"
-    type: "string"
+    type: "boolean"
   loanedTo:
     description: "не используется"
     type: "string"
@@ -137,7 +140,9 @@ properties:
     type: "string"
   additionalExtraId:
     description: "информация из внешней информационной системы как есть (при интеграции)"
-    type: "string"
+    type: "array"
+    items:
+      type: "string"
   extraMediaId:
     description: "информация из внешней информационной системы как есть (при интеграции)"
     type: "string"
@@ -189,14 +194,12 @@ properties:
     type: "boolean"
   timetable:
     definition: "таблица с регулярным еженедельным расписанием работника"
-    type: "array"
-    items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
   evenOddTimetable:
     definition: "таблица с разделением расписания по чётным и нечётным дням"
     $ref: "#/definitions/EvenOddTimetable"
   status:
-    definition: ""
+    definition: "Имеет ли работник расписание/работает ли специалист в данном филиале"
     type: "string"
     enum:
       - "ACTIVE"
@@ -207,42 +210,32 @@ properties:
   location:
     definition: "координаты работника (для uber систем)"
     $ref: "#/definitions/ResourceLocation"
+  exceptions:
+    type: "array"
+    maxItems: 0
+  userData:
+    type: "object"
 required:
   - "revisionVersion"
-  - "rating"
   - "email"
   - "capacity"
-  - "icon_url"
   - "id"
   - "name"
   - "surname"
   - "nickname"
   - "loaned"
-  - "loanedTo"
-  - "loanedFrom"
   - "description"
-  - "profession"
-  - "extraDescription"
-  - "extraLink"
-  - "extraId"
-  - "additionalExtraId"
-  - "extraMediaId"
-  - "departmentId"
-  - "workPlace"
   - "order"
   - "taxonomies"
   - "taxonomyLevels"
   - "taxonomyChildren"
   - "level"
-  - "perk"
   - "phone"
   - "smsEnabled"
-  - "emailEnabled"
   - "displayInWidget"
   - "manualChanges"
   - "timetable"
   - "evenOddTimetable"
-  - "status"
   - "location"
 additionalProperties: false
   

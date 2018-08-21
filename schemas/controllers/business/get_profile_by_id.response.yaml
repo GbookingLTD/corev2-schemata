@@ -1,14 +1,86 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.schema.json"
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json"
 title: "business.get_profile_by_id"
 type: "object"
 definitions:
-  success_response:
+  ErrorResponse:
+    allOf:
+    - $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
+      properties:
+        error:
+          properties:
+            code:
+              enum:
+              - -10000
+              - -10001
+              - -10002
+              - -10100
+              - -10200
+              - -10205
+              - -10206
+      
+    
+  SuccessResponse:
     type: "object"
     properties:
-      business:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json"
+      jsonrpc:
+        description: "версия протокола (2.0)"
+        type: "string"
+        const: "2.0"
+      id:
+        description: "значение числового типа для идентификации запроса на сервере"
+        type: "number"
+      result:
+        description: "данные, передаваемые в ответ"
+        type: "object"
+        properties:
+          business:
+            $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json"
+          yandexFeedType:
+            type: "string"
+            enum: [ "static", "dynamic", "static-service-only", "no"]
+            default: "no"
+          top_services:
+            type: "object"
+            properties:
+              status:
+                type: "boolean"
+                default: false
+              services:
+                type: "array"
+                items:
+                  type: "string"
+            required: ["status", "services"]
+          active:
+            type: "boolean"
+          useDefaultSmsTemplate:
+            type: "boolean"
+            default: true
+          networks:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                internalID:
+                  type: "number"
+                businessName:
+                  type: "string"
+                description:
+                  type: "string"
+                address:
+                  $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
+              required: ["internalID", "businessName", "description"]
+          freeSms:
+            type: "number"
+            default: 0
+          monthlyFreeSms:
+            type: "number"
+            default: 0
+        
+        required:
+        - "business"
+    required:
+    - "result"
 
 oneOf:
-- $ref: "#/definitions/success_response"
-- $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
-additionalProperties: false
+- $ref: "#/definitions/SuccessResponse"
+- $ref: "#/definitions/ErrorResponse"
