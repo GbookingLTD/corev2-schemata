@@ -29,7 +29,7 @@
 |----------|------|----------|
 | `code`| number | **Required** |
 | `message`| string | **Required** |
-| `data`| string | **Required** |
+| `data`| string | Optional |
 
 
 
@@ -244,7 +244,7 @@ The value of this property **must** be equal to one of the [known values below](
 дополнительные данные об ошибке
 
 `data`
-* is **required**
+* is optional
 * type: `string`
 
 ##### data type
