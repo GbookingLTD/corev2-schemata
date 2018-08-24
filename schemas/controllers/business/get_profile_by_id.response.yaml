@@ -2,22 +2,30 @@ $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/busine
 title: "business.get_profile_by_id"
 type: "object"
 definitions:
+  ErrorCodes:
+    type: "object"
+    required: ["error"]
+    additionalProperties: true
+    properties:
+      error:
+        type: "object"
+        required: ["code"]
+        additionalProperties: true
+        properties:
+          code:
+            description: "код ошибки"
+            type: "number"
+            enum:
+            - -10000
+            - -10200
+            meta:enum:
+              -10000: "UNKNOWN_ERROR - Unknown error occurred"
+              -10200: "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business"
+  
   ErrorResponse:
     allOf:
     - $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
-      properties:
-        error:
-          properties:
-            code:
-              enum:
-              - -10000
-              - -10001
-              - -10002
-              - -10100
-              - -10200
-              - -10205
-              - -10206
-      
+    - $ref: "#/definitions/ErrorCodes"
     
   SuccessResponse:
     type: "object"

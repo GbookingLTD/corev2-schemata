@@ -398,7 +398,7 @@ properties:
       data:
         description: "дополнительные данные об ошибке"
         type: "string"
-    required: ["code", "message", "data"]
+    required: ["code", "message"]
 
 required: ["jsonrpc", "id", "error"]
 additionalProperties: false

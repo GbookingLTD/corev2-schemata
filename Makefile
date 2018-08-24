@@ -7,7 +7,7 @@ jsonschema2md_install:
 	npm link
 	cd ..
 
-mderrors:
+errors:
 	bin/error_response.sh > errorResponce.yaml
 	node bin/errors.js > errors.md
 	
