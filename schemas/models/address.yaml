@@ -14,29 +14,29 @@ properties:
   country:
     type: "string"
     enum: ["RU","IL","US","UA","BLR","FR","UK","KZ","HU","LT","LV","DE","CH","ES","AM","GE","UZ","FI","LI","_"]
-  zip_code:
+  zipCode:
     type: "string"
   locality:
     type: "string"
-  locality_type:
+  localityType:
     type: "string"
   street:
     type: "string"
-  street_type:
+  streetType:
     type: "string"
   number:
     type: "string"
-  admin_area:
+  adminArea:
     type: "string"
-  admin_area_type:
+  adminAreaType:
     type: "string"
-  sub_admin_area:
+  subAdminArea:
     type: "string"
-  sub_admin_area_type:
+  subAdminAreaType:
     type: "string"
-  sub_locality:
+  subLocality:
     type: "string"
-  sub_locality_type:
+  subLocalityType:
     type: "string"
   corps:
     type: "string"
@@ -48,13 +48,13 @@ properties:
     type: "string"
   address:
     type: "string"
-  house_add:
+  houseAdd:
     type: "string"
   longitude:
     type: "string"
   latitude:
     type: "string"
-  address_add:
+  addressAdd:
     type: "string"
   office:
     type: "string"
