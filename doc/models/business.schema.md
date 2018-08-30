@@ -1970,13 +1970,13 @@ All items must be of the type:
 | `accepted_currency`| array | Optional |  |
 | `paymentMethods`| string | Optional |  |
 | `date_joined`| string | Optional |  |
-| `additional_info`| string | Optional |  |
-| `phoneMask`| string | Optional |  |
-| `minimalOrderTime`| number | Optional |  |
+| `additional_info`| string,null | Optional |  |
+| `phone_mask`| string,null | Optional |  |
+| `min_booking_time`| number,null | Optional |  |
 | `images`| array | Optional |  |
 | `metro`| object | Optional |  |
 | `language`|  | Optional |  |
-| `networkID`| number | Optional |  |
+| `networkID`| number,null | Optional |  |
 | `autoAcceptAppointment`| boolean | Optional | `false` |
 | `showAppointmentTooltip`| boolean | Optional | `false` |
 | `showAppointmentColor`| boolean | Optional | `false` |
@@ -2053,13 +2053,21 @@ undefined
 
 `additional_info`
 * is optional
-* type: `string`
+* type: complex
 
 ##### additional_info type
 
+Unknown type `string,null`.
 
-`string`
-
+```json
+{
+  "type": [
+    "string",
+    "null"
+  ],
+  "simpletype": "complex"
+}
+```
 
 
 
@@ -2422,19 +2430,27 @@ Unknown type `object`.
 
 
 
-#### minimalOrderTime
+#### min_booking_time
 
 undefined
 
-`minimalOrderTime`
+`min_booking_time`
 * is optional
-* type: `number`
+* type: complex
 
-##### minimalOrderTime type
+##### min_booking_time type
 
+Unknown type `number,null`.
 
-`number`
-
+```json
+{
+  "type": [
+    "number",
+    "null"
+  ],
+  "simpletype": "complex"
+}
+```
 
 
 
@@ -2495,13 +2511,21 @@ undefined
 
 `networkID`
 * is optional
-* type: `number`
+* type: complex
 
 ##### networkID type
 
+Unknown type `number,null`.
 
-`number`
-
+```json
+{
+  "type": [
+    "number",
+    "null"
+  ],
+  "simpletype": "complex"
+}
+```
 
 
 
@@ -2587,19 +2611,27 @@ All items must be of the type:
 
 
 
-#### phoneMask
+#### phone_mask
 
 undefined
 
-`phoneMask`
+`phone_mask`
 * is optional
-* type: `string`
+* type: complex
 
-##### phoneMask type
+##### phone_mask type
 
+Unknown type `string,null`.
 
-`string`
-
+```json
+{
+  "type": [
+    "string",
+    "null"
+  ],
+  "simpletype": "complex"
+}
+```
 
 
 
@@ -3372,7 +3404,7 @@ undefined
 | `hidePrices`| boolean | Optional | `false` |
 | `hideEmptyDays`| boolean | Optional | `false` |
 | `showMap`| boolean | Optional | `false` |
-| `tentativeTTL`| boolean | Optional | `false` |
+| `tentativeTTL`| number | Optional |  |
 | `showDrinkQuestion`| boolean | Optional | `false` |
 | `showTalkQuestion`| boolean | Optional | `false` |
 | `showClientAddress`| boolean | Optional | `false` |
@@ -4985,10 +5017,16 @@ Unknown type `object`.
       "default": false
     },
     "widgetText": {
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "text": {
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "discountEnabled": {
       "type": "boolean"
@@ -5000,7 +5038,10 @@ Unknown type `object`.
       ]
     },
     "discountAmount": {
-      "type": "number"
+      "type": [
+        "number",
+        "null"
+      ]
     }
   },
   "simpletype": "`object`"
@@ -5103,14 +5144,13 @@ undefined
 
 `tentativeTTL`
 * is optional
-* type: `boolean`
-* default: `false`
-
+* type: `number`
 
 ##### tentativeTTL type
 
 
-`boolean`
+`number`
+
 
 
 

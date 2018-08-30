@@ -16,7 +16,7 @@
 |----------|------|----------|
 | [revisionVersion](#revisionversion) | `number` | **Required** | Resource (this schema) |
 | [rating](#rating) | `number` | Optional | Resource (this schema) |
-| [email](#email) | `string` | **Required** | Resource (this schema) |
+| [email](#email) | `string` | Optional | Resource (this schema) |
 | [capacity](#capacity) | `number` | **Required** | Resource (this schema) |
 | [icon_url](#icon_url) | `string` | Optional | Resource (this schema) |
 | [id](#id) | `string` | **Required** | Resource (this schema) |
@@ -26,7 +26,7 @@
 | [loaned](#loaned) | `boolean` | **Required** | Resource (this schema) |
 | [loanedTo](#loanedto) | `string` | Optional | Resource (this schema) |
 | [loanedFrom](#loanedfrom) | `string` | Optional | Resource (this schema) |
-| [description](#description) | `string` | **Required** | Resource (this schema) |
+| [description](#description) | `string` | Optional | Resource (this schema) |
 | [profession](#profession) | `string` | Optional | Resource (this schema) |
 | [extraDescription](#extradescription) | `string` | Optional | Resource (this schema) |
 | [extraLink](#extralink) | `string` | Optional | Resource (this schema) |
@@ -124,7 +124,7 @@ All items must be of the type:
 краткое описание работника
 
 `description`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -161,7 +161,7 @@ All items must be of the type:
 e-mail работника
 
 `email`
-* is **required**
+* is optional
 * type: `string`
 * defined in this schema
 
@@ -914,7 +914,7 @@ The value of this property **must** be equal to one of the [known values below](
 | Value | Description |
 |-------|-------------|
 | `ACTIVE` |  |
-| `NOTACTIVE` |  |
+| `INACTIVE` |  |
 
 
 

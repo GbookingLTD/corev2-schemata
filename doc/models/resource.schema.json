@@ -286,7 +286,7 @@
             "type": "string",
             "enum": [
                 "ACTIVE",
-                "NOTACTIVE"
+                "INACTIVE"
             ]
         },
         "image": {
@@ -307,14 +307,12 @@
     },
     "required": [
         "revisionVersion",
-        "email",
         "capacity",
         "id",
         "name",
         "surname",
         "nickname",
         "loaned",
-        "description",
         "order",
         "taxonomies",
         "taxonomyLevels",

@@ -203,7 +203,7 @@ properties:
     type: "string"
     enum:
       - "ACTIVE"
-      - "NOTACTIVE"
+      - "INACTIVE"
   image:
     definition: "не используется"
     type: "string"
@@ -217,14 +217,12 @@ properties:
     type: "object"
 required:
   - "revisionVersion"
-  - "email"
   - "capacity"
   - "id"
   - "name"
   - "surname"
   - "nickname"
   - "loaned"
-  - "description"
   - "order"
   - "taxonomies"
   - "taxonomyLevels"

@@ -307,13 +307,22 @@
                     "format": "date-time"
                 },
                 "additional_info": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
-                "phoneMask": {
-                    "type": "string"
+                "phone_mask": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
-                "minimalOrderTime": {
-                    "type": "number"
+                "min_booking_time": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "images": {
                     "type": "array",
@@ -341,7 +350,10 @@
                     "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList"
                 },
                 "networkID": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "autoAcceptAppointment": {
                     "type": "boolean",
@@ -1146,8 +1158,7 @@
                     "default": false
                 },
                 "tentativeTTL": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "number"
                 },
                 "showDrinkQuestion": {
                     "type": "boolean",
@@ -1228,10 +1239,16 @@
                             "default": false
                         },
                         "widgetText": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
                         "text": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
                         "discountEnabled": {
                             "type": "boolean"
@@ -1243,7 +1260,10 @@
                             ]
                         },
                         "discountAmount": {
-                            "type": "number"
+                            "type": [
+                                "number",
+                                "null"
+                            ]
                         }
                     }
                 },
