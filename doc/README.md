@@ -4,6 +4,11 @@
 
 
 
+## /common/
+
+* [ErrorResponse](./doc//common/errorResponse.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json` (Unknown)
+* [SuccessResponse](./doc//common/successResponse.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/successResponse.schema.json` (Unknown)
+
 ## /models/
 
 * [AdditionalFields](./doc//models/additionalField.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json` (Unknown)
@@ -14,11 +19,6 @@
 * [Timetable](./doc//models/timetable.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json` (Unknown)
 * [](./doc//models/address.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json` (Unknown)
 * [](./doc//models/socialNetwork.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json` (Unknown)
-
-## /common/
-
-* [ErrorResponse](./doc//common/errorResponse.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json` (Unknown)
-* [SuccessResponse](./doc//common/successResponse.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/successResponse.schema.json` (Unknown)
 
 ## /controllers/business/
 

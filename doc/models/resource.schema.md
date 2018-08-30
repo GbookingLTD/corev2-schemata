@@ -43,7 +43,7 @@
 | [level](#level) | `number` | **Required** | Resource (this schema) |
 | [perk](#perk) | `string` | Optional | Resource (this schema) |
 | [phone](#phone) | Phone | **Required** | Resource (this schema) |
-| [smsEnabled](#smsenabled) | `boolean` | **Required** | Resource (this schema) |
+| [smsEnabled](#smsenabled) | `boolean` | Optional | Resource (this schema) |
 | [emailEnabled](#emailenabled) | `boolean` | Optional | Resource (this schema) |
 | [displayInWidget](#displayinwidget) | `boolean` | **Required** | Resource (this schema) |
 | [manualChanges](#manualchanges) | `boolean` | **Required** | Resource (this schema) |
@@ -887,7 +887,7 @@ e-mail профиля работника
 включена ли отправка смс уведомлений для данного работника
 
 `smsEnabled`
-* is **required**
+* is optional
 * type: `boolean`
 * defined in this schema
 

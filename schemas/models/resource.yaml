@@ -229,7 +229,6 @@ required:
   - "taxonomyChildren"
   - "level"
   - "phone"
-  - "smsEnabled"
   - "displayInWidget"
   - "manualChanges"
   - "timetable"
