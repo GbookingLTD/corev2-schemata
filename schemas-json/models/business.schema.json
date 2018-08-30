@@ -142,9 +142,6 @@
             "type": "object",
             "$ref": "#/definitions/WidgetConfiguration"
         },
-        "cabinetsEnabled": {
-            "type": "boolean"
-        },
         "mini_widget_configuration": {
             "type": "object",
             "properties": {
