@@ -37,6 +37,10 @@ properties:
     type: "boolean"
   cabinetsEnabled:
     type: "boolean"
+  taxonomy_tree_capacity:
+    type: "array"
+    items:
+      type: "object"
   consumables:
     type: "array"
     items:
