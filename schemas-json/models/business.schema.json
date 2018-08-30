@@ -1534,6 +1534,10 @@
                 }
             },
             "additionalProperties": false
+        },
+        "cabinetsEnabled": {
+            "type": "boolean",
+            "default": false
         }
     }
 }
