@@ -668,6 +668,10 @@ definitions:
       showClientImage:
         type: "boolean"
         default: false
+      stateLevelHolidays:
+        type: "array"
+        items:
+          type: "object"
       stateLevelHolidaysNotWorking:
         type: "boolean"
         default: false
