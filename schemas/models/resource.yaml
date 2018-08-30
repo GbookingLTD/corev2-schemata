@@ -216,7 +216,7 @@ properties:
   userData:
     type: "object"
   scheduleIsEmpty:
-    definition: "Флаг того что ресурс работает, но не доступен для онлайн записи",
+    definition: "Флаг того что ресурс работает, но не доступен для онлайн записи"
     type: "boolean"
 required:
   - "revisionVersion"
