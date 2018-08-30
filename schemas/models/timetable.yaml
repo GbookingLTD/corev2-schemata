@@ -39,6 +39,6 @@ properties:
           $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
     required: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
     additionalProperties: false
-required: ["active", "week"]
+required: ["active"]
 additionalProperties: false
       
