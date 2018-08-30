@@ -1,0 +1,66 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/addressCamelCase.schema.json"
+definitions:
+  MetroStation:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+    required: ["name"]
+    additionalProperties: false
+      
+properties:
+  country:
+    type: "string"
+    enum: ["RU","IL","US","UA","BLR","FR","UK","KZ","HU","LT","LV","DE","CH","ES","AM","GE","UZ","FI","LI","_"]
+  zipCode:
+    type: "string"
+  locality:
+    type: "string"
+  localityType:
+    type: "string"
+  street:
+    type: "string"
+  streetType:
+    type: "string"
+  number:
+    type: "string"
+  adminArea:
+    type: "string"
+  adminAreaType:
+    type: "string"
+  subAdminArea:
+    type: "string"
+  subAdminAreaType:
+    type: "string"
+  subLocality:
+    type: "string"
+  subLocalityType:
+    type: "string"
+  corps:
+    type: "string"
+  building:
+    type: "string"
+  possesion:
+    type: "string"
+  kilometer:
+    type: "string"
+  address:
+    type: "string"
+  houseAdd:
+    type: "string"
+  longitude:
+    type: "string"
+  latitude:
+    type: "string"
+  addressAdd:
+    type: "string"
+  office:
+    type: "string"
+  metroStations:
+    type: "array"
+    items:
+      $ref: "#/definitions/MetroStation"
+required: ["country"]
+additionalProperties: false
