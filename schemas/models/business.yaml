@@ -35,6 +35,8 @@ properties:
     type: "boolean"
   allowCategoryBooking:
     type: "boolean"
+  cabinetsEnabled:
+    type: "boolean"
   consumables:
     type: "array"
     items:
