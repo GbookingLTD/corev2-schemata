@@ -409,6 +409,9 @@ definitions:
         type: "array"
         items:
           type: "string"
+      cabinetsEnabled:
+        type: "boolean"
+        default: false
       cabinets:
         type: "array"
         items:
