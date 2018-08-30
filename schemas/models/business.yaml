@@ -1030,5 +1030,8 @@ definitions:
         default: false
       disabledTaxonomiesText:
         type: "string"
+      workerNameReverse:
+        type: "boolean"
+        default: false
         
     additionalProperties: false
