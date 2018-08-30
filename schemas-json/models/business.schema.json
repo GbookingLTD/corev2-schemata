@@ -306,7 +306,7 @@
                     "type": "string",
                     "format": "date-time"
                 },
-                "additionalInfo": {
+                "additional_info": {
                     "type": "string"
                 },
                 "phoneMask": {

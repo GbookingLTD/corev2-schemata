@@ -1970,7 +1970,7 @@ All items must be of the type:
 | `accepted_currency`| array | Optional |  |
 | `paymentMethods`| string | Optional |  |
 | `date_joined`| string | Optional |  |
-| `additionalInfo`| string | Optional |  |
+| `additional_info`| string | Optional |  |
 | `phoneMask`| string | Optional |  |
 | `minimalOrderTime`| number | Optional |  |
 | `images`| array | Optional |  |
@@ -2047,15 +2047,15 @@ All items must be of the type:
 
 
 
-#### additionalInfo
+#### additional_info
 
 undefined
 
-`additionalInfo`
+`additional_info`
 * is optional
 * type: `string`
 
-##### additionalInfo type
+##### additional_info type
 
 
 `string`
