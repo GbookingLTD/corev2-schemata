@@ -200,6 +200,19 @@
                     }
                 }
             }
+        },
+        "backoffice_configuration": {
+            "type": "object",
+            "properties": {
+                "resourceTimetableType": {
+                    "type": "string",
+                    "enum": [
+                        "DEFAULT",
+                        "EVENODD"
+                    ],
+                    "default": "DEFAULT"
+                }
+            }
         }
     },
     "required": [
@@ -265,7 +278,10 @@
                 },
                 "logo_url": {
                     "description": "",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "additionalFields": {
                     "type": "array",

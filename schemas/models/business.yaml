@@ -130,7 +130,15 @@ properties:
         taxonomies:
           type: "array"
           items:
-            type: "string"      
+            type: "string" 
+            
+  backoffice_configuration:
+    type: "object"
+    properties:
+      resourceTimetableType:
+        type: "string"
+        enum: ["DEFAULT", "EVENODD"]
+        default: "DEFAULT"
       
 required:
 - "general_info"
@@ -183,7 +191,7 @@ definitions:
         type: "string"
       logo_url:
         description: ""
-        type: "string"
+        type: ["string", "null"]
       additionalFields:
         type: "array"
         items:

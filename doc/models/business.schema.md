@@ -36,6 +36,7 @@
 | [mini_widget_configuration](#mini_widget_configuration) | `object` | **Required** |  | Business (this schema) |
 | [callback_widget_configuration](#callback_widget_configuration) | `object` | Optional |  | Business (this schema) |
 | [taxonomiesComplex](#taxonomiescomplex) | `object[]` | Optional |  | Business (this schema) |
+| [backoffice_configuration](#backoffice_configuration) | `object` | Optional |  | Business (this schema) |
 
 ## active
 
@@ -1739,6 +1740,51 @@ The value of this property **must** be equal to one of the [known values below](
 
 
 
+## backoffice_configuration
+
+
+`backoffice_configuration`
+* is optional
+* type: `object`
+* defined in this schema
+
+### backoffice_configuration type
+
+
+`object` with following properties:
+
+
+| Property | Type | Required | Default |
+|----------|------|----------|---------|
+| `resourceTimetableType`| string | Optional | `"DEFAULT"` |
+
+
+
+#### resourceTimetableType
+
+undefined
+
+`resourceTimetableType`
+* is optional
+* type: `enum`
+* default: `"DEFAULT"`
+
+The value of this property **must** be equal to one of the [known values below](#backoffice_configuration-known-values).
+
+##### resourceTimetableType known values
+| Value | Description |
+|-------|-------------|
+| `DEFAULT` |  |
+| `EVENODD` |  |
+
+
+
+
+
+
+
+
+
 ## cabinets
 ### `Cabinet[]`
 
@@ -2011,7 +2057,7 @@ All items must be of the type:
 | `fax`| array | Optional |  |
 | `timezone`| string | Optional |  |
 | `description`| string | Optional |  |
-| `logo_url`| string | Optional |  |
+| `logo_url`| string,null | Optional |  |
 | `additionalFields`| array | Optional |  |
 | `contactName`| string | Optional |  |
 | `website`| string | Optional |  |
@@ -2386,13 +2432,22 @@ undefined
 
 `logo_url`
 * is optional
-* type: `string`
+* type: complex
 
 ##### logo_url type
 
+Unknown type `string,null`.
 
-`string`
-
+```json
+{
+  "description": "",
+  "type": [
+    "string",
+    "null"
+  ],
+  "simpletype": "complex"
+}
+```
 
 
 
