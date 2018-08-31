@@ -113,7 +113,7 @@
                                         "type": "string"
                                     },
                                     "address": {
-                                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
+                                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json"
                                     }
                                 },
                                 "required": [

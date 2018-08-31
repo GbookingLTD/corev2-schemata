@@ -18,7 +18,6 @@
 | [sub_admin_area](#sub_admin_area) | `string` | Optional |  (this schema) |
 | [sub_admin_area_type](#sub_admin_area_type) | `string` | Optional |  (this schema) |
 | [sub_locality](#sub_locality) | `string` | Optional |  (this schema) |
-| [subLocality](#sublocality) | `string` | Optional |  (this schema) |
 | [sub_locality_type](#sub_locality_type) | `string` | Optional |  (this schema) |
 | [corps](#corps) | `string` | Optional |  (this schema) |
 | [building](#building) | `string` | Optional |  (this schema) |
@@ -391,24 +390,6 @@ All items must be of the type:
 * defined in this schema
 
 ### street_type type
-
-
-`string`
-
-
-
-
-
-
-## subLocality
-
-
-`subLocality`
-* is optional
-* type: `string`
-* defined in this schema
-
-### subLocality type
 
 
 `string`

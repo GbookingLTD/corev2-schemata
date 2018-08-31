@@ -79,9 +79,6 @@
         "sub_locality": {
             "type": "string"
         },
-        "subLocality": {
-            "type": "string"
-        },
         "sub_locality_type": {
             "type": "string"
         },
