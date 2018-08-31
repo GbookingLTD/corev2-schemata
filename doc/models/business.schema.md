@@ -17,6 +17,8 @@
 | [vertical](#vertical) | `string` | Optional |  | Business (this schema) |
 | [flatTaxonomyDisplay](#flattaxonomydisplay) | `boolean` | Optional |  | Business (this schema) |
 | [allowCategoryBooking](#allowcategorybooking) | `boolean` | Optional |  | Business (this schema) |
+| [cabinetsEnabled](#cabinetsenabled) | `boolean` | Optional |  | Business (this schema) |
+| [taxonomy_tree_capacity](#taxonomy_tree_capacity) | `object[]` | Optional |  | Business (this schema) |
 | [consumables](#consumables) | ``Consumable[]`` | Optional |  | Business (this schema) |
 | [departments](#departments) | ``Department[]`` | Optional |  | Business (this schema) |
 | [cabinets](#cabinets) | ``Cabinet[]`` | Optional |  | Business (this schema) |
@@ -203,6 +205,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `hideCustomerPortalFooter`| boolean | Optional | `false` |
 | `readonlyResourceSchedule`| boolean | Optional | `false` |
 | `showClientImage`| boolean | Optional | `false` |
+| `stateLevelHolidays`| array | Optional |  |
 | `stateLevelHolidaysNotWorking`| boolean | Optional | `false` |
 | `paymentProvider`| string | Optional |  |
 | `showDefaulterBlockscreen`| boolean | Optional | `false` |
@@ -1594,6 +1597,36 @@ undefined
 
 
 
+#### stateLevelHolidays
+
+undefined
+
+`stateLevelHolidays`
+* is optional
+* type: `object[]`
+
+
+##### stateLevelHolidays type
+
+
+Array type: `object[]`
+
+All items must be of the type:
+`object` with following properties:
+
+
+| Property | Type | Required |
+|----------|------|----------|
+
+
+
+
+
+
+
+
+
+
 #### stateLevelHolidaysNotWorking
 
 undefined
@@ -1725,6 +1758,23 @@ All items must be of the type:
 
 
 
+
+
+
+
+
+## cabinetsEnabled
+
+
+`cabinetsEnabled`
+* is optional
+* type: `boolean`
+* defined in this schema
+
+### cabinetsEnabled type
+
+
+`boolean`
 
 
 
@@ -2091,7 +2141,7 @@ Array type: `reference[]`
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json`
+* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json`
 
 
 
@@ -2237,14 +2287,16 @@ undefined
 
 `images`
 * is optional
-* type: `array[]` (nested array)
+* type: `string[]`
 
 
 ##### images type
 
 
-Nested array type: `array`
+Array type: `string[]`
 
+All items must be of the type:
+`string`
 
 
 
@@ -3290,6 +3342,34 @@ All items must be of the type:
 
 
 
+## taxonomy_tree_capacity
+
+
+`taxonomy_tree_capacity`
+* is optional
+* type: `object[]`
+
+* defined in this schema
+
+### taxonomy_tree_capacity type
+
+
+Array type: `object[]`
+
+All items must be of the type:
+`object` with following properties:
+
+
+| Property | Type | Required |
+|----------|------|----------|
+
+
+
+
+
+
+
+
 ## top_services
 
 
@@ -3421,8 +3501,8 @@ undefined
 | `displaySlotSize`| number | Optional |  |
 | `additionalName`| string | Optional |  |
 | `shortLink`| string | Optional |  |
-| `appointmentConfirmationTitle`| string | Optional |  |
-| `appointmentConfirmationText`| string | Optional |  |
+| `appointment_confirmation_title`| string | Optional |  |
+| `appointment_confirmation_text`| string | Optional |  |
 | `theme`| string | Optional | `"theme1"` |
 | `socialSharing`| object | Optional |  |
 | `noDefaultImages`| boolean | Optional | `false` |
@@ -3477,6 +3557,7 @@ undefined
 | `insuranceClientSupportPhone`| array | Optional |  |
 | `showDisabledTaxonomies`| boolean | Optional | `false` |
 | `disabledTaxonomiesText`| string | Optional |  |
+| `workerNameReverse`| boolean | Optional | `false` |
 
 
 
@@ -3521,15 +3602,15 @@ undefined
 
 
 
-#### appointmentConfirmationText
+#### appointment_confirmation_text
 
 undefined
 
-`appointmentConfirmationText`
+`appointment_confirmation_text`
 * is optional
 * type: `string`
 
-##### appointmentConfirmationText type
+##### appointment_confirmation_text type
 
 
 `string`
@@ -3541,15 +3622,15 @@ undefined
 
 
 
-#### appointmentConfirmationTitle
+#### appointment_confirmation_title
 
 undefined
 
-`appointmentConfirmationTitle`
+`appointment_confirmation_title`
 * is optional
 * type: `string`
 
-##### appointmentConfirmationTitle type
+##### appointment_confirmation_title type
 
 
 `string`
@@ -5423,6 +5504,27 @@ undefined
 
 
 ##### withoutWorkers type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### workerNameReverse
+
+undefined
+
+`workerNameReverse`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### workerNameReverse type
 
 
 `boolean`

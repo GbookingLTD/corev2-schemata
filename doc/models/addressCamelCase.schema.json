@@ -1,12 +1,9 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json",
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/addressCamelCase.schema.json",
     "definitions": {
         "MetroStation": {
             "type": "object",
             "properties": {
-                "_id": {
-                    "type": "string"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -46,43 +43,40 @@
                 "_"
             ]
         },
-        "zip_code": {
+        "zipCode": {
             "type": "string"
         },
         "locality": {
             "type": "string"
         },
-        "locality_type": {
+        "localityType": {
             "type": "string"
         },
         "street": {
             "type": "string"
         },
-        "street_type": {
+        "streetType": {
             "type": "string"
         },
         "number": {
             "type": "string"
         },
-        "admin_area": {
+        "adminArea": {
             "type": "string"
         },
-        "admin_area_type": {
+        "adminAreaType": {
             "type": "string"
         },
-        "sub_admin_area": {
+        "subAdminArea": {
             "type": "string"
         },
-        "sub_admin_area_type": {
-            "type": "string"
-        },
-        "sub_locality": {
+        "subAdminAreaType": {
             "type": "string"
         },
         "subLocality": {
             "type": "string"
         },
-        "sub_locality_type": {
+        "subLocalityType": {
             "type": "string"
         },
         "corps": {
@@ -100,7 +94,7 @@
         "address": {
             "type": "string"
         },
-        "house_add": {
+        "houseAdd": {
             "type": "string"
         },
         "longitude": {
@@ -109,7 +103,7 @@
         "latitude": {
             "type": "string"
         },
-        "address_add": {
+        "addressAdd": {
             "type": "string"
         },
         "office": {

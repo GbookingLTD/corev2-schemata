@@ -157,7 +157,7 @@ definitions:
         description: "Адреса компании или филиала"
         type: "array"
         items:
-          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
+          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
       email:
         description: "Список e-mail адресов компании или филиала"
         type: "string"
@@ -222,7 +222,7 @@ definitions:
       images:
         type: "array"
         items:
-          type: "array"
+          type: "string"
       metro:
         type: "object"
         properties:
@@ -841,9 +841,9 @@ definitions:
         type: "string"
       shortLink:
         type: "string"
-      appointmentConfirmationTitle:
+      appointment_confirmation_title:
         type: "string"
-      appointmentConfirmationText:
+      appointment_confirmation_text:
         type: "string"
       theme:
         type: "string"

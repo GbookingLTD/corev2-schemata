@@ -303,6 +303,10 @@
         },
         "userData": {
             "type": "object"
+        },
+        "scheduleIsEmpty": {
+            "definition": "Флаг того что ресурс работает, но не доступен для онлайн записи",
+            "type": "boolean"
         }
     },
     "required": [
@@ -313,7 +317,6 @@
         "surname",
         "nickname",
         "loaned",
-        "order",
         "taxonomies",
         "taxonomyLevels",
         "taxonomyChildren",

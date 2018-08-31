@@ -17,7 +17,8 @@
 * [Phone](./doc//models/phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json` (Unknown)
 * [Resource](./doc//models/resource.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json` (Unknown)
 * [Timetable](./doc//models/timetable.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json` (Unknown)
-* [](./doc//models/address.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json` (Unknown)
+* [](./doc//models/address.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json` (Unknown)
+* [](./doc//models/addressCamelCase.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/addressCamelCase.schema.json` (Unknown)
 * [](./doc//models/socialNetwork.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json` (Unknown)
 
 ## /controllers/business/

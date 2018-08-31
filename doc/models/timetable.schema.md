@@ -9,7 +9,7 @@
 | Property | Type | Required |
 |----------|------|----------|
 | [active](#active) | `boolean` | **Required** | Timetable (this schema) |
-| [week](#week) | `object` | **Required** | Timetable (this schema) |
+| [week](#week) | `object` | Optional | Timetable (this schema) |
 
 ## active
 
@@ -33,7 +33,7 @@
 
 
 `week`
-* is **required**
+* is optional
 * type: `object`
 * defined in this schema
 

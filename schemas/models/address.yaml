@@ -1,8 +1,10 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
 definitions:
   MetroStation:
     type: "object"
     properties:
+      _id:
+        type: "string"
       name:
         type: "string"
       description:
@@ -35,6 +37,8 @@ properties:
   sub_admin_area_type:
     type: "string"
   sub_locality:
+    type: "string"
+  subLocality:
     type: "string"
   sub_locality_type:
     type: "string"

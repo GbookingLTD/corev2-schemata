@@ -7,28 +7,27 @@
 | Property | Type | Required |
 |----------|------|----------|
 | [country](#country) | `enum` | **Required** |  (this schema) |
-| [zip_code](#zip_code) | `string` | Optional |  (this schema) |
+| [zipCode](#zipcode) | `string` | Optional |  (this schema) |
 | [locality](#locality) | `string` | Optional |  (this schema) |
-| [locality_type](#locality_type) | `string` | Optional |  (this schema) |
+| [localityType](#localitytype) | `string` | Optional |  (this schema) |
 | [street](#street) | `string` | Optional |  (this schema) |
-| [street_type](#street_type) | `string` | Optional |  (this schema) |
+| [streetType](#streettype) | `string` | Optional |  (this schema) |
 | [number](#number) | `string` | Optional |  (this schema) |
-| [admin_area](#admin_area) | `string` | Optional |  (this schema) |
-| [admin_area_type](#admin_area_type) | `string` | Optional |  (this schema) |
-| [sub_admin_area](#sub_admin_area) | `string` | Optional |  (this schema) |
-| [sub_admin_area_type](#sub_admin_area_type) | `string` | Optional |  (this schema) |
-| [sub_locality](#sub_locality) | `string` | Optional |  (this schema) |
+| [adminArea](#adminarea) | `string` | Optional |  (this schema) |
+| [adminAreaType](#adminareatype) | `string` | Optional |  (this schema) |
+| [subAdminArea](#subadminarea) | `string` | Optional |  (this schema) |
+| [subAdminAreaType](#subadminareatype) | `string` | Optional |  (this schema) |
 | [subLocality](#sublocality) | `string` | Optional |  (this schema) |
-| [sub_locality_type](#sub_locality_type) | `string` | Optional |  (this schema) |
+| [subLocalityType](#sublocalitytype) | `string` | Optional |  (this schema) |
 | [corps](#corps) | `string` | Optional |  (this schema) |
 | [building](#building) | `string` | Optional |  (this schema) |
 | [possesion](#possesion) | `string` | Optional |  (this schema) |
 | [kilometer](#kilometer) | `string` | Optional |  (this schema) |
 | [address](#address) | `string` | Optional |  (this schema) |
-| [house_add](#house_add) | `string` | Optional |  (this schema) |
+| [houseAdd](#houseadd) | `string` | Optional |  (this schema) |
 | [longitude](#longitude) | `string` | Optional |  (this schema) |
 | [latitude](#latitude) | `string` | Optional |  (this schema) |
-| [address_add](#address_add) | `string` | Optional |  (this schema) |
+| [addressAdd](#addressadd) | `string` | Optional |  (this schema) |
 | [office](#office) | `string` | Optional |  (this schema) |
 | [metroStations](#metrostations) | ``undefined[]`` | Optional |  (this schema) |
 
@@ -50,15 +49,15 @@
 
 
 
-## address_add
+## addressAdd
 
 
-`address_add`
+`addressAdd`
 * is optional
 * type: `string`
 * defined in this schema
 
-### address_add type
+### addressAdd type
 
 
 `string`
@@ -68,15 +67,15 @@
 
 
 
-## admin_area
+## adminArea
 
 
-`admin_area`
+`adminArea`
 * is optional
 * type: `string`
 * defined in this schema
 
-### admin_area type
+### adminArea type
 
 
 `string`
@@ -86,15 +85,15 @@
 
 
 
-## admin_area_type
+## adminAreaType
 
 
-`admin_area_type`
+`adminAreaType`
 * is optional
 * type: `string`
 * defined in this schema
 
-### admin_area_type type
+### adminAreaType type
 
 
 `string`
@@ -177,15 +176,15 @@ The value of this property **must** be equal to one of the [known values below](
 
 
 
-## house_add
+## houseAdd
 
 
-`house_add`
+`houseAdd`
 * is optional
 * type: `string`
 * defined in this schema
 
-### house_add type
+### houseAdd type
 
 
 `string`
@@ -249,15 +248,15 @@ The value of this property **must** be equal to one of the [known values below](
 
 
 
-## locality_type
+## localityType
 
 
-`locality_type`
+`localityType`
 * is optional
 * type: `string`
 * defined in this schema
 
-### locality_type type
+### localityType type
 
 
 `string`
@@ -382,15 +381,51 @@ All items must be of the type:
 
 
 
-## street_type
+## streetType
 
 
-`street_type`
+`streetType`
 * is optional
 * type: `string`
 * defined in this schema
 
-### street_type type
+### streetType type
+
+
+`string`
+
+
+
+
+
+
+## subAdminArea
+
+
+`subAdminArea`
+* is optional
+* type: `string`
+* defined in this schema
+
+### subAdminArea type
+
+
+`string`
+
+
+
+
+
+
+## subAdminAreaType
+
+
+`subAdminAreaType`
+* is optional
+* type: `string`
+* defined in this schema
+
+### subAdminAreaType type
 
 
 `string`
@@ -418,15 +453,15 @@ All items must be of the type:
 
 
 
-## sub_admin_area
+## subLocalityType
 
 
-`sub_admin_area`
+`subLocalityType`
 * is optional
 * type: `string`
 * defined in this schema
 
-### sub_admin_area type
+### subLocalityType type
 
 
 `string`
@@ -436,69 +471,15 @@ All items must be of the type:
 
 
 
-## sub_admin_area_type
+## zipCode
 
 
-`sub_admin_area_type`
+`zipCode`
 * is optional
 * type: `string`
 * defined in this schema
 
-### sub_admin_area_type type
-
-
-`string`
-
-
-
-
-
-
-## sub_locality
-
-
-`sub_locality`
-* is optional
-* type: `string`
-* defined in this schema
-
-### sub_locality type
-
-
-`string`
-
-
-
-
-
-
-## sub_locality_type
-
-
-`sub_locality_type`
-* is optional
-* type: `string`
-* defined in this schema
-
-### sub_locality_type type
-
-
-`string`
-
-
-
-
-
-
-## zip_code
-
-
-`zip_code`
-* is optional
-* type: `string`
-* defined in this schema
-
-### zip_code type
+### zipCode type
 
 
 `string`

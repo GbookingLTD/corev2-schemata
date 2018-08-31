@@ -35,7 +35,7 @@
 | [extraMediaId](#extramediaid) | `string` | Optional | Resource (this schema) |
 | [departmentId](#departmentid) | `string` | Optional | Resource (this schema) |
 | [workPlace](#workplace) | `string` | Optional | Resource (this schema) |
-| [order](#order) | `number` | **Required** | Resource (this schema) |
+| [order](#order) | `number` | Optional | Resource (this schema) |
 | [profile](#profile) | `Информация о профиле работника` | Optional | Resource (this schema) |
 | [taxonomies](#taxonomies) | `string[]` | **Required** | Resource (this schema) |
 | [taxonomyLevels](#taxonomylevels) | ``undefined[]`` | **Required** | Resource (this schema) |
@@ -54,6 +54,7 @@
 | [location](#location) | `object` | **Required** | Resource (this schema) |
 | [exceptions](#exceptions) | `array` | Optional | Resource (this schema) |
 | [userData](#userdata) | `object` | Optional | Resource (this schema) |
+| [scheduleIsEmpty](#scheduleisempty) | `boolean` | Optional | Resource (this schema) |
 
 ## additionalExtraId
 
@@ -664,7 +665,7 @@ undefined
 индекс сортировки работника
 
 `order`
-* is **required**
+* is optional
 * type: `number`
 * defined in this schema
 
@@ -877,6 +878,23 @@ e-mail профиля работника
 
 `number`
 
+
+
+
+
+
+## scheduleIsEmpty
+
+
+`scheduleIsEmpty`
+* is optional
+* type: `boolean`
+* defined in this schema
+
+### scheduleIsEmpty type
+
+
+`boolean`
 
 
 

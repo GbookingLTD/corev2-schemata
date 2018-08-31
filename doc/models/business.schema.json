@@ -51,6 +51,15 @@
         "allowCategoryBooking": {
             "type": "boolean"
         },
+        "cabinetsEnabled": {
+            "type": "boolean"
+        },
+        "taxonomy_tree_capacity": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
+        },
         "consumables": {
             "type": "array",
             "items": {
@@ -219,7 +228,7 @@
                     "description": "Адреса компании или филиала",
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/address.schema.json"
+                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
                     }
                 },
                 "email": {
@@ -327,7 +336,7 @@
                 "images": {
                     "type": "array",
                     "items": {
-                        "type": "array"
+                        "type": "string"
                     }
                 },
                 "metro": {
@@ -635,6 +644,10 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "cabinetsEnabled": {
+                    "type": "boolean",
+                    "default": false
                 },
                 "cabinets": {
                     "type": "array",
@@ -1004,6 +1017,12 @@
                     "type": "boolean",
                     "default": false
                 },
+                "stateLevelHolidays": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
                 "stateLevelHolidaysNotWorking": {
                     "type": "boolean",
                     "default": false
@@ -1221,10 +1240,10 @@
                 "shortLink": {
                     "type": "string"
                 },
-                "appointmentConfirmationTitle": {
+                "appointment_confirmation_title": {
                     "type": "string"
                 },
-                "appointmentConfirmationText": {
+                "appointment_confirmation_text": {
                     "type": "string"
                 },
                 "theme": {
@@ -1527,6 +1546,10 @@
                 },
                 "disabledTaxonomiesText": {
                     "type": "string"
+                },
+                "workerNameReverse": {
+                    "type": "boolean",
+                    "default": false
                 }
             },
             "additionalProperties": false
