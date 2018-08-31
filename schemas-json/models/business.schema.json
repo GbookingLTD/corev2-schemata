@@ -1507,8 +1507,7 @@
                     "default": false
                 },
                 "disableWidgetMessage": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "string"
                 },
                 "denySameTimeRecords": {
                     "type": "boolean",

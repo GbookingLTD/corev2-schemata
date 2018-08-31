@@ -3547,7 +3547,7 @@ undefined
 | `useClustersMap`| boolean | Optional | `false` |
 | `useAppointmentReminder`| boolean | Optional | `false` |
 | `disableWidget`| boolean | Optional | `false` |
-| `disableWidgetMessage`| boolean | Optional | `false` |
+| `disableWidgetMessage`| string | Optional |  |
 | `denySameTimeRecords`| boolean | Optional | `false` |
 | `sortWorkersByWorkload`| boolean | Optional | `false` |
 | `mostFreeEnable`| boolean | Optional | `false` |
@@ -4020,14 +4020,13 @@ undefined
 
 `disableWidgetMessage`
 * is optional
-* type: `boolean`
-* default: `false`
-
+* type: `string`
 
 ##### disableWidgetMessage type
 
 
-`boolean`
+`string`
+
 
 
 
