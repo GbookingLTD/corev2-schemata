@@ -421,7 +421,7 @@
                 },
                 "smsDuplicateFilter": {
                     "type": "object",
-                    "properies": {
+                    "properties": {
                         "active": {
                             "type": "boolean"
                         }

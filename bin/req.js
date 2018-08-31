@@ -30,12 +30,12 @@ let _validate = function(json) {
   }
 };
 
-let getProfileByID = function (cracEndpoint, baseBusinessId) {
+let getProfileByID = function (cracEndpoint, baseBusinessId, cred) {
   var params = {
     "business": {"id": ''+baseBusinessId},
     "with_networks": true
   };
-  return rpcRequest('business.get_profile_by_id', params, cracEndpoint).then(function(json) {
+  return rpcRequest('business.get_profile_by_id', params, cred, cracEndpoint).then(function(json) {
     _validate(json)
   }).fail(function(err) {
     if (err.code === -32700) {
@@ -49,3 +49,4 @@ let getProfileByID = function (cracEndpoint, baseBusinessId) {
 getProfileByID(process.env.ENDPOINT, 4000000005144).done();
 getProfileByID(process.env.ENDPOINT, 4000000004939).done();
 getProfileByID(process.env.ENDPOINT, 4000000003543).done();
+getProfileByID(process.env.ENDPOINT, 4000000003543, {token: "af8b7a9b716d412be70230e271c5b597562731d8", user: "55d58cc4b09dd3112cbf3163"}).done();

@@ -273,7 +273,7 @@ definitions:
         default: "NONE"
       smsDuplicateFilter:
         type: "object"
-        properies:
+        properties:
           active:
             type: "boolean"
         additionalProperties: false

@@ -19,5 +19,8 @@ docdir:
 	rm -rf ./doc
 	jsonschema2md -o doc -d schemas-json -t templates/md
 	
-test:
+test_dev:
 	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/req.js
+
+test_prod:
+	ENDPOINT=http://apiv2.gbooking.ru/rpc node bin/req.js

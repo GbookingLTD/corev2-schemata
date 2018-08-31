@@ -5,7 +5,7 @@ var request = require('request')
 
 var defaultEndpoint = 'http://apiv2.gbooking.ru/rpc';
 
-exports.rpcRequest = function (method, data, endpoint) {
+exports.rpcRequest = function (method, data, cred, endpoint) {
   var defer = Q.defer();
   if (arguments.length === 1) {
     data = method;
@@ -15,6 +15,7 @@ exports.rpcRequest = function (method, data, endpoint) {
   var json = {
     jsonrpc: '2.0',
     id: 2,
+    cred: cred,
     method: method,
     params: JSON.parse(JSON.stringify(data))
   };

@@ -2873,7 +2873,7 @@ Unknown type `object`.
 ```json
 {
   "type": "object",
-  "properies": {
+  "properties": {
     "active": {
       "type": "boolean"
     }
