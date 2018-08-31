@@ -462,6 +462,9 @@
             "title": "Department",
             "type": "object",
             "properties": {
+                "id_": {
+                    "type": "number"
+                },
                 "id": {
                     "type": "string"
                 },
@@ -792,8 +795,7 @@
                     "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
                 },
                 "exceptions": {
-                    "type": "array",
-                    "maxItems": 0
+                    "type": "array"
                 },
                 "leaves": {
                     "type": "array",
@@ -1082,7 +1084,7 @@
                     "default": false
                 },
                 "customOnlinePaymentConfirmationTemplate": {
-                    "type": "boolean",
+                    "type": "string",
                     "default": false
                 },
                 "showFiredWorkerAppointmentAlert": {

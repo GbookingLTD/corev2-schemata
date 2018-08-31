@@ -299,6 +299,8 @@ definitions:
     title: "Department"
     type: "object"
     properties:
+      id_:
+        type: "number"
       id:
         type: "string"
       name:
@@ -516,7 +518,6 @@ definitions:
         $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
       exceptions:
         type: "array"
-        maxItems: 0
       leaves:
         type: "array"
         items:
@@ -724,7 +725,7 @@ definitions:
         type: "boolean"
         default: false
       customOnlinePaymentConfirmationTemplate:
-        type: "boolean"
+        type: "string"
         default: false
       showFiredWorkerAppointmentAlert:
         type: "boolean"

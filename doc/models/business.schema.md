@@ -220,7 +220,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `enableClientCard`| boolean | Optional | `false` |
 | `enableClientMedicalCardReport`| boolean | Optional | `false` |
 | `enableCustomOnlinePaymentConfirmation`| boolean | Optional | `false` |
-| `customOnlinePaymentConfirmationTemplate`| boolean | Optional | `false` |
+| `customOnlinePaymentConfirmationTemplate`| string | Optional | `false` |
 | `showFiredWorkerAppointmentAlert`| boolean | Optional | `false` |
 | `showDeliveryStatus`| boolean | Optional | `false` |
 | `showTaxonomyChildren`| boolean | Optional | `false` |
@@ -318,14 +318,15 @@ undefined
 
 `customOnlinePaymentConfirmationTemplate`
 * is optional
-* type: `boolean`
+* type: `string`
 * default: `false`
 
 
 ##### customOnlinePaymentConfirmationTemplate type
 
 
-`boolean`
+`string`
+
 
 
 
