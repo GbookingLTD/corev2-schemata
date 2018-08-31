@@ -28,7 +28,7 @@
 ## /models/partials/
 
 * [TimeFrame](./doc//models/partials/timeframe.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json` (Unknown)
-* [](./doc//models/partials/currency.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json` (Unknown)
 * [](./doc//models/partials/language.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json` (Unknown)
+* [](./doc//models/partials/currency.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json` (Unknown)
 * [](./doc//models/partials/taxonomyType.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json` (Unknown)
 

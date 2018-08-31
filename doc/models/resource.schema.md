@@ -18,7 +18,7 @@
 | [rating](#rating) | `number` | Optional | Resource (this schema) |
 | [email](#email) | `string` | Optional | Resource (this schema) |
 | [capacity](#capacity) | `number` | **Required** | Resource (this schema) |
-| [icon_url](#icon_url) | `string` | Optional | Resource (this schema) |
+| [icon_url](#icon_url) | complex | Optional | Resource (this schema) |
 | [id](#id) | `string` | **Required** | Resource (this schema) |
 | [name](#name) | `string` | **Required** | Resource (this schema) |
 | [surname](#surname) | `string` | **Required** | Resource (this schema) |
@@ -395,14 +395,23 @@ url изображения работника; Если указан относ�
 
 `icon_url`
 * is optional
-* type: `string`
+* type: complex
 * defined in this schema
 
 ### icon_url type
 
+Unknown type `string,null`.
 
-`string`
-
+```json
+{
+  "description": "url изображения работника; Если указан относительный путь, то используйте http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgUrl) ",
+  "type": [
+    "string",
+    "null"
+  ],
+  "simpletype": "complex"
+}
+```
 
 
 

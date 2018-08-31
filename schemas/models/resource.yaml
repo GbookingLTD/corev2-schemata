@@ -101,7 +101,7 @@ properties:
     type: "number"
   icon_url:
     description: "url изображения работника; Если указан относительный путь, то используйте http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgUrl) "
-    type: "string"
+    type: ["string", "null"]
   id:
     description: "внутренний идентификатор работника; уникальный во всей системе GBooking"
     type: "string"

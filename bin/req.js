@@ -45,4 +45,7 @@ let getProfileByID = function (cracEndpoint, baseBusinessId) {
 };
 
 
+// test get_profile_by_id for dev
 getProfileByID(process.env.ENDPOINT, 4000000005144).done();
+getProfileByID(process.env.ENDPOINT, 4000000004939).done();
+getProfileByID(process.env.ENDPOINT, 4000000003543).done();

@@ -315,7 +315,7 @@ definitions:
       name:
         type: "string"
       active:
-        type: "string"
+        type: "boolean"
     additionalProperties: false
     
   TaxonomyShowcase:
@@ -366,7 +366,7 @@ definitions:
       type:
         type: "string"
         enum: ["equal", "begin_with", "average"]
-    required: ["resourceLevel", "currency", "amount", "stockAmount", "type"]
+    required: ["resourceLevel", "currency", "stockAmount"]
     additionalProperties: false
 
     
@@ -875,11 +875,9 @@ definitions:
         type: "number"
         default: -1
       dayUnavailableLabel:
-        type: "boolean"
-        default: false
+        type: "string"
       dayOffLabel:
-        type: "boolean"
-        default: false
+        type: "string"
       useBusinessScheduleForUnavailableLabel:
         type: "boolean"
         default: false
@@ -890,7 +888,7 @@ definitions:
         type: "boolean"
         default: false
       socialNetworkImage:
-        type: "boolean"
+        type: "string"
         default: false
       payment:
         type: "string"

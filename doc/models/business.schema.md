@@ -3508,12 +3508,12 @@ undefined
 | `noDefaultImages`| boolean | Optional | `false` |
 | `withoutWorkers`| boolean | Optional | `false` |
 | `bookableMonthsCount`| number | Optional | `-1` |
-| `dayUnavailableLabel`| boolean | Optional | `false` |
-| `dayOffLabel`| boolean | Optional | `false` |
+| `dayUnavailableLabel`| string | Optional |  |
+| `dayOffLabel`| string | Optional |  |
 | `useBusinessScheduleForUnavailableLabel`| boolean | Optional | `false` |
 | `hideAnyWorkerBooking`| boolean | Optional | `false` |
 | `disableMobileWidget`| boolean | Optional | `false` |
-| `socialNetworkImage`| boolean | Optional | `false` |
+| `socialNetworkImage`| string | Optional | `false` |
 | `payment`| string | Optional | `"WITHOUT"` |
 | `paymentProvider`| string | Optional | `"yandexMoney"` |
 | `alignmentTaxonomySlots`| boolean | Optional | `false` |
@@ -3871,14 +3871,13 @@ undefined
 
 `dayOffLabel`
 * is optional
-* type: `boolean`
-* default: `false`
-
+* type: `string`
 
 ##### dayOffLabel type
 
 
-`boolean`
+`string`
+
 
 
 
@@ -3892,14 +3891,13 @@ undefined
 
 `dayUnavailableLabel`
 * is optional
-* type: `boolean`
-* default: `false`
-
+* type: `string`
 
 ##### dayUnavailableLabel type
 
 
-`boolean`
+`string`
+
 
 
 
@@ -5061,14 +5059,15 @@ undefined
 
 `socialNetworkImage`
 * is optional
-* type: `boolean`
+* type: `string`
 * default: `false`
 
 
 ##### socialNetworkImage type
 
 
-`boolean`
+`string`
+
 
 
 

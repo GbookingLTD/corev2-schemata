@@ -486,7 +486,7 @@
                     "type": "string"
                 },
                 "active": {
-                    "type": "string"
+                    "type": "boolean"
                 }
             },
             "additionalProperties": false
@@ -572,9 +572,7 @@
             "required": [
                 "resourceLevel",
                 "currency",
-                "amount",
-                "stockAmount",
-                "type"
+                "stockAmount"
             ],
             "additionalProperties": false
         },
@@ -1299,12 +1297,10 @@
                     "default": -1
                 },
                 "dayUnavailableLabel": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "string"
                 },
                 "dayOffLabel": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "string"
                 },
                 "useBusinessScheduleForUnavailableLabel": {
                     "type": "boolean",
@@ -1319,7 +1315,7 @@
                     "default": false
                 },
                 "socialNetworkImage": {
-                    "type": "boolean",
+                    "type": "string",
                     "default": false
                 },
                 "payment": {
