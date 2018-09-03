@@ -2,6 +2,20 @@
     "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json",
     "title": "TimeFrame",
     "type": "object",
+    "definitions": {
+        "TimeFrameDate": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "type": "number",
+                    "const": -1
+                }
+            ]
+        }
+    },
     "properties": {
         "id": {
             "description": "уникальный идентификатор временного слота",
@@ -31,12 +45,10 @@
             "type": "string"
         },
         "startDate": {
-            "type": "string",
-            "format": "date-time"
+            "$ref": "#/definitions/TimeFrameDate"
         },
         "endDate": {
-            "type": "string",
-            "format": "date-time"
+            "$ref": "#/definitions/TimeFrameDate"
         }
     },
     "required": [

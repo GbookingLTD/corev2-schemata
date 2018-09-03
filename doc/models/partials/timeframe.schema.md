@@ -13,8 +13,8 @@
 | [roomID](#roomid) | `string` | Optional | TimeFrame (this schema) |
 | [capacity](#capacity) | `number` | Optional | TimeFrame (this schema) |
 | [extraId](#extraid) | `string` | Optional | TimeFrame (this schema) |
-| [startDate](#startdate) | `string` | Optional | TimeFrame (this schema) |
-| [endDate](#enddate) | `string` | Optional | TimeFrame (this schema) |
+| [startDate](#startdate) | complex | Optional | TimeFrame (this schema) |
+| [endDate](#enddate) | complex | Optional | TimeFrame (this schema) |
 
 ## capacity
 
@@ -58,14 +58,29 @@
 
 `endDate`
 * is optional
-* type: `string`
+* type: complex
 * defined in this schema
 
 ### endDate type
 
 
+**One** of the following *conditions* need to be fulfilled.
+
+
+#### Condition 1
+
+
 `string`
 * format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
+
+
+#### Condition 2
+
+
+`number`
+
+
 
 
 
@@ -176,14 +191,29 @@ All items must be of the type:
 
 `startDate`
 * is optional
-* type: `string`
+* type: complex
 * defined in this schema
 
 ### startDate type
 
 
+**One** of the following *conditions* need to be fulfilled.
+
+
+#### Condition 1
+
+
 `string`
 * format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
+
+
+#### Condition 2
+
+
+`number`
+
+
 
 
 

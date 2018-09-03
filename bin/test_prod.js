@@ -48,8 +48,5 @@ let getProfileByID = function (cracEndpoint, baseBusinessId, cred) {
 
 // test get_profile_by_id for dev
 [
-  getProfileByID(process.env.ENDPOINT, 4000000005144),
-  getProfileByID(process.env.ENDPOINT, 4000000004939),
-  getProfileByID(process.env.ENDPOINT, 4000000003543),
-  getProfileByID(process.env.ENDPOINT, 4000000003543, {token: "af8b7a9b716d412be70230e271c5b597562731d8", user: "55d58cc4b09dd3112cbf3163"})
+  getProfileByID(process.env.ENDPOINT, 4000000004023)
 ].map(p => function() { return p }).reduce(Q.when, Q());
