@@ -1,3 +1,5 @@
+js2md=node_modules/.bin/jsonschema2md
+
 .PHONY: default
 default: jsondir docdir ;
 
@@ -11,7 +13,7 @@ jsondir:
 	
 docdir:
 	rm -rf ./doc
-	jsonschema2md -o doc -d schemas-json -t templates/md
+	$(js2md) -o doc -d schemas-json -t templates/md
 	
 test_dev:
 	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/test_dev.js
