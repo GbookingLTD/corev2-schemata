@@ -17,7 +17,7 @@ When you need to update changes or install this module first time run `npm insta
 Before updating the doc need to install adobe/jsonschema2md:
 
 ````
-make jsonschema2md_install
+npm install
 ````
 
 ## Updating schemas

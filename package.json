@@ -18,7 +18,9 @@
   "directories": {
     "doc": "doc"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@adobe/jsonschema2md": "github:swvitaliy/jsonschema2md"
+  },
   "repository": {
     "type": "git",
     "url": "http://git.dev.gbooking.ru/vitaliy/corev2-schemata.git"

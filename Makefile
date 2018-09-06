@@ -1,12 +1,6 @@
 .PHONY: default
 default: jsondir docdir ;
 
-jsonschema2md_install:
-	git clone git@github.com:swvitaliy/jsonschema2md.git
-	cd jsonschema2md && npm install
-	npm link
-	cd ..
-
 errors:
 	bin/error_response.sh > errorResponce.yaml
 	node bin/errors.js > errors.md
