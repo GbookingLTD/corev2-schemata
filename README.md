@@ -14,6 +14,12 @@ you need to fix json-schema.
 This is nodejs npm module. It should be installed to corev2 project (package.json file should contain this one in deps).
 When you need to update changes or install this module first time run `npm install corev2-schemata`.
 
+Before updating the doc need to install adobe/jsonschema2md:
+
+````
+make jsonschema2md_install
+````
+
 ## Updating schemas
 
 If you need to check remote data (response from dev or prod servers) you can run `make test_dev` or `make test_prod`.
