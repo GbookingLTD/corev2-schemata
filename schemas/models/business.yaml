@@ -346,16 +346,24 @@ definitions:
     type: "object"
     properties:
       currency:
+        description: "Аббревиатура валюты (например, RUB - рубль)"
         $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
       amount:
+        description: "Значение цены"
         type: "string"
         default: "0"
       stockAmount:
+        description: "Значение цены, с учётом промо акций"
         type: "string"
         default: "0"
       type:
+        description: "Тип цены"
         type: "string"
         enum: ["equal", "begin_with", "average"]
+        meta:enum:
+        - equal: "Цена ровно как указана в поле amount"
+        - begin_with: "Цена \"от\" - в поле amount указано начальное значение"
+        - average: "Средняя цена (deprecated)"
     required: ["currency", "amount", "stockAmount", "type"]
     additionalProperties: false
 
@@ -364,18 +372,27 @@ definitions:
     type: "object"
     properties:
       resourceLevel:
+        description: "\"Уровень\" цены. Работнику можно выставить его \"уровень\" (поле level в resources)"
         type: "number"
       currency:
+        description: "Аббревиатура валюты"
         $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
       amount:
+        description: "Значение цены"
         type: "string"
         default: "0"
       stockAmount:
+        description: "Значение цены, с учётом промо акций"
         type: "string"
         default: "0"
       type:
+        description: "Тип цены"
         type: "string"
         enum: ["equal", "begin_with", "average"]
+        meta:enum:
+        - equal: "Цена ровно как указана в поле amount"
+        - begin_with: "Цена \"от\" - в поле amount указано начальное значение"
+        - average: "Средняя цена (deprecated)"
     required: ["resourceLevel", "currency", "stockAmount"]
     additionalProperties: false
 

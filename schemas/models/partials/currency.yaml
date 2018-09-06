@@ -1,6 +1,7 @@
 $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json"
 definitions:
   CurrencyList:
+    description: "Аббревиатура валюты"
     type: "string"
     enum: ["RUB","USD","ILS","EUR","GBP","HUF","KZT","CNY","UZS","UAH"]
     
