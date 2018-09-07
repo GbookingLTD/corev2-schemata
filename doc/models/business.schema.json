@@ -849,6 +849,10 @@
                     "items": {
                         "type": "string"
                     }
+                },
+                "showcaseTaxonomyID": {
+                    "description": "Идентификатор услуги в витрине",
+                    "type": "string"
                 }
             },
             "additionalProperties": false
