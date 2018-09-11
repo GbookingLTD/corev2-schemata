@@ -227,6 +227,10 @@ The value of this property **must** be equal to one of the [known values below](
 | `-71200` | EXTRA_FIELD_RETRIEVE_FAILED - Unknown error occurred |
 | `-71300` | EXTRA_FIELD_UPDATE_FAILED - Unknown error occurred |
 | `-71400` | EXTRA_FIELD_DELETE_FAILED - Unknown error occurred |
+| `-72100` | PRODUCT_CREATE_FAILED - Unknown error occurred |
+| `-72200` | PRODUCT_RETRIEVE_FAILED - Unknown error occurred |
+| `-72300` | PRODUCT_UPDATE_FAILED - Unknown error occurred |
+| `-72400` | PRODUCT_DELETE_FAILED - Unknown error occurred |
 | `-32700` | PARSE_ERROR - Parse error |
 | `-32600` | INVALID_REQUEST - Invalid request |
 | `-32601` | METHOD_NOT_FOUND - Method not found |
