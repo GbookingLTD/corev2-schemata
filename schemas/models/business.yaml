@@ -409,7 +409,7 @@ definitions:
       required:
         description: "Является ли обязательным при выполнении данной услуги"
         type: "boolean"
-    required: ["productID", "productExtraID", "required"]
+    required: ["id", "extraID", "required"]
     additionalProperties: false
     
   AdditionalDuration:
