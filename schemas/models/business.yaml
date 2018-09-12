@@ -396,6 +396,21 @@ definitions:
     required: ["resourceLevel", "currency", "stockAmount"]
     additionalProperties: false
 
+  AdditionalBusinessTaxonomyProduct:
+    title: "BusinessTaxonomyProduct"
+    type: "object"
+    properties:
+      productID:
+        description: "ID товара"
+        type: "string"
+      productExtraID:
+        description: "Дополнительный ID товара"
+        type: "string"
+      required:
+        description: "Является ли обязательным при выполнении данной услуги"
+        type: "boolean"
+    required: ["productID", "productExtraID", "required"]
+    additionalProperties: false
     
   AdditionalDuration:
     title: "AdditionalDuration"
@@ -461,6 +476,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/AdditionalBusinessTaxonomyPrice"
+      additionalProducts:
+        type: "array"
+        items:
+          $ref: "#/definitions/AdditionalBusinessTaxonomyProduct"
       capacity:
         type: "number"
       capacity_decrease:
