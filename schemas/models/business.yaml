@@ -400,10 +400,10 @@ definitions:
     title: "BusinessTaxonomyProduct"
     type: "object"
     properties:
-      productID:
+      id:
         description: "ID товара"
         type: "string"
-      productExtraID:
+      extraID:
         description: "Дополнительный ID товара"
         type: "string"
       required:
