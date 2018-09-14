@@ -558,6 +558,8 @@ definitions:
         items:
           type: "string"
           enum: ["child", "parent", "none"]
+      visitType:
+        type: "string"
       timetable:
         $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
       exceptions:
@@ -784,6 +786,12 @@ definitions:
         type: "boolean"
         default: false
       editTaxonomyChildren:
+        type: "boolean"
+        default: false
+      showTaxonomyVisitType:
+        type: "boolean"
+        default: false
+      editTaxonomyVisitType:
         type: "boolean"
         default: false
         
