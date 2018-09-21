@@ -207,6 +207,11 @@ properties:
           -32602: "INVALID_PARAMETERS - Invalid parameters"
           -32603: "INTERNAL_ERROR - Internal error"
           -32604: "VERSION_NOT_FOUND - Version not found"
+          -73100: "LOYALTY_GOOD_RETRIEVE_FAILED - Good retrieve failed"
+          -73200: "LOYALTY_GOOD_ALREADY_USED - Good already used"
+          -73300: "LOYALTY_NOT_ENOUGH_POINTS - Not enough points"
+          -73400: "LOYALTY_GOOD_ACTIVATION_FAILED - Good activation failed"
+          -73500: "LOYALTY_VERSION_INCORRECT - Loyalty version incorrect"
 
         enum:
           - -10000
