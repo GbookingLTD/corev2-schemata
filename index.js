@@ -15,6 +15,8 @@ let schemaCommonDir = __dirname + '/schemas/common';
 let schemaModelsDir = __dirname + '/schemas/models';
 let schemaControllersDir = __dirname + '/schemas/controllers';
 
+exports.verbose = false;
+
 function appendSchemasDir(ajv, dirName) {
   let defer = Q.defer();
   fs.readdir(dirName, function(err, files) {
@@ -28,7 +30,7 @@ function appendSchemasDir(ajv, dirName) {
             return appendSchemasDir(ajv, dirName + '/' + fname);
           else
             return Q.nfcall(fs.readFile.bind(fs), dirName + '/' + fname, 'utf8').then((json) => {
-              console.info('json-schema load file %s', dirName + '/' + fname);
+              exports.verbose && console.info('json-schema load file %s', dirName + '/' + fname);
               let jsonSchema;
               if (/.*\.schema\.json$/.test(fname)) {
                 jsonSchema = JSON.parse(json);
