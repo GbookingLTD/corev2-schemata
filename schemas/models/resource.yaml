@@ -214,8 +214,8 @@ properties:
     definition: "координаты работника (для uber систем)"
     $ref: "#/definitions/ResourceLocation"
   exceptions:
+    definition: "Данные используются для внутреннего применения. Для роли guest передаётся пустой массив"
     type: "array"
-    maxItems: 0
   userData:
     type: "object"
   scheduleIsEmpty:
