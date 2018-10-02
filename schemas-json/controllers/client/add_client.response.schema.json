@@ -1,0 +1,81 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json",
+    "title": "client.add_client.response",
+    "type": "object",
+    "definitions": {
+        "ErrorCodes": {
+            "type": "object",
+            "required": [
+                "error"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "error": {
+                    "oneOf": [
+                        {
+                            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml"
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "code"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "code": {
+                                    "description": "код ошибки создания клиента",
+                                    "type": "number",
+                                    "enum": [
+                                        -11100,
+                                        -11200,
+                                        -11201,
+                                        -11300,
+                                        -11500,
+                                        -11800
+                                    ],
+                                    "meta:enum": {
+                                        "-11100": "CLIENT_CREATE_FAILED - Failed to create client",
+                                        "-11200": "CLIENT_RETRIEVE_FAILED - Failed to retrieve client",
+                                        "-11201": "CLIENT_DUPLICATE_PHONE_FAILED - Failed to retrieve client",
+                                        "-11300": "CLIENT_UPDATE_FAILED - Failed to update client",
+                                        "-11500": "CLIENT_DATA_MISSING - Client data missing",
+                                        "-11800": "CLIENT_IN_BLACKLIST - Client in blacklist"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ErrorResponse": {
+            "allOf": [
+                {
+                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
+                },
+                {
+                    "$ref": "#/definitions/ErrorCodes"
+                }
+            ]
+        },
+        "SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json"
+                }
+            },
+            "required": [
+                "result"
+            ]
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/SuccessResponse"
+        },
+        {
+            "$ref": "#/definitions/ErrorResponse"
+        }
+    ]
+}

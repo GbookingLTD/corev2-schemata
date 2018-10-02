@@ -1,0 +1,61 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json",
+    "type": "object",
+    "description": "Данные клиента",
+    "required": [
+        "name",
+        "surname",
+        "phone"
+    ],
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "surname": {
+            "type": "string"
+        },
+        "middle_name": {
+            "type": "string"
+        },
+        "birthday": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "phone": {
+            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+        },
+        "email": {
+            "type": "string"
+        },
+        "fromSms": {
+            "type": "boolean",
+            "default": false
+        },
+        "sex": {
+            "type": "string",
+            "enum": [
+                "MALE",
+                "FEMALE",
+                "NOT_SPECIFIED"
+            ]
+        },
+        "creatorProfileID": {
+            "type": "string"
+        },
+        "creatorProfileName": {
+            "type": "string"
+        },
+        "driverLicense": {
+            "type": "string"
+        },
+        "taxiPark": {
+            "type": "string"
+        },
+        "taxiParkMemberCount": {
+            "type": "number"
+        },
+        "fullAddress": {
+            "type": "string"
+        }
+    }
+}

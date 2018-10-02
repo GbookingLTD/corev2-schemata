@@ -226,6 +226,8 @@ The value of this property **must** be equal to one of the [known values below](
 | `showDeliveryStatus`| boolean | Optional | `false` |
 | `showTaxonomyChildren`| boolean | Optional | `false` |
 | `editTaxonomyChildren`| boolean | Optional | `false` |
+| `showTaxonomyVisitType`| boolean | Optional | `false` |
+| `editTaxonomyVisitType`| boolean | Optional | `false` |
 
 
 
@@ -409,6 +411,27 @@ undefined
 
 
 ##### editTaxonomyChildren type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### editTaxonomyVisitType
+
+undefined
+
+`editTaxonomyVisitType`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### editTaxonomyVisitType type
 
 
 `boolean`
@@ -1463,6 +1486,27 @@ undefined
 
 
 ##### showTaxonomyLocalization type
+
+
+`boolean`
+
+
+
+
+
+
+
+#### showTaxonomyVisitType
+
+undefined
+
+`showTaxonomyVisitType`
+* is optional
+* type: `boolean`
+* default: `false`
+
+
+##### showTaxonomyVisitType type
 
 
 `boolean`

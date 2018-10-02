@@ -1,17 +1,17 @@
 js2md=node_modules/.bin/jsonschema2md
 
 .PHONY: default
-default: jsondir docdir ;
+default: json docu ;
 
 errors:
 	bin/error_response.sh > errorResponce.yaml
 	node bin/errors.js > errors.md
 	
-jsondir:
+json:
 	rm -rf ./schemas-json
 	bin/jsondir.sh
 	
-docdir:
+docu:
 	rm -rf ./doc
 	$(js2md) -o doc -d schemas-json -t templates/md
 	

@@ -1,0 +1,117 @@
+{
+    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.request.schema.json",
+    "title": "business.get_profile_by_id.request",
+    "type": "object",
+    "definitions": {
+        "Request": {
+            "type": "object",
+            "required": [
+                "params"
+            ],
+            "properties": {
+                "params": {
+                    "description": "параметры запроса",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "business"
+                    ],
+                    "properties": {
+                        "business": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "идентификатор бизнеса",
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                                "id"
+                            ]
+                        },
+                        "with_networks": {
+                            "description": "если указано true - возвращает информацию о других филиалах сети в поле networks",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "with_bop": {
+                            "description": "если указано true - возвращает список операций, доступных в БекОфисе в поле profiles (недоступно для роли guest)",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "with_discounts": {
+                            "description": "если указано true - возвращает список скидочных акций в поле discounts",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "with_discounts_from": {
+                            "description": "дата начала расписания, для которого нужно получить скидочные акции",
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "with_discounts_to": {
+                            "description": "дата окончания расписания, для которого нужно получить скидочные акции",
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "with_campaigns": {
+                            "description": "если указано true - возвращает кампании скидочных купонов в поле campaigns",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "with_billing": {
+                            "description": "если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "worker_sorting_type": {
+                            "description": "тип сортировки работника",
+                            "type": "string",
+                            "enum": [
+                                "workload",
+                                "most_free",
+                                "none"
+                            ],
+                            "meta:enum": {
+                                "workload": "по загруженности (сумма свободных минут в расписании на ближайшие 2 недели)",
+                                "most_free": "по дате ближайшего приёма",
+                                "none": "не переопределять порядок сортировки, установленный в БекОфисе"
+                            },
+                            "default": "none"
+                        },
+                        "show_inactive_workers": {
+                            "description": "если указано true - возвращает всех работников в том числе и неактивных (status == 'INACTIVE')",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "only_active_workers": {
+                            "description": "если указано true - возвращает только активных работников (status == 'INACTIVE')",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "with_taxonomy_showcase": {
+                            "description": "если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для каждой таксономии (недоступно для роли guest)",
+                            "type": "boolean"
+                        },
+                        "showcase_business_id": {
+                            "description": "идентификатор витрины (передаётся вместе с with_taxonomy_showcase)",
+                            "type": [
+                                "number",
+                                "string"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json"
+        },
+        {
+            "$ref": "#/definitions/Request"
+        }
+    ]
+}

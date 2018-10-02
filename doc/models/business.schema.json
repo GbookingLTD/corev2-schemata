@@ -626,6 +626,30 @@
             ],
             "additionalProperties": false
         },
+        "AdditionalBusinessTaxonomyProduct": {
+            "title": "BusinessTaxonomyProduct",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID товара",
+                    "type": "string"
+                },
+                "extraID": {
+                    "description": "Дополнительный ID товара",
+                    "type": "string"
+                },
+                "required": {
+                    "description": "Является ли обязательным при выполнении данной услуги",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "id",
+                "extraID",
+                "required"
+            ],
+            "additionalProperties": false
+        },
         "AdditionalDuration": {
             "title": "AdditionalDuration",
             "type": "object",
@@ -718,6 +742,12 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/AdditionalBusinessTaxonomyPrice"
+                    }
+                },
+                "additionalProducts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AdditionalBusinessTaxonomyProduct"
                     }
                 },
                 "capacity": {
@@ -837,6 +867,9 @@
                             "none"
                         ]
                     }
+                },
+                "visitType": {
+                    "type": "string"
                 },
                 "timetable": {
                     "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
@@ -1151,6 +1184,14 @@
                     "default": false
                 },
                 "editTaxonomyChildren": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showTaxonomyVisitType": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "editTaxonomyVisitType": {
                     "type": "boolean",
                     "default": false
                 }

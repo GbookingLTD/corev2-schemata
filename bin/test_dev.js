@@ -5,6 +5,7 @@ const Q = require('q')
 
 // test get_profile_by_id for dev
 [
+  getProfileByID(process.env.ENDPOINT, 4000000005154),
   getProfileByID(process.env.ENDPOINT, 4000000005144),
   getProfileByID(process.env.ENDPOINT, 4000000005144, {token: "f1f5bd7c84bd67a2b9797cf05866459ad3a52bc7", user: "5b1671531e0bbb19ac9f8b15"}),
   getProfileByID(process.env.ENDPOINT, 4000000005143),

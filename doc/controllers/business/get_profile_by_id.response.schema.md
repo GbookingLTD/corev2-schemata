@@ -1,4 +1,4 @@
 
-# business.get_profile_by_id Schema
+# business.get_profile_by_id.response Schema
 
 

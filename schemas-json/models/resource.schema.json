@@ -301,8 +301,8 @@
             "$ref": "#/definitions/ResourceLocation"
         },
         "exceptions": {
-            "type": "array",
-            "maxItems": 0
+            "definition": "Данные используются для внутреннего применения. Для роли guest передаётся пустой массив",
+            "type": "array"
         },
         "userData": {
             "type": "object"

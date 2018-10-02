@@ -227,12 +227,21 @@ The value of this property **must** be equal to one of the [known values below](
 | `-71200` | EXTRA_FIELD_RETRIEVE_FAILED - Unknown error occurred |
 | `-71300` | EXTRA_FIELD_UPDATE_FAILED - Unknown error occurred |
 | `-71400` | EXTRA_FIELD_DELETE_FAILED - Unknown error occurred |
+| `-72100` | PRODUCT_CREATE_FAILED - Unknown error occurred |
+| `-72200` | PRODUCT_RETRIEVE_FAILED - Unknown error occurred |
+| `-72300` | PRODUCT_UPDATE_FAILED - Unknown error occurred |
+| `-72400` | PRODUCT_DELETE_FAILED - Unknown error occurred |
 | `-32700` | PARSE_ERROR - Parse error |
 | `-32600` | INVALID_REQUEST - Invalid request |
 | `-32601` | METHOD_NOT_FOUND - Method not found |
 | `-32602` | INVALID_PARAMETERS - Invalid parameters |
 | `-32603` | INTERNAL_ERROR - Internal error |
 | `-32604` | VERSION_NOT_FOUND - Version not found |
+| `-73100` | LOYALTY_GOOD_RETRIEVE_FAILED - Good retrieve failed |
+| `-73200` | LOYALTY_GOOD_ALREADY_USED - Good already used |
+| `-73300` | LOYALTY_NOT_ENOUGH_POINTS - Not enough points |
+| `-73400` | LOYALTY_GOOD_ACTIVATION_FAILED - Good activation failed |
+| `-73500` | LOYALTY_VERSION_INCORRECT - Loyalty version incorrect |
 
 
 

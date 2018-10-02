@@ -300,7 +300,7 @@ The value of this property **must** be equal to one of the [known values below](
 `exceptions`
 * is optional
 * type: `array`
-* no more than `0` items in the array
+
 * defined in this schema
 
 ### exceptions type
