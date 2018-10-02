@@ -7,6 +7,7 @@
         "surname",
         "phone"
     ],
+    "additionalProperties": true,
     "properties": {
         "name": {
             "type": "string"
@@ -25,7 +26,10 @@
             "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
         },
         "email": {
-            "type": "string"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "fromSms": {
             "type": "boolean",
@@ -53,9 +57,6 @@
         },
         "taxiParkMemberCount": {
             "type": "number"
-        },
-        "fullAddress": {
-            "type": "string"
         }
     }
 }

@@ -2,6 +2,7 @@ $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.sche
 type: "object"
 description: "Данные клиента"
 required: ["name", "surname", "phone"]
+additionalProperties: true
 properties:
   name:
     type: "string"
@@ -15,7 +16,9 @@ properties:
   phone:
     $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
   email:
-    type: "string"
+    type: "array"
+    items:
+      type: "string"
   fromSms:
     type: "boolean"
     default: false
@@ -23,7 +26,7 @@ properties:
     type: "string"
     enum: ["MALE", "FEMALE", "NOT_SPECIFIED"]
 
-  # Для Я.Такси
+  # Я.Такси
   creatorProfileID:
     type: "string"
   creatorProfileName:
@@ -34,7 +37,5 @@ properties:
     type: "string"
   taxiParkMemberCount:
     type: "number"
-  fullAddress:
-    type: "string"
 
 

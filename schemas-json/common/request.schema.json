@@ -15,7 +15,7 @@
         },
         "cred": {
             "description": "авторизационные параметры",
-            "allOf": [
+            "oneOf": [
                 {
                     "type": "object",
                     "params": [],
@@ -54,7 +54,8 @@
     "required": [
         "jsonrpc",
         "id",
-        "result"
+        "method",
+        "params"
     ],
     "additionalProperties": false
 }

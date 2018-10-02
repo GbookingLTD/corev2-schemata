@@ -18,7 +18,7 @@
 | [middle_name](#middle_name) | `string` | Optional |  |  (this schema) |
 | [birthday](#birthday) | `string` | Optional |  |  (this schema) |
 | [phone](#phone) | Phone | **Required** |  |  (this schema) |
-| [email](#email) | `string` | Optional |  |  (this schema) |
+| [email](#email) | `string[]` | Optional |  |  (this schema) |
 | [fromSms](#fromsms) | `boolean` | Optional | `false` |  (this schema) |
 | [sex](#sex) | `enum` | Optional |  |  (this schema) |
 | [creatorProfileID](#creatorprofileid) | `string` | Optional |  |  (this schema) |
@@ -26,7 +26,6 @@
 | [driverLicense](#driverlicense) | `string` | Optional |  |  (this schema) |
 | [taxiPark](#taxipark) | `string` | Optional |  |  (this schema) |
 | [taxiParkMemberCount](#taxiparkmembercount) | `number` | Optional |  |  (this schema) |
-| [fullAddress](#fulladdress) | `string` | Optional |  |  (this schema) |
 | `*` | any | Additional | this schema *allows* additional properties |
 
 ## birthday
@@ -107,13 +106,20 @@
 
 `email`
 * is optional
-* type: `string`
+* type: `string[]`
+
 * defined in this schema
 
 ### email type
 
 
+Array type: `string[]`
+
+All items must be of the type:
 `string`
+
+
+
 
 
 
@@ -133,24 +139,6 @@
 
 
 `boolean`
-
-
-
-
-
-## fullAddress
-
-
-`fullAddress`
-* is optional
-* type: `string`
-* defined in this schema
-
-### fullAddress type
-
-
-`string`
-
 
 
 

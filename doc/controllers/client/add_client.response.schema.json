@@ -62,7 +62,42 @@
             "type": "object",
             "properties": {
                 "result": {
-                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json"
+                    "type": "object",
+                    "required": [
+                        "client"
+                    ],
+                    "properties": {
+                        "client": {
+                            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json"
+                        },
+                        "business": {
+                            "type": "object",
+                            "required": [
+                                "id"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "documents": {
+                            "type": "array"
+                        },
+                        "profile": {
+                            "type": "object",
+                            "required": [
+                                "id"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
                 }
             },
             "required": [

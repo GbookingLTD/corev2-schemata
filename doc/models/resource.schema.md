@@ -31,6 +31,7 @@
 | [extraDescription](#extradescription) | `string` | Optional | Resource (this schema) |
 | [extraLink](#extralink) | `string` | Optional | Resource (this schema) |
 | [extraId](#extraid) | `string` | Optional | Resource (this schema) |
+| [siteId](#siteid) | `string` | Optional | Resource (this schema) |
 | [additionalExtraId](#additionalextraid) | `string[]` | Optional | Resource (this schema) |
 | [extraMediaId](#extramediaid) | `string` | Optional | Resource (this schema) |
 | [departmentId](#departmentid) | `string` | Optional | Resource (this schema) |
@@ -904,6 +905,25 @@ e-mail профиля работника
 
 
 `boolean`
+
+
+
+
+
+## siteId
+
+информация из внешней информационной системы как есть (при интеграции)
+
+`siteId`
+* is optional
+* type: `string`
+* defined in this schema
+
+### siteId type
+
+
+`string`
+
 
 
 

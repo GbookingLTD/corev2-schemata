@@ -30,14 +30,14 @@
 ### cred type
 
 
-**All** of the following *requirements* need to be fulfilled.
+**One** of the following *conditions* need to be fulfilled.
 
 
-#### Requirement 1
+#### Condition 1
 
 
 
-#### Requirement 2
+#### Condition 2
 
 
 

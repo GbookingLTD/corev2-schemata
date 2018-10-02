@@ -11,8 +11,8 @@ json-rpc-2 запрос
 | [jsonrpc](#jsonrpc) | `const` | **Required** | Request (this schema) |
 | [id](#id) | `number` | **Required** | Request (this schema) |
 | [cred](#cred) | complex | Optional | Request (this schema) |
-| [method](#method) | `string` | Optional | Request (this schema) |
-| [params](#params) | `object` | Optional | Request (this schema) |
+| [method](#method) | `string` | **Required** | Request (this schema) |
+| [params](#params) | `object` | **Required** | Request (this schema) |
 
 ## cred
 
@@ -26,14 +26,14 @@ json-rpc-2 запрос
 ### cred type
 
 
-**All** of the following *requirements* need to be fulfilled.
+**One** of the following *conditions* need to be fulfilled.
 
 
-#### Requirement 1
+#### Condition 1
 
 
 
-#### Requirement 2
+#### Condition 2
 
 
 
@@ -84,7 +84,7 @@ The value of this property **must** be equal to:
 название json-rpc метода
 
 `method`
-* is optional
+* is **required**
 * type: `string`
 * defined in this schema
 
@@ -103,7 +103,7 @@ The value of this property **must** be equal to:
 параметры запроса
 
 `params`
-* is optional
+* is **required**
 * type: `object`
 * defined in this schema
 
