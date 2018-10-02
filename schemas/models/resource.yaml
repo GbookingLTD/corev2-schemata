@@ -138,6 +138,9 @@ properties:
   extraId:
     description: "информация из внешней информационной системы как есть (при интеграции)"
     type: "string"
+  siteId:
+    description: "информация из внешней информационной системы как есть (при интеграции)"
+    type: "string"
   additionalExtraId:
     description: "информация из внешней информационной системы как есть (при интеграции)"
     type: "array"
