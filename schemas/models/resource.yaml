@@ -105,6 +105,18 @@ properties:
   id:
     description: "внутренний идентификатор работника; уникальный во всей системе GBooking"
     type: "string"
+  originBusinessID:
+    description: "(только в витрине) идентификатор бизнеса-филиала, откуда был взят работник"
+    type: "string"
+  originTaxonomies:
+    description: "(только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет работник"
+    type: "array"
+    items:
+      type: "string"
+  origin_general_info:
+    description: "(только в витрине) объект с данными бизнеса-филиала"
+    type: "object"
+    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json"
   name:
     description: "имя работника"
     type: "string"

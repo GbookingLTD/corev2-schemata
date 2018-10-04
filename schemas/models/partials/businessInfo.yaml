@@ -1,0 +1,153 @@
+$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json"
+title: "BusinessInfo"
+description: "Содержит детальную информацию о бизнесе — название, адрес, график работы и другое"
+type: "object"
+properties:
+  revisionVersion:
+    description: ""
+    type: "number"
+  name:
+    description: "Название бизнеса"
+    type: "string"
+  address:
+    description: "Адреса компании или филиала"
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
+  email:
+    description: "Список e-mail адресов компании или филиала"
+    type: "string"
+  phone:
+    description: "Список телефонов бизнеса"
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+  mobile:
+    description: "Список телефонов бизнеса"
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+  fax:
+    description: ""
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+  timezone:
+    type: "string"
+  description:
+    description: ""
+    type: "string"
+  logo_url:
+    description: ""
+    type: ["string", "null"]
+  additionalFields:
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json"
+  contactName:
+    type: "string"
+  website:
+    type: "string"
+  timetable:
+    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+  instant_messaging:
+    type: "array"
+    items: 
+      type: "object"
+  social_network:
+    type: "array"
+    items:
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json"
+  accepted_currency:
+    type: "array"
+    items:
+      type: "string"
+      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+  paymentMethods:
+    type: "string"
+    enum: ["Visa", "Mastercard", "Amex", "PayPal", "MoneyBookers"]
+  date_joined:
+    type: "string"
+    format: "date-time"
+  additional_info:
+    type: ["string", "null"]
+  phone_mask:
+    type: ["string", "null"]
+  min_booking_time:
+    type: ["number", "null"]
+  images:
+    type: "array"
+    items:
+      type: "string"
+  metro:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      distance:
+        type: "number"
+      color:
+        type: "string"
+    required: []
+    additionalProperties: false
+  language:
+    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList"
+  networkID:
+    type: ["number", "null"]
+  autoAcceptAppointment:
+    type: "boolean"
+    default: false
+  showAppointmentTooltip:
+    type: "boolean"
+    default: false
+  showAppointmentColor:
+    type: "boolean"
+    default: false
+  newboEnabledFor:
+    type: "array"
+    items:
+      type: "string"
+  pricingType:
+    type: "string"
+    enum: ["DEFAULT", "MASTER_TOPMASTER"]
+    default: "DEFAULT"
+  schedulerTick:
+    type: "number"
+    default: 15
+  skipBilling:
+    type: "boolean"
+    default: false
+  showResourceWorkStatistics:
+    type: "boolean"
+    defaulf: false
+  showWorkerProfession:
+    type: "boolean"
+    default: false
+  verticalTranslation:
+    type: "string"
+    enum: ["NONE", "GENERIC", "MEDICAL", "BEAUTY", "FITNESS", "SPORT", "YOGA"]
+    default: "NONE"
+  smsDuplicateFilter:
+    type: "object"
+    properties:
+      active:
+        type: "boolean"
+    additionalProperties: false
+  marketingNotifications:
+    type: "object"
+    properties:
+      active:
+        type: "boolean"
+        default: false
+      accepted:
+        type: "boolean"
+        default: false
+      useSmsAlphaName:
+        type: "boolean"
+        default: false
+    required: ["active", "accepted", "useSmsAlphaName"]
+    additionalProperties: false
+  isShowcase:
+    type: "boolean"
+    default: false
+additionalProperties: false

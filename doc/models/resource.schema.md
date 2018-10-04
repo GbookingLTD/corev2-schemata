@@ -7,6 +7,7 @@
 ## Schema Hierarchy
 
 * Resource `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json`
+  * [BusinessInfo](partials/businessInfo.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json`
   * [Phone](phone.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
   * [Timetable](timetable.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
 
@@ -20,6 +21,9 @@
 | [capacity](#capacity) | `number` | **Required** | Resource (this schema) |
 | [icon_url](#icon_url) | complex | Optional | Resource (this schema) |
 | [id](#id) | `string` | **Required** | Resource (this schema) |
+| [originBusinessID](#originbusinessid) | `string` | Optional | Resource (this schema) |
+| [originTaxonomies](#origintaxonomies) | `string[]` | Optional | Resource (this schema) |
+| [origin_general_info](#origin_general_info) | BusinessInfo | Optional | Resource (this schema) |
 | [name](#name) | `string` | **Required** | Resource (this schema) |
 | [surname](#surname) | `string` | **Required** | Resource (this schema) |
 | [nickname](#nickname) | `string` | **Required** | Resource (this schema) |
@@ -683,6 +687,74 @@ undefined
 
 
 `number`
+
+
+
+
+
+
+## originBusinessID
+
+(только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+
+`originBusinessID`
+* is optional
+* type: `string`
+* defined in this schema
+
+### originBusinessID type
+
+
+`string`
+
+
+
+
+
+
+## originTaxonomies
+
+(только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет работник
+
+`originTaxonomies`
+* is optional
+* type: `string[]`
+
+* defined in this schema
+
+### originTaxonomies type
+
+
+Array type: `string[]`
+
+All items must be of the type:
+`string`
+
+
+
+
+
+
+
+
+
+## origin_general_info
+
+(только в витрине) объект с данными бизнеса-филиала
+
+`origin_general_info`
+* is optional
+* type: BusinessInfo
+* defined in this schema
+
+### origin_general_info type
+
+
+`object` with following properties:
+
+
+| Property | Type | Required |
+|----------|------|----------|
 
 
 
