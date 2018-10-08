@@ -26,8 +26,8 @@ exports.rpcRequest = function (method, data, cred, endpoint) {
 
   var req_body = {url: endpoint || defaultEndpoint, method: 'POST', json: json};
   request(req_body, function (error, result, body) {
-    if (error || (body && body.error))
-      defer.reject(error || (body && body.error));
+    if (error || body && body.error)
+      defer.reject(error || body && body.error);
     else
       defer.resolve(body);
   });

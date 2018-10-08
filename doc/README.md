@@ -28,9 +28,10 @@
 * [business.get_profile_by_id.request](./doc//controllers/business/get_profile_by_id.request.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.request.schema.json` (Unknown)
 * [business.get_profile_by_id.response](./doc//controllers/business/get_profile_by_id.response.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json` (Unknown)
 
-## /common/partials/
+## /controllers/client/
 
-* [authErrorCodes](./doc//common/partials/authErrorCodes.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml` (Unknown)
+* [client.add_client.request](./doc//controllers/client/add_client.request.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/client/add_client.request.schema.json` (Unknown)
+* [client.add_client.response](./doc//controllers/client/add_client.response.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
 
 ## /models/partials/
 
@@ -40,8 +41,7 @@
 * [](./doc//models/partials/language.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json` (Unknown)
 * [](./doc//models/partials/taxonomyType.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json` (Unknown)
 
-## /controllers/client/
+## /common/partials/
 
-* [client.add_client.request](./doc//controllers/client/add_client.request.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/client/add_client.request.schema.json` (Unknown)
-* [client.add_client.response](./doc//controllers/client/add_client.response.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
+* [authErrorCodes](./doc//common/partials/authErrorCodes.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml` (Unknown)
 
