@@ -46,6 +46,10 @@ definitions:
             description: "дата окончания расписания, для которого нужно получить скидочные акции"
             type: "string"
             format: "date-time"
+          desktop_discounts:
+            description: "если указано true - меняет формат представления discounts"
+            type: "boolean"
+            default: false
     
           # Скидочные купоны
           with_campaigns:
