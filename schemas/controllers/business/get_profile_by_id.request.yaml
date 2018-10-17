@@ -73,6 +73,10 @@ definitions:
               most_free: "по дате ближайшего приёма"
               none: "не переопределять порядок сортировки, установленный в БекОфисе"
             default: "none"
+          skip_worker_sorting:
+            description: "если указано true - не приминяет сортировку работников"
+            type: "boolean"
+            default: false
     
           # Фильтрация работников
           show_inactive_workers:
