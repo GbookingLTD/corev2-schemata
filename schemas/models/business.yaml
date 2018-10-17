@@ -516,6 +516,9 @@ definitions:
       showClientPayment:
         type: "boolean"
         default: false
+      showExtraClientInfo:
+        type: "boolean"
+        default: false
       showUTM:
         type: "boolean"
         default: false
