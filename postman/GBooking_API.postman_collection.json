@@ -436,6 +436,31 @@
 						"description": "Роль доступа: __admin__."
 					},
 					"response": []
+				},
+				{
+					"name": "Получение списка записей по бизнесу",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"jsonrpc\":\"2.0\",\r\n   \"id\":1,\r\n   \"cred\":{\r\n   \t \"user\": \"{{UserID}}\",\r\n   \t \"token\": \"{{Token}}\"\r\n   },\r\n   \"method\":\"appointment.get_appointment_by_filter\",\r\n   \"params\":{\r\n      \"business\":{\r\n         \"id\":\"{{BusinessID}}\"\r\n      },\r\n      \"network\": {\r\n      \t\"id\": \"{{NetworkID}}\"\r\n      },\r\n      \"extraFilters\": {\r\n      \t\"sort\": [{\r\n      \t\t\"dir\":\"desc\",\r\n      \t\t\"field\":\"created\"\r\n      \t}]\r\n      },\r\n      \"pageSize\": 100500,\r\n      \"page\": 1,\r\n      \"skipBusinessCancelled\": true,\r\n      \"filter\": {\r\n      \t\"start\": \"2018-11-01T00:00:00\",\r\n      \t\"end\": \"2018-11-07T23:59:59\",\r\n      \t\"created\": {\r\n      \t\t\"start\": \"2018-11-01T00:00:00\",\r\n\t      \t\"end\": \"2018-11-07T23:59:59\"\r\n      \t},\r\n      \t\"skipUpdated\": false,\r\n      \t\"services\": [],\r\n      \t\"workers\": []\r\n      }\r\n   }\r\n}"
+						},
+						"url": {
+							"raw": "{{RPC_URL}}",
+							"host": [
+								"{{RPC_URL}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Бронирование записи на услугу разделена на 2 этапа — резервирование и подтверждение записи. При резервировании временной слот бронируется на некоторое непродолжительное время (~5 минут). За это время пользователь должен успеть записаться или в случае, если время истекло, повторить резервирование. На 2-м шаге (подтверждение записи) пользователь вводит свои данные в поле ввода и нажимает кнопку подтвердить. При успешном ответе запись становится постоянной.\n\n\n_Последовательность запросов для передачи записи показана на схеме:_\n\n![Appointment reservation schema](https://lh3.googleusercontent.com/Sp72irX0p-HW-_xusxuqOQUmztc6EhR9X0qXr9i4lGzhFl42NzwaJ8DnenfYChGZgMrRd7FGX9ZnCc8Q9Q2uOUgkRLd8-6yTENrRuKQEz7tILrXTuaYYqVU4pgUUFouX-jymlBrG)",
