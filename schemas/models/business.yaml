@@ -510,9 +510,6 @@ definitions:
       showClientAppear:
         type: "boolean"
         default: false
-      showExtraClientInfo:
-        type: "boolean"
-        default: false
       skipCancelIfClientNotAppear:
         type: "boolean"
         default: false
