@@ -139,6 +139,9 @@ properties:
         type: "string"
         enum: ["DEFAULT", "EVENODD"]
         default: "DEFAULT"
+      enableMasterImportance:
+        type: "boolean"
+        default: false
       
 required:
 - "general_info"
