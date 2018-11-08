@@ -510,6 +510,9 @@ definitions:
       showClientAppear:
         type: "boolean"
         default: false
+      showExtraClientInfo:
+        type: "boolean"
+        default: false
       skipCancelIfClientNotAppear:
         type: "boolean"
         default: false
@@ -612,6 +615,9 @@ definitions:
         type: "boolean"
         default: false
       disableAppointmentClientInlineEditor:
+        type: "boolean"
+        default: false
+      enableMasterImportance:
         type: "boolean"
         default: false
       enableClientCard:
