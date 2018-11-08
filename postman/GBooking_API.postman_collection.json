@@ -412,6 +412,30 @@
 						"description": "Роль доступа: __guest__."
 					},
 					"response": []
+				},
+				{
+					"name": "Получение списка записей по витрине",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"jsonrpc\":\"2.0\",\r\n   \"id\":1,\r\n   \"cred\":{\r\n   \t \"user\": \"{{UserID}}\",\r\n   \t \"token\": \"{{Token}}\"\r\n   },\r\n   \"method\":\"appointment.get_appointment_by_showcase\",\r\n   \"params\":{\r\n      \"business\":{\r\n         \"id\":\"{{BusinessID}}\"\r\n      },\r\n      \"pageSize\": 100500,\r\n      \"page\": 1,\r\n      \"source\": \"{{Source}}\",\r\n      \"created\": {\r\n      \t\"from\": \"2018-10-01T00:00:00\",\r\n      \t\"to\": \"2018-11-01T00:00:00\"\r\n      }\r\n   }\r\n}"
+						},
+						"url": {
+							"raw": "{{RPC_URL}}",
+							"host": [
+								"{{RPC_URL}}"
+							]
+						},
+						"description": "Роль доступа: __admin__."
+					},
+					"response": []
 				}
 			],
 			"description": "Бронирование записи на услугу разделена на 2 этапа — резервирование и подтверждение записи. При резервировании временной слот бронируется на некоторое непродолжительное время (~5 минут). За это время пользователь должен успеть записаться или в случае, если время истекло, повторить резервирование. На 2-м шаге (подтверждение записи) пользователь вводит свои данные в поле ввода и нажимает кнопку подтвердить. При успешном ответе запись становится постоянной.\n\n\n_Последовательность запросов для передачи записи показана на схеме:_\n\n![Appointment reservation schema](https://lh3.googleusercontent.com/Sp72irX0p-HW-_xusxuqOQUmztc6EhR9X0qXr9i4lGzhFl42NzwaJ8DnenfYChGZgMrRd7FGX9ZnCc8Q9Q2uOUgkRLd8-6yTENrRuKQEz7tILrXTuaYYqVU4pgUUFouX-jymlBrG)",
@@ -640,6 +664,27 @@
 				},
 				{
 					"name": "Постраничная загрузка работников",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a7088b18-e29c-4a6f-9010-ce088a5056d1",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    console.error('processing');",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"    var data = pm.response.json();",
+									"   _.sortBy(data.result, (r) => r.order).forEach((r) => {",
+									"     console.log(r.id + '|' + r.name + ' ' + r.surname);",
+									"   });",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -650,7 +695,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"jsonrpc\":\"2.0\",\n   \"id\":1,\n   \"cred\":{\n      \"token\":\"{{Token}}\",\n      \"user\":\"{{UserID}}\"\n   },\n   \"method\":\"resource.get_showcase_resources\",\n   \"params\":{\n   \t  \"page\": 0,\n   \t  \"pageSize\": 100500,\n   \t  \"workerSortingType\": \"workload\",\n   \t  \"business\": {\n   \t  \t\"id\":\"{{BusinessID}}\"\n   \t  },\n   \t  \"taxonomy\": {\n   \t  \t\"id\": \"9175160\"\n   \t  }\n   }\n}"
+							"raw": "{\n   \"jsonrpc\":\"2.0\",\n   \"id\":1,\n   \"cred\":{\n      \"token\":\"{{Token}}\",\n      \"user\":\"{{UserID}}\"\n   },\n   \"method\":\"resource.get_showcase_resources\",\n   \"params\":{\n   \t  \"page\": 0,\n   \t  \"pageSize\": 100500,\n   \t  \"worker_sorting_type\": \"workload\",\n   \t  \"business\": {\n   \t  \t\"id\":\"{{BusinessID}}\"\n   \t  },\n   \t  \"taxonomy\": {\n   \t  \t\"id\": \"9165602\"\n   \t  }\n   }\n}"
 						},
 						"url": {
 							"raw": "{{RPC_URL}}",
