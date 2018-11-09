@@ -12,7 +12,6 @@ properties:
     type: "string"
   birthday:
     type: "string"
-    format: "date-time"
   phone:
     $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
   email:
