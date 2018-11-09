@@ -20,7 +20,7 @@ properties:
     items:
       type: "string"
   fromSms:
-    type: "boolean"
+    type: ["boolean","string"]
     default: false
   sex:
     type: "string"
