@@ -653,7 +653,10 @@ definitions:
       editTaxonomyVisitType:
         type: "boolean"
         default: false
-        
+      finId:
+        type: "string"
+      finName:
+        type: "string"
         
         
         
