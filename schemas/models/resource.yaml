@@ -170,6 +170,9 @@ properties:
   order:
     description: "индекс сортировки работника"
     type: "number"
+  color:
+    description: "цвет колонки с работником"
+    type: "string"
   profile:
     $ref: "#/definitions/ResourceProfile"
   taxonomies:
