@@ -206,6 +206,9 @@ definitions:
         description: "Значение цены, с учётом промо акций"
         type: "string"
         default: "0"
+      siteId:
+        description: "Внешний идентификатор таксономии"
+        type: "string"
       type:
         description: "Тип цены"
         type: "string"
