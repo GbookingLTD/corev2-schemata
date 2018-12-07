@@ -204,7 +204,7 @@ definitions:
         default: "0"
       stockAmount:
         description: "Значение цены, с учётом промо акций"
-        type: "string"
+        type: ["string", "null"]
         default: "0"
       type:
         description: "Тип цены"
