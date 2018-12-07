@@ -27,13 +27,13 @@ properties:
 
   # Я.Такси
   creatorProfileID:
-    type: ["string", "null", ""]
+    type: ["string", "null"]
   creatorProfileName:
-    type: ["string", "null", ""]
+    type: ["string", "null"]
   driverLicense:
-    type: ["string", "null", ""]
+    type: ["string", "null"]
   taxiPark:
-    type: ["string", "null", ""]
+    type: ["string", "null"]
   taxiParkMemberCount:
     type: ["number", "null", ""]
 
