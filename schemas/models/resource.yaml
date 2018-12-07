@@ -237,7 +237,7 @@ properties:
     definition: "Флаг того что ресурс работает, но не доступен для онлайн записи"
     type: "boolean"
   orderWeight:
-    type: ["number", "null"]
+    type: ["number", "null", "object"]
 required:
   - "revisionVersion"
   - "capacity"
