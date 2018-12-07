@@ -35,6 +35,6 @@ properties:
   taxiPark:
     type: ["string", "null"]
   taxiParkMemberCount:
-    type: ["number", "null", ""]
+    type: ["number", "null", "string"]
 
 
