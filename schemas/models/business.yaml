@@ -447,6 +447,9 @@ definitions:
       skipServiceFiltering:
         type: "boolean"
         default: false
+      skipAppointmentPriceUpdate:
+        type: "boolean"
+        default: false
       showManualChanges:
         type: "boolean"
         default: false
