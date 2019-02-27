@@ -878,6 +878,13 @@ definitions:
         type: "array"
         items:
           type: "string"
+      skipWorkerServicesSelection:
+        type: "boolean"
+        default: false
+      skipWorkerSelectedServiceIDs:
+        type: "array"
+        items:
+          type: "string"
       requireAgreement:
         type: "boolean"
         default: false
