@@ -1,0 +1,17 @@
+site_name: GBooking API Reference
+site_description: Руководство для разработчиков по работе с системой онлайн-записи GBooking
+site_author: Vitaly Sverchkov
+site_url: http://docs.gbooking.ru/
+
+theme:
+  language: 'ru'
+  name: 'material'
+
+extra:
+  search:
+    language: 'en, ru'
+
+
+markdown_extensions:
+  - codehilite
+

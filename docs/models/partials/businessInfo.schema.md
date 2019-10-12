@@ -1,1068 +1,731 @@
-
 # BusinessInfo Schema
+
+```
+http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json
+```
 
 Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
 
+| Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                           |
+| ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | -------------------------------------------------------------------- |
+| Can be instantiated | No         | Experimental | No           | Forbidden         | Forbidden             | [models/partials/businessInfo.schema.json](businessInfo.schema.json) |
 
 ## Schema Hierarchy
 
-* BusinessInfo `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json`
-  * [Timetable](../timetable.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
-  * [language.schema](language.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json`
+- BusinessInfo `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json`
+  - [Timetable](../timetable.schema.md)
+    `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
+  - [language.schema](language.schema.md)
+    `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json`
 
+# BusinessInfo Properties
 
-
-| Property | Type | Required | Default |
-|----------|------|----------|---------|
-| [revisionVersion](#revisionversion) | `number` | Optional |  | BusinessInfo (this schema) |
-| [name](#name) | `string` | Optional |  | BusinessInfo (this schema) |
-| [address](#address) | address.schema | Optional |  | BusinessInfo (this schema) |
-| [email](#email) | `string` | Optional |  | BusinessInfo (this schema) |
-| [phone](#phone) | Phone | Optional |  | BusinessInfo (this schema) |
-| [mobile](#mobile) | Phone | Optional |  | BusinessInfo (this schema) |
-| [fax](#fax) | Phone | Optional |  | BusinessInfo (this schema) |
-| [timezone](#timezone) | `string` | Optional |  | BusinessInfo (this schema) |
-| [description](#description) | `string` | Optional |  | BusinessInfo (this schema) |
-| [logo_url](#logo_url) | complex | Optional |  | BusinessInfo (this schema) |
-| [additionalFields](#additionalfields) | AdditionalFields | Optional |  | BusinessInfo (this schema) |
-| [contactName](#contactname) | `string` | Optional |  | BusinessInfo (this schema) |
-| [website](#website) | `string` | Optional |  | BusinessInfo (this schema) |
-| [timetable](#timetable) | Timetable | Optional |  | BusinessInfo (this schema) |
-| [instant_messaging](#instant_messaging) | `object[]` | Optional |  | BusinessInfo (this schema) |
-| [social_network](#social_network) | socialNetwork.schema | Optional |  | BusinessInfo (this schema) |
-| [accepted_currency](#accepted_currency) | `reference[]` | Optional |  | BusinessInfo (this schema) |
-| [paymentMethods](#paymentmethods) | `enum` | Optional |  | BusinessInfo (this schema) |
-| [date_joined](#date_joined) | `string` | Optional |  | BusinessInfo (this schema) |
-| [additional_info](#additional_info) | complex | Optional |  | BusinessInfo (this schema) |
-| [phone_mask](#phone_mask) | complex | Optional |  | BusinessInfo (this schema) |
-| [min_booking_time](#min_booking_time) | complex | Optional |  | BusinessInfo (this schema) |
-| [images](#images) | `string[]` | Optional |  | BusinessInfo (this schema) |
-| [metro](#metro) | `object` | Optional |  | BusinessInfo (this schema) |
-| [language](#language) | `enum` | Optional |  | BusinessInfo (this schema) |
-| [networkID](#networkid) | complex | Optional |  | BusinessInfo (this schema) |
-| [autoAcceptAppointment](#autoacceptappointment) | `boolean` | Optional | `false` | BusinessInfo (this schema) |
-| [showAppointmentTooltip](#showappointmenttooltip) | `boolean` | Optional | `false` | BusinessInfo (this schema) |
-| [showAppointmentColor](#showappointmentcolor) | `boolean` | Optional | `false` | BusinessInfo (this schema) |
-| [newboEnabledFor](#newboenabledfor) | `string[]` | Optional |  | BusinessInfo (this schema) |
-| [pricingType](#pricingtype) | `enum` | Optional | `"DEFAULT"` | BusinessInfo (this schema) |
-| [schedulerTick](#schedulertick) | `number` | Optional | `15` | BusinessInfo (this schema) |
-| [skipBilling](#skipbilling) | `boolean` | Optional | `false` | BusinessInfo (this schema) |
-| [showResourceWorkStatistics](#showresourceworkstatistics) | `boolean` | Optional |  | BusinessInfo (this schema) |
-| [showWorkerProfession](#showworkerprofession) | `boolean` | Optional | `false` | BusinessInfo (this schema) |
-| [verticalTranslation](#verticaltranslation) | `enum` | Optional | `"NONE"` | BusinessInfo (this schema) |
-| [smsDuplicateFilter](#smsduplicatefilter) | `object` | Optional |  | BusinessInfo (this schema) |
-| [marketingNotifications](#marketingnotifications) | `object` | Optional |  | BusinessInfo (this schema) |
-| [isShowcase](#isshowcase) | `boolean` | Optional | `false` | BusinessInfo (this schema) |
+| Property                                                  | Type                 | Required | Nullable | Default     | Defined by                 |
+| --------------------------------------------------------- | -------------------- | -------- | -------- | ----------- | -------------------------- |
+| [accepted_currency](#accepted_currency)                   | reference            | Optional | No       |             | BusinessInfo (this schema) |
+| [additionalFields](#additionalfields)                     | AdditionalFields     | Optional | No       |             | BusinessInfo (this schema) |
+| [additional_info](#additional_info)                       | `string`             | Optional | Yes      |             | BusinessInfo (this schema) |
+| [address](#address)                                       | address.schema       | Optional | No       |             | BusinessInfo (this schema) |
+| [autoAcceptAppointment](#autoacceptappointment)           | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [contactName](#contactname)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
+| [date_joined](#date_joined)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
+| [description](#description)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
+| [email](#email)                                           | `string`             | Optional | No       |             | BusinessInfo (this schema) |
+| [fax](#fax)                                               | Phone                | Optional | No       |             | BusinessInfo (this schema) |
+| [images](#images)                                         | `string[]`           | Optional | No       |             | BusinessInfo (this schema) |
+| [instant_messaging](#instant_messaging)                   | `object[]`           | Optional | No       |             | BusinessInfo (this schema) |
+| [isShowcase](#isshowcase)                                 | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [language](#language)                                     | `enum`               | Optional | No       |             | BusinessInfo (this schema) |
+| [logo_url](#logo_url)                                     | `string`             | Optional | Yes      |             | BusinessInfo (this schema) |
+| [marketingNotifications](#marketingnotifications)         | `object`             | Optional | No       |             | BusinessInfo (this schema) |
+| [metro](#metro)                                           | `object`             | Optional | No       |             | BusinessInfo (this schema) |
+| [min_booking_time](#min_booking_time)                     | `number`             | Optional | Yes      |             | BusinessInfo (this schema) |
+| [mobile](#mobile)                                         | Phone                | Optional | No       |             | BusinessInfo (this schema) |
+| [name](#name)                                             | `string`             | Optional | No       |             | BusinessInfo (this schema) |
+| [networkID](#networkid)                                   | `number`             | Optional | Yes      |             | BusinessInfo (this schema) |
+| [newboEnabledFor](#newboenabledfor)                       | `string[]`           | Optional | No       |             | BusinessInfo (this schema) |
+| [paymentMethods](#paymentmethods)                         | `enum`               | Optional | No       |             | BusinessInfo (this schema) |
+| [phone](#phone)                                           | Phone                | Optional | No       |             | BusinessInfo (this schema) |
+| [phone_mask](#phone_mask)                                 | `string`             | Optional | Yes      |             | BusinessInfo (this schema) |
+| [pricingType](#pricingtype)                               | `enum`               | Optional | No       | `"DEFAULT"` | BusinessInfo (this schema) |
+| [revisionVersion](#revisionversion)                       | `number`             | Optional | No       |             | BusinessInfo (this schema) |
+| [schedulerTick](#schedulertick)                           | `number`             | Optional | No       | `15`        | BusinessInfo (this schema) |
+| [showAppointmentColor](#showappointmentcolor)             | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [showAppointmentTooltip](#showappointmenttooltip)         | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [showResourceWorkStatistics](#showresourceworkstatistics) | `boolean`            | Optional | No       |             | BusinessInfo (this schema) |
+| [showWorkerProfession](#showworkerprofession)             | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [skipBilling](#skipbilling)                               | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [smsDuplicateFilter](#smsduplicatefilter)                 | `object`             | Optional | No       |             | BusinessInfo (this schema) |
+| [social_network](#social_network)                         | socialNetwork.schema | Optional | No       |             | BusinessInfo (this schema) |
+| [timetable](#timetable)                                   | Timetable            | Optional | No       |             | BusinessInfo (this schema) |
+| [timezone](#timezone)                                     | `string`             | Optional | No       |             | BusinessInfo (this schema) |
+| [verticalTranslation](#verticaltranslation)               | `enum`               | Optional | No       | `"NONE"`    | BusinessInfo (this schema) |
+| [website](#website)                                       | `string`             | Optional | No       |             | BusinessInfo (this schema) |
 
 ## accepted_currency
 
-
 `accepted_currency`
-* is optional
-* type: `reference[]`
 
-* defined in this schema
+- is optional
+- type: reference
+- defined in this schema
 
-### accepted_currency type
+### accepted_currency Type
 
+Array type: reference
 
-Array type: `reference[]`
+All items must be of the type: `string`
 
-All items must be of the type:
-`string`
-
-
-
-  
 Аббревиатура валюты
-
-
-
-
-
-
 
 ## additionalFields
 
-
 `additionalFields`
-* is optional
-* type: AdditionalFields
 
-* defined in this schema
+- is optional
+- type: AdditionalFields
+- defined in this schema
 
-### additionalFields type
-
+### additionalFields Type
 
 Array type: AdditionalFields
 
 All items must be of the type:
 
-* [AdditionalFields](../additionalField.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json`
-
-
-
-
-
-
-
+- [AdditionalFields](../additionalField.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json`
 
 ## additional_info
 
-
 `additional_info`
-* is optional
-* type: complex
-* defined in this schema
 
-### additional_info type
+- is optional
+- type: `string`
+- defined in this schema
 
-Unknown type `string,null`.
+### additional_info Type
 
-```json
-{
-  "type": [
-    "string",
-    "null"
-  ],
-  "simpletype": "complex"
-}
-```
-
-
-
-
+`string`, nullable
 
 ## address
 
 Адреса компании или филиала
 
 `address`
-* is optional
-* type: address.schema
 
-* defined in this schema
+- is optional
+- type: address.schema
+- defined in this schema
 
-### address type
-
+### address Type
 
 Array type: address.schema
 
 All items must be of the type:
 
-* [address.schema](../address.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json`
-
-
-
-
-
-
-
+- [address.schema](../address.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json`
 
 ## autoAcceptAppointment
 
-
 `autoAcceptAppointment`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### autoAcceptAppointment type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### autoAcceptAppointment Type
 
 `boolean`
 
-
-
-
-
 ## contactName
 
-
 `contactName`
-* is optional
-* type: `string`
-* defined in this schema
 
-### contactName type
+- is optional
+- type: `string`
+- defined in this schema
 
+### contactName Type
 
 `string`
-
-
-
-
-
 
 ## date_joined
 
-
 `date_joined`
-* is optional
-* type: `string`
-* defined in this schema
 
-### date_joined type
+- is optional
+- type: `string`
+- defined in this schema
 
+### date_joined Type
 
 `string`
-* format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
-
-
-
-
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 ## description
 
-
 `description`
-* is optional
-* type: `string`
-* defined in this schema
 
-### description type
+- is optional
+- type: `string`
+- defined in this schema
 
+### description Type
 
 `string`
-
-
-
-
-
 
 ## email
 
 Список e-mail адресов компании или филиала
 
 `email`
-* is optional
-* type: `string`
-* defined in this schema
 
-### email type
+- is optional
+- type: `string`
+- defined in this schema
 
+### email Type
 
 `string`
 
-
-
-
-
-
 ## fax
 
-
 `fax`
-* is optional
-* type: Phone
 
-* defined in this schema
+- is optional
+- type: Phone
+- defined in this schema
 
-### fax type
-
+### fax Type
 
 Array type: Phone
 
 All items must be of the type:
 
-* [Phone](../phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
-
-
-
-
-
-
-
+- [Phone](../phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
 
 ## images
 
-
 `images`
-* is optional
-* type: `string[]`
 
-* defined in this schema
+- is optional
+- type: `string[]`
+- defined in this schema
 
-### images type
-
+### images Type
 
 Array type: `string[]`
 
-All items must be of the type:
-`string`
-
-
-
-
-
-
-
-
+All items must be of the type: `string`
 
 ## instant_messaging
 
-
 `instant_messaging`
-* is optional
-* type: `object[]`
 
-* defined in this schema
+- is optional
+- type: `object[]`
+- defined in this schema
 
-### instant_messaging type
-
+### instant_messaging Type
 
 Array type: `object[]`
 
-All items must be of the type:
-`object` with following properties:
-
+All items must be of the type: `object` with following properties:
 
 | Property | Type | Required |
-|----------|------|----------|
-
-
-
-
-
-
+| -------- | ---- | -------- |
 
 
 ## isShowcase
 
-
 `isShowcase`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### isShowcase type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### isShowcase Type
 
 `boolean`
 
-
-
-
-
 ## language
 
-
 `language`
-* is optional
-* type: `enum`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#language-known-values).
 
 ### language Known Values
-| Value | Description |
-|-------|-------------|
-| `en-us` |  |
-| `ru-ru` |  |
-| `he-il` |  |
-| `fr-fr` |  |
-| `hu-hu` |  |
-| `ee-ee` |  |
-| `lv-lv` |  |
-| `lt-lt` |  |
-| `de-de` |  |
-| `zh-cn` |  |
-| `fi-fi` |  |
-| `am-am` |  |
-| `es-es` |  |
-| `ge-ge` |  |
-| `uz-uz` |  |
 
-
-
+| Value   | Description |
+| ------- | ----------- |
+| `en-us` |             |
+| `ru-ru` |             |
+| `he-il` |             |
+| `fr-fr` |             |
+| `hu-hu` |             |
+| `ee-ee` |             |
+| `lv-lv` |             |
+| `lt-lt` |             |
+| `de-de` |             |
+| `zh-cn` |             |
+| `fi-fi` |             |
+| `am-am` |             |
+| `es-es` |             |
+| `ge-ge` |             |
+| `uz-uz` |             |
 
 ## logo_url
 
-
 `logo_url`
-* is optional
-* type: complex
-* defined in this schema
 
-### logo_url type
+- is optional
+- type: `string`
+- defined in this schema
 
-Unknown type `string,null`.
+### logo_url Type
 
-```json
-{
-  "description": "",
-  "type": [
-    "string",
-    "null"
-  ],
-  "simpletype": "complex"
-}
-```
-
-
-
-
+`string`, nullable
 
 ## marketingNotifications
 
-
 `marketingNotifications`
-* is optional
-* type: `object`
-* defined in this schema
 
-### marketingNotifications type
+- is optional
+- type: `object`
+- defined in this schema
 
+### marketingNotifications Type
 
 `object` with following properties:
 
-
-| Property | Type | Required | Default |
-|----------|------|----------|---------|
-| `active`| boolean | **Required** | `false` |
-| `accepted`| boolean | **Required** | `false` |
-| `useSmsAlphaName`| boolean | **Required** | `false` |
-
-
+| Property          | Type    | Required     | Default |
+| ----------------- | ------- | ------------ | ------- |
+| `accepted`        | boolean | **Required** | `false` |
+| `active`          | boolean | **Required** | `false` |
+| `useSmsAlphaName` | boolean | **Required** | `false` |
 
 #### accepted
 
-undefined
-
 `accepted`
-* is **required**
-* type: `boolean`
-* default: `false`
 
+- is **required**
+- type: `boolean`
+- default: `false`
 
-##### accepted type
-
+##### accepted Type
 
 `boolean`
-
-
-
-
-
-
 
 #### active
 
-undefined
-
 `active`
-* is **required**
-* type: `boolean`
-* default: `false`
 
+- is **required**
+- type: `boolean`
+- default: `false`
 
-##### active type
-
+##### active Type
 
 `boolean`
-
-
-
-
-
-
 
 #### useSmsAlphaName
 
-undefined
-
 `useSmsAlphaName`
-* is **required**
-* type: `boolean`
-* default: `false`
 
+- is **required**
+- type: `boolean`
+- default: `false`
 
-##### useSmsAlphaName type
-
+##### useSmsAlphaName Type
 
 `boolean`
 
-
-
-
-
-
-
-
-
-
 ## metro
 
-
 `metro`
-* is optional
-* type: `object`
-* defined in this schema
 
-### metro type
+- is optional
+- type: `object`
+- defined in this schema
 
+### metro Type
 
 `object` with following properties:
 
-
-| Property | Type | Required |
-|----------|------|----------|
-| `name`| string | Optional |
-| `distance`| number | Optional |
-| `color`| string | Optional |
-
-
+| Property   | Type   | Required |
+| ---------- | ------ | -------- |
+| `color`    | string | Optional |
+| `distance` | number | Optional |
+| `name`     | string | Optional |
 
 #### color
 
-undefined
-
 `color`
-* is optional
-* type: `string`
 
-##### color type
+- is optional
+- type: `string`
 
+##### color Type
 
 `string`
-
-
-
-
-
-
-
 
 #### distance
 
-undefined
-
 `distance`
-* is optional
-* type: `number`
 
-##### distance type
+- is optional
+- type: `number`
 
+##### distance Type
 
 `number`
 
-
-
-
-
-
-
-
 #### name
 
-undefined
-
 `name`
-* is optional
-* type: `string`
 
-##### name type
+- is optional
+- type: `string`
 
+##### name Type
 
 `string`
 
-
-
-
-
-
-
-
-
-
-
 ## min_booking_time
 
-
 `min_booking_time`
-* is optional
-* type: complex
-* defined in this schema
 
-### min_booking_time type
+- is optional
+- type: `number`
+- defined in this schema
 
-Unknown type `number,null`.
+### min_booking_time Type
 
-```json
-{
-  "type": [
-    "number",
-    "null"
-  ],
-  "simpletype": "complex"
-}
-```
-
-
-
-
+`number`, nullable
 
 ## mobile
 
 Список телефонов бизнеса
 
 `mobile`
-* is optional
-* type: Phone
 
-* defined in this schema
+- is optional
+- type: Phone
+- defined in this schema
 
-### mobile type
-
+### mobile Type
 
 Array type: Phone
 
 All items must be of the type:
 
-* [Phone](../phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
-
-
-
-
-
-
-
+- [Phone](../phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
 
 ## name
 
 Название бизнеса
 
 `name`
-* is optional
-* type: `string`
-* defined in this schema
 
-### name type
+- is optional
+- type: `string`
+- defined in this schema
 
+### name Type
 
 `string`
-
-
-
-
-
 
 ## networkID
 
-
 `networkID`
-* is optional
-* type: complex
-* defined in this schema
 
-### networkID type
+- is optional
+- type: `number`
+- defined in this schema
 
-Unknown type `number,null`.
+### networkID Type
 
-```json
-{
-  "type": [
-    "number",
-    "null"
-  ],
-  "simpletype": "complex"
-}
-```
-
-
-
-
+`number`, nullable
 
 ## newboEnabledFor
 
-
 `newboEnabledFor`
-* is optional
-* type: `string[]`
 
-* defined in this schema
+- is optional
+- type: `string[]`
+- defined in this schema
 
-### newboEnabledFor type
-
+### newboEnabledFor Type
 
 Array type: `string[]`
 
-All items must be of the type:
-`string`
-
-
-
-
-
-
-
-
+All items must be of the type: `string`
 
 ## paymentMethods
 
-
 `paymentMethods`
-* is optional
-* type: `enum`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#paymentmethods-known-values).
 
 ### paymentMethods Known Values
-| Value | Description |
-|-------|-------------|
-| `Visa` |  |
-| `Mastercard` |  |
-| `Amex` |  |
-| `PayPal` |  |
-| `MoneyBookers` |  |
 
-
-
+| Value          | Description |
+| -------------- | ----------- |
+| `Visa`         |             |
+| `Mastercard`   |             |
+| `Amex`         |             |
+| `PayPal`       |             |
+| `MoneyBookers` |             |
 
 ## phone
 
 Список телефонов бизнеса
 
 `phone`
-* is optional
-* type: Phone
 
-* defined in this schema
+- is optional
+- type: Phone
+- defined in this schema
 
-### phone type
-
+### phone Type
 
 Array type: Phone
 
 All items must be of the type:
 
-* [Phone](../phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
-
-
-
-
-
-
-
+- [Phone](../phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
 
 ## phone_mask
 
-
 `phone_mask`
-* is optional
-* type: complex
-* defined in this schema
 
-### phone_mask type
+- is optional
+- type: `string`
+- defined in this schema
 
-Unknown type `string,null`.
+### phone_mask Type
 
-```json
-{
-  "type": [
-    "string",
-    "null"
-  ],
-  "simpletype": "complex"
-}
-```
-
-
-
-
+`string`, nullable
 
 ## pricingType
 
-
 `pricingType`
-* is optional
-* type: `enum`
-* default: `"DEFAULT"`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- default: `"DEFAULT"`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#pricingtype-known-values).
 
 ### pricingType Known Values
-| Value | Description |
-|-------|-------------|
-| `DEFAULT` |  |
-| `MASTER_TOPMASTER` |  |
 
-
-
+| Value              | Description |
+| ------------------ | ----------- |
+| `DEFAULT`          |             |
+| `MASTER_TOPMASTER` |             |
 
 ## revisionVersion
 
-
 `revisionVersion`
-* is optional
-* type: `number`
-* defined in this schema
 
-### revisionVersion type
+- is optional
+- type: `number`
+- defined in this schema
 
+### revisionVersion Type
 
 `number`
-
-
-
-
-
 
 ## schedulerTick
 
-
 `schedulerTick`
-* is optional
-* type: `number`
-* default: `15`
-* defined in this schema
 
-### schedulerTick type
+- is optional
+- type: `number`
+- default: `15`
+- defined in this schema
 
+### schedulerTick Type
 
 `number`
 
-
-
-
-
-
 ## showAppointmentColor
 
-
 `showAppointmentColor`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### showAppointmentColor type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### showAppointmentColor Type
 
 `boolean`
-
-
-
-
 
 ## showAppointmentTooltip
 
-
 `showAppointmentTooltip`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### showAppointmentTooltip type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### showAppointmentTooltip Type
 
 `boolean`
-
-
-
-
 
 ## showResourceWorkStatistics
 
-
 `showResourceWorkStatistics`
-* is optional
-* type: `boolean`
-* defined in this schema
 
-### showResourceWorkStatistics type
+- is optional
+- type: `boolean`
+- defined in this schema
 
+### showResourceWorkStatistics Type
 
 `boolean`
-
-
-
-
 
 ## showWorkerProfession
 
-
 `showWorkerProfession`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### showWorkerProfession type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### showWorkerProfession Type
 
 `boolean`
-
-
-
-
 
 ## skipBilling
 
-
 `skipBilling`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### skipBilling type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### skipBilling Type
 
 `boolean`
-
-
-
-
 
 ## smsDuplicateFilter
 
-
 `smsDuplicateFilter`
-* is optional
-* type: `object`
-* defined in this schema
 
-### smsDuplicateFilter type
+- is optional
+- type: `object`
+- defined in this schema
 
+### smsDuplicateFilter Type
 
 `object` with following properties:
 
-
-| Property | Type | Required |
-|----------|------|----------|
-| `active`| boolean | Optional |
-
-
+| Property | Type    | Required |
+| -------- | ------- | -------- |
+| `active` | boolean | Optional |
 
 #### active
 
-undefined
-
 `active`
-* is optional
-* type: `boolean`
 
-##### active type
+- is optional
+- type: `boolean`
 
+##### active Type
 
 `boolean`
 
-
-
-
-
-
-
-
-
-
 ## social_network
 
-
 `social_network`
-* is optional
-* type: socialNetwork.schema
 
-* defined in this schema
+- is optional
+- type: socialNetwork.schema
+- defined in this schema
 
-### social_network type
-
+### social_network Type
 
 Array type: socialNetwork.schema
 
 All items must be of the type:
 
-* [socialNetwork.schema](../socialNetwork.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json`
-
-
-
-
-
-
-
+- [socialNetwork.schema](../socialNetwork.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json`
 
 ## timetable
 
-
 `timetable`
-* is optional
-* type: Timetable
-* defined in this schema
 
-### timetable type
+- is optional
+- type: Timetable
+- defined in this schema
 
+### timetable Type
 
-
-* [Timetable](../timetable.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
-
-
-
-
+- [Timetable](../timetable.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
 
 ## timezone
 
-
 `timezone`
-* is optional
-* type: `string`
-* defined in this schema
 
-### timezone type
+- is optional
+- type: `string`
+- defined in this schema
 
+### timezone Type
 
 `string`
 
-
-
-
-
-
 ## verticalTranslation
 
-
 `verticalTranslation`
-* is optional
-* type: `enum`
-* default: `"NONE"`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- default: `"NONE"`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#verticaltranslation-known-values).
 
 ### verticalTranslation Known Values
-| Value | Description |
-|-------|-------------|
-| `NONE` |  |
-| `GENERIC` |  |
-| `MEDICAL` |  |
-| `BEAUTY` |  |
-| `FITNESS` |  |
-| `SPORT` |  |
-| `YOGA` |  |
 
-
-
+| Value     | Description |
+| --------- | ----------- |
+| `NONE`    |             |
+| `GENERIC` |             |
+| `MEDICAL` |             |
+| `BEAUTY`  |             |
+| `FITNESS` |             |
+| `SPORT`   |             |
+| `YOGA`    |             |
 
 ## website
 
-
 `website`
-* is optional
-* type: `string`
-* defined in this schema
 
-### website type
+- is optional
+- type: `string`
+- defined in this schema
 
+### website Type
 
 `string`
-
-
-
-
-

@@ -1,6 +1,6 @@
 {
     "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json",
-    "title": "ErrorResponse",
+    "title": "Error Response",
     "properties": {
         "jsonrpc": {
             "description": "версия протокола (2.0)",

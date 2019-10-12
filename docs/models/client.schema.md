@@ -1,273 +1,210 @@
+# Schema
 
-#  Schema
+```
+http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json
+```
 
 Данные клиента
 
+| Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                      |
+| ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ----------------------------------------------- |
+| Can be instantiated | No         | Experimental | No           | Forbidden         | Permitted             | [models/client.schema.json](client.schema.json) |
 
 ## Schema Hierarchy
 
-*  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json`
-  * [Phone](phone.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
+- `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json`
+- [Phone](phone.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
 
+# Properties
 
-
-| Property | Type | Required | Default |
-|----------|------|----------|---------|
-| [name](#name) | `string` | **Required** |  |  (this schema) |
-| [surname](#surname) | `string` | **Required** |  |  (this schema) |
-| [middle_name](#middle_name) | `string` | Optional |  |  (this schema) |
-| [birthday](#birthday) | `string` | Optional |  |  (this schema) |
-| [phone](#phone) | Phone | **Required** |  |  (this schema) |
-| [email](#email) | `string[]` | Optional |  |  (this schema) |
-| [fromSms](#fromsms) | `boolean` | Optional | `false` |  (this schema) |
-| [sex](#sex) | `enum` | Optional |  |  (this schema) |
-| [creatorProfileID](#creatorprofileid) | `string` | Optional |  |  (this schema) |
-| [creatorProfileName](#creatorprofilename) | `string` | Optional |  |  (this schema) |
-| [driverLicense](#driverlicense) | `string` | Optional |  |  (this schema) |
-| [taxiPark](#taxipark) | `string` | Optional |  |  (this schema) |
-| [taxiParkMemberCount](#taxiparkmembercount) | `number` | Optional |  |  (this schema) |
-| `*` | any | Additional | this schema *allows* additional properties |
+| Property                                    | Type       | Required     | Nullable | Default                                    | Defined by    |
+| ------------------------------------------- | ---------- | ------------ | -------- | ------------------------------------------ | ------------- |
+| [birthday](#birthday)                       | multiple   | Optional     | No       |                                            | (this schema) |
+| [creatorProfileID](#creatorprofileid)       | `string`   | Optional     | Yes      |                                            | (this schema) |
+| [creatorProfileName](#creatorprofilename)   | `string`   | Optional     | Yes      |                                            | (this schema) |
+| [driverLicense](#driverlicense)             | `string`   | Optional     | Yes      |                                            | (this schema) |
+| [email](#email)                             | `string[]` | Optional     | No       |                                            | (this schema) |
+| [fromSms](#fromsms)                         | multiple   | Optional     | No       | `false`                                    | (this schema) |
+| [middle_name](#middle_name)                 | `string`   | Optional     | No       |                                            | (this schema) |
+| [name](#name)                               | `string`   | **Required** | No       |                                            | (this schema) |
+| [phone](#phone)                             | Phone      | **Required** | No       |                                            | (this schema) |
+| [sex](#sex)                                 | `enum`     | Optional     | No       |                                            | (this schema) |
+| [surname](#surname)                         | `string`   | **Required** | No       |                                            | (this schema) |
+| [taxiPark](#taxipark)                       | `string`   | Optional     | Yes      |                                            | (this schema) |
+| [taxiParkMemberCount](#taxiparkmembercount) | multiple   | Optional     | Yes      |                                            | (this schema) |
+| `*`                                         | any        | Additional   | Yes      | this schema _allows_ additional properties |
 
 ## birthday
 
-
 `birthday`
-* is optional
-* type: `string`
-* defined in this schema
 
-### birthday type
+- is optional
+- type: multiple
+- defined in this schema
 
+### birthday Type
 
-`string`
-* format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+Either one of:
 
-
-
-
-
+- `string`
+- `object`
 
 ## creatorProfileID
 
-
 `creatorProfileID`
-* is optional
-* type: `string`
-* defined in this schema
 
-### creatorProfileID type
+- is optional
+- type: `string`
+- defined in this schema
 
+### creatorProfileID Type
 
-`string`
-
-
-
-
-
+`string`, nullable
 
 ## creatorProfileName
 
-
 `creatorProfileName`
-* is optional
-* type: `string`
-* defined in this schema
 
-### creatorProfileName type
+- is optional
+- type: `string`
+- defined in this schema
 
+### creatorProfileName Type
 
-`string`
-
-
-
-
-
+`string`, nullable
 
 ## driverLicense
 
-
 `driverLicense`
-* is optional
-* type: `string`
-* defined in this schema
 
-### driverLicense type
+- is optional
+- type: `string`
+- defined in this schema
 
+### driverLicense Type
 
-`string`
-
-
-
-
-
+`string`, nullable
 
 ## email
 
-
 `email`
-* is optional
-* type: `string[]`
 
-* defined in this schema
+- is optional
+- type: `string[]`
+- defined in this schema
 
-### email type
-
+### email Type
 
 Array type: `string[]`
 
-All items must be of the type:
-`string`
-
-
-
-
-
-
-
-
+All items must be of the type: `string`
 
 ## fromSms
 
-
 `fromSms`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### fromSms type
+- is optional
+- type: multiple
+- default: `false`
+- defined in this schema
 
+### fromSms Type
 
-`boolean`
+Either one of:
 
-
-
-
+- `boolean`
+- `string`
 
 ## middle_name
 
-
 `middle_name`
-* is optional
-* type: `string`
-* defined in this schema
 
-### middle_name type
+- is optional
+- type: `string`
+- defined in this schema
 
+### middle_name Type
 
 `string`
-
-
-
-
-
 
 ## name
 
-
 `name`
-* is **required**
-* type: `string`
-* defined in this schema
 
-### name type
+- is **required**
+- type: `string`
+- defined in this schema
 
+### name Type
 
 `string`
 
-
-
-
-
-
 ## phone
 
-
 `phone`
-* is **required**
-* type: Phone
-* defined in this schema
 
-### phone type
+- is **required**
+- type: Phone
+- defined in this schema
 
+### phone Type
 
-
-* [Phone](phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
-
-
-
-
+- [Phone](phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
 
 ## sex
 
-
 `sex`
-* is optional
-* type: `enum`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#sex-known-values).
 
 ### sex Known Values
-| Value | Description |
-|-------|-------------|
-| `MALE` |  |
-| `FEMALE` |  |
-| `NOT_SPECIFIED` |  |
 
-
-
+| Value           | Description |
+| --------------- | ----------- |
+| `MALE`          |             |
+| `FEMALE`        |             |
+| `NOT_SPECIFIED` |             |
 
 ## surname
 
-
 `surname`
-* is **required**
-* type: `string`
-* defined in this schema
 
-### surname type
+- is **required**
+- type: `string`
+- defined in this schema
 
+### surname Type
 
 `string`
-
-
-
-
-
 
 ## taxiPark
 
-
 `taxiPark`
-* is optional
-* type: `string`
-* defined in this schema
 
-### taxiPark type
+- is optional
+- type: `string`
+- defined in this schema
 
+### taxiPark Type
 
-`string`
-
-
-
-
-
+`string`, nullable
 
 ## taxiParkMemberCount
 
-
 `taxiParkMemberCount`
-* is optional
-* type: `number`
-* defined in this schema
 
-### taxiParkMemberCount type
+- is optional
+- type: multiple
+- defined in this schema
 
+### taxiParkMemberCount Type
 
-`number`
+Either one of:
 
-
-
-
-
+- `number`
+- `string`
+- or `null`

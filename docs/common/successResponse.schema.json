@@ -1,7 +1,6 @@
 {
     "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/successResponse.schema.json",
-    "title": "SuccessResponse",
-    "type": "object",
+    "title": "Success Response",
     "properties": {
         "jsonrpc": {
             "description": "версия протокола (2.0)",

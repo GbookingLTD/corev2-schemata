@@ -55,6 +55,11 @@
                             "type": "string",
                             "format": "date-time"
                         },
+                        "desktop_discounts": {
+                            "description": "если указано true - меняет формат представления discounts",
+                            "type": "boolean",
+                            "default": false
+                        },
                         "with_campaigns": {
                             "description": "если указано true - возвращает кампании скидочных купонов в поле campaigns",
                             "type": "boolean",
@@ -79,6 +84,11 @@
                                 "none": "не переопределять порядок сортировки, установленный в БекОфисе"
                             },
                             "default": "none"
+                        },
+                        "skip_worker_sorting": {
+                            "description": "если указано true - не приминяет сортировку работников",
+                            "type": "boolean",
+                            "default": false
                         },
                         "show_inactive_workers": {
                             "description": "если указано true - возвращает всех работников в том числе и неактивных (status == 'INACTIVE')",

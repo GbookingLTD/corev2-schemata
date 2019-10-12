@@ -245,6 +245,10 @@
             "description": "индекс сортировки работника",
             "type": "number"
         },
+        "color": {
+            "description": "цвет колонки с работником",
+            "type": "string"
+        },
         "profile": {
             "$ref": "#/definitions/ResourceProfile"
         },
@@ -330,6 +334,13 @@
         "scheduleIsEmpty": {
             "definition": "Флаг того что ресурс работает, но не доступен для онлайн записи",
             "type": "boolean"
+        },
+        "orderWeight": {
+            "type": [
+                "number",
+                "null",
+                "object"
+            ]
         }
     },
     "required": [

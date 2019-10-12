@@ -1,7 +1,7 @@
-js2md=node_modules/.bin/jsonschema2md
+js2md=jsonschema2md
 
 .PHONY: default
-default: json docu ;
+default: json docu
 
 errors:
 	bin/error_response.sh > errorResponce.yaml
@@ -9,7 +9,7 @@ errors:
 	
 json:
 	rm -rf ./schemas-json
-	bin/jsondir.sh
+	bin/jsongen.sh
 	
 docu:
 	rm -rf ./docs

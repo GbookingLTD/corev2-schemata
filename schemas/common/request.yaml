@@ -1,10 +1,9 @@
 $id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json"
 title: "Request"
-description: "json-rpc-2 запрос"
-type: "object"
+description: "jsonrpc2 запрос"
 properties:
   jsonrpc:
-    description: "версия протокола (2.0)"
+    description: "версия протокола - 2.0"
     type: "string"
     const: "2.0"
   id:
@@ -28,7 +27,7 @@ properties:
         required: ["user", "token"]
         additionalProperties: false
   method:
-    description: "название json-rpc метода"
+    description: "название jsonrpc метода"
     type: "string"
   params:
     description: "параметры запроса"

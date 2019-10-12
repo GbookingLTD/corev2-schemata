@@ -19,8 +19,10 @@
             "type": "string"
         },
         "birthday": {
-            "type": "string",
-            "format": "date-time"
+            "type": [
+                "string",
+                "object"
+            ]
         },
         "phone": {
             "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
@@ -32,7 +34,10 @@
             }
         },
         "fromSms": {
-            "type": "boolean",
+            "type": [
+                "boolean",
+                "string"
+            ],
             "default": false
         },
         "sex": {
@@ -44,19 +49,35 @@
             ]
         },
         "creatorProfileID": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "creatorProfileName": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "driverLicense": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "taxiPark": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "taxiParkMemberCount": {
-            "type": "number"
+            "type": [
+                "number",
+                "null",
+                "string"
+            ]
         }
     }
 }

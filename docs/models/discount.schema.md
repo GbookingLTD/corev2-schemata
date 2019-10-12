@@ -1,178 +1,144 @@
-
 # Discount Schema
+
+```
+http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.schema.json
+```
 
 Информация о скидке
 
+| Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                          |
+| ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | --------------------------------------------------- |
+| Can be instantiated | No         | Experimental | No           | Forbidden         | Forbidden             | [models/discount.schema.json](discount.schema.json) |
 
+# Discount Properties
 
-
-| Property | Type | Required | Default |
-|----------|------|----------|---------|
-| [active](#active) | `boolean` | Optional |  | Discount (this schema) |
-| [start](#start) | `string` | Optional |  | Discount (this schema) |
-| [repeats](#repeats) | `enum` | Optional | `"none"` | Discount (this schema) |
-| [weeklyRepeat](#weeklyrepeat) | `number` | Optional | `1` | Discount (this schema) |
-| [unlimWeeklyRepeat](#unlimweeklyrepeat) | `boolean` | Optional | `false` | Discount (this schema) |
-| [daysOfWeek](#daysofweek) | `enum` | Optional |  | Discount (this schema) |
-| [slots](#slots) | `object` | Optional |  | Discount (this schema) |
+| Property                                | Type      | Required | Nullable | Default  | Defined by             |
+| --------------------------------------- | --------- | -------- | -------- | -------- | ---------------------- |
+| [active](#active)                       | `boolean` | Optional | No       |          | Discount (this schema) |
+| [daysOfWeek](#daysofweek)               | `enum`    | Optional | No       |          | Discount (this schema) |
+| [repeats](#repeats)                     | `enum`    | Optional | No       | `"none"` | Discount (this schema) |
+| [slots](#slots)                         | `object`  | Optional | No       |          | Discount (this schema) |
+| [start](#start)                         | `string`  | Optional | No       |          | Discount (this schema) |
+| [unlimWeeklyRepeat](#unlimweeklyrepeat) | `boolean` | Optional | No       | `false`  | Discount (this schema) |
+| [weeklyRepeat](#weeklyrepeat)           | `number`  | Optional | No       | `1`      | Discount (this schema) |
 
 ## active
 
-
 `active`
-* is optional
-* type: `boolean`
-* defined in this schema
 
-### active type
+- is optional
+- type: `boolean`
+- defined in this schema
 
+### active Type
 
 `boolean`
 
-
-
-
-
 ## daysOfWeek
 
-
 `daysOfWeek`
-* is optional
-* type: `enum`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#daysofweek-known-values).
 
 ### daysOfWeek Known Values
+
 | Value | Description |
-|-------|-------------|
-| `sun` |  |
-| `mon` |  |
-| `tue` |  |
-| `wed` |  |
-| `thu` |  |
-| `fri` |  |
-| `sat` |  |
-
-
-
+| ----- | ----------- |
+| `sun` |             |
+| `mon` |             |
+| `tue` |             |
+| `wed` |             |
+| `thu` |             |
+| `fri` |             |
+| `sat` |             |
 
 ## repeats
 
-
 `repeats`
-* is optional
-* type: `enum`
-* default: `"none"`
-* defined in this schema
+
+- is optional
+- type: `enum`
+- default: `"none"`
+- defined in this schema
 
 The value of this property **must** be equal to one of the [known values below](#repeats-known-values).
 
 ### repeats Known Values
-| Value | Description |
-|-------|-------------|
-| `none` |  |
-| `daily` |  |
-| `weekly` |  |
 
-
-
+| Value    | Description |
+| -------- | ----------- |
+| `none`   |             |
+| `daily`  |             |
+| `weekly` |             |
 
 ## slots
 
-
 `slots`
-* is optional
-* type: `object`
-* defined in this schema
 
-### slots type
+- is optional
+- type: `object`
+- defined in this schema
 
+### slots Type
 
 `object` with following properties:
 
-
-| Property | Type | Required |
-|----------|------|----------|
-| `time`|  | Optional |
-
-
+| Property | Type      | Required |
+| -------- | --------- | -------- |
+| `time`   | TimeFrame | Optional |
 
 #### time
 
-undefined
-
 `time`
-* is optional
-* type: `reference`
 
-##### time type
+- is optional
+- type: TimeFrame
 
+##### time Type
 
-
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 ## start
 
-
 `start`
-* is optional
-* type: `string`
-* defined in this schema
 
-### start type
+- is optional
+- type: `string`
+- defined in this schema
 
+### start Type
 
 `string`
-* format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
-
-
-
-
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 ## unlimWeeklyRepeat
 
-
 `unlimWeeklyRepeat`
-* is optional
-* type: `boolean`
-* default: `false`
-* defined in this schema
 
-### unlimWeeklyRepeat type
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
 
+### unlimWeeklyRepeat Type
 
 `boolean`
 
-
-
-
-
 ## weeklyRepeat
 
-
 `weeklyRepeat`
-* is optional
-* type: `number`
-* default: `1`
-* defined in this schema
 
-### weeklyRepeat type
+- is optional
+- type: `number`
+- default: `1`
+- defined in this schema
 
+### weeklyRepeat Type
 
 `number`
-
-
-
-
-

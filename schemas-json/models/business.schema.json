@@ -211,6 +211,10 @@
                         "EVENODD"
                     ],
                     "default": "DEFAULT"
+                },
+                "enableMasterImportance": {
+                    "type": "boolean",
+                    "default": false
                 }
             }
         }
@@ -294,7 +298,10 @@
                 },
                 "stockAmount": {
                     "description": "Значение цены, с учётом промо акций",
-                    "type": "string",
+                    "type": [
+                        "string",
+                        "null"
+                    ],
                     "default": "0"
                 },
                 "type": {
@@ -450,6 +457,10 @@
                     "type": "string"
                 },
                 "extraId": {
+                    "type": "string"
+                },
+                "siteId": {
+                    "description": "Внешний идентификатор таксономии",
                     "type": "string"
                 },
                 "alias": {
@@ -659,7 +670,19 @@
                     ],
                     "default": "DEFAULT"
                 },
+                "enableMasterImportance": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showTestRecord": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "skipServiceFiltering": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "skipAppointmentPriceUpdate": {
                     "type": "boolean",
                     "default": false
                 },
@@ -768,6 +791,10 @@
                     "default": false
                 },
                 "showClientPayment": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showExtraClientInfo": {
                     "type": "boolean",
                     "default": false
                 },
@@ -944,6 +971,12 @@
                 "editTaxonomyVisitType": {
                     "type": "boolean",
                     "default": false
+                },
+                "finId": {
+                    "type": "string"
+                },
+                "finName": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false
@@ -1265,6 +1298,16 @@
                     "default": false
                 },
                 "skipTimeSelectionServiceIDs": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "skipWorkerServicesSelection": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "skipWorkerSelectedServiceIDs": {
                     "type": "array",
                     "items": {
                         "type": "string"

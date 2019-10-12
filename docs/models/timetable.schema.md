@@ -1,248 +1,166 @@
-
 # Timetable Schema
+
+```
+http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json
+```
 
 таблица регулярного недельного расписания
 
+| Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                            |
+| ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ----------------------------------------------------- |
+| Can be instantiated | No         | Experimental | No           | Forbidden         | Forbidden             | [models/timetable.schema.json](timetable.schema.json) |
 
+# Timetable Properties
 
-
-| Property | Type | Required |
-|----------|------|----------|
-| [active](#active) | `boolean` | **Required** | Timetable (this schema) |
-| [week](#week) | `object` | Optional | Timetable (this schema) |
+| Property          | Type      | Required     | Nullable | Defined by              |
+| ----------------- | --------- | ------------ | -------- | ----------------------- |
+| [active](#active) | `boolean` | **Required** | No       | Timetable (this schema) |
+| [week](#week)     | `object`  | Optional     | No       | Timetable (this schema) |
 
 ## active
 
 установлено ли расписание для сущности
 
 `active`
-* is **required**
-* type: `boolean`
-* defined in this schema
 
-### active type
+- is **required**
+- type: `boolean`
+- defined in this schema
 
+### active Type
 
 `boolean`
 
-
-
-
-
 ## week
 
-
 `week`
-* is optional
-* type: `object`
-* defined in this schema
 
-### week type
+- is optional
+- type: `object`
+- defined in this schema
 
+### week Type
 
 `object` with following properties:
 
-
-| Property | Type | Required |
-|----------|------|----------|
-| `sun`| array | **Required** |
-| `mon`| array | **Required** |
-| `tue`| array | **Required** |
-| `wed`| array | **Required** |
-| `thu`| array | **Required** |
-| `fri`| array | **Required** |
-| `sat`| array | **Required** |
-
-
+| Property | Type  | Required     |
+| -------- | ----- | ------------ |
+| `fri`    | array | **Required** |
+| `mon`    | array | **Required** |
+| `sat`    | array | **Required** |
+| `sun`    | array | **Required** |
+| `thu`    | array | **Required** |
+| `tue`    | array | **Required** |
+| `wed`    | array | **Required** |
 
 #### fri
 
-undefined
-
 `fri`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### fri type
+##### fri Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 #### mon
 
-undefined
-
 `mon`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### mon type
+##### mon Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 #### sat
 
-undefined
-
 `sat`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### sat type
+##### sat Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 #### sun
 
-undefined
-
 `sun`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### sun type
+##### sun Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 #### thu
 
-undefined
-
 `thu`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### thu type
+##### thu Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 #### tue
 
-undefined
-
 `tue`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### tue type
+##### tue Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
 
 #### wed
 
-undefined
-
 `wed`
-* is **required**
-* type: `reference[]`
 
+- is **required**
+- type: TimeFrame
 
-##### wed type
+##### wed Type
 
-
-Array type: `reference[]`
+Array type: TimeFrame
 
 All items must be of the type:
 
-* []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
-
-
-
-
-
-
-
-
-
-
-
-
+- [TimeFrame](partials/timeframe.schema.md) –
+  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`

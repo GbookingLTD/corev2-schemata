@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@adobe/jsonschema2md": "^3.3.1",
     "ajv": "^6.5.3",
     "js-yaml": "^3.12.0",
     "lodash-node": "^3.10.2",
@@ -16,11 +17,9 @@
     "request": "^2.88.0"
   },
   "directories": {
-    "doc": "doc"
+    "docs": "docs"
   },
-  "devDependencies": {
-    "@adobe/jsonschema2md": "github:swvitaliy/jsonschema2md"
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "http://git.dev.gbooking.ru/vitaliy/corev2-schemata.git"
