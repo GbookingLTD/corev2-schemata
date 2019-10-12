@@ -13,7 +13,7 @@ json:
 	
 docu:
 	rm -rf ./docs
-	$(js2md) -o docs -d schemas-json -t templates/md
+	$(js2md) -o docs -d schemas-json
 	
 test_dev:
 	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/test_dev.js
