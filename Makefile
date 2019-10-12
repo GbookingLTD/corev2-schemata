@@ -12,8 +12,8 @@ json:
 	bin/jsondir.sh
 	
 docu:
-	rm -rf ./doc
-	$(js2md) -o doc -d schemas-json -t templates/md
+	rm -rf ./docs
+	$(js2md) -o docs -d schemas-json -t templates/md
 	
 test_dev:
 	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/test_dev.js
