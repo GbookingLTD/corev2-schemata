@@ -7,6 +7,8 @@ meta:extends:
 properties:
   id:
     type: "string"
+  extraID:
+    type: "string"
   created_on:
     type: "string"
     format: "date-time"

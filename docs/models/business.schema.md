@@ -105,8 +105,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.j
 | [exceptions](#exceptions)                                                                           | `array`    | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [exportToExcelRemovedClients](#exporttoexcelremovedclients)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [extraDescription](#extradescription)                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [extraID](#extraid)                                                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
-| [extraId](#extraid-1)                                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraId](#extraid)                                                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [extraLink](#extralink)                                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [extraVisitors](#extravisitors)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [feedBackMinRating](#feedbackminrating)                                                             | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
@@ -1697,18 +1696,6 @@ Array type: `array`
 - defined in this schema
 
 ### extraDescription Type
-
-`string`
-
-## extraID
-
-`extraID`
-
-- is **required**
-- type: `string`
-- defined in this schema
-
-### extraID Type
 
 `string`
 
@@ -4316,6 +4303,7 @@ The value of this property **must** be equal to one of the [known values below](
 | [defaultFilteredWorkers](#defaultfilteredworkers)               | `string[]`   | Optional     | No       |         | Business (this schema) |
 | [departments](#departments)                                     | reference    | Optional     | No       |         | Business (this schema) |
 | [designs](#designs)                                             | `object[]`   | Optional     | No       |         | Business (this schema) |
+| [extraID](#extraid)                                             | `string`     | **Required** | No       |         | Business (this schema) |
 | [flatTaxonomyDisplay](#flattaxonomydisplay)                     | `boolean`    | Optional     | No       |         | Business (this schema) |
 | [general_info](#general_info)                                   | BusinessInfo | **Required** | No       |         | Business (this schema) |
 | [group](#group)                                                 | `enum`       | Optional     | No       |         | Business (this schema) |
@@ -5940,6 +5928,18 @@ All items must be of the type: `object` with following properties:
 | Property | Type | Required |
 | -------- | ---- | -------- |
 
+
+## extraID
+
+`extraID`
+
+- is **required**
+- type: `string`
+- defined in this schema
+
+### extraID Type
+
+`string`
 
 ## flatTaxonomyDisplay
 
