@@ -286,6 +286,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.j
 | [workWeekEnd](#workweekend)                                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [workWeekStart](#workweekstart)                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [workerNameReverse](#workernamereverse)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [worker_unavailability_text](#worker_unavailability_text)                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 
 ## additionalDurations
 
@@ -4285,6 +4286,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## worker_unavailability_text
+
+`worker_unavailability_text`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### worker_unavailability_text Type
+
+`string`
+
 # Business Properties
 
 | Property                                                        | Type         | Required     | Nullable | Default | Defined by             |
@@ -6355,6 +6368,7 @@ Array type: `array`
 | `widgetUseCRAC`                          | boolean | Optional | `false`         |
 | `withoutWorkers`                         | boolean | Optional | `false`         |
 | `workerNameReverse`                      | boolean | Optional | `false`         |
+| `worker_unavailability_text`             | string  | Optional |                 |
 
 #### additionalName
 
@@ -7885,6 +7899,17 @@ The value of this property **must** be equal to one of the [known values below](
 ##### workerNameReverse Type
 
 `boolean`
+
+#### worker_unavailability_text
+
+`worker_unavailability_text`
+
+- is optional
+- type: `string`
+
+##### worker_unavailability_text Type
+
+`string`
 
 ## yandexFeedType
 

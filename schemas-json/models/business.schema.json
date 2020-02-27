@@ -415,7 +415,10 @@
                     "type": "number"
                 },
                 "duration": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 }
             },
             "additionalProperties": false
@@ -1737,6 +1740,9 @@
                 "newWidgetTheme": {
                     "type": "object",
                     "additionalProperties": true
+                },
+                "worker_unavailability_text": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false

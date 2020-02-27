@@ -269,7 +269,7 @@ definitions:
       level:
         type: "number"
       duration:
-        type: "number"
+        type: ["number", "null"]
     additionalProperties: false
         
   Consumable:
@@ -1172,4 +1172,6 @@ definitions:
       newWidgetTheme:
         type: "object"
         additionalProperties: true
+      worker_unavailability_text:
+        type: "string"
     additionalProperties: false
