@@ -50,6 +50,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/business
 | [pricingType](#pricingtype)                               | `enum`               | Optional | No       | `"DEFAULT"` | BusinessInfo (this schema) |
 | [revisionVersion](#revisionversion)                       | `number`             | Optional | No       |             | BusinessInfo (this schema) |
 | [schedulerTick](#schedulertick)                           | `number`             | Optional | No       | `15`        | BusinessInfo (this schema) |
+| [shortName](#shortname)                                   | `string`             | Optional | No       |             | BusinessInfo (this schema) |
 | [showAppointmentColor](#showappointmentcolor)             | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [showAppointmentTooltip](#showappointmenttooltip)         | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [showResourceWorkStatistics](#showresourceworkstatistics) | `boolean`            | Optional | No       |             | BusinessInfo (this schema) |
@@ -561,6 +562,20 @@ The value of this property **must** be equal to one of the [known values below](
 ### schedulerTick Type
 
 `number`
+
+## shortName
+
+Короткое название филиала
+
+`shortName`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### shortName Type
+
+`string`
 
 ## showAppointmentColor
 

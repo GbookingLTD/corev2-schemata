@@ -9,6 +9,9 @@ properties:
   name:
     description: "Название бизнеса"
     type: "string"
+  shortName:
+    description: "Короткое название филиала"
+    type: "string"
   address:
     description: "Адреса компании или филиала"
     type: "array"
