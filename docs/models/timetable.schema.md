@@ -12,10 +12,10 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.
 
 # Timetable Properties
 
-| Property          | Type      | Required     | Nullable | Defined by              |
-| ----------------- | --------- | ------------ | -------- | ----------------------- |
-| [active](#active) | `boolean` | **Required** | No       | Timetable (this schema) |
-| [week](#week)     | `object`  | Optional     | No       | Timetable (this schema) |
+| Property          | Type      | Required | Nullable | Defined by              |
+| ----------------- | --------- | -------- | -------- | ----------------------- |
+| [active](#active) | `boolean` | Optional | No       | Timetable (this schema) |
+| [week](#week)     | `object`  | Optional | No       | Timetable (this schema) |
 
 ## active
 
@@ -23,7 +23,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.
 
 `active`
 
-- is **required**
+- is optional
 - type: `boolean`
 - defined in this schema
 

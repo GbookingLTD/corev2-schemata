@@ -66,8 +66,6 @@
             "additionalProperties": false
         }
     },
-    "required": [
-        "active"
-    ],
+    "required": [],
     "additionalProperties": false
 }

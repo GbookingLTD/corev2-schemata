@@ -40,7 +40,12 @@ require('./test')(function() {
     getProfileByID(process.env.ENDPOINT, 4000000003543, {
       token: "7f3b4b8b94e61bc26818239e446775268b9ca53d",
       user: "55d58cc4b09dd3112cbf3163"
-    })
+    }),
+    getProfileByID(process.env.ENDPOINT, 4000000006959),
+    getProfileByID(process.env.ENDPOINT, 4000000006959, {
+      token: "aecc4bc4fc6aa18f20b35ede173ed5d48907b3e2",
+      user: "5d80e9f9238a0c13ab51a196"
+    }),
   ].forEach((p) => requests.push(p));
     
   return requests.map((p) => function () {
