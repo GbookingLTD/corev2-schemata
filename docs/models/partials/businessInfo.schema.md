@@ -27,6 +27,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/business
 | [additional_info](#additional_info)                       | `string`             | Optional | Yes      |             | BusinessInfo (this schema) |
 | [address](#address)                                       | address.schema       | Optional | No       |             | BusinessInfo (this schema) |
 | [autoAcceptAppointment](#autoacceptappointment)           | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [businessShowcaseAliases](#businessshowcasealiases)       | `object`             | Optional | No       |             | BusinessInfo (this schema) |
 | [contactName](#contactname)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
 | [date_joined](#date_joined)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
 | [description](#description)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
@@ -55,6 +56,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/business
 | [showAppointmentTooltip](#showappointmenttooltip)         | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [showResourceWorkStatistics](#showresourceworkstatistics) | `boolean`            | Optional | No       |             | BusinessInfo (this schema) |
 | [showWorkerProfession](#showworkerprofession)             | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [showcases](#showcases)                                   | `object[]`           | Optional | No       |             | BusinessInfo (this schema) |
 | [skipBilling](#skipbilling)                               | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [smsDuplicateFilter](#smsduplicatefilter)                 | `object`             | Optional | No       |             | BusinessInfo (this schema) |
 | [social_network](#social_network)                         | socialNetwork.schema | Optional | No       |             | BusinessInfo (this schema) |
@@ -139,6 +141,24 @@ All items must be of the type:
 ### autoAcceptAppointment Type
 
 `boolean`
+
+## businessShowcaseAliases
+
+если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
+
+`businessShowcaseAliases`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### businessShowcaseAliases Type
+
+`object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
 
 ## contactName
 
@@ -241,6 +261,8 @@ All items must be of the type: `object` with following properties:
 
 
 ## isShowcase
+
+является ли данный бизнес витриной
 
 `isShowcase`
 
@@ -627,6 +649,37 @@ The value of this property **must** be equal to one of the [known values below](
 ### showWorkerProfession Type
 
 `boolean`
+
+## showcases
+
+идентификаторы витрин, в которых участвует данный бизнес
+
+`showcases`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### showcases Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property         | Type   | Required |
+| ---------------- | ------ | -------- |
+| `baseBusinessID` | string | Optional |
+
+#### baseBusinessID
+
+`baseBusinessID`
+
+- is optional
+- type: `string`
+
+##### baseBusinessID Type
+
+`string`
 
 ## skipBilling
 

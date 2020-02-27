@@ -151,6 +151,25 @@ properties:
     required: ["active", "accepted", "useSmsAlphaName"]
     additionalProperties: false
   isShowcase:
+    description: "является ли данный бизнес витриной"
     type: "boolean"
     default: false
+  showcases:
+    description: "идентификаторы витрин, в которых участвует данный бизнес"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        baseBusinessID:
+          type: "string"
+      additionalProperties: false
+  businessShowcaseAliases:
+    description: "если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину"
+    type: "array"
+      items:
+        type: "object"
+        properties:
+          internalID:
+            type: "string"
+        additionalProperties: true
 additionalProperties: false
