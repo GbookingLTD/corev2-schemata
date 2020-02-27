@@ -266,8 +266,16 @@
         },
         "businessShowcaseAliases": {
             "description": "если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину",
-            "type": "object",
-            "additionalProperties": true
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "internalID": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": true
+            }
         }
     },
     "additionalProperties": false

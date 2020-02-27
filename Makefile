@@ -7,14 +7,17 @@ errors:
 	bin/error_response.sh > errorResponce.yaml
 	node bin/errors.js > errors.md
 	
-json:
+json: spellcheck
 	rm -rf ./schemas-json
 	bin/jsongen.sh
 	
-docu:
+docu: spellcheck
 	rm -rf ./docs
 	$(js2md) -o docs -d schemas-json
-	
+
+spellcheck:
+	node load.js
+
 test_dev:
 	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/test_dev.js
 

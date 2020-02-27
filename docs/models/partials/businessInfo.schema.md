@@ -27,7 +27,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/business
 | [additional_info](#additional_info)                       | `string`             | Optional | Yes      |             | BusinessInfo (this schema) |
 | [address](#address)                                       | address.schema       | Optional | No       |             | BusinessInfo (this schema) |
 | [autoAcceptAppointment](#autoacceptappointment)           | `boolean`            | Optional | No       | `false`     | BusinessInfo (this schema) |
-| [businessShowcaseAliases](#businessshowcasealiases)       | `object`             | Optional | No       |             | BusinessInfo (this schema) |
+| [businessShowcaseAliases](#businessshowcasealiases)       | `object[]`           | Optional | No       |             | BusinessInfo (this schema) |
 | [contactName](#contactname)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
 | [date_joined](#date_joined)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
 | [description](#description)                               | `string`             | Optional | No       |             | BusinessInfo (this schema) |
@@ -149,16 +149,29 @@ All items must be of the type:
 `businessShowcaseAliases`
 
 - is optional
-- type: `object`
+- type: `object[]`
 - defined in this schema
 
 ### businessShowcaseAliases Type
 
-`object` with following properties:
+Array type: `object[]`
 
-| Property | Type | Required |
-| -------- | ---- | -------- |
+All items must be of the type: `object` with following properties:
 
+| Property     | Type   | Required |
+| ------------ | ------ | -------- |
+| `internalID` | string | Optional |
+
+#### internalID
+
+`internalID`
+
+- is optional
+- type: `string`
+
+##### internalID Type
+
+`string`
 
 ## contactName
 
