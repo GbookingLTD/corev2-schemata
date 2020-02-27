@@ -206,55 +206,61 @@ The value of this property **must** be equal to one of the [known values below](
 
 # Resource Properties
 
-| Property                                    | Type         | Required     | Nullable | Defined by             |
-| ------------------------------------------- | ------------ | ------------ | -------- | ---------------------- |
-| [additionalExtraId](#additionalextraid)     | `string[]`   | Optional     | No       | Resource (this schema) |
-| [capacity](#capacity)                       | `number`     | **Required** | No       | Resource (this schema) |
-| [color](#color)                             | `string`     | Optional     | No       | Resource (this schema) |
-| [departmentId](#departmentid)               | `string`     | Optional     | No       | Resource (this schema) |
-| [description](#description)                 | `string`     | Optional     | No       | Resource (this schema) |
-| [displayInWidget](#displayinwidget)         | `boolean`    | **Required** | No       | Resource (this schema) |
-| [email](#email)                             | `string`     | **Required** | No       | Resource (this schema) |
-| [emailEnabled](#emailenabled)               | `boolean`    | Optional     | No       | Resource (this schema) |
-| [evenOddTimetable](#evenoddtimetable)       | `object`     | **Required** | No       | Resource (this schema) |
-| [exceptions](#exceptions)                   | `array`      | Optional     | No       | Resource (this schema) |
-| [extraDescription](#extradescription)       | `string`     | Optional     | No       | Resource (this schema) |
-| [extraId](#extraid)                         | `string`     | Optional     | No       | Resource (this schema) |
-| [extraLink](#extralink)                     | `string`     | Optional     | No       | Resource (this schema) |
-| [extraMediaId](#extramediaid)               | `string`     | Optional     | No       | Resource (this schema) |
-| [icon_url](#icon_url)                       | `string`     | Optional     | Yes      | Resource (this schema) |
-| [id](#id)                                   | `string`     | **Required** | No       | Resource (this schema) |
-| [image](#image)                             | `string`     | Optional     | No       | Resource (this schema) |
-| [level](#level)                             | `number`     | **Required** | No       | Resource (this schema) |
-| [loaned](#loaned)                           | `boolean`    | **Required** | No       | Resource (this schema) |
-| [loanedFrom](#loanedfrom)                   | `string`     | Optional     | No       | Resource (this schema) |
-| [loanedTo](#loanedto)                       | `string`     | Optional     | No       | Resource (this schema) |
-| [location](#location)                       | `object`     | **Required** | No       | Resource (this schema) |
-| [manualChanges](#manualchanges)             | `boolean`    | **Required** | No       | Resource (this schema) |
-| [name](#name)                               | `string`     | **Required** | No       | Resource (this schema) |
-| [nickname](#nickname)                       | `string`     | **Required** | No       | Resource (this schema) |
-| [order](#order)                             | `number`     | Optional     | No       | Resource (this schema) |
-| [orderWeight](#orderweight)                 | multiple     | Optional     | Yes      | Resource (this schema) |
-| [originBusinessID](#originbusinessid)       | `string`     | Optional     | No       | Resource (this schema) |
-| [originTaxonomies](#origintaxonomies)       | `string[]`   | Optional     | No       | Resource (this schema) |
-| [origin_general_info](#origin_general_info) | BusinessInfo | Optional     | No       | Resource (this schema) |
-| [perk](#perk)                               | `string`     | Optional     | No       | Resource (this schema) |
-| [phone](#phone)                             | Phone        | **Required** | No       | Resource (this schema) |
-| [profession](#profession)                   | `string`     | Optional     | No       | Resource (this schema) |
-| [profile](#profile)                         | `object`     | Optional     | No       | Resource (this schema) |
-| [rating](#rating)                           | `number`     | Optional     | No       | Resource (this schema) |
-| [revisionVersion](#revisionversion)         | `number`     | **Required** | No       | Resource (this schema) |
-| [scheduleIsEmpty](#scheduleisempty)         | `boolean`    | Optional     | No       | Resource (this schema) |
-| [siteId](#siteid)                           | `string`     | Optional     | No       | Resource (this schema) |
-| [smsEnabled](#smsenabled)                   | `boolean`    | Optional     | No       | Resource (this schema) |
-| [status](#status)                           | `enum`       | Optional     | No       | Resource (this schema) |
-| [surname](#surname)                         | `string`     | **Required** | No       | Resource (this schema) |
-| [taxonomies](#taxonomies)                   | `string[]`   | **Required** | No       | Resource (this schema) |
-| [taxonomyChildren](#taxonomychildren)       | reference    | **Required** | No       | Resource (this schema) |
-| [taxonomyLevels](#taxonomylevels)           | reference    | **Required** | No       | Resource (this schema) |
-| [timetable](#timetable)                     | Timetable    | **Required** | No       | Resource (this schema) |
-| [userData](#userdata)                       | `object`     | Optional     | No       | Resource (this schema) |
-| [workPlace](#workplace)                     | `string`     | Optional     | No       | Resource (this schema) |
+| Property                                    | Type         | Required     | Nullable | Default | Defined by             |
+| ------------------------------------------- | ------------ | ------------ | -------- | ------- | ---------------------- |
+| [additionalExtraId](#additionalextraid)     | `string[]`   | Optional     | No       |         | Resource (this schema) |
+| [capacity](#capacity)                       | `number`     | **Required** | No       |         | Resource (this schema) |
+| [color](#color)                             | `string`     | Optional     | No       |         | Resource (this schema) |
+| [degree](#degree)                           | `string`     | Optional     | No       |         | Resource (this schema) |
+| [departmentId](#departmentid)               | `string`     | Optional     | No       |         | Resource (this schema) |
+| [description](#description)                 | `string`     | Optional     | No       |         | Resource (this schema) |
+| [displayInSchedule](#displayinschedule)     | `boolean`    | Optional     | No       | `true`  | Resource (this schema) |
+| [displayInWidget](#displayinwidget)         | `boolean`    | **Required** | No       |         | Resource (this schema) |
+| [email](#email)                             | `string`     | **Required** | No       |         | Resource (this schema) |
+| [emailEnabled](#emailenabled)               | `boolean`    | Optional     | No       |         | Resource (this schema) |
+| [evenOddTimetable](#evenoddtimetable)       | `object`     | **Required** | No       |         | Resource (this schema) |
+| [exceptions](#exceptions)                   | `array`      | Optional     | No       |         | Resource (this schema) |
+| [experience](#experience)                   | `string`     | Optional     | No       |         | Resource (this schema) |
+| [extraDescription](#extradescription)       | `string`     | Optional     | No       |         | Resource (this schema) |
+| [extraId](#extraid)                         | `string`     | Optional     | No       |         | Resource (this schema) |
+| [extraLink](#extralink)                     | `string`     | Optional     | No       |         | Resource (this schema) |
+| [extraMediaId](#extramediaid)               | `string`     | Optional     | No       |         | Resource (this schema) |
+| [icon_url](#icon_url)                       | `string`     | Optional     | Yes      |         | Resource (this schema) |
+| [id](#id)                                   | `string`     | **Required** | No       |         | Resource (this schema) |
+| [image](#image)                             | `string`     | Optional     | No       |         | Resource (this schema) |
+| [lastSU](#lastsu)                           | `string`     | Optional     | No       |         | Resource (this schema) |
+| [level](#level)                             | `number`     | **Required** | No       |         | Resource (this schema) |
+| [loaned](#loaned)                           | `boolean`    | **Required** | No       |         | Resource (this schema) |
+| [loanedFrom](#loanedfrom)                   | `string`     | Optional     | No       |         | Resource (this schema) |
+| [loanedTo](#loanedto)                       | `string`     | Optional     | No       |         | Resource (this schema) |
+| [location](#location)                       | `object`     | **Required** | No       |         | Resource (this schema) |
+| [manualChanges](#manualchanges)             | `boolean`    | **Required** | No       |         | Resource (this schema) |
+| [middleName](#middlename)                   | `string`     | Optional     | No       |         | Resource (this schema) |
+| [name](#name)                               | `string`     | **Required** | No       |         | Resource (this schema) |
+| [nickname](#nickname)                       | `string`     | Optional     | No       |         | Resource (this schema) |
+| [order](#order)                             | `number`     | Optional     | No       |         | Resource (this schema) |
+| [orderWeight](#orderweight)                 | multiple     | Optional     | Yes      |         | Resource (this schema) |
+| [originBusinessID](#originbusinessid)       | `string`     | Optional     | No       |         | Resource (this schema) |
+| [originTaxonomies](#origintaxonomies)       | `string[]`   | Optional     | No       |         | Resource (this schema) |
+| [origin_general_info](#origin_general_info) | BusinessInfo | Optional     | No       |         | Resource (this schema) |
+| [perk](#perk)                               | `string`     | Optional     | No       |         | Resource (this schema) |
+| [phone](#phone)                             | Phone        | **Required** | No       |         | Resource (this schema) |
+| [profession](#profession)                   | `string`     | Optional     | No       |         | Resource (this schema) |
+| [profile](#profile)                         | `object`     | Optional     | No       |         | Resource (this schema) |
+| [rating](#rating)                           | `number`     | Optional     | No       |         | Resource (this schema) |
+| [readonlyTaxonomies](#readonlytaxonomies)   | `string[]`   | Optional     | No       |         | Resource (this schema) |
+| [revisionVersion](#revisionversion)         | `number`     | **Required** | No       |         | Resource (this schema) |
+| [scheduleIsEmpty](#scheduleisempty)         | `boolean`    | Optional     | No       |         | Resource (this schema) |
+| [siteId](#siteid)                           | `string`     | Optional     | No       |         | Resource (this schema) |
+| [smsEnabled](#smsenabled)                   | `boolean`    | Optional     | No       |         | Resource (this schema) |
+| [status](#status)                           | `enum`       | Optional     | No       |         | Resource (this schema) |
+| [surname](#surname)                         | `string`     | **Required** | No       |         | Resource (this schema) |
+| [taxonomies](#taxonomies)                   | `string[]`   | **Required** | No       |         | Resource (this schema) |
+| [taxonomyChildren](#taxonomychildren)       | reference    | **Required** | No       |         | Resource (this schema) |
+| [taxonomyLevels](#taxonomylevels)           | reference    | **Required** | No       |         | Resource (this schema) |
+| [timetable](#timetable)                     | Timetable    | **Required** | No       |         | Resource (this schema) |
+| [userData](#userdata)                       | `object`     | Optional     | No       |         | Resource (this schema) |
+| [workPlace](#workplace)                     | `string`     | Optional     | No       |         | Resource (this schema) |
 
 ## additionalExtraId
 
@@ -300,6 +306,18 @@ All items must be of the type: `string`
 
 `string`
 
+## degree
+
+`degree`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### degree Type
+
+`string`
+
 ## departmentId
 
 идентификатор отделения, к которому привязан работник
@@ -327,6 +345,19 @@ All items must be of the type: `string`
 ### description Type
 
 `string`
+
+## displayInSchedule
+
+`displayInSchedule`
+
+- is optional
+- type: `boolean`
+- default: `true`
+- defined in this schema
+
+### displayInSchedule Type
+
+`boolean`
 
 ## displayInWidget
 
@@ -452,6 +483,20 @@ The value of this property **must** be equal to one of the [known values below](
 
 Array type: `array`
 
+## experience
+
+`experience`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### experience Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
 ## extraDescription
 
 информация из внешней информационной системы как есть (при интеграции)
@@ -548,6 +593,20 @@ WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgU
 ### image Type
 
 `string`
+
+## lastSU
+
+`lastSU`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### lastSU Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 ## level
 
@@ -670,6 +729,20 @@ WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgU
 
 `boolean`
 
+## middleName
+
+отчество работника
+
+`middleName`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### middleName Type
+
+`string`
+
 ## name
 
 имя работника
@@ -690,7 +763,7 @@ WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgU
 
 `nickname`
 
-- is **required**
+- is optional
 - type: `string`
 - defined in this schema
 
@@ -714,6 +787,8 @@ WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgU
 
 ## orderWeight
 
+вес работника, в зависимости от указанного способа сортировки
+
 `orderWeight`
 
 - is optional
@@ -725,7 +800,7 @@ WidgetConfiguration.useDefaultWorkerImg и WidgetConfiguration.defaultWorkerImgU
 Either one of:
 
 - `number`
-- `object`
+- `string`
 - or `null`
 
 ## originBusinessID
@@ -907,6 +982,20 @@ e-mail профиля работника
 ### rating Type
 
 `number`
+
+## readonlyTaxonomies
+
+`readonlyTaxonomies`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### readonlyTaxonomies Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 ## revisionVersion
 

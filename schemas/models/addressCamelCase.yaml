@@ -64,5 +64,9 @@ properties:
     type: "array"
     items:
       $ref: "#/definitions/MetroStation"
+  way:
+    type: "string"
+  group:
+    type: "string"
 required: ["country"]
 additionalProperties: false

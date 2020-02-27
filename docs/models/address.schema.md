@@ -63,6 +63,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.js
 | [building](#building)                       | `string`  | Optional     | No       | (this schema) |
 | [corps](#corps)                             | `string`  | Optional     | No       | (this schema) |
 | [country](#country)                         | `enum`    | **Required** | No       | (this schema) |
+| [group](#group)                             | `string`  | Optional     | No       | (this schema) |
 | [house_add](#house_add)                     | `string`  | Optional     | No       | (this schema) |
 | [kilometer](#kilometer)                     | `string`  | Optional     | No       | (this schema) |
 | [latitude](#latitude)                       | `string`  | Optional     | No       | (this schema) |
@@ -79,6 +80,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.js
 | [sub_admin_area_type](#sub_admin_area_type) | `string`  | Optional     | No       | (this schema) |
 | [sub_locality](#sub_locality)               | `string`  | Optional     | No       | (this schema) |
 | [sub_locality_type](#sub_locality_type)     | `string`  | Optional     | No       | (this schema) |
+| [way](#way)                                 | `string`  | Optional     | No       | (this schema) |
 | [zip_code](#zip_code)                       | `string`  | Optional     | No       | (this schema) |
 
 ## address
@@ -187,6 +189,18 @@ The value of this property **must** be equal to one of the [known values below](
 | `FI`  |             |
 | `LI`  |             |
 | `_`   |             |
+
+## group
+
+`group`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### group Type
+
+`string`
 
 ## house_add
 
@@ -381,6 +395,18 @@ All items must be of the type:
 - defined in this schema
 
 ### sub_locality_type Type
+
+`string`
+
+## way
+
+`way`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### way Type
 
 `string`
 

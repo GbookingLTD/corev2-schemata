@@ -63,6 +63,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.
 | [building](#building)                 | `string`  | Optional     | No       | (this schema) |
 | [corps](#corps)                       | `string`  | Optional     | No       | (this schema) |
 | [country](#country)                   | `enum`    | **Required** | No       | (this schema) |
+| [group](#group)                       | `string`  | Optional     | No       | (this schema) |
 | [houseAdd](#houseadd)                 | `string`  | Optional     | No       | (this schema) |
 | [kilometer](#kilometer)               | `string`  | Optional     | No       | (this schema) |
 | [latitude](#latitude)                 | `string`  | Optional     | No       | (this schema) |
@@ -79,6 +80,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.
 | [subAdminAreaType](#subadminareatype) | `string`  | Optional     | No       | (this schema) |
 | [subLocality](#sublocality)           | `string`  | Optional     | No       | (this schema) |
 | [subLocalityType](#sublocalitytype)   | `string`  | Optional     | No       | (this schema) |
+| [way](#way)                           | `string`  | Optional     | No       | (this schema) |
 | [zipCode](#zipcode)                   | `string`  | Optional     | No       | (this schema) |
 
 ## address
@@ -187,6 +189,18 @@ The value of this property **must** be equal to one of the [known values below](
 | `FI`  |             |
 | `LI`  |             |
 | `_`   |             |
+
+## group
+
+`group`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### group Type
+
+`string`
 
 ## houseAdd
 
@@ -381,6 +395,18 @@ All items must be of the type:
 - defined in this schema
 
 ### subLocalityType Type
+
+`string`
+
+## way
+
+`way`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### way Type
 
 `string`
 

@@ -16,231 +16,276 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.j
 
 # Business Definitions
 
-| Property                                                                            | Type       | Group                                                                                                                                |
-| ----------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| [additionalDurations](#additionaldurations)                                         | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [additionalName](#additionalname)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [additionalPrices](#additionalprices)                                               | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [additionalProducts](#additionalproducts)                                           | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [additionalTaxonomyExtraId](#additionaltaxonomyextraid)                             | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [alias](#alias)                                                                     | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [alignmentTaxonomySlots](#alignmenttaxonomyslots)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [allowNextBookingInDays](#allownextbookingindays)                                   | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [allowNextBookingInDaysText](#allownextbookingindaystext)                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [allowSmsTranslit](#allowsmstranslit)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [amount](#amount)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
-| [appointmentFutureMoving](#appointmentfuturemoving)                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [appointment_confirmation_text](#appointment_confirmation_text)                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [appointment_confirmation_title](#appointment_confirmation_title)                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [askClientBirthday](#askclientbirthday)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [askClientGender](#askclientgender)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [baseBusinessID](#basebusinessid)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
-| [bookableDateRanges](#bookabledateranges)                                           | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [bookableMonthsCount](#bookablemonthscount)                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [calendarMode](#calendarmode)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [capacity](#capacity)                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [capacity_decrease](#capacity_decrease)                                             | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [chargeUnitsStep](#chargeunitsstep)                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [checkClientOverlapping](#checkclientoverlapping)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [childrenTaxonomyTypes](#childrentaxonomytypes)                                     | `enum[]`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [clientCommentTitle](#clientcommenttitle)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [color](#color)                                                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [confirmationAlert](#confirmationalert)                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [cracServer](#cracserver)                                                           | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [cracSlotSize](#cracslotsize)                                                       | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [crunchv2](#crunchv2)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [currency](#currency)                                                               | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
-| [customOnlinePaymentConfirmationTemplate](#customonlinepaymentconfirmationtemplate) | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [dayOffLabel](#dayofflabel)                                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [dayUnavailableLabel](#dayunavailablelabel)                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [daysForward](#daysforward)                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [defaultGTScheduleDayView](#defaultgtscheduledayview)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [defaultWorkerImgUrl](#defaultworkerimgurl)                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [denySameTimeRecords](#denysametimerecords)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [disableAppointmentClientInlineEditor](#disableappointmentclientinlineeditor)       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [disableMobileWidget](#disablemobilewidget)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [disableWidget](#disablewidget)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [disableWidgetMessage](#disablewidgetmessage)                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [disabledTaxonomiesText](#disabledtaxonomiestext)                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [discountedPriceRounding](#discountedpricerounding)                                 | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [discounts](#discounts)                                                             | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [displayInWidget](#displayinwidget)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [displaySlotSize](#displayslotsize)                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [dontRequireEmail](#dontrequireemail)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [duration](#duration)                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [editAppExtraId](#editappextraid)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [editTaxonomyChildren](#edittaxonomychildren)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [editTaxonomyVisitType](#edittaxonomyvisittype)                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [emailIsMandatory](#emailismandatory)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [enableBlackList](#enableblacklist)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableCalculateShedule](#enablecalculateshedule)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableClientCard](#enableclientcard)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableClientMedicalCardReport](#enableclientmedicalcardreport)                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableCustomOnlinePaymentConfirmation](#enablecustomonlinepaymentconfirmation)     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableExtendedRecordsClientStatistics](#enableextendedrecordsclientstatistics)     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableMasterImportance](#enablemasterimportance)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableOverrideFooter](#enableoverridefooter)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [enableSourceChoice](#enablesourcechoice)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [enableWarningContactData](#enablewarningcontactdata)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [exceptions](#exceptions)                                                           | `array`    | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [exportToExcelRemovedClients](#exporttoexcelremovedclients)                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [extraDescription](#extradescription)                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [extraID](#extraid)                                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
-| [extraId](#extraid-1)                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [extraLink](#extralink)                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [extraVisitors](#extravisitors)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [finId](#finid)                                                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [finName](#finname)                                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [forPay](#forpay)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [hideAnyWorkerBooking](#hideanyworkerbooking)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hideCallButton](#hidecallbutton)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hideCustomerPortalFooter](#hidecustomerportalfooter)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [hideEmptyDays](#hideemptydays)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hideGBookingLogo](#hidegbookinglogo)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hideGraySlots](#hidegrayslots)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hideNewAppointmentButton](#hidenewappointmentbutton)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hidePrices](#hideprices)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [hideSocialNetworksAuthentication](#hidesocialnetworksauthentication)               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [highlightedResource](#highlightedresource)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [id\_](#id_)                                                                        | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Department`                        |
-| [images](#images)                                                                   | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [insuranceClientSupportPhone](#insuranceclientsupportphone)                         | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [isBaseNode](#isbasenode)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
-| [isOther](#isother)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [lastModified](#lastmodified)                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [leaves](#leaves)                                                                   | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [level](#level)                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalDuration`                |
-| [manualChanges](#manualchanges)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [manualExceptionSupport](#manualexceptionsupport)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [maxServiceBooking](#maxservicebooking)                                             | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [maxTimeslotBooking](#maxtimeslotbooking)                                           | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [mostFreeEnable](#mostfreeenable)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [multiServiceBooking](#multiservicebooking)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [multiTimeslotBooking](#multitimeslotbooking)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [multiTimeslotBookingAllDays](#multitimeslotbookingalldays)                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [name](#name)                                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
-| [noDefaultImages](#nodefaultimages)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [noInternetAlert](#nointernetalert)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [onlyAfterTaxonomies](#onlyaftertaxonomies)                                         | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [order](#order)                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [originBusinessID](#originbusinessid)                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
-| [overrideFooter](#overridefooter)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [parallelTaxonomies](#paralleltaxonomies)                                           | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [pastTimeEdit](#pasttimeedit)                                                       | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [payment](#payment)                                                                 | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [paymentProvider](#paymentprovider)                                                 | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [popularity](#popularity)                                                           | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [price](#price)                                                                     | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [priceLink](#pricelink)                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [quantity](#quantity)                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
-| [readonlyResourceSchedule](#readonlyresourceschedule)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [requireAgreement](#requireagreement)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [requireAgreementLink](#requireagreementlink)                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [required](#required)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyProduct` |
-| [resourceLevel](#resourcelevel)                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
-| [resourceTimetableType](#resourcetimetabletype)                                     | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [revisionVersion](#revisionversion)                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [rooms](#rooms)                                                                     | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [schduleWeekViewIsDefault](#schduleweekviewisdefault)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [scheduleDefaultWorkersLimit](#scheduledefaultworkerslimit)                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [scheduleWorkerHours](#scheduleworkerhours)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [schedulerWeekViewType](#schedulerweekviewtype)                                     | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [shortLink](#shortlink)                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showAdditionalFields](#showadditionalfields)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showAddress](#showaddress)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showAllWorkers](#showallworkers)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showBirthDate](#showbirthdate)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showClientAddress](#showclientaddress)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showClientAppear](#showclientappear)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showClientAppearOnSchedule](#showclientappearonschedule)                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showClientComment](#showclientcomment)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showClientContractNumber](#showclientcontractnumber)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showClientImage](#showclientimage)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showClientPayment](#showclientpayment)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showDefaulterBlockscreen](#showdefaulterblockscreen)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showDeliveryStatus](#showdeliverystatus)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showDepartmentFilter](#showdepartmentfilter)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showDepartments](#showdepartments)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showDepartmentsConfiguration](#showdepartmentsconfiguration)                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showDisabledTaxonomies](#showdisabledtaxonomies)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showDrinkQuestion](#showdrinkquestion)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showEmail](#showemail)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showExtraClientInfo](#showextraclientinfo)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showFax](#showfax)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showFiredWorkerAppointmentAlert](#showfiredworkerappointmentalert)                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showFirstAvailableSlot](#showfirstavailableslot)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showGapWindow](#showgapwindow)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showGeneratableReportsScreen](#showgeneratablereportsscreen)                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showHouseNumber](#showhousenumber)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showIsraelCity](#showisraelcity)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showKupatHolim](#showkupatholim)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showLeadsScreen](#showleadsscreen)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showManualChanges](#showmanualchanges)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showMap](#showmap)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showPassportId](#showpassportid)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showRooms](#showrooms)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showSeasonTickets](#showseasontickets)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showSurnameFirst](#showsurnamefirst)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showTalkQuestion](#showtalkquestion)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showTaxonomyChildren](#showtaxonomychildren)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showTaxonomyConfirmationAlert](#showtaxonomyconfirmationalert)                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [showTaxonomyLocalization](#showtaxonomylocalization)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showTaxonomyVisitType](#showtaxonomyvisittype)                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showTestRecord](#showtestrecord)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showUTM](#showutm)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showWorkerDescriptionInEvent](#showworkerdescriptioninevent)                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showWorkerExtraId](#showworkerextraid)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showWorkerStatus](#showworkerstatus)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [showcaseItemID](#showcaseitemid)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
-| [showcaseTaxonomyID](#showcasetaxonomyid)                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [showcases](#showcases)                                                             | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [siteId](#siteid)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [skipAppointmentPriceUpdate](#skipappointmentpriceupdate)                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [skipAuthentication](#skipauthentication)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipCancelIfClientNotAppear](#skipcancelifclientnotappear)                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [skipDaysForward](#skipdaysforward)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipMobileMap](#skipmobilemap)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipServiceDurationAlignment](#skipservicedurationalignment)                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipServiceFiltering](#skipservicefiltering)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [skipServiceSelection](#skipserviceselection)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipTimeSelection](#skiptimeselection)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipTimeSelectionServiceIDs](#skiptimeselectionserviceids)                         | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipWorkerSelectedServiceIDs](#skipworkerselectedserviceids)                       | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [skipWorkerServicesSelection](#skipworkerservicesselection)                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [socialNetworkImage](#socialnetworkimage)                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [socialSharing](#socialsharing)                                                     | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [sortByMostFree](#sortbymostfree)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [sortWorkersByWorkload](#sortworkersbyworkload)                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [specialCabinet](#specialcabinet)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [splitInsuranceClient](#splitinsuranceclient)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [splitName](#splitname)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [stateLevelHolidays](#statelevelholidays)                                           | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [stockAmount](#stockamount)                                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
-| [taxonomyAppExtraID](#taxonomyappextraid)                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [taxonomyCategoryExtraID](#taxonomycategoryextraid)                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [taxonomyParentID](#taxonomyparentid)                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [taxonomyType](#taxonomytype)                                                       | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [tentativeTTL](#tentativettl)                                                       | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [theme](#theme)                                                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [timetable](#timetable)                                                             | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [type](#type)                                                                       | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
-| [useAppointmentReminder](#useappointmentreminder)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useBusinessScheduleForUnavailableLabel](#usebusinessscheduleforunavailablelabel)   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useCRAC](#usecrac)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useClustersMap](#useclustersmap)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useCoupon](#usecoupon)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useDefaultWorkerImg](#usedefaultworkerimg)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useGtAppMethod](#usegtappmethod)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [useMedAuth](#usemedauth)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useMiddleName](#usemiddlename)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [useSortByName](#usesortbyname)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [visitType](#visittype)                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
-| [warningContactDataText](#warningcontactdatatext)                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [widgetUseCRAC](#widgetusecrac)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [withoutWorkers](#withoutworkers)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [workWeekEnd](#workweekend)                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [workWeekStart](#workweekstart)                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
-| [workerNameReverse](#workernamereverse)                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| Property                                                                                            | Type       | Group                                                                                                                                |
+| --------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| [additionalDurations](#additionaldurations)                                                         | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [additionalName](#additionalname)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [additionalPrices](#additionalprices)                                                               | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [additionalProducts](#additionalproducts)                                                           | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [additionalTaxonomyExtraId](#additionaltaxonomyextraid)                                             | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [adjacentSameTimeStart](#adjacentsametimestart)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [adjacentTaxonomies](#adjacenttaxonomies)                                                           | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [adjacentTaxonomiesTreshold](#adjacenttaxonomiestreshold)                                           | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [alias](#alias)                                                                                     | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [alignmentTaxonomySlots](#alignmenttaxonomyslots)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [allowAutoSelect](#allowautoselect)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [allowBookVisitor](#allowbookvisitor)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [allowBookingInBO](#allowbookinginbo)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowHideServiceForBooking](#allowhideserviceforbooking)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [allowHideWorkersFromSchdeule](#allowhideworkersfromschdeule)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [allowNextBookingCount](#allownextbookingcount)                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowNextBookingInDays](#allownextbookingindays)                                                   | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowNextBookingInDaysText](#allownextbookingindaystext)                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowSkipTimeCheck](#allowskiptimecheck)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [allowSmsTranslit](#allowsmstranslit)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [amount](#amount)                                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [appointmentFutureMoving](#appointmentfuturemoving)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [appointment_confirmation_text](#appointment_confirmation_text)                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [appointment_confirmation_title](#appointment_confirmation_title)                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [askClientBirthday](#askclientbirthday)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [askClientGender](#askclientgender)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [baseBusinessID](#basebusinessid)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
+| [blockNotificationForAnyAvailableAdjacentService](#blocknotificationforanyavailableadjacentservice) | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [bookableDateRanges](#bookabledateranges)                                                           | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [bookableMonthsCount](#bookablemonthscount)                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [calendarMode](#calendarmode)                                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [capacity](#capacity)                                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [capacity_decrease](#capacity_decrease)                                                             | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [chargeUnitsStep](#chargeunitsstep)                                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [checkClientOverlapping](#checkclientoverlapping)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [childrenTaxonomyTypes](#childrentaxonomytypes)                                                     | `enum[]`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [clientBlockingSettings](#clientblockingsettings)                                                   | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [clientCommentTitle](#clientcommenttitle)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [color](#color)                                                                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [confirmationAlert](#confirmationalert)                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [confirmationSmsAlert](#confirmationsmsalert)                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [cracServer](#cracserver)                                                                           | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [cracSlotSize](#cracslotsize)                                                                       | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [crunchv2](#crunchv2)                                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [currency](#currency)                                                                               | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [customOnlinePaymentConfirmationTemplate](#customonlinepaymentconfirmationtemplate)                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [dateLimitType](#datelimittype)                                                                     | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [dateLimits](#datelimits)                                                                           | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [dayOffLabel](#dayofflabel)                                                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [dayUnavailableLabel](#dayunavailablelabel)                                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [daysForward](#daysforward)                                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [defaultGTScheduleDayView](#defaultgtscheduledayview)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [defaultServiceImgUrl](#defaultserviceimgurl)                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [defaultWorkerImgUrl](#defaultworkerimgurl)                                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [denySameTimeRecords](#denysametimerecords)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [disableAppointmentClientInlineEditor](#disableappointmentclientinlineeditor)                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [disableMobileWidget](#disablemobilewidget)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [disableWidget](#disablewidget)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [disableWidgetMessage](#disablewidgetmessage)                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [disabledTaxonomiesText](#disabledtaxonomiestext)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [discountedPriceRounding](#discountedpricerounding)                                                 | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [discounts](#discounts)                                                                             | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [displayInWidget](#displayinwidget)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [displaySlotSize](#displayslotsize)                                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [dontRequireEmail](#dontrequireemail)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [duration](#duration)                                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [editAppExtraId](#editappextraid)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [editTaxonomyChildren](#edittaxonomychildren)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [editTaxonomyVisitType](#edittaxonomyvisittype)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [emailIsMandatory](#emailismandatory)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [enableBlackList](#enableblacklist)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableCalculateShedule](#enablecalculateshedule)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableClientCard](#enableclientcard)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableClientLanguage](#enableclientlanguage)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableClientMedicalCardReport](#enableclientmedicalcardreport)                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableCustomOnlinePaymentConfirmation](#enablecustomonlinepaymentconfirmation)                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableExtendedPhone](#enableextendedphone)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableExtendedRecordsClientStatistics](#enableextendedrecordsclientstatistics)                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableMasterImportance](#enablemasterimportance)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableOverrideFooter](#enableoverridefooter)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [enableServiceTimeLimit](#enableservicetimelimit)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableSourceChoice](#enablesourcechoice)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableTaxonomyChildrenAgeCheck](#enabletaxonomychildrenagecheck)                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableWarningContactData](#enablewarningcontactdata)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [exceptions](#exceptions)                                                                           | `array`    | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [exportToExcelRemovedClients](#exporttoexcelremovedclients)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [extraDescription](#extradescription)                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraID](#extraid)                                                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
+| [extraId](#extraid-1)                                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraLink](#extralink)                                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraVisitors](#extravisitors)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [feedBackMinRating](#feedbackminrating)                                                             | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [feedbackCustomerPortalMessage](#feedbackcustomerportalmessage)                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [feedbackCustomerPortalThankYouMessage](#feedbackcustomerportalthankyoumessage)                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [feedbackCustomerPortalTitle](#feedbackcustomerportaltitle)                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [filterNonInsuranceSchedule](#filternoninsuranceschedule)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [finId](#finid)                                                                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [finName](#finname)                                                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [forPay](#forpay)                                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [hideAnyWorkerBooking](#hideanyworkerbooking)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hideCallButton](#hidecallbutton)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hideCustomerPortalFooter](#hidecustomerportalfooter)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [hideEmptyDays](#hideemptydays)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hideGBookingLogo](#hidegbookinglogo)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hideGraySlots](#hidegrayslots)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hideNewAppointmentButton](#hidenewappointmentbutton)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hidePrices](#hideprices)                                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [hideSocialNetworksAuthentication](#hidesocialnetworksauthentication)                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [highlightedResource](#highlightedresource)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [id\_](#id_)                                                                                        | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Department`                        |
+| [images](#images)                                                                                   | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [insuranceClientSupportPhone](#insuranceclientsupportphone)                                         | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [isBaseNode](#isbasenode)                                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
+| [isOther](#isother)                                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [lastModified](#lastmodified)                                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [leaves](#leaves)                                                                                   | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [level](#level)                                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalDuration`                |
+| [manualChanges](#manualchanges)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [manualExceptionSupport](#manualexceptionsupport)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [maxServiceBooking](#maxservicebooking)                                                             | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [maxTimeslotBooking](#maxtimeslotbooking)                                                           | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [mostFreeEnable](#mostfreeenable)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [multiServiceBooking](#multiservicebooking)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [multiTimeslotBooking](#multitimeslotbooking)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [multiTimeslotBookingAllDays](#multitimeslotbookingalldays)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [name](#name)                                                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
+| [newTaxonomy](#newtaxonomy)                                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [newWidgetTheme](#newwidgettheme)                                                                   | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [noDefaultImages](#nodefaultimages)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [noInternetAlert](#nointernetalert)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [onlineMode](#onlinemode)                                                                           | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [onlyAfterTaxonomies](#onlyaftertaxonomies)                                                         | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [order](#order)                                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [originBusinessID](#originbusinessid)                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
+| [overrideFooter](#overridefooter)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [parallelTaxonomies](#paralleltaxonomies)                                                           | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [pastTimeEdit](#pasttimeedit)                                                                       | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [payment](#payment)                                                                                 | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [paymentProvider](#paymentprovider)                                                                 | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [popularity](#popularity)                                                                           | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [price](#price)                                                                                     | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [priceLink](#pricelink)                                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [quantity](#quantity)                                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/Consumable`                        |
+| [readonlyResourceSchedule](#readonlyresourceschedule)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [requireAgreement](#requireagreement)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [requireAgreementLink](#requireagreementlink)                                                       | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [required](#required)                                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyProduct` |
+| [resourceLevel](#resourcelevel)                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [resourceTimetableType](#resourcetimetabletype)                                                     | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [revisionVersion](#revisionversion)                                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [rooms](#rooms)                                                                                     | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [schduleWeekViewIsDefault](#schduleweekviewisdefault)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleDefaultWorkersLimit](#scheduledefaultworkerslimit)                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleWorkerHours](#scheduleworkerhours)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [schedulerWeekViewType](#schedulerweekviewtype)                                                     | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [shortLink](#shortlink)                                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showAdditionalFields](#showadditionalfields)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showAddress](#showaddress)                                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showAllWorkers](#showallworkers)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showBirthDate](#showbirthdate)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientAddress](#showclientaddress)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showClientAppear](#showclientappear)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientAppearOnSchedule](#showclientappearonschedule)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientBirthdayFilter](#showclientbirthdayfilter)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientComment](#showclientcomment)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showClientContractNumber](#showclientcontractnumber)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientImage](#showclientimage)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientPayment](#showclientpayment)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDefaulterBlockscreen](#showdefaulterblockscreen)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDeliveryStatus](#showdeliverystatus)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDepartmentFilter](#showdepartmentfilter)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDepartments](#showdepartments)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDepartmentsConfiguration](#showdepartmentsconfiguration)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDisabledTaxonomies](#showdisabledtaxonomies)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showDrinkQuestion](#showdrinkquestion)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showEmail](#showemail)                                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showExtraClientInfo](#showextraclientinfo)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showFax](#showfax)                                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showFiredWorkerAppointmentAlert](#showfiredworkerappointmentalert)                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showFirstAvailableSlot](#showfirstavailableslot)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGapWindow](#showgapwindow)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGender](#showgender)                                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGenderInRecords](#showgenderinrecords)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGeneratableReportsScreen](#showgeneratablereportsscreen)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showHouseNumber](#showhousenumber)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showIsraelCity](#showisraelcity)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showKupatHolim](#showkupatholim)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showLeadsScreen](#showleadsscreen)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showManualChanges](#showmanualchanges)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showMap](#showmap)                                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showPassportId](#showpassportid)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showRooms](#showrooms)                                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showSeasonTickets](#showseasontickets)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showSurnameFirst](#showsurnamefirst)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showTalkQuestion](#showtalkquestion)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showTaxonomyChildren](#showtaxonomychildren)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTaxonomyConfirmationAlert](#showtaxonomyconfirmationalert)                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [showTaxonomyLocalization](#showtaxonomylocalization)                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTaxonomyVisitType](#showtaxonomyvisittype)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTestRecord](#showtestrecord)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showUTM](#showutm)                                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWidgetColorTheme](#showwidgetcolortheme)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWorkerDescriptionInEvent](#showworkerdescriptioninevent)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWorkerExtraId](#showworkerextraid)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWorkerStatus](#showworkerstatus)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showcaseItemID](#showcaseitemid)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/TaxonomyShowcase`                  |
+| [showcaseItems](#showcaseitems)                                                                     | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [showcaseTaxonomyID](#showcasetaxonomyid)                                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [showcases](#showcases)                                                                             | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [siteId](#siteid)                                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [skipAppointmentPriceUpdate](#skipappointmentpriceupdate)                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [skipAuthentication](#skipauthentication)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipCancelIfClientNotAppear](#skipcancelifclientnotappear)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [skipDaysForward](#skipdaysforward)                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipMobileMap](#skipmobilemap)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipServiceDurationAlignment](#skipservicedurationalignment)                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipServiceFiltering](#skipservicefiltering)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [skipServiceSelection](#skipserviceselection)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipTimeSelection](#skiptimeselection)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipTimeSelectionServiceIDs](#skiptimeselectionserviceids)                                         | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipWorkerSelectedServiceIDs](#skipworkerselectedserviceids)                                       | `string[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [skipWorkerServicesSelection](#skipworkerservicesselection)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [socialNetworkImage](#socialnetworkimage)                                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [socialSharing](#socialsharing)                                                                     | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [sortByMostFree](#sortbymostfree)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [sortWorkersByWorkload](#sortworkersbyworkload)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [specialCabinet](#specialcabinet)                                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [splitFullNameXlsExport](#splitfullnamexlsexport)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [splitInsuranceClient](#splitinsuranceclient)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [splitName](#splitname)                                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [stateLevelHolidays](#statelevelholidays)                                                           | `object[]` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [stockAmount](#stockamount)                                                                         | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [taxonomyAppExtraID](#taxonomyappextraid)                                                           | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [taxonomyCategoryExtraID](#taxonomycategoryextraid)                                                 | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [taxonomyChildrenMaxAge](#taxonomychildrenmaxage)                                                   | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [taxonomyParentID](#taxonomyparentid)                                                               | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [taxonomyType](#taxonomytype)                                                                       | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [tentativeTTL](#tentativettl)                                                                       | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [theme](#theme)                                                                                     | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [timetable](#timetable)                                                                             | reference  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [type](#type)                                                                                       | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [useAdditionalDurations](#useadditionaldurations)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [useAdjacentTaxonomies](#useadjacenttaxonomies)                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [useAdjacentTaxonomiesSlotSplitting](#useadjacenttaxonomiesslotsplitting)                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [useAppointmentReminder](#useappointmentreminder)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useBusinessScheduleForUnavailableLabel](#usebusinessscheduleforunavailablelabel)                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useCRAC](#usecrac)                                                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useClustersMap](#useclustersmap)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useConfirmationSmsAlert](#useconfirmationsmsalert)                                                 | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [useCoupon](#usecoupon)                                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useDefaultServiceImg](#usedefaultserviceimg)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useDefaultWorkerImg](#usedefaultworkerimg)                                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useDirectScheduleRead](#usedirectscheduleread)                                                     | `enum`     | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useGtAppMethod](#usegtappmethod)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [useInsuranceGuaranteeLetter](#useinsuranceguaranteeletter)                                         | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useInsuranceSelect](#useinsuranceselect)                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useMedAuth](#usemedauth)                                                                           | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useMiddleName](#usemiddlename)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useNewReserveAPI](#usenewreserveapi)                                                               | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useResourcePageLoading](#useresourcepageloading)                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [useSortByName](#usesortbyname)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [visitType](#visittype)                                                                             | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
+| [warningContactDataText](#warningcontactdatatext)                                                   | `string`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [widgetUseCRAC](#widgetusecrac)                                                                     | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [withoutWorkers](#withoutworkers)                                                                   | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [workWeekEnd](#workweekend)                                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [workWeekStart](#workweekstart)                                                                     | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [workerNameReverse](#workernamereverse)                                                             | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 
 ## additionalDurations
 
@@ -320,6 +365,98 @@ All items must be of the type: `object` with following properties:
 | -------- | ---- | -------- |
 
 
+## adjacentSameTimeStart
+
+`adjacentSameTimeStart`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### adjacentSameTimeStart Type
+
+`boolean`
+
+## adjacentTaxonomies
+
+`adjacentTaxonomies`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### adjacentTaxonomies Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property         | Type    | Required | Default |
+| ---------------- | ------- | -------- | ------- |
+| `isAnyAvailable` | boolean | Optional | `false` |
+| `order`          | number  | Optional |         |
+| `slotDuration`   | number  | Optional | `20`    |
+| `taxonomyID`     | string  | Optional |         |
+
+#### isAnyAvailable
+
+`isAnyAvailable`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### isAnyAvailable Type
+
+`boolean`
+
+#### order
+
+`order`
+
+- is optional
+- type: `number`
+
+##### order Type
+
+`number`
+
+#### slotDuration
+
+`slotDuration`
+
+- is optional
+- type: `number`
+- default: `20`
+
+##### slotDuration Type
+
+`number`
+
+#### taxonomyID
+
+`taxonomyID`
+
+- is optional
+- type: `string`
+
+##### taxonomyID Type
+
+`string`
+
+## adjacentTaxonomiesTreshold
+
+`adjacentTaxonomiesTreshold`
+
+- is optional
+- type: `number`
+- default: `0`
+- defined in this schema
+
+### adjacentTaxonomiesTreshold Type
+
+`number`
+
 ## alias
 
 `alias`
@@ -349,6 +486,84 @@ All items must be of the type: `object` with following properties:
 
 `boolean`
 
+## allowAutoSelect
+
+`allowAutoSelect`
+
+- is optional
+- type: `boolean`
+- default: `true`
+- defined in this schema
+
+### allowAutoSelect Type
+
+`boolean`
+
+## allowBookVisitor
+
+`allowBookVisitor`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### allowBookVisitor Type
+
+`boolean`
+
+## allowBookingInBO
+
+`allowBookingInBO`
+
+- is optional
+- type: `boolean`
+- default: `true`
+- defined in this schema
+
+### allowBookingInBO Type
+
+`boolean`
+
+## allowHideServiceForBooking
+
+`allowHideServiceForBooking`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### allowHideServiceForBooking Type
+
+`boolean`
+
+## allowHideWorkersFromSchdeule
+
+`allowHideWorkersFromSchdeule`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### allowHideWorkersFromSchdeule Type
+
+`boolean`
+
+## allowNextBookingCount
+
+`allowNextBookingCount`
+
+- is optional
+- type: `number`
+- default: `1`
+- defined in this schema
+
+### allowNextBookingCount Type
+
+`number`
+
 ## allowNextBookingInDays
 
 `allowNextBookingInDays`
@@ -373,6 +588,19 @@ All items must be of the type: `object` with following properties:
 ### allowNextBookingInDaysText Type
 
 `string`
+
+## allowSkipTimeCheck
+
+`allowSkipTimeCheck`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### allowSkipTimeCheck Type
+
+`boolean`
 
 ## allowSmsTranslit
 
@@ -476,6 +704,19 @@ All items must be of the type: `object` with following properties:
 ### baseBusinessID Type
 
 `string`
+
+## blockNotificationForAnyAvailableAdjacentService
+
+`blockNotificationForAnyAvailableAdjacentService`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### blockNotificationForAnyAvailableAdjacentService Type
+
+`boolean`
 
 ## bookableDateRanges
 
@@ -635,6 +876,110 @@ Array type: `enum[]`
 
 All items must be of the type: `string`
 
+## clientBlockingSettings
+
+`clientBlockingSettings`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### clientBlockingSettings Type
+
+`object` with following properties:
+
+| Property                     | Type    | Required | Default |
+| ---------------------------- | ------- | -------- | ------- |
+| `appointmentClientBlock`     | boolean | Optional | `false` |
+| `appointmentClientBlockDays` | number  | Optional | `30`    |
+| `appointmentClientBlockText` | string  | Optional |         |
+| `blockIfFutureRecordExists`  | boolean | Optional | `false` |
+| `blockRepeatedRecordsCount`  | number  | Optional | `1`     |
+| `blockRepeatedRecordsRange`  | number  | Optional | `0`     |
+| `blockRepeatedRecordsText`   | string  | Optional |         |
+
+#### appointmentClientBlock
+
+`appointmentClientBlock`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### appointmentClientBlock Type
+
+`boolean`
+
+#### appointmentClientBlockDays
+
+`appointmentClientBlockDays`
+
+- is optional
+- type: `number`
+- default: `30`
+
+##### appointmentClientBlockDays Type
+
+`number`
+
+#### appointmentClientBlockText
+
+`appointmentClientBlockText`
+
+- is optional
+- type: `string`
+
+##### appointmentClientBlockText Type
+
+`string`
+
+#### blockIfFutureRecordExists
+
+`blockIfFutureRecordExists`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### blockIfFutureRecordExists Type
+
+`boolean`
+
+#### blockRepeatedRecordsCount
+
+`blockRepeatedRecordsCount`
+
+- is optional
+- type: `number`
+- default: `1`
+
+##### blockRepeatedRecordsCount Type
+
+`number`
+
+#### blockRepeatedRecordsRange
+
+`blockRepeatedRecordsRange`
+
+- is optional
+- type: `number`
+- default: `0`
+
+##### blockRepeatedRecordsRange Type
+
+`number`
+
+#### blockRepeatedRecordsText
+
+`blockRepeatedRecordsText`
+
+- is optional
+- type: `string`
+
+##### blockRepeatedRecordsText Type
+
+`string`
+
 ## clientCommentTitle
 
 `clientCommentTitle`
@@ -669,6 +1014,18 @@ All items must be of the type: `string`
 - defined in this schema
 
 ### confirmationAlert Type
+
+`string`
+
+## confirmationSmsAlert
+
+`confirmationSmsAlert`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### confirmationSmsAlert Type
 
 `string`
 
@@ -748,6 +1105,71 @@ The value of this property **must** be equal to one of the [known values below](
 
 `string`
 
+## dateLimitType
+
+`dateLimitType`
+
+- is optional
+- type: `enum`
+- default: `"all_dates"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#datelimittype-known-values).
+
+### dateLimitType Known Values
+
+| Value         | Description |
+| ------------- | ----------- |
+| `all_dates`   |             |
+| `from_date`   |             |
+| `to_date`     |             |
+| `range_dates` |             |
+
+## dateLimits
+
+`dateLimits`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### dateLimits Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property        | Type   | Required |
+| --------------- | ------ | -------- |
+| `dateLimitFrom` | string | Optional |
+| `dateLimitTo`   | string | Optional |
+
+#### dateLimitFrom
+
+`dateLimitFrom`
+
+- is optional
+- type: `string`
+
+##### dateLimitFrom Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
+#### dateLimitTo
+
+`dateLimitTo`
+
+- is optional
+- type: `string`
+
+##### dateLimitTo Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
 ## dayOffLabel
 
 `dayOffLabel`
@@ -797,6 +1219,18 @@ The value of this property **must** be equal to one of the [known values below](
 ### defaultGTScheduleDayView Type
 
 `boolean`
+
+## defaultServiceImgUrl
+
+`defaultServiceImgUrl`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### defaultServiceImgUrl Type
+
+`string`
 
 ## defaultWorkerImgUrl
 
@@ -1085,6 +1519,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## enableClientLanguage
+
+`enableClientLanguage`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### enableClientLanguage Type
+
+`boolean`
+
 ## enableClientMedicalCardReport
 
 `enableClientMedicalCardReport`
@@ -1108,6 +1555,19 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### enableCustomOnlinePaymentConfirmation Type
+
+`boolean`
+
+## enableExtendedPhone
+
+`enableExtendedPhone`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### enableExtendedPhone Type
 
 `boolean`
 
@@ -1150,6 +1610,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## enableServiceTimeLimit
+
+`enableServiceTimeLimit`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### enableServiceTimeLimit Type
+
+`boolean`
+
 ## enableSourceChoice
 
 `enableSourceChoice`
@@ -1160,6 +1633,19 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### enableSourceChoice Type
+
+`boolean`
+
+## enableTaxonomyChildrenAgeCheck
+
+`enableTaxonomyChildrenAgeCheck`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### enableTaxonomyChildrenAgeCheck Type
 
 `boolean`
 
@@ -1259,6 +1745,76 @@ Array type: `array`
 - defined in this schema
 
 ### extraVisitors Type
+
+`boolean`
+
+## feedBackMinRating
+
+`feedBackMinRating`
+
+- is optional
+- type: `enum`
+- default: `1`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#feedbackminrating-known-values).
+
+### feedBackMinRating Known Values
+
+| Value | Description |
+| ----- | ----------- |
+| `1`   |             |
+| `2`   |             |
+| `3`   |             |
+| `4`   |             |
+| `5`   |             |
+
+## feedbackCustomerPortalMessage
+
+`feedbackCustomerPortalMessage`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### feedbackCustomerPortalMessage Type
+
+`string`
+
+## feedbackCustomerPortalThankYouMessage
+
+`feedbackCustomerPortalThankYouMessage`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### feedbackCustomerPortalThankYouMessage Type
+
+`string`
+
+## feedbackCustomerPortalTitle
+
+`feedbackCustomerPortalTitle`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### feedbackCustomerPortalTitle Type
+
+`string`
+
+## filterNonInsuranceSchedule
+
+`filterNonInsuranceSchedule`
+
+- is optional
+- type: `boolean`
+- default: `true`
+- defined in this schema
+
+### filterNonInsuranceSchedule Type
 
 `boolean`
 
@@ -1650,6 +2206,35 @@ All items must be of the type: `string`
 
 `string`
 
+## newTaxonomy
+
+`newTaxonomy`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### newTaxonomy Type
+
+`boolean`
+
+## newWidgetTheme
+
+`newWidgetTheme`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### newWidgetTheme Type
+
+`object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
+
 ## noDefaultImages
 
 `noDefaultImages`
@@ -1675,6 +2260,30 @@ All items must be of the type: `string`
 ### noInternetAlert Type
 
 `boolean`
+
+## onlineMode
+
+`onlineMode`
+
+- is optional
+- type: `enum`
+- default: `"PLAN_CLINIC"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#onlinemode-known-values).
+
+### onlineMode Known Values
+
+| Value                | Description     |
+| -------------------- | --------------- |
+| `0`                  | [object Object] |
+| `1`                  | [object Object] |
+| `2`                  | [object Object] |
+| `3`                  | [object Object] |
+| `PLAN_CLINIC`        |                 |
+| `PLAN_CLINIC_ONLINE` |                 |
+| `ONCALL_ONLINE`      |                 |
+| `PLAN_ONLINE`        |                 |
 
 ## onlyAfterTaxonomies
 
@@ -2115,6 +2724,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## showClientBirthdayFilter
+
+`showClientBirthdayFilter`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### showClientBirthdayFilter Type
+
+`boolean`
+
 ## showClientComment
 
 `showClientComment`
@@ -2333,6 +2955,32 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### showGapWindow Type
+
+`boolean`
+
+## showGender
+
+`showGender`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### showGender Type
+
+`boolean`
+
+## showGenderInRecords
+
+`showGenderInRecords`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### showGenderInRecords Type
 
 `boolean`
 
@@ -2570,6 +3218,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## showWidgetColorTheme
+
+`showWidgetColorTheme`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### showWidgetColorTheme Type
+
+`boolean`
+
 ## showWorkerDescriptionInEvent
 
 `showWorkerDescriptionInEvent`
@@ -2618,6 +3279,115 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### showcaseItemID Type
+
+`string`
+
+## showcaseItems
+
+`showcaseItems`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### showcaseItems Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property              | Type   | Required |
+| --------------------- | ------ | -------- |
+| `_id`                 | string | Optional |
+| `additionalDurations` | array  | Optional |
+| `businessID`          | string | Optional |
+| `taxonomyID`          | string | Optional |
+
+#### \_id
+
+`_id`
+
+- is optional
+- type: `string`
+
+##### \_id Type
+
+`string`
+
+#### additionalDurations
+
+`additionalDurations`
+
+- is optional
+- type: `object[]`
+
+##### additionalDurations Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property   | Type   | Required | Default |
+| ---------- | ------ | -------- | ------- |
+| `_id`      | string | Optional |         |
+| `duration` | number | Optional | `0`     |
+| `level`    | number | Optional |         |
+
+#### \_id
+
+`_id`
+
+- is optional
+- type: `string`
+
+##### \_id Type
+
+`string`
+
+#### duration
+
+`duration`
+
+- is optional
+- type: `number`
+- default: `0`
+
+##### duration Type
+
+`number`
+
+#### level
+
+поддержка различной длительности услуг в зависимости от работника
+
+`level`
+
+- is optional
+- type: `number`
+
+##### level Type
+
+`number`
+
+#### businessID
+
+`businessID`
+
+- is optional
+- type: `string`
+
+##### businessID Type
+
+`string`
+
+#### taxonomyID
+
+`taxonomyID`
+
+- is optional
+- type: `string`
+
+##### taxonomyID Type
 
 `string`
 
@@ -2966,6 +3736,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `string`
 
+## splitFullNameXlsExport
+
+`splitFullNameXlsExport`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### splitFullNameXlsExport Type
+
+`boolean`
+
 ## splitInsuranceClient
 
 `splitInsuranceClient`
@@ -3048,6 +3831,18 @@ All items must be of the type: `object` with following properties:
 ### taxonomyCategoryExtraID Type
 
 `string`
+
+## taxonomyChildrenMaxAge
+
+`taxonomyChildrenMaxAge`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### taxonomyChildrenMaxAge Type
+
+`number`
 
 ## taxonomyParentID
 
@@ -3134,6 +3929,45 @@ The value of this property **must** be equal to one of the [known values below](
 | `begin_with` |                 |
 | `average`    |                 |
 
+## useAdditionalDurations
+
+`useAdditionalDurations`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useAdditionalDurations Type
+
+`boolean`
+
+## useAdjacentTaxonomies
+
+`useAdjacentTaxonomies`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useAdjacentTaxonomies Type
+
+`boolean`
+
+## useAdjacentTaxonomiesSlotSplitting
+
+`useAdjacentTaxonomiesSlotSplitting`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useAdjacentTaxonomiesSlotSplitting Type
+
+`boolean`
+
 ## useAppointmentReminder
 
 `useAppointmentReminder`
@@ -3186,6 +4020,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## useConfirmationSmsAlert
+
+`useConfirmationSmsAlert`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### useConfirmationSmsAlert Type
+
+`boolean`
+
 ## useCoupon
 
 `useCoupon`
@@ -3196,6 +4042,19 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### useCoupon Type
+
+`boolean`
+
+## useDefaultServiceImg
+
+`useDefaultServiceImg`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useDefaultServiceImg Type
 
 `boolean`
 
@@ -3212,6 +4071,26 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## useDirectScheduleRead
+
+`useDirectScheduleRead`
+
+- is optional
+- type: `enum`
+- default: `"NONE"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#usedirectscheduleread-known-values).
+
+### useDirectScheduleRead Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `ALL`           |             |
+| `AUTHENTICATED` |             |
+| `GUEST`         |             |
+| `NONE`          |             |
+
 ## useGtAppMethod
 
 `useGtAppMethod`
@@ -3222,6 +4101,32 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### useGtAppMethod Type
+
+`boolean`
+
+## useInsuranceGuaranteeLetter
+
+`useInsuranceGuaranteeLetter`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useInsuranceGuaranteeLetter Type
+
+`boolean`
+
+## useInsuranceSelect
+
+`useInsuranceSelect`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useInsuranceSelect Type
 
 `boolean`
 
@@ -3248,6 +4153,32 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### useMiddleName Type
+
+`boolean`
+
+## useNewReserveAPI
+
+`useNewReserveAPI`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useNewReserveAPI Type
+
+`boolean`
+
+## useResourcePageLoading
+
+`useResourcePageLoading`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### useResourcePageLoading Type
 
 `boolean`
 
@@ -3474,86 +4405,143 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property                                  | Type    | Required | Default     |
-| ----------------------------------------- | ------- | -------- | ----------- |
-| `allowSmsTranslit`                        | boolean | Optional | `false`     |
-| `appointmentFutureMoving`                 | boolean | Optional | `false`     |
-| `cabinetsEnabled`                         | boolean | Optional | `false`     |
-| `checkClientOverlapping`                  | boolean | Optional | `false`     |
-| `customOnlinePaymentConfirmationTemplate` | string  | Optional | `false`     |
-| `defaultGTScheduleDayView`                | boolean | Optional | `false`     |
-| `disableAppointmentClientInlineEditor`    | boolean | Optional | `false`     |
-| `editAppExtraId`                          | boolean | Optional | `false`     |
-| `editTaxonomyChildren`                    | boolean | Optional | `false`     |
-| `editTaxonomyVisitType`                   | boolean | Optional | `false`     |
-| `enableBlackList`                         | boolean | Optional | `false`     |
-| `enableCalculateShedule`                  | boolean | Optional | `false`     |
-| `enableClientCard`                        | boolean | Optional | `false`     |
-| `enableClientMedicalCardReport`           | boolean | Optional | `false`     |
-| `enableCustomOnlinePaymentConfirmation`   | boolean | Optional | `false`     |
-| `enableExtendedRecordsClientStatistics`   | boolean | Optional | `false`     |
-| `enableMasterImportance`                  | boolean | Optional | `false`     |
-| `enableSourceChoice`                      | boolean | Optional | `true`      |
-| `exportToExcelRemovedClients`             | boolean | Optional | `false`     |
-| `finId`                                   | string  | Optional |             |
-| `finName`                                 | string  | Optional |             |
-| `hideCustomerPortalFooter`                | boolean | Optional | `false`     |
-| `highlightedResource`                     | boolean | Optional | `false`     |
-| `manualExceptionSupport`                  | boolean | Optional | `false`     |
-| `noInternetAlert`                         | boolean | Optional | `false`     |
-| `pastTimeEdit`                            | number  | Optional | `1`         |
-| `paymentProvider`                         | string  | Optional |             |
-| `readonlyResourceSchedule`                | boolean | Optional | `false`     |
-| `resourceTimetableType`                   | string  | Optional | `"DEFAULT"` |
-| `revisionVersion`                         | number  | Optional |             |
-| `schduleWeekViewIsDefault`                | boolean | Optional | `false`     |
-| `scheduleDefaultWorkersLimit`             | number  | Optional | `25`        |
-| `scheduleWorkerHours`                     | boolean | Optional | `false`     |
-| `schedulerWeekViewType`                   | string  | Optional | `"week"`    |
-| `showAdditionalFields`                    | boolean | Optional | `false`     |
-| `showAddress`                             | boolean | Optional | `false`     |
-| `showBirthDate`                           | boolean | Optional | `false`     |
-| `showClientAppear`                        | boolean | Optional | `false`     |
-| `showClientAppearOnSchedule`              | boolean | Optional | `false`     |
-| `showClientContractNumber`                | boolean | Optional | `false`     |
-| `showClientImage`                         | boolean | Optional | `false`     |
-| `showClientPayment`                       | boolean | Optional | `false`     |
-| `showDefaulterBlockscreen`                | boolean | Optional | `false`     |
-| `showDeliveryStatus`                      | boolean | Optional | `false`     |
-| `showDepartmentFilter`                    | boolean | Optional | `false`     |
-| `showDepartments`                         | boolean | Optional | `false`     |
-| `showDepartmentsConfiguration`            | boolean | Optional | `false`     |
-| `showEmail`                               | boolean | Optional | `false`     |
-| `showExtraClientInfo`                     | boolean | Optional | `false`     |
-| `showFax`                                 | boolean | Optional | `false`     |
-| `showFiredWorkerAppointmentAlert`         | boolean | Optional | `false`     |
-| `showFirstAvailableSlot`                  | boolean | Optional | `false`     |
-| `showGapWindow`                           | boolean | Optional | `false`     |
-| `showGeneratableReportsScreen`            | boolean | Optional | `false`     |
-| `showHouseNumber`                         | boolean | Optional | `false`     |
-| `showIsraelCity`                          | boolean | Optional | `false`     |
-| `showKupatHolim`                          | boolean | Optional | `false`     |
-| `showLeadsScreen`                         | boolean | Optional | `false`     |
-| `showManualChanges`                       | boolean | Optional | `false`     |
-| `showPassportId`                          | boolean | Optional | `false`     |
-| `showRooms`                               | boolean | Optional | `false`     |
-| `showSeasonTickets`                       | boolean | Optional | `false`     |
-| `showTaxonomyChildren`                    | boolean | Optional | `false`     |
-| `showTaxonomyLocalization`                | boolean | Optional | `false`     |
-| `showTaxonomyVisitType`                   | boolean | Optional | `false`     |
-| `showTestRecord`                          | boolean | Optional | `false`     |
-| `showUTM`                                 | boolean | Optional | `false`     |
-| `showWorkerDescriptionInEvent`            | boolean | Optional | `false`     |
-| `showWorkerExtraId`                       | boolean | Optional | `false`     |
-| `showWorkerStatus`                        | boolean | Optional | `false`     |
-| `skipAppointmentPriceUpdate`              | boolean | Optional | `false`     |
-| `skipCancelIfClientNotAppear`             | boolean | Optional | `false`     |
-| `skipServiceFiltering`                    | boolean | Optional | `false`     |
-| `stateLevelHolidays`                      | array   | Optional |             |
-| `stateLevelHolidaysNotWorking`            | boolean | Optional | `false`     |
-| `useGtAppMethod`                          | boolean | Optional | `false`     |
-| `workWeekEnd`                             | number  | Optional | `6`         |
-| `workWeekStart`                           | number  | Optional | `0`         |
+| Property                                          | Type    | Required | Default     |
+| ------------------------------------------------- | ------- | -------- | ----------- |
+| `adjacentTaxonomiesTreshold`                      | number  | Optional | `0`         |
+| `allowHideServiceForBooking`                      | boolean | Optional | `false`     |
+| `allowHideWorkersFromSchdeule`                    | boolean | Optional | `false`     |
+| `allowSmsTranslit`                                | boolean | Optional | `false`     |
+| `appointmentFutureMoving`                         | boolean | Optional | `false`     |
+| `blockNotificationForAnyAvailableAdjacentService` | boolean | Optional | `false`     |
+| `cabinetsEnabled`                                 | boolean | Optional | `false`     |
+| `checkClientOverlapping`                          | boolean | Optional | `false`     |
+| `customOnlinePaymentConfirmationTemplate`         | string  | Optional | `false`     |
+| `defaultGTScheduleDayView`                        | boolean | Optional | `false`     |
+| `disableAppointmentClientInlineEditor`            | boolean | Optional | `false`     |
+| `editAppExtraId`                                  | boolean | Optional | `false`     |
+| `editTaxonomyChildren`                            | boolean | Optional | `false`     |
+| `editTaxonomyVisitType`                           | boolean | Optional | `false`     |
+| `enableBlackList`                                 | boolean | Optional | `false`     |
+| `enableCalculateShedule`                          | boolean | Optional | `false`     |
+| `enableClientCard`                                | boolean | Optional | `false`     |
+| `enableClientLanguage`                            | boolean | Optional | `false`     |
+| `enableClientMedicalCardReport`                   | boolean | Optional | `false`     |
+| `enableCustomOnlinePaymentConfirmation`           | boolean | Optional | `false`     |
+| `enableExtendedPhone`                             | boolean | Optional | `false`     |
+| `enableExtendedRecordsClientStatistics`           | boolean | Optional | `false`     |
+| `enableMasterImportance`                          | boolean | Optional | `false`     |
+| `enableServiceTimeLimit`                          | boolean | Optional | `false`     |
+| `enableSourceChoice`                              | boolean | Optional | `true`      |
+| `enableTaxonomyChildrenAgeCheck`                  | boolean | Optional | `false`     |
+| `exportToExcelRemovedClients`                     | boolean | Optional | `false`     |
+| `feedBackMinRating`                               | string  | Optional | `1`         |
+| `feedbackCustomerPortalMessage`                   | string  | Optional |             |
+| `feedbackCustomerPortalThankYouMessage`           | string  | Optional |             |
+| `feedbackCustomerPortalTitle`                     | string  | Optional |             |
+| `finId`                                           | string  | Optional |             |
+| `finName`                                         | string  | Optional |             |
+| `hideCustomerPortalFooter`                        | boolean | Optional | `false`     |
+| `highlightedResource`                             | boolean | Optional | `false`     |
+| `manualExceptionSupport`                          | boolean | Optional | `false`     |
+| `noInternetAlert`                                 | boolean | Optional | `false`     |
+| `pastTimeEdit`                                    | number  | Optional | `1`         |
+| `paymentProvider`                                 | string  | Optional |             |
+| `readonlyResourceSchedule`                        | boolean | Optional | `false`     |
+| `resourceTimetableType`                           | string  | Optional | `"DEFAULT"` |
+| `revisionVersion`                                 | number  | Optional |             |
+| `schduleWeekViewIsDefault`                        | boolean | Optional | `false`     |
+| `scheduleDefaultWorkersLimit`                     | number  | Optional | `25`        |
+| `scheduleWorkerHours`                             | boolean | Optional | `false`     |
+| `schedulerWeekViewType`                           | string  | Optional | `"week"`    |
+| `showAdditionalFields`                            | boolean | Optional | `false`     |
+| `showAddress`                                     | boolean | Optional | `false`     |
+| `showBirthDate`                                   | boolean | Optional | `false`     |
+| `showClientAppear`                                | boolean | Optional | `false`     |
+| `showClientAppearOnSchedule`                      | boolean | Optional | `false`     |
+| `showClientBirthdayFilter`                        | boolean | Optional | `false`     |
+| `showClientContractNumber`                        | boolean | Optional | `false`     |
+| `showClientImage`                                 | boolean | Optional | `false`     |
+| `showClientPayment`                               | boolean | Optional | `false`     |
+| `showDefaulterBlockscreen`                        | boolean | Optional | `false`     |
+| `showDeliveryStatus`                              | boolean | Optional | `false`     |
+| `showDepartmentFilter`                            | boolean | Optional | `false`     |
+| `showDepartments`                                 | boolean | Optional | `false`     |
+| `showDepartmentsConfiguration`                    | boolean | Optional | `false`     |
+| `showEmail`                                       | boolean | Optional | `false`     |
+| `showExtraClientInfo`                             | boolean | Optional | `false`     |
+| `showFax`                                         | boolean | Optional | `false`     |
+| `showFiredWorkerAppointmentAlert`                 | boolean | Optional | `false`     |
+| `showFirstAvailableSlot`                          | boolean | Optional | `false`     |
+| `showGapWindow`                                   | boolean | Optional | `false`     |
+| `showGender`                                      | boolean | Optional | `false`     |
+| `showGenderInRecords`                             | boolean | Optional | `false`     |
+| `showGeneratableReportsScreen`                    | boolean | Optional | `false`     |
+| `showHouseNumber`                                 | boolean | Optional | `false`     |
+| `showIsraelCity`                                  | boolean | Optional | `false`     |
+| `showKupatHolim`                                  | boolean | Optional | `false`     |
+| `showLeadsScreen`                                 | boolean | Optional | `false`     |
+| `showManualChanges`                               | boolean | Optional | `false`     |
+| `showPassportId`                                  | boolean | Optional | `false`     |
+| `showRooms`                                       | boolean | Optional | `false`     |
+| `showSeasonTickets`                               | boolean | Optional | `false`     |
+| `showTaxonomyChildren`                            | boolean | Optional | `false`     |
+| `showTaxonomyLocalization`                        | boolean | Optional | `false`     |
+| `showTaxonomyVisitType`                           | boolean | Optional | `false`     |
+| `showTestRecord`                                  | boolean | Optional | `false`     |
+| `showUTM`                                         | boolean | Optional | `false`     |
+| `showWidgetColorTheme`                            | boolean | Optional | `false`     |
+| `showWorkerDescriptionInEvent`                    | boolean | Optional | `false`     |
+| `showWorkerExtraId`                               | boolean | Optional | `false`     |
+| `showWorkerStatus`                                | boolean | Optional | `false`     |
+| `skipAppointmentPriceUpdate`                      | boolean | Optional | `false`     |
+| `skipCancelIfClientNotAppear`                     | boolean | Optional | `false`     |
+| `skipServiceFiltering`                            | boolean | Optional | `false`     |
+| `splitFullNameXlsExport`                          | boolean | Optional | `false`     |
+| `stateLevelHolidays`                              | array   | Optional |             |
+| `stateLevelHolidaysNotWorking`                    | boolean | Optional | `false`     |
+| `taxonomyChildrenMaxAge`                          | number  | Optional |             |
+| `useAdditionalDurations`                          | boolean | Optional | `false`     |
+| `useAdjacentTaxonomies`                           | boolean | Optional | `false`     |
+| `useAdjacentTaxonomiesSlotSplitting`              | boolean | Optional | `false`     |
+| `useGtAppMethod`                                  | boolean | Optional | `false`     |
+| `workWeekEnd`                                     | number  | Optional | `6`         |
+| `workWeekStart`                                   | number  | Optional | `0`         |
+
+#### adjacentTaxonomiesTreshold
+
+`adjacentTaxonomiesTreshold`
+
+- is optional
+- type: `number`
+- default: `0`
+
+##### adjacentTaxonomiesTreshold Type
+
+`number`
+
+#### allowHideServiceForBooking
+
+`allowHideServiceForBooking`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### allowHideServiceForBooking Type
+
+`boolean`
+
+#### allowHideWorkersFromSchdeule
+
+`allowHideWorkersFromSchdeule`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### allowHideWorkersFromSchdeule Type
+
+`boolean`
 
 #### allowSmsTranslit
 
@@ -3576,6 +4564,18 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### appointmentFutureMoving Type
+
+`boolean`
+
+#### blockNotificationForAnyAvailableAdjacentService
+
+`blockNotificationForAnyAvailableAdjacentService`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### blockNotificationForAnyAvailableAdjacentService Type
 
 `boolean`
 
@@ -3711,6 +4711,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### enableClientLanguage
+
+`enableClientLanguage`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### enableClientLanguage Type
+
+`boolean`
+
 #### enableClientMedicalCardReport
 
 `enableClientMedicalCardReport`
@@ -3732,6 +4744,18 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### enableCustomOnlinePaymentConfirmation Type
+
+`boolean`
+
+#### enableExtendedPhone
+
+`enableExtendedPhone`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### enableExtendedPhone Type
 
 `boolean`
 
@@ -3759,6 +4783,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### enableServiceTimeLimit
+
+`enableServiceTimeLimit`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### enableServiceTimeLimit Type
+
+`boolean`
+
 #### enableSourceChoice
 
 `enableSourceChoice`
@@ -3768,6 +4804,18 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `true`
 
 ##### enableSourceChoice Type
+
+`boolean`
+
+#### enableTaxonomyChildrenAgeCheck
+
+`enableTaxonomyChildrenAgeCheck`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### enableTaxonomyChildrenAgeCheck Type
 
 `boolean`
 
@@ -3782,6 +4830,59 @@ The value of this property **must** be equal to one of the [known values below](
 ##### exportToExcelRemovedClients Type
 
 `boolean`
+
+#### feedBackMinRating
+
+`feedBackMinRating`
+
+- is optional
+- type: `enum`
+- default: `1`
+
+The value of this property **must** be equal to one of the [known values below](#backofficeconfiguration-known-values).
+
+##### feedBackMinRating Known Values
+
+| Value | Description |
+| ----- | ----------- |
+| `1`   |             |
+| `2`   |             |
+| `3`   |             |
+| `4`   |             |
+| `5`   |             |
+
+#### feedbackCustomerPortalMessage
+
+`feedbackCustomerPortalMessage`
+
+- is optional
+- type: `string`
+
+##### feedbackCustomerPortalMessage Type
+
+`string`
+
+#### feedbackCustomerPortalThankYouMessage
+
+`feedbackCustomerPortalThankYouMessage`
+
+- is optional
+- type: `string`
+
+##### feedbackCustomerPortalThankYouMessage Type
+
+`string`
+
+#### feedbackCustomerPortalTitle
+
+`feedbackCustomerPortalTitle`
+
+- is optional
+- type: `string`
+
+##### feedbackCustomerPortalTitle Type
+
+`string`
 
 #### finId
 
@@ -4035,6 +5136,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### showClientBirthdayFilter
+
+`showClientBirthdayFilter`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### showClientBirthdayFilter Type
+
+`boolean`
+
 #### showClientContractNumber
 
 `showClientContractNumber`
@@ -4200,6 +5313,30 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### showGapWindow Type
+
+`boolean`
+
+#### showGender
+
+`showGender`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### showGender Type
+
+`boolean`
+
+#### showGenderInRecords
+
+`showGenderInRecords`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### showGenderInRecords Type
 
 `boolean`
 
@@ -4371,6 +5508,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### showWidgetColorTheme
+
+`showWidgetColorTheme`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### showWidgetColorTheme Type
+
+`boolean`
+
 #### showWorkerDescriptionInEvent
 
 `showWorkerDescriptionInEvent`
@@ -4443,6 +5592,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### splitFullNameXlsExport
+
+`splitFullNameXlsExport`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### splitFullNameXlsExport Type
+
+`boolean`
+
 #### stateLevelHolidays
 
 `stateLevelHolidays`
@@ -4469,6 +5630,53 @@ All items must be of the type: `object` with following properties:
 - default: `false`
 
 ##### stateLevelHolidaysNotWorking Type
+
+`boolean`
+
+#### taxonomyChildrenMaxAge
+
+`taxonomyChildrenMaxAge`
+
+- is optional
+- type: `number`
+
+##### taxonomyChildrenMaxAge Type
+
+`number`
+
+#### useAdditionalDurations
+
+`useAdditionalDurations`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useAdditionalDurations Type
+
+`boolean`
+
+#### useAdjacentTaxonomies
+
+`useAdjacentTaxonomies`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useAdjacentTaxonomies Type
+
+`boolean`
+
+#### useAdjacentTaxonomiesSlotSplitting
+
+`useAdjacentTaxonomiesSlotSplitting`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useAdjacentTaxonomiesSlotSplitting Type
 
 `boolean`
 
@@ -5045,6 +6253,9 @@ Array type: `array`
 | ---------------------------------------- | ------- | -------- | --------------- |
 | `additionalName`                         | string  | Optional |                 |
 | `alignmentTaxonomySlots`                 | boolean | Optional | `false`         |
+| `allowAutoSelect`                        | boolean | Optional | `true`          |
+| `allowBookVisitor`                       | boolean | Optional | `false`         |
+| `allowSkipTimeCheck`                     | boolean | Optional | `false`         |
 | `appointment_confirmation_text`          | string  | Optional |                 |
 | `appointment_confirmation_title`         | string  | Optional |                 |
 | `askClientBirthday`                      | boolean | Optional | `false`         |
@@ -5052,6 +6263,7 @@ Array type: `array`
 | `bookableDateRanges`                     | object  | Optional |                 |
 | `bookableMonthsCount`                    | number  | Optional | `-1`            |
 | `calendarMode`                           | boolean | Optional | `false`         |
+| `clientBlockingSettings`                 | object  | Optional |                 |
 | `clientCommentTitle`                     | boolean | Optional | `false`         |
 | `cracServer`                             | string  | Optional |                 |
 | `cracSlotSize`                           | number  | Optional | `5`             |
@@ -5059,6 +6271,7 @@ Array type: `array`
 | `dayOffLabel`                            | string  | Optional |                 |
 | `dayUnavailableLabel`                    | string  | Optional |                 |
 | `daysForward`                            | number  | Optional | `30`            |
+| `defaultServiceImgUrl`                   | string  | Optional |                 |
 | `defaultWorkerImgUrl`                    | string  | Optional | `""`            |
 | `denySameTimeRecords`                    | boolean | Optional | `false`         |
 | `disableMobileWidget`                    | boolean | Optional | `false`         |
@@ -5072,6 +6285,7 @@ Array type: `array`
 | `enableOverrideFooter`                   | boolean | Optional | `false`         |
 | `enableWarningContactData`               | boolean | Optional | `false`         |
 | `extraVisitors`                          | boolean | Optional | `false`         |
+| `filterNonInsuranceSchedule`             | boolean | Optional | `true`          |
 | `hideAnyWorkerBooking`                   | boolean | Optional | `false`         |
 | `hideCallButton`                         | boolean | Optional | `false`         |
 | `hideEmptyDays`                          | boolean | Optional | `false`         |
@@ -5087,6 +6301,7 @@ Array type: `array`
 | `multiServiceBooking`                    | boolean | Optional | `false`         |
 | `multiTimeslotBooking`                   | boolean | Optional | `false`         |
 | `multiTimeslotBookingAllDays`            | boolean | Optional | `false`         |
+| `newWidgetTheme`                         | object  | Optional |                 |
 | `noDefaultImages`                        | boolean | Optional | `false`         |
 | `overrideFooter`                         | string  | Optional | `""`            |
 | `payment`                                | string  | Optional | `"WITHOUT"`     |
@@ -5126,9 +6341,15 @@ Array type: `array`
 | `useCRAC`                                | boolean | Optional | `false`         |
 | `useClustersMap`                         | boolean | Optional | `false`         |
 | `useCoupon`                              | boolean | Optional | `false`         |
+| `useDefaultServiceImg`                   | boolean | Optional | `false`         |
 | `useDefaultWorkerImg`                    | boolean | Optional | `false`         |
+| `useDirectScheduleRead`                  | string  | Optional | `"NONE"`        |
+| `useInsuranceGuaranteeLetter`            | boolean | Optional | `false`         |
+| `useInsuranceSelect`                     | boolean | Optional | `false`         |
 | `useMedAuth`                             | boolean | Optional | `false`         |
 | `useMiddleName`                          | boolean | Optional | `false`         |
+| `useNewReserveAPI`                       | boolean | Optional | `false`         |
+| `useResourcePageLoading`                 | boolean | Optional | `false`         |
 | `useSortByName`                          | boolean | Optional | `false`         |
 | `warningContactDataText`                 | string  | Optional | `""`            |
 | `widgetUseCRAC`                          | boolean | Optional | `false`         |
@@ -5155,6 +6376,42 @@ Array type: `array`
 - default: `false`
 
 ##### alignmentTaxonomySlots Type
+
+`boolean`
+
+#### allowAutoSelect
+
+`allowAutoSelect`
+
+- is optional
+- type: `boolean`
+- default: `true`
+
+##### allowAutoSelect Type
+
+`boolean`
+
+#### allowBookVisitor
+
+`allowBookVisitor`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### allowBookVisitor Type
+
+`boolean`
+
+#### allowSkipTimeCheck
+
+`allowSkipTimeCheck`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### allowSkipTimeCheck Type
 
 `boolean`
 
@@ -5295,6 +6552,109 @@ Array type: `array`
 
 `boolean`
 
+#### clientBlockingSettings
+
+`clientBlockingSettings`
+
+- is optional
+- type: `object`
+
+##### clientBlockingSettings Type
+
+`object` with following properties:
+
+| Property                     | Type    | Required | Default |
+| ---------------------------- | ------- | -------- | ------- |
+| `appointmentClientBlock`     | boolean | Optional | `false` |
+| `appointmentClientBlockDays` | number  | Optional | `30`    |
+| `appointmentClientBlockText` | string  | Optional |         |
+| `blockIfFutureRecordExists`  | boolean | Optional | `false` |
+| `blockRepeatedRecordsCount`  | number  | Optional | `1`     |
+| `blockRepeatedRecordsRange`  | number  | Optional | `0`     |
+| `blockRepeatedRecordsText`   | string  | Optional |         |
+
+#### appointmentClientBlock
+
+`appointmentClientBlock`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### appointmentClientBlock Type
+
+`boolean`
+
+#### appointmentClientBlockDays
+
+`appointmentClientBlockDays`
+
+- is optional
+- type: `number`
+- default: `30`
+
+##### appointmentClientBlockDays Type
+
+`number`
+
+#### appointmentClientBlockText
+
+`appointmentClientBlockText`
+
+- is optional
+- type: `string`
+
+##### appointmentClientBlockText Type
+
+`string`
+
+#### blockIfFutureRecordExists
+
+`blockIfFutureRecordExists`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### blockIfFutureRecordExists Type
+
+`boolean`
+
+#### blockRepeatedRecordsCount
+
+`blockRepeatedRecordsCount`
+
+- is optional
+- type: `number`
+- default: `1`
+
+##### blockRepeatedRecordsCount Type
+
+`number`
+
+#### blockRepeatedRecordsRange
+
+`blockRepeatedRecordsRange`
+
+- is optional
+- type: `number`
+- default: `0`
+
+##### blockRepeatedRecordsRange Type
+
+`number`
+
+#### blockRepeatedRecordsText
+
+`blockRepeatedRecordsText`
+
+- is optional
+- type: `string`
+
+##### blockRepeatedRecordsText Type
+
+`string`
+
 #### clientCommentTitle
 
 `clientCommentTitle`
@@ -5385,6 +6745,17 @@ The value of this property **must** be equal to one of the [known values below](
 ##### daysForward Type
 
 `number`
+
+#### defaultServiceImgUrl
+
+`defaultServiceImgUrl`
+
+- is optional
+- type: `string`
+
+##### defaultServiceImgUrl Type
+
+`string`
 
 #### defaultWorkerImgUrl
 
@@ -5572,6 +6943,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### filterNonInsuranceSchedule
+
+`filterNonInsuranceSchedule`
+
+- is optional
+- type: `boolean`
+- default: `true`
+
+##### filterNonInsuranceSchedule Type
+
+`boolean`
+
 #### hideAnyWorkerBooking
 
 `hideAnyWorkerBooking`
@@ -5754,6 +7137,21 @@ All items must be of the type:
 ##### multiTimeslotBookingAllDays Type
 
 `boolean`
+
+#### newWidgetTheme
+
+`newWidgetTheme`
+
+- is optional
+- type: `object`
+
+##### newWidgetTheme Type
+
+`object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
 
 #### noDefaultImages
 
@@ -6313,6 +7711,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### useDefaultServiceImg
+
+`useDefaultServiceImg`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useDefaultServiceImg Type
+
+`boolean`
+
 #### useDefaultWorkerImg
 
 `useDefaultWorkerImg`
@@ -6322,6 +7732,49 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### useDefaultWorkerImg Type
+
+`boolean`
+
+#### useDirectScheduleRead
+
+`useDirectScheduleRead`
+
+- is optional
+- type: `enum`
+- default: `"NONE"`
+
+The value of this property **must** be equal to one of the [known values below](#widget_configuration-known-values).
+
+##### useDirectScheduleRead Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `ALL`           |             |
+| `AUTHENTICATED` |             |
+| `GUEST`         |             |
+| `NONE`          |             |
+
+#### useInsuranceGuaranteeLetter
+
+`useInsuranceGuaranteeLetter`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useInsuranceGuaranteeLetter Type
+
+`boolean`
+
+#### useInsuranceSelect
+
+`useInsuranceSelect`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useInsuranceSelect Type
 
 `boolean`
 
@@ -6346,6 +7799,30 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### useMiddleName Type
+
+`boolean`
+
+#### useNewReserveAPI
+
+`useNewReserveAPI`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useNewReserveAPI Type
+
+`boolean`
+
+#### useResourcePageLoading
+
+`useResourcePageLoading`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### useResourcePageLoading Type
 
 `boolean`
 

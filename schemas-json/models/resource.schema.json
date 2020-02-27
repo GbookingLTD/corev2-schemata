@@ -186,6 +186,10 @@
             "description": "внутреннее название работника в Бекофис",
             "type": "string"
         },
+        "middleName": {
+            "description": "отчество работника",
+            "type": "string"
+        },
         "loaned": {
             "description": "не используется",
             "type": "boolean"
@@ -339,8 +343,30 @@
             "type": [
                 "number",
                 "null",
-                "object"
-            ]
+                "string"
+            ],
+            "description": "вес работника, в зависимости от указанного способа сортировки"
+        },
+        "readonlyTaxonomies": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "displayInSchedule": {
+            "type": "boolean",
+            "default": true
+        },
+        "lastSU": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "experience": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "degree": {
+            "type": "string"
         }
     },
     "required": [
@@ -349,7 +375,6 @@
         "id",
         "name",
         "surname",
-        "nickname",
         "loaned",
         "taxonomies",
         "taxonomyLevels",

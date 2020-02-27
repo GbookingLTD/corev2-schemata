@@ -11,7 +11,7 @@ properties:
     type: "string"
   shortName:
     description: "Короткое название филиала"
-    type: "string"
+    type: ["string", "null"]
   address:
     description: "Адреса компании или филиала"
     type: "array"

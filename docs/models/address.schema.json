@@ -117,6 +117,12 @@
             "items": {
                 "$ref": "#/definitions/MetroStation"
             }
+        },
+        "way": {
+            "type": "string"
+        },
+        "group": {
+            "type": "string"
         }
     },
     "required": [

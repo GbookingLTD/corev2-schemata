@@ -647,6 +647,139 @@
                 "showcaseTaxonomyID": {
                     "description": "Идентификатор услуги в витрине",
                     "type": "string"
+                },
+                "newTaxonomy": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "adjacentTaxonomies": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "slotDuration": {
+                                "type": "number",
+                                "default": 20
+                            },
+                            "isAnyAvailable": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "taxonomyID": {
+                                "type": "string"
+                            },
+                            "order": {
+                                "type": "number"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "adjacentSameTimeStart": {
+                    "type": "boolean"
+                },
+                "dateLimitType": {
+                    "type": "string",
+                    "enum": [
+                        "all_dates",
+                        "from_date",
+                        "to_date",
+                        "range_dates"
+                    ],
+                    "default": "all_dates"
+                },
+                "dateLimits": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "dateLimitFrom": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "dateLimitTo": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "allowNextBookingCount": {
+                    "type": "number",
+                    "default": 1
+                },
+                "allowBookingInBO": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "confirmationSmsAlert": {
+                    "type": "string"
+                },
+                "useConfirmationSmsAlert": {
+                    "type": "boolean"
+                },
+                "onlineMode": {
+                    "type": "string",
+                    "enum": [
+                        "PLAN_CLINIC",
+                        "PLAN_CLINIC_ONLINE",
+                        "ONCALL_ONLINE",
+                        "PLAN_ONLINE"
+                    ],
+                    "meta:enum": [
+                        {
+                            "PLAN_CLINIC": "плановый прием в клинике"
+                        },
+                        {
+                            "PLAN_CLINIC_ONLINE": "плановый прием в клинике или онлайн"
+                        },
+                        {
+                            "ONCALL_ONLINE": "дежурный прием онлайн"
+                        },
+                        {
+                            "PLAN_ONLINE": "плановый прием только онлайн"
+                        }
+                    ],
+                    "default": "PLAN_CLINIC"
+                },
+                "showcaseItems": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string"
+                            },
+                            "taxonomyID": {
+                                "type": "string"
+                            },
+                            "additionalDurations": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string"
+                                        },
+                                        "level": {
+                                            "type": "number",
+                                            "description": "поддержка различной длительности услуг в зависимости от работника"
+                                        },
+                                        "duration": {
+                                            "type": "number",
+                                            "default": 0
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            },
+                            "businessID": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
                 }
             },
             "additionalProperties": false
@@ -977,6 +1110,93 @@
                 },
                 "finName": {
                     "type": "string"
+                },
+                "enableServiceTimeLimit": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showGender": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showGenderInRecords": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showWidgetColorTheme": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableExtendedPhone": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableTaxonomyChildrenAgeCheck": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "taxonomyChildrenMaxAge": {
+                    "type": "number"
+                },
+                "useAdjacentTaxonomies": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "useAdditionalDurations": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "splitFullNameXlsExport": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "useAdjacentTaxonomiesSlotSplitting": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "adjacentTaxonomiesTreshold": {
+                    "type": "number",
+                    "default": 0
+                },
+                "allowHideWorkersFromSchdeule": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "allowHideServiceForBooking": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "blockNotificationForAnyAvailableAdjacentService": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "feedbackCustomerPortalMessage": {
+                    "type": "string"
+                },
+                "feedbackCustomerPortalTitle": {
+                    "type": "string"
+                },
+                "feedbackCustomerPortalThankYouMessage": {
+                    "type": "string"
+                },
+                "feedBackMinRating": {
+                    "type": "string",
+                    "enum": [
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5"
+                    ],
+                    "default": 1
+                },
+                "enableClientLanguage": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showClientBirthdayFilter": {
+                    "type": "boolean",
+                    "default": false
                 }
             },
             "additionalProperties": false
@@ -1432,6 +1652,91 @@
                 "workerNameReverse": {
                     "type": "boolean",
                     "default": false
+                },
+                "useDefaultServiceImg": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "clientBlockingSettings": {
+                    "type": "object",
+                    "properties": {
+                        "blockIfFutureRecordExists": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "blockRepeatedRecordsRange": {
+                            "type": "number",
+                            "default": 0
+                        },
+                        "blockRepeatedRecordsCount": {
+                            "type": "number",
+                            "default": 1
+                        },
+                        "blockRepeatedRecordsText": {
+                            "type": "string"
+                        },
+                        "appointmentClientBlock": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "appointmentClientBlockDays": {
+                            "type": "number",
+                            "default": 30
+                        },
+                        "appointmentClientBlockText": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "defaultServiceImgUrl": {
+                    "type": "string"
+                },
+                "allowBookVisitor": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "useNewReserveAPI": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "allowAutoSelect": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "useDirectScheduleRead": {
+                    "type": "string",
+                    "enum": [
+                        "ALL",
+                        "AUTHENTICATED",
+                        "GUEST",
+                        "NONE"
+                    ],
+                    "default": "NONE"
+                },
+                "allowSkipTimeCheck": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "useInsuranceSelect": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "filterNonInsuranceSchedule": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "useInsuranceGuaranteeLetter": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "useResourcePageLoading": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "newWidgetTheme": {
+                    "type": "object",
+                    "additionalProperties": true
                 }
             },
             "additionalProperties": false

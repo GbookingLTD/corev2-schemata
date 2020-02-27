@@ -126,6 +126,9 @@ properties:
   nickname:
     description: "внутреннее название работника в Бекофис"
     type: "string"
+  middleName:
+    description: "отчество работника"
+    type: "string"
   loaned:
     description: "не используется"
     type: "boolean"
@@ -237,14 +240,29 @@ properties:
     definition: "Флаг того что ресурс работает, но не доступен для онлайн записи"
     type: "boolean"
   orderWeight:
-    type: ["number", "null", "object"]
+    type: ["number", "null", "string"]
+    description: "вес работника, в зависимости от указанного способа сортировки"
+  readonlyTaxonomies:
+    type: "array"
+    items:
+      type: "string"
+  displayInSchedule:
+    type: "boolean"
+    default: true
+  lastSU:
+    type: "string"
+    format: "date-time"
+  experience:
+    type: "string"
+    format: "date-time"
+  degree:
+    type: "string"
 required:
   - "revisionVersion"
   - "capacity"
   - "id"
   - "name"
   - "surname"
-  - "nickname"
   - "loaned"
   - "taxonomies"
   - "taxonomyLevels"
