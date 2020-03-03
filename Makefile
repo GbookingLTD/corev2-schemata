@@ -9,16 +9,20 @@ errors:
 	node bin/errors.js > errors.md
 
 gen_java: clear_java
-	$(qt) --src-lang schema ./schemas-json -l java -o ./langs/java/* \
+	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l java \
+		-o ./langs/java/* \
 		--package ru.gbooking.apiv2 \
+		--just-types \
 		--array-type list
 
 clear_java:
 	rm ./langs/java/*
 
 gen_csharp: clear_csharp
-	$(qt) --src-lang schema ./schemas-json -l csharp -o ./langs/csharp/GBookingAPIv2.cs \
-		--namespace GBookingAPIv2 \
+	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l csharp \
+		-o ./langs/csharp/GBookingCoreV2.cs \
+		--namespace GBookingCoreV2 \
+		--features just-types \
 		--csharp-version 6 \
 		--number-type double \
 		--features complete \
@@ -28,7 +32,9 @@ clear_csharp:
 	rm -f ./langs/csharp/*
 
 gen_typescript: clear_typescript
-	$(qt) --src-lang schema ./schemas-json -l typescript -o ./langs/typescript/GBookingAPIv2.ts \
+	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l ts \
+ 		-o ./langs/typescript/GBookingCoreV2.ts \
+		--just-types \
 		--explicit-unions \
 		--runtime-typecheck \
 		--acronym-style camel \
@@ -38,15 +44,19 @@ clear_typescript:
 	rm -f ./langs/typescript/*
 
 gen_golang: clear_golang
-	$(qt) --src-lang schema ./schemas-json -l golang -o ./langs/golang/* \
+	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l golang \
+		-o ./langs/golang/GBookingCoreV2.go \
+		--just-types \
 		--package ru.gbooking.apiv2 \
-		--multi-file-output
+		--just-types
 
 clear_golang:
 	rm -f ./langs/golang/*
 
 gen_python: clear_python
-	$(qt) --src-lang schema ./schemas-json -l python -o ./langs/python/GBookingAPIv2.py \
+	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l python \
+		-o ./langs/python/GBookingCoreV2.py \
+		--just-types \
 		--python-version 3.6 \
 		--nice-property-names
 

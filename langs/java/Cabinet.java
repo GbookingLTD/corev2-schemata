@@ -1,31 +1,18 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class Cabinet {
-    private String title;
-    private TypeElement type;
-    private CabinetProperties properties;
-    private boolean additionalProperties;
+    private Boolean active;
+    private String id;
+    private String name;
 
-    @JsonProperty("title")
-    public String getTitle() { return title; }
-    @JsonProperty("title")
-    public void setTitle(String value) { this.title = value; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean value) { this.active = value; }
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public String getID() { return id; }
+    public void setID(String value) { this.id = value; }
 
-    @JsonProperty("properties")
-    public CabinetProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(CabinetProperties value) { this.properties = value; }
-
-    @JsonProperty("additionalProperties")
-    public boolean getAdditionalProperties() { return additionalProperties; }
-    @JsonProperty("additionalProperties")
-    public void setAdditionalProperties(boolean value) { this.additionalProperties = value; }
+    public String getName() { return name; }
+    public void setName(String value) { this.name = value; }
 }

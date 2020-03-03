@@ -1,5 +1,6 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/client.schema.json",
     "type": "object",
     "description": "Данные клиента",
     "required": [
@@ -25,7 +26,7 @@
             ]
         },
         "phone": {
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+            "$ref": "./phone.schema.json"
         },
         "email": {
             "type": "array",

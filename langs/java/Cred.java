@@ -1,19 +1,23 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
+/**
+ * авторизационные параметры
+ */
 public class Cred {
-    private String description;
-    private List<CredOneOf> oneOf;
+    private String token;
+    private String user;
 
-    @JsonProperty("description")
-    public String getDescription() { return description; }
-    @JsonProperty("description")
-    public void setDescription(String value) { this.description = value; }
+    /**
+     * временный token для доступа
+     */
+    public String getToken() { return token; }
+    public void setToken(String value) { this.token = value; }
 
-    @JsonProperty("oneOf")
-    public List<CredOneOf> getOneOf() { return oneOf; }
-    @JsonProperty("oneOf")
-    public void setOneOf(List<CredOneOf> value) { this.oneOf = value; }
+    /**
+     * идентификатор профиля пользователя
+     */
+    public String getUser() { return user; }
+    public void setUser(String value) { this.user = value; }
 }

@@ -1,19 +1,28 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
+import java.io.IOException;
 
-public class BackofficeType {
-    private TypeElement type;
-    private List<String> backofficeTypeEnum;
+public enum BackofficeType {
+    COMMON, GT, LL, MB, MU;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public String toValue() {
+        switch (this) {
+        case COMMON: return "COMMON";
+        case GT: return "GT";
+        case LL: return "LL";
+        case MB: return "MB";
+        case MU: return "MU";
+        }
+        return null;
+    }
 
-    @JsonProperty("enum")
-    public List<String> getBackofficeTypeEnum() { return backofficeTypeEnum; }
-    @JsonProperty("enum")
-    public void setBackofficeTypeEnum(List<String> value) { this.backofficeTypeEnum = value; }
+    public static BackofficeType forValue(String value) throws IOException {
+        if (value.equals("COMMON")) return COMMON;
+        if (value.equals("GT")) return GT;
+        if (value.equals("LL")) return LL;
+        if (value.equals("MB")) return MB;
+        if (value.equals("MU")) return MU;
+        throw new IOException("Cannot deserialize BackofficeType");
+    }
 }

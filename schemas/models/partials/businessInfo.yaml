@@ -1,4 +1,5 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/partials/businessInfo.schema.json"
 title: "BusinessInfo"
 description: "Содержит детальную информацию о бизнесе — название, адрес, график работы и другое"
 type: "object"
@@ -16,7 +17,7 @@ properties:
     description: "Адреса компании или филиала"
     type: "array"
     items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
+      $ref: "../address.schema.json"
   email:
     description: "Список e-mail адресов компании или филиала"
     type: "string"
@@ -24,17 +25,17 @@ properties:
     description: "Список телефонов бизнеса"
     type: "array"
     items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      $ref: "../phone.schema.json"
   mobile:
     description: "Список телефонов бизнеса"
     type: "array"
     items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      $ref: "../phone.schema.json"
   fax:
     description: ""
     type: "array"
     items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+      $ref: "../phone.schema.json"
   timezone:
     type: "string"
   description:
@@ -46,13 +47,13 @@ properties:
   additionalFields:
     type: "array"
     items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json"
+      $ref: "../additionalField.schema.json"
   contactName:
     type: "string"
   website:
     type: "string"
   timetable:
-    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+    $ref: "../timetable.schema.json"
   instant_messaging:
     type: "array"
     items: 
@@ -60,12 +61,12 @@ properties:
   social_network:
     type: "array"
     items:
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json"
+      $ref: "../socialNetwork.schema.json"
   accepted_currency:
     type: "array"
     items:
       type: "string"
-      $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+      $ref: "currency.schema.json#/definitions/CurrencyList"
   paymentMethods:
     type: "string"
     enum: ["Visa", "Mastercard", "Amex", "PayPal", "MoneyBookers"]
@@ -94,7 +95,7 @@ properties:
     required: []
     additionalProperties: false
   language:
-    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList"
+    $ref: "language.schema.json#/definitions/LanguageList"
   networkID:
     type: ["number", "null"]
   autoAcceptAppointment:

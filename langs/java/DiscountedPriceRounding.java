@@ -1,19 +1,14 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class DiscountedPriceRounding {
-    private TypeElement type;
-    private DiscountedPriceRoundingProperties properties;
+    private Rule rule;
+    private Double value;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public Rule getRule() { return rule; }
+    public void setRule(Rule value) { this.rule = value; }
 
-    @JsonProperty("properties")
-    public DiscountedPriceRoundingProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(DiscountedPriceRoundingProperties value) { this.properties = value; }
+    public Double getValue() { return value; }
+    public void setValue(Double value) { this.value = value; }
 }

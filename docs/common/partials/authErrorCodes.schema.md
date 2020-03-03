@@ -1,7 +1,7 @@
 # Кода ошибки авторизации Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml
+schemas-json/common/partials/authErrorCodes.schema.json
 ```
 
 Список кодов ошибки авторизации

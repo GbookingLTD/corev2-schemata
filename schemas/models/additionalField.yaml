@@ -1,4 +1,5 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/additionalField.schema.json"
 title: "AdditionalFields"
 properties:
   name:

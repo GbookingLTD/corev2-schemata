@@ -1,25 +1,22 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
+import java.io.IOException;
 
-public class Status {
-    private String definition;
-    private TypeElement type;
-    private List<String> statusEnum;
+public enum Status {
+    ACTIVE, INACTIVE;
 
-    @JsonProperty("definition")
-    public String getDefinition() { return definition; }
-    @JsonProperty("definition")
-    public void setDefinition(String value) { this.definition = value; }
+    public String toValue() {
+        switch (this) {
+        case ACTIVE: return "ACTIVE";
+        case INACTIVE: return "INACTIVE";
+        }
+        return null;
+    }
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
-
-    @JsonProperty("enum")
-    public List<String> getStatusEnum() { return statusEnum; }
-    @JsonProperty("enum")
-    public void setStatusEnum(List<String> value) { this.statusEnum = value; }
+    public static Status forValue(String value) throws IOException {
+        if (value.equals("ACTIVE")) return ACTIVE;
+        if (value.equals("INACTIVE")) return INACTIVE;
+        throw new IOException("Cannot deserialize Status");
+    }
 }

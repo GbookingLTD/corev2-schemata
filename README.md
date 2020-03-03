@@ -20,7 +20,7 @@ Before updating the doc need to install adobe/jsonschema2md:
 npm install
 ````
 
-For generate of code you need install `quicktype` globally:
+For generate of code you need to install `quicktype` globally:
 
 ````
 npm install -g quicktype

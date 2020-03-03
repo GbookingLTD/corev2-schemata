@@ -1,31 +1,34 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class Week {
-    private TypeElement type;
-    private WeekProperties properties;
-    private List<String> required;
-    private boolean additionalProperties;
+    private List<TimeFrame> fri;
+    private List<TimeFrame> mon;
+    private List<TimeFrame> sat;
+    private List<TimeFrame> sun;
+    private List<TimeFrame> thu;
+    private List<TimeFrame> tue;
+    private List<TimeFrame> wed;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public List<TimeFrame> getFri() { return fri; }
+    public void setFri(List<TimeFrame> value) { this.fri = value; }
 
-    @JsonProperty("properties")
-    public WeekProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(WeekProperties value) { this.properties = value; }
+    public List<TimeFrame> getMon() { return mon; }
+    public void setMon(List<TimeFrame> value) { this.mon = value; }
 
-    @JsonProperty("required")
-    public List<String> getRequired() { return required; }
-    @JsonProperty("required")
-    public void setRequired(List<String> value) { this.required = value; }
+    public List<TimeFrame> getSat() { return sat; }
+    public void setSat(List<TimeFrame> value) { this.sat = value; }
 
-    @JsonProperty("additionalProperties")
-    public boolean getAdditionalProperties() { return additionalProperties; }
-    @JsonProperty("additionalProperties")
-    public void setAdditionalProperties(boolean value) { this.additionalProperties = value; }
+    public List<TimeFrame> getSun() { return sun; }
+    public void setSun(List<TimeFrame> value) { this.sun = value; }
+
+    public List<TimeFrame> getThu() { return thu; }
+    public void setThu(List<TimeFrame> value) { this.thu = value; }
+
+    public List<TimeFrame> getTue() { return tue; }
+    public void setTue(List<TimeFrame> value) { this.tue = value; }
+
+    public List<TimeFrame> getWed() { return wed; }
+    public void setWed(List<TimeFrame> value) { this.wed = value; }
 }

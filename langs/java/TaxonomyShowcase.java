@@ -1,31 +1,22 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class TaxonomyShowcase {
-    private String title;
-    private TypeElement type;
-    private TaxonomyShowcaseProperties properties;
-    private boolean additionalProperties;
+    private String baseBusinessID;
+    private Boolean isBaseNode;
+    private String originBusinessID;
+    private String showcaseItemID;
 
-    @JsonProperty("title")
-    public String getTitle() { return title; }
-    @JsonProperty("title")
-    public void setTitle(String value) { this.title = value; }
+    public String getBaseBusinessID() { return baseBusinessID; }
+    public void setBaseBusinessID(String value) { this.baseBusinessID = value; }
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public Boolean getIsBaseNode() { return isBaseNode; }
+    public void setIsBaseNode(Boolean value) { this.isBaseNode = value; }
 
-    @JsonProperty("properties")
-    public TaxonomyShowcaseProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(TaxonomyShowcaseProperties value) { this.properties = value; }
+    public String getOriginBusinessID() { return originBusinessID; }
+    public void setOriginBusinessID(String value) { this.originBusinessID = value; }
 
-    @JsonProperty("additionalProperties")
-    public boolean getAdditionalProperties() { return additionalProperties; }
-    @JsonProperty("additionalProperties")
-    public void setAdditionalProperties(boolean value) { this.additionalProperties = value; }
+    public String getShowcaseItemID() { return showcaseItemID; }
+    public void setShowcaseItemID(String value) { this.showcaseItemID = value; }
 }

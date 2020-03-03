@@ -1,7 +1,7 @@
 # Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json
+schemas-json/models/partials/taxonomyType.schema.json
 ```
 
 | Abstract               | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                           |

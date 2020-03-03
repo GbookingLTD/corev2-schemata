@@ -1,19 +1,14 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class AdditionalSettings {
-    private TypeElement type;
-    private AdditionalSettingsProperties properties;
+    private Double appointmentExtensionAmount;
+    private AppointmentExtensionType appointmentExtensionType;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public Double getAppointmentExtensionAmount() { return appointmentExtensionAmount; }
+    public void setAppointmentExtensionAmount(Double value) { this.appointmentExtensionAmount = value; }
 
-    @JsonProperty("properties")
-    public AdditionalSettingsProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(AdditionalSettingsProperties value) { this.properties = value; }
+    public AppointmentExtensionType getAppointmentExtensionType() { return appointmentExtensionType; }
+    public void setAppointmentExtensionType(AppointmentExtensionType value) { this.appointmentExtensionType = value; }
 }

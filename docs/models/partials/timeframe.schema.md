@@ -1,7 +1,7 @@
 # TimeFrame Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json
+schemas-json/models/partials/timeframe.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                     |

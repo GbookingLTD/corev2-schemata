@@ -1,134 +1,19 @@
 # client.add_client.request Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/client/add_client.request.schema.json
+schemas-json/controllers/client/add_client.request.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                                          |
 | ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ----------------------------------------------------------------------------------- |
 | Can be instantiated | Yes        | Experimental | No           | Forbidden         | Permitted             | [controllers/client/add_client.request.schema.json](add_client.request.schema.json) |
 
-## Schema Hierarchy
-
-- client.add_client.request
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/client/add_client.request.schema.json`
-  - [Request](../../common/request.schema.md)
-    `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json`
-
 # client.add_client.request Properties
 
-| Property            | Type     | Required     | Nullable | Defined by                                        |
-| ------------------- | -------- | ------------ | -------- | ------------------------------------------------- |
-| [cred](#cred)       | complex  | Optional     | No       | [Request](../../common/request.schema.md#cred)    |
-| [id](#id)           | multiple | Optional     | No       | [Request](../../common/request.schema.md#id)      |
-| [jsonrpc](#jsonrpc) | `const`  | Optional     | No       | [Request](../../common/request.schema.md#jsonrpc) |
-| [method](#method)   | `string` | Optional     | No       | [Request](../../common/request.schema.md#method)  |
-| [params](#params)   | `object` | **Required** | No       | [Request](../../common/request.schema.md#params)  |
-| `*`                 | any      | Additional   | Yes      | this schema _allows_ additional properties        |
-
-## cred
-
-авторизационные параметры
-
-`cred`
-
-- is optional
-- type: complex
-- defined in [Request](../../common/request.schema.md#cred)
-
-### cred Type
-
-**One** of the following _conditions_ need to be fulfilled.
-
-#### Condition 1
-
-`object` with following properties:
-
-| Property | Type | Required |
-| -------- | ---- | -------- |
-
-
-#### Condition 2
-
-`object` with following properties:
-
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `token`  | string | **Required** |
-| `user`   | string | **Required** |
-
-#### token
-
-временный token для доступа
-
-`token`
-
-- is **required**
-- type: `string`
-
-##### token Type
-
-`string`
-
-#### user
-
-идентификатор профиля пользователя
-
-`user`
-
-- is **required**
-- type: `string`
-
-##### user Type
-
-`string`
-
-## id
-
-значение числового типа для идентификации запроса на сервере
-
-`id`
-
-- is optional
-- type: multiple
-- defined in [Request](../../common/request.schema.md#id)
-
-### id Type
-
-Either one of:
-
-- `number`
-- `string`
-
-## jsonrpc
-
-версия протокола - 2.0
-
-`jsonrpc`
-
-- is optional
-- type: `const`
-- defined in [Request](../../common/request.schema.md#jsonrpc)
-
-The value of this property **must** be equal to:
-
-```json
-"2.0"
-```
-
-## method
-
-название jsonrpc метода
-
-`method`
-
-- is optional
-- type: `string`
-- defined in [Request](../../common/request.schema.md#method)
-
-### method Type
-
-`string`
+| Property          | Type     | Required     | Nullable | Defined by                                 |
+| ----------------- | -------- | ------------ | -------- | ------------------------------------------ |
+| [params](#params) | `object` | **Required** | No       | client.add_client.request (this schema)    |
+| `*`               | any      | Additional   | Yes      | this schema _allows_ additional properties |
 
 ## params
 
@@ -138,21 +23,124 @@ The value of this property **must** be equal to:
 
 - is **required**
 - type: `object`
-- defined in [Request](../../common/request.schema.md#params)
+- defined in this schema
 
 ### params Type
 
 `object` with following properties:
 
-| Property | Type | Required |
-| -------- | ---- | -------- |
+| Property            | Type    | Required     | Default |
+| ------------------- | ------- | ------------ | ------- |
+| `business`          | object  | **Required** |         |
+| `client`            |         | **Required** |         |
+| `profile`           | object  | Optional     |         |
+| `skipEmailCheck`    | boolean | Optional     | `false` |
+| `skipProfileUpdate` | boolean | Optional     | `false` |
 
+#### business
+
+`business`
+
+- is **required**
+- type: `object`
+
+##### business Type
+
+`object` with following properties:
+
+| Property | Type          | Required     |
+| -------- | ------------- | ------------ |
+| `id`     | string,number | **Required** |
+
+#### id
+
+идентификатор бизнеса
+
+`id`
+
+- is **required**
+- type: multiple
+
+##### id Type
+
+Unknown type `string,number`.
+
+```json
+{
+  "type": ["string", "number"],
+  "description": "идентификатор бизнеса",
+  "simpletype": "multiple"
+}
+```
+
+#### client
+
+`client`
+
+- is **required**
+- type: reference
+
+##### client Type
+
+- []() – `../../models/client.schema.json`
+
+#### profile
+
+`profile`
+
+- is optional
+- type: `object`
+
+##### profile Type
+
+`object` with following properties:
+
+| Property | Type   | Required     |
+| -------- | ------ | ------------ |
+| `id`     | string | **Required** |
+
+#### id
+
+идентификатор профиля пользователя
+
+`id`
+
+- is **required**
+- type: `string`
+
+##### id Type
+
+`string`
+
+#### skipEmailCheck
+
+`skipEmailCheck`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### skipEmailCheck Type
+
+`boolean`
+
+#### skipProfileUpdate
+
+`skipProfileUpdate`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### skipProfileUpdate Type
+
+`boolean`
 
 **All** of the following _requirements_ need to be fulfilled.
 
 #### Requirement 1
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json`
+- []() – `../../common/request.schema.json`
 
 #### Requirement 2
 

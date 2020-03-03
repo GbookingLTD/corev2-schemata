@@ -1,19 +1,14 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class CallbackWidgetConfiguration {
-    private TypeElement type;
-    private CallbackWidgetConfigurationProperties properties;
+    private String title1;
+    private String title2;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public String getTitle1() { return title1; }
+    public void setTitle1(String value) { this.title1 = value; }
 
-    @JsonProperty("properties")
-    public CallbackWidgetConfigurationProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(CallbackWidgetConfigurationProperties value) { this.properties = value; }
+    public String getTitle2() { return title2; }
+    public void setTitle2(String value) { this.title2 = value; }
 }

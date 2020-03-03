@@ -1,7 +1,7 @@
 # Resource Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json
+schemas-json/models/resource.schema.json
 ```
 
 Данные о работнике бизнеса
@@ -10,30 +10,21 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.j
 | ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | --------------------------------------------------- |
 | Can be instantiated | Yes        | Experimental | No           | Forbidden         | Forbidden             | [models/resource.schema.json](resource.schema.json) |
 
-## Schema Hierarchy
-
-- Resource `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json`
-  - [BusinessInfo](partials/businessInfo.schema.md)
-    `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json`
-  - [Phone](phone.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
-  - [Timetable](timetable.schema.md)
-    `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
-
 # Resource Definitions
 
-| Property                    | Type      | Group                                                                                                                       |
-| --------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
-| [accessType](#accesstype)   | `enum`    | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceProfile`          |
-| [children](#children)       | `boolean` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceTaxonomyChildren` |
-| [even](#even)               | reference | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/EvenOddTimetable`         |
-| [latitude](#latitude)       | `number`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceLocation`         |
-| [longitude](#longitude)     | `number`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceLocation`         |
-| [odd](#odd)                 | reference | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/EvenOddTimetable`         |
-| [profileID](#profileid)     | `string`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceProfile`          |
-| [startPeriod](#startperiod) | `enum`    | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/EvenOddTimetable`         |
-| [taxonomyID](#taxonomyid)   | `string`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceTaxonomyChildren` |
-| [time](#time)               | `string`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceLocation`         |
-| [userID](#userid)           | `string`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json#/definitions/ResourceProfile`          |
+| Property                    | Type      | Group                                                                            |
+| --------------------------- | --------- | -------------------------------------------------------------------------------- |
+| [accessType](#accesstype)   | `enum`    | `schemas-json/models/resource.schema.json#/definitions/ResourceProfile`          |
+| [children](#children)       | `boolean` | `schemas-json/models/resource.schema.json#/definitions/ResourceTaxonomyChildren` |
+| [even](#even)               | reference | `schemas-json/models/resource.schema.json#/definitions/EvenOddTimetable`         |
+| [latitude](#latitude)       | `number`  | `schemas-json/models/resource.schema.json#/definitions/ResourceLocation`         |
+| [longitude](#longitude)     | `number`  | `schemas-json/models/resource.schema.json#/definitions/ResourceLocation`         |
+| [odd](#odd)                 | reference | `schemas-json/models/resource.schema.json#/definitions/EvenOddTimetable`         |
+| [profileID](#profileid)     | `string`  | `schemas-json/models/resource.schema.json#/definitions/ResourceProfile`          |
+| [startPeriod](#startperiod) | `enum`    | `schemas-json/models/resource.schema.json#/definitions/EvenOddTimetable`         |
+| [taxonomyID](#taxonomyid)   | `string`  | `schemas-json/models/resource.schema.json#/definitions/ResourceTaxonomyChildren` |
+| [time](#time)               | `string`  | `schemas-json/models/resource.schema.json#/definitions/ResourceLocation`         |
+| [userID](#userid)           | `string`  | `schemas-json/models/resource.schema.json#/definitions/ResourceProfile`          |
 
 ## accessType
 
@@ -85,7 +76,7 @@ Array type: reference
 
 All items must be of the type:
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 ## latitude
 
@@ -127,7 +118,7 @@ Array type: reference
 
 All items must be of the type:
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 ## profileID
 
@@ -206,61 +197,61 @@ The value of this property **must** be equal to one of the [known values below](
 
 # Resource Properties
 
-| Property                                    | Type         | Required     | Nullable | Default | Defined by             |
-| ------------------------------------------- | ------------ | ------------ | -------- | ------- | ---------------------- |
-| [additionalExtraId](#additionalextraid)     | `string[]`   | Optional     | No       |         | Resource (this schema) |
-| [capacity](#capacity)                       | `number`     | **Required** | No       |         | Resource (this schema) |
-| [color](#color)                             | `string`     | Optional     | No       |         | Resource (this schema) |
-| [degree](#degree)                           | `string`     | Optional     | No       |         | Resource (this schema) |
-| [departmentId](#departmentid)               | `string`     | Optional     | No       |         | Resource (this schema) |
-| [description](#description)                 | `string`     | Optional     | No       |         | Resource (this schema) |
-| [displayInSchedule](#displayinschedule)     | `boolean`    | Optional     | No       | `true`  | Resource (this schema) |
-| [displayInWidget](#displayinwidget)         | `boolean`    | **Required** | No       |         | Resource (this schema) |
-| [email](#email)                             | `string`     | **Required** | No       |         | Resource (this schema) |
-| [emailEnabled](#emailenabled)               | `boolean`    | Optional     | No       |         | Resource (this schema) |
-| [evenOddTimetable](#evenoddtimetable)       | `object`     | **Required** | No       |         | Resource (this schema) |
-| [exceptions](#exceptions)                   | `array`      | Optional     | No       |         | Resource (this schema) |
-| [experience](#experience)                   | `string`     | Optional     | No       |         | Resource (this schema) |
-| [extraDescription](#extradescription)       | `string`     | Optional     | No       |         | Resource (this schema) |
-| [extraId](#extraid)                         | `string`     | Optional     | No       |         | Resource (this schema) |
-| [extraLink](#extralink)                     | `string`     | Optional     | No       |         | Resource (this schema) |
-| [extraMediaId](#extramediaid)               | `string`     | Optional     | No       |         | Resource (this schema) |
-| [icon_url](#icon_url)                       | `string`     | Optional     | Yes      |         | Resource (this schema) |
-| [id](#id)                                   | `string`     | **Required** | No       |         | Resource (this schema) |
-| [image](#image)                             | `string`     | Optional     | No       |         | Resource (this schema) |
-| [lastSU](#lastsu)                           | `string`     | Optional     | No       |         | Resource (this schema) |
-| [level](#level)                             | `number`     | **Required** | No       |         | Resource (this schema) |
-| [loaned](#loaned)                           | `boolean`    | **Required** | No       |         | Resource (this schema) |
-| [loanedFrom](#loanedfrom)                   | `string`     | Optional     | No       |         | Resource (this schema) |
-| [loanedTo](#loanedto)                       | `string`     | Optional     | No       |         | Resource (this schema) |
-| [location](#location)                       | `object`     | **Required** | No       |         | Resource (this schema) |
-| [manualChanges](#manualchanges)             | `boolean`    | **Required** | No       |         | Resource (this schema) |
-| [middleName](#middlename)                   | `string`     | Optional     | No       |         | Resource (this schema) |
-| [name](#name)                               | `string`     | **Required** | No       |         | Resource (this schema) |
-| [nickname](#nickname)                       | `string`     | Optional     | No       |         | Resource (this schema) |
-| [order](#order)                             | `number`     | Optional     | No       |         | Resource (this schema) |
-| [orderWeight](#orderweight)                 | multiple     | Optional     | Yes      |         | Resource (this schema) |
-| [originBusinessID](#originbusinessid)       | `string`     | Optional     | No       |         | Resource (this schema) |
-| [originTaxonomies](#origintaxonomies)       | `string[]`   | Optional     | No       |         | Resource (this schema) |
-| [origin_general_info](#origin_general_info) | BusinessInfo | Optional     | No       |         | Resource (this schema) |
-| [perk](#perk)                               | `string`     | Optional     | No       |         | Resource (this schema) |
-| [phone](#phone)                             | Phone        | **Required** | No       |         | Resource (this schema) |
-| [profession](#profession)                   | `string`     | Optional     | No       |         | Resource (this schema) |
-| [profile](#profile)                         | `object`     | Optional     | No       |         | Resource (this schema) |
-| [rating](#rating)                           | `number`     | Optional     | No       |         | Resource (this schema) |
-| [readonlyTaxonomies](#readonlytaxonomies)   | `string[]`   | Optional     | No       |         | Resource (this schema) |
-| [revisionVersion](#revisionversion)         | `number`     | **Required** | No       |         | Resource (this schema) |
-| [scheduleIsEmpty](#scheduleisempty)         | `boolean`    | Optional     | No       |         | Resource (this schema) |
-| [siteId](#siteid)                           | `string`     | Optional     | No       |         | Resource (this schema) |
-| [smsEnabled](#smsenabled)                   | `boolean`    | Optional     | No       |         | Resource (this schema) |
-| [status](#status)                           | `enum`       | Optional     | No       |         | Resource (this schema) |
-| [surname](#surname)                         | `string`     | **Required** | No       |         | Resource (this schema) |
-| [taxonomies](#taxonomies)                   | `string[]`   | **Required** | No       |         | Resource (this schema) |
-| [taxonomyChildren](#taxonomychildren)       | reference    | **Required** | No       |         | Resource (this schema) |
-| [taxonomyLevels](#taxonomylevels)           | reference    | **Required** | No       |         | Resource (this schema) |
-| [timetable](#timetable)                     | Timetable    | **Required** | No       |         | Resource (this schema) |
-| [userData](#userdata)                       | `object`     | Optional     | No       |         | Resource (this schema) |
-| [workPlace](#workplace)                     | `string`     | Optional     | No       |         | Resource (this schema) |
+| Property                                    | Type       | Required     | Nullable | Default | Defined by             |
+| ------------------------------------------- | ---------- | ------------ | -------- | ------- | ---------------------- |
+| [additionalExtraId](#additionalextraid)     | `string[]` | Optional     | No       |         | Resource (this schema) |
+| [capacity](#capacity)                       | `number`   | **Required** | No       |         | Resource (this schema) |
+| [color](#color)                             | `string`   | Optional     | No       |         | Resource (this schema) |
+| [degree](#degree)                           | `string`   | Optional     | No       |         | Resource (this schema) |
+| [departmentId](#departmentid)               | `string`   | Optional     | No       |         | Resource (this schema) |
+| [description](#description)                 | `string`   | Optional     | No       |         | Resource (this schema) |
+| [displayInSchedule](#displayinschedule)     | `boolean`  | Optional     | No       | `true`  | Resource (this schema) |
+| [displayInWidget](#displayinwidget)         | `boolean`  | **Required** | No       |         | Resource (this schema) |
+| [email](#email)                             | `string`   | **Required** | No       |         | Resource (this schema) |
+| [emailEnabled](#emailenabled)               | `boolean`  | Optional     | No       |         | Resource (this schema) |
+| [evenOddTimetable](#evenoddtimetable)       | `object`   | **Required** | No       |         | Resource (this schema) |
+| [exceptions](#exceptions)                   | `array`    | Optional     | No       |         | Resource (this schema) |
+| [experience](#experience)                   | `string`   | Optional     | No       |         | Resource (this schema) |
+| [extraDescription](#extradescription)       | `string`   | Optional     | No       |         | Resource (this schema) |
+| [extraId](#extraid)                         | `string`   | Optional     | No       |         | Resource (this schema) |
+| [extraLink](#extralink)                     | `string`   | Optional     | No       |         | Resource (this schema) |
+| [extraMediaId](#extramediaid)               | `string`   | Optional     | No       |         | Resource (this schema) |
+| [icon_url](#icon_url)                       | `string`   | Optional     | Yes      |         | Resource (this schema) |
+| [id](#id)                                   | `string`   | **Required** | No       |         | Resource (this schema) |
+| [image](#image)                             | `string`   | Optional     | No       |         | Resource (this schema) |
+| [lastSU](#lastsu)                           | `string`   | Optional     | No       |         | Resource (this schema) |
+| [level](#level)                             | `number`   | **Required** | No       |         | Resource (this schema) |
+| [loaned](#loaned)                           | `boolean`  | **Required** | No       |         | Resource (this schema) |
+| [loanedFrom](#loanedfrom)                   | `string`   | Optional     | No       |         | Resource (this schema) |
+| [loanedTo](#loanedto)                       | `string`   | Optional     | No       |         | Resource (this schema) |
+| [location](#location)                       | `object`   | **Required** | No       |         | Resource (this schema) |
+| [manualChanges](#manualchanges)             | `boolean`  | **Required** | No       |         | Resource (this schema) |
+| [middleName](#middlename)                   | `string`   | Optional     | No       |         | Resource (this schema) |
+| [name](#name)                               | `string`   | **Required** | No       |         | Resource (this schema) |
+| [nickname](#nickname)                       | `string`   | Optional     | No       |         | Resource (this schema) |
+| [order](#order)                             | `number`   | Optional     | No       |         | Resource (this schema) |
+| [orderWeight](#orderweight)                 | multiple   | Optional     | Yes      |         | Resource (this schema) |
+| [originBusinessID](#originbusinessid)       | `string`   | Optional     | No       |         | Resource (this schema) |
+| [originTaxonomies](#origintaxonomies)       | `string[]` | Optional     | No       |         | Resource (this schema) |
+| [origin_general_info](#origin_general_info) | reference  | Optional     | No       |         | Resource (this schema) |
+| [perk](#perk)                               | `string`   | Optional     | No       |         | Resource (this schema) |
+| [phone](#phone)                             | reference  | **Required** | No       |         | Resource (this schema) |
+| [profession](#profession)                   | `string`   | Optional     | No       |         | Resource (this schema) |
+| [profile](#profile)                         | `object`   | Optional     | No       |         | Resource (this schema) |
+| [rating](#rating)                           | `number`   | Optional     | No       |         | Resource (this schema) |
+| [readonlyTaxonomies](#readonlytaxonomies)   | `string[]` | Optional     | No       |         | Resource (this schema) |
+| [revisionVersion](#revisionversion)         | `number`   | **Required** | No       |         | Resource (this schema) |
+| [scheduleIsEmpty](#scheduleisempty)         | `boolean`  | Optional     | No       |         | Resource (this schema) |
+| [siteId](#siteid)                           | `string`   | Optional     | No       |         | Resource (this schema) |
+| [smsEnabled](#smsenabled)                   | `boolean`  | Optional     | No       |         | Resource (this schema) |
+| [status](#status)                           | `enum`     | Optional     | No       |         | Resource (this schema) |
+| [surname](#surname)                         | `string`   | **Required** | No       |         | Resource (this schema) |
+| [taxonomies](#taxonomies)                   | `string[]` | **Required** | No       |         | Resource (this schema) |
+| [taxonomyChildren](#taxonomychildren)       | reference  | **Required** | No       |         | Resource (this schema) |
+| [taxonomyLevels](#taxonomylevels)           | reference  | **Required** | No       |         | Resource (this schema) |
+| [timetable](#timetable)                     | reference  | **Required** | No       |         | Resource (this schema) |
+| [userData](#userdata)                       | `object`   | Optional     | No       |         | Resource (this schema) |
+| [workPlace](#workplace)                     | `string`   | Optional     | No       |         | Resource (this schema) |
 
 ## additionalExtraId
 
@@ -434,7 +425,7 @@ Array type: reference
 
 All items must be of the type:
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 #### odd
 
@@ -451,7 +442,7 @@ Array type: reference
 
 All items must be of the type:
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 #### startPeriod
 
@@ -840,13 +831,16 @@ All items must be of the type: `string`
 `origin_general_info`
 
 - is optional
-- type: BusinessInfo
+- type: reference
 - defined in this schema
 
 ### origin_general_info Type
 
-- [BusinessInfo](partials/businessInfo.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json`
+`object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
 
 ## perk
 
@@ -867,12 +861,12 @@ All items must be of the type: `string`
 `phone`
 
 - is **required**
-- type: Phone
+- type: reference
 - defined in this schema
 
 ### phone Type
 
-- [Phone](phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
+- []() – `./phone.schema.json`
 
 ## profession
 
@@ -1140,13 +1134,12 @@ All items must be of the type:
 `timetable`
 
 - is **required**
-- type: Timetable
+- type: reference
 - defined in this schema
 
 ### timetable Type
 
-- [Timetable](timetable.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json`
+- []() – `./timetable.schema.json`
 
 ## userData
 

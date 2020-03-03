@@ -1,7 +1,7 @@
 # Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json
+schemas-json/models/client.schema.json
 ```
 
 Данные клиента
@@ -9,11 +9,6 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.jso
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                      |
 | ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ----------------------------------------------- |
 | Can be instantiated | No         | Experimental | No           | Forbidden         | Permitted             | [models/client.schema.json](client.schema.json) |
-
-## Schema Hierarchy
-
-- `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json`
-- [Phone](phone.schema.md) `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
 
 # Properties
 
@@ -27,7 +22,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.jso
 | [fromSms](#fromsms)                         | multiple   | Optional     | No       | `false`                                    | (this schema) |
 | [middle_name](#middle_name)                 | `string`   | Optional     | No       |                                            | (this schema) |
 | [name](#name)                               | `string`   | **Required** | No       |                                            | (this schema) |
-| [phone](#phone)                             | Phone      | **Required** | No       |                                            | (this schema) |
+| [phone](#phone)                             | reference  | **Required** | No       |                                            | (this schema) |
 | [sex](#sex)                                 | `enum`     | Optional     | No       |                                            | (this schema) |
 | [surname](#surname)                         | `string`   | **Required** | No       |                                            | (this schema) |
 | [taxiPark](#taxipark)                       | `string`   | Optional     | Yes      |                                            | (this schema) |
@@ -144,12 +139,12 @@ Either one of:
 `phone`
 
 - is **required**
-- type: Phone
+- type: reference
 - defined in this schema
 
 ### phone Type
 
-- [Phone](phone.schema.md) – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json`
+- []() – `./phone.schema.json`
 
 ## sex
 

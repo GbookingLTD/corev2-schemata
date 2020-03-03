@@ -1,19 +1,18 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class MiniWidgetConfiguration {
-    private TypeElement type;
-    private MiniWidgetConfigurationProperties properties;
+    private List<Field> fields;
+    private String title1;
+    private String title2;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public List<Field> getFields() { return fields; }
+    public void setFields(List<Field> value) { this.fields = value; }
 
-    @JsonProperty("properties")
-    public MiniWidgetConfigurationProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(MiniWidgetConfigurationProperties value) { this.properties = value; }
+    public String getTitle1() { return title1; }
+    public void setTitle1(String value) { this.title1 = value; }
+
+    public String getTitle2() { return title2; }
+    public void setTitle2(String value) { this.title2 = value; }
 }

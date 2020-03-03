@@ -63,6 +63,8 @@ exports.loadSchemas = function(ajv) {
     return Q.nfcall(fs.readdir, schemaControllersDir).then((files) => {
       let jobs = [];
       files.forEach(function(fcontroller) {
+        if (!fs.lstatSync(schemaControllersDir + '/' + fcontroller).isDirectory())
+          return;
         if (fcontroller === '.' || fcontroller === '..') return ;
         jobs.push(function() {
           return Q.nfcall(fs.readdir, schemaControllersDir + '/' + fcontroller).then((files) => {

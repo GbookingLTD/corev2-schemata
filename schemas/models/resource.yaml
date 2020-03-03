@@ -1,10 +1,11 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/resource.schema.json"
 title: "Resource"
 description: "Данные о работнике бизнеса"
 meta:extensible: true
 meta:extends:
-  - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
-  - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+  - "./phone.schema.json"
+  - "./timetable.schema.json"
 definitions:
   ResourceProfile:
     title: "Информация о профиле работника"
@@ -55,7 +56,7 @@ definitions:
   EvenOddTimetable:
     meta:extensible: true
     meta:extends:
-      - "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+      - "./timetable.schema.json"
     type: "object"
     properties:
       startPeriod:
@@ -66,12 +67,12 @@ definitions:
         description: "расписание для чётных дней"
         type: "array"
         items:
-          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+          $ref: "./partials/timeframe.schema.json"
       odd:
         description: "расписание для нечётных дней"
         type: "array"
         items:
-          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+          $ref: "./partials/timeframe.schema.json"
     required: ["startPeriod", "even", "odd"]
 
   ResourceLocation:
@@ -116,7 +117,7 @@ properties:
   origin_general_info:
     description: "(только в витрине) объект с данными бизнеса-филиала"
     type: "object"
-    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json"
+    $ref: "./partials/businessInfo.schema.json"
   name:
     description: "имя работника"
     type: "string"
@@ -200,7 +201,7 @@ properties:
     description: "особый навык"
     type: "string"
   phone:
-    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+    $ref: "./phone.schema.json"
   smsEnabled:
     description: "включена ли отправка смс уведомлений для данного работника"
     type: "boolean"
@@ -215,7 +216,7 @@ properties:
     type: "boolean"
   timetable:
     definition: "таблица с регулярным еженедельным расписанием работника"
-    $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+    $ref: "./timetable.schema.json"
   evenOddTimetable:
     definition: "таблица с разделением расписания по чётным и нечётным дням"
     $ref: "#/definitions/EvenOddTimetable"

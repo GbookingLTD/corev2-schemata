@@ -1,37 +1,41 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class BusinessTaxonomyPrice {
-    private String title;
-    private TypeElement type;
-    private BusinessTaxonomyPriceProperties properties;
-    private List<String> required;
-    private boolean additionalProperties;
+    private String amount;
+    private CurrencyList currency;
+    private double resourceLevel;
+    private String stockAmount;
+    private AdditionalPriceType type;
 
-    @JsonProperty("title")
-    public String getTitle() { return title; }
-    @JsonProperty("title")
-    public void setTitle(String value) { this.title = value; }
+    /**
+     * Значение цены
+     */
+    public String getAmount() { return amount; }
+    public void setAmount(String value) { this.amount = value; }
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    /**
+     * Аббревиатура валюты
+     */
+    public CurrencyList getCurrency() { return currency; }
+    public void setCurrency(CurrencyList value) { this.currency = value; }
 
-    @JsonProperty("properties")
-    public BusinessTaxonomyPriceProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(BusinessTaxonomyPriceProperties value) { this.properties = value; }
+    /**
+     * "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+     */
+    public double getResourceLevel() { return resourceLevel; }
+    public void setResourceLevel(double value) { this.resourceLevel = value; }
 
-    @JsonProperty("required")
-    public List<String> getRequired() { return required; }
-    @JsonProperty("required")
-    public void setRequired(List<String> value) { this.required = value; }
+    /**
+     * Значение цены, с учётом промо акций
+     */
+    public String getStockAmount() { return stockAmount; }
+    public void setStockAmount(String value) { this.stockAmount = value; }
 
-    @JsonProperty("additionalProperties")
-    public boolean getAdditionalProperties() { return additionalProperties; }
-    @JsonProperty("additionalProperties")
-    public void setAdditionalProperties(boolean value) { this.additionalProperties = value; }
+    /**
+     * Тип цены
+     */
+    public AdditionalPriceType getType() { return type; }
+    public void setType(AdditionalPriceType value) { this.type = value; }
 }

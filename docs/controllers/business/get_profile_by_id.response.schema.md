@@ -1,7 +1,7 @@
 # business.get_profile_by_id.response Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json
+schemas-json/controllers/business/get_profile_by_id.response.schema.json
 ```
 
 | Abstract               | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                                                            |
@@ -10,12 +10,12 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get
 
 # business.get_profile_by_id.response Definitions
 
-| Property            | Type     | Group                                                                                                                                              |
-| ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [error](#error)     | complex  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/ErrorCodes`      |
-| [id](#id)           | `number` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/SuccessResponse` |
-| [jsonrpc](#jsonrpc) | `const`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/SuccessResponse` |
-| [result](#result)   | `object` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/SuccessResponse` |
+| Property            | Type     | Group                                                                                                   |
+| ------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| [error](#error)     | complex  | `schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/ErrorCodes`      |
+| [id](#id)           | `number` | `schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/SuccessResponse` |
+| [jsonrpc](#jsonrpc) | `const`  | `schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/SuccessResponse` |
+| [result](#result)   | `object` | `schemas-json/controllers/business/get_profile_by_id.response.schema.json#/definitions/SuccessResponse` |
 
 ## error
 
@@ -31,7 +31,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get
 
 #### Condition 1
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml`
+- []() – `../../common/partials/authErrorCodes.schema.json`
 
 #### Condition 2
 
@@ -134,7 +134,7 @@ The value of this property **must** be equal to:
 
 ##### business Type
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json`
+- []() – `../../models/business.schema.json`
 
 #### freeSms
 
@@ -189,7 +189,7 @@ All items must be of the type: `object` with following properties:
 
 ##### address Type
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json`
+- []() – `../../models/addressCamelCase.schema.json`
 
 #### businessName
 

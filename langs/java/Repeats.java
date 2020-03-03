@@ -1,31 +1,24 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
+import java.io.IOException;
 
-public class Repeats {
-    private TypeElement type;
-    private List<String> repeatsEnum;
-    private String repeatsDefault;
-    private List<PurpleMetaEnum> metaEnum;
+public enum Repeats {
+    DAILY, NONE, WEEKLY;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public String toValue() {
+        switch (this) {
+        case DAILY: return "daily";
+        case NONE: return "none";
+        case WEEKLY: return "weekly";
+        }
+        return null;
+    }
 
-    @JsonProperty("enum")
-    public List<String> getRepeatsEnum() { return repeatsEnum; }
-    @JsonProperty("enum")
-    public void setRepeatsEnum(List<String> value) { this.repeatsEnum = value; }
-
-    @JsonProperty("default")
-    public String getRepeatsDefault() { return repeatsDefault; }
-    @JsonProperty("default")
-    public void setRepeatsDefault(String value) { this.repeatsDefault = value; }
-
-    @JsonProperty("meta:enum")
-    public List<PurpleMetaEnum> getMetaEnum() { return metaEnum; }
-    @JsonProperty("meta:enum")
-    public void setMetaEnum(List<PurpleMetaEnum> value) { this.metaEnum = value; }
+    public static Repeats forValue(String value) throws IOException {
+        if (value.equals("daily")) return DAILY;
+        if (value.equals("none")) return NONE;
+        if (value.equals("weekly")) return WEEKLY;
+        throw new IOException("Cannot deserialize Repeats");
+    }
 }

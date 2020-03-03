@@ -1,7 +1,7 @@
 # client.add_client.response Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json
+schemas-json/controllers/business/client.add_client.schema.json
 ```
 
 | Abstract               | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                                            |
@@ -10,10 +10,10 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/cli
 
 # client.add_client.response Definitions
 
-| Property          | Type     | Group                                                                                                                                     |
-| ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [error](#error)   | complex  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json#/definitions/ErrorCodes`      |
-| [result](#result) | `object` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json#/definitions/SuccessResponse` |
+| Property          | Type     | Group                                                                                          |
+| ----------------- | -------- | ---------------------------------------------------------------------------------------------- |
+| [error](#error)   | complex  | `schemas-json/controllers/business/client.add_client.schema.json#/definitions/ErrorCodes`      |
+| [result](#result) | `object` | `schemas-json/controllers/business/client.add_client.schema.json#/definitions/SuccessResponse` |
 
 ## error
 
@@ -29,7 +29,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/cli
 
 #### Condition 1
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml`
+- []() – `../../common/partials/authErrorCodes.schema.json`
 
 #### Condition 2
 
@@ -115,7 +115,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ##### client Type
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json`
+- []() – `../../models/client.schema.json`
 
 #### documents
 

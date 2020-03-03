@@ -1,19 +1,30 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class SocialSharing {
-    private TypeElement type;
-    private SocialSharingProperties properties;
+    private Boolean active;
+    private Double discountAmount;
+    private Boolean discountEnabled;
+    private DiscountType discountType;
+    private String text;
+    private String widgetText;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean value) { this.active = value; }
 
-    @JsonProperty("properties")
-    public SocialSharingProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(SocialSharingProperties value) { this.properties = value; }
+    public Double getDiscountAmount() { return discountAmount; }
+    public void setDiscountAmount(Double value) { this.discountAmount = value; }
+
+    public Boolean getDiscountEnabled() { return discountEnabled; }
+    public void setDiscountEnabled(Boolean value) { this.discountEnabled = value; }
+
+    public DiscountType getDiscountType() { return discountType; }
+    public void setDiscountType(DiscountType value) { this.discountType = value; }
+
+    public String getText() { return text; }
+    public void setText(String value) { this.text = value; }
+
+    public String getWidgetText() { return widgetText; }
+    public void setWidgetText(String value) { this.widgetText = value; }
 }

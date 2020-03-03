@@ -1,7 +1,7 @@
 # AdditionalFields Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json
+schemas-json/models/additionalField.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                        |

@@ -1,19 +1,18 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.*;
 
 public class BookableDateRanges {
-    private TypeElement type;
-    private BookableDateRangesProperties properties;
+    private Boolean enabled;
+    private Object end;
+    private Object start;
 
-    @JsonProperty("type")
-    public TypeElement getType() { return type; }
-    @JsonProperty("type")
-    public void setType(TypeElement value) { this.type = value; }
+    public Boolean getEnabled() { return enabled; }
+    public void setEnabled(Boolean value) { this.enabled = value; }
 
-    @JsonProperty("properties")
-    public BookableDateRangesProperties getProperties() { return properties; }
-    @JsonProperty("properties")
-    public void setProperties(BookableDateRangesProperties value) { this.properties = value; }
+    public Object getEnd() { return end; }
+    public void setEnd(Object value) { this.end = value; }
+
+    public Object getStart() { return start; }
+    public void setStart(Object value) { this.start = value; }
 }

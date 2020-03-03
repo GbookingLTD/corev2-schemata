@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/CoreV2.schema.json",
+    "title": "GBooking CoreV2 API",
+    "type": "object",
+    "properties": {
+        "Controllers": {
+            "type": "object",
+            "properties": {
+                "Business": {
+                    "$ref": "./controllers/business.schema.json"
+                },
+                "Client": {
+                    "$ref": "./controllers/client.schema.json"
+                }
+            },
+            "required": [
+                "Business",
+                "Client"
+            ],
+            "additionalProperties": false
+        },
+        "Models": {
+            "type": "object",
+            "properties": {
+                "Business": {
+                    "$ref": "./models/business.schema.json"
+                },
+                "Client": {
+                    "$ref": "./models/client.schema.json"
+                }
+            },
+            "required": [
+                "Business",
+                "Client"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "Controllers",
+        "Models"
+    ],
+    "additionalProperties": false
+}

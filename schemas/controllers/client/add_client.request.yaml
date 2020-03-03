@@ -1,4 +1,5 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/client/add_client.request.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/client/add_client.request.schema.json"
 title: "client.add_client.request"
 type: "object"
 definitions:
@@ -29,7 +30,7 @@ definitions:
                 type: "string"
                 description: "идентификатор профиля пользователя"
           client:
-            $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json"
+            $ref: "../../models/client.schema.json"
 
           skipEmailCheck:
             type: "boolean"
@@ -39,6 +40,6 @@ definitions:
             default: false
     
 allOf:
-  - $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json"
+  - $ref: "../../common/request.schema.json"
   - $ref: "#/definitions/Request"
 

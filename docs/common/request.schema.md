@@ -1,7 +1,7 @@
 # Request Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json
+schemas-json/common/request.schema.json
 ```
 
 jsonrpc2 запрос

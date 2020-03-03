@@ -1,7 +1,7 @@
 # Timetable Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json
+schemas-json/models/timetable.schema.json
 ```
 
 таблица регулярного недельного расписания
@@ -58,109 +58,102 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.
 `fri`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### fri Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `partials/timeframe.schema.json`
 
 #### mon
 
 `mon`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### mon Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 #### sat
 
 `sat`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### sat Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `partials/timeframe.schema.json`
 
 #### sun
 
 `sun`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### sun Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 #### thu
 
 `thu`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### thu Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `partials/timeframe.schema.json`
 
 #### tue
 
 `tue`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### tue Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 #### wed
 
 `wed`
 
 - is **required**
-- type: TimeFrame
+- type: reference
 
 ##### wed Type
 
-Array type: TimeFrame
+Array type: reference
 
 All items must be of the type:
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `partials/timeframe.schema.json`

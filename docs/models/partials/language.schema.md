@@ -1,7 +1,7 @@
 # Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json
+schemas-json/models/partials/language.schema.json
 ```
 
 | Abstract               | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                   |
