@@ -49,6 +49,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.j
 | [bookableDateRanges](#bookabledateranges)                                                           | `object`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [bookableMonthsCount](#bookablemonthscount)                                                         | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [calendarMode](#calendarmode)                                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [calendarModeHideTime](#calendarmodehidetime)                                                       | `boolean`  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [capacity](#capacity)                                                                               | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [capacity_decrease](#capacity_decrease)                                                             | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [chargeUnitsStep](#chargeunitsstep)                                                                 | `number`   | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
@@ -809,6 +810,19 @@ All items must be of the type: `object` with following properties:
 - defined in this schema
 
 ### calendarMode Type
+
+`boolean`
+
+## calendarModeHideTime
+
+`calendarModeHideTime`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### calendarModeHideTime Type
 
 `boolean`
 
@@ -6276,6 +6290,7 @@ Array type: `array`
 | `bookableDateRanges`                     | object  | Optional |                 |
 | `bookableMonthsCount`                    | number  | Optional | `-1`            |
 | `calendarMode`                           | boolean | Optional | `false`         |
+| `calendarModeHideTime`                   | boolean | Optional | `false`         |
 | `clientBlockingSettings`                 | object  | Optional |                 |
 | `clientCommentTitle`                     | boolean | Optional | `false`         |
 | `cracServer`                             | string  | Optional |                 |
@@ -6563,6 +6578,18 @@ Array type: `array`
 - default: `false`
 
 ##### calendarMode Type
+
+`boolean`
+
+#### calendarModeHideTime
+
+`calendarModeHideTime`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### calendarModeHideTime Type
 
 `boolean`
 

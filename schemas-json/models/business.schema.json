@@ -1320,6 +1320,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "calendarModeHideTime": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "useCoupon": {
                     "type": "boolean",
                     "default": false
