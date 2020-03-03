@@ -14,6 +14,11 @@ require('./test')(function() {
       business: { id:4000000005153 },
       email: 'test@gbooking.ru',
       phone: ['7', '123', '1231231']
+    }),
+    addClient(process.env.ENDPOINT, {
+      business: { id:4000000006957 },
+      email: '',
+      phone: ['7', '111', '1111115']
     })
   ].forEach((p) => {requests.push(p)});
 
