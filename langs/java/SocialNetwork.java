@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum SocialNetwork {
     FACEBOOK, GOOGLE, G_BOOKING, LINKED_IN, MAILRU, ODNOKLASSNIKI, TWITTER, V_KONTAKTE, YAHOO, YANDEX;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case FACEBOOK: return "Facebook";
@@ -22,6 +24,7 @@ public enum SocialNetwork {
         return null;
     }
 
+    @JsonCreator
     public static SocialNetwork forValue(String value) throws IOException {
         if (value.equals("Facebook")) return FACEBOOK;
         if (value.equals("Google")) return GOOGLE;

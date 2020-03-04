@@ -4,6 +4,23 @@
     "title": "GBooking CoreV2 API",
     "type": "object",
     "properties": {
+        "Common": {
+            "type": "object",
+            "properties": {
+                "Request": {
+                    "$ref": "./common/request.schema.json"
+                },
+                "SuccessResponse": {
+                    "$ref": "./common/successResponse.schema.json"
+                },
+                "ErrorResponse": {
+                    "$ref": "./common/errorResponse.schema.json"
+                },
+                "AuthErrorCodes": {
+                    "$ref": "./common/partials/authErrorCodes.schema.json"
+                }
+            }
+        },
         "Controllers": {
             "type": "object",
             "properties": {
@@ -38,6 +55,7 @@
         }
     },
     "required": [
+        "Common",
         "Controllers",
         "Models"
     ],

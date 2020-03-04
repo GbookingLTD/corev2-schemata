@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum VerticalTranslation {
     BEAUTY, FITNESS, GENERIC, MEDICAL, NONE, SPORT, YOGA;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case BEAUTY: return "BEAUTY";
@@ -19,6 +21,7 @@ public enum VerticalTranslation {
         return null;
     }
 
+    @JsonCreator
     public static VerticalTranslation forValue(String value) throws IOException {
         if (value.equals("BEAUTY")) return BEAUTY;
         if (value.equals("FITNESS")) return FITNESS;

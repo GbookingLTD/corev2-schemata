@@ -1,6 +1,74 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse and unparse this JSON data, add this code to your project and do:
+//
+//    gBookingCoreV2, err := UnmarshalGBookingCoreV2(bytes)
+//    bytes, err = gBookingCoreV2.Marshal()
+
+package ru.gbooking.apiv2
+
+import "bytes"
+import "errors"
+import "encoding/json"
+
+func UnmarshalGBookingCoreV2(data []byte) (GBookingCoreV2, error) {
+	var r GBookingCoreV2
+	err := json.Unmarshal(data, &r)
+	return r, err
+}
+
+func (r *GBookingCoreV2) Marshal() ([]byte, error) {
+	return json.Marshal(r)
+}
+
 type GBookingCoreV2 struct {
+	Common      CommonClass `json:"Common"`     
 	Controllers Controllers `json:"Controllers"`
 	Models      Models      `json:"Models"`     
+}
+
+type CommonClass struct {
+	AuthErrorCodes  *AuthErrorCodesClass `json:"AuthErrorCodes,omitempty"`
+	ErrorResponse   *ErrorResponse       `json:"ErrorResponse"`           
+	Request         *Request             `json:"Request"`                 
+	SuccessResponse *SuccessResponse     `json:"SuccessResponse"`         
+}
+
+// Код ошибки авторизации
+type AuthErrorCodesClass struct {
+	Code float64 `json:"code"`
+}
+
+type ErrorResponseClass struct {
+	Error   Error   `json:"error"`  // объект, содержащий информацию об ошибке
+	ID      float64 `json:"id"`     // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string  `json:"jsonrpc"`// версия протокола (2.0)
+}
+
+// объект, содержащий информацию об ошибке
+type Error struct {
+	Code    float64 `json:"code"`          // код ошибки
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+type RequestClass struct {
+	Cred    *Cred                  `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate         `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                 `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                 `json:"method"`        // название jsonrpc метода
+	Params  map[string]interface{} `json:"params"`        // параметры запроса
+}
+
+// авторизационные параметры
+type Cred struct {
+	Token *string `json:"token,omitempty"`// временный token для доступа
+	User  *string `json:"user,omitempty"` // идентификатор профиля пользователя
+}
+
+type SuccessResponseClass struct {
+	ID      float64                `json:"id"`     // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                 `json:"jsonrpc"`// версия протокола (2.0)
+	Result  map[string]interface{} `json:"result"` // данные, передаваемые в ответ
 }
 
 type Controllers struct {
@@ -23,12 +91,6 @@ type BusinessGetProfileByIDRequest struct {
 	Jsonrpc string                              `json:"jsonrpc"`       // версия протокола - 2.0
 	Method  string                              `json:"method"`        // название jsonrpc метода
 	Params  BusinessGetProfileByIDRequestParams `json:"params"`        // параметры запроса
-}
-
-// авторизационные параметры
-type Cred struct {
-	Token *string `json:"token,omitempty"`// временный token для доступа
-	User  *string `json:"user,omitempty"` // идентификатор профиля пользователя
 }
 
 // параметры запроса
@@ -63,7 +125,7 @@ type BusinessGetProfileByIDResponse struct {
 
 // объект, содержащий информацию об ошибке
 //
-// Список кодов ошибки авторизации
+// Код ошибки авторизации
 type BusinessGetProfileByIDResponseError struct {
 	Code    float64 `json:"code"`          // код ошибки
 	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
@@ -936,7 +998,7 @@ type ClientAddClientResponse struct {
 
 // объект, содержащий информацию об ошибке
 //
-// Список кодов ошибки авторизации
+// Код ошибки авторизации
 type ClientAddClientResponseError struct {
 	Code    float64 `json:"code"`          // код ошибки; ; код ошибки создания клиента
 	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
@@ -1264,6 +1326,61 @@ const (
 	NotSpecified Sex = "NOT_SPECIFIED"
 )
 
+type ErrorResponse struct {
+	AnythingArray      []interface{}
+	Bool               *bool
+	Double             *float64
+	ErrorResponseClass *ErrorResponseClass
+	Integer            *int64
+	String             *string
+}
+
+func (x *ErrorResponse) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.ErrorResponseClass = nil
+	var c ErrorResponseClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.ErrorResponseClass = &c
+	}
+	return nil
+}
+
+func (x *ErrorResponse) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.ErrorResponseClass != nil, x.ErrorResponseClass, false, nil, false, nil, true)
+}
+
+// jsonrpc2 запрос
+type Request struct {
+	AnythingArray []interface{}
+	Bool          *bool
+	Double        *float64
+	Integer       *int64
+	RequestClass  *RequestClass
+	String        *string
+}
+
+func (x *Request) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.RequestClass = nil
+	var c RequestClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.RequestClass = &c
+	}
+	return nil
+}
+
+func (x *Request) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.RequestClass != nil, x.RequestClass, false, nil, false, nil, true)
+}
+
 // значение числового типа для идентификации запроса на сервере
 //
 // идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
@@ -1272,6 +1389,47 @@ const (
 type TimeFrameDate struct {
 	Double *float64
 	String *string
+}
+
+func (x *TimeFrameDate) UnmarshalJSON(data []byte) error {
+	object, err := unmarshalUnion(data, nil, &x.Double, nil, &x.String, false, nil, false, nil, false, nil, false, nil, false)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *TimeFrameDate) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, false, nil, false, nil, false)
+}
+
+type SuccessResponse struct {
+	AnythingArray        []interface{}
+	Bool                 *bool
+	Double               *float64
+	Integer              *int64
+	String               *string
+	SuccessResponseClass *SuccessResponseClass
+}
+
+func (x *SuccessResponse) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.SuccessResponseClass = nil
+	var c SuccessResponseClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.SuccessResponseClass = &c
+	}
+	return nil
+}
+
+func (x *SuccessResponse) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.SuccessResponseClass != nil, x.SuccessResponseClass, false, nil, false, nil, true)
 }
 
 type Business struct {
@@ -1283,6 +1441,24 @@ type Business struct {
 	String        *string
 }
 
+func (x *Business) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.BusinessClass = nil
+	var c BusinessClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.BusinessClass = &c
+	}
+	return nil
+}
+
+func (x *Business) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.BusinessClass != nil, x.BusinessClass, false, nil, false, nil, true)
+}
+
 type AdditionalFields struct {
 	AdditionalFieldsClass *AdditionalFieldsClass
 	AnythingArray         []interface{}
@@ -1290,6 +1466,24 @@ type AdditionalFields struct {
 	Double                *float64
 	Integer               *int64
 	String                *string
+}
+
+func (x *AdditionalFields) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.AdditionalFieldsClass = nil
+	var c AdditionalFieldsClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.AdditionalFieldsClass = &c
+	}
+	return nil
+}
+
+func (x *AdditionalFields) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.AdditionalFieldsClass != nil, x.AdditionalFieldsClass, false, nil, false, nil, true)
 }
 
 type AddressElement struct {
@@ -1301,6 +1495,24 @@ type AddressElement struct {
 	String        *string
 }
 
+func (x *AddressElement) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.AddressClass = nil
+	var c AddressClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.AddressClass = &c
+	}
+	return nil
+}
+
+func (x *AddressElement) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.AddressClass != nil, x.AddressClass, false, nil, false, nil, true)
+}
+
 type Phone struct {
 	AnythingArray []interface{}
 	Bool          *bool
@@ -1308,6 +1520,24 @@ type Phone struct {
 	Integer       *int64
 	PhoneClass    *PhoneClass
 	String        *string
+}
+
+func (x *Phone) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.PhoneClass = nil
+	var c PhoneClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.PhoneClass = &c
+	}
+	return nil
+}
+
+func (x *Phone) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.PhoneClass != nil, x.PhoneClass, false, nil, false, nil, true)
 }
 
 // Данные о работнике бизнеса
@@ -1320,10 +1550,42 @@ type Resource struct {
 	String        *string
 }
 
+func (x *Resource) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.ResourceClass = nil
+	var c ResourceClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.ResourceClass = &c
+	}
+	return nil
+}
+
+func (x *Resource) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.ResourceClass != nil, x.ResourceClass, false, nil, false, nil, true)
+}
+
 // вес работника, в зависимости от указанного способа сортировки
 type OrderWeight struct {
 	Double *float64
 	String *string
+}
+
+func (x *OrderWeight) UnmarshalJSON(data []byte) error {
+	object, err := unmarshalUnion(data, nil, &x.Double, nil, &x.String, false, nil, false, nil, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *OrderWeight) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, false, nil, false, nil, true)
 }
 
 // Информация о скидке
@@ -1336,6 +1598,24 @@ type Discount struct {
 	String        *string
 }
 
+func (x *Discount) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.DiscountClass = nil
+	var c DiscountClass
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.DiscountClass = &c
+	}
+	return nil
+}
+
+func (x *Discount) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.DiscountClass != nil, x.DiscountClass, false, nil, false, nil, true)
+}
+
 type Address struct {
 	AddressCamelCaseSchema *AddressCamelCaseSchema
 	AnythingArray          []interface{}
@@ -1345,12 +1625,173 @@ type Address struct {
 	String                 *string
 }
 
+func (x *Address) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.AddressCamelCaseSchema = nil
+	var c AddressCamelCaseSchema
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.AddressCamelCaseSchema = &c
+	}
+	return nil
+}
+
+func (x *Address) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.AddressCamelCaseSchema != nil, x.AddressCamelCaseSchema, false, nil, false, nil, true)
+}
+
 type Birthday struct {
 	AnythingMap map[string]interface{}
 	String      *string
 }
 
+func (x *Birthday) UnmarshalJSON(data []byte) error {
+	x.AnythingMap = nil
+	object, err := unmarshalUnion(data, nil, nil, nil, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, false)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *Birthday) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, nil, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, false)
+}
+
 type FromSMS struct {
 	Bool   *bool
 	String *string
+}
+
+func (x *FromSMS) UnmarshalJSON(data []byte) error {
+	object, err := unmarshalUnion(data, nil, nil, &x.Bool, &x.String, false, nil, false, nil, false, nil, false, nil, false)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *FromSMS) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, nil, x.Bool, x.String, false, nil, false, nil, false, nil, false, nil, false)
+}
+
+func unmarshalUnion(data []byte, pi **int64, pf **float64, pb **bool, ps **string, haveArray bool, pa interface{}, haveObject bool, pc interface{}, haveMap bool, pm interface{}, haveEnum bool, pe interface{}, nullable bool) (bool, error) {
+	if pi != nil {
+		*pi = nil
+	}
+	if pf != nil {
+		*pf = nil
+	}
+	if pb != nil {
+		*pb = nil
+	}
+	if ps != nil {
+		*ps = nil
+	}
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+	dec.UseNumber()
+	tok, err := dec.Token()
+	if err != nil {
+		return false, err
+	}
+
+	switch v := tok.(type) {
+	case json.Number:
+		if pi != nil {
+			i, err := v.Int64()
+			if err == nil {
+				*pi = &i
+				return false, nil
+			}
+		}
+		if pf != nil {
+			f, err := v.Float64()
+			if err == nil {
+				*pf = &f
+				return false, nil
+			}
+			return false, errors.New("Unparsable number")
+		}
+		return false, errors.New("Union does not contain number")
+	case float64:
+		return false, errors.New("Decoder should not return float64")
+	case bool:
+		if pb != nil {
+			*pb = &v
+			return false, nil
+		}
+		return false, errors.New("Union does not contain bool")
+	case string:
+		if haveEnum {
+			return false, json.Unmarshal(data, pe)
+		}
+		if ps != nil {
+			*ps = &v
+			return false, nil
+		}
+		return false, errors.New("Union does not contain string")
+	case nil:
+		if nullable {
+			return false, nil
+		}
+		return false, errors.New("Union does not contain null")
+	case json.Delim:
+		if v == '{' {
+			if haveObject {
+				return true, json.Unmarshal(data, pc)
+			}
+			if haveMap {
+				return false, json.Unmarshal(data, pm)
+			}
+			return false, errors.New("Union does not contain object")
+		}
+		if v == '[' {
+			if haveArray {
+				return false, json.Unmarshal(data, pa)
+			}
+			return false, errors.New("Union does not contain array")
+		}
+		return false, errors.New("Cannot handle delimiter")
+	}
+	return false, errors.New("Cannot unmarshal union")
+
+}
+
+func marshalUnion(pi *int64, pf *float64, pb *bool, ps *string, haveArray bool, pa interface{}, haveObject bool, pc interface{}, haveMap bool, pm interface{}, haveEnum bool, pe interface{}, nullable bool) ([]byte, error) {
+	if pi != nil {
+		return json.Marshal(*pi)
+	}
+	if pf != nil {
+		return json.Marshal(*pf)
+	}
+	if pb != nil {
+		return json.Marshal(*pb)
+	}
+	if ps != nil {
+		return json.Marshal(*ps)
+	}
+	if haveArray {
+		return json.Marshal(pa)
+	}
+	if haveObject {
+		return json.Marshal(pc)
+	}
+	if haveMap {
+		return json.Marshal(pm)
+	}
+	if haveEnum {
+		return json.Marshal(pe)
+	}
+	if nullable {
+		return json.Marshal(nil)
+	}
+	return nil, errors.New("Union must not be null")
 }

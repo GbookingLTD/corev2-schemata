@@ -1,20 +1,20 @@
-# Кода ошибки авторизации Schema
+# Auth Error Codes Schema
 
 ```
 schemas-json/common/partials/authErrorCodes.schema.json
 ```
 
-Список кодов ошибки авторизации
+Код ошибки авторизации
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                               |
 | ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ------------------------------------------------------------------------ |
 | Can be instantiated | No         | Experimental | No           | Forbidden         | Permitted             | [common/partials/authErrorCodes.schema.json](authErrorCodes.schema.json) |
 
-# Кода ошибки авторизации Properties
+# Auth Error Codes Properties
 
 | Property      | Type   | Required     | Nullable | Defined by                                 |
 | ------------- | ------ | ------------ | -------- | ------------------------------------------ |
-| [code](#code) | `enum` | **Required** | No       | Кода ошибки авторизации (this schema)      |
+| [code](#code) | `enum` | **Required** | No       | Auth Error Codes (this schema)             |
 | `*`           | any    | Additional   | Yes      | this schema _allows_ additional properties |
 
 ## code

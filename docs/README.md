@@ -53,5 +53,5 @@
 
 ## /common/partials/
 
-- [Кода ошибки авторизации](./common/partials/authErrorCodes.schema.md) –
+- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
   `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)

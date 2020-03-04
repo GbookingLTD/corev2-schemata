@@ -2,6 +2,7 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * тип доступа работника в систему через его учётную запись
@@ -9,6 +10,7 @@ import java.io.IOException;
 public enum AccessType {
     NONE, WORKER_EXTENDED, WORKER_SIMPLE;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case NONE: return "NONE";
@@ -18,6 +20,7 @@ public enum AccessType {
         return null;
     }
 
+    @JsonCreator
     public static AccessType forValue(String value) throws IOException {
         if (value.equals("NONE")) return NONE;
         if (value.equals("WORKER_EXTENDED")) return WORKER_EXTENDED;

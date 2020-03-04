@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum DateLimitType {
     ALL_DATES, FROM_DATE, RANGE_DATES, TO_DATE;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case ALL_DATES: return "all_dates";
@@ -16,6 +18,7 @@ public enum DateLimitType {
         return null;
     }
 
+    @JsonCreator
     public static DateLimitType forValue(String value) throws IOException {
         if (value.equals("all_dates")) return ALL_DATES;
         if (value.equals("from_date")) return FROM_DATE;

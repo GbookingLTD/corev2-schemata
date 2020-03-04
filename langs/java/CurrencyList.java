@@ -2,6 +2,7 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * Аббревиатура валюты
@@ -11,6 +12,7 @@ import java.io.IOException;
 public enum CurrencyList {
     CNY, EUR, GBP, HUF, ILS, KZT, RUB, UAH, USD, UZS;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case CNY: return "CNY";
@@ -27,6 +29,7 @@ public enum CurrencyList {
         return null;
     }
 
+    @JsonCreator
     public static CurrencyList forValue(String value) throws IOException {
         if (value.equals("CNY")) return CNY;
         if (value.equals("EUR")) return EUR;

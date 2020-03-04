@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum UseDirectScheduleRead {
     ALL, AUTHENTICATED, GUEST, NONE;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case ALL: return "ALL";
@@ -16,6 +18,7 @@ public enum UseDirectScheduleRead {
         return null;
     }
 
+    @JsonCreator
     public static UseDirectScheduleRead forValue(String value) throws IOException {
         if (value.equals("ALL")) return ALL;
         if (value.equals("AUTHENTICATED")) return AUTHENTICATED;

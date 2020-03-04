@@ -1,11 +1,12 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * объект, содержащий информацию об ошибке
  *
- * Список кодов ошибки авторизации
+ * Код ошибки авторизации
  */
 public class ClientAddClientResponseError {
     private double code;
@@ -17,18 +18,24 @@ public class ClientAddClientResponseError {
      *
      * код ошибки создания клиента
      */
+    @JsonProperty("code")
     public double getCode() { return code; }
+    @JsonProperty("code")
     public void setCode(double value) { this.code = value; }
 
     /**
      * дополнительные данные об ошибке
      */
+    @JsonProperty("data")
     public String getData() { return data; }
+    @JsonProperty("data")
     public void setData(String value) { this.data = value; }
 
     /**
      * текстовая информация об ошибке
      */
+    @JsonProperty("message")
     public String getMessage() { return message; }
+    @JsonProperty("message")
     public void setMessage(String value) { this.message = value; }
 }

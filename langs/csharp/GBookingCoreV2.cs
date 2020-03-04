@@ -17,11 +17,155 @@ namespace GBookingCoreV2
 
     public partial class GBookingCoreV2
     {
+        [JsonProperty("Common")]
+        public Common Common { get; set; }
+
         [JsonProperty("Controllers")]
         public Controllers Controllers { get; set; }
 
         [JsonProperty("Models")]
         public Models Models { get; set; }
+    }
+
+    public partial class Common
+    {
+        [JsonProperty("AuthErrorCodes", NullValueHandling = NullValueHandling.Ignore)]
+        public AuthErrorCodesClass AuthErrorCodes { get; set; }
+
+        [JsonProperty("ErrorResponse")]
+        public ErrorResponse? ErrorResponse { get; set; }
+
+        [JsonProperty("Request")]
+        public Request? Request { get; set; }
+
+        [JsonProperty("SuccessResponse")]
+        public SuccessResponse? SuccessResponse { get; set; }
+    }
+
+    /// <summary>
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AuthErrorCodesClass
+    {
+        [JsonProperty("code")]
+        public double Code { get; set; }
+    }
+
+    public partial class ErrorResponseClass
+    {
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error")]
+        public Error Error { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    /// </summary>
+    public partial class Error
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class RequestClass
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public Dictionary<string, object> Params { get; set; }
+    }
+
+    /// <summary>
+    /// авторизационные параметры
+    /// </summary>
+    public partial class Cred
+    {
+        /// <summary>
+        /// временный token для доступа
+        /// </summary>
+        [JsonProperty("token", NullValueHandling = NullValueHandling.Ignore)]
+        public string Token { get; set; }
+
+        /// <summary>
+        /// идентификатор профиля пользователя
+        /// </summary>
+        [JsonProperty("user", NullValueHandling = NullValueHandling.Ignore)]
+        public string User { get; set; }
+    }
+
+    public partial class SuccessResponseClass
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// данные, передаваемые в ответ
+        /// </summary>
+        [JsonProperty("result")]
+        public Dictionary<string, object> Result { get; set; }
     }
 
     public partial class Controllers
@@ -79,24 +223,6 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("params")]
         public BusinessGetProfileByIdRequestParams Params { get; set; }
-    }
-
-    /// <summary>
-    /// авторизационные параметры
-    /// </summary>
-    public partial class Cred
-    {
-        /// <summary>
-        /// временный token для доступа
-        /// </summary>
-        [JsonProperty("token", NullValueHandling = NullValueHandling.Ignore)]
-        public string Token { get; set; }
-
-        /// <summary>
-        /// идентификатор профиля пользователя
-        /// </summary>
-        [JsonProperty("user", NullValueHandling = NullValueHandling.Ignore)]
-        public string User { get; set; }
     }
 
     /// <summary>
@@ -234,7 +360,7 @@ namespace GBookingCoreV2
     /// <summary>
     /// объект, содержащий информацию об ошибке
     ///
-    /// Список кодов ошибки авторизации
+    /// Код ошибки авторизации
     /// </summary>
     public partial class BusinessGetProfileByIdResponseError
     {
@@ -2772,7 +2898,7 @@ namespace GBookingCoreV2
     /// <summary>
     /// объект, содержащий информацию об ошибке
     ///
-    /// Список кодов ошибки авторизации
+    /// Код ошибки авторизации
     /// </summary>
     public partial class ClientAddClientResponseError
     {
@@ -2919,6 +3045,24 @@ namespace GBookingCoreV2
 
     public enum Sex { Female, Male, NotSpecified };
 
+    public partial struct ErrorResponse
+    {
+        public List<object> AnythingArray;
+        public bool? Bool;
+        public double? Double;
+        public ErrorResponseClass ErrorResponseClass;
+        public long? Integer;
+        public string String;
+
+        public static implicit operator ErrorResponse(List<object> AnythingArray) => new ErrorResponse { AnythingArray = AnythingArray };
+        public static implicit operator ErrorResponse(bool Bool) => new ErrorResponse { Bool = Bool };
+        public static implicit operator ErrorResponse(double Double) => new ErrorResponse { Double = Double };
+        public static implicit operator ErrorResponse(ErrorResponseClass ErrorResponseClass) => new ErrorResponse { ErrorResponseClass = ErrorResponseClass };
+        public static implicit operator ErrorResponse(long Integer) => new ErrorResponse { Integer = Integer };
+        public static implicit operator ErrorResponse(string String) => new ErrorResponse { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && ErrorResponseClass == null && Double == null && Integer == null && String == null;
+    }
+
     /// <summary>
     /// значение числового типа для идентификации запроса на сервере
     ///
@@ -2933,6 +3077,45 @@ namespace GBookingCoreV2
 
         public static implicit operator Id(double Double) => new Id { Double = Double };
         public static implicit operator Id(string String) => new Id { String = String };
+    }
+
+    /// <summary>
+    /// jsonrpc2 запрос
+    /// </summary>
+    public partial struct Request
+    {
+        public List<object> AnythingArray;
+        public bool? Bool;
+        public double? Double;
+        public long? Integer;
+        public RequestClass RequestClass;
+        public string String;
+
+        public static implicit operator Request(List<object> AnythingArray) => new Request { AnythingArray = AnythingArray };
+        public static implicit operator Request(bool Bool) => new Request { Bool = Bool };
+        public static implicit operator Request(double Double) => new Request { Double = Double };
+        public static implicit operator Request(long Integer) => new Request { Integer = Integer };
+        public static implicit operator Request(RequestClass RequestClass) => new Request { RequestClass = RequestClass };
+        public static implicit operator Request(string String) => new Request { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && RequestClass == null && Double == null && Integer == null && String == null;
+    }
+
+    public partial struct SuccessResponse
+    {
+        public List<object> AnythingArray;
+        public bool? Bool;
+        public double? Double;
+        public long? Integer;
+        public string String;
+        public SuccessResponseClass SuccessResponseClass;
+
+        public static implicit operator SuccessResponse(List<object> AnythingArray) => new SuccessResponse { AnythingArray = AnythingArray };
+        public static implicit operator SuccessResponse(bool Bool) => new SuccessResponse { Bool = Bool };
+        public static implicit operator SuccessResponse(double Double) => new SuccessResponse { Double = Double };
+        public static implicit operator SuccessResponse(long Integer) => new SuccessResponse { Integer = Integer };
+        public static implicit operator SuccessResponse(string String) => new SuccessResponse { String = String };
+        public static implicit operator SuccessResponse(SuccessResponseClass SuccessResponseClass) => new SuccessResponse { SuccessResponseClass = SuccessResponseClass };
+        public bool IsNull => AnythingArray == null && Bool == null && SuccessResponseClass == null && Double == null && Integer == null && String == null;
     }
 
     public partial struct AdditionalFields
@@ -3125,7 +3308,10 @@ namespace GBookingCoreV2
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
+                ErrorResponseConverter.Singleton,
+                RequestConverter.Singleton,
                 IdConverter.Singleton,
+                SuccessResponseConverter.Singleton,
                 WorkerSortingTypeConverter.Singleton,
                 BusinessConverter.Singleton,
                 AppointmentExtensionTypeConverter.Singleton,
@@ -3176,6 +3362,160 @@ namespace GBookingCoreV2
         };
     }
 
+    internal class ErrorResponseConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ErrorResponse) || t == typeof(ErrorResponse?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new ErrorResponse { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new ErrorResponse { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new ErrorResponse { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new ErrorResponse { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new ErrorResponse { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<ErrorResponseClass>(reader);
+                    return new ErrorResponse { ErrorResponseClass = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new ErrorResponse { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type ErrorResponse");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (ErrorResponse)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.ErrorResponseClass != null)
+            {
+                serializer.Serialize(writer, value.ErrorResponseClass);
+                return;
+            }
+            throw new Exception("Cannot marshal type ErrorResponse");
+        }
+
+        public static readonly ErrorResponseConverter Singleton = new ErrorResponseConverter();
+    }
+
+    internal class RequestConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Request) || t == typeof(Request?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new Request { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new Request { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new Request { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new Request { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new Request { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<RequestClass>(reader);
+                    return new Request { RequestClass = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new Request { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type Request");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (Request)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.RequestClass != null)
+            {
+                serializer.Serialize(writer, value.RequestClass);
+                return;
+            }
+            throw new Exception("Cannot marshal type Request");
+        }
+
+        public static readonly RequestConverter Singleton = new RequestConverter();
+    }
+
     internal class IdConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Id) || t == typeof(Id?);
@@ -3213,6 +3553,83 @@ namespace GBookingCoreV2
         }
 
         public static readonly IdConverter Singleton = new IdConverter();
+    }
+
+    internal class SuccessResponseConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(SuccessResponse) || t == typeof(SuccessResponse?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new SuccessResponse { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new SuccessResponse { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new SuccessResponse { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new SuccessResponse { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new SuccessResponse { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<SuccessResponseClass>(reader);
+                    return new SuccessResponse { SuccessResponseClass = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new SuccessResponse { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type SuccessResponse");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (SuccessResponse)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.SuccessResponseClass != null)
+            {
+                serializer.Serialize(writer, value.SuccessResponseClass);
+                return;
+            }
+            throw new Exception("Cannot marshal type SuccessResponse");
+        }
+
+        public static readonly SuccessResponseConverter Singleton = new SuccessResponseConverter();
     }
 
     internal class WorkerSortingTypeConverter : JsonConverter

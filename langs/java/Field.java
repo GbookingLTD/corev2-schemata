@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum Field {
     EMAIL, NAME, SURNAME;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case EMAIL: return "email";
@@ -15,6 +17,7 @@ public enum Field {
         return null;
     }
 
+    @JsonCreator
     public static Field forValue(String value) throws IOException {
         if (value.equals("email")) return EMAIL;
         if (value.equals("name")) return NAME;

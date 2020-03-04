@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum FeedBackMinRating {
     THE_1, THE_2, THE_3, THE_4, THE_5;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case THE_1: return "1";
@@ -17,6 +19,7 @@ public enum FeedBackMinRating {
         return null;
     }
 
+    @JsonCreator
     public static FeedBackMinRating forValue(String value) throws IOException {
         if (value.equals("1")) return THE_1;
         if (value.equals("2")) return THE_2;

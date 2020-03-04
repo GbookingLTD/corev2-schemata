@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum PaymentProvider {
     DELTA_PROCESSING, DISABLE, YANDEX_MONEY;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case DELTA_PROCESSING: return "deltaProcessing";
@@ -15,6 +17,7 @@ public enum PaymentProvider {
         return null;
     }
 
+    @JsonCreator
     public static PaymentProvider forValue(String value) throws IOException {
         if (value.equals("deltaProcessing")) return DELTA_PROCESSING;
         if (value.equals("DISABLE")) return DISABLE;

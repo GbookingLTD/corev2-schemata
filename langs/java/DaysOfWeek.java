@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum DaysOfWeek {
     FRI, MON, SAT, SUN, THU, TUE, WED;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case FRI: return "fri";
@@ -19,6 +21,7 @@ public enum DaysOfWeek {
         return null;
     }
 
+    @JsonCreator
     public static DaysOfWeek forValue(String value) throws IOException {
         if (value.equals("fri")) return FRI;
         if (value.equals("mon")) return MON;

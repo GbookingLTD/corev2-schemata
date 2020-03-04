@@ -1,13 +1,16 @@
 package ru.gbooking.apiv2;
 
 import java.util.*;
+import com.fasterxml.jackson.annotation.*;
 
 public class FluffyBusiness {
-    private BusinessGetProfileByIDRequestTimeFrameDate id;
+    private RequestTimeFrameDate id;
 
     /**
      * идентификатор бизнеса
      */
-    public BusinessGetProfileByIDRequestTimeFrameDate getID() { return id; }
-    public void setID(BusinessGetProfileByIDRequestTimeFrameDate value) { this.id = value; }
+    @JsonProperty("id")
+    public RequestTimeFrameDate getID() { return id; }
+    @JsonProperty("id")
+    public void setID(RequestTimeFrameDate value) { this.id = value; }
 }

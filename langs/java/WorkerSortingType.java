@@ -2,6 +2,7 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * тип сортировки работника
@@ -9,6 +10,7 @@ import java.io.IOException;
 public enum WorkerSortingType {
     MOST_FREE, NONE, WORKLOAD;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case MOST_FREE: return "most_free";
@@ -18,6 +20,7 @@ public enum WorkerSortingType {
         return null;
     }
 
+    @JsonCreator
     public static WorkerSortingType forValue(String value) throws IOException {
         if (value.equals("most_free")) return MOST_FREE;
         if (value.equals("none")) return NONE;

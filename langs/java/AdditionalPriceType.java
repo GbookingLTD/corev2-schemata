@@ -2,6 +2,7 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 /**
  * Тип цены
@@ -9,6 +10,7 @@ import java.io.IOException;
 public enum AdditionalPriceType {
     AVERAGE, BEGIN_WITH, EQUAL;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case AVERAGE: return "average";
@@ -18,6 +20,7 @@ public enum AdditionalPriceType {
         return null;
     }
 
+    @JsonCreator
     public static AdditionalPriceType forValue(String value) throws IOException {
         if (value.equals("average")) return AVERAGE;
         if (value.equals("begin_with")) return BEGIN_WITH;

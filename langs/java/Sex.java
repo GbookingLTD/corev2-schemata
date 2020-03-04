@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum Sex {
     FEMALE, MALE, NOT_SPECIFIED;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case FEMALE: return "FEMALE";
@@ -15,6 +17,7 @@ public enum Sex {
         return null;
     }
 
+    @JsonCreator
     public static Sex forValue(String value) throws IOException {
         if (value.equals("FEMALE")) return FEMALE;
         if (value.equals("MALE")) return MALE;

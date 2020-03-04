@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum Country {
     AM, BLR, CH, DE, EMPTY, ES, FI, FR, GE, HU, IL, KZ, LI, LT, LV, RU, UA, UK, US, UZ;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case AM: return "AM";
@@ -32,6 +34,7 @@ public enum Country {
         return null;
     }
 
+    @JsonCreator
     public static Country forValue(String value) throws IOException {
         if (value.equals("AM")) return AM;
         if (value.equals("BLR")) return BLR;

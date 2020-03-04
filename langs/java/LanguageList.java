@@ -2,10 +2,12 @@ package ru.gbooking.apiv2;
 
 import java.util.*;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.*;
 
 public enum LanguageList {
     AM_AM, DE_DE, EE_EE, EN_US, ES_ES, FI_FI, FR_FR, GE_GE, HE_IL, HU_HU, LT_LT, LV_LV, RU_RU, UZ_UZ, ZH_CN;
 
+    @JsonValue
     public String toValue() {
         switch (this) {
         case AM_AM: return "am-am";
@@ -27,6 +29,7 @@ public enum LanguageList {
         return null;
     }
 
+    @JsonCreator
     public static LanguageList forValue(String value) throws IOException {
         if (value.equals("am-am")) return AM_AM;
         if (value.equals("de-de")) return DE_DE;
