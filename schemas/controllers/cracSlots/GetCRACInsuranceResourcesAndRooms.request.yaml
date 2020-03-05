@@ -1,0 +1,65 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json"
+title: "CracSlots.GetCRACInsuranceResourcesAndRooms.request"
+type: "object"
+definitions:
+  Request:
+    type: "object"
+    additionalProperties: false
+    required: ["params"]
+    properties:
+      params:
+        description: "параметры запроса"
+        type: "object"
+        additionalProperties: false
+        required: ["business", "filters"]
+        properties:
+          business:
+            type: "object"
+            additionalProperties: false
+            required: ["id", "widget_configuration", "general_info"]
+            properties:
+              id:
+                type: "number"
+              widget_configuration:
+                type: "object"
+                additionalProperties: false
+                required: ["cracServer"]
+                properties:
+                  cracServer:
+                    type: "string"
+              general_info:
+                type: "object"
+                additionalProperties: false
+                required: ["timezone"]
+                properties:
+                  timezone:
+                    type: "string"
+          filters:
+            type: "object"
+            additionalProperties: false
+            required: ["insuranceID", "taxonomies", "rooms", "date"]
+            properties:
+              insuranceID:
+                type: "string"
+              taxonomies:
+                type: "array"
+                items:
+                  type: "string"
+              rooms:
+                type: "array"
+                items:
+                  type: "string"
+              date:
+                type: "object"
+                additionalProperties: false
+                required: ["from", "to"]
+                properties:
+                  from:
+                    type: "string"
+                  to:
+                    type: "string"
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"

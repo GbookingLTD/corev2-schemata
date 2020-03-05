@@ -3,7 +3,8 @@
 const Q = require('q');
 let Ajv = require('ajv')
   , ajv = new Ajv
-  , rpcRequest = require('./rpcRequest').rpcRequest;
+  , rpcRequest = require('./rpcRequest').rpcRequest
+  , cracRpcRequest = require('./rpcRequest').cracRpcRequest;
 let corev2Schemata = require('../index');
 
 let loaded = false;
@@ -24,8 +25,27 @@ let getValidate = function(controller, method) {
       console.info('json-schema jet not loaded');
       return ;
     }
-  
+
     let validate = corev2Schemata.getValidateSchema(controller, method, 'response');
+    let isValid = validate(json);
+    if (!isValid) {
+      console.error(pref + ' - validation_error ', validate.errors);
+    } else {
+      console.info(pref  + ' - ok');
+    }
+  };
+};
+
+let getValidateResponse = getValidate;
+
+let getValidateRequest = function(controller, method) {
+  return function(pref, json) {
+    if (!loaded) {
+      console.info('json-schema jet not loaded');
+      return ;
+    }
+
+    let validate = corev2Schemata.getValidateSchema(controller, method, 'request');
     let isValid = validate(json);
     if (!isValid) {
       console.error(pref + ' - validation_error ', validate.errors);
@@ -103,6 +123,105 @@ let getNetworkData = function (endpoint, networkId) {
   });
 };
 
+let GetCRACResourcesAndRooms = function (endpoint, businessID, filters) {
+  var params = {
+    "business":{
+      "id":businessID,
+      "widget_configuration": {
+        "cracServer": "CRAC_PROD3",
+        "mostFreeEnable": true
+      },
+      "general_info": {
+        "timezone": "Europe/Moscow"
+      }
+    },
+    "filters":filters
+  };
+
+  let pref = 'CracSlots.GetCRACResourcesAndRooms: ' + businessID;
+
+  let _validateReq = getValidateRequest('cracSlots', 'GetCRACResourcesAndRooms');
+  let _validateRes = getValidateResponse('cracSlots', 'GetCRACResourcesAndRooms');
+  return Q.fcall(function() {
+    _validateReq(params);
+    return cracRpcRequest('CracSlots.GetCRACResourcesAndRooms', params, {}, endpoint);
+  }).then(function(json) {
+    _validateRes(pref, json)
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      _validateRes(pref, err.xtra);
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let GetCRACDistributedResourcesAndRooms = function (endpoint, businessID, filters) {
+  var params = {
+    "business":{
+      "id":businessID,
+      "widget_configuration": {
+        "cracServer": "CRAC_PROD3",
+        "mostFreeEnable": true
+      },
+      "general_info": {
+        "timezone": "Europe/Moscow"
+      }
+    },
+    "filters":filters
+  };
+
+  let _validateReq = getValidateRequest('cracSlots', 'GetCRACDistributedResourcesAndRooms');
+  let _validateRes = getValidateResponse('cracSlots', 'GetCRACDistributedResourcesAndRooms');
+  let pref = 'CracSlots.GetCRACDistributedResourcesAndRooms: ' + businessID;
+  return Q.fcall(function() {
+    _validateReq(params);
+    return cracRpcRequest('CracSlots.GetCRACDistributedResourcesAndRooms', params, {}, endpoint)
+  })
+      .then(function(json) {
+        _validateRes(pref, json)
+      }).fail(function(err) {
+        if (err.code === -32700) {
+          _validateRes(pref, err.xtra);
+        } else {
+          console.error(pref + ' - fail %j', err);
+        }
+      });
+};
+
+let GetCRACInsuranceResourcesAndRooms = function (endpoint, businessID, filters) {
+  var params = {
+    "business":{
+      "id":businessID,
+      "widget_configuration": {
+        "cracServer": "CRAC_PROD3",
+        "mostFreeEnable": true
+      },
+      "general_info": {
+        "timezone": "Europe/Moscow"
+      }
+    },
+    "filters":filters
+  };
+
+  let _validateReq = getValidateRequest('cracSlots', 'GetCRACInsuranceResourcesAndRooms');
+  let _validateRes = getValidateResponse('cracSlots', 'GetCRACInsuranceResourcesAndRooms');
+  let pref = 'CracSlots.GetCRACInsuranceResourcesAndRooms: ' + businessID;
+  return Q.fcall(function() {
+    _validateReq(params);
+    return cracRpcRequest('CracSlots.GetCRACInsuranceResourcesAndRooms', params, {}, endpoint)
+  })
+      .then(function(json) {
+        _validateRes(pref, json)
+      }).fail(function(err) {
+        if (err.code === -32700) {
+          _validateRes(pref, err.xtra);
+        } else {
+          console.error(pref + ' - fail %j', err);
+        }
+      });
+};
+
 module.exports = function(fn) {
   if (loaded) fn();
   else onLoad = fn;
@@ -110,3 +229,8 @@ module.exports = function(fn) {
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
 module.exports.getNetworkData = getNetworkData;
+module.exports.CRAC = {
+  GetCRACResourcesAndRooms,
+  GetCRACDistributedResourcesAndRooms,
+  GetCRACInsuranceResourcesAndRooms
+};

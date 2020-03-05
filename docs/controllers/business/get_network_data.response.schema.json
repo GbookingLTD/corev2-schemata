@@ -53,6 +53,7 @@
         },
         "SuccessResponse": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "jsonrpc": {
                     "description": "версия протокола (2.0)",

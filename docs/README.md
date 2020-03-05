@@ -22,6 +22,7 @@
 
 - [BusinessController](./controllers/business.schema.md) – `schemas-json/controllers/business.schema.json` (Unknown)
 - [ClientController](./controllers/client.schema.md) – `schemas-json/controllers/client.schema.json` (Unknown)
+- [CracSlotsController](./controllers/cracSlots.schema.md) – `schemas-json/controllers/cracSlots.schema.json` (Unknown)
 
 ## /common/
 
@@ -49,14 +50,29 @@
 - [business.get_profile_by_id.response](./controllers/business/get_profile_by_id.response.schema.md) –
   `schemas-json/controllers/business/get_profile_by_id.response.schema.json` (Unknown)
 
-## /common/partials/
-
-- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
-  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)
-
 ## /controllers/client/
 
 - [client.add_client.request](./controllers/client/add_client.request.schema.md) –
   `schemas-json/controllers/client/add_client.request.schema.json` (Unknown)
 - [client.add_client.response](./controllers/client/add_client.response.schema.md) –
   `schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
+
+## /controllers/cracSlots/
+
+- [CracSlots.GetCRACDistributedResourcesAndRooms.request](./controllers/cracSlots/GetCRACDistributedResourcesAndRooms.request.schema.md)
+  – `schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.schema.json` (Unknown)
+- [CracSlots.GetCRACDistributedResourcesAndRooms.response](./controllers/cracSlots/GetCRACDistributedResourcesAndRooms.response.schema.md)
+  – `schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.response.schema.json` (Unknown)
+- [CracSlots.GetCRACInsuranceResourcesAndRooms.request](./controllers/cracSlots/GetCRACInsuranceResourcesAndRooms.request.schema.md)
+  – `schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json` (Unknown)
+- [CracSlots.GetCRACInsuranceResourcesAndRooms.response](./controllers/cracSlots/GetCRACInsuranceResourcesAndRooms.response.schema.md)
+  – `schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.response.schema.json` (Unknown)
+- [CracSlots.GetCRACResourcesAndRooms.request](./controllers/cracSlots/GetCRACResourcesAndRooms.request.schema.md) –
+  `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json` (Unknown)
+- [CracSlots.GetCRACResourcesAndRooms.response](./controllers/cracSlots/GetCRACResourcesAndRooms.response.schema.md) –
+  `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json` (Unknown)
+
+## /common/partials/
+
+- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
+  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)

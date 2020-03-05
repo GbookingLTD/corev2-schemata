@@ -175,6 +175,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("Client")]
         public ClientController Client { get; set; }
+
+        [JsonProperty("CracSlots")]
+        public CracSlotsController CracSlots { get; set; }
     }
 
     public partial class BusinessController
@@ -4030,6 +4033,534 @@ namespace GBookingCoreV2
     {
         [JsonProperty("id")]
         public string Id { get; set; }
+    }
+
+    public partial class CracSlotsController
+    {
+        [JsonProperty("GetCRACDistributedResourcesAndRooms")]
+        public GetCracDistributedResourcesAndRooms GetCracDistributedResourcesAndRooms { get; set; }
+
+        [JsonProperty("GetCRACInsuranceResourcesAndRooms", NullValueHandling = NullValueHandling.Ignore)]
+        public GetCracInsuranceResourcesAndRooms GetCracInsuranceResourcesAndRooms { get; set; }
+
+        [JsonProperty("GetCRACResourcesAndRooms", NullValueHandling = NullValueHandling.Ignore)]
+        public GetCracResourcesAndRooms GetCracResourcesAndRooms { get; set; }
+    }
+
+    public partial class GetCracDistributedResourcesAndRooms
+    {
+        [JsonProperty("request")]
+        public CracSlotsGetCracDistributedResourcesAndRoomsRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public CracSlotsGetCracDistributedResourcesAndRoomsResponse Response { get; set; }
+    }
+
+    public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequest
+    {
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public CracSlotsGetCracDistributedResourcesAndRoomsRequestParams Params { get; set; }
+    }
+
+    /// <summary>
+    /// параметры запроса
+    /// </summary>
+    public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequestParams
+    {
+        [JsonProperty("business")]
+        public HilariousBusiness Business { get; set; }
+
+        [JsonProperty("filters")]
+        public PurpleFilters Filters { get; set; }
+    }
+
+    public partial class HilariousBusiness
+    {
+        [JsonProperty("general_info")]
+        public PurpleGeneralInfo GeneralInfo { get; set; }
+
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        [JsonProperty("widget_configuration")]
+        public TentacledWidgetConfiguration WidgetConfiguration { get; set; }
+    }
+
+    public partial class PurpleGeneralInfo
+    {
+        [JsonProperty("timezone")]
+        public string Timezone { get; set; }
+    }
+
+    public partial class TentacledWidgetConfiguration
+    {
+        [JsonProperty("cracServer")]
+        public string CracServer { get; set; }
+    }
+
+    public partial class PurpleFilters
+    {
+        [JsonProperty("date")]
+        public PurpleDate Date { get; set; }
+
+        [JsonProperty("resources")]
+        public List<PurpleResourceFilter> Resources { get; set; }
+
+        [JsonProperty("rooms")]
+        public List<string> Rooms { get; set; }
+
+        [JsonProperty("taxonomies")]
+        public List<string> Taxonomies { get; set; }
+    }
+
+    public partial class PurpleDate
+    {
+        [JsonProperty("from")]
+        public string From { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+    }
+
+    public partial class PurpleResourceFilter
+    {
+        [JsonProperty("business")]
+        public AmbitiousBusiness Business { get; set; }
+
+        /// <summary>
+        /// идентификатор ресурса
+        /// </summary>
+        [JsonProperty("resource")]
+        public string Resource { get; set; }
+    }
+
+    public partial class AmbitiousBusiness
+    {
+        /// <summary>
+        /// идентификатор бизнеса
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class CracSlotsGetCracDistributedResourcesAndRoomsResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public CracSlotsGetCracDistributedResourcesAndRoomsResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public CracSlotsGetCracDistributedResourcesAndRoomsResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class CracSlotsGetCracDistributedResourcesAndRoomsResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class CracSlotsGetCracDistributedResourcesAndRoomsResponseResult
+    {
+        [JsonProperty("slots")]
+        public List<PurpleSlot> Slots { get; set; }
+    }
+
+    public partial class PurpleSlot
+    {
+        [JsonProperty("cutSlots")]
+        public List<PurpleCutSlot> CutSlots { get; set; }
+
+        [JsonProperty("resourceId")]
+        public string ResourceId { get; set; }
+    }
+
+    public partial class PurpleCutSlot
+    {
+        [JsonProperty("available")]
+        public bool Available { get; set; }
+
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty("end")]
+        public double End { get; set; }
+
+        [JsonProperty("start")]
+        public double Start { get; set; }
+    }
+
+    public partial class GetCracInsuranceResourcesAndRooms
+    {
+        [JsonProperty("request")]
+        public CracSlotsGetCracInsuranceResourcesAndRoomsRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public CracSlotsGetCracInsuranceResourcesAndRoomsResponse Response { get; set; }
+    }
+
+    public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequest
+    {
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams Params { get; set; }
+    }
+
+    /// <summary>
+    /// параметры запроса
+    /// </summary>
+    public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams
+    {
+        [JsonProperty("business")]
+        public CunningBusiness Business { get; set; }
+
+        [JsonProperty("filters")]
+        public FluffyFilters Filters { get; set; }
+    }
+
+    public partial class CunningBusiness
+    {
+        [JsonProperty("general_info")]
+        public FluffyGeneralInfo GeneralInfo { get; set; }
+
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        [JsonProperty("widget_configuration")]
+        public StickyWidgetConfiguration WidgetConfiguration { get; set; }
+    }
+
+    public partial class FluffyGeneralInfo
+    {
+        [JsonProperty("timezone")]
+        public string Timezone { get; set; }
+    }
+
+    public partial class StickyWidgetConfiguration
+    {
+        [JsonProperty("cracServer")]
+        public string CracServer { get; set; }
+    }
+
+    public partial class FluffyFilters
+    {
+        [JsonProperty("date")]
+        public FluffyDate Date { get; set; }
+
+        [JsonProperty("insuranceID")]
+        public string InsuranceId { get; set; }
+
+        [JsonProperty("rooms")]
+        public List<string> Rooms { get; set; }
+
+        [JsonProperty("taxonomies")]
+        public List<string> Taxonomies { get; set; }
+    }
+
+    public partial class FluffyDate
+    {
+        [JsonProperty("from")]
+        public string From { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+    }
+
+    public partial class CracSlotsGetCracInsuranceResourcesAndRoomsResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public CracSlotsGetCracInsuranceResourcesAndRoomsResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class CracSlotsGetCracInsuranceResourcesAndRoomsResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult
+    {
+        [JsonProperty("slots")]
+        public List<FluffySlot> Slots { get; set; }
+    }
+
+    public partial class FluffySlot
+    {
+        [JsonProperty("cutSlots")]
+        public List<FluffyCutSlot> CutSlots { get; set; }
+
+        [JsonProperty("resourceId")]
+        public string ResourceId { get; set; }
+    }
+
+    public partial class FluffyCutSlot
+    {
+        [JsonProperty("available")]
+        public bool Available { get; set; }
+
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty("end")]
+        public double End { get; set; }
+
+        [JsonProperty("start")]
+        public double Start { get; set; }
+    }
+
+    public partial class GetCracResourcesAndRooms
+    {
+        [JsonProperty("request")]
+        public CracSlotsGetCracResourcesAndRoomsRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public CracSlotsGetCracResourcesAndRoomsResponse Response { get; set; }
+    }
+
+    public partial class CracSlotsGetCracResourcesAndRoomsRequest
+    {
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public CracSlotsGetCracResourcesAndRoomsRequestParams Params { get; set; }
+    }
+
+    /// <summary>
+    /// параметры запроса
+    /// </summary>
+    public partial class CracSlotsGetCracResourcesAndRoomsRequestParams
+    {
+        [JsonProperty("business")]
+        public MagentaBusiness Business { get; set; }
+
+        [JsonProperty("filters")]
+        public TentacledFilters Filters { get; set; }
+    }
+
+    public partial class MagentaBusiness
+    {
+        [JsonProperty("general_info")]
+        public TentacledGeneralInfo GeneralInfo { get; set; }
+
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        [JsonProperty("widget_configuration")]
+        public IndigoWidgetConfiguration WidgetConfiguration { get; set; }
+    }
+
+    public partial class TentacledGeneralInfo
+    {
+        [JsonProperty("timezone")]
+        public string Timezone { get; set; }
+    }
+
+    public partial class IndigoWidgetConfiguration
+    {
+        [JsonProperty("cracServer")]
+        public string CracServer { get; set; }
+    }
+
+    public partial class TentacledFilters
+    {
+        [JsonProperty("date")]
+        public TentacledDate Date { get; set; }
+
+        [JsonProperty("resources")]
+        public List<FluffyResourceFilter> Resources { get; set; }
+
+        [JsonProperty("rooms")]
+        public List<string> Rooms { get; set; }
+
+        [JsonProperty("taxonomies")]
+        public List<string> Taxonomies { get; set; }
+    }
+
+    public partial class TentacledDate
+    {
+        [JsonProperty("from")]
+        public string From { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+    }
+
+    public partial class FluffyResourceFilter
+    {
+        [JsonProperty("business")]
+        public FriskyBusiness Business { get; set; }
+
+        /// <summary>
+        /// идентификатор ресурса
+        /// </summary>
+        [JsonProperty("resource")]
+        public string Resource { get; set; }
+    }
+
+    public partial class FriskyBusiness
+    {
+        /// <summary>
+        /// идентификатор бизнеса
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class CracSlotsGetCracResourcesAndRoomsResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public CracSlotsGetCracResourcesAndRoomsResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public CracSlotsGetCracResourcesAndRoomsResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class CracSlotsGetCracResourcesAndRoomsResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class CracSlotsGetCracResourcesAndRoomsResponseResult
+    {
+        [JsonProperty("slots")]
+        public List<TentacledSlot> Slots { get; set; }
+    }
+
+    public partial class TentacledSlot
+    {
+        [JsonProperty("cutSlots")]
+        public List<TentacledCutSlot> CutSlots { get; set; }
+
+        [JsonProperty("resourceId")]
+        public string ResourceId { get; set; }
+    }
+
+    public partial class TentacledCutSlot
+    {
+        [JsonProperty("available")]
+        public bool Available { get; set; }
+
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty("end")]
+        public double End { get; set; }
+
+        [JsonProperty("start")]
+        public double Start { get; set; }
     }
 
     public partial class Models

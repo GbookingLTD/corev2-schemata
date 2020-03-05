@@ -29,11 +29,15 @@
                 },
                 "Client": {
                     "$ref": "./controllers/client.schema.json"
+                },
+                "CracSlots": {
+                    "$ref": "./controllers/cracSlots.schema.json"
                 }
             },
             "required": [
                 "Business",
-                "Client"
+                "Client",
+                "CracSlots"
             ],
             "additionalProperties": false
         },

@@ -131,8 +131,9 @@ export interface SuccessResponseClass {
 }
 
 export interface Controllers {
-    Business: BusinessController;
-    Client:   ClientController;
+    Business:  BusinessController;
+    Client:    ClientController;
+    CracSlots: CracSlotsController;
 }
 
 export interface BusinessController {
@@ -2254,6 +2255,336 @@ export interface ResultProfile {
     id: string;
 }
 
+export interface CracSlotsController {
+    GetCRACDistributedResourcesAndRooms: GetCracDistributedResourcesAndRooms;
+    GetCRACInsuranceResourcesAndRooms?:  GetCracInsuranceResourcesAndRooms;
+    GetCRACResourcesAndRooms?:           GetCracResourcesAndRooms;
+}
+
+export interface GetCracDistributedResourcesAndRooms {
+    request:  CracSlotsGetCracDistributedResourcesAndRoomsRequest;
+    response: CracSlotsGetCracDistributedResourcesAndRoomsResponse;
+}
+
+export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
+    /**
+     * параметры запроса
+     */
+    params: CracSlotsGetCracDistributedResourcesAndRoomsRequestParams;
+}
+
+/**
+ * параметры запроса
+ */
+export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
+    business: HilariousBusiness;
+    filters:  PurpleFilters;
+}
+
+export interface HilariousBusiness {
+    general_info:         PurpleGeneralInfo;
+    id:                   number;
+    widget_configuration: TentacledWidgetConfiguration;
+}
+
+export interface PurpleGeneralInfo {
+    timezone: string;
+}
+
+export interface TentacledWidgetConfiguration {
+    cracServer: string;
+}
+
+export interface PurpleFilters {
+    date:       PurpleDate;
+    resources:  PurpleResourceFilter[];
+    rooms:      string[];
+    taxonomies: string[];
+}
+
+export interface PurpleDate {
+    from: string;
+    to:   string;
+}
+
+export interface PurpleResourceFilter {
+    business: AmbitiousBusiness;
+    /**
+     * идентификатор ресурса
+     */
+    resource: string;
+}
+
+export interface AmbitiousBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: string;
+}
+
+export interface CracSlotsGetCracDistributedResourcesAndRoomsResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    result?: CracSlotsGetCracDistributedResourcesAndRoomsResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: CracSlotsGetCracDistributedResourcesAndRoomsResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface CracSlotsGetCracDistributedResourcesAndRoomsResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface CracSlotsGetCracDistributedResourcesAndRoomsResponseResult {
+    slots: PurpleSlot[];
+}
+
+export interface PurpleSlot {
+    cutSlots:   PurpleCutSlot[];
+    resourceId: string;
+}
+
+export interface PurpleCutSlot {
+    available: boolean;
+    duration:  number;
+    end:       number;
+    start:     number;
+}
+
+export interface GetCracInsuranceResourcesAndRooms {
+    request:  CracSlotsGetCracInsuranceResourcesAndRoomsRequest;
+    response: CracSlotsGetCracInsuranceResourcesAndRoomsResponse;
+}
+
+export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
+    /**
+     * параметры запроса
+     */
+    params: CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams;
+}
+
+/**
+ * параметры запроса
+ */
+export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
+    business: CunningBusiness;
+    filters:  FluffyFilters;
+}
+
+export interface CunningBusiness {
+    general_info:         FluffyGeneralInfo;
+    id:                   number;
+    widget_configuration: StickyWidgetConfiguration;
+}
+
+export interface FluffyGeneralInfo {
+    timezone: string;
+}
+
+export interface StickyWidgetConfiguration {
+    cracServer: string;
+}
+
+export interface FluffyFilters {
+    date:        FluffyDate;
+    insuranceID: string;
+    rooms:       string[];
+    taxonomies:  string[];
+}
+
+export interface FluffyDate {
+    from: string;
+    to:   string;
+}
+
+export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    result?: CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: CracSlotsGetCracInsuranceResourcesAndRoomsResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult {
+    slots: FluffySlot[];
+}
+
+export interface FluffySlot {
+    cutSlots:   FluffyCutSlot[];
+    resourceId: string;
+}
+
+export interface FluffyCutSlot {
+    available: boolean;
+    duration:  number;
+    end:       number;
+    start:     number;
+}
+
+export interface GetCracResourcesAndRooms {
+    request:  CracSlotsGetCracResourcesAndRoomsRequest;
+    response: CracSlotsGetCracResourcesAndRoomsResponse;
+}
+
+export interface CracSlotsGetCracResourcesAndRoomsRequest {
+    /**
+     * параметры запроса
+     */
+    params: CracSlotsGetCracResourcesAndRoomsRequestParams;
+}
+
+/**
+ * параметры запроса
+ */
+export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
+    business: MagentaBusiness;
+    filters:  TentacledFilters;
+}
+
+export interface MagentaBusiness {
+    general_info:         TentacledGeneralInfo;
+    id:                   number;
+    widget_configuration: IndigoWidgetConfiguration;
+}
+
+export interface TentacledGeneralInfo {
+    timezone: string;
+}
+
+export interface IndigoWidgetConfiguration {
+    cracServer: string;
+}
+
+export interface TentacledFilters {
+    date:       TentacledDate;
+    resources:  FluffyResourceFilter[];
+    rooms:      string[];
+    taxonomies: string[];
+}
+
+export interface TentacledDate {
+    from: string;
+    to:   string;
+}
+
+export interface FluffyResourceFilter {
+    business: FriskyBusiness;
+    /**
+     * идентификатор ресурса
+     */
+    resource: string;
+}
+
+export interface FriskyBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: string;
+}
+
+export interface CracSlotsGetCracResourcesAndRoomsResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    result?: CracSlotsGetCracResourcesAndRoomsResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: CracSlotsGetCracResourcesAndRoomsResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface CracSlotsGetCracResourcesAndRoomsResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface CracSlotsGetCracResourcesAndRoomsResponseResult {
+    slots: TentacledSlot[];
+}
+
+export interface TentacledSlot {
+    cutSlots:   TentacledCutSlot[];
+    resourceId: string;
+}
+
+export interface TentacledCutSlot {
+    available: boolean;
+    duration:  number;
+    end:       number;
+    start:     number;
+}
+
 export interface Models {
     Business: ResultBusiness;
     Client:   Client;
@@ -3118,6 +3449,358 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ResultProfile")), null, 2);
     }
 
+    public static toCracSlotsController(json: string): CracSlotsController {
+        return cast(JSON.parse(json), r("CracSlotsController"));
+    }
+
+    public static cracSlotsControllerToJson(value: CracSlotsController): string {
+        return JSON.stringify(uncast(value, r("CracSlotsController")), null, 2);
+    }
+
+    public static toGetCracDistributedResourcesAndRooms(json: string): GetCracDistributedResourcesAndRooms {
+        return cast(JSON.parse(json), r("GetCracDistributedResourcesAndRooms"));
+    }
+
+    public static getCracDistributedResourcesAndRoomsToJson(value: GetCracDistributedResourcesAndRooms): string {
+        return JSON.stringify(uncast(value, r("GetCracDistributedResourcesAndRooms")), null, 2);
+    }
+
+    public static toCracSlotsGetCracDistributedResourcesAndRoomsRequest(json: string): CracSlotsGetCracDistributedResourcesAndRoomsRequest {
+        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsRequest"));
+    }
+
+    public static cracSlotsGetCracDistributedResourcesAndRoomsRequestToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsRequest): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequest")), null, 2);
+    }
+
+    public static toCracSlotsGetCracDistributedResourcesAndRoomsRequestParams(json: string): CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
+        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams"));
+    }
+
+    public static cracSlotsGetCracDistributedResourcesAndRoomsRequestParamsToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsRequestParams): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams")), null, 2);
+    }
+
+    public static toHilariousBusiness(json: string): HilariousBusiness {
+        return cast(JSON.parse(json), r("HilariousBusiness"));
+    }
+
+    public static hilariousBusinessToJson(value: HilariousBusiness): string {
+        return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
+    }
+
+    public static toPurpleGeneralInfo(json: string): PurpleGeneralInfo {
+        return cast(JSON.parse(json), r("PurpleGeneralInfo"));
+    }
+
+    public static purpleGeneralInfoToJson(value: PurpleGeneralInfo): string {
+        return JSON.stringify(uncast(value, r("PurpleGeneralInfo")), null, 2);
+    }
+
+    public static toTentacledWidgetConfiguration(json: string): TentacledWidgetConfiguration {
+        return cast(JSON.parse(json), r("TentacledWidgetConfiguration"));
+    }
+
+    public static tentacledWidgetConfigurationToJson(value: TentacledWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("TentacledWidgetConfiguration")), null, 2);
+    }
+
+    public static toPurpleFilters(json: string): PurpleFilters {
+        return cast(JSON.parse(json), r("PurpleFilters"));
+    }
+
+    public static purpleFiltersToJson(value: PurpleFilters): string {
+        return JSON.stringify(uncast(value, r("PurpleFilters")), null, 2);
+    }
+
+    public static toPurpleDate(json: string): PurpleDate {
+        return cast(JSON.parse(json), r("PurpleDate"));
+    }
+
+    public static purpleDateToJson(value: PurpleDate): string {
+        return JSON.stringify(uncast(value, r("PurpleDate")), null, 2);
+    }
+
+    public static toPurpleResourceFilter(json: string): PurpleResourceFilter {
+        return cast(JSON.parse(json), r("PurpleResourceFilter"));
+    }
+
+    public static purpleResourceFilterToJson(value: PurpleResourceFilter): string {
+        return JSON.stringify(uncast(value, r("PurpleResourceFilter")), null, 2);
+    }
+
+    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
+        return cast(JSON.parse(json), r("AmbitiousBusiness"));
+    }
+
+    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
+        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
+    }
+
+    public static toCracSlotsGetCracDistributedResourcesAndRoomsResponse(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponse {
+        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsResponse"));
+    }
+
+    public static cracSlotsGetCracDistributedResourcesAndRoomsResponseToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsResponse): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsResponse")), null, 2);
+    }
+
+    public static toCracSlotsGetCracDistributedResourcesAndRoomsResponseError(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponseError {
+        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsResponseError"));
+    }
+
+    public static cracSlotsGetCracDistributedResourcesAndRoomsResponseErrorToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsResponseError): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsResponseError")), null, 2);
+    }
+
+    public static toCracSlotsGetCracDistributedResourcesAndRoomsResponseResult(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponseResult {
+        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsResponseResult"));
+    }
+
+    public static cracSlotsGetCracDistributedResourcesAndRoomsResponseResultToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsResponseResult): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsResponseResult")), null, 2);
+    }
+
+    public static toPurpleSlot(json: string): PurpleSlot {
+        return cast(JSON.parse(json), r("PurpleSlot"));
+    }
+
+    public static purpleSlotToJson(value: PurpleSlot): string {
+        return JSON.stringify(uncast(value, r("PurpleSlot")), null, 2);
+    }
+
+    public static toPurpleCutSlot(json: string): PurpleCutSlot {
+        return cast(JSON.parse(json), r("PurpleCutSlot"));
+    }
+
+    public static purpleCutSlotToJson(value: PurpleCutSlot): string {
+        return JSON.stringify(uncast(value, r("PurpleCutSlot")), null, 2);
+    }
+
+    public static toGetCracInsuranceResourcesAndRooms(json: string): GetCracInsuranceResourcesAndRooms {
+        return cast(JSON.parse(json), r("GetCracInsuranceResourcesAndRooms"));
+    }
+
+    public static getCracInsuranceResourcesAndRoomsToJson(value: GetCracInsuranceResourcesAndRooms): string {
+        return JSON.stringify(uncast(value, r("GetCracInsuranceResourcesAndRooms")), null, 2);
+    }
+
+    public static toCracSlotsGetCracInsuranceResourcesAndRoomsRequest(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
+        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsRequest"));
+    }
+
+    public static cracSlotsGetCracInsuranceResourcesAndRoomsRequestToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsRequest): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequest")), null, 2);
+    }
+
+    public static toCracSlotsGetCracInsuranceResourcesAndRoomsRequestParams(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
+        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams"));
+    }
+
+    public static cracSlotsGetCracInsuranceResourcesAndRoomsRequestParamsToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams")), null, 2);
+    }
+
+    public static toCunningBusiness(json: string): CunningBusiness {
+        return cast(JSON.parse(json), r("CunningBusiness"));
+    }
+
+    public static cunningBusinessToJson(value: CunningBusiness): string {
+        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
+    }
+
+    public static toFluffyGeneralInfo(json: string): FluffyGeneralInfo {
+        return cast(JSON.parse(json), r("FluffyGeneralInfo"));
+    }
+
+    public static fluffyGeneralInfoToJson(value: FluffyGeneralInfo): string {
+        return JSON.stringify(uncast(value, r("FluffyGeneralInfo")), null, 2);
+    }
+
+    public static toStickyWidgetConfiguration(json: string): StickyWidgetConfiguration {
+        return cast(JSON.parse(json), r("StickyWidgetConfiguration"));
+    }
+
+    public static stickyWidgetConfigurationToJson(value: StickyWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("StickyWidgetConfiguration")), null, 2);
+    }
+
+    public static toFluffyFilters(json: string): FluffyFilters {
+        return cast(JSON.parse(json), r("FluffyFilters"));
+    }
+
+    public static fluffyFiltersToJson(value: FluffyFilters): string {
+        return JSON.stringify(uncast(value, r("FluffyFilters")), null, 2);
+    }
+
+    public static toFluffyDate(json: string): FluffyDate {
+        return cast(JSON.parse(json), r("FluffyDate"));
+    }
+
+    public static fluffyDateToJson(value: FluffyDate): string {
+        return JSON.stringify(uncast(value, r("FluffyDate")), null, 2);
+    }
+
+    public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponse(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponse {
+        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsResponse"));
+    }
+
+    public static cracSlotsGetCracInsuranceResourcesAndRoomsResponseToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsResponse): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponse")), null, 2);
+    }
+
+    public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponseError(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponseError {
+        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseError"));
+    }
+
+    public static cracSlotsGetCracInsuranceResourcesAndRoomsResponseErrorToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsResponseError): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseError")), null, 2);
+    }
+
+    public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponseResult(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult {
+        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult"));
+    }
+
+    public static cracSlotsGetCracInsuranceResourcesAndRoomsResponseResultToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult")), null, 2);
+    }
+
+    public static toFluffySlot(json: string): FluffySlot {
+        return cast(JSON.parse(json), r("FluffySlot"));
+    }
+
+    public static fluffySlotToJson(value: FluffySlot): string {
+        return JSON.stringify(uncast(value, r("FluffySlot")), null, 2);
+    }
+
+    public static toFluffyCutSlot(json: string): FluffyCutSlot {
+        return cast(JSON.parse(json), r("FluffyCutSlot"));
+    }
+
+    public static fluffyCutSlotToJson(value: FluffyCutSlot): string {
+        return JSON.stringify(uncast(value, r("FluffyCutSlot")), null, 2);
+    }
+
+    public static toGetCracResourcesAndRooms(json: string): GetCracResourcesAndRooms {
+        return cast(JSON.parse(json), r("GetCracResourcesAndRooms"));
+    }
+
+    public static getCracResourcesAndRoomsToJson(value: GetCracResourcesAndRooms): string {
+        return JSON.stringify(uncast(value, r("GetCracResourcesAndRooms")), null, 2);
+    }
+
+    public static toCracSlotsGetCracResourcesAndRoomsRequest(json: string): CracSlotsGetCracResourcesAndRoomsRequest {
+        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsRequest"));
+    }
+
+    public static cracSlotsGetCracResourcesAndRoomsRequestToJson(value: CracSlotsGetCracResourcesAndRoomsRequest): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequest")), null, 2);
+    }
+
+    public static toCracSlotsGetCracResourcesAndRoomsRequestParams(json: string): CracSlotsGetCracResourcesAndRoomsRequestParams {
+        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsRequestParams"));
+    }
+
+    public static cracSlotsGetCracResourcesAndRoomsRequestParamsToJson(value: CracSlotsGetCracResourcesAndRoomsRequestParams): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequestParams")), null, 2);
+    }
+
+    public static toMagentaBusiness(json: string): MagentaBusiness {
+        return cast(JSON.parse(json), r("MagentaBusiness"));
+    }
+
+    public static magentaBusinessToJson(value: MagentaBusiness): string {
+        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
+    }
+
+    public static toTentacledGeneralInfo(json: string): TentacledGeneralInfo {
+        return cast(JSON.parse(json), r("TentacledGeneralInfo"));
+    }
+
+    public static tentacledGeneralInfoToJson(value: TentacledGeneralInfo): string {
+        return JSON.stringify(uncast(value, r("TentacledGeneralInfo")), null, 2);
+    }
+
+    public static toIndigoWidgetConfiguration(json: string): IndigoWidgetConfiguration {
+        return cast(JSON.parse(json), r("IndigoWidgetConfiguration"));
+    }
+
+    public static indigoWidgetConfigurationToJson(value: IndigoWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("IndigoWidgetConfiguration")), null, 2);
+    }
+
+    public static toTentacledFilters(json: string): TentacledFilters {
+        return cast(JSON.parse(json), r("TentacledFilters"));
+    }
+
+    public static tentacledFiltersToJson(value: TentacledFilters): string {
+        return JSON.stringify(uncast(value, r("TentacledFilters")), null, 2);
+    }
+
+    public static toTentacledDate(json: string): TentacledDate {
+        return cast(JSON.parse(json), r("TentacledDate"));
+    }
+
+    public static tentacledDateToJson(value: TentacledDate): string {
+        return JSON.stringify(uncast(value, r("TentacledDate")), null, 2);
+    }
+
+    public static toFluffyResourceFilter(json: string): FluffyResourceFilter {
+        return cast(JSON.parse(json), r("FluffyResourceFilter"));
+    }
+
+    public static fluffyResourceFilterToJson(value: FluffyResourceFilter): string {
+        return JSON.stringify(uncast(value, r("FluffyResourceFilter")), null, 2);
+    }
+
+    public static toFriskyBusiness(json: string): FriskyBusiness {
+        return cast(JSON.parse(json), r("FriskyBusiness"));
+    }
+
+    public static friskyBusinessToJson(value: FriskyBusiness): string {
+        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
+    }
+
+    public static toCracSlotsGetCracResourcesAndRoomsResponse(json: string): CracSlotsGetCracResourcesAndRoomsResponse {
+        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsResponse"));
+    }
+
+    public static cracSlotsGetCracResourcesAndRoomsResponseToJson(value: CracSlotsGetCracResourcesAndRoomsResponse): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsResponse")), null, 2);
+    }
+
+    public static toCracSlotsGetCracResourcesAndRoomsResponseError(json: string): CracSlotsGetCracResourcesAndRoomsResponseError {
+        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsResponseError"));
+    }
+
+    public static cracSlotsGetCracResourcesAndRoomsResponseErrorToJson(value: CracSlotsGetCracResourcesAndRoomsResponseError): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsResponseError")), null, 2);
+    }
+
+    public static toCracSlotsGetCracResourcesAndRoomsResponseResult(json: string): CracSlotsGetCracResourcesAndRoomsResponseResult {
+        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsResponseResult"));
+    }
+
+    public static cracSlotsGetCracResourcesAndRoomsResponseResultToJson(value: CracSlotsGetCracResourcesAndRoomsResponseResult): string {
+        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsResponseResult")), null, 2);
+    }
+
+    public static toTentacledSlot(json: string): TentacledSlot {
+        return cast(JSON.parse(json), r("TentacledSlot"));
+    }
+
+    public static tentacledSlotToJson(value: TentacledSlot): string {
+        return JSON.stringify(uncast(value, r("TentacledSlot")), null, 2);
+    }
+
+    public static toTentacledCutSlot(json: string): TentacledCutSlot {
+        return cast(JSON.parse(json), r("TentacledCutSlot"));
+    }
+
+    public static tentacledCutSlotToJson(value: TentacledCutSlot): string {
+        return JSON.stringify(uncast(value, r("TentacledCutSlot")), null, 2);
+    }
+
     public static toModels(json: string): Models {
         return cast(JSON.parse(json), r("Models"));
     }
@@ -3300,6 +3983,7 @@ const typeMap: any = {
     "Controllers": o([
         { json: "Business", js: "Business", typ: r("BusinessController") },
         { json: "Client", js: "Client", typ: r("ClientController") },
+        { json: "CracSlots", js: "CracSlots", typ: r("CracSlotsController") },
     ], false),
     "BusinessController": o([
         { json: "get_network_data", js: "get_network_data", typ: r("GetNetworkData") },
@@ -3325,7 +4009,7 @@ const typeMap: any = {
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "result", js: "result", typ: u(undefined, u(r("ResultClass"), null)) },
         { json: "error", js: "error", typ: u(undefined, r("BusinessGetNetworkDataResponseError")) },
-    ], "any"),
+    ], false),
     "BusinessGetNetworkDataResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
         { json: "data", js: "data", typ: u(undefined, "") },
@@ -4519,6 +5203,193 @@ const typeMap: any = {
     ], false),
     "ResultProfile": o([
         { json: "id", js: "id", typ: "" },
+    ], false),
+    "CracSlotsController": o([
+        { json: "GetCRACDistributedResourcesAndRooms", js: "GetCRACDistributedResourcesAndRooms", typ: r("GetCracDistributedResourcesAndRooms") },
+        { json: "GetCRACInsuranceResourcesAndRooms", js: "GetCRACInsuranceResourcesAndRooms", typ: u(undefined, r("GetCracInsuranceResourcesAndRooms")) },
+        { json: "GetCRACResourcesAndRooms", js: "GetCRACResourcesAndRooms", typ: u(undefined, r("GetCracResourcesAndRooms")) },
+    ], false),
+    "GetCracDistributedResourcesAndRooms": o([
+        { json: "request", js: "request", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequest") },
+        { json: "response", js: "response", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsResponse") },
+    ], false),
+    "CracSlotsGetCracDistributedResourcesAndRoomsRequest": o([
+        { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
+    ], false),
+    "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
+        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "filters", js: "filters", typ: r("PurpleFilters") },
+    ], false),
+    "HilariousBusiness": o([
+        { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
+    ], false),
+    "PurpleGeneralInfo": o([
+        { json: "timezone", js: "timezone", typ: "" },
+    ], false),
+    "TentacledWidgetConfiguration": o([
+        { json: "cracServer", js: "cracServer", typ: "" },
+    ], false),
+    "PurpleFilters": o([
+        { json: "date", js: "date", typ: r("PurpleDate") },
+        { json: "resources", js: "resources", typ: a(r("PurpleResourceFilter")) },
+        { json: "rooms", js: "rooms", typ: a("") },
+        { json: "taxonomies", js: "taxonomies", typ: a("") },
+    ], false),
+    "PurpleDate": o([
+        { json: "from", js: "from", typ: "" },
+        { json: "to", js: "to", typ: "" },
+    ], false),
+    "PurpleResourceFilter": o([
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "resource", js: "resource", typ: "" },
+    ], "any"),
+    "AmbitiousBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "CracSlotsGetCracDistributedResourcesAndRoomsResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, r("CracSlotsGetCracDistributedResourcesAndRoomsResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("CracSlotsGetCracDistributedResourcesAndRoomsResponseError")) },
+    ], false),
+    "CracSlotsGetCracDistributedResourcesAndRoomsResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "CracSlotsGetCracDistributedResourcesAndRoomsResponseResult": o([
+        { json: "slots", js: "slots", typ: a(r("PurpleSlot")) },
+    ], false),
+    "PurpleSlot": o([
+        { json: "cutSlots", js: "cutSlots", typ: a(r("PurpleCutSlot")) },
+        { json: "resourceId", js: "resourceId", typ: "" },
+    ], false),
+    "PurpleCutSlot": o([
+        { json: "available", js: "available", typ: true },
+        { json: "duration", js: "duration", typ: 3.14 },
+        { json: "end", js: "end", typ: 3.14 },
+        { json: "start", js: "start", typ: 3.14 },
+    ], false),
+    "GetCracInsuranceResourcesAndRooms": o([
+        { json: "request", js: "request", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequest") },
+        { json: "response", js: "response", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsResponse") },
+    ], false),
+    "CracSlotsGetCracInsuranceResourcesAndRoomsRequest": o([
+        { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
+    ], false),
+    "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
+        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "filters", js: "filters", typ: r("FluffyFilters") },
+    ], false),
+    "CunningBusiness": o([
+        { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
+    ], false),
+    "FluffyGeneralInfo": o([
+        { json: "timezone", js: "timezone", typ: "" },
+    ], false),
+    "StickyWidgetConfiguration": o([
+        { json: "cracServer", js: "cracServer", typ: "" },
+    ], false),
+    "FluffyFilters": o([
+        { json: "date", js: "date", typ: r("FluffyDate") },
+        { json: "insuranceID", js: "insuranceID", typ: "" },
+        { json: "rooms", js: "rooms", typ: a("") },
+        { json: "taxonomies", js: "taxonomies", typ: a("") },
+    ], false),
+    "FluffyDate": o([
+        { json: "from", js: "from", typ: "" },
+        { json: "to", js: "to", typ: "" },
+    ], false),
+    "CracSlotsGetCracInsuranceResourcesAndRoomsResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseError")) },
+    ], false),
+    "CracSlotsGetCracInsuranceResourcesAndRoomsResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult": o([
+        { json: "slots", js: "slots", typ: a(r("FluffySlot")) },
+    ], false),
+    "FluffySlot": o([
+        { json: "cutSlots", js: "cutSlots", typ: a(r("FluffyCutSlot")) },
+        { json: "resourceId", js: "resourceId", typ: "" },
+    ], false),
+    "FluffyCutSlot": o([
+        { json: "available", js: "available", typ: true },
+        { json: "duration", js: "duration", typ: 3.14 },
+        { json: "end", js: "end", typ: 3.14 },
+        { json: "start", js: "start", typ: 3.14 },
+    ], false),
+    "GetCracResourcesAndRooms": o([
+        { json: "request", js: "request", typ: r("CracSlotsGetCracResourcesAndRoomsRequest") },
+        { json: "response", js: "response", typ: r("CracSlotsGetCracResourcesAndRoomsResponse") },
+    ], false),
+    "CracSlotsGetCracResourcesAndRoomsRequest": o([
+        { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
+    ], false),
+    "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "filters", js: "filters", typ: r("TentacledFilters") },
+    ], false),
+    "MagentaBusiness": o([
+        { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },
+    ], false),
+    "TentacledGeneralInfo": o([
+        { json: "timezone", js: "timezone", typ: "" },
+    ], false),
+    "IndigoWidgetConfiguration": o([
+        { json: "cracServer", js: "cracServer", typ: "" },
+    ], false),
+    "TentacledFilters": o([
+        { json: "date", js: "date", typ: r("TentacledDate") },
+        { json: "resources", js: "resources", typ: a(r("FluffyResourceFilter")) },
+        { json: "rooms", js: "rooms", typ: a("") },
+        { json: "taxonomies", js: "taxonomies", typ: a("") },
+    ], false),
+    "TentacledDate": o([
+        { json: "from", js: "from", typ: "" },
+        { json: "to", js: "to", typ: "" },
+    ], false),
+    "FluffyResourceFilter": o([
+        { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "resource", js: "resource", typ: "" },
+    ], "any"),
+    "FriskyBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "CracSlotsGetCracResourcesAndRoomsResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, r("CracSlotsGetCracResourcesAndRoomsResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("CracSlotsGetCracResourcesAndRoomsResponseError")) },
+    ], false),
+    "CracSlotsGetCracResourcesAndRoomsResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "CracSlotsGetCracResourcesAndRoomsResponseResult": o([
+        { json: "slots", js: "slots", typ: a(r("TentacledSlot")) },
+    ], false),
+    "TentacledSlot": o([
+        { json: "cutSlots", js: "cutSlots", typ: a(r("TentacledCutSlot")) },
+        { json: "resourceId", js: "resourceId", typ: "" },
+    ], false),
+    "TentacledCutSlot": o([
+        { json: "available", js: "available", typ: true },
+        { json: "duration", js: "duration", typ: 3.14 },
+        { json: "end", js: "end", typ: 3.14 },
+        { json: "start", js: "start", typ: 3.14 },
     ], false),
     "Models": o([
         { json: "Business", js: "Business", typ: u(a("any"), true, r("StickyBusiness"), 3.14, 0, null, "") },

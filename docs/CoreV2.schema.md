@@ -91,10 +91,11 @@ schemas-json/CoreV2.schema.json
 
 `object` with following properties:
 
-| Property   | Type | Required     |
-| ---------- | ---- | ------------ |
-| `Business` |      | **Required** |
-| `Client`   |      | **Required** |
+| Property    | Type | Required     |
+| ----------- | ---- | ------------ |
+| `Business`  |      | **Required** |
+| `Client`    |      | **Required** |
+| `CracSlots` |      | **Required** |
 
 #### Business
 
@@ -117,6 +118,17 @@ schemas-json/CoreV2.schema.json
 ##### Client Type
 
 - []() – `./controllers/client.schema.json`
+
+#### CracSlots
+
+`CracSlots`
+
+- is **required**
+- type: reference
+
+##### CracSlots Type
+
+- []() – `./controllers/cracSlots.schema.json`
 
 ## Models
 

@@ -72,8 +72,9 @@ type SuccessResponseClass struct {
 }
 
 type Controllers struct {
-	Business BusinessController `json:"Business"`
-	Client   ClientController   `json:"Client"`  
+	Business  BusinessController  `json:"Business"` 
+	Client    ClientController    `json:"Client"`   
+	CracSlots CracSlotsController `json:"CracSlots"`
 }
 
 type BusinessController struct {
@@ -1416,6 +1417,249 @@ type IndecentBusiness struct {
 
 type ResultProfile struct {
 	ID string `json:"id"`
+}
+
+type CracSlotsController struct {
+	GetCRACDistributedResourcesAndRooms GetCRACDistributedResourcesAndRooms `json:"GetCRACDistributedResourcesAndRooms"`        
+	GetCRACInsuranceResourcesAndRooms   *GetCRACInsuranceResourcesAndRooms  `json:"GetCRACInsuranceResourcesAndRooms,omitempty"`
+	GetCRACResourcesAndRooms            *GetCRACResourcesAndRooms           `json:"GetCRACResourcesAndRooms,omitempty"`         
+}
+
+type GetCRACDistributedResourcesAndRooms struct {
+	Request  CracSlotsGetCRACDistributedResourcesAndRoomsRequest  `json:"request"` 
+	Response CracSlotsGetCRACDistributedResourcesAndRoomsResponse `json:"response"`
+}
+
+type CracSlotsGetCRACDistributedResourcesAndRoomsRequest struct {
+	Params CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams `json:"params"`// параметры запроса
+}
+
+// параметры запроса
+type CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams struct {
+	Business HilariousBusiness `json:"business"`
+	Filters  PurpleFilters     `json:"filters"` 
+}
+
+type HilariousBusiness struct {
+	GeneralInfo         PurpleGeneralInfo            `json:"general_info"`        
+	ID                  float64                      `json:"id"`                  
+	WidgetConfiguration TentacledWidgetConfiguration `json:"widget_configuration"`
+}
+
+type PurpleGeneralInfo struct {
+	Timezone string `json:"timezone"`
+}
+
+type TentacledWidgetConfiguration struct {
+	CracServer string `json:"cracServer"`
+}
+
+type PurpleFilters struct {
+	Date       PurpleDate             `json:"date"`      
+	Resources  []PurpleResourceFilter `json:"resources"` 
+	Rooms      []string               `json:"rooms"`     
+	Taxonomies []string               `json:"taxonomies"`
+}
+
+type PurpleDate struct {
+	From string `json:"from"`
+	To   string `json:"to"`  
+}
+
+type PurpleResourceFilter struct {
+	Business AmbitiousBusiness `json:"business"`
+	Resource string            `json:"resource"`// идентификатор ресурса
+}
+
+type AmbitiousBusiness struct {
+	ID string `json:"id"`// идентификатор бизнеса
+}
+
+type CracSlotsGetCRACDistributedResourcesAndRoomsResponse struct {
+	ID      float64                                                     `json:"id"`              // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                                      `json:"jsonrpc"`         // версия протокола (2.0)
+	Result  *CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult `json:"result,omitempty"`
+	Error   *CracSlotsGetCRACDistributedResourcesAndRoomsResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type CracSlotsGetCRACDistributedResourcesAndRoomsResponseError struct {
+	Code    float64 `json:"code"`          // код ошибки
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+type CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult struct {
+	Slots []PurpleSlot `json:"slots"`
+}
+
+type PurpleSlot struct {
+	CutSlots   []PurpleCutSlot `json:"cutSlots"`  
+	ResourceID string          `json:"resourceId"`
+}
+
+type PurpleCutSlot struct {
+	Available bool    `json:"available"`
+	Duration  float64 `json:"duration"` 
+	End       float64 `json:"end"`      
+	Start     float64 `json:"start"`    
+}
+
+type GetCRACInsuranceResourcesAndRooms struct {
+	Request  CracSlotsGetCRACInsuranceResourcesAndRoomsRequest  `json:"request"` 
+	Response CracSlotsGetCRACInsuranceResourcesAndRoomsResponse `json:"response"`
+}
+
+type CracSlotsGetCRACInsuranceResourcesAndRoomsRequest struct {
+	Params CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams `json:"params"`// параметры запроса
+}
+
+// параметры запроса
+type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams struct {
+	Business CunningBusiness `json:"business"`
+	Filters  FluffyFilters   `json:"filters"` 
+}
+
+type CunningBusiness struct {
+	GeneralInfo         FluffyGeneralInfo         `json:"general_info"`        
+	ID                  float64                   `json:"id"`                  
+	WidgetConfiguration StickyWidgetConfiguration `json:"widget_configuration"`
+}
+
+type FluffyGeneralInfo struct {
+	Timezone string `json:"timezone"`
+}
+
+type StickyWidgetConfiguration struct {
+	CracServer string `json:"cracServer"`
+}
+
+type FluffyFilters struct {
+	Date        FluffyDate `json:"date"`       
+	InsuranceID string     `json:"insuranceID"`
+	Rooms       []string   `json:"rooms"`      
+	Taxonomies  []string   `json:"taxonomies"` 
+}
+
+type FluffyDate struct {
+	From string `json:"from"`
+	To   string `json:"to"`  
+}
+
+type CracSlotsGetCRACInsuranceResourcesAndRoomsResponse struct {
+	ID      float64                                                   `json:"id"`              // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                                    `json:"jsonrpc"`         // версия протокола (2.0)
+	Result  *CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult `json:"result,omitempty"`
+	Error   *CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError struct {
+	Code    float64 `json:"code"`          // код ошибки
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+type CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult struct {
+	Slots []FluffySlot `json:"slots"`
+}
+
+type FluffySlot struct {
+	CutSlots   []FluffyCutSlot `json:"cutSlots"`  
+	ResourceID string          `json:"resourceId"`
+}
+
+type FluffyCutSlot struct {
+	Available bool    `json:"available"`
+	Duration  float64 `json:"duration"` 
+	End       float64 `json:"end"`      
+	Start     float64 `json:"start"`    
+}
+
+type GetCRACResourcesAndRooms struct {
+	Request  CracSlotsGetCRACResourcesAndRoomsRequest  `json:"request"` 
+	Response CracSlotsGetCRACResourcesAndRoomsResponse `json:"response"`
+}
+
+type CracSlotsGetCRACResourcesAndRoomsRequest struct {
+	Params CracSlotsGetCRACResourcesAndRoomsRequestParams `json:"params"`// параметры запроса
+}
+
+// параметры запроса
+type CracSlotsGetCRACResourcesAndRoomsRequestParams struct {
+	Business MagentaBusiness  `json:"business"`
+	Filters  TentacledFilters `json:"filters"` 
+}
+
+type MagentaBusiness struct {
+	GeneralInfo         TentacledGeneralInfo      `json:"general_info"`        
+	ID                  float64                   `json:"id"`                  
+	WidgetConfiguration IndigoWidgetConfiguration `json:"widget_configuration"`
+}
+
+type TentacledGeneralInfo struct {
+	Timezone string `json:"timezone"`
+}
+
+type IndigoWidgetConfiguration struct {
+	CracServer string `json:"cracServer"`
+}
+
+type TentacledFilters struct {
+	Date       TentacledDate          `json:"date"`      
+	Resources  []FluffyResourceFilter `json:"resources"` 
+	Rooms      []string               `json:"rooms"`     
+	Taxonomies []string               `json:"taxonomies"`
+}
+
+type TentacledDate struct {
+	From string `json:"from"`
+	To   string `json:"to"`  
+}
+
+type FluffyResourceFilter struct {
+	Business FriskyBusiness `json:"business"`
+	Resource string         `json:"resource"`// идентификатор ресурса
+}
+
+type FriskyBusiness struct {
+	ID string `json:"id"`// идентификатор бизнеса
+}
+
+type CracSlotsGetCRACResourcesAndRoomsResponse struct {
+	ID      float64                                          `json:"id"`              // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                           `json:"jsonrpc"`         // версия протокола (2.0)
+	Result  *CracSlotsGetCRACResourcesAndRoomsResponseResult `json:"result,omitempty"`
+	Error   *CracSlotsGetCRACResourcesAndRoomsResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type CracSlotsGetCRACResourcesAndRoomsResponseError struct {
+	Code    float64 `json:"code"`          // код ошибки
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+type CracSlotsGetCRACResourcesAndRoomsResponseResult struct {
+	Slots []TentacledSlot `json:"slots"`
+}
+
+type TentacledSlot struct {
+	CutSlots   []TentacledCutSlot `json:"cutSlots"`  
+	ResourceID string             `json:"resourceId"`
+}
+
+type TentacledCutSlot struct {
+	Available bool    `json:"available"`
+	Duration  float64 `json:"duration"` 
+	End       float64 `json:"end"`      
+	Start     float64 `json:"start"`    
 }
 
 type Models struct {

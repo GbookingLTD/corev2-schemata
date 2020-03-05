@@ -1,0 +1,25 @@
+package ru.gbooking.apiv2;
+
+import java.util.*;
+import com.fasterxml.jackson.annotation.*;
+
+public class HilariousBusiness {
+    private PurpleGeneralInfo generalInfo;
+    private double id;
+    private TentacledWidgetConfiguration widgetConfiguration;
+
+    @JsonProperty("general_info")
+    public PurpleGeneralInfo getGeneralInfo() { return generalInfo; }
+    @JsonProperty("general_info")
+    public void setGeneralInfo(PurpleGeneralInfo value) { this.generalInfo = value; }
+
+    @JsonProperty("id")
+    public double getID() { return id; }
+    @JsonProperty("id")
+    public void setID(double value) { this.id = value; }
+
+    @JsonProperty("widget_configuration")
+    public TentacledWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
+    @JsonProperty("widget_configuration")
+    public void setWidgetConfiguration(TentacledWidgetConfiguration value) { this.widgetConfiguration = value; }
+}

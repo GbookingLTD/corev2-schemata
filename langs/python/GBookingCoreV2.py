@@ -6216,25 +6216,1081 @@ class ClientController:
         return result
 
 
+class PurpleGeneralInfo:
+    timezone: str
+
+    def __init__(self, timezone: str) -> None:
+        self.timezone = timezone
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleGeneralInfo':
+        assert isinstance(obj, dict)
+        timezone = from_str(obj.get("timezone"))
+        return PurpleGeneralInfo(timezone)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["timezone"] = from_str(self.timezone)
+        return result
+
+
+class TentacledWidgetConfiguration:
+    crac_server: str
+
+    def __init__(self, crac_server: str) -> None:
+        self.crac_server = crac_server
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledWidgetConfiguration':
+        assert isinstance(obj, dict)
+        crac_server = from_str(obj.get("cracServer"))
+        return TentacledWidgetConfiguration(crac_server)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cracServer"] = from_str(self.crac_server)
+        return result
+
+
+class HilariousBusiness:
+    general_info: PurpleGeneralInfo
+    id: float
+    widget_configuration: TentacledWidgetConfiguration
+
+    def __init__(self, general_info: PurpleGeneralInfo, id: float, widget_configuration: TentacledWidgetConfiguration) -> None:
+        self.general_info = general_info
+        self.id = id
+        self.widget_configuration = widget_configuration
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'HilariousBusiness':
+        assert isinstance(obj, dict)
+        general_info = PurpleGeneralInfo.from_dict(obj.get("general_info"))
+        id = from_float(obj.get("id"))
+        widget_configuration = TentacledWidgetConfiguration.from_dict(obj.get("widget_configuration"))
+        return HilariousBusiness(general_info, id, widget_configuration)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["general_info"] = to_class(PurpleGeneralInfo, self.general_info)
+        result["id"] = to_float(self.id)
+        result["widget_configuration"] = to_class(TentacledWidgetConfiguration, self.widget_configuration)
+        return result
+
+
+class PurpleDate:
+    date_from: str
+    to: str
+
+    def __init__(self, date_from: str, to: str) -> None:
+        self.date_from = date_from
+        self.to = to
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleDate':
+        assert isinstance(obj, dict)
+        date_from = from_str(obj.get("from"))
+        to = from_str(obj.get("to"))
+        return PurpleDate(date_from, to)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["from"] = from_str(self.date_from)
+        result["to"] = from_str(self.to)
+        return result
+
+
+class AmbitiousBusiness:
+    """идентификатор бизнеса"""
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AmbitiousBusiness':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return AmbitiousBusiness(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class PurpleResourceFilter:
+    business: AmbitiousBusiness
+    """идентификатор ресурса"""
+    resource: str
+
+    def __init__(self, business: AmbitiousBusiness, resource: str) -> None:
+        self.business = business
+        self.resource = resource
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleResourceFilter':
+        assert isinstance(obj, dict)
+        business = AmbitiousBusiness.from_dict(obj.get("business"))
+        resource = from_str(obj.get("resource"))
+        return PurpleResourceFilter(business, resource)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(AmbitiousBusiness, self.business)
+        result["resource"] = from_str(self.resource)
+        return result
+
+
+class PurpleFilters:
+    date: PurpleDate
+    resources: List[PurpleResourceFilter]
+    rooms: List[str]
+    taxonomies: List[str]
+
+    def __init__(self, date: PurpleDate, resources: List[PurpleResourceFilter], rooms: List[str], taxonomies: List[str]) -> None:
+        self.date = date
+        self.resources = resources
+        self.rooms = rooms
+        self.taxonomies = taxonomies
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleFilters':
+        assert isinstance(obj, dict)
+        date = PurpleDate.from_dict(obj.get("date"))
+        resources = from_list(PurpleResourceFilter.from_dict, obj.get("resources"))
+        rooms = from_list(from_str, obj.get("rooms"))
+        taxonomies = from_list(from_str, obj.get("taxonomies"))
+        return PurpleFilters(date, resources, rooms, taxonomies)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["date"] = to_class(PurpleDate, self.date)
+        result["resources"] = from_list(lambda x: to_class(PurpleResourceFilter, x), self.resources)
+        result["rooms"] = from_list(from_str, self.rooms)
+        result["taxonomies"] = from_list(from_str, self.taxonomies)
+        return result
+
+
+class CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams:
+    """параметры запроса"""
+    business: HilariousBusiness
+    filters: PurpleFilters
+
+    def __init__(self, business: HilariousBusiness, filters: PurpleFilters) -> None:
+        self.business = business
+        self.filters = filters
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams':
+        assert isinstance(obj, dict)
+        business = HilariousBusiness.from_dict(obj.get("business"))
+        filters = PurpleFilters.from_dict(obj.get("filters"))
+        return CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams(business, filters)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(HilariousBusiness, self.business)
+        result["filters"] = to_class(PurpleFilters, self.filters)
+        return result
+
+
+class CracSlotsGetCRACDistributedResourcesAndRoomsRequest:
+    """параметры запроса"""
+    params: CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams
+
+    def __init__(self, params: CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams) -> None:
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsRequest':
+        assert isinstance(obj, dict)
+        params = CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams.from_dict(obj.get("params"))
+        return CracSlotsGetCRACDistributedResourcesAndRoomsRequest(params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["params"] = to_class(CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams, self.params)
+        return result
+
+
+class CracSlotsGetCRACDistributedResourcesAndRoomsResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки"""
+    code: float
+    """дополнительные данные об ошибке"""
+    data: Optional[str]
+    """текстовая информация об ошибке"""
+    message: str
+
+    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsResponseError':
+        assert isinstance(obj, dict)
+        code = from_float(obj.get("code"))
+        data = from_union([from_str, from_none], obj.get("data"))
+        message = from_str(obj.get("message"))
+        return CracSlotsGetCRACDistributedResourcesAndRoomsResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = to_float(self.code)
+        result["data"] = from_union([from_str, from_none], self.data)
+        result["message"] = from_str(self.message)
+        return result
+
+
+class PurpleCutSlot:
+    available: bool
+    duration: float
+    end: float
+    start: float
+
+    def __init__(self, available: bool, duration: float, end: float, start: float) -> None:
+        self.available = available
+        self.duration = duration
+        self.end = end
+        self.start = start
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleCutSlot':
+        assert isinstance(obj, dict)
+        available = from_bool(obj.get("available"))
+        duration = from_float(obj.get("duration"))
+        end = from_float(obj.get("end"))
+        start = from_float(obj.get("start"))
+        return PurpleCutSlot(available, duration, end, start)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["available"] = from_bool(self.available)
+        result["duration"] = to_float(self.duration)
+        result["end"] = to_float(self.end)
+        result["start"] = to_float(self.start)
+        return result
+
+
+class PurpleSlot:
+    cut_slots: List[PurpleCutSlot]
+    resource_id: str
+
+    def __init__(self, cut_slots: List[PurpleCutSlot], resource_id: str) -> None:
+        self.cut_slots = cut_slots
+        self.resource_id = resource_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleSlot':
+        assert isinstance(obj, dict)
+        cut_slots = from_list(PurpleCutSlot.from_dict, obj.get("cutSlots"))
+        resource_id = from_str(obj.get("resourceId"))
+        return PurpleSlot(cut_slots, resource_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cutSlots"] = from_list(lambda x: to_class(PurpleCutSlot, x), self.cut_slots)
+        result["resourceId"] = from_str(self.resource_id)
+        return result
+
+
+class CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult:
+    slots: List[PurpleSlot]
+
+    def __init__(self, slots: List[PurpleSlot]) -> None:
+        self.slots = slots
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult':
+        assert isinstance(obj, dict)
+        slots = from_list(PurpleSlot.from_dict, obj.get("slots"))
+        return CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult(slots)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["slots"] = from_list(lambda x: to_class(PurpleSlot, x), self.slots)
+        return result
+
+
+class CracSlotsGetCRACDistributedResourcesAndRoomsResponse:
+    """значение числового типа для идентификации запроса на сервере"""
+    id: float
+    """версия протокола (2.0)"""
+    jsonrpc: str
+    result: Optional[CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult]
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[CracSlotsGetCRACDistributedResourcesAndRoomsResponseError]
+
+    def __init__(self, id: float, jsonrpc: str, result: Optional[CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult], error: Optional[CracSlotsGetCRACDistributedResourcesAndRoomsResponseError]) -> None:
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.result = result
+        self.error = error
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsResponse':
+        assert isinstance(obj, dict)
+        id = from_float(obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        result = from_union([CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult.from_dict, from_none], obj.get("result"))
+        error = from_union([CracSlotsGetCRACDistributedResourcesAndRoomsResponseError.from_dict, from_none], obj.get("error"))
+        return CracSlotsGetCRACDistributedResourcesAndRoomsResponse(id, jsonrpc, result, error)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = to_float(self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["result"] = from_union([lambda x: to_class(CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult, x), from_none], self.result)
+        result["error"] = from_union([lambda x: to_class(CracSlotsGetCRACDistributedResourcesAndRoomsResponseError, x), from_none], self.error)
+        return result
+
+
+class GetCRACDistributedResourcesAndRooms:
+    request: CracSlotsGetCRACDistributedResourcesAndRoomsRequest
+    response: CracSlotsGetCRACDistributedResourcesAndRoomsResponse
+
+    def __init__(self, request: CracSlotsGetCRACDistributedResourcesAndRoomsRequest, response: CracSlotsGetCRACDistributedResourcesAndRoomsResponse) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'GetCRACDistributedResourcesAndRooms':
+        assert isinstance(obj, dict)
+        request = CracSlotsGetCRACDistributedResourcesAndRoomsRequest.from_dict(obj.get("request"))
+        response = CracSlotsGetCRACDistributedResourcesAndRoomsResponse.from_dict(obj.get("response"))
+        return GetCRACDistributedResourcesAndRooms(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(CracSlotsGetCRACDistributedResourcesAndRoomsRequest, self.request)
+        result["response"] = to_class(CracSlotsGetCRACDistributedResourcesAndRoomsResponse, self.response)
+        return result
+
+
+class FluffyGeneralInfo:
+    timezone: str
+
+    def __init__(self, timezone: str) -> None:
+        self.timezone = timezone
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyGeneralInfo':
+        assert isinstance(obj, dict)
+        timezone = from_str(obj.get("timezone"))
+        return FluffyGeneralInfo(timezone)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["timezone"] = from_str(self.timezone)
+        return result
+
+
+class StickyWidgetConfiguration:
+    crac_server: str
+
+    def __init__(self, crac_server: str) -> None:
+        self.crac_server = crac_server
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'StickyWidgetConfiguration':
+        assert isinstance(obj, dict)
+        crac_server = from_str(obj.get("cracServer"))
+        return StickyWidgetConfiguration(crac_server)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cracServer"] = from_str(self.crac_server)
+        return result
+
+
+class CunningBusiness:
+    general_info: FluffyGeneralInfo
+    id: float
+    widget_configuration: StickyWidgetConfiguration
+
+    def __init__(self, general_info: FluffyGeneralInfo, id: float, widget_configuration: StickyWidgetConfiguration) -> None:
+        self.general_info = general_info
+        self.id = id
+        self.widget_configuration = widget_configuration
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CunningBusiness':
+        assert isinstance(obj, dict)
+        general_info = FluffyGeneralInfo.from_dict(obj.get("general_info"))
+        id = from_float(obj.get("id"))
+        widget_configuration = StickyWidgetConfiguration.from_dict(obj.get("widget_configuration"))
+        return CunningBusiness(general_info, id, widget_configuration)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["general_info"] = to_class(FluffyGeneralInfo, self.general_info)
+        result["id"] = to_float(self.id)
+        result["widget_configuration"] = to_class(StickyWidgetConfiguration, self.widget_configuration)
+        return result
+
+
+class FluffyDate:
+    date_from: str
+    to: str
+
+    def __init__(self, date_from: str, to: str) -> None:
+        self.date_from = date_from
+        self.to = to
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyDate':
+        assert isinstance(obj, dict)
+        date_from = from_str(obj.get("from"))
+        to = from_str(obj.get("to"))
+        return FluffyDate(date_from, to)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["from"] = from_str(self.date_from)
+        result["to"] = from_str(self.to)
+        return result
+
+
+class FluffyFilters:
+    date: FluffyDate
+    insurance_id: str
+    rooms: List[str]
+    taxonomies: List[str]
+
+    def __init__(self, date: FluffyDate, insurance_id: str, rooms: List[str], taxonomies: List[str]) -> None:
+        self.date = date
+        self.insurance_id = insurance_id
+        self.rooms = rooms
+        self.taxonomies = taxonomies
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyFilters':
+        assert isinstance(obj, dict)
+        date = FluffyDate.from_dict(obj.get("date"))
+        insurance_id = from_str(obj.get("insuranceID"))
+        rooms = from_list(from_str, obj.get("rooms"))
+        taxonomies = from_list(from_str, obj.get("taxonomies"))
+        return FluffyFilters(date, insurance_id, rooms, taxonomies)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["date"] = to_class(FluffyDate, self.date)
+        result["insuranceID"] = from_str(self.insurance_id)
+        result["rooms"] = from_list(from_str, self.rooms)
+        result["taxonomies"] = from_list(from_str, self.taxonomies)
+        return result
+
+
+class CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams:
+    """параметры запроса"""
+    business: CunningBusiness
+    filters: FluffyFilters
+
+    def __init__(self, business: CunningBusiness, filters: FluffyFilters) -> None:
+        self.business = business
+        self.filters = filters
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams':
+        assert isinstance(obj, dict)
+        business = CunningBusiness.from_dict(obj.get("business"))
+        filters = FluffyFilters.from_dict(obj.get("filters"))
+        return CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams(business, filters)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(CunningBusiness, self.business)
+        result["filters"] = to_class(FluffyFilters, self.filters)
+        return result
+
+
+class CracSlotsGetCRACInsuranceResourcesAndRoomsRequest:
+    """параметры запроса"""
+    params: CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams
+
+    def __init__(self, params: CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams) -> None:
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsRequest':
+        assert isinstance(obj, dict)
+        params = CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams.from_dict(obj.get("params"))
+        return CracSlotsGetCRACInsuranceResourcesAndRoomsRequest(params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["params"] = to_class(CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams, self.params)
+        return result
+
+
+class CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки"""
+    code: float
+    """дополнительные данные об ошибке"""
+    data: Optional[str]
+    """текстовая информация об ошибке"""
+    message: str
+
+    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError':
+        assert isinstance(obj, dict)
+        code = from_float(obj.get("code"))
+        data = from_union([from_str, from_none], obj.get("data"))
+        message = from_str(obj.get("message"))
+        return CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = to_float(self.code)
+        result["data"] = from_union([from_str, from_none], self.data)
+        result["message"] = from_str(self.message)
+        return result
+
+
+class FluffyCutSlot:
+    available: bool
+    duration: float
+    end: float
+    start: float
+
+    def __init__(self, available: bool, duration: float, end: float, start: float) -> None:
+        self.available = available
+        self.duration = duration
+        self.end = end
+        self.start = start
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyCutSlot':
+        assert isinstance(obj, dict)
+        available = from_bool(obj.get("available"))
+        duration = from_float(obj.get("duration"))
+        end = from_float(obj.get("end"))
+        start = from_float(obj.get("start"))
+        return FluffyCutSlot(available, duration, end, start)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["available"] = from_bool(self.available)
+        result["duration"] = to_float(self.duration)
+        result["end"] = to_float(self.end)
+        result["start"] = to_float(self.start)
+        return result
+
+
+class FluffySlot:
+    cut_slots: List[FluffyCutSlot]
+    resource_id: str
+
+    def __init__(self, cut_slots: List[FluffyCutSlot], resource_id: str) -> None:
+        self.cut_slots = cut_slots
+        self.resource_id = resource_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffySlot':
+        assert isinstance(obj, dict)
+        cut_slots = from_list(FluffyCutSlot.from_dict, obj.get("cutSlots"))
+        resource_id = from_str(obj.get("resourceId"))
+        return FluffySlot(cut_slots, resource_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cutSlots"] = from_list(lambda x: to_class(FluffyCutSlot, x), self.cut_slots)
+        result["resourceId"] = from_str(self.resource_id)
+        return result
+
+
+class CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult:
+    slots: List[FluffySlot]
+
+    def __init__(self, slots: List[FluffySlot]) -> None:
+        self.slots = slots
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult':
+        assert isinstance(obj, dict)
+        slots = from_list(FluffySlot.from_dict, obj.get("slots"))
+        return CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult(slots)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["slots"] = from_list(lambda x: to_class(FluffySlot, x), self.slots)
+        return result
+
+
+class CracSlotsGetCRACInsuranceResourcesAndRoomsResponse:
+    """значение числового типа для идентификации запроса на сервере"""
+    id: float
+    """версия протокола (2.0)"""
+    jsonrpc: str
+    result: Optional[CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult]
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError]
+
+    def __init__(self, id: float, jsonrpc: str, result: Optional[CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult], error: Optional[CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError]) -> None:
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.result = result
+        self.error = error
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsResponse':
+        assert isinstance(obj, dict)
+        id = from_float(obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        result = from_union([CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult.from_dict, from_none], obj.get("result"))
+        error = from_union([CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError.from_dict, from_none], obj.get("error"))
+        return CracSlotsGetCRACInsuranceResourcesAndRoomsResponse(id, jsonrpc, result, error)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = to_float(self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["result"] = from_union([lambda x: to_class(CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult, x), from_none], self.result)
+        result["error"] = from_union([lambda x: to_class(CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError, x), from_none], self.error)
+        return result
+
+
+class GetCRACInsuranceResourcesAndRooms:
+    request: CracSlotsGetCRACInsuranceResourcesAndRoomsRequest
+    response: CracSlotsGetCRACInsuranceResourcesAndRoomsResponse
+
+    def __init__(self, request: CracSlotsGetCRACInsuranceResourcesAndRoomsRequest, response: CracSlotsGetCRACInsuranceResourcesAndRoomsResponse) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'GetCRACInsuranceResourcesAndRooms':
+        assert isinstance(obj, dict)
+        request = CracSlotsGetCRACInsuranceResourcesAndRoomsRequest.from_dict(obj.get("request"))
+        response = CracSlotsGetCRACInsuranceResourcesAndRoomsResponse.from_dict(obj.get("response"))
+        return GetCRACInsuranceResourcesAndRooms(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(CracSlotsGetCRACInsuranceResourcesAndRoomsRequest, self.request)
+        result["response"] = to_class(CracSlotsGetCRACInsuranceResourcesAndRoomsResponse, self.response)
+        return result
+
+
+class TentacledGeneralInfo:
+    timezone: str
+
+    def __init__(self, timezone: str) -> None:
+        self.timezone = timezone
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledGeneralInfo':
+        assert isinstance(obj, dict)
+        timezone = from_str(obj.get("timezone"))
+        return TentacledGeneralInfo(timezone)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["timezone"] = from_str(self.timezone)
+        return result
+
+
+class IndigoWidgetConfiguration:
+    crac_server: str
+
+    def __init__(self, crac_server: str) -> None:
+        self.crac_server = crac_server
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'IndigoWidgetConfiguration':
+        assert isinstance(obj, dict)
+        crac_server = from_str(obj.get("cracServer"))
+        return IndigoWidgetConfiguration(crac_server)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cracServer"] = from_str(self.crac_server)
+        return result
+
+
+class MagentaBusiness:
+    general_info: TentacledGeneralInfo
+    id: float
+    widget_configuration: IndigoWidgetConfiguration
+
+    def __init__(self, general_info: TentacledGeneralInfo, id: float, widget_configuration: IndigoWidgetConfiguration) -> None:
+        self.general_info = general_info
+        self.id = id
+        self.widget_configuration = widget_configuration
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'MagentaBusiness':
+        assert isinstance(obj, dict)
+        general_info = TentacledGeneralInfo.from_dict(obj.get("general_info"))
+        id = from_float(obj.get("id"))
+        widget_configuration = IndigoWidgetConfiguration.from_dict(obj.get("widget_configuration"))
+        return MagentaBusiness(general_info, id, widget_configuration)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["general_info"] = to_class(TentacledGeneralInfo, self.general_info)
+        result["id"] = to_float(self.id)
+        result["widget_configuration"] = to_class(IndigoWidgetConfiguration, self.widget_configuration)
+        return result
+
+
+class TentacledDate:
+    date_from: str
+    to: str
+
+    def __init__(self, date_from: str, to: str) -> None:
+        self.date_from = date_from
+        self.to = to
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledDate':
+        assert isinstance(obj, dict)
+        date_from = from_str(obj.get("from"))
+        to = from_str(obj.get("to"))
+        return TentacledDate(date_from, to)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["from"] = from_str(self.date_from)
+        result["to"] = from_str(self.to)
+        return result
+
+
+class FriskyBusiness:
+    """идентификатор бизнеса"""
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FriskyBusiness':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return FriskyBusiness(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class FluffyResourceFilter:
+    business: FriskyBusiness
+    """идентификатор ресурса"""
+    resource: str
+
+    def __init__(self, business: FriskyBusiness, resource: str) -> None:
+        self.business = business
+        self.resource = resource
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyResourceFilter':
+        assert isinstance(obj, dict)
+        business = FriskyBusiness.from_dict(obj.get("business"))
+        resource = from_str(obj.get("resource"))
+        return FluffyResourceFilter(business, resource)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(FriskyBusiness, self.business)
+        result["resource"] = from_str(self.resource)
+        return result
+
+
+class TentacledFilters:
+    date: TentacledDate
+    resources: List[FluffyResourceFilter]
+    rooms: List[str]
+    taxonomies: List[str]
+
+    def __init__(self, date: TentacledDate, resources: List[FluffyResourceFilter], rooms: List[str], taxonomies: List[str]) -> None:
+        self.date = date
+        self.resources = resources
+        self.rooms = rooms
+        self.taxonomies = taxonomies
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledFilters':
+        assert isinstance(obj, dict)
+        date = TentacledDate.from_dict(obj.get("date"))
+        resources = from_list(FluffyResourceFilter.from_dict, obj.get("resources"))
+        rooms = from_list(from_str, obj.get("rooms"))
+        taxonomies = from_list(from_str, obj.get("taxonomies"))
+        return TentacledFilters(date, resources, rooms, taxonomies)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["date"] = to_class(TentacledDate, self.date)
+        result["resources"] = from_list(lambda x: to_class(FluffyResourceFilter, x), self.resources)
+        result["rooms"] = from_list(from_str, self.rooms)
+        result["taxonomies"] = from_list(from_str, self.taxonomies)
+        return result
+
+
+class CracSlotsGetCRACResourcesAndRoomsRequestParams:
+    """параметры запроса"""
+    business: MagentaBusiness
+    filters: TentacledFilters
+
+    def __init__(self, business: MagentaBusiness, filters: TentacledFilters) -> None:
+        self.business = business
+        self.filters = filters
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsRequestParams':
+        assert isinstance(obj, dict)
+        business = MagentaBusiness.from_dict(obj.get("business"))
+        filters = TentacledFilters.from_dict(obj.get("filters"))
+        return CracSlotsGetCRACResourcesAndRoomsRequestParams(business, filters)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(MagentaBusiness, self.business)
+        result["filters"] = to_class(TentacledFilters, self.filters)
+        return result
+
+
+class CracSlotsGetCRACResourcesAndRoomsRequest:
+    """параметры запроса"""
+    params: CracSlotsGetCRACResourcesAndRoomsRequestParams
+
+    def __init__(self, params: CracSlotsGetCRACResourcesAndRoomsRequestParams) -> None:
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsRequest':
+        assert isinstance(obj, dict)
+        params = CracSlotsGetCRACResourcesAndRoomsRequestParams.from_dict(obj.get("params"))
+        return CracSlotsGetCRACResourcesAndRoomsRequest(params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["params"] = to_class(CracSlotsGetCRACResourcesAndRoomsRequestParams, self.params)
+        return result
+
+
+class CracSlotsGetCRACResourcesAndRoomsResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки"""
+    code: float
+    """дополнительные данные об ошибке"""
+    data: Optional[str]
+    """текстовая информация об ошибке"""
+    message: str
+
+    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsResponseError':
+        assert isinstance(obj, dict)
+        code = from_float(obj.get("code"))
+        data = from_union([from_str, from_none], obj.get("data"))
+        message = from_str(obj.get("message"))
+        return CracSlotsGetCRACResourcesAndRoomsResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = to_float(self.code)
+        result["data"] = from_union([from_str, from_none], self.data)
+        result["message"] = from_str(self.message)
+        return result
+
+
+class TentacledCutSlot:
+    available: bool
+    duration: float
+    end: float
+    start: float
+
+    def __init__(self, available: bool, duration: float, end: float, start: float) -> None:
+        self.available = available
+        self.duration = duration
+        self.end = end
+        self.start = start
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledCutSlot':
+        assert isinstance(obj, dict)
+        available = from_bool(obj.get("available"))
+        duration = from_float(obj.get("duration"))
+        end = from_float(obj.get("end"))
+        start = from_float(obj.get("start"))
+        return TentacledCutSlot(available, duration, end, start)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["available"] = from_bool(self.available)
+        result["duration"] = to_float(self.duration)
+        result["end"] = to_float(self.end)
+        result["start"] = to_float(self.start)
+        return result
+
+
+class TentacledSlot:
+    cut_slots: List[TentacledCutSlot]
+    resource_id: str
+
+    def __init__(self, cut_slots: List[TentacledCutSlot], resource_id: str) -> None:
+        self.cut_slots = cut_slots
+        self.resource_id = resource_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledSlot':
+        assert isinstance(obj, dict)
+        cut_slots = from_list(TentacledCutSlot.from_dict, obj.get("cutSlots"))
+        resource_id = from_str(obj.get("resourceId"))
+        return TentacledSlot(cut_slots, resource_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cutSlots"] = from_list(lambda x: to_class(TentacledCutSlot, x), self.cut_slots)
+        result["resourceId"] = from_str(self.resource_id)
+        return result
+
+
+class CracSlotsGetCRACResourcesAndRoomsResponseResult:
+    slots: List[TentacledSlot]
+
+    def __init__(self, slots: List[TentacledSlot]) -> None:
+        self.slots = slots
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsResponseResult':
+        assert isinstance(obj, dict)
+        slots = from_list(TentacledSlot.from_dict, obj.get("slots"))
+        return CracSlotsGetCRACResourcesAndRoomsResponseResult(slots)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["slots"] = from_list(lambda x: to_class(TentacledSlot, x), self.slots)
+        return result
+
+
+class CracSlotsGetCRACResourcesAndRoomsResponse:
+    """значение числового типа для идентификации запроса на сервере"""
+    id: float
+    """версия протокола (2.0)"""
+    jsonrpc: str
+    result: Optional[CracSlotsGetCRACResourcesAndRoomsResponseResult]
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[CracSlotsGetCRACResourcesAndRoomsResponseError]
+
+    def __init__(self, id: float, jsonrpc: str, result: Optional[CracSlotsGetCRACResourcesAndRoomsResponseResult], error: Optional[CracSlotsGetCRACResourcesAndRoomsResponseError]) -> None:
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.result = result
+        self.error = error
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsResponse':
+        assert isinstance(obj, dict)
+        id = from_float(obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        result = from_union([CracSlotsGetCRACResourcesAndRoomsResponseResult.from_dict, from_none], obj.get("result"))
+        error = from_union([CracSlotsGetCRACResourcesAndRoomsResponseError.from_dict, from_none], obj.get("error"))
+        return CracSlotsGetCRACResourcesAndRoomsResponse(id, jsonrpc, result, error)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = to_float(self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["result"] = from_union([lambda x: to_class(CracSlotsGetCRACResourcesAndRoomsResponseResult, x), from_none], self.result)
+        result["error"] = from_union([lambda x: to_class(CracSlotsGetCRACResourcesAndRoomsResponseError, x), from_none], self.error)
+        return result
+
+
+class GetCRACResourcesAndRooms:
+    request: CracSlotsGetCRACResourcesAndRoomsRequest
+    response: CracSlotsGetCRACResourcesAndRoomsResponse
+
+    def __init__(self, request: CracSlotsGetCRACResourcesAndRoomsRequest, response: CracSlotsGetCRACResourcesAndRoomsResponse) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'GetCRACResourcesAndRooms':
+        assert isinstance(obj, dict)
+        request = CracSlotsGetCRACResourcesAndRoomsRequest.from_dict(obj.get("request"))
+        response = CracSlotsGetCRACResourcesAndRoomsResponse.from_dict(obj.get("response"))
+        return GetCRACResourcesAndRooms(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(CracSlotsGetCRACResourcesAndRoomsRequest, self.request)
+        result["response"] = to_class(CracSlotsGetCRACResourcesAndRoomsResponse, self.response)
+        return result
+
+
+class CracSlotsController:
+    get_crac_distributed_resources_and_rooms: GetCRACDistributedResourcesAndRooms
+    get_crac_insurance_resources_and_rooms: Optional[GetCRACInsuranceResourcesAndRooms]
+    get_crac_resources_and_rooms: Optional[GetCRACResourcesAndRooms]
+
+    def __init__(self, get_crac_distributed_resources_and_rooms: GetCRACDistributedResourcesAndRooms, get_crac_insurance_resources_and_rooms: Optional[GetCRACInsuranceResourcesAndRooms], get_crac_resources_and_rooms: Optional[GetCRACResourcesAndRooms]) -> None:
+        self.get_crac_distributed_resources_and_rooms = get_crac_distributed_resources_and_rooms
+        self.get_crac_insurance_resources_and_rooms = get_crac_insurance_resources_and_rooms
+        self.get_crac_resources_and_rooms = get_crac_resources_and_rooms
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracSlotsController':
+        assert isinstance(obj, dict)
+        get_crac_distributed_resources_and_rooms = GetCRACDistributedResourcesAndRooms.from_dict(obj.get("GetCRACDistributedResourcesAndRooms"))
+        get_crac_insurance_resources_and_rooms = from_union([GetCRACInsuranceResourcesAndRooms.from_dict, from_none], obj.get("GetCRACInsuranceResourcesAndRooms"))
+        get_crac_resources_and_rooms = from_union([GetCRACResourcesAndRooms.from_dict, from_none], obj.get("GetCRACResourcesAndRooms"))
+        return CracSlotsController(get_crac_distributed_resources_and_rooms, get_crac_insurance_resources_and_rooms, get_crac_resources_and_rooms)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["GetCRACDistributedResourcesAndRooms"] = to_class(GetCRACDistributedResourcesAndRooms, self.get_crac_distributed_resources_and_rooms)
+        result["GetCRACInsuranceResourcesAndRooms"] = from_union([lambda x: to_class(GetCRACInsuranceResourcesAndRooms, x), from_none], self.get_crac_insurance_resources_and_rooms)
+        result["GetCRACResourcesAndRooms"] = from_union([lambda x: to_class(GetCRACResourcesAndRooms, x), from_none], self.get_crac_resources_and_rooms)
+        return result
+
+
 class Controllers:
     business: BusinessController
     client: ClientController
+    crac_slots: CracSlotsController
 
-    def __init__(self, business: BusinessController, client: ClientController) -> None:
+    def __init__(self, business: BusinessController, client: ClientController, crac_slots: CracSlotsController) -> None:
         self.business = business
         self.client = client
+        self.crac_slots = crac_slots
 
     @staticmethod
     def from_dict(obj: Any) -> 'Controllers':
         assert isinstance(obj, dict)
         business = BusinessController.from_dict(obj.get("Business"))
         client = ClientController.from_dict(obj.get("Client"))
-        return Controllers(business, client)
+        crac_slots = CracSlotsController.from_dict(obj.get("CracSlots"))
+        return Controllers(business, client, crac_slots)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["Business"] = to_class(BusinessController, self.business)
         result["Client"] = to_class(ClientController, self.client)
+        result["CracSlots"] = to_class(CracSlotsController, self.crac_slots)
         return result
 
 

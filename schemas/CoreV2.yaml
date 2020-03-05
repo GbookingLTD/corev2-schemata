@@ -21,9 +21,12 @@ properties:
         $ref: "./controllers/business.schema.json"
       Client:
         $ref: "./controllers/client.schema.json"
+      CracSlots:
+        $ref: "./controllers/cracSlots.schema.json"
     required:
       - Business
       - Client
+      - CracSlots
     additionalProperties: false
   Models:
     type: "object"

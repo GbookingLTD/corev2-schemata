@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/cracSlots.schema.json",
+    "title": "CracSlotsController",
+    "type": "object",
+    "properties": {
+        "GetCRACResourcesAndRooms": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./cracSlots/GetCRACResourcesAndRooms.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./cracSlots/GetCRACResourcesAndRooms.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "GetCRACInsuranceResourcesAndRooms": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./cracSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./cracSlots/GetCRACInsuranceResourcesAndRooms.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "GetCRACDistributedResourcesAndRooms": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./cracSlots/GetCRACDistributedResourcesAndRooms.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./cracSlots/GetCRACDistributedResourcesAndRooms.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "GetCRACDistributedResourcesAndRooms"
+    ],
+    "additionalProperties": false
+}
