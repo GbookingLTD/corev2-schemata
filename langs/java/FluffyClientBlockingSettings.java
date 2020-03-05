@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class ClientBlockingSettings {
+public class FluffyClientBlockingSettings {
     private Boolean appointmentClientBlock;
     private Double appointmentClientBlockDays;
     private String appointmentClientBlockText;

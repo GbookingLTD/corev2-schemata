@@ -8,7 +8,7 @@ definitions:
     required: ["params"]
     properties:
       params:
-        description: "параметры запроса"
+        description: "параметры запроса business.get_profile_by_id"
         type: "object"
         additionalProperties: false
         required: ["business"]

@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса
  */
 public class ClientAddClientRequestParams {
-    private FluffyBusiness business;
+    private IndigoBusiness business;
     private Client client;
     private ParamsProfile profile;
     private Boolean skipEmailCheck;
     private Boolean skipProfileUpdate;
 
     @JsonProperty("business")
-    public FluffyBusiness getBusiness() { return business; }
+    public IndigoBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(FluffyBusiness value) { this.business = value; }
+    public void setBusiness(IndigoBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public Client getClient() { return client; }

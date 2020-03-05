@@ -7,20 +7,20 @@ import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
-@JsonDeserialize(using = Business.Deserializer.class)
-@JsonSerialize(using = Business.Serializer.class)
-public class Business {
+@JsonDeserialize(using = BusinessBusiness.Deserializer.class)
+@JsonSerialize(using = BusinessBusiness.Serializer.class)
+public class BusinessBusiness {
     public Double doubleValue;
     public Long integerValue;
     public Boolean boolValue;
     public String stringValue;
     public List<Object> anythingArrayValue;
-    public BusinessClass businessClassValue;
+    public FluffyBusiness fluffyBusinessValue;
 
-    static class Deserializer extends JsonDeserializer<Business> {
+    static class Deserializer extends JsonDeserializer<BusinessBusiness> {
         @Override
-        public Business deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            Business value = new Business();
+        public BusinessBusiness deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            BusinessBusiness value = new BusinessBusiness();
             switch (jsonParser.getCurrentToken()) {
             case VALUE_NULL:
                 break;
@@ -41,17 +41,17 @@ public class Business {
                 value.anythingArrayValue = jsonParser.readValueAs(new TypeReference<List<Object>>() {});
                 break;
             case START_OBJECT:
-                value.businessClassValue = jsonParser.readValueAs(BusinessClass.class);
+                value.fluffyBusinessValue = jsonParser.readValueAs(FluffyBusiness.class);
                 break;
-            default: throw new IOException("Cannot deserialize Business");
+            default: throw new IOException("Cannot deserialize BusinessBusiness");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<Business> {
+    static class Serializer extends JsonSerializer<BusinessBusiness> {
         @Override
-        public void serialize(Business obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(BusinessBusiness obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;
@@ -72,8 +72,8 @@ public class Business {
                 jsonGenerator.writeObject(obj.anythingArrayValue);
                 return;
             }
-            if (obj.businessClassValue != null) {
-                jsonGenerator.writeObject(obj.businessClassValue);
+            if (obj.fluffyBusinessValue != null) {
+                jsonGenerator.writeObject(obj.fluffyBusinessValue);
                 return;
             }
             jsonGenerator.writeNull();

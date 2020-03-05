@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BackofficeConfigurationClass {
+public class TentacledBackofficeConfiguration {
     private Double adjacentTaxonomiesTreshold;
     private Boolean allowHideServiceForBooking;
     private Boolean allowHideWorkersFromSchdeule;

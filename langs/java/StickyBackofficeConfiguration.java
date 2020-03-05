@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BusinessBackofficeConfiguration {
+public class StickyBackofficeConfiguration {
     private Boolean enableMasterImportance;
     private ResourceTimetableType resourceTimetableType;
 

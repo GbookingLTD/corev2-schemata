@@ -4,13 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Models {
-    private Business business;
+    private ResultBusiness business;
     private Client client;
 
     @JsonProperty("Business")
-    public Business getBusiness() { return business; }
+    public ResultBusiness getBusiness() { return business; }
     @JsonProperty("Business")
-    public void setBusiness(Business value) { this.business = value; }
+    public void setBusiness(ResultBusiness value) { this.business = value; }
 
     @JsonProperty("Client")
     public Client getClient() { return client; }

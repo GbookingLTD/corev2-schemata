@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class CallbackWidgetConfiguration {
+public class PurpleCallbackWidgetConfiguration {
     private String title1;
     private String title2;
 

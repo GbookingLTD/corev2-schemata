@@ -3,20 +3,20 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Department {
+public class FluffyCabinet {
+    private Boolean active;
     private String id;
-    private Double departmentID;
     private String name;
+
+    @JsonProperty("active")
+    public Boolean getActive() { return active; }
+    @JsonProperty("active")
+    public void setActive(Boolean value) { this.active = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }
     @JsonProperty("id")
     public void setID(String value) { this.id = value; }
-
-    @JsonProperty("id_")
-    public Double getDepartmentID() { return departmentID; }
-    @JsonProperty("id_")
-    public void setDepartmentID(Double value) { this.departmentID = value; }
 
     @JsonProperty("name")
     public String getName() { return name; }

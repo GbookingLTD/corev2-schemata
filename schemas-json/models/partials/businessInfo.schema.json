@@ -53,7 +53,10 @@
             }
         },
         "timezone": {
-            "type": "string"
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "description": {
             "description": "",

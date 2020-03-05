@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class WidgetConfiguration {
+public class FluffyWidgetConfiguration {
     private String additionalName;
     private Boolean alignmentTaxonomySlots;
     private Boolean allowAutoSelect;
@@ -13,11 +13,11 @@ public class WidgetConfiguration {
     private String appointmentConfirmationTitle;
     private Boolean askClientBirthday;
     private Boolean askClientGender;
-    private BookableDateRanges bookableDateRanges;
+    private FluffyBookableDateRanges bookableDateRanges;
     private Double bookableMonthsCount;
     private Boolean calendarMode;
     private Boolean calendarModeHideTime;
-    private ClientBlockingSettings clientBlockingSettings;
+    private FluffyClientBlockingSettings clientBlockingSettings;
     private Boolean clientCommentTitle;
     private CracServer cracServer;
     private Double cracSlotSize;
@@ -32,7 +32,7 @@ public class WidgetConfiguration {
     private Boolean disableMobileWidget;
     private Boolean disableWidget;
     private String disableWidgetMessage;
-    private DiscountedPriceRounding discountedPriceRounding;
+    private FluffyDiscountedPriceRounding discountedPriceRounding;
     private Double displaySlotSize;
     private Boolean dontRequireEmail;
     private Boolean emailIsMandatory;
@@ -83,7 +83,7 @@ public class WidgetConfiguration {
     private List<String> skipWorkerSelectedServiceIDs;
     private Boolean skipWorkerServicesSelection;
     private String socialNetworkImage;
-    private SocialSharing socialSharing;
+    private FluffySocialSharing socialSharing;
     private Boolean sortByMostFree;
     private Boolean sortWorkersByWorkload;
     private Boolean splitInsuranceClient;
@@ -157,9 +157,9 @@ public class WidgetConfiguration {
     public void setAskClientGender(Boolean value) { this.askClientGender = value; }
 
     @JsonProperty("bookableDateRanges")
-    public BookableDateRanges getBookableDateRanges() { return bookableDateRanges; }
+    public FluffyBookableDateRanges getBookableDateRanges() { return bookableDateRanges; }
     @JsonProperty("bookableDateRanges")
-    public void setBookableDateRanges(BookableDateRanges value) { this.bookableDateRanges = value; }
+    public void setBookableDateRanges(FluffyBookableDateRanges value) { this.bookableDateRanges = value; }
 
     @JsonProperty("bookableMonthsCount")
     public Double getBookableMonthsCount() { return bookableMonthsCount; }
@@ -177,9 +177,9 @@ public class WidgetConfiguration {
     public void setCalendarModeHideTime(Boolean value) { this.calendarModeHideTime = value; }
 
     @JsonProperty("clientBlockingSettings")
-    public ClientBlockingSettings getClientBlockingSettings() { return clientBlockingSettings; }
+    public FluffyClientBlockingSettings getClientBlockingSettings() { return clientBlockingSettings; }
     @JsonProperty("clientBlockingSettings")
-    public void setClientBlockingSettings(ClientBlockingSettings value) { this.clientBlockingSettings = value; }
+    public void setClientBlockingSettings(FluffyClientBlockingSettings value) { this.clientBlockingSettings = value; }
 
     @JsonProperty("clientCommentTitle")
     public Boolean getClientCommentTitle() { return clientCommentTitle; }
@@ -252,9 +252,9 @@ public class WidgetConfiguration {
     public void setDisableWidgetMessage(String value) { this.disableWidgetMessage = value; }
 
     @JsonProperty("discountedPriceRounding")
-    public DiscountedPriceRounding getDiscountedPriceRounding() { return discountedPriceRounding; }
+    public FluffyDiscountedPriceRounding getDiscountedPriceRounding() { return discountedPriceRounding; }
     @JsonProperty("discountedPriceRounding")
-    public void setDiscountedPriceRounding(DiscountedPriceRounding value) { this.discountedPriceRounding = value; }
+    public void setDiscountedPriceRounding(FluffyDiscountedPriceRounding value) { this.discountedPriceRounding = value; }
 
     @JsonProperty("displaySlotSize")
     public Double getDisplaySlotSize() { return displaySlotSize; }
@@ -507,9 +507,9 @@ public class WidgetConfiguration {
     public void setSocialNetworkImage(String value) { this.socialNetworkImage = value; }
 
     @JsonProperty("socialSharing")
-    public SocialSharing getSocialSharing() { return socialSharing; }
+    public FluffySocialSharing getSocialSharing() { return socialSharing; }
     @JsonProperty("socialSharing")
-    public void setSocialSharing(SocialSharing value) { this.socialSharing = value; }
+    public void setSocialSharing(FluffySocialSharing value) { this.socialSharing = value; }
 
     @JsonProperty("sortByMostFree")
     public Boolean getSortByMostFree() { return sortByMostFree; }

@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AdditionalSettings {
+public class PurpleAdditionalSettings {
     private Double appointmentExtensionAmount;
     private AppointmentExtensionType appointmentExtensionType;
 

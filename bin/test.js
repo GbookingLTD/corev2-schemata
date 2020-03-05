@@ -70,10 +70,29 @@ let getProfileByID = function (endpoint, baseBusinessId, cred) {
     "business": {"id": ''+baseBusinessId},
     "with_networks": true
   };
-  
+
   let _validate = getValidate('business', 'get_profile_by_id');
   let pref = 'business.get_profile_by_id: ' + baseBusinessId + (cred ? '_admin' : '_guest');
   return rpcRequest('business.get_profile_by_id', params, cred, endpoint).then(function(json) {
+    _validate(pref, json)
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      _validate(pref, err.xtra);
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let getNetworkData = function (endpoint, networkId) {
+  var params = {
+    "networkID": networkId,
+    "with_business_info": true
+  };
+
+  let _validate = getValidate('business', 'get_network_data');
+  let pref = 'business.get_network_data: ' + networkId;
+  return rpcRequest('business.get_network_data', params, {}, endpoint).then(function(json) {
     _validate(pref, json)
   }).fail(function(err) {
     if (err.code === -32700) {
@@ -90,3 +109,4 @@ module.exports = function(fn) {
 };
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
+module.exports.getNetworkData = getNetworkData;

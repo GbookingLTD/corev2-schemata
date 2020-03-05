@@ -19,10 +19,27 @@
                 "response"
             ],
             "additionalProperties": false
+        },
+        "get_network_data": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./business/get_network_data.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./business/get_network_data.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
         }
     },
     "required": [
-        "get_profile_by_id"
+        "get_profile_by_id",
+        "get_network_data"
     ],
     "additionalProperties": false
 }

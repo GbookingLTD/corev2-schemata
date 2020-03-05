@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Cabinet {
+public class PurpleCabinet {
     private Boolean active;
     private String id;
     private String name;

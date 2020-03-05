@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class TaxonomiesComplex {
+public class FluffyTaxonomiesComplex {
     private String name;
     private List<String> taxonomies;
 

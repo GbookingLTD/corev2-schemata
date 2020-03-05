@@ -77,114 +77,105 @@ type Controllers struct {
 }
 
 type BusinessController struct {
+	GetNetworkData GetNetworkData `json:"get_network_data"` 
 	GetProfileByID GetProfileByID `json:"get_profile_by_id"`
 }
 
-type GetProfileByID struct {
-	Request  BusinessGetProfileByIDRequest  `json:"request"` 
-	Response BusinessGetProfileByIDResponse `json:"response"`
+type GetNetworkData struct {
+	Request  BusinessGetNetworkDataRequest  `json:"request"` 
+	Response BusinessGetNetworkDataResponse `json:"response"`
 }
 
-type BusinessGetProfileByIDRequest struct {
+type BusinessGetNetworkDataRequest struct {
 	Cred    *Cred                               `json:"cred,omitempty"`// авторизационные параметры
 	ID      *TimeFrameDate                      `json:"id"`            // значение числового типа для идентификации запроса на сервере
 	Jsonrpc string                              `json:"jsonrpc"`       // версия протокола - 2.0
 	Method  string                              `json:"method"`        // название jsonrpc метода
-	Params  BusinessGetProfileByIDRequestParams `json:"params"`        // параметры запроса
+	Params  BusinessGetNetworkDataRequestParams `json:"params"`        // параметры запроса; ; параметры запроса business.get_network_data
 }
 
 // параметры запроса
-type BusinessGetProfileByIDRequestParams struct {
-	Business             PurpleBusiness     `json:"business"`                        
-	DesktopDiscounts     *bool              `json:"desktop_discounts,omitempty"`     // если указано true - меняет формат представления discounts
-	OnlyActiveWorkers    *bool              `json:"only_active_workers,omitempty"`   // если указано true - возвращает только активных работников (status == 'INACTIVE')
-	ShowInactiveWorkers  *bool              `json:"show_inactive_workers,omitempty"` // если указано true - возвращает всех работников в том числе и неактивных (status ==; 'INACTIVE')
-	ShowcaseBusinessID   *TimeFrameDate     `json:"showcase_business_id"`            // идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
-	SkipWorkerSorting    *bool              `json:"skip_worker_sorting,omitempty"`   // если указано true - не приминяет сортировку работников
-	WithBilling          *bool              `json:"with_billing,omitempty"`          // если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
-	WithBop              *bool              `json:"with_bop,omitempty"`              // если указано true - возвращает список операций, доступных в БекОфисе в поле profiles; (недоступно для роли guest)
-	WithCampaigns        *bool              `json:"with_campaigns,omitempty"`        // если указано true - возвращает кампании скидочных купонов в поле campaigns
-	WithDiscounts        *bool              `json:"with_discounts,omitempty"`        // если указано true - возвращает список скидочных акций в поле discounts
-	WithDiscountsFrom    *string            `json:"with_discounts_from,omitempty"`   // дата начала расписания, для которого нужно получить скидочные акции
-	WithDiscountsTo      *string            `json:"with_discounts_to,omitempty"`     // дата окончания расписания, для которого нужно получить скидочные акции
-	WithNetworks         *bool              `json:"with_networks,omitempty"`         // если указано true - возвращает информацию о других филиалах сети в поле networks
-	WithTaxonomyShowcase *bool              `json:"with_taxonomy_showcase,omitempty"`// если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для; каждой таксономии (недоступно для роли guest)
-	WorkerSortingType    *WorkerSortingType `json:"worker_sorting_type,omitempty"`   // тип сортировки работника
+//
+// параметры запроса business.get_network_data
+type BusinessGetNetworkDataRequestParams struct {
+	NetworkID        float64 `json:"networkID"`                   // идентификатор сети
+	WithBusinessInfo *bool   `json:"with_business_info,omitempty"`// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу; в массиве businesses
 }
 
-type PurpleBusiness struct {
-	ID string `json:"id"`// идентификатор бизнеса
-}
-
-type BusinessGetProfileByIDResponse struct {
-	ID      *float64                              `json:"id,omitempty"`     // значение числового типа для идентификации запроса на сервере
-	Jsonrpc *string                               `json:"jsonrpc,omitempty"`// версия протокола (2.0)
-	Result  *BusinessGetProfileByIDResponseResult `json:"result,omitempty"` // данные, передаваемые в ответ
-	Error   *BusinessGetProfileByIDResponseError  `json:"error,omitempty"`  // объект, содержащий информацию об ошибке
+type BusinessGetNetworkDataResponse struct {
+	ID      float64                               `json:"id"`             // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                `json:"jsonrpc"`        // версия протокола (2.0)
+	Result  *BusinessGetNetworkDataResponseResult `json:"result"`         // данные, передаваемые в ответ
+	Error   *BusinessGetNetworkDataResponseError  `json:"error,omitempty"`// объект, содержащий информацию об ошибке
 }
 
 // объект, содержащий информацию об ошибке
 //
 // Код ошибки авторизации
-type BusinessGetProfileByIDResponseError struct {
+type BusinessGetNetworkDataResponseError struct {
 	Code    float64 `json:"code"`          // код ошибки
 	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
 	Message string  `json:"message"`       // текстовая информация об ошибке
 }
 
-// данные, передаваемые в ответ
-type BusinessGetProfileByIDResponseResult struct {
-	Active                *bool              `json:"active,omitempty"`               
-	Business              *Business          `json:"business"`                       
-	FreeSMS               *float64           `json:"freeSms,omitempty"`              
-	MonthlyFreeSMS        *float64           `json:"monthlyFreeSms,omitempty"`       
-	Networks              []Network          `json:"networks"`                       
-	TopServices           *ResultTopServices `json:"top_services,omitempty"`         
-	UseDefaultSMSTemplate *bool              `json:"useDefaultSmsTemplate,omitempty"`
-	YandexFeedType        *YandexFeedType    `json:"yandexFeedType,omitempty"`       
+type BusinessGetNetworkDataResponseResult struct {
+	BusinessConfiguration      map[string]interface{}       `json:"businessConfiguration"`     
+	Businesses                 []PurpleBusiness             `json:"businesses"`                
+	ClientVIPPhones            []string                     `json:"clientVIPPhones"`           
+	GrantGroups                []map[string]interface{}     `json:"grantGroups"`               
+	NetworkID                  string                       `json:"networkID"`                 
+	NetworkInfo                map[string]interface{}       `json:"networkInfo"`               
+	NetworkName                *string                      `json:"networkName,omitempty"`     
+	NetworkWidgetConfiguration []NetworkWidgetConfiguration `json:"networkWidgetConfiguration"`// настройки показа сети в зависимости от источника, на котором размещено приложение
 }
 
-type BusinessClass struct {
-	Active                          *bool                            `json:"active,omitempty"`                       
-	AdditionalSettings              *AdditionalSettings              `json:"additionalSettings,omitempty"`           
-	AllowCategoryBooking            *bool                            `json:"allowCategoryBooking,omitempty"`         
-	BusinessBackofficeConfiguration *BusinessBackofficeConfiguration `json:"backoffice_configuration,omitempty"`     
-	BackofficeConfiguration         *BackofficeConfigurationClass    `json:"backofficeConfiguration,omitempty"`      
-	BackofficeType                  *BackofficeType                  `json:"backofficeType,omitempty"`               
-	Cabinets                        []Cabinet                        `json:"cabinets"`                               
-	CabinetsEnabled                 *bool                            `json:"cabinetsEnabled,omitempty"`              
-	CallbackWidgetConfiguration     *CallbackWidgetConfiguration     `json:"callback_widget_configuration,omitempty"`
-	Consumables                     []Consumable                     `json:"consumables"`                            
-	CreatedOn                       *string                          `json:"created_on,omitempty"`                   
-	DefaultFilteredWorkers          []string                         `json:"defaultFilteredWorkers"`                 
-	Departments                     []Department                     `json:"departments"`                            
-	Designs                         []map[string]interface{}         `json:"designs"`                                
-	ExtraID                         *string                          `json:"extraID,omitempty"`                      
-	FlatTaxonomyDisplay             *bool                            `json:"flatTaxonomyDisplay,omitempty"`          
-	GeneralInfo                     BusinessInfo                     `json:"general_info"`                           
-	Group                           *Group                           `json:"group,omitempty"`                        
-	ID                              *string                          `json:"id,omitempty"`                           
-	IntegrationData                 map[string]interface{}           `json:"integration_data,omitempty"`             
-	MiniWidgetConfiguration         MiniWidgetConfiguration          `json:"mini_widget_configuration"`              
-	MobileData                      []interface{}                    `json:"mobileData"`                             
-	Notifications                   []interface{}                    `json:"notifications"`                          
-	Resources                       []Resource                       `json:"resources"`                              
-	StateLevelHolidaysNotWorking    *bool                            `json:"stateLevelHolidaysNotWorking,omitempty"` 
-	Taxonomies                      []BusinessTaxonomy               `json:"taxonomies"`                             
-	TaxonomiesComplex               []TaxonomiesComplex              `json:"taxonomiesComplex"`                      
-	TaxonomyTreeCapacity            []map[string]interface{}         `json:"taxonomy_tree_capacity"`                 
-	TopServices                     *BusinessTopServices             `json:"top_services,omitempty"`                 
-	Vertical                        *string                          `json:"vertical,omitempty"`                     
-	WidgetConfiguration             WidgetConfiguration              `json:"widget_configuration"`                   
-	YandexFeedType                  *string                          `json:"yandexFeedType,omitempty"`               
+// указатель на бизнес в сети
+type PurpleBusiness struct {
+	ID            *string           `json:"_id,omitempty"`
+	BusinessID    string            `json:"businessID"`   
+	Info          *BusinessBusiness `json:"info"`         
+	IsMapBusiness bool              `json:"isMapBusiness"`
 }
 
-type AdditionalSettings struct {
+type FluffyBusiness struct {
+	Active                          *bool                              `json:"active,omitempty"`                       
+	AdditionalSettings              *PurpleAdditionalSettings          `json:"additionalSettings,omitempty"`           
+	AllowCategoryBooking            *bool                              `json:"allowCategoryBooking,omitempty"`         
+	BusinessBackofficeConfiguration *FluffyBackofficeConfiguration     `json:"backoffice_configuration,omitempty"`     
+	BackofficeConfiguration         *PurpleBackofficeConfiguration     `json:"backofficeConfiguration,omitempty"`      
+	BackofficeType                  *BackofficeType                    `json:"backofficeType,omitempty"`               
+	Cabinets                        []PurpleCabinet                    `json:"cabinets"`                               
+	CabinetsEnabled                 *bool                              `json:"cabinetsEnabled,omitempty"`              
+	CallbackWidgetConfiguration     *PurpleCallbackWidgetConfiguration `json:"callback_widget_configuration,omitempty"`
+	Consumables                     []PurpleConsumable                 `json:"consumables"`                            
+	CreatedOn                       *string                            `json:"created_on,omitempty"`                   
+	DefaultFilteredWorkers          []string                           `json:"defaultFilteredWorkers"`                 
+	Departments                     []PurpleDepartment                 `json:"departments"`                            
+	Designs                         []map[string]interface{}           `json:"designs"`                                
+	ExtraID                         *string                            `json:"extraID,omitempty"`                      
+	FlatTaxonomyDisplay             *bool                              `json:"flatTaxonomyDisplay,omitempty"`          
+	GeneralInfo                     BusinessInfo                       `json:"general_info"`                           
+	Group                           *Group                             `json:"group,omitempty"`                        
+	ID                              *string                            `json:"id,omitempty"`                           
+	IntegrationData                 map[string]interface{}             `json:"integration_data,omitempty"`             
+	MiniWidgetConfiguration         PurpleMiniWidgetConfiguration      `json:"mini_widget_configuration"`              
+	MobileData                      []interface{}                      `json:"mobileData"`                             
+	Notifications                   []interface{}                      `json:"notifications"`                          
+	StateLevelHolidaysNotWorking    *bool                              `json:"stateLevelHolidaysNotWorking,omitempty"` 
+	TaxonomiesComplex               []PurpleTaxonomiesComplex          `json:"taxonomiesComplex"`                      
+	TaxonomyTreeCapacity            []map[string]interface{}           `json:"taxonomy_tree_capacity"`                 
+	TopServices                     *PurpleTopServices                 `json:"top_services,omitempty"`                 
+	Vertical                        *string                            `json:"vertical,omitempty"`                     
+	WidgetConfiguration             PurpleWidgetConfiguration          `json:"widget_configuration"`                   
+	YandexFeedType                  *string                            `json:"yandexFeedType,omitempty"`               
+}
+
+type PurpleAdditionalSettings struct {
 	AppointmentExtensionAmount *float64                  `json:"appointmentExtensionAmount,omitempty"`
 	AppointmentExtensionType   *AppointmentExtensionType `json:"appointmentExtensionType,omitempty"`  
 }
 
-type BackofficeConfigurationClass struct {
+type PurpleBackofficeConfiguration struct {
 	AdjacentTaxonomiesTreshold                      *float64                 `json:"adjacentTaxonomiesTreshold,omitempty"`                     
 	AllowHideServiceForBooking                      *bool                    `json:"allowHideServiceForBooking,omitempty"`                     
 	AllowHideWorkersFromSchdeule                    *bool                    `json:"allowHideWorkersFromSchdeule,omitempty"`                   
@@ -286,29 +277,29 @@ type BackofficeConfigurationClass struct {
 	WorkWeekStart                                   *float64                 `json:"workWeekStart,omitempty"`                                  
 }
 
-type BusinessBackofficeConfiguration struct {
+type FluffyBackofficeConfiguration struct {
 	EnableMasterImportance *bool                  `json:"enableMasterImportance,omitempty"`
 	ResourceTimetableType  *ResourceTimetableType `json:"resourceTimetableType,omitempty"` 
 }
 
-type Cabinet struct {
+type PurpleCabinet struct {
 	Active *bool   `json:"active,omitempty"`
 	ID     *string `json:"id,omitempty"`    
 	Name   *string `json:"name,omitempty"`  
 }
 
-type CallbackWidgetConfiguration struct {
+type PurpleCallbackWidgetConfiguration struct {
 	Title1 *string `json:"title1,omitempty"`
 	Title2 *string `json:"title2,omitempty"`
 }
 
-type Consumable struct {
+type PurpleConsumable struct {
 	ExtraID  string  `json:"extraID"` 
 	Name     string  `json:"name"`    
 	Quantity float64 `json:"quantity"`
 }
 
-type Department struct {
+type PurpleDepartment struct {
 	ID           string   `json:"id"`           
 	DepartmentID *float64 `json:"id_,omitempty"`
 	Name         string   `json:"name"`         
@@ -355,7 +346,7 @@ type BusinessInfo struct {
 	SMSDuplicateFilter         *SMSDuplicateFilter      `json:"smsDuplicateFilter,omitempty"`        
 	SocialNetwork              []SocialNetworkSchema    `json:"social_network"`                      
 	Timetable                  *Timetable               `json:"timetable,omitempty"`                 
-	Timezone                   *string                  `json:"timezone,omitempty"`                  
+	Timezone                   *string                  `json:"timezone"`                            
 	VerticalTranslation        *VerticalTranslation     `json:"verticalTranslation,omitempty"`       
 	Website                    *string                  `json:"website,omitempty"`                   
 }
@@ -468,7 +459,414 @@ type TimeFrame struct {
 	StartDate *TimeFrameDate `json:"startDate"`         
 }
 
-type MiniWidgetConfiguration struct {
+type PurpleMiniWidgetConfiguration struct {
+	Fields []Field `json:"fields"`          
+	Title1 *string `json:"title1,omitempty"`
+	Title2 *string `json:"title2,omitempty"`
+}
+
+type PurpleTaxonomiesComplex struct {
+	Name       *string  `json:"name,omitempty"`
+	Taxonomies []string `json:"taxonomies"`    
+}
+
+type PurpleTopServices struct {
+	Services []interface{} `json:"services"`        
+	Status   *string       `json:"status,omitempty"`
+}
+
+type PurpleWidgetConfiguration struct {
+	AdditionalName                         *string                        `json:"additionalName,omitempty"`                        
+	AlignmentTaxonomySlots                 *bool                          `json:"alignmentTaxonomySlots,omitempty"`                
+	AllowAutoSelect                        *bool                          `json:"allowAutoSelect,omitempty"`                       
+	AllowBookVisitor                       *bool                          `json:"allowBookVisitor,omitempty"`                      
+	AllowSkipTimeCheck                     *bool                          `json:"allowSkipTimeCheck,omitempty"`                    
+	AppointmentConfirmationText            *string                        `json:"appointment_confirmation_text,omitempty"`         
+	AppointmentConfirmationTitle           *string                        `json:"appointment_confirmation_title,omitempty"`        
+	AskClientBirthday                      *bool                          `json:"askClientBirthday,omitempty"`                     
+	AskClientGender                        *bool                          `json:"askClientGender,omitempty"`                       
+	BookableDateRanges                     *PurpleBookableDateRanges      `json:"bookableDateRanges,omitempty"`                    
+	BookableMonthsCount                    *float64                       `json:"bookableMonthsCount,omitempty"`                   
+	CalendarMode                           *bool                          `json:"calendarMode,omitempty"`                          
+	CalendarModeHideTime                   *bool                          `json:"calendarModeHideTime,omitempty"`                  
+	ClientBlockingSettings                 *PurpleClientBlockingSettings  `json:"clientBlockingSettings,omitempty"`                
+	ClientCommentTitle                     *bool                          `json:"clientCommentTitle,omitempty"`                    
+	CracServer                             *CracServer                    `json:"cracServer,omitempty"`                            
+	CracSlotSize                           *float64                       `json:"cracSlotSize,omitempty"`                          
+	Crunchv2                               *bool                          `json:"crunchv2,omitempty"`                              
+	DayOffLabel                            *string                        `json:"dayOffLabel,omitempty"`                           
+	DaysForward                            *float64                       `json:"daysForward,omitempty"`                           
+	DayUnavailableLabel                    *string                        `json:"dayUnavailableLabel,omitempty"`                   
+	DefaultServiceImgURL                   *string                        `json:"defaultServiceImgUrl,omitempty"`                  
+	DefaultWorkerImgURL                    *string                        `json:"defaultWorkerImgUrl,omitempty"`                   
+	DenySameTimeRecords                    *bool                          `json:"denySameTimeRecords,omitempty"`                   
+	DisabledTaxonomiesText                 *string                        `json:"disabledTaxonomiesText,omitempty"`                
+	DisableMobileWidget                    *bool                          `json:"disableMobileWidget,omitempty"`                   
+	DisableWidget                          *bool                          `json:"disableWidget,omitempty"`                         
+	DisableWidgetMessage                   *string                        `json:"disableWidgetMessage,omitempty"`                  
+	DiscountedPriceRounding                *PurpleDiscountedPriceRounding `json:"discountedPriceRounding,omitempty"`               
+	DisplaySlotSize                        *float64                       `json:"displaySlotSize,omitempty"`                       
+	DontRequireEmail                       *bool                          `json:"dontRequireEmail,omitempty"`                      
+	EmailIsMandatory                       *bool                          `json:"emailIsMandatory,omitempty"`                      
+	EnableOverrideFooter                   *bool                          `json:"enableOverrideFooter,omitempty"`                  
+	EnableWarningContactData               *bool                          `json:"enableWarningContactData,omitempty"`              
+	ExtraVisitors                          *bool                          `json:"extraVisitors,omitempty"`                         
+	FilterNonInsuranceSchedule             *bool                          `json:"filterNonInsuranceSchedule,omitempty"`            
+	HideAnyWorkerBooking                   *bool                          `json:"hideAnyWorkerBooking,omitempty"`                  
+	HideCallButton                         *bool                          `json:"hideCallButton,omitempty"`                        
+	HideEmptyDays                          *bool                          `json:"hideEmptyDays,omitempty"`                         
+	HideGBookingLogo                       *bool                          `json:"hideGBookingLogo,omitempty"`                      
+	HideGraySlots                          *bool                          `json:"hideGraySlots,omitempty"`                         
+	HideNewAppointmentButton               *bool                          `json:"hideNewAppointmentButton,omitempty"`              
+	HidePrices                             *bool                          `json:"hidePrices,omitempty"`                            
+	HideSocialNetworksAuthentication       *bool                          `json:"hideSocialNetworksAuthentication,omitempty"`      
+	InsuranceClientSupportPhone            []Phone                        `json:"insuranceClientSupportPhone"`                     
+	MaxServiceBooking                      *float64                       `json:"maxServiceBooking,omitempty"`                     
+	MaxTimeslotBooking                     *float64                       `json:"maxTimeslotBooking,omitempty"`                    
+	MostFreeEnable                         *bool                          `json:"mostFreeEnable,omitempty"`                        
+	MultiServiceBooking                    *bool                          `json:"multiServiceBooking,omitempty"`                   
+	MultiTimeslotBooking                   *bool                          `json:"multiTimeslotBooking,omitempty"`                  
+	MultiTimeslotBookingAllDays            *bool                          `json:"multiTimeslotBookingAllDays,omitempty"`           
+	NewWidgetTheme                         map[string]interface{}         `json:"newWidgetTheme,omitempty"`                        
+	NoDefaultImages                        *bool                          `json:"noDefaultImages,omitempty"`                       
+	OverrideFooter                         *string                        `json:"overrideFooter,omitempty"`                        
+	Payment                                *Payment                       `json:"payment,omitempty"`                               
+	PaymentProvider                        *PaymentProvider               `json:"paymentProvider,omitempty"`                       
+	RequireAgreement                       *bool                          `json:"requireAgreement,omitempty"`                      
+	RequireAgreementLink                   *string                        `json:"requireAgreementLink,omitempty"`                  
+	RevisionVersion                        *float64                       `json:"revisionVersion,omitempty"`                       
+	ShortLink                              *string                        `json:"shortLink,omitempty"`                             
+	ShowAllWorkers                         *bool                          `json:"showAllWorkers,omitempty"`                        
+	ShowClientAddress                      *bool                          `json:"showClientAddress,omitempty"`                     
+	ShowClientComment                      *bool                          `json:"showClientComment,omitempty"`                     
+	ShowDisabledTaxonomies                 *bool                          `json:"showDisabledTaxonomies,omitempty"`                
+	ShowDrinkQuestion                      *bool                          `json:"showDrinkQuestion,omitempty"`                     
+	ShowMap                                *bool                          `json:"showMap,omitempty"`                               
+	ShowSurnameFirst                       *bool                          `json:"showSurnameFirst,omitempty"`                      
+	ShowTalkQuestion                       *bool                          `json:"showTalkQuestion,omitempty"`                      
+	ShowTaxonomyConfirmationAlert          *bool                          `json:"showTaxonomyConfirmationAlert,omitempty"`         
+	SkipAuthentication                     *bool                          `json:"skipAuthentication,omitempty"`                    
+	SkipDaysForward                        *bool                          `json:"skipDaysForward,omitempty"`                       
+	SkipMobileMap                          *bool                          `json:"skipMobileMap,omitempty"`                         
+	SkipServiceDurationAlignment           *bool                          `json:"skipServiceDurationAlignment,omitempty"`          
+	SkipServiceSelection                   *bool                          `json:"skipServiceSelection,omitempty"`                  
+	SkipTimeSelection                      *bool                          `json:"skipTimeSelection,omitempty"`                     
+	SkipTimeSelectionServiceIDs            []string                       `json:"skipTimeSelectionServiceIDs"`                     
+	SkipWorkerSelectedServiceIDs           []string                       `json:"skipWorkerSelectedServiceIDs"`                    
+	SkipWorkerServicesSelection            *bool                          `json:"skipWorkerServicesSelection,omitempty"`           
+	SocialNetworkImage                     *string                        `json:"socialNetworkImage,omitempty"`                    
+	SocialSharing                          *PurpleSocialSharing           `json:"socialSharing,omitempty"`                         
+	SortByMostFree                         *bool                          `json:"sortByMostFree,omitempty"`                        
+	SortWorkersByWorkload                  *bool                          `json:"sortWorkersByWorkload,omitempty"`                 
+	SplitInsuranceClient                   *bool                          `json:"splitInsuranceClient,omitempty"`                  
+	SplitName                              *bool                          `json:"splitName,omitempty"`                             
+	TentativeTTL                           *float64                       `json:"tentativeTTL,omitempty"`                          
+	Theme                                  *string                        `json:"theme,omitempty"`                                 
+	UseAppointmentReminder                 *bool                          `json:"useAppointmentReminder,omitempty"`                
+	UseBusinessScheduleForUnavailableLabel *bool                          `json:"useBusinessScheduleForUnavailableLabel,omitempty"`
+	UseClustersMap                         *bool                          `json:"useClustersMap,omitempty"`                        
+	UseCoupon                              *bool                          `json:"useCoupon,omitempty"`                             
+	UseCRAC                                *bool                          `json:"useCRAC,omitempty"`                               
+	UseDefaultServiceImg                   *bool                          `json:"useDefaultServiceImg,omitempty"`                  
+	UseDefaultWorkerImg                    *bool                          `json:"useDefaultWorkerImg,omitempty"`                   
+	UseDirectScheduleRead                  *UseDirectScheduleRead         `json:"useDirectScheduleRead,omitempty"`                 
+	UseInsuranceGuaranteeLetter            *bool                          `json:"useInsuranceGuaranteeLetter,omitempty"`           
+	UseInsuranceSelect                     *bool                          `json:"useInsuranceSelect,omitempty"`                    
+	UseMedAuth                             *bool                          `json:"useMedAuth,omitempty"`                            
+	UseMiddleName                          *bool                          `json:"useMiddleName,omitempty"`                         
+	UseNewReserveAPI                       *bool                          `json:"useNewReserveAPI,omitempty"`                      
+	UseResourcePageLoading                 *bool                          `json:"useResourcePageLoading,omitempty"`                
+	UseSortByName                          *bool                          `json:"useSortByName,omitempty"`                         
+	WarningContactDataText                 *string                        `json:"warningContactDataText,omitempty"`                
+	WidgetUseCRAC                          *bool                          `json:"widgetUseCRAC,omitempty"`                         
+	WithoutWorkers                         *bool                          `json:"withoutWorkers,omitempty"`                        
+	WorkerUnavailabilityText               *string                        `json:"worker_unavailability_text,omitempty"`            
+	WorkerNameReverse                      *bool                          `json:"workerNameReverse,omitempty"`                     
+}
+
+type PurpleBookableDateRanges struct {
+	Enabled *bool       `json:"enabled,omitempty"`
+	End     interface{} `json:"end"`              
+	Start   interface{} `json:"start"`            
+}
+
+type PurpleClientBlockingSettings struct {
+	AppointmentClientBlock     *bool    `json:"appointmentClientBlock,omitempty"`    
+	AppointmentClientBlockDays *float64 `json:"appointmentClientBlockDays,omitempty"`
+	AppointmentClientBlockText *string  `json:"appointmentClientBlockText,omitempty"`
+	BlockIfFutureRecordExists  *bool    `json:"blockIfFutureRecordExists,omitempty"` 
+	BlockRepeatedRecordsCount  *float64 `json:"blockRepeatedRecordsCount,omitempty"` 
+	BlockRepeatedRecordsRange  *float64 `json:"blockRepeatedRecordsRange,omitempty"` 
+	BlockRepeatedRecordsText   *string  `json:"blockRepeatedRecordsText,omitempty"`  
+}
+
+type PurpleDiscountedPriceRounding struct {
+	Rule  *Rule    `json:"rule,omitempty"` 
+	Value *float64 `json:"value,omitempty"`
+}
+
+type PurpleSocialSharing struct {
+	Active          *bool         `json:"active,omitempty"`         
+	DiscountAmount  *float64      `json:"discountAmount"`           
+	DiscountEnabled *bool         `json:"discountEnabled,omitempty"`
+	DiscountType    *DiscountType `json:"discountType,omitempty"`   
+	Text            *string       `json:"text"`                     
+	WidgetText      *string       `json:"widgetText"`               
+}
+
+type NetworkWidgetConfiguration struct {
+	ID                 *string                              `json:"_id,omitempty"`     
+	Businesses         []NetworkWidgetConfigurationBusiness `json:"businesses"`        
+	DefaultServiceID   *string                              `json:"defaultServiceID"`  
+	ShowBranchSelector bool                                 `json:"showBranchSelector"`
+	ShowDefaultService bool                                 `json:"showDefaultService"`
+	ShowOnMap          bool                                 `json:"showOnMap"`         
+	Source             string                               `json:"source"`            
+}
+
+type NetworkWidgetConfigurationBusiness struct {
+	ID         *string `json:"_id,omitempty"`
+	Active     bool    `json:"active"`       
+	InternalID string  `json:"internalID"`   
+}
+
+type GetProfileByID struct {
+	Request  BusinessGetProfileByIDRequest  `json:"request"` 
+	Response BusinessGetProfileByIDResponse `json:"response"`
+}
+
+type BusinessGetProfileByIDRequest struct {
+	Cred    *Cred                               `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                      `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                              `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                              `json:"method"`        // название jsonrpc метода
+	Params  BusinessGetProfileByIDRequestParams `json:"params"`        // параметры запроса; ; параметры запроса business.get_profile_by_id
+}
+
+// параметры запроса
+//
+// параметры запроса business.get_profile_by_id
+type BusinessGetProfileByIDRequestParams struct {
+	Business             TentacledBusiness  `json:"business"`                        
+	DesktopDiscounts     *bool              `json:"desktop_discounts,omitempty"`     // если указано true - меняет формат представления discounts
+	OnlyActiveWorkers    *bool              `json:"only_active_workers,omitempty"`   // если указано true - возвращает только активных работников (status == 'INACTIVE')
+	ShowInactiveWorkers  *bool              `json:"show_inactive_workers,omitempty"` // если указано true - возвращает всех работников в том числе и неактивных (status ==; 'INACTIVE')
+	ShowcaseBusinessID   *TimeFrameDate     `json:"showcase_business_id"`            // идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
+	SkipWorkerSorting    *bool              `json:"skip_worker_sorting,omitempty"`   // если указано true - не приминяет сортировку работников
+	WithBilling          *bool              `json:"with_billing,omitempty"`          // если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
+	WithBop              *bool              `json:"with_bop,omitempty"`              // если указано true - возвращает список операций, доступных в БекОфисе в поле profiles; (недоступно для роли guest)
+	WithCampaigns        *bool              `json:"with_campaigns,omitempty"`        // если указано true - возвращает кампании скидочных купонов в поле campaigns
+	WithDiscounts        *bool              `json:"with_discounts,omitempty"`        // если указано true - возвращает список скидочных акций в поле discounts
+	WithDiscountsFrom    *string            `json:"with_discounts_from,omitempty"`   // дата начала расписания, для которого нужно получить скидочные акции
+	WithDiscountsTo      *string            `json:"with_discounts_to,omitempty"`     // дата окончания расписания, для которого нужно получить скидочные акции
+	WithNetworks         *bool              `json:"with_networks,omitempty"`         // если указано true - возвращает информацию о других филиалах сети в поле networks
+	WithTaxonomyShowcase *bool              `json:"with_taxonomy_showcase,omitempty"`// если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для; каждой таксономии (недоступно для роли guest)
+	WorkerSortingType    *WorkerSortingType `json:"worker_sorting_type,omitempty"`   // тип сортировки работника
+}
+
+type TentacledBusiness struct {
+	ID string `json:"id"`// идентификатор бизнеса
+}
+
+type BusinessGetProfileByIDResponse struct {
+	ID      *float64                              `json:"id,omitempty"`     // значение числового типа для идентификации запроса на сервере
+	Jsonrpc *string                               `json:"jsonrpc,omitempty"`// версия протокола (2.0)
+	Result  *BusinessGetProfileByIDResponseResult `json:"result,omitempty"` // данные, передаваемые в ответ
+	Error   *BusinessGetProfileByIDResponseError  `json:"error,omitempty"`  // объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type BusinessGetProfileByIDResponseError struct {
+	Code    float64 `json:"code"`          // код ошибки
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+// данные, передаваемые в ответ
+type BusinessGetProfileByIDResponseResult struct {
+	Active                *bool              `json:"active,omitempty"`               
+	Business              *ResultBusiness    `json:"business"`                       
+	FreeSMS               *float64           `json:"freeSms,omitempty"`              
+	MonthlyFreeSMS        *float64           `json:"monthlyFreeSms,omitempty"`       
+	Networks              []Network          `json:"networks"`                       
+	TopServices           *ResultTopServices `json:"top_services,omitempty"`         
+	UseDefaultSMSTemplate *bool              `json:"useDefaultSmsTemplate,omitempty"`
+	YandexFeedType        *YandexFeedType    `json:"yandexFeedType,omitempty"`       
+}
+
+type StickyBusiness struct {
+	Active                          *bool                              `json:"active,omitempty"`                       
+	AdditionalSettings              *FluffyAdditionalSettings          `json:"additionalSettings,omitempty"`           
+	AllowCategoryBooking            *bool                              `json:"allowCategoryBooking,omitempty"`         
+	BusinessBackofficeConfiguration *StickyBackofficeConfiguration     `json:"backoffice_configuration,omitempty"`     
+	BackofficeConfiguration         *TentacledBackofficeConfiguration  `json:"backofficeConfiguration,omitempty"`      
+	BackofficeType                  *BackofficeType                    `json:"backofficeType,omitempty"`               
+	Cabinets                        []FluffyCabinet                    `json:"cabinets"`                               
+	CabinetsEnabled                 *bool                              `json:"cabinetsEnabled,omitempty"`              
+	CallbackWidgetConfiguration     *FluffyCallbackWidgetConfiguration `json:"callback_widget_configuration,omitempty"`
+	Consumables                     []FluffyConsumable                 `json:"consumables"`                            
+	CreatedOn                       *string                            `json:"created_on,omitempty"`                   
+	DefaultFilteredWorkers          []string                           `json:"defaultFilteredWorkers"`                 
+	Departments                     []FluffyDepartment                 `json:"departments"`                            
+	Designs                         []map[string]interface{}           `json:"designs"`                                
+	ExtraID                         *string                            `json:"extraID,omitempty"`                      
+	FlatTaxonomyDisplay             *bool                              `json:"flatTaxonomyDisplay,omitempty"`          
+	GeneralInfo                     BusinessInfo                       `json:"general_info"`                           
+	Group                           *Group                             `json:"group,omitempty"`                        
+	ID                              *string                            `json:"id,omitempty"`                           
+	IntegrationData                 map[string]interface{}             `json:"integration_data,omitempty"`             
+	MiniWidgetConfiguration         FluffyMiniWidgetConfiguration      `json:"mini_widget_configuration"`              
+	MobileData                      []interface{}                      `json:"mobileData"`                             
+	Notifications                   []interface{}                      `json:"notifications"`                          
+	Resources                       []Resource                         `json:"resources"`                              
+	StateLevelHolidaysNotWorking    *bool                              `json:"stateLevelHolidaysNotWorking,omitempty"` 
+	Taxonomies                      []BusinessTaxonomy                 `json:"taxonomies"`                             
+	TaxonomiesComplex               []FluffyTaxonomiesComplex          `json:"taxonomiesComplex"`                      
+	TaxonomyTreeCapacity            []map[string]interface{}           `json:"taxonomy_tree_capacity"`                 
+	TopServices                     *FluffyTopServices                 `json:"top_services,omitempty"`                 
+	Vertical                        *string                            `json:"vertical,omitempty"`                     
+	WidgetConfiguration             FluffyWidgetConfiguration          `json:"widget_configuration"`                   
+	YandexFeedType                  *string                            `json:"yandexFeedType,omitempty"`               
+}
+
+type FluffyAdditionalSettings struct {
+	AppointmentExtensionAmount *float64                  `json:"appointmentExtensionAmount,omitempty"`
+	AppointmentExtensionType   *AppointmentExtensionType `json:"appointmentExtensionType,omitempty"`  
+}
+
+type TentacledBackofficeConfiguration struct {
+	AdjacentTaxonomiesTreshold                      *float64                 `json:"adjacentTaxonomiesTreshold,omitempty"`                     
+	AllowHideServiceForBooking                      *bool                    `json:"allowHideServiceForBooking,omitempty"`                     
+	AllowHideWorkersFromSchdeule                    *bool                    `json:"allowHideWorkersFromSchdeule,omitempty"`                   
+	AllowSMSTranslit                                *bool                    `json:"allowSmsTranslit,omitempty"`                               
+	AppointmentFutureMoving                         *bool                    `json:"appointmentFutureMoving,omitempty"`                        
+	BlockNotificationForAnyAvailableAdjacentService *bool                    `json:"blockNotificationForAnyAvailableAdjacentService,omitempty"`
+	CabinetsEnabled                                 *bool                    `json:"cabinetsEnabled,omitempty"`                                
+	CheckClientOverlapping                          *bool                    `json:"checkClientOverlapping,omitempty"`                         
+	CustomOnlinePaymentConfirmationTemplate         *string                  `json:"customOnlinePaymentConfirmationTemplate,omitempty"`        
+	DefaultGTScheduleDayView                        *bool                    `json:"defaultGTScheduleDayView,omitempty"`                       
+	DisableAppointmentClientInlineEditor            *bool                    `json:"disableAppointmentClientInlineEditor,omitempty"`           
+	EditAppExtraID                                  *bool                    `json:"editAppExtraId,omitempty"`                                 
+	EditTaxonomyChildren                            *bool                    `json:"editTaxonomyChildren,omitempty"`                           
+	EditTaxonomyVisitType                           *bool                    `json:"editTaxonomyVisitType,omitempty"`                          
+	EnableBlackList                                 *bool                    `json:"enableBlackList,omitempty"`                                
+	EnableCalculateShedule                          *bool                    `json:"enableCalculateShedule,omitempty"`                         
+	EnableClientCard                                *bool                    `json:"enableClientCard,omitempty"`                               
+	EnableClientLanguage                            *bool                    `json:"enableClientLanguage,omitempty"`                           
+	EnableClientMedicalCardReport                   *bool                    `json:"enableClientMedicalCardReport,omitempty"`                  
+	EnableCustomOnlinePaymentConfirmation           *bool                    `json:"enableCustomOnlinePaymentConfirmation,omitempty"`          
+	EnableExtendedPhone                             *bool                    `json:"enableExtendedPhone,omitempty"`                            
+	EnableExtendedRecordsClientStatistics           *bool                    `json:"enableExtendedRecordsClientStatistics,omitempty"`          
+	EnableMasterImportance                          *bool                    `json:"enableMasterImportance,omitempty"`                         
+	EnableServiceTimeLimit                          *bool                    `json:"enableServiceTimeLimit,omitempty"`                         
+	EnableSourceChoice                              *bool                    `json:"enableSourceChoice,omitempty"`                             
+	EnableTaxonomyChildrenAgeCheck                  *bool                    `json:"enableTaxonomyChildrenAgeCheck,omitempty"`                 
+	ExportToExcelRemovedClients                     *bool                    `json:"exportToExcelRemovedClients,omitempty"`                    
+	FeedbackCustomerPortalMessage                   *string                  `json:"feedbackCustomerPortalMessage,omitempty"`                  
+	FeedbackCustomerPortalThankYouMessage           *string                  `json:"feedbackCustomerPortalThankYouMessage,omitempty"`          
+	FeedbackCustomerPortalTitle                     *string                  `json:"feedbackCustomerPortalTitle,omitempty"`                    
+	FeedBackMinRating                               *FeedBackMinRating       `json:"feedBackMinRating,omitempty"`                              
+	FinID                                           *string                  `json:"finId,omitempty"`                                          
+	FinName                                         *string                  `json:"finName,omitempty"`                                        
+	HideCustomerPortalFooter                        *bool                    `json:"hideCustomerPortalFooter,omitempty"`                       
+	HighlightedResource                             *bool                    `json:"highlightedResource,omitempty"`                            
+	ManualExceptionSupport                          *bool                    `json:"manualExceptionSupport,omitempty"`                         
+	NoInternetAlert                                 *bool                    `json:"noInternetAlert,omitempty"`                                
+	PastTimeEdit                                    *float64                 `json:"pastTimeEdit,omitempty"`                                   
+	PaymentProvider                                 *PaymentProvider         `json:"paymentProvider,omitempty"`                                
+	ReadonlyResourceSchedule                        *bool                    `json:"readonlyResourceSchedule,omitempty"`                       
+	ResourceTimetableType                           *ResourceTimetableType   `json:"resourceTimetableType,omitempty"`                          
+	RevisionVersion                                 *float64                 `json:"revisionVersion,omitempty"`                                
+	SchduleWeekViewIsDefault                        *bool                    `json:"schduleWeekViewIsDefault,omitempty"`                       
+	ScheduleDefaultWorkersLimit                     *float64                 `json:"scheduleDefaultWorkersLimit,omitempty"`                    
+	SchedulerWeekViewType                           *SchedulerWeekViewType   `json:"schedulerWeekViewType,omitempty"`                          
+	ScheduleWorkerHours                             *bool                    `json:"scheduleWorkerHours,omitempty"`                            
+	ShowAdditionalFields                            *bool                    `json:"showAdditionalFields,omitempty"`                           
+	ShowAddress                                     *bool                    `json:"showAddress,omitempty"`                                    
+	ShowBirthDate                                   *bool                    `json:"showBirthDate,omitempty"`                                  
+	ShowClientAppear                                *bool                    `json:"showClientAppear,omitempty"`                               
+	ShowClientAppearOnSchedule                      *bool                    `json:"showClientAppearOnSchedule,omitempty"`                     
+	ShowClientBirthdayFilter                        *bool                    `json:"showClientBirthdayFilter,omitempty"`                       
+	ShowClientContractNumber                        *bool                    `json:"showClientContractNumber,omitempty"`                       
+	ShowClientImage                                 *bool                    `json:"showClientImage,omitempty"`                                
+	ShowClientPayment                               *bool                    `json:"showClientPayment,omitempty"`                              
+	ShowDefaulterBlockscreen                        *bool                    `json:"showDefaulterBlockscreen,omitempty"`                       
+	ShowDeliveryStatus                              *bool                    `json:"showDeliveryStatus,omitempty"`                             
+	ShowDepartmentFilter                            *bool                    `json:"showDepartmentFilter,omitempty"`                           
+	ShowDepartments                                 *bool                    `json:"showDepartments,omitempty"`                                
+	ShowDepartmentsConfiguration                    *bool                    `json:"showDepartmentsConfiguration,omitempty"`                   
+	ShowEmail                                       *bool                    `json:"showEmail,omitempty"`                                      
+	ShowExtraClientInfo                             *bool                    `json:"showExtraClientInfo,omitempty"`                            
+	ShowFax                                         *bool                    `json:"showFax,omitempty"`                                        
+	ShowFiredWorkerAppointmentAlert                 *bool                    `json:"showFiredWorkerAppointmentAlert,omitempty"`                
+	ShowFirstAvailableSlot                          *bool                    `json:"showFirstAvailableSlot,omitempty"`                         
+	ShowGapWindow                                   *bool                    `json:"showGapWindow,omitempty"`                                  
+	ShowGender                                      *bool                    `json:"showGender,omitempty"`                                     
+	ShowGenderInRecords                             *bool                    `json:"showGenderInRecords,omitempty"`                            
+	ShowGeneratableReportsScreen                    *bool                    `json:"showGeneratableReportsScreen,omitempty"`                   
+	ShowHouseNumber                                 *bool                    `json:"showHouseNumber,omitempty"`                                
+	ShowIsraelCity                                  *bool                    `json:"showIsraelCity,omitempty"`                                 
+	ShowKupatHolim                                  *bool                    `json:"showKupatHolim,omitempty"`                                 
+	ShowLeadsScreen                                 *bool                    `json:"showLeadsScreen,omitempty"`                                
+	ShowManualChanges                               *bool                    `json:"showManualChanges,omitempty"`                              
+	ShowPassportID                                  *bool                    `json:"showPassportId,omitempty"`                                 
+	ShowRooms                                       *bool                    `json:"showRooms,omitempty"`                                      
+	ShowSeasonTickets                               *bool                    `json:"showSeasonTickets,omitempty"`                              
+	ShowTaxonomyChildren                            *bool                    `json:"showTaxonomyChildren,omitempty"`                           
+	ShowTaxonomyLocalization                        *bool                    `json:"showTaxonomyLocalization,omitempty"`                       
+	ShowTaxonomyVisitType                           *bool                    `json:"showTaxonomyVisitType,omitempty"`                          
+	ShowTestRecord                                  *bool                    `json:"showTestRecord,omitempty"`                                 
+	ShowUTM                                         *bool                    `json:"showUTM,omitempty"`                                        
+	ShowWidgetColorTheme                            *bool                    `json:"showWidgetColorTheme,omitempty"`                           
+	ShowWorkerDescriptionInEvent                    *bool                    `json:"showWorkerDescriptionInEvent,omitempty"`                   
+	ShowWorkerExtraID                               *bool                    `json:"showWorkerExtraId,omitempty"`                              
+	ShowWorkerStatus                                *bool                    `json:"showWorkerStatus,omitempty"`                               
+	SkipAppointmentPriceUpdate                      *bool                    `json:"skipAppointmentPriceUpdate,omitempty"`                     
+	SkipCancelIfClientNotAppear                     *bool                    `json:"skipCancelIfClientNotAppear,omitempty"`                    
+	SkipServiceFiltering                            *bool                    `json:"skipServiceFiltering,omitempty"`                           
+	SplitFullNameXlsExport                          *bool                    `json:"splitFullNameXlsExport,omitempty"`                         
+	StateLevelHolidays                              []map[string]interface{} `json:"stateLevelHolidays"`                                       
+	StateLevelHolidaysNotWorking                    *bool                    `json:"stateLevelHolidaysNotWorking,omitempty"`                   
+	TaxonomyChildrenMaxAge                          *float64                 `json:"taxonomyChildrenMaxAge,omitempty"`                         
+	UseAdditionalDurations                          *bool                    `json:"useAdditionalDurations,omitempty"`                         
+	UseAdjacentTaxonomies                           *bool                    `json:"useAdjacentTaxonomies,omitempty"`                          
+	UseAdjacentTaxonomiesSlotSplitting              *bool                    `json:"useAdjacentTaxonomiesSlotSplitting,omitempty"`             
+	UseGtAppMethod                                  *bool                    `json:"useGtAppMethod,omitempty"`                                 
+	WorkWeekEnd                                     *float64                 `json:"workWeekEnd,omitempty"`                                    
+	WorkWeekStart                                   *float64                 `json:"workWeekStart,omitempty"`                                  
+}
+
+type StickyBackofficeConfiguration struct {
+	EnableMasterImportance *bool                  `json:"enableMasterImportance,omitempty"`
+	ResourceTimetableType  *ResourceTimetableType `json:"resourceTimetableType,omitempty"` 
+}
+
+type FluffyCabinet struct {
+	Active *bool   `json:"active,omitempty"`
+	ID     *string `json:"id,omitempty"`    
+	Name   *string `json:"name,omitempty"`  
+}
+
+type FluffyCallbackWidgetConfiguration struct {
+	Title1 *string `json:"title1,omitempty"`
+	Title2 *string `json:"title2,omitempty"`
+}
+
+type FluffyConsumable struct {
+	ExtraID  string  `json:"extraID"` 
+	Name     string  `json:"name"`    
+	Quantity float64 `json:"quantity"`
+}
+
+type FluffyDepartment struct {
+	ID           string   `json:"id"`           
+	DepartmentID *float64 `json:"id_,omitempty"`
+	Name         string   `json:"name"`         
+}
+
+type FluffyMiniWidgetConfiguration struct {
 	Fields []Field `json:"fields"`          
 	Title1 *string `json:"title1,omitempty"`
 	Title2 *string `json:"title2,omitempty"`
@@ -585,7 +983,7 @@ type Info struct {
 	SMSDuplicateFilter         *SMSDuplicateFilter      `json:"smsDuplicateFilter,omitempty"`        
 	SocialNetwork              []SocialNetworkSchema    `json:"social_network"`                      
 	Timetable                  *Timetable               `json:"timetable,omitempty"`                 
-	Timezone                   *string                  `json:"timezone,omitempty"`                  
+	Timezone                   *string                  `json:"timezone"`                            
 	VerticalTranslation        *VerticalTranslation     `json:"verticalTranslation,omitempty"`       
 	Website                    *string                  `json:"website,omitempty"`                   
 }
@@ -742,132 +1140,132 @@ type TaxonomyShowcase struct {
 	ShowcaseItemID   *string `json:"showcaseItemID,omitempty"`  
 }
 
-type TaxonomiesComplex struct {
+type FluffyTaxonomiesComplex struct {
 	Name       *string  `json:"name,omitempty"`
 	Taxonomies []string `json:"taxonomies"`    
 }
 
-type BusinessTopServices struct {
+type FluffyTopServices struct {
 	Services []interface{} `json:"services"`        
 	Status   *string       `json:"status,omitempty"`
 }
 
-type WidgetConfiguration struct {
-	AdditionalName                         *string                  `json:"additionalName,omitempty"`                        
-	AlignmentTaxonomySlots                 *bool                    `json:"alignmentTaxonomySlots,omitempty"`                
-	AllowAutoSelect                        *bool                    `json:"allowAutoSelect,omitempty"`                       
-	AllowBookVisitor                       *bool                    `json:"allowBookVisitor,omitempty"`                      
-	AllowSkipTimeCheck                     *bool                    `json:"allowSkipTimeCheck,omitempty"`                    
-	AppointmentConfirmationText            *string                  `json:"appointment_confirmation_text,omitempty"`         
-	AppointmentConfirmationTitle           *string                  `json:"appointment_confirmation_title,omitempty"`        
-	AskClientBirthday                      *bool                    `json:"askClientBirthday,omitempty"`                     
-	AskClientGender                        *bool                    `json:"askClientGender,omitempty"`                       
-	BookableDateRanges                     *BookableDateRanges      `json:"bookableDateRanges,omitempty"`                    
-	BookableMonthsCount                    *float64                 `json:"bookableMonthsCount,omitempty"`                   
-	CalendarMode                           *bool                    `json:"calendarMode,omitempty"`                          
-	CalendarModeHideTime                   *bool                    `json:"calendarModeHideTime,omitempty"`                  
-	ClientBlockingSettings                 *ClientBlockingSettings  `json:"clientBlockingSettings,omitempty"`                
-	ClientCommentTitle                     *bool                    `json:"clientCommentTitle,omitempty"`                    
-	CracServer                             *CracServer              `json:"cracServer,omitempty"`                            
-	CracSlotSize                           *float64                 `json:"cracSlotSize,omitempty"`                          
-	Crunchv2                               *bool                    `json:"crunchv2,omitempty"`                              
-	DayOffLabel                            *string                  `json:"dayOffLabel,omitempty"`                           
-	DaysForward                            *float64                 `json:"daysForward,omitempty"`                           
-	DayUnavailableLabel                    *string                  `json:"dayUnavailableLabel,omitempty"`                   
-	DefaultServiceImgURL                   *string                  `json:"defaultServiceImgUrl,omitempty"`                  
-	DefaultWorkerImgURL                    *string                  `json:"defaultWorkerImgUrl,omitempty"`                   
-	DenySameTimeRecords                    *bool                    `json:"denySameTimeRecords,omitempty"`                   
-	DisabledTaxonomiesText                 *string                  `json:"disabledTaxonomiesText,omitempty"`                
-	DisableMobileWidget                    *bool                    `json:"disableMobileWidget,omitempty"`                   
-	DisableWidget                          *bool                    `json:"disableWidget,omitempty"`                         
-	DisableWidgetMessage                   *string                  `json:"disableWidgetMessage,omitempty"`                  
-	DiscountedPriceRounding                *DiscountedPriceRounding `json:"discountedPriceRounding,omitempty"`               
-	DisplaySlotSize                        *float64                 `json:"displaySlotSize,omitempty"`                       
-	DontRequireEmail                       *bool                    `json:"dontRequireEmail,omitempty"`                      
-	EmailIsMandatory                       *bool                    `json:"emailIsMandatory,omitempty"`                      
-	EnableOverrideFooter                   *bool                    `json:"enableOverrideFooter,omitempty"`                  
-	EnableWarningContactData               *bool                    `json:"enableWarningContactData,omitempty"`              
-	ExtraVisitors                          *bool                    `json:"extraVisitors,omitempty"`                         
-	FilterNonInsuranceSchedule             *bool                    `json:"filterNonInsuranceSchedule,omitempty"`            
-	HideAnyWorkerBooking                   *bool                    `json:"hideAnyWorkerBooking,omitempty"`                  
-	HideCallButton                         *bool                    `json:"hideCallButton,omitempty"`                        
-	HideEmptyDays                          *bool                    `json:"hideEmptyDays,omitempty"`                         
-	HideGBookingLogo                       *bool                    `json:"hideGBookingLogo,omitempty"`                      
-	HideGraySlots                          *bool                    `json:"hideGraySlots,omitempty"`                         
-	HideNewAppointmentButton               *bool                    `json:"hideNewAppointmentButton,omitempty"`              
-	HidePrices                             *bool                    `json:"hidePrices,omitempty"`                            
-	HideSocialNetworksAuthentication       *bool                    `json:"hideSocialNetworksAuthentication,omitempty"`      
-	InsuranceClientSupportPhone            []Phone                  `json:"insuranceClientSupportPhone"`                     
-	MaxServiceBooking                      *float64                 `json:"maxServiceBooking,omitempty"`                     
-	MaxTimeslotBooking                     *float64                 `json:"maxTimeslotBooking,omitempty"`                    
-	MostFreeEnable                         *bool                    `json:"mostFreeEnable,omitempty"`                        
-	MultiServiceBooking                    *bool                    `json:"multiServiceBooking,omitempty"`                   
-	MultiTimeslotBooking                   *bool                    `json:"multiTimeslotBooking,omitempty"`                  
-	MultiTimeslotBookingAllDays            *bool                    `json:"multiTimeslotBookingAllDays,omitempty"`           
-	NewWidgetTheme                         map[string]interface{}   `json:"newWidgetTheme,omitempty"`                        
-	NoDefaultImages                        *bool                    `json:"noDefaultImages,omitempty"`                       
-	OverrideFooter                         *string                  `json:"overrideFooter,omitempty"`                        
-	Payment                                *Payment                 `json:"payment,omitempty"`                               
-	PaymentProvider                        *PaymentProvider         `json:"paymentProvider,omitempty"`                       
-	RequireAgreement                       *bool                    `json:"requireAgreement,omitempty"`                      
-	RequireAgreementLink                   *string                  `json:"requireAgreementLink,omitempty"`                  
-	RevisionVersion                        *float64                 `json:"revisionVersion,omitempty"`                       
-	ShortLink                              *string                  `json:"shortLink,omitempty"`                             
-	ShowAllWorkers                         *bool                    `json:"showAllWorkers,omitempty"`                        
-	ShowClientAddress                      *bool                    `json:"showClientAddress,omitempty"`                     
-	ShowClientComment                      *bool                    `json:"showClientComment,omitempty"`                     
-	ShowDisabledTaxonomies                 *bool                    `json:"showDisabledTaxonomies,omitempty"`                
-	ShowDrinkQuestion                      *bool                    `json:"showDrinkQuestion,omitempty"`                     
-	ShowMap                                *bool                    `json:"showMap,omitempty"`                               
-	ShowSurnameFirst                       *bool                    `json:"showSurnameFirst,omitempty"`                      
-	ShowTalkQuestion                       *bool                    `json:"showTalkQuestion,omitempty"`                      
-	ShowTaxonomyConfirmationAlert          *bool                    `json:"showTaxonomyConfirmationAlert,omitempty"`         
-	SkipAuthentication                     *bool                    `json:"skipAuthentication,omitempty"`                    
-	SkipDaysForward                        *bool                    `json:"skipDaysForward,omitempty"`                       
-	SkipMobileMap                          *bool                    `json:"skipMobileMap,omitempty"`                         
-	SkipServiceDurationAlignment           *bool                    `json:"skipServiceDurationAlignment,omitempty"`          
-	SkipServiceSelection                   *bool                    `json:"skipServiceSelection,omitempty"`                  
-	SkipTimeSelection                      *bool                    `json:"skipTimeSelection,omitempty"`                     
-	SkipTimeSelectionServiceIDs            []string                 `json:"skipTimeSelectionServiceIDs"`                     
-	SkipWorkerSelectedServiceIDs           []string                 `json:"skipWorkerSelectedServiceIDs"`                    
-	SkipWorkerServicesSelection            *bool                    `json:"skipWorkerServicesSelection,omitempty"`           
-	SocialNetworkImage                     *string                  `json:"socialNetworkImage,omitempty"`                    
-	SocialSharing                          *SocialSharing           `json:"socialSharing,omitempty"`                         
-	SortByMostFree                         *bool                    `json:"sortByMostFree,omitempty"`                        
-	SortWorkersByWorkload                  *bool                    `json:"sortWorkersByWorkload,omitempty"`                 
-	SplitInsuranceClient                   *bool                    `json:"splitInsuranceClient,omitempty"`                  
-	SplitName                              *bool                    `json:"splitName,omitempty"`                             
-	TentativeTTL                           *float64                 `json:"tentativeTTL,omitempty"`                          
-	Theme                                  *string                  `json:"theme,omitempty"`                                 
-	UseAppointmentReminder                 *bool                    `json:"useAppointmentReminder,omitempty"`                
-	UseBusinessScheduleForUnavailableLabel *bool                    `json:"useBusinessScheduleForUnavailableLabel,omitempty"`
-	UseClustersMap                         *bool                    `json:"useClustersMap,omitempty"`                        
-	UseCoupon                              *bool                    `json:"useCoupon,omitempty"`                             
-	UseCRAC                                *bool                    `json:"useCRAC,omitempty"`                               
-	UseDefaultServiceImg                   *bool                    `json:"useDefaultServiceImg,omitempty"`                  
-	UseDefaultWorkerImg                    *bool                    `json:"useDefaultWorkerImg,omitempty"`                   
-	UseDirectScheduleRead                  *UseDirectScheduleRead   `json:"useDirectScheduleRead,omitempty"`                 
-	UseInsuranceGuaranteeLetter            *bool                    `json:"useInsuranceGuaranteeLetter,omitempty"`           
-	UseInsuranceSelect                     *bool                    `json:"useInsuranceSelect,omitempty"`                    
-	UseMedAuth                             *bool                    `json:"useMedAuth,omitempty"`                            
-	UseMiddleName                          *bool                    `json:"useMiddleName,omitempty"`                         
-	UseNewReserveAPI                       *bool                    `json:"useNewReserveAPI,omitempty"`                      
-	UseResourcePageLoading                 *bool                    `json:"useResourcePageLoading,omitempty"`                
-	UseSortByName                          *bool                    `json:"useSortByName,omitempty"`                         
-	WarningContactDataText                 *string                  `json:"warningContactDataText,omitempty"`                
-	WidgetUseCRAC                          *bool                    `json:"widgetUseCRAC,omitempty"`                         
-	WithoutWorkers                         *bool                    `json:"withoutWorkers,omitempty"`                        
-	WorkerUnavailabilityText               *string                  `json:"worker_unavailability_text,omitempty"`            
-	WorkerNameReverse                      *bool                    `json:"workerNameReverse,omitempty"`                     
+type FluffyWidgetConfiguration struct {
+	AdditionalName                         *string                        `json:"additionalName,omitempty"`                        
+	AlignmentTaxonomySlots                 *bool                          `json:"alignmentTaxonomySlots,omitempty"`                
+	AllowAutoSelect                        *bool                          `json:"allowAutoSelect,omitempty"`                       
+	AllowBookVisitor                       *bool                          `json:"allowBookVisitor,omitempty"`                      
+	AllowSkipTimeCheck                     *bool                          `json:"allowSkipTimeCheck,omitempty"`                    
+	AppointmentConfirmationText            *string                        `json:"appointment_confirmation_text,omitempty"`         
+	AppointmentConfirmationTitle           *string                        `json:"appointment_confirmation_title,omitempty"`        
+	AskClientBirthday                      *bool                          `json:"askClientBirthday,omitempty"`                     
+	AskClientGender                        *bool                          `json:"askClientGender,omitempty"`                       
+	BookableDateRanges                     *FluffyBookableDateRanges      `json:"bookableDateRanges,omitempty"`                    
+	BookableMonthsCount                    *float64                       `json:"bookableMonthsCount,omitempty"`                   
+	CalendarMode                           *bool                          `json:"calendarMode,omitempty"`                          
+	CalendarModeHideTime                   *bool                          `json:"calendarModeHideTime,omitempty"`                  
+	ClientBlockingSettings                 *FluffyClientBlockingSettings  `json:"clientBlockingSettings,omitempty"`                
+	ClientCommentTitle                     *bool                          `json:"clientCommentTitle,omitempty"`                    
+	CracServer                             *CracServer                    `json:"cracServer,omitempty"`                            
+	CracSlotSize                           *float64                       `json:"cracSlotSize,omitempty"`                          
+	Crunchv2                               *bool                          `json:"crunchv2,omitempty"`                              
+	DayOffLabel                            *string                        `json:"dayOffLabel,omitempty"`                           
+	DaysForward                            *float64                       `json:"daysForward,omitempty"`                           
+	DayUnavailableLabel                    *string                        `json:"dayUnavailableLabel,omitempty"`                   
+	DefaultServiceImgURL                   *string                        `json:"defaultServiceImgUrl,omitempty"`                  
+	DefaultWorkerImgURL                    *string                        `json:"defaultWorkerImgUrl,omitempty"`                   
+	DenySameTimeRecords                    *bool                          `json:"denySameTimeRecords,omitempty"`                   
+	DisabledTaxonomiesText                 *string                        `json:"disabledTaxonomiesText,omitempty"`                
+	DisableMobileWidget                    *bool                          `json:"disableMobileWidget,omitempty"`                   
+	DisableWidget                          *bool                          `json:"disableWidget,omitempty"`                         
+	DisableWidgetMessage                   *string                        `json:"disableWidgetMessage,omitempty"`                  
+	DiscountedPriceRounding                *FluffyDiscountedPriceRounding `json:"discountedPriceRounding,omitempty"`               
+	DisplaySlotSize                        *float64                       `json:"displaySlotSize,omitempty"`                       
+	DontRequireEmail                       *bool                          `json:"dontRequireEmail,omitempty"`                      
+	EmailIsMandatory                       *bool                          `json:"emailIsMandatory,omitempty"`                      
+	EnableOverrideFooter                   *bool                          `json:"enableOverrideFooter,omitempty"`                  
+	EnableWarningContactData               *bool                          `json:"enableWarningContactData,omitempty"`              
+	ExtraVisitors                          *bool                          `json:"extraVisitors,omitempty"`                         
+	FilterNonInsuranceSchedule             *bool                          `json:"filterNonInsuranceSchedule,omitempty"`            
+	HideAnyWorkerBooking                   *bool                          `json:"hideAnyWorkerBooking,omitempty"`                  
+	HideCallButton                         *bool                          `json:"hideCallButton,omitempty"`                        
+	HideEmptyDays                          *bool                          `json:"hideEmptyDays,omitempty"`                         
+	HideGBookingLogo                       *bool                          `json:"hideGBookingLogo,omitempty"`                      
+	HideGraySlots                          *bool                          `json:"hideGraySlots,omitempty"`                         
+	HideNewAppointmentButton               *bool                          `json:"hideNewAppointmentButton,omitempty"`              
+	HidePrices                             *bool                          `json:"hidePrices,omitempty"`                            
+	HideSocialNetworksAuthentication       *bool                          `json:"hideSocialNetworksAuthentication,omitempty"`      
+	InsuranceClientSupportPhone            []Phone                        `json:"insuranceClientSupportPhone"`                     
+	MaxServiceBooking                      *float64                       `json:"maxServiceBooking,omitempty"`                     
+	MaxTimeslotBooking                     *float64                       `json:"maxTimeslotBooking,omitempty"`                    
+	MostFreeEnable                         *bool                          `json:"mostFreeEnable,omitempty"`                        
+	MultiServiceBooking                    *bool                          `json:"multiServiceBooking,omitempty"`                   
+	MultiTimeslotBooking                   *bool                          `json:"multiTimeslotBooking,omitempty"`                  
+	MultiTimeslotBookingAllDays            *bool                          `json:"multiTimeslotBookingAllDays,omitempty"`           
+	NewWidgetTheme                         map[string]interface{}         `json:"newWidgetTheme,omitempty"`                        
+	NoDefaultImages                        *bool                          `json:"noDefaultImages,omitempty"`                       
+	OverrideFooter                         *string                        `json:"overrideFooter,omitempty"`                        
+	Payment                                *Payment                       `json:"payment,omitempty"`                               
+	PaymentProvider                        *PaymentProvider               `json:"paymentProvider,omitempty"`                       
+	RequireAgreement                       *bool                          `json:"requireAgreement,omitempty"`                      
+	RequireAgreementLink                   *string                        `json:"requireAgreementLink,omitempty"`                  
+	RevisionVersion                        *float64                       `json:"revisionVersion,omitempty"`                       
+	ShortLink                              *string                        `json:"shortLink,omitempty"`                             
+	ShowAllWorkers                         *bool                          `json:"showAllWorkers,omitempty"`                        
+	ShowClientAddress                      *bool                          `json:"showClientAddress,omitempty"`                     
+	ShowClientComment                      *bool                          `json:"showClientComment,omitempty"`                     
+	ShowDisabledTaxonomies                 *bool                          `json:"showDisabledTaxonomies,omitempty"`                
+	ShowDrinkQuestion                      *bool                          `json:"showDrinkQuestion,omitempty"`                     
+	ShowMap                                *bool                          `json:"showMap,omitempty"`                               
+	ShowSurnameFirst                       *bool                          `json:"showSurnameFirst,omitempty"`                      
+	ShowTalkQuestion                       *bool                          `json:"showTalkQuestion,omitempty"`                      
+	ShowTaxonomyConfirmationAlert          *bool                          `json:"showTaxonomyConfirmationAlert,omitempty"`         
+	SkipAuthentication                     *bool                          `json:"skipAuthentication,omitempty"`                    
+	SkipDaysForward                        *bool                          `json:"skipDaysForward,omitempty"`                       
+	SkipMobileMap                          *bool                          `json:"skipMobileMap,omitempty"`                         
+	SkipServiceDurationAlignment           *bool                          `json:"skipServiceDurationAlignment,omitempty"`          
+	SkipServiceSelection                   *bool                          `json:"skipServiceSelection,omitempty"`                  
+	SkipTimeSelection                      *bool                          `json:"skipTimeSelection,omitempty"`                     
+	SkipTimeSelectionServiceIDs            []string                       `json:"skipTimeSelectionServiceIDs"`                     
+	SkipWorkerSelectedServiceIDs           []string                       `json:"skipWorkerSelectedServiceIDs"`                    
+	SkipWorkerServicesSelection            *bool                          `json:"skipWorkerServicesSelection,omitempty"`           
+	SocialNetworkImage                     *string                        `json:"socialNetworkImage,omitempty"`                    
+	SocialSharing                          *FluffySocialSharing           `json:"socialSharing,omitempty"`                         
+	SortByMostFree                         *bool                          `json:"sortByMostFree,omitempty"`                        
+	SortWorkersByWorkload                  *bool                          `json:"sortWorkersByWorkload,omitempty"`                 
+	SplitInsuranceClient                   *bool                          `json:"splitInsuranceClient,omitempty"`                  
+	SplitName                              *bool                          `json:"splitName,omitempty"`                             
+	TentativeTTL                           *float64                       `json:"tentativeTTL,omitempty"`                          
+	Theme                                  *string                        `json:"theme,omitempty"`                                 
+	UseAppointmentReminder                 *bool                          `json:"useAppointmentReminder,omitempty"`                
+	UseBusinessScheduleForUnavailableLabel *bool                          `json:"useBusinessScheduleForUnavailableLabel,omitempty"`
+	UseClustersMap                         *bool                          `json:"useClustersMap,omitempty"`                        
+	UseCoupon                              *bool                          `json:"useCoupon,omitempty"`                             
+	UseCRAC                                *bool                          `json:"useCRAC,omitempty"`                               
+	UseDefaultServiceImg                   *bool                          `json:"useDefaultServiceImg,omitempty"`                  
+	UseDefaultWorkerImg                    *bool                          `json:"useDefaultWorkerImg,omitempty"`                   
+	UseDirectScheduleRead                  *UseDirectScheduleRead         `json:"useDirectScheduleRead,omitempty"`                 
+	UseInsuranceGuaranteeLetter            *bool                          `json:"useInsuranceGuaranteeLetter,omitempty"`           
+	UseInsuranceSelect                     *bool                          `json:"useInsuranceSelect,omitempty"`                    
+	UseMedAuth                             *bool                          `json:"useMedAuth,omitempty"`                            
+	UseMiddleName                          *bool                          `json:"useMiddleName,omitempty"`                         
+	UseNewReserveAPI                       *bool                          `json:"useNewReserveAPI,omitempty"`                      
+	UseResourcePageLoading                 *bool                          `json:"useResourcePageLoading,omitempty"`                
+	UseSortByName                          *bool                          `json:"useSortByName,omitempty"`                         
+	WarningContactDataText                 *string                        `json:"warningContactDataText,omitempty"`                
+	WidgetUseCRAC                          *bool                          `json:"widgetUseCRAC,omitempty"`                         
+	WithoutWorkers                         *bool                          `json:"withoutWorkers,omitempty"`                        
+	WorkerUnavailabilityText               *string                        `json:"worker_unavailability_text,omitempty"`            
+	WorkerNameReverse                      *bool                          `json:"workerNameReverse,omitempty"`                     
 }
 
-type BookableDateRanges struct {
+type FluffyBookableDateRanges struct {
 	Enabled *bool       `json:"enabled,omitempty"`
 	End     interface{} `json:"end"`              
 	Start   interface{} `json:"start"`            
 }
 
-type ClientBlockingSettings struct {
+type FluffyClientBlockingSettings struct {
 	AppointmentClientBlock     *bool    `json:"appointmentClientBlock,omitempty"`    
 	AppointmentClientBlockDays *float64 `json:"appointmentClientBlockDays,omitempty"`
 	AppointmentClientBlockText *string  `json:"appointmentClientBlockText,omitempty"`
@@ -877,12 +1275,12 @@ type ClientBlockingSettings struct {
 	BlockRepeatedRecordsText   *string  `json:"blockRepeatedRecordsText,omitempty"`  
 }
 
-type DiscountedPriceRounding struct {
+type FluffyDiscountedPriceRounding struct {
 	Rule  *Rule    `json:"rule,omitempty"` 
 	Value *float64 `json:"value,omitempty"`
 }
 
-type SocialSharing struct {
+type FluffySocialSharing struct {
 	Active          *bool         `json:"active,omitempty"`         
 	DiscountAmount  *float64      `json:"discountAmount"`           
 	DiscountEnabled *bool         `json:"discountEnabled,omitempty"`
@@ -957,14 +1355,14 @@ type ClientAddClientRequest struct {
 
 // параметры запроса
 type ClientAddClientRequestParams struct {
-	Business          FluffyBusiness `json:"business"`                   
+	Business          IndigoBusiness `json:"business"`                   
 	Client            Client         `json:"client"`                     
 	Profile           *ParamsProfile `json:"profile,omitempty"`          
 	SkipEmailCheck    *bool          `json:"skipEmailCheck,omitempty"`   
 	SkipProfileUpdate *bool          `json:"skipProfileUpdate,omitempty"`
 }
 
-type FluffyBusiness struct {
+type IndigoBusiness struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -1006,13 +1404,13 @@ type ClientAddClientResponseError struct {
 }
 
 type ClientAddClientResponseResult struct {
-	Business  *ResultBusiness `json:"business,omitempty"`
-	Client    Client          `json:"client"`            
-	Documents []interface{}   `json:"documents"`         
-	Profile   *ResultProfile  `json:"profile,omitempty"` 
+	Business  *IndecentBusiness `json:"business,omitempty"`
+	Client    Client            `json:"client"`            
+	Documents []interface{}     `json:"documents"`         
+	Profile   *ResultProfile    `json:"profile,omitempty"` 
 }
 
-type ResultBusiness struct {
+type IndecentBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -1021,17 +1419,9 @@ type ResultProfile struct {
 }
 
 type Models struct {
-	Business *Business `json:"Business"`
-	Client   Client    `json:"Client"`  
+	Business *ResultBusiness `json:"Business"`
+	Client   Client          `json:"Client"`  
 }
-
-// тип сортировки работника
-type WorkerSortingType string
-const (
-	MostFree WorkerSortingType = "most_free"
-	WorkerSortingTypeNone WorkerSortingType = "none"
-	Workload WorkerSortingType = "workload"
-)
 
 type AppointmentExtensionType string
 const (
@@ -1200,6 +1590,47 @@ const (
 	Surname Field = "surname"
 )
 
+type CracServer string
+const (
+	Crac CracServer = "CRAC"
+	CracProd3 CracServer = "CRAC_PROD3"
+)
+
+type Rule string
+const (
+	Custom Rule = "CUSTOM"
+	NearestInteger Rule = "NEAREST_INTEGER"
+	TwoDecimals Rule = "TWO_DECIMALS"
+)
+
+type Payment string
+const (
+	Optional Payment = "OPTIONAL"
+	Required Payment = "REQUIRED"
+	Without Payment = "WITHOUT"
+)
+
+type DiscountType string
+const (
+	DiscountTypePERCENT DiscountType = "PERCENT"
+)
+
+type UseDirectScheduleRead string
+const (
+	All UseDirectScheduleRead = "ALL"
+	Authenticated UseDirectScheduleRead = "AUTHENTICATED"
+	Guest UseDirectScheduleRead = "GUEST"
+	UseDirectScheduleReadNONE UseDirectScheduleRead = "NONE"
+)
+
+// тип сортировки работника
+type WorkerSortingType string
+const (
+	MostFree WorkerSortingType = "most_free"
+	WorkerSortingTypeNone WorkerSortingType = "none"
+	Workload WorkerSortingType = "workload"
+)
+
 // month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
 // (понедельник считается нечётным)
 type StartPeriod string
@@ -1276,39 +1707,6 @@ const (
 	Category TaxonomyType = "CATEGORY"
 	Service TaxonomyType = "SERVICE"
 	Subcategory TaxonomyType = "SUBCATEGORY"
-)
-
-type CracServer string
-const (
-	Crac CracServer = "CRAC"
-	CracProd3 CracServer = "CRAC_PROD3"
-)
-
-type Rule string
-const (
-	Custom Rule = "CUSTOM"
-	NearestInteger Rule = "NEAREST_INTEGER"
-	TwoDecimals Rule = "TWO_DECIMALS"
-)
-
-type Payment string
-const (
-	Optional Payment = "OPTIONAL"
-	Required Payment = "REQUIRED"
-	Without Payment = "WITHOUT"
-)
-
-type DiscountType string
-const (
-	DiscountTypePERCENT DiscountType = "PERCENT"
-)
-
-type UseDirectScheduleRead string
-const (
-	All UseDirectScheduleRead = "ALL"
-	Authenticated UseDirectScheduleRead = "AUTHENTICATED"
-	Guest UseDirectScheduleRead = "GUEST"
-	UseDirectScheduleReadNONE UseDirectScheduleRead = "NONE"
 )
 
 type YandexFeedType string
@@ -1432,31 +1830,31 @@ func (x *SuccessResponse) MarshalJSON() ([]byte, error) {
 	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.SuccessResponseClass != nil, x.SuccessResponseClass, false, nil, false, nil, true)
 }
 
-type Business struct {
-	AnythingArray []interface{}
-	Bool          *bool
-	BusinessClass *BusinessClass
-	Double        *float64
-	Integer       *int64
-	String        *string
+type BusinessBusiness struct {
+	AnythingArray  []interface{}
+	Bool           *bool
+	Double         *float64
+	FluffyBusiness *FluffyBusiness
+	Integer        *int64
+	String         *string
 }
 
-func (x *Business) UnmarshalJSON(data []byte) error {
+func (x *BusinessBusiness) UnmarshalJSON(data []byte) error {
 	x.AnythingArray = nil
-	x.BusinessClass = nil
-	var c BusinessClass
+	x.FluffyBusiness = nil
+	var c FluffyBusiness
 	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
 	if err != nil {
 		return err
 	}
 	if object {
-		x.BusinessClass = &c
+		x.FluffyBusiness = &c
 	}
 	return nil
 }
 
-func (x *Business) MarshalJSON() ([]byte, error) {
-	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.BusinessClass != nil, x.BusinessClass, false, nil, false, nil, true)
+func (x *BusinessBusiness) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.FluffyBusiness != nil, x.FluffyBusiness, false, nil, false, nil, true)
 }
 
 type AdditionalFields struct {
@@ -1538,6 +1936,33 @@ func (x *Phone) UnmarshalJSON(data []byte) error {
 
 func (x *Phone) MarshalJSON() ([]byte, error) {
 	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.PhoneClass != nil, x.PhoneClass, false, nil, false, nil, true)
+}
+
+type ResultBusiness struct {
+	AnythingArray  []interface{}
+	Bool           *bool
+	Double         *float64
+	Integer        *int64
+	StickyBusiness *StickyBusiness
+	String         *string
+}
+
+func (x *ResultBusiness) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.StickyBusiness = nil
+	var c StickyBusiness
+	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+		x.StickyBusiness = &c
+	}
+	return nil
+}
+
+func (x *ResultBusiness) MarshalJSON() ([]byte, error) {
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.StickyBusiness != nil, x.StickyBusiness, false, nil, false, nil, true)
 }
 
 // Данные о работнике бизнеса

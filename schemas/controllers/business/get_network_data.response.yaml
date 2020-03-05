@@ -1,0 +1,140 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/business/get_network_data.response.schema.json"
+title: "business.get_network_data.response"
+type: "object"
+definitions:
+  ErrorCodes:
+    type: "object"
+    required: ["error"]
+    additionalProperties: true
+    properties:
+      error:
+        oneOf:
+          - $ref: "../../common/partials/authErrorCodes.schema.json"
+          - type: "object"
+            required: ["code"]
+            additionalProperties: true
+            properties:
+              code:
+                description: "код ошибки"
+                type: "number"
+                enum:
+                  - -10000
+                  - -10200
+                meta:enum:
+                  -10000: "UNKNOWN_ERROR - Unknown error occurred"
+                  -10200: "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business"
+
+  ErrorResponse:
+    allOf:
+      - $ref: "../../common/errorResponse.schema.json"
+      - $ref: "#/definitions/ErrorCodes"
+
+  SuccessResponse:
+    type: "object"
+    properties:
+      jsonrpc:
+        description: "версия протокола (2.0)"
+        type: "string"
+        const: "2.0"
+      id:
+        description: "значение числового типа для идентификации запроса на сервере"
+        type: "number"
+      result:
+        description: "данные, передаваемые в ответ"
+        type: ["null", "object"]
+        additionalProperties: false
+        properties:
+          networkID:
+            type: "string"
+          networkName:
+            type: "string"
+          networkInfo:
+            type: "object"
+          businessConfiguration:
+            type: "object"
+          businesses:
+            type: "array"
+            items:
+              description: "указатель на бизнес в сети"
+              type: "object"
+              additionalProperties: false
+              required:
+                - "isMapBusiness"
+                - "businessID"
+                - "info"
+              properties:
+                isMapBusiness:
+                  type: "boolean"
+                  default: false
+                _id:
+                  type: "string"
+                businessID:
+                  type: "string"
+                info:
+                  $ref: "../../models/businessData.schema.json"
+          networkWidgetConfiguration:
+            description: "настройки показа сети в зависимости от источника, на котором размещено приложение"
+            type: "array"
+            items:
+              type: "object"
+              additionalProperties: false
+              required:
+                - "showBranchSelector"
+                - "showOnMap"
+                - "showDefaultService"
+                - "defaultServiceID"
+                - "businesses"
+                - "source"
+              properties:
+                showBranchSelector:
+                  type: "boolean"
+                showOnMap:
+                  type: "boolean"
+                showDefaultService:
+                  type: "boolean"
+                defaultServiceID:
+                  type: ["null", "string"]
+                businesses:
+                  type: "array"
+                  items:
+                    type: "object"
+                    additionalProperties: false
+                    required:
+                      - "active"
+                      - "internalID"
+                    properties:
+                      active:
+                        type: "boolean"
+                      _id:
+                        type: "string"
+                      internalID:
+                        type: "string"
+                _id:
+                  type: "string"
+                source:
+                  type: "string"
+          clientVIPPhones:
+            type: "array"
+            items:
+              type: "string"
+          grantGroups:
+            type: "array"
+            items:
+              type: "object"
+        required:
+          - "networkID"
+          - "networkInfo"
+          - "businessConfiguration"
+          - "businesses"
+          - "networkWidgetConfiguration"
+          - "clientVIPPhones"
+          - "grantGroups"
+    required:
+      - "jsonrpc"
+      - "id"
+      - "result"
+
+oneOf:
+  - $ref: "#/definitions/SuccessResponse"
+  - $ref: "#/definitions/ErrorResponse"

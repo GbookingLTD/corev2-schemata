@@ -8,6 +8,7 @@
 
 - [AdditionalFields](./models/additionalField.schema.md) – `schemas-json/models/additionalField.schema.json` (Unknown)
 - [Business](./models/business.schema.md) – `schemas-json/models/business.schema.json` (Unknown)
+- [Business](./models/businessData.schema.md) – `schemas-json/models/businessData.schema.json` (Unknown)
 - [Discount](./models/discount.schema.md) – `schemas-json/models/discount.schema.json` (Unknown)
 - [Phone](./models/phone.schema.md) – `schemas-json/models/phone.schema.json` (Unknown)
 - [Resource](./models/resource.schema.md) – `schemas-json/models/resource.schema.json` (Unknown)
@@ -39,10 +40,19 @@
 
 ## /controllers/business/
 
+- [business.get_network_data.request](./controllers/business/get_network_data.request.schema.md) –
+  `schemas-json/controllers/business/business.get_network_data.request.schema.json` (Unknown)
+- [business.get_network_data.response](./controllers/business/get_network_data.response.schema.md) –
+  `schemas-json/controllers/business/get_network_data.response.schema.json` (Unknown)
 - [business.get_profile_by_id.request](./controllers/business/get_profile_by_id.request.schema.md) –
   `schemas-json/controllers/business/get_profile_by_id.request.schema.json` (Unknown)
 - [business.get_profile_by_id.response](./controllers/business/get_profile_by_id.response.schema.md) –
   `schemas-json/controllers/business/get_profile_by_id.response.schema.json` (Unknown)
+
+## /common/partials/
+
+- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
+  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)
 
 ## /controllers/client/
 
@@ -50,8 +60,3 @@
   `schemas-json/controllers/client/add_client.request.schema.json` (Unknown)
 - [client.add_client.response](./controllers/client/add_client.response.schema.md) –
   `schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
-
-## /common/partials/
-
-- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
-  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)

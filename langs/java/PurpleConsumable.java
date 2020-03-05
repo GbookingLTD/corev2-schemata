@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Consumable {
+public class PurpleConsumable {
     private String extraID;
     private String name;
     private double quantity;

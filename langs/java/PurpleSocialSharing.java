@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class SocialSharing {
+public class PurpleSocialSharing {
     private Boolean active;
     private Double discountAmount;
     private Boolean discountEnabled;

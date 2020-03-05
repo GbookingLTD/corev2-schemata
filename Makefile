@@ -16,7 +16,7 @@ gen_java: clear_java
 		--array-type list
 
 clear_java:
-	rm ./langs/java/*
+	rm -f ./langs/java/*
 
 gen_csharp: clear_csharp
 	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l csharp \

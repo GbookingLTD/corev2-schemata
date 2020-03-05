@@ -136,15 +136,16 @@ export interface Controllers {
 }
 
 export interface BusinessController {
+    get_network_data:  GetNetworkData;
     get_profile_by_id: GetProfileById;
 }
 
-export interface GetProfileById {
-    request:  BusinessGetProfileByIdRequest;
-    response: BusinessGetProfileByIdResponse;
+export interface GetNetworkData {
+    request:  BusinessGetNetworkDataRequest;
+    response: BusinessGetNetworkDataResponse;
 }
 
-export interface BusinessGetProfileByIdRequest {
+export interface BusinessGetNetworkDataRequest {
     /**
      * авторизационные параметры
      */
@@ -163,109 +164,46 @@ export interface BusinessGetProfileByIdRequest {
     method: string;
     /**
      * параметры запроса
+     *
+     * параметры запроса business.get_network_data
      */
-    params: BusinessGetProfileByIdRequestParams;
+    params: BusinessGetNetworkDataRequestParams;
 }
 
 /**
  * параметры запроса
+ *
+ * параметры запроса business.get_network_data
  */
-export interface BusinessGetProfileByIdRequestParams {
-    business: PurpleBusiness;
+export interface BusinessGetNetworkDataRequestParams {
     /**
-     * если указано true - меняет формат представления discounts
+     * идентификатор сети
      */
-    desktop_discounts?: boolean;
+    networkID: number;
     /**
-     * если указано true - возвращает только активных работников (status == 'INACTIVE')
+     * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
+     * в массиве businesses
      */
-    only_active_workers?: boolean;
-    /**
-     * если указано true - возвращает всех работников в том числе и неактивных (status ==
-     * 'INACTIVE')
-     */
-    show_inactive_workers?: boolean;
-    /**
-     * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
-     */
-    showcase_business_id?: Id;
-    /**
-     * если указано true - не приминяет сортировку работников
-     */
-    skip_worker_sorting?: boolean;
-    /**
-     * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
-     */
-    with_billing?: boolean;
-    /**
-     * если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
-     * (недоступно для роли guest)
-     */
-    with_bop?: boolean;
-    /**
-     * если указано true - возвращает кампании скидочных купонов в поле campaigns
-     */
-    with_campaigns?: boolean;
-    /**
-     * если указано true - возвращает список скидочных акций в поле discounts
-     */
-    with_discounts?: boolean;
-    /**
-     * дата начала расписания, для которого нужно получить скидочные акции
-     */
-    with_discounts_from?: Date;
-    /**
-     * дата окончания расписания, для которого нужно получить скидочные акции
-     */
-    with_discounts_to?: Date;
-    /**
-     * если указано true - возвращает информацию о других филиалах сети в поле networks
-     */
-    with_networks?: boolean;
-    /**
-     * если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для
-     * каждой таксономии (недоступно для роли guest)
-     */
-    with_taxonomy_showcase?: boolean;
-    /**
-     * тип сортировки работника
-     */
-    worker_sorting_type?: WorkerSortingType;
+    with_business_info?: boolean;
 }
 
-export interface PurpleBusiness {
-    /**
-     * идентификатор бизнеса
-     */
-    id: string;
-}
-
-/**
- * тип сортировки работника
- */
-export enum WorkerSortingType {
-    MostFree = "most_free",
-    None = "none",
-    Workload = "workload",
-}
-
-export interface BusinessGetProfileByIdResponse {
+export interface BusinessGetNetworkDataResponse {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id?: number;
+    id: number;
     /**
      * версия протокола (2.0)
      */
-    jsonrpc?: string;
+    jsonrpc: string;
     /**
      * данные, передаваемые в ответ
      */
-    result?: BusinessGetProfileByIdResponseResult;
+    result?: ResultClass | null;
     /**
      * объект, содержащий информацию об ошибке
      */
-    error?: BusinessGetProfileByIdResponseError;
+    error?: BusinessGetNetworkDataResponseError;
 }
 
 /**
@@ -273,7 +211,7 @@ export interface BusinessGetProfileByIdResponse {
  *
  * Код ошибки авторизации
  */
-export interface BusinessGetProfileByIdResponseError {
+export interface BusinessGetNetworkDataResponseError {
     /**
      * код ошибки
      */
@@ -288,36 +226,46 @@ export interface BusinessGetProfileByIdResponseError {
     message: string;
 }
 
-/**
- * данные, передаваемые в ответ
- */
-export interface BusinessGetProfileByIdResponseResult {
-    active?:                boolean;
-    business:               Business;
-    freeSms?:               number;
-    monthlyFreeSms?:        number;
-    networks?:              Network[];
-    top_services?:          ResultTopServices;
-    useDefaultSmsTemplate?: boolean;
-    yandexFeedType?:        YandexFeedType;
+export interface ResultClass {
+    businessConfiguration: { [key: string]: any };
+    businesses:            PurpleBusiness[];
+    clientVIPPhones:       string[];
+    grantGroups:           { [key: string]: any }[];
+    networkID:             string;
+    networkInfo:           { [key: string]: any };
+    networkName?:          string;
+    /**
+     * настройки показа сети в зависимости от источника, на котором размещено приложение
+     */
+    networkWidgetConfiguration: NetworkWidgetConfiguration[];
 }
 
-export type Business = any[] | boolean | BusinessClass | number | number | null | string;
+/**
+ * указатель на бизнес в сети
+ */
+export interface PurpleBusiness {
+    _id?:          string;
+    businessID:    string;
+    info:          BusinessBusiness;
+    isMapBusiness: boolean;
+}
 
-export interface BusinessClass {
+export type BusinessBusiness = any[] | boolean | FluffyBusiness | number | number | null | string;
+
+export interface FluffyBusiness {
     active?:                        boolean;
-    additionalSettings?:            AdditionalSettings;
+    additionalSettings?:            PurpleAdditionalSettings;
     allowCategoryBooking?:          boolean;
-    backoffice_configuration?:      BackofficeConfigurationObject;
-    backofficeConfiguration?:       BackofficeConfigurationClass;
+    backoffice_configuration?:      FluffyBackofficeConfiguration;
+    backofficeConfiguration?:       PurpleBackofficeConfiguration;
     backofficeType?:                BackofficeType;
-    cabinets?:                      Cabinet[];
+    cabinets?:                      PurpleCabinet[];
     cabinetsEnabled?:               boolean;
-    callback_widget_configuration?: CallbackWidgetConfiguration;
-    consumables?:                   Consumable[];
+    callback_widget_configuration?: PurpleCallbackWidgetConfiguration;
+    consumables?:                   PurpleConsumable[];
     created_on?:                    Date;
     defaultFilteredWorkers?:        string[];
-    departments?:                   Department[];
+    departments?:                   PurpleDepartment[];
     designs?:                       { [key: string]: any }[];
     extraID?:                       string;
     flatTaxonomyDisplay?:           boolean;
@@ -325,21 +273,19 @@ export interface BusinessClass {
     group?:                         Group;
     id?:                            string;
     integration_data?:              { [key: string]: any };
-    mini_widget_configuration:      MiniWidgetConfiguration;
+    mini_widget_configuration:      PurpleMiniWidgetConfiguration;
     mobileData?:                    any[];
     notifications?:                 any[];
-    resources:                      Resource[];
     stateLevelHolidaysNotWorking?:  boolean;
-    taxonomies:                     BusinessTaxonomy[];
-    taxonomiesComplex?:             TaxonomiesComplex[];
+    taxonomiesComplex?:             PurpleTaxonomiesComplex[];
     taxonomy_tree_capacity?:        { [key: string]: any }[];
-    top_services?:                  BusinessTopServices;
+    top_services?:                  PurpleTopServices;
     vertical?:                      string;
-    widget_configuration:           WidgetConfiguration;
+    widget_configuration:           PurpleWidgetConfiguration;
     yandexFeedType?:                string;
 }
 
-export interface AdditionalSettings {
+export interface PurpleAdditionalSettings {
     appointmentExtensionAmount?: number;
     appointmentExtensionType?:   AppointmentExtensionType;
 }
@@ -349,7 +295,7 @@ export enum AppointmentExtensionType {
     Percent = "PERCENT",
 }
 
-export interface BackofficeConfigurationClass {
+export interface PurpleBackofficeConfiguration {
     adjacentTaxonomiesTreshold?:                      number;
     allowHideServiceForBooking?:                      boolean;
     allowHideWorkersFromSchdeule?:                    boolean;
@@ -483,29 +429,29 @@ export enum BackofficeType {
     Mu = "MU",
 }
 
-export interface BackofficeConfigurationObject {
+export interface FluffyBackofficeConfiguration {
     enableMasterImportance?: boolean;
     resourceTimetableType?:  ResourceTimetableType;
 }
 
-export interface Cabinet {
+export interface PurpleCabinet {
     active?: boolean;
     id?:     string;
     name?:   string;
 }
 
-export interface CallbackWidgetConfiguration {
+export interface PurpleCallbackWidgetConfiguration {
     title1?: string;
     title2?: string;
 }
 
-export interface Consumable {
+export interface PurpleConsumable {
     extraID:  string;
     name:     string;
     quantity: number;
 }
 
-export interface Department {
+export interface PurpleDepartment {
     id:   string;
     id_?: number;
     name: string;
@@ -581,7 +527,7 @@ export interface BusinessInfo {
     smsDuplicateFilter?:         SmsDuplicateFilter;
     social_network?:             SocialNetworkSchema[];
     timetable?:                  Timetable;
-    timezone?:                   string;
+    timezone?:                   null | string;
     verticalTranslation?:        VerticalTranslation;
     website?:                    string;
 }
@@ -829,7 +775,7 @@ export enum Group {
     Latvian = "LATVIAN",
 }
 
-export interface MiniWidgetConfiguration {
+export interface PurpleMiniWidgetConfiguration {
     fields?: Field[];
     title1?: string;
     title2?: string;
@@ -839,6 +785,544 @@ export enum Field {
     Email = "email",
     Name = "name",
     Surname = "surname",
+}
+
+export interface PurpleTaxonomiesComplex {
+    name?:       string;
+    taxonomies?: string[];
+}
+
+export interface PurpleTopServices {
+    services?: any[];
+    status?:   string;
+}
+
+export interface PurpleWidgetConfiguration {
+    additionalName?:                         string;
+    alignmentTaxonomySlots?:                 boolean;
+    allowAutoSelect?:                        boolean;
+    allowBookVisitor?:                       boolean;
+    allowSkipTimeCheck?:                     boolean;
+    appointment_confirmation_text?:          string;
+    appointment_confirmation_title?:         string;
+    askClientBirthday?:                      boolean;
+    askClientGender?:                        boolean;
+    bookableDateRanges?:                     PurpleBookableDateRanges;
+    bookableMonthsCount?:                    number;
+    calendarMode?:                           boolean;
+    calendarModeHideTime?:                   boolean;
+    clientBlockingSettings?:                 PurpleClientBlockingSettings;
+    clientCommentTitle?:                     boolean;
+    cracServer?:                             CracServer;
+    cracSlotSize?:                           number;
+    crunchv2?:                               boolean;
+    dayOffLabel?:                            string;
+    daysForward?:                            number;
+    dayUnavailableLabel?:                    string;
+    defaultServiceImgUrl?:                   string;
+    defaultWorkerImgUrl?:                    string;
+    denySameTimeRecords?:                    boolean;
+    disabledTaxonomiesText?:                 string;
+    disableMobileWidget?:                    boolean;
+    disableWidget?:                          boolean;
+    disableWidgetMessage?:                   string;
+    discountedPriceRounding?:                PurpleDiscountedPriceRounding;
+    displaySlotSize?:                        number;
+    dontRequireEmail?:                       boolean;
+    emailIsMandatory?:                       boolean;
+    enableOverrideFooter?:                   boolean;
+    enableWarningContactData?:               boolean;
+    extraVisitors?:                          boolean;
+    filterNonInsuranceSchedule?:             boolean;
+    hideAnyWorkerBooking?:                   boolean;
+    hideCallButton?:                         boolean;
+    hideEmptyDays?:                          boolean;
+    hideGBookingLogo?:                       boolean;
+    hideGraySlots?:                          boolean;
+    hideNewAppointmentButton?:               boolean;
+    hidePrices?:                             boolean;
+    hideSocialNetworksAuthentication?:       boolean;
+    insuranceClientSupportPhone?:            Phone[];
+    maxServiceBooking?:                      number;
+    maxTimeslotBooking?:                     number;
+    mostFreeEnable?:                         boolean;
+    multiServiceBooking?:                    boolean;
+    multiTimeslotBooking?:                   boolean;
+    multiTimeslotBookingAllDays?:            boolean;
+    newWidgetTheme?:                         { [key: string]: any };
+    noDefaultImages?:                        boolean;
+    overrideFooter?:                         string;
+    payment?:                                Payment;
+    paymentProvider?:                        PaymentProvider;
+    requireAgreement?:                       boolean;
+    requireAgreementLink?:                   string;
+    revisionVersion?:                        number;
+    shortLink?:                              string;
+    showAllWorkers?:                         boolean;
+    showClientAddress?:                      boolean;
+    showClientComment?:                      boolean;
+    showDisabledTaxonomies?:                 boolean;
+    showDrinkQuestion?:                      boolean;
+    showMap?:                                boolean;
+    showSurnameFirst?:                       boolean;
+    showTalkQuestion?:                       boolean;
+    showTaxonomyConfirmationAlert?:          boolean;
+    skipAuthentication?:                     boolean;
+    skipDaysForward?:                        boolean;
+    skipMobileMap?:                          boolean;
+    skipServiceDurationAlignment?:           boolean;
+    skipServiceSelection?:                   boolean;
+    skipTimeSelection?:                      boolean;
+    skipTimeSelectionServiceIDs?:            string[];
+    skipWorkerSelectedServiceIDs?:           string[];
+    skipWorkerServicesSelection?:            boolean;
+    socialNetworkImage?:                     string;
+    socialSharing?:                          PurpleSocialSharing;
+    sortByMostFree?:                         boolean;
+    sortWorkersByWorkload?:                  boolean;
+    splitInsuranceClient?:                   boolean;
+    splitName?:                              boolean;
+    tentativeTTL?:                           number;
+    theme?:                                  string;
+    useAppointmentReminder?:                 boolean;
+    useBusinessScheduleForUnavailableLabel?: boolean;
+    useClustersMap?:                         boolean;
+    useCoupon?:                              boolean;
+    useCRAC?:                                boolean;
+    useDefaultServiceImg?:                   boolean;
+    useDefaultWorkerImg?:                    boolean;
+    useDirectScheduleRead?:                  UseDirectScheduleRead;
+    useInsuranceGuaranteeLetter?:            boolean;
+    useInsuranceSelect?:                     boolean;
+    useMedAuth?:                             boolean;
+    useMiddleName?:                          boolean;
+    useNewReserveAPI?:                       boolean;
+    useResourcePageLoading?:                 boolean;
+    useSortByName?:                          boolean;
+    warningContactDataText?:                 string;
+    widgetUseCRAC?:                          boolean;
+    withoutWorkers?:                         boolean;
+    worker_unavailability_text?:             string;
+    workerNameReverse?:                      boolean;
+}
+
+export interface PurpleBookableDateRanges {
+    enabled?: boolean;
+    end?:     any;
+    start?:   any;
+}
+
+export interface PurpleClientBlockingSettings {
+    appointmentClientBlock?:     boolean;
+    appointmentClientBlockDays?: number;
+    appointmentClientBlockText?: string;
+    blockIfFutureRecordExists?:  boolean;
+    blockRepeatedRecordsCount?:  number;
+    blockRepeatedRecordsRange?:  number;
+    blockRepeatedRecordsText?:   string;
+}
+
+export enum CracServer {
+    Crac = "CRAC",
+    CracProd3 = "CRAC_PROD3",
+}
+
+export interface PurpleDiscountedPriceRounding {
+    rule?:  Rule;
+    value?: number;
+}
+
+export enum Rule {
+    Custom = "CUSTOM",
+    NearestInteger = "NEAREST_INTEGER",
+    TwoDecimals = "TWO_DECIMALS",
+}
+
+export enum Payment {
+    Optional = "OPTIONAL",
+    Required = "REQUIRED",
+    Without = "WITHOUT",
+}
+
+export interface PurpleSocialSharing {
+    active?:          boolean;
+    discountAmount?:  number | null;
+    discountEnabled?: boolean;
+    discountType?:    DiscountType;
+    text?:            null | string;
+    widgetText?:      null | string;
+}
+
+export enum DiscountType {
+    Percent = "PERCENT",
+}
+
+export enum UseDirectScheduleRead {
+    All = "ALL",
+    Authenticated = "AUTHENTICATED",
+    Guest = "GUEST",
+    None = "NONE",
+}
+
+export interface NetworkWidgetConfiguration {
+    _id?:               string;
+    businesses:         NetworkWidgetConfigurationBusiness[];
+    defaultServiceID:   null | string;
+    showBranchSelector: boolean;
+    showDefaultService: boolean;
+    showOnMap:          boolean;
+    source:             string;
+}
+
+export interface NetworkWidgetConfigurationBusiness {
+    _id?:       string;
+    active:     boolean;
+    internalID: string;
+}
+
+export interface GetProfileById {
+    request:  BusinessGetProfileByIdRequest;
+    response: BusinessGetProfileByIdResponse;
+}
+
+export interface BusinessGetProfileByIdRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     *
+     * параметры запроса business.get_profile_by_id
+     */
+    params: BusinessGetProfileByIdRequestParams;
+}
+
+/**
+ * параметры запроса
+ *
+ * параметры запроса business.get_profile_by_id
+ */
+export interface BusinessGetProfileByIdRequestParams {
+    business: TentacledBusiness;
+    /**
+     * если указано true - меняет формат представления discounts
+     */
+    desktop_discounts?: boolean;
+    /**
+     * если указано true - возвращает только активных работников (status == 'INACTIVE')
+     */
+    only_active_workers?: boolean;
+    /**
+     * если указано true - возвращает всех работников в том числе и неактивных (status ==
+     * 'INACTIVE')
+     */
+    show_inactive_workers?: boolean;
+    /**
+     * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
+     */
+    showcase_business_id?: Id;
+    /**
+     * если указано true - не приминяет сортировку работников
+     */
+    skip_worker_sorting?: boolean;
+    /**
+     * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
+     */
+    with_billing?: boolean;
+    /**
+     * если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
+     * (недоступно для роли guest)
+     */
+    with_bop?: boolean;
+    /**
+     * если указано true - возвращает кампании скидочных купонов в поле campaigns
+     */
+    with_campaigns?: boolean;
+    /**
+     * если указано true - возвращает список скидочных акций в поле discounts
+     */
+    with_discounts?: boolean;
+    /**
+     * дата начала расписания, для которого нужно получить скидочные акции
+     */
+    with_discounts_from?: Date;
+    /**
+     * дата окончания расписания, для которого нужно получить скидочные акции
+     */
+    with_discounts_to?: Date;
+    /**
+     * если указано true - возвращает информацию о других филиалах сети в поле networks
+     */
+    with_networks?: boolean;
+    /**
+     * если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для
+     * каждой таксономии (недоступно для роли guest)
+     */
+    with_taxonomy_showcase?: boolean;
+    /**
+     * тип сортировки работника
+     */
+    worker_sorting_type?: WorkerSortingType;
+}
+
+export interface TentacledBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: string;
+}
+
+/**
+ * тип сортировки работника
+ */
+export enum WorkerSortingType {
+    MostFree = "most_free",
+    None = "none",
+    Workload = "workload",
+}
+
+export interface BusinessGetProfileByIdResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id?: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: BusinessGetProfileByIdResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: BusinessGetProfileByIdResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface BusinessGetProfileByIdResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+/**
+ * данные, передаваемые в ответ
+ */
+export interface BusinessGetProfileByIdResponseResult {
+    active?:                boolean;
+    business:               ResultBusiness;
+    freeSms?:               number;
+    monthlyFreeSms?:        number;
+    networks?:              Network[];
+    top_services?:          ResultTopServices;
+    useDefaultSmsTemplate?: boolean;
+    yandexFeedType?:        YandexFeedType;
+}
+
+export type ResultBusiness = any[] | boolean | StickyBusiness | number | number | null | string;
+
+export interface StickyBusiness {
+    active?:                        boolean;
+    additionalSettings?:            FluffyAdditionalSettings;
+    allowCategoryBooking?:          boolean;
+    backoffice_configuration?:      StickyBackofficeConfiguration;
+    backofficeConfiguration?:       TentacledBackofficeConfiguration;
+    backofficeType?:                BackofficeType;
+    cabinets?:                      FluffyCabinet[];
+    cabinetsEnabled?:               boolean;
+    callback_widget_configuration?: FluffyCallbackWidgetConfiguration;
+    consumables?:                   FluffyConsumable[];
+    created_on?:                    Date;
+    defaultFilteredWorkers?:        string[];
+    departments?:                   FluffyDepartment[];
+    designs?:                       { [key: string]: any }[];
+    extraID?:                       string;
+    flatTaxonomyDisplay?:           boolean;
+    general_info:                   BusinessInfo;
+    group?:                         Group;
+    id?:                            string;
+    integration_data?:              { [key: string]: any };
+    mini_widget_configuration:      FluffyMiniWidgetConfiguration;
+    mobileData?:                    any[];
+    notifications?:                 any[];
+    resources:                      Resource[];
+    stateLevelHolidaysNotWorking?:  boolean;
+    taxonomies:                     BusinessTaxonomy[];
+    taxonomiesComplex?:             FluffyTaxonomiesComplex[];
+    taxonomy_tree_capacity?:        { [key: string]: any }[];
+    top_services?:                  FluffyTopServices;
+    vertical?:                      string;
+    widget_configuration:           FluffyWidgetConfiguration;
+    yandexFeedType?:                string;
+}
+
+export interface FluffyAdditionalSettings {
+    appointmentExtensionAmount?: number;
+    appointmentExtensionType?:   AppointmentExtensionType;
+}
+
+export interface TentacledBackofficeConfiguration {
+    adjacentTaxonomiesTreshold?:                      number;
+    allowHideServiceForBooking?:                      boolean;
+    allowHideWorkersFromSchdeule?:                    boolean;
+    allowSmsTranslit?:                                boolean;
+    appointmentFutureMoving?:                         boolean;
+    blockNotificationForAnyAvailableAdjacentService?: boolean;
+    cabinetsEnabled?:                                 boolean;
+    checkClientOverlapping?:                          boolean;
+    customOnlinePaymentConfirmationTemplate?:         string;
+    defaultGTScheduleDayView?:                        boolean;
+    disableAppointmentClientInlineEditor?:            boolean;
+    editAppExtraId?:                                  boolean;
+    editTaxonomyChildren?:                            boolean;
+    editTaxonomyVisitType?:                           boolean;
+    enableBlackList?:                                 boolean;
+    enableCalculateShedule?:                          boolean;
+    enableClientCard?:                                boolean;
+    enableClientLanguage?:                            boolean;
+    enableClientMedicalCardReport?:                   boolean;
+    enableCustomOnlinePaymentConfirmation?:           boolean;
+    enableExtendedPhone?:                             boolean;
+    enableExtendedRecordsClientStatistics?:           boolean;
+    enableMasterImportance?:                          boolean;
+    enableServiceTimeLimit?:                          boolean;
+    enableSourceChoice?:                              boolean;
+    enableTaxonomyChildrenAgeCheck?:                  boolean;
+    exportToExcelRemovedClients?:                     boolean;
+    feedbackCustomerPortalMessage?:                   string;
+    feedbackCustomerPortalThankYouMessage?:           string;
+    feedbackCustomerPortalTitle?:                     string;
+    feedBackMinRating?:                               FeedBackMinRating;
+    finId?:                                           string;
+    finName?:                                         string;
+    hideCustomerPortalFooter?:                        boolean;
+    highlightedResource?:                             boolean;
+    manualExceptionSupport?:                          boolean;
+    noInternetAlert?:                                 boolean;
+    pastTimeEdit?:                                    number;
+    paymentProvider?:                                 PaymentProvider;
+    readonlyResourceSchedule?:                        boolean;
+    resourceTimetableType?:                           ResourceTimetableType;
+    revisionVersion?:                                 number;
+    schduleWeekViewIsDefault?:                        boolean;
+    scheduleDefaultWorkersLimit?:                     number;
+    schedulerWeekViewType?:                           SchedulerWeekViewType;
+    scheduleWorkerHours?:                             boolean;
+    showAdditionalFields?:                            boolean;
+    showAddress?:                                     boolean;
+    showBirthDate?:                                   boolean;
+    showClientAppear?:                                boolean;
+    showClientAppearOnSchedule?:                      boolean;
+    showClientBirthdayFilter?:                        boolean;
+    showClientContractNumber?:                        boolean;
+    showClientImage?:                                 boolean;
+    showClientPayment?:                               boolean;
+    showDefaulterBlockscreen?:                        boolean;
+    showDeliveryStatus?:                              boolean;
+    showDepartmentFilter?:                            boolean;
+    showDepartments?:                                 boolean;
+    showDepartmentsConfiguration?:                    boolean;
+    showEmail?:                                       boolean;
+    showExtraClientInfo?:                             boolean;
+    showFax?:                                         boolean;
+    showFiredWorkerAppointmentAlert?:                 boolean;
+    showFirstAvailableSlot?:                          boolean;
+    showGapWindow?:                                   boolean;
+    showGender?:                                      boolean;
+    showGenderInRecords?:                             boolean;
+    showGeneratableReportsScreen?:                    boolean;
+    showHouseNumber?:                                 boolean;
+    showIsraelCity?:                                  boolean;
+    showKupatHolim?:                                  boolean;
+    showLeadsScreen?:                                 boolean;
+    showManualChanges?:                               boolean;
+    showPassportId?:                                  boolean;
+    showRooms?:                                       boolean;
+    showSeasonTickets?:                               boolean;
+    showTaxonomyChildren?:                            boolean;
+    showTaxonomyLocalization?:                        boolean;
+    showTaxonomyVisitType?:                           boolean;
+    showTestRecord?:                                  boolean;
+    showUTM?:                                         boolean;
+    showWidgetColorTheme?:                            boolean;
+    showWorkerDescriptionInEvent?:                    boolean;
+    showWorkerExtraId?:                               boolean;
+    showWorkerStatus?:                                boolean;
+    skipAppointmentPriceUpdate?:                      boolean;
+    skipCancelIfClientNotAppear?:                     boolean;
+    skipServiceFiltering?:                            boolean;
+    splitFullNameXlsExport?:                          boolean;
+    stateLevelHolidays?:                              { [key: string]: any }[];
+    stateLevelHolidaysNotWorking?:                    boolean;
+    taxonomyChildrenMaxAge?:                          number;
+    useAdditionalDurations?:                          boolean;
+    useAdjacentTaxonomies?:                           boolean;
+    useAdjacentTaxonomiesSlotSplitting?:              boolean;
+    useGtAppMethod?:                                  boolean;
+    workWeekEnd?:                                     number;
+    workWeekStart?:                                   number;
+}
+
+export interface StickyBackofficeConfiguration {
+    enableMasterImportance?: boolean;
+    resourceTimetableType?:  ResourceTimetableType;
+}
+
+export interface FluffyCabinet {
+    active?: boolean;
+    id?:     string;
+    name?:   string;
+}
+
+export interface FluffyCallbackWidgetConfiguration {
+    title1?: string;
+    title2?: string;
+}
+
+export interface FluffyConsumable {
+    extraID:  string;
+    name:     string;
+    quantity: number;
+}
+
+export interface FluffyDepartment {
+    id:   string;
+    id_?: number;
+    name: string;
+}
+
+export interface FluffyMiniWidgetConfiguration {
+    fields?: Field[];
+    title1?: string;
+    title2?: string;
 }
 
 /**
@@ -1128,7 +1612,7 @@ export interface Info {
     smsDuplicateFilter?:         SmsDuplicateFilter;
     social_network?:             SocialNetworkSchema[];
     timetable?:                  Timetable;
-    timezone?:                   string;
+    timezone?:                   null | string;
     verticalTranslation?:        VerticalTranslation;
     website?:                    string;
 }
@@ -1426,17 +1910,17 @@ export enum TaxonomyType {
     Subcategory = "SUBCATEGORY",
 }
 
-export interface TaxonomiesComplex {
+export interface FluffyTaxonomiesComplex {
     name?:       string;
     taxonomies?: string[];
 }
 
-export interface BusinessTopServices {
+export interface FluffyTopServices {
     services?: any[];
     status?:   string;
 }
 
-export interface WidgetConfiguration {
+export interface FluffyWidgetConfiguration {
     additionalName?:                         string;
     alignmentTaxonomySlots?:                 boolean;
     allowAutoSelect?:                        boolean;
@@ -1446,11 +1930,11 @@ export interface WidgetConfiguration {
     appointment_confirmation_title?:         string;
     askClientBirthday?:                      boolean;
     askClientGender?:                        boolean;
-    bookableDateRanges?:                     BookableDateRanges;
+    bookableDateRanges?:                     FluffyBookableDateRanges;
     bookableMonthsCount?:                    number;
     calendarMode?:                           boolean;
     calendarModeHideTime?:                   boolean;
-    clientBlockingSettings?:                 ClientBlockingSettings;
+    clientBlockingSettings?:                 FluffyClientBlockingSettings;
     clientCommentTitle?:                     boolean;
     cracServer?:                             CracServer;
     cracSlotSize?:                           number;
@@ -1465,7 +1949,7 @@ export interface WidgetConfiguration {
     disableMobileWidget?:                    boolean;
     disableWidget?:                          boolean;
     disableWidgetMessage?:                   string;
-    discountedPriceRounding?:                DiscountedPriceRounding;
+    discountedPriceRounding?:                FluffyDiscountedPriceRounding;
     displaySlotSize?:                        number;
     dontRequireEmail?:                       boolean;
     emailIsMandatory?:                       boolean;
@@ -1516,7 +2000,7 @@ export interface WidgetConfiguration {
     skipWorkerSelectedServiceIDs?:           string[];
     skipWorkerServicesSelection?:            boolean;
     socialNetworkImage?:                     string;
-    socialSharing?:                          SocialSharing;
+    socialSharing?:                          FluffySocialSharing;
     sortByMostFree?:                         boolean;
     sortWorkersByWorkload?:                  boolean;
     splitInsuranceClient?:                   boolean;
@@ -1545,13 +2029,13 @@ export interface WidgetConfiguration {
     workerNameReverse?:                      boolean;
 }
 
-export interface BookableDateRanges {
+export interface FluffyBookableDateRanges {
     enabled?: boolean;
     end?:     any;
     start?:   any;
 }
 
-export interface ClientBlockingSettings {
+export interface FluffyClientBlockingSettings {
     appointmentClientBlock?:     boolean;
     appointmentClientBlockDays?: number;
     appointmentClientBlockText?: string;
@@ -1561,46 +2045,18 @@ export interface ClientBlockingSettings {
     blockRepeatedRecordsText?:   string;
 }
 
-export enum CracServer {
-    Crac = "CRAC",
-    CracProd3 = "CRAC_PROD3",
-}
-
-export interface DiscountedPriceRounding {
+export interface FluffyDiscountedPriceRounding {
     rule?:  Rule;
     value?: number;
 }
 
-export enum Rule {
-    Custom = "CUSTOM",
-    NearestInteger = "NEAREST_INTEGER",
-    TwoDecimals = "TWO_DECIMALS",
-}
-
-export enum Payment {
-    Optional = "OPTIONAL",
-    Required = "REQUIRED",
-    Without = "WITHOUT",
-}
-
-export interface SocialSharing {
+export interface FluffySocialSharing {
     active?:          boolean;
     discountAmount?:  number | null;
     discountEnabled?: boolean;
     discountType?:    DiscountType;
     text?:            null | string;
     widgetText?:      null | string;
-}
-
-export enum DiscountType {
-    Percent = "PERCENT",
-}
-
-export enum UseDirectScheduleRead {
-    All = "ALL",
-    Authenticated = "AUTHENTICATED",
-    Guest = "GUEST",
-    None = "NONE",
 }
 
 export interface Network {
@@ -1695,14 +2151,14 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business:           FluffyBusiness;
+    business:           IndigoBusiness;
     client:             Client;
     profile?:           ParamsProfile;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
 }
 
-export interface FluffyBusiness {
+export interface IndigoBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -1784,13 +2240,13 @@ export interface ClientAddClientResponseError {
 }
 
 export interface ClientAddClientResponseResult {
-    business?:  ResultBusiness;
+    business?:  IndecentBusiness;
     client:     Client;
     documents?: any[];
     profile?:   ResultProfile;
 }
 
-export interface ResultBusiness {
+export interface IndecentBusiness {
     id: string;
 }
 
@@ -1799,7 +2255,7 @@ export interface ResultProfile {
 }
 
 export interface Models {
-    Business: Business;
+    Business: ResultBusiness;
     Client:   Client;
 }
 
@@ -1886,28 +2342,52 @@ export class Convert {
         return JSON.stringify(uncast(value, r("BusinessController")), null, 2);
     }
 
-    public static toGetProfileById(json: string): GetProfileById {
-        return cast(JSON.parse(json), r("GetProfileById"));
+    public static toGetNetworkData(json: string): GetNetworkData {
+        return cast(JSON.parse(json), r("GetNetworkData"));
     }
 
-    public static getProfileByIdToJson(value: GetProfileById): string {
-        return JSON.stringify(uncast(value, r("GetProfileById")), null, 2);
+    public static getNetworkDataToJson(value: GetNetworkData): string {
+        return JSON.stringify(uncast(value, r("GetNetworkData")), null, 2);
     }
 
-    public static toBusinessGetProfileByIdRequest(json: string): BusinessGetProfileByIdRequest {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdRequest"));
+    public static toBusinessGetNetworkDataRequest(json: string): BusinessGetNetworkDataRequest {
+        return cast(JSON.parse(json), r("BusinessGetNetworkDataRequest"));
     }
 
-    public static businessGetProfileByIdRequestToJson(value: BusinessGetProfileByIdRequest): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequest")), null, 2);
+    public static businessGetNetworkDataRequestToJson(value: BusinessGetNetworkDataRequest): string {
+        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataRequest")), null, 2);
     }
 
-    public static toBusinessGetProfileByIdRequestParams(json: string): BusinessGetProfileByIdRequestParams {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdRequestParams"));
+    public static toBusinessGetNetworkDataRequestParams(json: string): BusinessGetNetworkDataRequestParams {
+        return cast(JSON.parse(json), r("BusinessGetNetworkDataRequestParams"));
     }
 
-    public static businessGetProfileByIdRequestParamsToJson(value: BusinessGetProfileByIdRequestParams): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequestParams")), null, 2);
+    public static businessGetNetworkDataRequestParamsToJson(value: BusinessGetNetworkDataRequestParams): string {
+        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataRequestParams")), null, 2);
+    }
+
+    public static toBusinessGetNetworkDataResponse(json: string): BusinessGetNetworkDataResponse {
+        return cast(JSON.parse(json), r("BusinessGetNetworkDataResponse"));
+    }
+
+    public static businessGetNetworkDataResponseToJson(value: BusinessGetNetworkDataResponse): string {
+        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponse")), null, 2);
+    }
+
+    public static toBusinessGetNetworkDataResponseError(json: string): BusinessGetNetworkDataResponseError {
+        return cast(JSON.parse(json), r("BusinessGetNetworkDataResponseError"));
+    }
+
+    public static businessGetNetworkDataResponseErrorToJson(value: BusinessGetNetworkDataResponseError): string {
+        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponseError")), null, 2);
+    }
+
+    public static toResultClass(json: string): ResultClass {
+        return cast(JSON.parse(json), r("ResultClass"));
+    }
+
+    public static resultClassToJson(value: ResultClass): string {
+        return JSON.stringify(uncast(value, r("ResultClass")), null, 2);
     }
 
     public static toPurpleBusiness(json: string): PurpleBusiness {
@@ -1918,92 +2398,68 @@ export class Convert {
         return JSON.stringify(uncast(value, r("PurpleBusiness")), null, 2);
     }
 
-    public static toBusinessGetProfileByIdResponse(json: string): BusinessGetProfileByIdResponse {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponse"));
+    public static toFluffyBusiness(json: string): FluffyBusiness {
+        return cast(JSON.parse(json), r("FluffyBusiness"));
     }
 
-    public static businessGetProfileByIdResponseToJson(value: BusinessGetProfileByIdResponse): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponse")), null, 2);
+    public static fluffyBusinessToJson(value: FluffyBusiness): string {
+        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
     }
 
-    public static toBusinessGetProfileByIdResponseError(json: string): BusinessGetProfileByIdResponseError {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponseError"));
+    public static toPurpleAdditionalSettings(json: string): PurpleAdditionalSettings {
+        return cast(JSON.parse(json), r("PurpleAdditionalSettings"));
     }
 
-    public static businessGetProfileByIdResponseErrorToJson(value: BusinessGetProfileByIdResponseError): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseError")), null, 2);
+    public static purpleAdditionalSettingsToJson(value: PurpleAdditionalSettings): string {
+        return JSON.stringify(uncast(value, r("PurpleAdditionalSettings")), null, 2);
     }
 
-    public static toBusinessGetProfileByIdResponseResult(json: string): BusinessGetProfileByIdResponseResult {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponseResult"));
+    public static toPurpleBackofficeConfiguration(json: string): PurpleBackofficeConfiguration {
+        return cast(JSON.parse(json), r("PurpleBackofficeConfiguration"));
     }
 
-    public static businessGetProfileByIdResponseResultToJson(value: BusinessGetProfileByIdResponseResult): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseResult")), null, 2);
+    public static purpleBackofficeConfigurationToJson(value: PurpleBackofficeConfiguration): string {
+        return JSON.stringify(uncast(value, r("PurpleBackofficeConfiguration")), null, 2);
     }
 
-    public static toBusinessClass(json: string): BusinessClass {
-        return cast(JSON.parse(json), r("BusinessClass"));
+    public static toFluffyBackofficeConfiguration(json: string): FluffyBackofficeConfiguration {
+        return cast(JSON.parse(json), r("FluffyBackofficeConfiguration"));
     }
 
-    public static businessClassToJson(value: BusinessClass): string {
-        return JSON.stringify(uncast(value, r("BusinessClass")), null, 2);
+    public static fluffyBackofficeConfigurationToJson(value: FluffyBackofficeConfiguration): string {
+        return JSON.stringify(uncast(value, r("FluffyBackofficeConfiguration")), null, 2);
     }
 
-    public static toAdditionalSettings(json: string): AdditionalSettings {
-        return cast(JSON.parse(json), r("AdditionalSettings"));
+    public static toPurpleCabinet(json: string): PurpleCabinet {
+        return cast(JSON.parse(json), r("PurpleCabinet"));
     }
 
-    public static additionalSettingsToJson(value: AdditionalSettings): string {
-        return JSON.stringify(uncast(value, r("AdditionalSettings")), null, 2);
+    public static purpleCabinetToJson(value: PurpleCabinet): string {
+        return JSON.stringify(uncast(value, r("PurpleCabinet")), null, 2);
     }
 
-    public static toBackofficeConfigurationClass(json: string): BackofficeConfigurationClass {
-        return cast(JSON.parse(json), r("BackofficeConfigurationClass"));
+    public static toPurpleCallbackWidgetConfiguration(json: string): PurpleCallbackWidgetConfiguration {
+        return cast(JSON.parse(json), r("PurpleCallbackWidgetConfiguration"));
     }
 
-    public static backofficeConfigurationClassToJson(value: BackofficeConfigurationClass): string {
-        return JSON.stringify(uncast(value, r("BackofficeConfigurationClass")), null, 2);
+    public static purpleCallbackWidgetConfigurationToJson(value: PurpleCallbackWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("PurpleCallbackWidgetConfiguration")), null, 2);
     }
 
-    public static toBackofficeConfigurationObject(json: string): BackofficeConfigurationObject {
-        return cast(JSON.parse(json), r("BackofficeConfigurationObject"));
+    public static toPurpleConsumable(json: string): PurpleConsumable {
+        return cast(JSON.parse(json), r("PurpleConsumable"));
     }
 
-    public static backofficeConfigurationObjectToJson(value: BackofficeConfigurationObject): string {
-        return JSON.stringify(uncast(value, r("BackofficeConfigurationObject")), null, 2);
+    public static purpleConsumableToJson(value: PurpleConsumable): string {
+        return JSON.stringify(uncast(value, r("PurpleConsumable")), null, 2);
     }
 
-    public static toCabinet(json: string): Cabinet {
-        return cast(JSON.parse(json), r("Cabinet"));
+    public static toPurpleDepartment(json: string): PurpleDepartment {
+        return cast(JSON.parse(json), r("PurpleDepartment"));
     }
 
-    public static cabinetToJson(value: Cabinet): string {
-        return JSON.stringify(uncast(value, r("Cabinet")), null, 2);
-    }
-
-    public static toCallbackWidgetConfiguration(json: string): CallbackWidgetConfiguration {
-        return cast(JSON.parse(json), r("CallbackWidgetConfiguration"));
-    }
-
-    public static callbackWidgetConfigurationToJson(value: CallbackWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("CallbackWidgetConfiguration")), null, 2);
-    }
-
-    public static toConsumable(json: string): Consumable {
-        return cast(JSON.parse(json), r("Consumable"));
-    }
-
-    public static consumableToJson(value: Consumable): string {
-        return JSON.stringify(uncast(value, r("Consumable")), null, 2);
-    }
-
-    public static toDepartment(json: string): Department {
-        return cast(JSON.parse(json), r("Department"));
-    }
-
-    public static departmentToJson(value: Department): string {
-        return JSON.stringify(uncast(value, r("Department")), null, 2);
+    public static purpleDepartmentToJson(value: PurpleDepartment): string {
+        return JSON.stringify(uncast(value, r("PurpleDepartment")), null, 2);
     }
 
     public static toBusinessInfo(json: string): BusinessInfo {
@@ -2118,12 +2574,212 @@ export class Convert {
         return JSON.stringify(uncast(value, r("TimeFrame")), null, 2);
     }
 
-    public static toMiniWidgetConfiguration(json: string): MiniWidgetConfiguration {
-        return cast(JSON.parse(json), r("MiniWidgetConfiguration"));
+    public static toPurpleMiniWidgetConfiguration(json: string): PurpleMiniWidgetConfiguration {
+        return cast(JSON.parse(json), r("PurpleMiniWidgetConfiguration"));
     }
 
-    public static miniWidgetConfigurationToJson(value: MiniWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("MiniWidgetConfiguration")), null, 2);
+    public static purpleMiniWidgetConfigurationToJson(value: PurpleMiniWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("PurpleMiniWidgetConfiguration")), null, 2);
+    }
+
+    public static toPurpleTaxonomiesComplex(json: string): PurpleTaxonomiesComplex {
+        return cast(JSON.parse(json), r("PurpleTaxonomiesComplex"));
+    }
+
+    public static purpleTaxonomiesComplexToJson(value: PurpleTaxonomiesComplex): string {
+        return JSON.stringify(uncast(value, r("PurpleTaxonomiesComplex")), null, 2);
+    }
+
+    public static toPurpleTopServices(json: string): PurpleTopServices {
+        return cast(JSON.parse(json), r("PurpleTopServices"));
+    }
+
+    public static purpleTopServicesToJson(value: PurpleTopServices): string {
+        return JSON.stringify(uncast(value, r("PurpleTopServices")), null, 2);
+    }
+
+    public static toPurpleWidgetConfiguration(json: string): PurpleWidgetConfiguration {
+        return cast(JSON.parse(json), r("PurpleWidgetConfiguration"));
+    }
+
+    public static purpleWidgetConfigurationToJson(value: PurpleWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("PurpleWidgetConfiguration")), null, 2);
+    }
+
+    public static toPurpleBookableDateRanges(json: string): PurpleBookableDateRanges {
+        return cast(JSON.parse(json), r("PurpleBookableDateRanges"));
+    }
+
+    public static purpleBookableDateRangesToJson(value: PurpleBookableDateRanges): string {
+        return JSON.stringify(uncast(value, r("PurpleBookableDateRanges")), null, 2);
+    }
+
+    public static toPurpleClientBlockingSettings(json: string): PurpleClientBlockingSettings {
+        return cast(JSON.parse(json), r("PurpleClientBlockingSettings"));
+    }
+
+    public static purpleClientBlockingSettingsToJson(value: PurpleClientBlockingSettings): string {
+        return JSON.stringify(uncast(value, r("PurpleClientBlockingSettings")), null, 2);
+    }
+
+    public static toPurpleDiscountedPriceRounding(json: string): PurpleDiscountedPriceRounding {
+        return cast(JSON.parse(json), r("PurpleDiscountedPriceRounding"));
+    }
+
+    public static purpleDiscountedPriceRoundingToJson(value: PurpleDiscountedPriceRounding): string {
+        return JSON.stringify(uncast(value, r("PurpleDiscountedPriceRounding")), null, 2);
+    }
+
+    public static toPurpleSocialSharing(json: string): PurpleSocialSharing {
+        return cast(JSON.parse(json), r("PurpleSocialSharing"));
+    }
+
+    public static purpleSocialSharingToJson(value: PurpleSocialSharing): string {
+        return JSON.stringify(uncast(value, r("PurpleSocialSharing")), null, 2);
+    }
+
+    public static toNetworkWidgetConfiguration(json: string): NetworkWidgetConfiguration {
+        return cast(JSON.parse(json), r("NetworkWidgetConfiguration"));
+    }
+
+    public static networkWidgetConfigurationToJson(value: NetworkWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("NetworkWidgetConfiguration")), null, 2);
+    }
+
+    public static toNetworkWidgetConfigurationBusiness(json: string): NetworkWidgetConfigurationBusiness {
+        return cast(JSON.parse(json), r("NetworkWidgetConfigurationBusiness"));
+    }
+
+    public static networkWidgetConfigurationBusinessToJson(value: NetworkWidgetConfigurationBusiness): string {
+        return JSON.stringify(uncast(value, r("NetworkWidgetConfigurationBusiness")), null, 2);
+    }
+
+    public static toGetProfileById(json: string): GetProfileById {
+        return cast(JSON.parse(json), r("GetProfileById"));
+    }
+
+    public static getProfileByIdToJson(value: GetProfileById): string {
+        return JSON.stringify(uncast(value, r("GetProfileById")), null, 2);
+    }
+
+    public static toBusinessGetProfileByIdRequest(json: string): BusinessGetProfileByIdRequest {
+        return cast(JSON.parse(json), r("BusinessGetProfileByIdRequest"));
+    }
+
+    public static businessGetProfileByIdRequestToJson(value: BusinessGetProfileByIdRequest): string {
+        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequest")), null, 2);
+    }
+
+    public static toBusinessGetProfileByIdRequestParams(json: string): BusinessGetProfileByIdRequestParams {
+        return cast(JSON.parse(json), r("BusinessGetProfileByIdRequestParams"));
+    }
+
+    public static businessGetProfileByIdRequestParamsToJson(value: BusinessGetProfileByIdRequestParams): string {
+        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequestParams")), null, 2);
+    }
+
+    public static toTentacledBusiness(json: string): TentacledBusiness {
+        return cast(JSON.parse(json), r("TentacledBusiness"));
+    }
+
+    public static tentacledBusinessToJson(value: TentacledBusiness): string {
+        return JSON.stringify(uncast(value, r("TentacledBusiness")), null, 2);
+    }
+
+    public static toBusinessGetProfileByIdResponse(json: string): BusinessGetProfileByIdResponse {
+        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponse"));
+    }
+
+    public static businessGetProfileByIdResponseToJson(value: BusinessGetProfileByIdResponse): string {
+        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponse")), null, 2);
+    }
+
+    public static toBusinessGetProfileByIdResponseError(json: string): BusinessGetProfileByIdResponseError {
+        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponseError"));
+    }
+
+    public static businessGetProfileByIdResponseErrorToJson(value: BusinessGetProfileByIdResponseError): string {
+        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseError")), null, 2);
+    }
+
+    public static toBusinessGetProfileByIdResponseResult(json: string): BusinessGetProfileByIdResponseResult {
+        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponseResult"));
+    }
+
+    public static businessGetProfileByIdResponseResultToJson(value: BusinessGetProfileByIdResponseResult): string {
+        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseResult")), null, 2);
+    }
+
+    public static toStickyBusiness(json: string): StickyBusiness {
+        return cast(JSON.parse(json), r("StickyBusiness"));
+    }
+
+    public static stickyBusinessToJson(value: StickyBusiness): string {
+        return JSON.stringify(uncast(value, r("StickyBusiness")), null, 2);
+    }
+
+    public static toFluffyAdditionalSettings(json: string): FluffyAdditionalSettings {
+        return cast(JSON.parse(json), r("FluffyAdditionalSettings"));
+    }
+
+    public static fluffyAdditionalSettingsToJson(value: FluffyAdditionalSettings): string {
+        return JSON.stringify(uncast(value, r("FluffyAdditionalSettings")), null, 2);
+    }
+
+    public static toTentacledBackofficeConfiguration(json: string): TentacledBackofficeConfiguration {
+        return cast(JSON.parse(json), r("TentacledBackofficeConfiguration"));
+    }
+
+    public static tentacledBackofficeConfigurationToJson(value: TentacledBackofficeConfiguration): string {
+        return JSON.stringify(uncast(value, r("TentacledBackofficeConfiguration")), null, 2);
+    }
+
+    public static toStickyBackofficeConfiguration(json: string): StickyBackofficeConfiguration {
+        return cast(JSON.parse(json), r("StickyBackofficeConfiguration"));
+    }
+
+    public static stickyBackofficeConfigurationToJson(value: StickyBackofficeConfiguration): string {
+        return JSON.stringify(uncast(value, r("StickyBackofficeConfiguration")), null, 2);
+    }
+
+    public static toFluffyCabinet(json: string): FluffyCabinet {
+        return cast(JSON.parse(json), r("FluffyCabinet"));
+    }
+
+    public static fluffyCabinetToJson(value: FluffyCabinet): string {
+        return JSON.stringify(uncast(value, r("FluffyCabinet")), null, 2);
+    }
+
+    public static toFluffyCallbackWidgetConfiguration(json: string): FluffyCallbackWidgetConfiguration {
+        return cast(JSON.parse(json), r("FluffyCallbackWidgetConfiguration"));
+    }
+
+    public static fluffyCallbackWidgetConfigurationToJson(value: FluffyCallbackWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("FluffyCallbackWidgetConfiguration")), null, 2);
+    }
+
+    public static toFluffyConsumable(json: string): FluffyConsumable {
+        return cast(JSON.parse(json), r("FluffyConsumable"));
+    }
+
+    public static fluffyConsumableToJson(value: FluffyConsumable): string {
+        return JSON.stringify(uncast(value, r("FluffyConsumable")), null, 2);
+    }
+
+    public static toFluffyDepartment(json: string): FluffyDepartment {
+        return cast(JSON.parse(json), r("FluffyDepartment"));
+    }
+
+    public static fluffyDepartmentToJson(value: FluffyDepartment): string {
+        return JSON.stringify(uncast(value, r("FluffyDepartment")), null, 2);
+    }
+
+    public static toFluffyMiniWidgetConfiguration(json: string): FluffyMiniWidgetConfiguration {
+        return cast(JSON.parse(json), r("FluffyMiniWidgetConfiguration"));
+    }
+
+    public static fluffyMiniWidgetConfigurationToJson(value: FluffyMiniWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("FluffyMiniWidgetConfiguration")), null, 2);
     }
 
     public static toResourceClass(json: string): ResourceClass {
@@ -2278,60 +2934,60 @@ export class Convert {
         return JSON.stringify(uncast(value, r("TaxonomyShowcase")), null, 2);
     }
 
-    public static toTaxonomiesComplex(json: string): TaxonomiesComplex {
-        return cast(JSON.parse(json), r("TaxonomiesComplex"));
+    public static toFluffyTaxonomiesComplex(json: string): FluffyTaxonomiesComplex {
+        return cast(JSON.parse(json), r("FluffyTaxonomiesComplex"));
     }
 
-    public static taxonomiesComplexToJson(value: TaxonomiesComplex): string {
-        return JSON.stringify(uncast(value, r("TaxonomiesComplex")), null, 2);
+    public static fluffyTaxonomiesComplexToJson(value: FluffyTaxonomiesComplex): string {
+        return JSON.stringify(uncast(value, r("FluffyTaxonomiesComplex")), null, 2);
     }
 
-    public static toBusinessTopServices(json: string): BusinessTopServices {
-        return cast(JSON.parse(json), r("BusinessTopServices"));
+    public static toFluffyTopServices(json: string): FluffyTopServices {
+        return cast(JSON.parse(json), r("FluffyTopServices"));
     }
 
-    public static businessTopServicesToJson(value: BusinessTopServices): string {
-        return JSON.stringify(uncast(value, r("BusinessTopServices")), null, 2);
+    public static fluffyTopServicesToJson(value: FluffyTopServices): string {
+        return JSON.stringify(uncast(value, r("FluffyTopServices")), null, 2);
     }
 
-    public static toWidgetConfiguration(json: string): WidgetConfiguration {
-        return cast(JSON.parse(json), r("WidgetConfiguration"));
+    public static toFluffyWidgetConfiguration(json: string): FluffyWidgetConfiguration {
+        return cast(JSON.parse(json), r("FluffyWidgetConfiguration"));
     }
 
-    public static widgetConfigurationToJson(value: WidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("WidgetConfiguration")), null, 2);
+    public static fluffyWidgetConfigurationToJson(value: FluffyWidgetConfiguration): string {
+        return JSON.stringify(uncast(value, r("FluffyWidgetConfiguration")), null, 2);
     }
 
-    public static toBookableDateRanges(json: string): BookableDateRanges {
-        return cast(JSON.parse(json), r("BookableDateRanges"));
+    public static toFluffyBookableDateRanges(json: string): FluffyBookableDateRanges {
+        return cast(JSON.parse(json), r("FluffyBookableDateRanges"));
     }
 
-    public static bookableDateRangesToJson(value: BookableDateRanges): string {
-        return JSON.stringify(uncast(value, r("BookableDateRanges")), null, 2);
+    public static fluffyBookableDateRangesToJson(value: FluffyBookableDateRanges): string {
+        return JSON.stringify(uncast(value, r("FluffyBookableDateRanges")), null, 2);
     }
 
-    public static toClientBlockingSettings(json: string): ClientBlockingSettings {
-        return cast(JSON.parse(json), r("ClientBlockingSettings"));
+    public static toFluffyClientBlockingSettings(json: string): FluffyClientBlockingSettings {
+        return cast(JSON.parse(json), r("FluffyClientBlockingSettings"));
     }
 
-    public static clientBlockingSettingsToJson(value: ClientBlockingSettings): string {
-        return JSON.stringify(uncast(value, r("ClientBlockingSettings")), null, 2);
+    public static fluffyClientBlockingSettingsToJson(value: FluffyClientBlockingSettings): string {
+        return JSON.stringify(uncast(value, r("FluffyClientBlockingSettings")), null, 2);
     }
 
-    public static toDiscountedPriceRounding(json: string): DiscountedPriceRounding {
-        return cast(JSON.parse(json), r("DiscountedPriceRounding"));
+    public static toFluffyDiscountedPriceRounding(json: string): FluffyDiscountedPriceRounding {
+        return cast(JSON.parse(json), r("FluffyDiscountedPriceRounding"));
     }
 
-    public static discountedPriceRoundingToJson(value: DiscountedPriceRounding): string {
-        return JSON.stringify(uncast(value, r("DiscountedPriceRounding")), null, 2);
+    public static fluffyDiscountedPriceRoundingToJson(value: FluffyDiscountedPriceRounding): string {
+        return JSON.stringify(uncast(value, r("FluffyDiscountedPriceRounding")), null, 2);
     }
 
-    public static toSocialSharing(json: string): SocialSharing {
-        return cast(JSON.parse(json), r("SocialSharing"));
+    public static toFluffySocialSharing(json: string): FluffySocialSharing {
+        return cast(JSON.parse(json), r("FluffySocialSharing"));
     }
 
-    public static socialSharingToJson(value: SocialSharing): string {
-        return JSON.stringify(uncast(value, r("SocialSharing")), null, 2);
+    public static fluffySocialSharingToJson(value: FluffySocialSharing): string {
+        return JSON.stringify(uncast(value, r("FluffySocialSharing")), null, 2);
     }
 
     public static toNetwork(json: string): Network {
@@ -2398,12 +3054,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ClientAddClientRequestParams")), null, 2);
     }
 
-    public static toFluffyBusiness(json: string): FluffyBusiness {
-        return cast(JSON.parse(json), r("FluffyBusiness"));
+    public static toIndigoBusiness(json: string): IndigoBusiness {
+        return cast(JSON.parse(json), r("IndigoBusiness"));
     }
 
-    public static fluffyBusinessToJson(value: FluffyBusiness): string {
-        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
+    public static indigoBusinessToJson(value: IndigoBusiness): string {
+        return JSON.stringify(uncast(value, r("IndigoBusiness")), null, 2);
     }
 
     public static toClient(json: string): Client {
@@ -2446,12 +3102,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ClientAddClientResponseResult")), null, 2);
     }
 
-    public static toResultBusiness(json: string): ResultBusiness {
-        return cast(JSON.parse(json), r("ResultBusiness"));
+    public static toIndecentBusiness(json: string): IndecentBusiness {
+        return cast(JSON.parse(json), r("IndecentBusiness"));
     }
 
-    public static resultBusinessToJson(value: ResultBusiness): string {
-        return JSON.stringify(uncast(value, r("ResultBusiness")), null, 2);
+    public static indecentBusinessToJson(value: IndecentBusiness): string {
+        return JSON.stringify(uncast(value, r("IndecentBusiness")), null, 2);
     }
 
     public static toResultProfile(json: string): ResultProfile {
@@ -2646,74 +3302,65 @@ const typeMap: any = {
         { json: "Client", js: "Client", typ: r("ClientController") },
     ], false),
     "BusinessController": o([
+        { json: "get_network_data", js: "get_network_data", typ: r("GetNetworkData") },
         { json: "get_profile_by_id", js: "get_profile_by_id", typ: r("GetProfileById") },
     ], false),
-    "GetProfileById": o([
-        { json: "request", js: "request", typ: r("BusinessGetProfileByIdRequest") },
-        { json: "response", js: "response", typ: r("BusinessGetProfileByIdResponse") },
+    "GetNetworkData": o([
+        { json: "request", js: "request", typ: r("BusinessGetNetworkDataRequest") },
+        { json: "response", js: "response", typ: r("BusinessGetNetworkDataResponse") },
     ], false),
-    "BusinessGetProfileByIdRequest": o([
+    "BusinessGetNetworkDataRequest": o([
         { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
+        { json: "params", js: "params", typ: r("BusinessGetNetworkDataRequestParams") },
     ], false),
-    "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("PurpleBusiness") },
-        { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
-        { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
-        { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
-        { json: "showcase_business_id", js: "showcase_business_id", typ: u(undefined, u(3.14, "")) },
-        { json: "skip_worker_sorting", js: "skip_worker_sorting", typ: u(undefined, true) },
-        { json: "with_billing", js: "with_billing", typ: u(undefined, true) },
-        { json: "with_bop", js: "with_bop", typ: u(undefined, true) },
-        { json: "with_campaigns", js: "with_campaigns", typ: u(undefined, true) },
-        { json: "with_discounts", js: "with_discounts", typ: u(undefined, true) },
-        { json: "with_discounts_from", js: "with_discounts_from", typ: u(undefined, Date) },
-        { json: "with_discounts_to", js: "with_discounts_to", typ: u(undefined, Date) },
-        { json: "with_networks", js: "with_networks", typ: u(undefined, true) },
-        { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
-        { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
+    "BusinessGetNetworkDataRequestParams": o([
+        { json: "networkID", js: "networkID", typ: 3.14 },
+        { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
-    "PurpleBusiness": o([
-        { json: "id", js: "id", typ: "" },
-    ], false),
-    "BusinessGetProfileByIdResponse": o([
-        { json: "id", js: "id", typ: u(undefined, 3.14) },
-        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
-        { json: "result", js: "result", typ: u(undefined, r("BusinessGetProfileByIdResponseResult")) },
-        { json: "error", js: "error", typ: u(undefined, r("BusinessGetProfileByIdResponseError")) },
+    "BusinessGetNetworkDataResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, u(r("ResultClass"), null)) },
+        { json: "error", js: "error", typ: u(undefined, r("BusinessGetNetworkDataResponseError")) },
     ], "any"),
-    "BusinessGetProfileByIdResponseError": o([
+    "BusinessGetNetworkDataResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "BusinessGetProfileByIdResponseResult": o([
+    "ResultClass": o([
+        { json: "businessConfiguration", js: "businessConfiguration", typ: m("any") },
+        { json: "businesses", js: "businesses", typ: a(r("PurpleBusiness")) },
+        { json: "clientVIPPhones", js: "clientVIPPhones", typ: a("") },
+        { json: "grantGroups", js: "grantGroups", typ: a(m("any")) },
+        { json: "networkID", js: "networkID", typ: "" },
+        { json: "networkInfo", js: "networkInfo", typ: m("any") },
+        { json: "networkName", js: "networkName", typ: u(undefined, "") },
+        { json: "networkWidgetConfiguration", js: "networkWidgetConfiguration", typ: a(r("NetworkWidgetConfiguration")) },
+    ], false),
+    "PurpleBusiness": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "businessID", js: "businessID", typ: "" },
+        { json: "info", js: "info", typ: u(a("any"), true, r("FluffyBusiness"), 3.14, 0, null, "") },
+        { json: "isMapBusiness", js: "isMapBusiness", typ: true },
+    ], false),
+    "FluffyBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "business", js: "business", typ: u(a("any"), true, r("BusinessClass"), 3.14, 0, null, "") },
-        { json: "freeSms", js: "freeSms", typ: u(undefined, 3.14) },
-        { json: "monthlyFreeSms", js: "monthlyFreeSms", typ: u(undefined, 3.14) },
-        { json: "networks", js: "networks", typ: u(undefined, a(r("Network"))) },
-        { json: "top_services", js: "top_services", typ: u(undefined, r("ResultTopServices")) },
-        { json: "useDefaultSmsTemplate", js: "useDefaultSmsTemplate", typ: u(undefined, true) },
-        { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, r("YandexFeedType")) },
-    ], "any"),
-    "BusinessClass": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("AdditionalSettings")) },
+        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("PurpleAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
-        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("BackofficeConfigurationObject")) },
-        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("BackofficeConfigurationClass")) },
+        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("FluffyBackofficeConfiguration")) },
+        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("PurpleBackofficeConfiguration")) },
         { json: "backofficeType", js: "backofficeType", typ: u(undefined, r("BackofficeType")) },
-        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("Cabinet"))) },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("PurpleCabinet"))) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
-        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("CallbackWidgetConfiguration")) },
-        { json: "consumables", js: "consumables", typ: u(undefined, a(r("Consumable"))) },
+        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("PurpleCallbackWidgetConfiguration")) },
+        { json: "consumables", js: "consumables", typ: u(undefined, a(r("PurpleConsumable"))) },
         { json: "created_on", js: "created_on", typ: u(undefined, Date) },
         { json: "defaultFilteredWorkers", js: "defaultFilteredWorkers", typ: u(undefined, a("")) },
-        { json: "departments", js: "departments", typ: u(undefined, a(r("Department"))) },
+        { json: "departments", js: "departments", typ: u(undefined, a(r("PurpleDepartment"))) },
         { json: "designs", js: "designs", typ: u(undefined, a(m("any"))) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "flatTaxonomyDisplay", js: "flatTaxonomyDisplay", typ: u(undefined, true) },
@@ -2721,24 +3368,22 @@ const typeMap: any = {
         { json: "group", js: "group", typ: u(undefined, r("Group")) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "integration_data", js: "integration_data", typ: u(undefined, m("any")) },
-        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("MiniWidgetConfiguration") },
+        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("PurpleMiniWidgetConfiguration") },
         { json: "mobileData", js: "mobileData", typ: u(undefined, a("any")) },
         { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
-        { json: "resources", js: "resources", typ: a(u(a("any"), true, r("ResourceClass"), 3.14, 0, null, "")) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
-        { json: "taxonomies", js: "taxonomies", typ: a(r("BusinessTaxonomy")) },
-        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("TaxonomiesComplex"))) },
+        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("PurpleTaxonomiesComplex"))) },
         { json: "taxonomy_tree_capacity", js: "taxonomy_tree_capacity", typ: u(undefined, a(m("any"))) },
-        { json: "top_services", js: "top_services", typ: u(undefined, r("BusinessTopServices")) },
+        { json: "top_services", js: "top_services", typ: u(undefined, r("PurpleTopServices")) },
         { json: "vertical", js: "vertical", typ: u(undefined, "") },
-        { json: "widget_configuration", js: "widget_configuration", typ: r("WidgetConfiguration") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("PurpleWidgetConfiguration") },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, "") },
     ], false),
-    "AdditionalSettings": o([
+    "PurpleAdditionalSettings": o([
         { json: "appointmentExtensionAmount", js: "appointmentExtensionAmount", typ: u(undefined, 3.14) },
         { json: "appointmentExtensionType", js: "appointmentExtensionType", typ: u(undefined, r("AppointmentExtensionType")) },
     ], "any"),
-    "BackofficeConfigurationClass": o([
+    "PurpleBackofficeConfiguration": o([
         { json: "adjacentTaxonomiesTreshold", js: "adjacentTaxonomiesTreshold", typ: u(undefined, 3.14) },
         { json: "allowHideServiceForBooking", js: "allowHideServiceForBooking", typ: u(undefined, true) },
         { json: "allowHideWorkersFromSchdeule", js: "allowHideWorkersFromSchdeule", typ: u(undefined, true) },
@@ -2839,25 +3484,25 @@ const typeMap: any = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
-    "BackofficeConfigurationObject": o([
+    "FluffyBackofficeConfiguration": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
-    "Cabinet": o([
+    "PurpleCabinet": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
-    "CallbackWidgetConfiguration": o([
+    "PurpleCallbackWidgetConfiguration": o([
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
-    "Consumable": o([
+    "PurpleConsumable": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "name", js: "name", typ: "" },
         { json: "quantity", js: "quantity", typ: 3.14 },
     ], "any"),
-    "Department": o([
+    "PurpleDepartment": o([
         { json: "id", js: "id", typ: "" },
         { json: "id_", js: "id_", typ: u(undefined, 3.14) },
         { json: "name", js: "name", typ: "" },
@@ -2902,7 +3547,7 @@ const typeMap: any = {
         { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
         { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
         { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, "") },
+        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
         { json: "website", js: "website", typ: u(undefined, "") },
     ], false),
@@ -3000,7 +3645,382 @@ const typeMap: any = {
         { json: "start", js: "start", typ: 3.14 },
         { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
     ], false),
-    "MiniWidgetConfiguration": o([
+    "PurpleMiniWidgetConfiguration": o([
+        { json: "fields", js: "fields", typ: u(undefined, a(r("Field"))) },
+        { json: "title1", js: "title1", typ: u(undefined, "") },
+        { json: "title2", js: "title2", typ: u(undefined, "") },
+    ], "any"),
+    "PurpleTaxonomiesComplex": o([
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
+    ], "any"),
+    "PurpleTopServices": o([
+        { json: "services", js: "services", typ: u(undefined, a("any")) },
+        { json: "status", js: "status", typ: u(undefined, "") },
+    ], "any"),
+    "PurpleWidgetConfiguration": o([
+        { json: "additionalName", js: "additionalName", typ: u(undefined, "") },
+        { json: "alignmentTaxonomySlots", js: "alignmentTaxonomySlots", typ: u(undefined, true) },
+        { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
+        { json: "allowBookVisitor", js: "allowBookVisitor", typ: u(undefined, true) },
+        { json: "allowSkipTimeCheck", js: "allowSkipTimeCheck", typ: u(undefined, true) },
+        { json: "appointment_confirmation_text", js: "appointment_confirmation_text", typ: u(undefined, "") },
+        { json: "appointment_confirmation_title", js: "appointment_confirmation_title", typ: u(undefined, "") },
+        { json: "askClientBirthday", js: "askClientBirthday", typ: u(undefined, true) },
+        { json: "askClientGender", js: "askClientGender", typ: u(undefined, true) },
+        { json: "bookableDateRanges", js: "bookableDateRanges", typ: u(undefined, r("PurpleBookableDateRanges")) },
+        { json: "bookableMonthsCount", js: "bookableMonthsCount", typ: u(undefined, 3.14) },
+        { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
+        { json: "calendarModeHideTime", js: "calendarModeHideTime", typ: u(undefined, true) },
+        { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("PurpleClientBlockingSettings")) },
+        { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, true) },
+        { json: "cracServer", js: "cracServer", typ: u(undefined, r("CracServer")) },
+        { json: "cracSlotSize", js: "cracSlotSize", typ: u(undefined, 3.14) },
+        { json: "crunchv2", js: "crunchv2", typ: u(undefined, true) },
+        { json: "dayOffLabel", js: "dayOffLabel", typ: u(undefined, "") },
+        { json: "daysForward", js: "daysForward", typ: u(undefined, 3.14) },
+        { json: "dayUnavailableLabel", js: "dayUnavailableLabel", typ: u(undefined, "") },
+        { json: "defaultServiceImgUrl", js: "defaultServiceImgUrl", typ: u(undefined, "") },
+        { json: "defaultWorkerImgUrl", js: "defaultWorkerImgUrl", typ: u(undefined, "") },
+        { json: "denySameTimeRecords", js: "denySameTimeRecords", typ: u(undefined, true) },
+        { json: "disabledTaxonomiesText", js: "disabledTaxonomiesText", typ: u(undefined, "") },
+        { json: "disableMobileWidget", js: "disableMobileWidget", typ: u(undefined, true) },
+        { json: "disableWidget", js: "disableWidget", typ: u(undefined, true) },
+        { json: "disableWidgetMessage", js: "disableWidgetMessage", typ: u(undefined, "") },
+        { json: "discountedPriceRounding", js: "discountedPriceRounding", typ: u(undefined, r("PurpleDiscountedPriceRounding")) },
+        { json: "displaySlotSize", js: "displaySlotSize", typ: u(undefined, 3.14) },
+        { json: "dontRequireEmail", js: "dontRequireEmail", typ: u(undefined, true) },
+        { json: "emailIsMandatory", js: "emailIsMandatory", typ: u(undefined, true) },
+        { json: "enableOverrideFooter", js: "enableOverrideFooter", typ: u(undefined, true) },
+        { json: "enableWarningContactData", js: "enableWarningContactData", typ: u(undefined, true) },
+        { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, true) },
+        { json: "filterNonInsuranceSchedule", js: "filterNonInsuranceSchedule", typ: u(undefined, true) },
+        { json: "hideAnyWorkerBooking", js: "hideAnyWorkerBooking", typ: u(undefined, true) },
+        { json: "hideCallButton", js: "hideCallButton", typ: u(undefined, true) },
+        { json: "hideEmptyDays", js: "hideEmptyDays", typ: u(undefined, true) },
+        { json: "hideGBookingLogo", js: "hideGBookingLogo", typ: u(undefined, true) },
+        { json: "hideGraySlots", js: "hideGraySlots", typ: u(undefined, true) },
+        { json: "hideNewAppointmentButton", js: "hideNewAppointmentButton", typ: u(undefined, true) },
+        { json: "hidePrices", js: "hidePrices", typ: u(undefined, true) },
+        { json: "hideSocialNetworksAuthentication", js: "hideSocialNetworksAuthentication", typ: u(undefined, true) },
+        { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "maxServiceBooking", js: "maxServiceBooking", typ: u(undefined, 3.14) },
+        { json: "maxTimeslotBooking", js: "maxTimeslotBooking", typ: u(undefined, 3.14) },
+        { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
+        { json: "multiServiceBooking", js: "multiServiceBooking", typ: u(undefined, true) },
+        { json: "multiTimeslotBooking", js: "multiTimeslotBooking", typ: u(undefined, true) },
+        { json: "multiTimeslotBookingAllDays", js: "multiTimeslotBookingAllDays", typ: u(undefined, true) },
+        { json: "newWidgetTheme", js: "newWidgetTheme", typ: u(undefined, m("any")) },
+        { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
+        { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
+        { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
+        { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
+        { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "shortLink", js: "shortLink", typ: u(undefined, "") },
+        { json: "showAllWorkers", js: "showAllWorkers", typ: u(undefined, true) },
+        { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
+        { json: "showClientComment", js: "showClientComment", typ: u(undefined, true) },
+        { json: "showDisabledTaxonomies", js: "showDisabledTaxonomies", typ: u(undefined, true) },
+        { json: "showDrinkQuestion", js: "showDrinkQuestion", typ: u(undefined, true) },
+        { json: "showMap", js: "showMap", typ: u(undefined, true) },
+        { json: "showSurnameFirst", js: "showSurnameFirst", typ: u(undefined, true) },
+        { json: "showTalkQuestion", js: "showTalkQuestion", typ: u(undefined, true) },
+        { json: "showTaxonomyConfirmationAlert", js: "showTaxonomyConfirmationAlert", typ: u(undefined, true) },
+        { json: "skipAuthentication", js: "skipAuthentication", typ: u(undefined, true) },
+        { json: "skipDaysForward", js: "skipDaysForward", typ: u(undefined, true) },
+        { json: "skipMobileMap", js: "skipMobileMap", typ: u(undefined, true) },
+        { json: "skipServiceDurationAlignment", js: "skipServiceDurationAlignment", typ: u(undefined, true) },
+        { json: "skipServiceSelection", js: "skipServiceSelection", typ: u(undefined, true) },
+        { json: "skipTimeSelection", js: "skipTimeSelection", typ: u(undefined, true) },
+        { json: "skipTimeSelectionServiceIDs", js: "skipTimeSelectionServiceIDs", typ: u(undefined, a("")) },
+        { json: "skipWorkerSelectedServiceIDs", js: "skipWorkerSelectedServiceIDs", typ: u(undefined, a("")) },
+        { json: "skipWorkerServicesSelection", js: "skipWorkerServicesSelection", typ: u(undefined, true) },
+        { json: "socialNetworkImage", js: "socialNetworkImage", typ: u(undefined, "") },
+        { json: "socialSharing", js: "socialSharing", typ: u(undefined, r("PurpleSocialSharing")) },
+        { json: "sortByMostFree", js: "sortByMostFree", typ: u(undefined, true) },
+        { json: "sortWorkersByWorkload", js: "sortWorkersByWorkload", typ: u(undefined, true) },
+        { json: "splitInsuranceClient", js: "splitInsuranceClient", typ: u(undefined, true) },
+        { json: "splitName", js: "splitName", typ: u(undefined, true) },
+        { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
+        { json: "theme", js: "theme", typ: u(undefined, "") },
+        { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
+        { json: "useBusinessScheduleForUnavailableLabel", js: "useBusinessScheduleForUnavailableLabel", typ: u(undefined, true) },
+        { json: "useClustersMap", js: "useClustersMap", typ: u(undefined, true) },
+        { json: "useCoupon", js: "useCoupon", typ: u(undefined, true) },
+        { json: "useCRAC", js: "useCRAC", typ: u(undefined, true) },
+        { json: "useDefaultServiceImg", js: "useDefaultServiceImg", typ: u(undefined, true) },
+        { json: "useDefaultWorkerImg", js: "useDefaultWorkerImg", typ: u(undefined, true) },
+        { json: "useDirectScheduleRead", js: "useDirectScheduleRead", typ: u(undefined, r("UseDirectScheduleRead")) },
+        { json: "useInsuranceGuaranteeLetter", js: "useInsuranceGuaranteeLetter", typ: u(undefined, true) },
+        { json: "useInsuranceSelect", js: "useInsuranceSelect", typ: u(undefined, true) },
+        { json: "useMedAuth", js: "useMedAuth", typ: u(undefined, true) },
+        { json: "useMiddleName", js: "useMiddleName", typ: u(undefined, true) },
+        { json: "useNewReserveAPI", js: "useNewReserveAPI", typ: u(undefined, true) },
+        { json: "useResourcePageLoading", js: "useResourcePageLoading", typ: u(undefined, true) },
+        { json: "useSortByName", js: "useSortByName", typ: u(undefined, true) },
+        { json: "warningContactDataText", js: "warningContactDataText", typ: u(undefined, "") },
+        { json: "widgetUseCRAC", js: "widgetUseCRAC", typ: u(undefined, true) },
+        { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
+        { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
+        { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
+    ], false),
+    "PurpleBookableDateRanges": o([
+        { json: "enabled", js: "enabled", typ: u(undefined, true) },
+        { json: "end", js: "end", typ: u(undefined, "any") },
+        { json: "start", js: "start", typ: u(undefined, "any") },
+    ], "any"),
+    "PurpleClientBlockingSettings": o([
+        { json: "appointmentClientBlock", js: "appointmentClientBlock", typ: u(undefined, true) },
+        { json: "appointmentClientBlockDays", js: "appointmentClientBlockDays", typ: u(undefined, 3.14) },
+        { json: "appointmentClientBlockText", js: "appointmentClientBlockText", typ: u(undefined, "") },
+        { json: "blockIfFutureRecordExists", js: "blockIfFutureRecordExists", typ: u(undefined, true) },
+        { json: "blockRepeatedRecordsCount", js: "blockRepeatedRecordsCount", typ: u(undefined, 3.14) },
+        { json: "blockRepeatedRecordsRange", js: "blockRepeatedRecordsRange", typ: u(undefined, 3.14) },
+        { json: "blockRepeatedRecordsText", js: "blockRepeatedRecordsText", typ: u(undefined, "") },
+    ], false),
+    "PurpleDiscountedPriceRounding": o([
+        { json: "rule", js: "rule", typ: u(undefined, r("Rule")) },
+        { json: "value", js: "value", typ: u(undefined, 3.14) },
+    ], "any"),
+    "PurpleSocialSharing": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "discountAmount", js: "discountAmount", typ: u(undefined, u(3.14, null)) },
+        { json: "discountEnabled", js: "discountEnabled", typ: u(undefined, true) },
+        { json: "discountType", js: "discountType", typ: u(undefined, r("DiscountType")) },
+        { json: "text", js: "text", typ: u(undefined, u(null, "")) },
+        { json: "widgetText", js: "widgetText", typ: u(undefined, u(null, "")) },
+    ], "any"),
+    "NetworkWidgetConfiguration": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "businesses", js: "businesses", typ: a(r("NetworkWidgetConfigurationBusiness")) },
+        { json: "defaultServiceID", js: "defaultServiceID", typ: u(null, "") },
+        { json: "showBranchSelector", js: "showBranchSelector", typ: true },
+        { json: "showDefaultService", js: "showDefaultService", typ: true },
+        { json: "showOnMap", js: "showOnMap", typ: true },
+        { json: "source", js: "source", typ: "" },
+    ], false),
+    "NetworkWidgetConfigurationBusiness": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "active", js: "active", typ: true },
+        { json: "internalID", js: "internalID", typ: "" },
+    ], false),
+    "GetProfileById": o([
+        { json: "request", js: "request", typ: r("BusinessGetProfileByIdRequest") },
+        { json: "response", js: "response", typ: r("BusinessGetProfileByIdResponse") },
+    ], false),
+    "BusinessGetProfileByIdRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
+    ], false),
+    "BusinessGetProfileByIdRequestParams": o([
+        { json: "business", js: "business", typ: r("TentacledBusiness") },
+        { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
+        { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
+        { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
+        { json: "showcase_business_id", js: "showcase_business_id", typ: u(undefined, u(3.14, "")) },
+        { json: "skip_worker_sorting", js: "skip_worker_sorting", typ: u(undefined, true) },
+        { json: "with_billing", js: "with_billing", typ: u(undefined, true) },
+        { json: "with_bop", js: "with_bop", typ: u(undefined, true) },
+        { json: "with_campaigns", js: "with_campaigns", typ: u(undefined, true) },
+        { json: "with_discounts", js: "with_discounts", typ: u(undefined, true) },
+        { json: "with_discounts_from", js: "with_discounts_from", typ: u(undefined, Date) },
+        { json: "with_discounts_to", js: "with_discounts_to", typ: u(undefined, Date) },
+        { json: "with_networks", js: "with_networks", typ: u(undefined, true) },
+        { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
+        { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
+    ], false),
+    "TentacledBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "BusinessGetProfileByIdResponse": o([
+        { json: "id", js: "id", typ: u(undefined, 3.14) },
+        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
+        { json: "result", js: "result", typ: u(undefined, r("BusinessGetProfileByIdResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("BusinessGetProfileByIdResponseError")) },
+    ], "any"),
+    "BusinessGetProfileByIdResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "BusinessGetProfileByIdResponseResult": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "business", js: "business", typ: u(a("any"), true, r("StickyBusiness"), 3.14, 0, null, "") },
+        { json: "freeSms", js: "freeSms", typ: u(undefined, 3.14) },
+        { json: "monthlyFreeSms", js: "monthlyFreeSms", typ: u(undefined, 3.14) },
+        { json: "networks", js: "networks", typ: u(undefined, a(r("Network"))) },
+        { json: "top_services", js: "top_services", typ: u(undefined, r("ResultTopServices")) },
+        { json: "useDefaultSmsTemplate", js: "useDefaultSmsTemplate", typ: u(undefined, true) },
+        { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, r("YandexFeedType")) },
+    ], "any"),
+    "StickyBusiness": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("FluffyAdditionalSettings")) },
+        { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
+        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("StickyBackofficeConfiguration")) },
+        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("TentacledBackofficeConfiguration")) },
+        { json: "backofficeType", js: "backofficeType", typ: u(undefined, r("BackofficeType")) },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("FluffyCabinet"))) },
+        { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
+        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("FluffyCallbackWidgetConfiguration")) },
+        { json: "consumables", js: "consumables", typ: u(undefined, a(r("FluffyConsumable"))) },
+        { json: "created_on", js: "created_on", typ: u(undefined, Date) },
+        { json: "defaultFilteredWorkers", js: "defaultFilteredWorkers", typ: u(undefined, a("")) },
+        { json: "departments", js: "departments", typ: u(undefined, a(r("FluffyDepartment"))) },
+        { json: "designs", js: "designs", typ: u(undefined, a(m("any"))) },
+        { json: "extraID", js: "extraID", typ: u(undefined, "") },
+        { json: "flatTaxonomyDisplay", js: "flatTaxonomyDisplay", typ: u(undefined, true) },
+        { json: "general_info", js: "general_info", typ: r("BusinessInfo") },
+        { json: "group", js: "group", typ: u(undefined, r("Group")) },
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "integration_data", js: "integration_data", typ: u(undefined, m("any")) },
+        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("FluffyMiniWidgetConfiguration") },
+        { json: "mobileData", js: "mobileData", typ: u(undefined, a("any")) },
+        { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
+        { json: "resources", js: "resources", typ: a(u(a("any"), true, r("ResourceClass"), 3.14, 0, null, "")) },
+        { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
+        { json: "taxonomies", js: "taxonomies", typ: a(r("BusinessTaxonomy")) },
+        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("FluffyTaxonomiesComplex"))) },
+        { json: "taxonomy_tree_capacity", js: "taxonomy_tree_capacity", typ: u(undefined, a(m("any"))) },
+        { json: "top_services", js: "top_services", typ: u(undefined, r("FluffyTopServices")) },
+        { json: "vertical", js: "vertical", typ: u(undefined, "") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("FluffyWidgetConfiguration") },
+        { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, "") },
+    ], false),
+    "FluffyAdditionalSettings": o([
+        { json: "appointmentExtensionAmount", js: "appointmentExtensionAmount", typ: u(undefined, 3.14) },
+        { json: "appointmentExtensionType", js: "appointmentExtensionType", typ: u(undefined, r("AppointmentExtensionType")) },
+    ], "any"),
+    "TentacledBackofficeConfiguration": o([
+        { json: "adjacentTaxonomiesTreshold", js: "adjacentTaxonomiesTreshold", typ: u(undefined, 3.14) },
+        { json: "allowHideServiceForBooking", js: "allowHideServiceForBooking", typ: u(undefined, true) },
+        { json: "allowHideWorkersFromSchdeule", js: "allowHideWorkersFromSchdeule", typ: u(undefined, true) },
+        { json: "allowSmsTranslit", js: "allowSmsTranslit", typ: u(undefined, true) },
+        { json: "appointmentFutureMoving", js: "appointmentFutureMoving", typ: u(undefined, true) },
+        { json: "blockNotificationForAnyAvailableAdjacentService", js: "blockNotificationForAnyAvailableAdjacentService", typ: u(undefined, true) },
+        { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
+        { json: "checkClientOverlapping", js: "checkClientOverlapping", typ: u(undefined, true) },
+        { json: "customOnlinePaymentConfirmationTemplate", js: "customOnlinePaymentConfirmationTemplate", typ: u(undefined, "") },
+        { json: "defaultGTScheduleDayView", js: "defaultGTScheduleDayView", typ: u(undefined, true) },
+        { json: "disableAppointmentClientInlineEditor", js: "disableAppointmentClientInlineEditor", typ: u(undefined, true) },
+        { json: "editAppExtraId", js: "editAppExtraId", typ: u(undefined, true) },
+        { json: "editTaxonomyChildren", js: "editTaxonomyChildren", typ: u(undefined, true) },
+        { json: "editTaxonomyVisitType", js: "editTaxonomyVisitType", typ: u(undefined, true) },
+        { json: "enableBlackList", js: "enableBlackList", typ: u(undefined, true) },
+        { json: "enableCalculateShedule", js: "enableCalculateShedule", typ: u(undefined, true) },
+        { json: "enableClientCard", js: "enableClientCard", typ: u(undefined, true) },
+        { json: "enableClientLanguage", js: "enableClientLanguage", typ: u(undefined, true) },
+        { json: "enableClientMedicalCardReport", js: "enableClientMedicalCardReport", typ: u(undefined, true) },
+        { json: "enableCustomOnlinePaymentConfirmation", js: "enableCustomOnlinePaymentConfirmation", typ: u(undefined, true) },
+        { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
+        { json: "enableExtendedRecordsClientStatistics", js: "enableExtendedRecordsClientStatistics", typ: u(undefined, true) },
+        { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enableServiceTimeLimit", js: "enableServiceTimeLimit", typ: u(undefined, true) },
+        { json: "enableSourceChoice", js: "enableSourceChoice", typ: u(undefined, true) },
+        { json: "enableTaxonomyChildrenAgeCheck", js: "enableTaxonomyChildrenAgeCheck", typ: u(undefined, true) },
+        { json: "exportToExcelRemovedClients", js: "exportToExcelRemovedClients", typ: u(undefined, true) },
+        { json: "feedbackCustomerPortalMessage", js: "feedbackCustomerPortalMessage", typ: u(undefined, "") },
+        { json: "feedbackCustomerPortalThankYouMessage", js: "feedbackCustomerPortalThankYouMessage", typ: u(undefined, "") },
+        { json: "feedbackCustomerPortalTitle", js: "feedbackCustomerPortalTitle", typ: u(undefined, "") },
+        { json: "feedBackMinRating", js: "feedBackMinRating", typ: u(undefined, r("FeedBackMinRating")) },
+        { json: "finId", js: "finId", typ: u(undefined, "") },
+        { json: "finName", js: "finName", typ: u(undefined, "") },
+        { json: "hideCustomerPortalFooter", js: "hideCustomerPortalFooter", typ: u(undefined, true) },
+        { json: "highlightedResource", js: "highlightedResource", typ: u(undefined, true) },
+        { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
+        { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
+        { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
+        { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
+        { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
+        { json: "scheduleDefaultWorkersLimit", js: "scheduleDefaultWorkersLimit", typ: u(undefined, 3.14) },
+        { json: "schedulerWeekViewType", js: "schedulerWeekViewType", typ: u(undefined, r("SchedulerWeekViewType")) },
+        { json: "scheduleWorkerHours", js: "scheduleWorkerHours", typ: u(undefined, true) },
+        { json: "showAdditionalFields", js: "showAdditionalFields", typ: u(undefined, true) },
+        { json: "showAddress", js: "showAddress", typ: u(undefined, true) },
+        { json: "showBirthDate", js: "showBirthDate", typ: u(undefined, true) },
+        { json: "showClientAppear", js: "showClientAppear", typ: u(undefined, true) },
+        { json: "showClientAppearOnSchedule", js: "showClientAppearOnSchedule", typ: u(undefined, true) },
+        { json: "showClientBirthdayFilter", js: "showClientBirthdayFilter", typ: u(undefined, true) },
+        { json: "showClientContractNumber", js: "showClientContractNumber", typ: u(undefined, true) },
+        { json: "showClientImage", js: "showClientImage", typ: u(undefined, true) },
+        { json: "showClientPayment", js: "showClientPayment", typ: u(undefined, true) },
+        { json: "showDefaulterBlockscreen", js: "showDefaulterBlockscreen", typ: u(undefined, true) },
+        { json: "showDeliveryStatus", js: "showDeliveryStatus", typ: u(undefined, true) },
+        { json: "showDepartmentFilter", js: "showDepartmentFilter", typ: u(undefined, true) },
+        { json: "showDepartments", js: "showDepartments", typ: u(undefined, true) },
+        { json: "showDepartmentsConfiguration", js: "showDepartmentsConfiguration", typ: u(undefined, true) },
+        { json: "showEmail", js: "showEmail", typ: u(undefined, true) },
+        { json: "showExtraClientInfo", js: "showExtraClientInfo", typ: u(undefined, true) },
+        { json: "showFax", js: "showFax", typ: u(undefined, true) },
+        { json: "showFiredWorkerAppointmentAlert", js: "showFiredWorkerAppointmentAlert", typ: u(undefined, true) },
+        { json: "showFirstAvailableSlot", js: "showFirstAvailableSlot", typ: u(undefined, true) },
+        { json: "showGapWindow", js: "showGapWindow", typ: u(undefined, true) },
+        { json: "showGender", js: "showGender", typ: u(undefined, true) },
+        { json: "showGenderInRecords", js: "showGenderInRecords", typ: u(undefined, true) },
+        { json: "showGeneratableReportsScreen", js: "showGeneratableReportsScreen", typ: u(undefined, true) },
+        { json: "showHouseNumber", js: "showHouseNumber", typ: u(undefined, true) },
+        { json: "showIsraelCity", js: "showIsraelCity", typ: u(undefined, true) },
+        { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
+        { json: "showLeadsScreen", js: "showLeadsScreen", typ: u(undefined, true) },
+        { json: "showManualChanges", js: "showManualChanges", typ: u(undefined, true) },
+        { json: "showPassportId", js: "showPassportId", typ: u(undefined, true) },
+        { json: "showRooms", js: "showRooms", typ: u(undefined, true) },
+        { json: "showSeasonTickets", js: "showSeasonTickets", typ: u(undefined, true) },
+        { json: "showTaxonomyChildren", js: "showTaxonomyChildren", typ: u(undefined, true) },
+        { json: "showTaxonomyLocalization", js: "showTaxonomyLocalization", typ: u(undefined, true) },
+        { json: "showTaxonomyVisitType", js: "showTaxonomyVisitType", typ: u(undefined, true) },
+        { json: "showTestRecord", js: "showTestRecord", typ: u(undefined, true) },
+        { json: "showUTM", js: "showUTM", typ: u(undefined, true) },
+        { json: "showWidgetColorTheme", js: "showWidgetColorTheme", typ: u(undefined, true) },
+        { json: "showWorkerDescriptionInEvent", js: "showWorkerDescriptionInEvent", typ: u(undefined, true) },
+        { json: "showWorkerExtraId", js: "showWorkerExtraId", typ: u(undefined, true) },
+        { json: "showWorkerStatus", js: "showWorkerStatus", typ: u(undefined, true) },
+        { json: "skipAppointmentPriceUpdate", js: "skipAppointmentPriceUpdate", typ: u(undefined, true) },
+        { json: "skipCancelIfClientNotAppear", js: "skipCancelIfClientNotAppear", typ: u(undefined, true) },
+        { json: "skipServiceFiltering", js: "skipServiceFiltering", typ: u(undefined, true) },
+        { json: "splitFullNameXlsExport", js: "splitFullNameXlsExport", typ: u(undefined, true) },
+        { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
+        { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
+        { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
+        { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
+        { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
+        { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
+        { json: "useGtAppMethod", js: "useGtAppMethod", typ: u(undefined, true) },
+        { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
+        { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
+    ], false),
+    "StickyBackofficeConfiguration": o([
+        { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+    ], "any"),
+    "FluffyCabinet": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
+    ], false),
+    "FluffyCallbackWidgetConfiguration": o([
+        { json: "title1", js: "title1", typ: u(undefined, "") },
+        { json: "title2", js: "title2", typ: u(undefined, "") },
+    ], "any"),
+    "FluffyConsumable": o([
+        { json: "extraID", js: "extraID", typ: "" },
+        { json: "name", js: "name", typ: "" },
+        { json: "quantity", js: "quantity", typ: 3.14 },
+    ], "any"),
+    "FluffyDepartment": o([
+        { json: "id", js: "id", typ: "" },
+        { json: "id_", js: "id_", typ: u(undefined, 3.14) },
+        { json: "name", js: "name", typ: "" },
+    ], false),
+    "FluffyMiniWidgetConfiguration": o([
         { json: "fields", js: "fields", typ: u(undefined, a(r("Field"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
@@ -3110,7 +4130,7 @@ const typeMap: any = {
         { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
         { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
         { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, "") },
+        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
         { json: "website", js: "website", typ: u(undefined, "") },
     ], false),
@@ -3250,15 +4270,15 @@ const typeMap: any = {
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
         { json: "showcaseItemID", js: "showcaseItemID", typ: u(undefined, "") },
     ], false),
-    "TaxonomiesComplex": o([
+    "FluffyTaxonomiesComplex": o([
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
     ], "any"),
-    "BusinessTopServices": o([
+    "FluffyTopServices": o([
         { json: "services", js: "services", typ: u(undefined, a("any")) },
         { json: "status", js: "status", typ: u(undefined, "") },
     ], "any"),
-    "WidgetConfiguration": o([
+    "FluffyWidgetConfiguration": o([
         { json: "additionalName", js: "additionalName", typ: u(undefined, "") },
         { json: "alignmentTaxonomySlots", js: "alignmentTaxonomySlots", typ: u(undefined, true) },
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
@@ -3268,11 +4288,11 @@ const typeMap: any = {
         { json: "appointment_confirmation_title", js: "appointment_confirmation_title", typ: u(undefined, "") },
         { json: "askClientBirthday", js: "askClientBirthday", typ: u(undefined, true) },
         { json: "askClientGender", js: "askClientGender", typ: u(undefined, true) },
-        { json: "bookableDateRanges", js: "bookableDateRanges", typ: u(undefined, r("BookableDateRanges")) },
+        { json: "bookableDateRanges", js: "bookableDateRanges", typ: u(undefined, r("FluffyBookableDateRanges")) },
         { json: "bookableMonthsCount", js: "bookableMonthsCount", typ: u(undefined, 3.14) },
         { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
         { json: "calendarModeHideTime", js: "calendarModeHideTime", typ: u(undefined, true) },
-        { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("ClientBlockingSettings")) },
+        { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("FluffyClientBlockingSettings")) },
         { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, true) },
         { json: "cracServer", js: "cracServer", typ: u(undefined, r("CracServer")) },
         { json: "cracSlotSize", js: "cracSlotSize", typ: u(undefined, 3.14) },
@@ -3287,7 +4307,7 @@ const typeMap: any = {
         { json: "disableMobileWidget", js: "disableMobileWidget", typ: u(undefined, true) },
         { json: "disableWidget", js: "disableWidget", typ: u(undefined, true) },
         { json: "disableWidgetMessage", js: "disableWidgetMessage", typ: u(undefined, "") },
-        { json: "discountedPriceRounding", js: "discountedPriceRounding", typ: u(undefined, r("DiscountedPriceRounding")) },
+        { json: "discountedPriceRounding", js: "discountedPriceRounding", typ: u(undefined, r("FluffyDiscountedPriceRounding")) },
         { json: "displaySlotSize", js: "displaySlotSize", typ: u(undefined, 3.14) },
         { json: "dontRequireEmail", js: "dontRequireEmail", typ: u(undefined, true) },
         { json: "emailIsMandatory", js: "emailIsMandatory", typ: u(undefined, true) },
@@ -3338,7 +4358,7 @@ const typeMap: any = {
         { json: "skipWorkerSelectedServiceIDs", js: "skipWorkerSelectedServiceIDs", typ: u(undefined, a("")) },
         { json: "skipWorkerServicesSelection", js: "skipWorkerServicesSelection", typ: u(undefined, true) },
         { json: "socialNetworkImage", js: "socialNetworkImage", typ: u(undefined, "") },
-        { json: "socialSharing", js: "socialSharing", typ: u(undefined, r("SocialSharing")) },
+        { json: "socialSharing", js: "socialSharing", typ: u(undefined, r("FluffySocialSharing")) },
         { json: "sortByMostFree", js: "sortByMostFree", typ: u(undefined, true) },
         { json: "sortWorkersByWorkload", js: "sortWorkersByWorkload", typ: u(undefined, true) },
         { json: "splitInsuranceClient", js: "splitInsuranceClient", typ: u(undefined, true) },
@@ -3366,12 +4386,12 @@ const typeMap: any = {
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
     ], false),
-    "BookableDateRanges": o([
+    "FluffyBookableDateRanges": o([
         { json: "enabled", js: "enabled", typ: u(undefined, true) },
         { json: "end", js: "end", typ: u(undefined, "any") },
         { json: "start", js: "start", typ: u(undefined, "any") },
     ], "any"),
-    "ClientBlockingSettings": o([
+    "FluffyClientBlockingSettings": o([
         { json: "appointmentClientBlock", js: "appointmentClientBlock", typ: u(undefined, true) },
         { json: "appointmentClientBlockDays", js: "appointmentClientBlockDays", typ: u(undefined, 3.14) },
         { json: "appointmentClientBlockText", js: "appointmentClientBlockText", typ: u(undefined, "") },
@@ -3380,11 +4400,11 @@ const typeMap: any = {
         { json: "blockRepeatedRecordsRange", js: "blockRepeatedRecordsRange", typ: u(undefined, 3.14) },
         { json: "blockRepeatedRecordsText", js: "blockRepeatedRecordsText", typ: u(undefined, "") },
     ], false),
-    "DiscountedPriceRounding": o([
+    "FluffyDiscountedPriceRounding": o([
         { json: "rule", js: "rule", typ: u(undefined, r("Rule")) },
         { json: "value", js: "value", typ: u(undefined, 3.14) },
     ], "any"),
-    "SocialSharing": o([
+    "FluffySocialSharing": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "discountAmount", js: "discountAmount", typ: u(undefined, u(3.14, null)) },
         { json: "discountEnabled", js: "discountEnabled", typ: u(undefined, true) },
@@ -3450,13 +4470,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("FluffyBusiness") },
+        { json: "business", js: "business", typ: r("IndigoBusiness") },
         { json: "client", js: "client", typ: r("Client") },
         { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "FluffyBusiness": o([
+    "IndigoBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "Client": o([
@@ -3489,26 +4509,21 @@ const typeMap: any = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("ResultBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("IndecentBusiness")) },
         { json: "client", js: "client", typ: r("Client") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("ResultProfile")) },
     ], "any"),
-    "ResultBusiness": o([
+    "IndecentBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ResultProfile": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "Models": o([
-        { json: "Business", js: "Business", typ: u(a("any"), true, r("BusinessClass"), 3.14, 0, null, "") },
+        { json: "Business", js: "Business", typ: u(a("any"), true, r("StickyBusiness"), 3.14, 0, null, "") },
         { json: "Client", js: "Client", typ: r("Client") },
     ], false),
-    "WorkerSortingType": [
-        "most_free",
-        "none",
-        "workload",
-    ],
     "AppointmentExtensionType": [
         "MINUTES",
         "PERCENT",
@@ -3641,6 +4656,34 @@ const typeMap: any = {
         "name",
         "surname",
     ],
+    "CracServer": [
+        "CRAC",
+        "CRAC_PROD3",
+    ],
+    "Rule": [
+        "CUSTOM",
+        "NEAREST_INTEGER",
+        "TWO_DECIMALS",
+    ],
+    "Payment": [
+        "OPTIONAL",
+        "REQUIRED",
+        "WITHOUT",
+    ],
+    "DiscountType": [
+        "PERCENT",
+    ],
+    "UseDirectScheduleRead": [
+        "ALL",
+        "AUTHENTICATED",
+        "GUEST",
+        "NONE",
+    ],
+    "WorkerSortingType": [
+        "most_free",
+        "none",
+        "workload",
+    ],
     "StartPeriod": [
         "month",
         "week",
@@ -3694,29 +4737,6 @@ const typeMap: any = {
         "CATEGORY",
         "SERVICE",
         "SUBCATEGORY",
-    ],
-    "CracServer": [
-        "CRAC",
-        "CRAC_PROD3",
-    ],
-    "Rule": [
-        "CUSTOM",
-        "NEAREST_INTEGER",
-        "TWO_DECIMALS",
-    ],
-    "Payment": [
-        "OPTIONAL",
-        "REQUIRED",
-        "WITHOUT",
-    ],
-    "DiscountType": [
-        "PERCENT",
-    ],
-    "UseDirectScheduleRead": [
-        "ALL",
-        "AUTHENTICATED",
-        "GUEST",
-        "NONE",
     ],
     "YandexFeedType": [
         "dynamic",

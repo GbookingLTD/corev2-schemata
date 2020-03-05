@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BusinessTopServices {
+public class FluffyTopServices {
     private List<Object> services;
     private String status;
 

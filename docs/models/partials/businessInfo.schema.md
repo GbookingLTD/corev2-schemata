@@ -53,7 +53,7 @@ schemas-json/models/partials/businessInfo.schema.json
 | [smsDuplicateFilter](#smsduplicatefilter)                 | `object`   | Optional | No       |             | BusinessInfo (this schema) |
 | [social_network](#social_network)                         | reference  | Optional | No       |             | BusinessInfo (this schema) |
 | [timetable](#timetable)                                   | reference  | Optional | No       |             | BusinessInfo (this schema) |
-| [timezone](#timezone)                                     | `string`   | Optional | No       |             | BusinessInfo (this schema) |
+| [timezone](#timezone)                                     | `string`   | Optional | Yes      |             | BusinessInfo (this schema) |
 | [verticalTranslation](#verticaltranslation)               | `enum`     | Optional | No       | `"NONE"`    | BusinessInfo (this schema) |
 | [website](#website)                                       | `string`   | Optional | No       |             | BusinessInfo (this schema) |
 
@@ -742,7 +742,7 @@ All items must be of the type:
 
 ### timezone Type
 
-`string`
+`string`, nullable
 
 ## verticalTranslation
 

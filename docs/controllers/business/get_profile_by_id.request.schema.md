@@ -17,7 +17,7 @@ schemas-json/controllers/business/get_profile_by_id.request.schema.json
 
 ## params
 
-параметры запроса
+параметры запроса business.get_profile_by_id
 
 `params`
 

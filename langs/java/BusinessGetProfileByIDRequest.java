@@ -44,6 +44,8 @@ public class BusinessGetProfileByIDRequest {
 
     /**
      * параметры запроса
+     *
+     * параметры запроса business.get_profile_by_id
      */
     @JsonProperty("params")
     public BusinessGetProfileByIDRequestParams getParams() { return params; }

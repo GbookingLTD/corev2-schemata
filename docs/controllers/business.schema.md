@@ -12,7 +12,47 @@ schemas-json/controllers/business.schema.json
 
 | Property                                | Type     | Required     | Nullable | Defined by                       |
 | --------------------------------------- | -------- | ------------ | -------- | -------------------------------- |
+| [get_network_data](#get_network_data)   | `object` | **Required** | No       | BusinessController (this schema) |
 | [get_profile_by_id](#get_profile_by_id) | `object` | **Required** | No       | BusinessController (this schema) |
+
+## get_network_data
+
+`get_network_data`
+
+- is **required**
+- type: `object`
+- defined in this schema
+
+### get_network_data Type
+
+`object` with following properties:
+
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `request`  |      | **Required** |
+| `response` |      | **Required** |
+
+#### request
+
+`request`
+
+- is **required**
+- type: reference
+
+##### request Type
+
+- []() – `./business/get_network_data.request.schema.json`
+
+#### response
+
+`response`
+
+- is **required**
+- type: reference
+
+##### response Type
+
+- []() – `./business/get_network_data.response.schema.json`
 
 ## get_profile_by_id
 

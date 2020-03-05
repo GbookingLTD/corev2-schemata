@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.*;
 
 /**
  * параметры запроса
+ *
+ * параметры запроса business.get_profile_by_id
  */
 public class BusinessGetProfileByIDRequestParams {
-    private PurpleBusiness business;
+    private TentacledBusiness business;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
@@ -24,9 +26,9 @@ public class BusinessGetProfileByIDRequestParams {
     private WorkerSortingType workerSortingType;
 
     @JsonProperty("business")
-    public PurpleBusiness getBusiness() { return business; }
+    public TentacledBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(PurpleBusiness value) { this.business = value; }
+    public void setBusiness(TentacledBusiness value) { this.business = value; }
 
     /**
      * если указано true - меняет формат представления discounts

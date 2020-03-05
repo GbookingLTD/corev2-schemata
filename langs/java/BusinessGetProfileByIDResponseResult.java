@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class BusinessGetProfileByIDResponseResult {
     private Boolean active;
-    private Business business;
+    private ResultBusiness business;
     private Double freeSMS;
     private Double monthlyFreeSMS;
     private List<Network> networks;
@@ -22,9 +22,9 @@ public class BusinessGetProfileByIDResponseResult {
     public void setActive(Boolean value) { this.active = value; }
 
     @JsonProperty("business")
-    public Business getBusiness() { return business; }
+    public ResultBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(Business value) { this.business = value; }
+    public void setBusiness(ResultBusiness value) { this.business = value; }
 
     @JsonProperty("freeSms")
     public Double getFreeSMS() { return freeSMS; }

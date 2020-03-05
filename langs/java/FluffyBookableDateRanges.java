@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BookableDateRanges {
+public class FluffyBookableDateRanges {
     private Boolean enabled;
     private Object end;
     private Object start;

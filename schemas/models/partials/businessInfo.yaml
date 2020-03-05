@@ -37,7 +37,7 @@ properties:
     items:
       $ref: "../phone.schema.json"
   timezone:
-    type: "string"
+    type: ["null", "string"]
   description:
     description: ""
     type: "string"

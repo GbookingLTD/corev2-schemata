@@ -3,20 +3,20 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BusinessClass {
+public class StickyBusiness {
     private Boolean active;
-    private AdditionalSettings additionalSettings;
+    private FluffyAdditionalSettings additionalSettings;
     private Boolean allowCategoryBooking;
-    private BusinessBackofficeConfiguration businessBackofficeConfiguration;
-    private BackofficeConfigurationClass backofficeConfiguration;
+    private StickyBackofficeConfiguration businessBackofficeConfiguration;
+    private TentacledBackofficeConfiguration backofficeConfiguration;
     private BackofficeType backofficeType;
-    private List<Cabinet> cabinets;
+    private List<FluffyCabinet> cabinets;
     private Boolean cabinetsEnabled;
-    private CallbackWidgetConfiguration callbackWidgetConfiguration;
-    private List<Consumable> consumables;
+    private FluffyCallbackWidgetConfiguration callbackWidgetConfiguration;
+    private List<FluffyConsumable> consumables;
     private String createdOn;
     private List<String> defaultFilteredWorkers;
-    private List<Department> departments;
+    private List<FluffyDepartment> departments;
     private List<Map<String, Object>> designs;
     private String extraID;
     private Boolean flatTaxonomyDisplay;
@@ -24,17 +24,17 @@ public class BusinessClass {
     private Group group;
     private String id;
     private Map<String, Object> integrationData;
-    private MiniWidgetConfiguration miniWidgetConfiguration;
+    private FluffyMiniWidgetConfiguration miniWidgetConfiguration;
     private List<Object> mobileData;
     private List<Object> notifications;
     private List<Resource> resources;
     private Boolean stateLevelHolidaysNotWorking;
     private List<BusinessTaxonomy> taxonomies;
-    private List<TaxonomiesComplex> taxonomiesComplex;
+    private List<FluffyTaxonomiesComplex> taxonomiesComplex;
     private List<Map<String, Object>> taxonomyTreeCapacity;
-    private BusinessTopServices topServices;
+    private FluffyTopServices topServices;
     private String vertical;
-    private WidgetConfiguration widgetConfiguration;
+    private FluffyWidgetConfiguration widgetConfiguration;
     private String yandexFeedType;
 
     @JsonProperty("active")
@@ -43,9 +43,9 @@ public class BusinessClass {
     public void setActive(Boolean value) { this.active = value; }
 
     @JsonProperty("additionalSettings")
-    public AdditionalSettings getAdditionalSettings() { return additionalSettings; }
+    public FluffyAdditionalSettings getAdditionalSettings() { return additionalSettings; }
     @JsonProperty("additionalSettings")
-    public void setAdditionalSettings(AdditionalSettings value) { this.additionalSettings = value; }
+    public void setAdditionalSettings(FluffyAdditionalSettings value) { this.additionalSettings = value; }
 
     @JsonProperty("allowCategoryBooking")
     public Boolean getAllowCategoryBooking() { return allowCategoryBooking; }
@@ -53,14 +53,14 @@ public class BusinessClass {
     public void setAllowCategoryBooking(Boolean value) { this.allowCategoryBooking = value; }
 
     @JsonProperty("backoffice_configuration")
-    public BusinessBackofficeConfiguration getBusinessBackofficeConfiguration() { return businessBackofficeConfiguration; }
+    public StickyBackofficeConfiguration getBusinessBackofficeConfiguration() { return businessBackofficeConfiguration; }
     @JsonProperty("backoffice_configuration")
-    public void setBusinessBackofficeConfiguration(BusinessBackofficeConfiguration value) { this.businessBackofficeConfiguration = value; }
+    public void setBusinessBackofficeConfiguration(StickyBackofficeConfiguration value) { this.businessBackofficeConfiguration = value; }
 
     @JsonProperty("backofficeConfiguration")
-    public BackofficeConfigurationClass getBackofficeConfiguration() { return backofficeConfiguration; }
+    public TentacledBackofficeConfiguration getBackofficeConfiguration() { return backofficeConfiguration; }
     @JsonProperty("backofficeConfiguration")
-    public void setBackofficeConfiguration(BackofficeConfigurationClass value) { this.backofficeConfiguration = value; }
+    public void setBackofficeConfiguration(TentacledBackofficeConfiguration value) { this.backofficeConfiguration = value; }
 
     @JsonProperty("backofficeType")
     public BackofficeType getBackofficeType() { return backofficeType; }
@@ -68,9 +68,9 @@ public class BusinessClass {
     public void setBackofficeType(BackofficeType value) { this.backofficeType = value; }
 
     @JsonProperty("cabinets")
-    public List<Cabinet> getCabinets() { return cabinets; }
+    public List<FluffyCabinet> getCabinets() { return cabinets; }
     @JsonProperty("cabinets")
-    public void setCabinets(List<Cabinet> value) { this.cabinets = value; }
+    public void setCabinets(List<FluffyCabinet> value) { this.cabinets = value; }
 
     @JsonProperty("cabinetsEnabled")
     public Boolean getCabinetsEnabled() { return cabinetsEnabled; }
@@ -78,14 +78,14 @@ public class BusinessClass {
     public void setCabinetsEnabled(Boolean value) { this.cabinetsEnabled = value; }
 
     @JsonProperty("callback_widget_configuration")
-    public CallbackWidgetConfiguration getCallbackWidgetConfiguration() { return callbackWidgetConfiguration; }
+    public FluffyCallbackWidgetConfiguration getCallbackWidgetConfiguration() { return callbackWidgetConfiguration; }
     @JsonProperty("callback_widget_configuration")
-    public void setCallbackWidgetConfiguration(CallbackWidgetConfiguration value) { this.callbackWidgetConfiguration = value; }
+    public void setCallbackWidgetConfiguration(FluffyCallbackWidgetConfiguration value) { this.callbackWidgetConfiguration = value; }
 
     @JsonProperty("consumables")
-    public List<Consumable> getConsumables() { return consumables; }
+    public List<FluffyConsumable> getConsumables() { return consumables; }
     @JsonProperty("consumables")
-    public void setConsumables(List<Consumable> value) { this.consumables = value; }
+    public void setConsumables(List<FluffyConsumable> value) { this.consumables = value; }
 
     @JsonProperty("created_on")
     public String getCreatedOn() { return createdOn; }
@@ -98,9 +98,9 @@ public class BusinessClass {
     public void setDefaultFilteredWorkers(List<String> value) { this.defaultFilteredWorkers = value; }
 
     @JsonProperty("departments")
-    public List<Department> getDepartments() { return departments; }
+    public List<FluffyDepartment> getDepartments() { return departments; }
     @JsonProperty("departments")
-    public void setDepartments(List<Department> value) { this.departments = value; }
+    public void setDepartments(List<FluffyDepartment> value) { this.departments = value; }
 
     @JsonProperty("designs")
     public List<Map<String, Object>> getDesigns() { return designs; }
@@ -138,9 +138,9 @@ public class BusinessClass {
     public void setIntegrationData(Map<String, Object> value) { this.integrationData = value; }
 
     @JsonProperty("mini_widget_configuration")
-    public MiniWidgetConfiguration getMiniWidgetConfiguration() { return miniWidgetConfiguration; }
+    public FluffyMiniWidgetConfiguration getMiniWidgetConfiguration() { return miniWidgetConfiguration; }
     @JsonProperty("mini_widget_configuration")
-    public void setMiniWidgetConfiguration(MiniWidgetConfiguration value) { this.miniWidgetConfiguration = value; }
+    public void setMiniWidgetConfiguration(FluffyMiniWidgetConfiguration value) { this.miniWidgetConfiguration = value; }
 
     @JsonProperty("mobileData")
     public List<Object> getMobileData() { return mobileData; }
@@ -168,9 +168,9 @@ public class BusinessClass {
     public void setTaxonomies(List<BusinessTaxonomy> value) { this.taxonomies = value; }
 
     @JsonProperty("taxonomiesComplex")
-    public List<TaxonomiesComplex> getTaxonomiesComplex() { return taxonomiesComplex; }
+    public List<FluffyTaxonomiesComplex> getTaxonomiesComplex() { return taxonomiesComplex; }
     @JsonProperty("taxonomiesComplex")
-    public void setTaxonomiesComplex(List<TaxonomiesComplex> value) { this.taxonomiesComplex = value; }
+    public void setTaxonomiesComplex(List<FluffyTaxonomiesComplex> value) { this.taxonomiesComplex = value; }
 
     @JsonProperty("taxonomy_tree_capacity")
     public List<Map<String, Object>> getTaxonomyTreeCapacity() { return taxonomyTreeCapacity; }
@@ -178,9 +178,9 @@ public class BusinessClass {
     public void setTaxonomyTreeCapacity(List<Map<String, Object>> value) { this.taxonomyTreeCapacity = value; }
 
     @JsonProperty("top_services")
-    public BusinessTopServices getTopServices() { return topServices; }
+    public FluffyTopServices getTopServices() { return topServices; }
     @JsonProperty("top_services")
-    public void setTopServices(BusinessTopServices value) { this.topServices = value; }
+    public void setTopServices(FluffyTopServices value) { this.topServices = value; }
 
     @JsonProperty("vertical")
     public String getVertical() { return vertical; }
@@ -188,9 +188,9 @@ public class BusinessClass {
     public void setVertical(String value) { this.vertical = value; }
 
     @JsonProperty("widget_configuration")
-    public WidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
+    public FluffyWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
     @JsonProperty("widget_configuration")
-    public void setWidgetConfiguration(WidgetConfiguration value) { this.widgetConfiguration = value; }
+    public void setWidgetConfiguration(FluffyWidgetConfiguration value) { this.widgetConfiguration = value; }
 
     @JsonProperty("yandexFeedType")
     public String getYandexFeedType() { return yandexFeedType; }
