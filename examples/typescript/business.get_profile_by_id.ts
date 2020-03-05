@@ -41,6 +41,6 @@ fetch(process.env.ENDPOINT, {
             return;
         }
 
-        const business = res.result.business as GBookingCoreV2API.BusinessClass;
+        const business = res.result.business as GBookingCoreV2API.StickyBusiness;
         console.info("business %d %s", business.id, business.general_info.name);
     });
