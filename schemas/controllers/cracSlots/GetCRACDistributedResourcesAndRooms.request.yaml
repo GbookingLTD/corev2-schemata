@@ -19,9 +19,10 @@ definitions:
           id:
             description: "идентификатор бизнеса"
             type: "string"
+
   Request:
     type: "object"
-    additionalProperties: false
+    additionalProperties: true
     required: ["params"]
     properties:
       params:
@@ -36,7 +37,7 @@ definitions:
             required: ["id", "widget_configuration", "general_info"]
             properties:
               id:
-                type: "number"
+                type: "string"
               widget_configuration:
                 type: "object"
                 additionalProperties: false
@@ -44,6 +45,8 @@ definitions:
                 properties:
                   cracServer:
                     type: "string"
+                  mostFreeEnable:
+                    type: "boolean"
               general_info:
                 type: "object"
                 additionalProperties: false

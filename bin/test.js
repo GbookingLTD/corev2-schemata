@@ -4,7 +4,9 @@ const Q = require('q');
 let Ajv = require('ajv')
   , ajv = new Ajv
   , rpcRequest = require('./rpcRequest').rpcRequest
-  , cracRpcRequest = require('./rpcRequest').cracRpcRequest;
+  , cracRpcRequest = require('./rpcRequest').cracRpcRequest
+  , cracRpcRequestObject = require('./rpcRequest').cracRpcRequestObject
+;
 let corev2Schemata = require('../index');
 
 let loaded = false;
@@ -85,11 +87,17 @@ let addClient = function (endpoint, data) {
   });
 };
 
-let getProfileByID = function (endpoint, baseBusinessId, cred) {
+let getProfileByID = function (endpoint, baseBusinessId, cred, extraParams) {
   var params = {
     "business": {"id": ''+baseBusinessId},
     "with_networks": true
   };
+
+  if (extraParams)
+    for (let i in extraParams)
+      if (extraParams.hasOwnProperty(i)) {
+        params[i] = extraParams[i];
+      }
 
   let _validate = getValidate('business', 'get_profile_by_id');
   let pref = 'business.get_profile_by_id: ' + baseBusinessId + (cred ? '_admin' : '_guest');
@@ -143,13 +151,13 @@ let GetCRACResourcesAndRooms = function (endpoint, businessID, filters) {
   let _validateReq = getValidateRequest('cracSlots', 'GetCRACResourcesAndRooms');
   let _validateRes = getValidateResponse('cracSlots', 'GetCRACResourcesAndRooms');
   return Q.fcall(function() {
-    _validateReq(params);
+    _validateReq('---> ' + pref, cracRpcRequestObject('cracSlots.GetCRACResourcesAndRooms', params, {}));
     return cracRpcRequest('CracSlots.GetCRACResourcesAndRooms', params, {}, endpoint);
   }).then(function(json) {
-    _validateRes(pref, json)
+    _validateRes('<--- ' + pref, json)
   }).fail(function(err) {
     if (err.code === -32700) {
-      _validateRes(pref, err.xtra);
+      _validateRes('<--- ' + pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
     }
@@ -175,14 +183,14 @@ let GetCRACDistributedResourcesAndRooms = function (endpoint, businessID, filter
   let _validateRes = getValidateResponse('cracSlots', 'GetCRACDistributedResourcesAndRooms');
   let pref = 'CracSlots.GetCRACDistributedResourcesAndRooms: ' + businessID;
   return Q.fcall(function() {
-    _validateReq(params);
+    _validateReq('---> ' + pref, cracRpcRequestObject('cracSlots.GetCRACDistributedResourcesAndRooms', params, {}));
     return cracRpcRequest('CracSlots.GetCRACDistributedResourcesAndRooms', params, {}, endpoint)
   })
       .then(function(json) {
-        _validateRes(pref, json)
+        _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
         if (err.code === -32700) {
-          _validateRes(pref, err.xtra);
+          _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
         }
@@ -208,14 +216,14 @@ let GetCRACInsuranceResourcesAndRooms = function (endpoint, businessID, filters)
   let _validateRes = getValidateResponse('cracSlots', 'GetCRACInsuranceResourcesAndRooms');
   let pref = 'CracSlots.GetCRACInsuranceResourcesAndRooms: ' + businessID;
   return Q.fcall(function() {
-    _validateReq(params);
+    _validateReq('---> ' + pref, cracRpcRequestObject('cracSlots.GetCRACInsuranceResourcesAndRooms', params, {}));
     return cracRpcRequest('CracSlots.GetCRACInsuranceResourcesAndRooms', params, {}, endpoint)
   })
       .then(function(json) {
-        _validateRes(pref, json)
+        _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
         if (err.code === -32700) {
-          _validateRes(pref, err.xtra);
+          _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
         }

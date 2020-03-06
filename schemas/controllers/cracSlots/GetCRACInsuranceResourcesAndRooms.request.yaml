@@ -3,9 +3,20 @@ $id: "schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.requ
 title: "CracSlots.GetCRACInsuranceResourcesAndRooms.request"
 type: "object"
 definitions:
+  ResourceFilter:
+    type: "object"
+    additionalProperties: true
+    required: ["id", "duration"]
+    properties:
+      id:
+        description: "идентификатор ресурса"
+        type: "string"
+      duration:
+        type: "number"
+
   Request:
     type: "object"
-    additionalProperties: false
+    additionalProperties: true
     required: ["params"]
     properties:
       params:
@@ -20,7 +31,7 @@ definitions:
             required: ["id", "widget_configuration", "general_info"]
             properties:
               id:
-                type: "number"
+                type: "string"
               widget_configuration:
                 type: "object"
                 additionalProperties: false
@@ -28,6 +39,8 @@ definitions:
                 properties:
                   cracServer:
                     type: "string"
+                  mostFreeEnable:
+                    type: "boolean"
               general_info:
                 type: "object"
                 additionalProperties: false
@@ -38,14 +51,14 @@ definitions:
           filters:
             type: "object"
             additionalProperties: false
-            required: ["insuranceID", "taxonomies", "rooms", "date"]
+            required: ["insuranceID", "resources", "rooms", "date"]
             properties:
               insuranceID:
                 type: "string"
-              taxonomies:
+              resources:
                 type: "array"
                 items:
-                  type: "string"
+                  $ref: "#/definitions/ResourceFilter"
               rooms:
                 type: "array"
                 items:

@@ -6,22 +6,17 @@ definitions:
   ResourceFilter:
     type: "object"
     additionalProperties: true
-    required: ["resource", "business"]
+    required: ["id", "duration"]
     properties:
-      resource:
+      id:
         description: "идентификатор ресурса"
         type: "string"
-      business:
-        type: "object"
-        additionalProperties: false
-        required: ["id"]
-        properties:
-          id:
-            description: "идентификатор бизнеса"
-            type: "string"
+      duration:
+        type: "number"
+
   Request:
     type: "object"
-    additionalProperties: false
+    additionalProperties: true
     required: ["params"]
     properties:
       params:
@@ -36,7 +31,7 @@ definitions:
             required: ["id", "widget_configuration", "general_info"]
             properties:
               id:
-                type: "number"
+                type: "string"
               widget_configuration:
                 type: "object"
                 additionalProperties: false
@@ -44,6 +39,8 @@ definitions:
                 properties:
                   cracServer:
                     type: "string"
+                  mostFreeEnable:
+                    type: "boolean"
               general_info:
                 type: "object"
                 additionalProperties: false
@@ -75,8 +72,10 @@ definitions:
                 properties:
                   from:
                     type: "string"
+                    format: "date-time"
                   to:
                     type: "string"
+                    format: "date-time"
 
 allOf:
   - $ref: "../../common/request.schema.json"

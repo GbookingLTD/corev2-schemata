@@ -60,7 +60,7 @@ require('./test')(function() {
         "to":"2020-03-10T00:00:00.000Z"
       }
     }),
-    CRAC.GetCRACDistributedResourcesAndRooms(null, "4000000006582", {
+    CRAC.GetCRACInsuranceResourcesAndRooms(null, "4000000006582", {
       "insuranceID": "993276277",
       "resources":[
         {"id": "5cec0b2bb54995180ed8f789", "duration": 20}

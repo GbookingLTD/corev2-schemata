@@ -35,6 +35,16 @@ exports.rpcRequest = function (method, data, cred, endpoint) {
   return defer.promise;
 };
 
+exports.cracRpcRequestObject = function (method, data, cred) {
+  return {
+    jsonrpc: '2.0',
+    id: 2,
+    cred: cred,
+    method: method,
+    params: JSON.parse(JSON.stringify(data))
+  };
+};
+
 exports.cracRpcRequest = function (method, data, cred, endpoint) {
   var defer = Q.defer();
   if (arguments.length === 1) {
@@ -42,13 +52,7 @@ exports.cracRpcRequest = function (method, data, cred, endpoint) {
     method = undefined;
   }
 
-  var json = {
-    jsonrpc: '2.0',
-    id: 2,
-    cred: cred,
-    method: method,
-    params: JSON.parse(JSON.stringify(data))
-  };
+  var json = exports.cracRpcRequestObject(method, data, cred);
 
   if (!json.method) {
     throw new Error('rpc request unknown method');
