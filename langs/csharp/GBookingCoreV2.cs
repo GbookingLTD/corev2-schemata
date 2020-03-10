@@ -349,7 +349,7 @@ namespace GBookingCoreV2
         public string BusinessId { get; set; }
 
         [JsonProperty("info")]
-        public BusinessBusiness Info { get; set; }
+        public BusinessBusiness? Info { get; set; }
 
         [JsonProperty("isMapBusiness")]
         public bool IsMapBusiness { get; set; }

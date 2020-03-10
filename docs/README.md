@@ -57,6 +57,11 @@
 - [client.add_client.response](./controllers/client/add_client.response.schema.md) –
   `schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
 
+## /common/partials/
+
+- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
+  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)
+
 ## /controllers/cracSlots/
 
 - [CracSlots.GetCRACDistributedResourcesAndRooms.request](./controllers/cracSlots/GetCRACDistributedResourcesAndRooms.request.schema.md)
@@ -71,8 +76,3 @@
   `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json` (Unknown)
 - [CracSlots.GetCRACResourcesAndRooms.response](./controllers/cracSlots/GetCRACResourcesAndRooms.response.schema.md) –
   `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json` (Unknown)
-
-## /common/partials/
-
-- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
-  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)

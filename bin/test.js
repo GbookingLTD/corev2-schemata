@@ -114,6 +114,24 @@ let getProfileByID = function (endpoint, baseBusinessId, cred, extraParams) {
 
 let getNetworkData = function (endpoint, networkId) {
   var params = {
+    "networkID": networkId
+  };
+
+  let _validate = getValidate('business', 'get_network_data');
+  let pref = 'business.get_network_data: ' + networkId;
+  return rpcRequest('business.get_network_data', params, {}, endpoint).then(function(json) {
+    _validate(pref, json)
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      _validate(pref, err.xtra);
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let getNetworkDataWithBusinessInfo = function (endpoint, networkId) {
+  var params = {
     "networkID": networkId,
     "with_business_info": true
   };
@@ -237,6 +255,7 @@ module.exports = function(fn) {
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
 module.exports.getNetworkData = getNetworkData;
+module.exports.getNetworkDataWithBusinessInfo = getNetworkDataWithBusinessInfo;
 module.exports.CRAC = {
   GetCRACResourcesAndRooms,
   GetCRACDistributedResourcesAndRooms,

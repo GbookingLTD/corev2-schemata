@@ -4,6 +4,7 @@ const Q = require('q')
   , getProfileByID = require('./test').getProfileByID
   , addClient = require('./test').addClient
   , getNetworkData = require('./test').getNetworkData
+  , getNetworkDataWithBusinessInfo = require('./test').getNetworkDataWithBusinessInfo
 ;
 
 // test get_profile_by_id for dev
@@ -57,7 +58,8 @@ require('./test')(function() {
       token: "9b8ae27a0c7cbb6172a4c5e61f1184056b3dc746",
       user: "530c68d439cab498434e9466"
     }, {with_bop:true}),
-    getNetworkData(process.env.ENDPOINT, 305)
+    getNetworkData(process.env.ENDPOINT, 305),
+    getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 305),
   ].forEach((p) => requests.push(p));
     
   return requests.map((p) => function () {

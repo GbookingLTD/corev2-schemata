@@ -92,8 +92,7 @@
                                 "additionalProperties": false,
                                 "required": [
                                     "isMapBusiness",
-                                    "businessID",
-                                    "info"
+                                    "businessID"
                                 ],
                                 "properties": {
                                     "isMapBusiness": {

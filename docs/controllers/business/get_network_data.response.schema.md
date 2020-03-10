@@ -146,7 +146,7 @@ All items must be of the type: `object` with following properties:
 | --------------- | ------- | ------------ | ------- |
 | `_id`           | string  | Optional     |         |
 | `businessID`    | string  | **Required** |         |
-| `info`          |         | **Required** |         |
+| `info`          |         | Optional     |         |
 | `isMapBusiness` | boolean | **Required** | `false` |
 | `order`         | number  | Optional     |         |
 
@@ -176,7 +176,7 @@ All items must be of the type: `object` with following properties:
 
 `info`
 
-- is **required**
+- is optional
 - type: reference
 
 ##### info Type

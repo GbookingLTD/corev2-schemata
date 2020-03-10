@@ -247,7 +247,7 @@ export interface ResultClass {
 export interface PurpleBusiness {
     _id?:          string;
     businessID:    string;
-    info:          BusinessBusiness;
+    info?:         BusinessBusiness;
     isMapBusiness: boolean;
     order?:        number;
 }
@@ -4082,7 +4082,7 @@ const typeMap: any = {
     "PurpleBusiness": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "businessID", js: "businessID", typ: "" },
-        { json: "info", js: "info", typ: u(a("any"), true, r("FluffyBusiness"), 3.14, 0, null, "") },
+        { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("FluffyBusiness"), 3.14, 0, null, "")) },
         { json: "isMapBusiness", js: "isMapBusiness", typ: true },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
     ], false),
