@@ -2549,13 +2549,15 @@ class PurpleBusiness:
     info: Union[List[Any], bool, FluffyBusiness, float, int, None, str]
     is_map_business: bool
     order: Optional[float]
+    virtual_taxonomies: Optional[List[str]]
 
-    def __init__(self, id: Optional[str], business_id: str, info: Union[List[Any], bool, FluffyBusiness, float, int, None, str], is_map_business: bool, order: Optional[float]) -> None:
+    def __init__(self, id: Optional[str], business_id: str, info: Union[List[Any], bool, FluffyBusiness, float, int, None, str], is_map_business: bool, order: Optional[float], virtual_taxonomies: Optional[List[str]]) -> None:
         self.id = id
         self.business_id = business_id
         self.info = info
         self.is_map_business = is_map_business
         self.order = order
+        self.virtual_taxonomies = virtual_taxonomies
 
     @staticmethod
     def from_dict(obj: Any) -> 'PurpleBusiness':
@@ -2565,7 +2567,8 @@ class PurpleBusiness:
         info = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), FluffyBusiness.from_dict], obj.get("info"))
         is_map_business = from_bool(obj.get("isMapBusiness"))
         order = from_union([from_float, from_none], obj.get("order"))
-        return PurpleBusiness(id, business_id, info, is_map_business, order)
+        virtual_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("virtualTaxonomies"))
+        return PurpleBusiness(id, business_id, info, is_map_business, order, virtual_taxonomies)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2574,6 +2577,7 @@ class PurpleBusiness:
         result["info"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(FluffyBusiness, x)], self.info)
         result["isMapBusiness"] = from_bool(self.is_map_business)
         result["order"] = from_union([to_float, from_none], self.order)
+        result["virtualTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.virtual_taxonomies)
         return result
 
 

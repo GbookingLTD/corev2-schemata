@@ -1,0 +1,97 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/appointment/reserve_appointment.request.schema.json",
+    "title": "appointment.reserve_appointment.request",
+    "type": "object",
+    "definitions": {
+        "AppointmentReserve": {
+            "type": "object",
+            "required": [
+                "appointment",
+                "source",
+                "business",
+                "taxonomy",
+                "resource"
+            ],
+            "properties": {
+                "originBusinessID": {
+                    "type": "string"
+                },
+                "appointment": {
+                    "type": "object",
+                    "required": [
+                        "start",
+                        "duration"
+                    ],
+                    "properties": {
+                        "start": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "duration": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "source": {
+                    "type": "string"
+                },
+                "business": {
+                    "type": "object",
+                    "required": [
+                        "id"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "taxonomy": {
+                    "type": "object",
+                    "required": [
+                        "id"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "resource": {
+                    "type": "object",
+                    "required": [
+                        "id"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "Request": {
+            "type": "object",
+            "required": [
+                "params"
+            ],
+            "properties": {
+                "params": {
+                    "$ref": "#/definitions/AppointmentReserve"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "../../common/request.schema.json"
+        },
+        {
+            "$ref": "#/definitions/Request"
+        }
+    ]
+}

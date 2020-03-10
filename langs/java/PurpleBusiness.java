@@ -12,6 +12,7 @@ public class PurpleBusiness {
     private BusinessBusiness info;
     private boolean isMapBusiness;
     private Double order;
+    private List<String> virtualTaxonomies;
 
     @JsonProperty("_id")
     public String getID() { return id; }
@@ -37,4 +38,9 @@ public class PurpleBusiness {
     public Double getOrder() { return order; }
     @JsonProperty("order")
     public void setOrder(Double value) { this.order = value; }
+
+    @JsonProperty("virtualTaxonomies")
+    public List<String> getVirtualTaxonomies() { return virtualTaxonomies; }
+    @JsonProperty("virtualTaxonomies")
+    public void setVirtualTaxonomies(List<String> value) { this.virtualTaxonomies = value; }
 }

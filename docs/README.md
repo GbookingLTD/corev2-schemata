@@ -57,6 +57,17 @@
 - [client.add_client.response](./controllers/client/add_client.response.schema.md) –
   `schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
 
+## /controllers/appointment/
+
+- [appointment.client_remove_empty_appointment.request](./controllers/appointment/client_remove_empty_appointment.request.schema.md)
+  – `schemas-json/controllers/appointment/client_remove_empty_appointment.request.schema.json` (Unknown)
+- [appointment.client_remove_empty_appointment.response](./controllers/appointment/client_remove_empty_appointment.response.schema.md)
+  – `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json` (Unknown)
+- [appointment.reserve_appointment.request](./controllers/appointment/reserve_appointment.request.schema.md) –
+  `schemas-json/controllers/appointment/reserve_appointment.request.schema.json` (Unknown)
+- [appointment.reserve_appointment.response](./controllers/appointment/reserve_appointment.response.schema.md) –
+  `schemas-json/controllers/appointment/reserve_appointment.response.schema.json` (Unknown)
+
 ## /controllers/cracSlots/
 
 - [Crac.CRACDistributedResourcesFreeByDate.request](./controllers/cracSlots/CRACDistributedResourcesFreeByDate.request.schema.md)

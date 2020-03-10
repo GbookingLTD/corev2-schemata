@@ -60,6 +60,8 @@ require('./test')(function() {
     }, {with_bop:true}),
     getNetworkData(process.env.ENDPOINT, 305),
     getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 305),
+    getNetworkData(process.env.ENDPOINT, 257),
+    getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 257),
   ].forEach((p) => requests.push(p));
     
   return requests.map((p) => function () {

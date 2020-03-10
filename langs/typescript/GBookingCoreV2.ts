@@ -248,11 +248,12 @@ export interface ResultClass {
  * указатель на бизнес в сети
  */
 export interface PurpleBusiness {
-    _id?:          string;
-    businessID:    string;
-    info?:         BusinessBusiness;
-    isMapBusiness: boolean;
-    order?:        number;
+    _id?:               string;
+    businessID:         string;
+    info?:              BusinessBusiness;
+    isMapBusiness:      boolean;
+    order?:             number;
+    virtualTaxonomies?: string[];
 }
 
 export type BusinessBusiness = any[] | boolean | FluffyBusiness | number | number | null | string;
@@ -4520,6 +4521,7 @@ const typeMap: any = {
         { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("FluffyBusiness"), 3.14, 0, null, "")) },
         { json: "isMapBusiness", js: "isMapBusiness", typ: true },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "virtualTaxonomies", js: "virtualTaxonomies", typ: u(undefined, a("")) },
     ], false),
     "FluffyBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },

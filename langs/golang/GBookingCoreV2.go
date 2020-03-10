@@ -130,11 +130,12 @@ type BusinessGetNetworkDataResponseResult struct {
 
 // указатель на бизнес в сети
 type PurpleBusiness struct {
-	ID            *string           `json:"_id,omitempty"`  
-	BusinessID    string            `json:"businessID"`     
-	Info          *BusinessBusiness `json:"info"`           
-	IsMapBusiness bool              `json:"isMapBusiness"`  
-	Order         *float64          `json:"order,omitempty"`
+	ID                *string           `json:"_id,omitempty"`    
+	BusinessID        string            `json:"businessID"`       
+	Info              *BusinessBusiness `json:"info"`             
+	IsMapBusiness     bool              `json:"isMapBusiness"`    
+	Order             *float64          `json:"order,omitempty"`  
+	VirtualTaxonomies []string          `json:"virtualTaxonomies"`
 }
 
 type FluffyBusiness struct {

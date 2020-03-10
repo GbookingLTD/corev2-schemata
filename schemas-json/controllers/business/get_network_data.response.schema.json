@@ -110,6 +110,12 @@
                                     },
                                     "order": {
                                         "type": "number"
+                                    },
+                                    "virtualTaxonomies": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
                                     }
                                 }
                             }

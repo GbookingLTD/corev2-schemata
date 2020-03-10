@@ -75,6 +75,10 @@ definitions:
                   $ref: "../../models/businessData.schema.json"
                 order:
                   type: "number"
+                virtualTaxonomies:
+                  type: "array"
+                  items:
+                    type: "string"
           networkWidgetConfiguration:
             description: "настройки показа сети в зависимости от источника, на котором размещено приложение"
             type: "array"

@@ -354,6 +354,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
         public double? Order { get; set; }
+
+        [JsonProperty("virtualTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> VirtualTaxonomies { get; set; }
     }
 
     public partial class FluffyBusiness

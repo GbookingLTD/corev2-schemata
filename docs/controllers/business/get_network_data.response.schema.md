@@ -142,13 +142,14 @@ Array type: `object[]`
 
 All items must be of the type: `object` with following properties:
 
-| Property        | Type    | Required     | Default |
-| --------------- | ------- | ------------ | ------- |
-| `_id`           | string  | Optional     |         |
-| `businessID`    | string  | **Required** |         |
-| `info`          |         | Optional     |         |
-| `isMapBusiness` | boolean | **Required** | `false` |
-| `order`         | number  | Optional     |         |
+| Property            | Type    | Required     | Default |
+| ------------------- | ------- | ------------ | ------- |
+| `_id`               | string  | Optional     |         |
+| `businessID`        | string  | **Required** |         |
+| `info`              |         | Optional     |         |
+| `isMapBusiness`     | boolean | **Required** | `false` |
+| `order`             | number  | Optional     |         |
+| `virtualTaxonomies` | array   | Optional     |         |
 
 #### \_id
 
@@ -205,6 +206,19 @@ All items must be of the type: `object` with following properties:
 ##### order Type
 
 `number`
+
+#### virtualTaxonomies
+
+`virtualTaxonomies`
+
+- is optional
+- type: `string[]`
+
+##### virtualTaxonomies Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 указатель на бизнес в сети
 
