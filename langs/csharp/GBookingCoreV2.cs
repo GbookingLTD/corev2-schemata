@@ -353,6 +353,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("isMapBusiness")]
         public bool IsMapBusiness { get; set; }
+
+        [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Order { get; set; }
     }
 
     public partial class FluffyBusiness
@@ -1907,6 +1910,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("networks", NullValueHandling = NullValueHandling.Ignore)]
         public List<Network> Networks { get; set; }
+
+        [JsonProperty("profiles", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> Profiles { get; set; }
 
         [JsonProperty("top_services", NullValueHandling = NullValueHandling.Ignore)]
         public ResultTopServices TopServices { get; set; }
@@ -4059,6 +4065,30 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequest
     {
         /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
         /// параметры запроса
         /// </summary>
         [JsonProperty("params")]
@@ -4083,7 +4113,7 @@ namespace GBookingCoreV2
         public PurpleGeneralInfo GeneralInfo { get; set; }
 
         [JsonProperty("id")]
-        public double Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("widget_configuration")]
         public TentacledWidgetConfiguration WidgetConfiguration { get; set; }
@@ -4099,6 +4129,9 @@ namespace GBookingCoreV2
     {
         [JsonProperty("cracServer")]
         public string CracServer { get; set; }
+
+        [JsonProperty("mostFreeEnable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MostFreeEnable { get; set; }
     }
 
     public partial class PurpleFilters
@@ -4128,7 +4161,7 @@ namespace GBookingCoreV2
     public partial class PurpleResourceFilter
     {
         [JsonProperty("business")]
-        public AmbitiousBusiness Business { get; set; }
+        public ResourceBusiness Business { get; set; }
 
         /// <summary>
         /// идентификатор ресурса
@@ -4137,7 +4170,7 @@ namespace GBookingCoreV2
         public string Resource { get; set; }
     }
 
-    public partial class AmbitiousBusiness
+    public partial class ResourceBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -4238,6 +4271,30 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequest
     {
         /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
         /// параметры запроса
         /// </summary>
         [JsonProperty("params")]
@@ -4250,19 +4307,19 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public CunningBusiness Business { get; set; }
+        public AmbitiousBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public FluffyFilters Filters { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class AmbitiousBusiness
     {
         [JsonProperty("general_info")]
         public FluffyGeneralInfo GeneralInfo { get; set; }
 
         [JsonProperty("id")]
-        public double Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("widget_configuration")]
         public StickyWidgetConfiguration WidgetConfiguration { get; set; }
@@ -4278,6 +4335,9 @@ namespace GBookingCoreV2
     {
         [JsonProperty("cracServer")]
         public string CracServer { get; set; }
+
+        [JsonProperty("mostFreeEnable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MostFreeEnable { get; set; }
     }
 
     public partial class FluffyFilters
@@ -4288,11 +4348,11 @@ namespace GBookingCoreV2
         [JsonProperty("insuranceID")]
         public string InsuranceId { get; set; }
 
+        [JsonProperty("resources")]
+        public List<FluffyResourceFilter> Resources { get; set; }
+
         [JsonProperty("rooms")]
         public List<string> Rooms { get; set; }
-
-        [JsonProperty("taxonomies")]
-        public List<string> Taxonomies { get; set; }
     }
 
     public partial class FluffyDate
@@ -4302,6 +4362,18 @@ namespace GBookingCoreV2
 
         [JsonProperty("to")]
         public string To { get; set; }
+    }
+
+    public partial class FluffyResourceFilter
+    {
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        /// <summary>
+        /// идентификатор ресурса
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
     }
 
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsResponse
@@ -4396,6 +4468,30 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracResourcesAndRoomsRequest
     {
         /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
         /// параметры запроса
         /// </summary>
         [JsonProperty("params")]
@@ -4408,19 +4504,19 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public MagentaBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public TentacledFilters Filters { get; set; }
     }
 
-    public partial class MagentaBusiness
+    public partial class CunningBusiness
     {
         [JsonProperty("general_info")]
         public TentacledGeneralInfo GeneralInfo { get; set; }
 
         [JsonProperty("id")]
-        public double Id { get; set; }
+        public string Id { get; set; }
 
         [JsonProperty("widget_configuration")]
         public IndigoWidgetConfiguration WidgetConfiguration { get; set; }
@@ -4436,6 +4532,9 @@ namespace GBookingCoreV2
     {
         [JsonProperty("cracServer")]
         public string CracServer { get; set; }
+
+        [JsonProperty("mostFreeEnable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MostFreeEnable { get; set; }
     }
 
     public partial class TentacledFilters
@@ -4444,7 +4543,7 @@ namespace GBookingCoreV2
         public TentacledDate Date { get; set; }
 
         [JsonProperty("resources")]
-        public List<FluffyResourceFilter> Resources { get; set; }
+        public List<TentacledResourceFilter> Resources { get; set; }
 
         [JsonProperty("rooms")]
         public List<string> Rooms { get; set; }
@@ -4456,28 +4555,19 @@ namespace GBookingCoreV2
     public partial class TentacledDate
     {
         [JsonProperty("from")]
-        public string From { get; set; }
+        public DateTimeOffset From { get; set; }
 
         [JsonProperty("to")]
-        public string To { get; set; }
+        public DateTimeOffset To { get; set; }
     }
 
-    public partial class FluffyResourceFilter
+    public partial class TentacledResourceFilter
     {
-        [JsonProperty("business")]
-        public FriskyBusiness Business { get; set; }
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
 
         /// <summary>
         /// идентификатор ресурса
-        /// </summary>
-        [JsonProperty("resource")]
-        public string Resource { get; set; }
-    }
-
-    public partial class FriskyBusiness
-    {
-        /// <summary>
-        /// идентификатор бизнеса
         /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; }

@@ -12,49 +12,32 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 
 | Property              | Type     | Group                                                                                                          |
 | --------------------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| [business](#business) | `object` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
-| [resource](#resource) | `string` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
+| [duration](#duration) | `number` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
+| [id](#id)             | `string` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
 
-## business
+## duration
 
-`business`
+`duration`
 
 - is **required**
-- type: `object`
+- type: `number`
 - defined in this schema
 
-### business Type
+### duration Type
 
-`object` with following properties:
+`number`
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+## id
 
-#### id
-
-идентификатор бизнеса
+идентификатор ресурса
 
 `id`
 
 - is **required**
 - type: `string`
-
-##### id Type
-
-`string`
-
-## resource
-
-идентификатор ресурса
-
-`resource`
-
-- is **required**
-- type: `string`
 - defined in this schema
 
-### resource Type
+### id Type
 
 `string`
 
@@ -98,7 +81,7 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 | Property               | Type   | Required     |
 | ---------------------- | ------ | ------------ |
 | `general_info`         | object | **Required** |
-| `id`                   | number | **Required** |
+| `id`                   | string | **Required** |
 | `widget_configuration` | object | **Required** |
 
 #### general_info
@@ -132,11 +115,11 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 `id`
 
 - is **required**
-- type: `number`
+- type: `string`
 
 ##### id Type
 
-`number`
+`string`
 
 #### widget_configuration
 
@@ -149,9 +132,10 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 
 `object` with following properties:
 
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `cracServer` | string | **Required** |
+| Property         | Type    | Required     |
+| ---------------- | ------- | ------------ |
+| `cracServer`     | string  | **Required** |
+| `mostFreeEnable` | boolean | Optional     |
 
 #### cracServer
 
@@ -163,6 +147,17 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 ##### cracServer Type
 
 `string`
+
+#### mostFreeEnable
+
+`mostFreeEnable`
+
+- is optional
+- type: `boolean`
+
+##### mostFreeEnable Type
+
+`boolean`
 
 #### filters
 
@@ -209,6 +204,8 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 
 `string`
 
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
 #### to
 
 `to`
@@ -219,6 +216,8 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 ##### to Type
 
 `string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 #### resources
 

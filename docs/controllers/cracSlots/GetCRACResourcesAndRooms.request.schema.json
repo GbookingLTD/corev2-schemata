@@ -8,32 +8,22 @@
             "type": "object",
             "additionalProperties": true,
             "required": [
-                "resource",
-                "business"
+                "id",
+                "duration"
             ],
             "properties": {
-                "resource": {
+                "id": {
                     "description": "идентификатор ресурса",
                     "type": "string"
                 },
-                "business": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                        "id"
-                    ],
-                    "properties": {
-                        "id": {
-                            "description": "идентификатор бизнеса",
-                            "type": "string"
-                        }
-                    }
+                "duration": {
+                    "type": "number"
                 }
             }
         },
         "Request": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "required": [
                 "params"
             ],
@@ -57,7 +47,7 @@
                             ],
                             "properties": {
                                 "id": {
-                                    "type": "number"
+                                    "type": "string"
                                 },
                                 "widget_configuration": {
                                     "type": "object",
@@ -68,6 +58,9 @@
                                     "properties": {
                                         "cracServer": {
                                             "type": "string"
+                                        },
+                                        "mostFreeEnable": {
+                                            "type": "boolean"
                                         }
                                     }
                                 },
@@ -122,10 +115,12 @@
                                     ],
                                     "properties": {
                                         "from": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "format": "date-time"
                                         },
                                         "to": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "format": "date-time"
                                         }
                                     }
                                 }

@@ -4,9 +4,26 @@
     "title": "CracSlots.GetCRACInsuranceResourcesAndRooms.request",
     "type": "object",
     "definitions": {
+        "ResourceFilter": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "id",
+                "duration"
+            ],
+            "properties": {
+                "id": {
+                    "description": "идентификатор ресурса",
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "number"
+                }
+            }
+        },
         "Request": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "required": [
                 "params"
             ],
@@ -30,7 +47,7 @@
                             ],
                             "properties": {
                                 "id": {
-                                    "type": "number"
+                                    "type": "string"
                                 },
                                 "widget_configuration": {
                                     "type": "object",
@@ -41,6 +58,9 @@
                                     "properties": {
                                         "cracServer": {
                                             "type": "string"
+                                        },
+                                        "mostFreeEnable": {
+                                            "type": "boolean"
                                         }
                                     }
                                 },
@@ -63,7 +83,7 @@
                             "additionalProperties": false,
                             "required": [
                                 "insuranceID",
-                                "taxonomies",
+                                "resources",
                                 "rooms",
                                 "date"
                             ],
@@ -71,10 +91,10 @@
                                 "insuranceID": {
                                     "type": "string"
                                 },
-                                "taxonomies": {
+                                "resources": {
                                     "type": "array",
                                     "items": {
-                                        "type": "string"
+                                        "$ref": "#/definitions/ResourceFilter"
                                     }
                                 },
                                 "rooms": {

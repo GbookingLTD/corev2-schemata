@@ -8,6 +8,39 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 | ------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Can be instantiated | Yes        | Experimental | No           | Forbidden         | Permitted             | [controllers/cracSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json](GetCRACInsuranceResourcesAndRooms.request.schema.json) |
 
+# CracSlots.GetCRACInsuranceResourcesAndRooms.request Definitions
+
+| Property              | Type     | Group                                                                                                                   |
+| --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [duration](#duration) | `number` | `schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
+| [id](#id)             | `string` | `schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
+
+## duration
+
+`duration`
+
+- is **required**
+- type: `number`
+- defined in this schema
+
+### duration Type
+
+`number`
+
+## id
+
+идентификатор ресурса
+
+`id`
+
+- is **required**
+- type: `string`
+- defined in this schema
+
+### id Type
+
+`string`
+
 # CracSlots.GetCRACInsuranceResourcesAndRooms.request Properties
 
 | Property          | Type     | Required     | Nullable | Defined by                                                        |
@@ -48,7 +81,7 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 | Property               | Type   | Required     |
 | ---------------------- | ------ | ------------ |
 | `general_info`         | object | **Required** |
-| `id`                   | number | **Required** |
+| `id`                   | string | **Required** |
 | `widget_configuration` | object | **Required** |
 
 #### general_info
@@ -82,11 +115,11 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 `id`
 
 - is **required**
-- type: `number`
+- type: `string`
 
 ##### id Type
 
-`number`
+`string`
 
 #### widget_configuration
 
@@ -99,9 +132,10 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 
 `object` with following properties:
 
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `cracServer` | string | **Required** |
+| Property         | Type    | Required     |
+| ---------------- | ------- | ------------ |
+| `cracServer`     | string  | **Required** |
+| `mostFreeEnable` | boolean | Optional     |
 
 #### cracServer
 
@@ -113,6 +147,17 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 ##### cracServer Type
 
 `string`
+
+#### mostFreeEnable
+
+`mostFreeEnable`
+
+- is optional
+- type: `boolean`
+
+##### mostFreeEnable Type
+
+`boolean`
 
 #### filters
 
@@ -129,8 +174,8 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 | ------------- | ------ | ------------ |
 | `date`        | object | **Required** |
 | `insuranceID` | string | **Required** |
+| `resources`   | array  | **Required** |
 | `rooms`       | array  | **Required** |
-| `taxonomies`  | array  | **Required** |
 
 #### date
 
@@ -181,6 +226,21 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 
 `string`
 
+#### resources
+
+`resources`
+
+- is **required**
+- type: reference
+
+##### resources Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/ResourceFilter`
+
 #### rooms
 
 `rooms`
@@ -189,19 +249,6 @@ schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.sc
 - type: `string[]`
 
 ##### rooms Type
-
-Array type: `string[]`
-
-All items must be of the type: `string`
-
-#### taxonomies
-
-`taxonomies`
-
-- is **required**
-- type: `string[]`
-
-##### taxonomies Type
 
 Array type: `string[]`
 

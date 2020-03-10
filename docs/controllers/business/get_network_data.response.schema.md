@@ -148,6 +148,7 @@ All items must be of the type: `object` with following properties:
 | `businessID`    | string  | **Required** |         |
 | `info`          |         | **Required** |         |
 | `isMapBusiness` | boolean | **Required** | `false` |
+| `order`         | number  | Optional     |         |
 
 #### \_id
 
@@ -193,6 +194,17 @@ All items must be of the type: `object` with following properties:
 ##### isMapBusiness Type
 
 `boolean`
+
+#### order
+
+`order`
+
+- is optional
+- type: `number`
+
+##### order Type
+
+`number`
 
 указатель на бизнес в сети
 

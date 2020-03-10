@@ -74,6 +74,8 @@ definitions:
                   type: "string"
                 info:
                   $ref: "../../models/businessData.schema.json"
+                order:
+                  type: "number"
           networkWidgetConfiguration:
             description: "настройки показа сети в зависимости от источника, на котором размещено приложение"
             type: "array"

@@ -12,6 +12,7 @@ public class BusinessGetProfileByIDResponseResult {
     private Double freeSMS;
     private Double monthlyFreeSMS;
     private List<Network> networks;
+    private List<Map<String, Object>> profiles;
     private ResultTopServices topServices;
     private Boolean useDefaultSMSTemplate;
     private YandexFeedType yandexFeedType;
@@ -40,6 +41,11 @@ public class BusinessGetProfileByIDResponseResult {
     public List<Network> getNetworks() { return networks; }
     @JsonProperty("networks")
     public void setNetworks(List<Network> value) { this.networks = value; }
+
+    @JsonProperty("profiles")
+    public List<Map<String, Object>> getProfiles() { return profiles; }
+    @JsonProperty("profiles")
+    public void setProfiles(List<Map<String, Object>> value) { this.profiles = value; }
 
     @JsonProperty("top_services")
     public ResultTopServices getTopServices() { return topServices; }

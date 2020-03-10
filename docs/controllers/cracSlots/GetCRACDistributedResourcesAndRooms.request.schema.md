@@ -98,7 +98,7 @@ schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.
 | Property               | Type   | Required     |
 | ---------------------- | ------ | ------------ |
 | `general_info`         | object | **Required** |
-| `id`                   | number | **Required** |
+| `id`                   | string | **Required** |
 | `widget_configuration` | object | **Required** |
 
 #### general_info
@@ -132,11 +132,11 @@ schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.
 `id`
 
 - is **required**
-- type: `number`
+- type: `string`
 
 ##### id Type
 
-`number`
+`string`
 
 #### widget_configuration
 
@@ -149,9 +149,10 @@ schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.
 
 `object` with following properties:
 
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `cracServer` | string | **Required** |
+| Property         | Type    | Required     |
+| ---------------- | ------- | ------------ |
+| `cracServer`     | string  | **Required** |
+| `mostFreeEnable` | boolean | Optional     |
 
 #### cracServer
 
@@ -163,6 +164,17 @@ schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.
 ##### cracServer Type
 
 `string`
+
+#### mostFreeEnable
+
+`mostFreeEnable`
+
+- is optional
+- type: `boolean`
+
+##### mostFreeEnable Type
+
+`boolean`
 
 #### filters
 

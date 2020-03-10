@@ -132,10 +132,11 @@ type BusinessGetNetworkDataResponseResult struct {
 
 // указатель на бизнес в сети
 type PurpleBusiness struct {
-	ID            *string           `json:"_id,omitempty"`
-	BusinessID    string            `json:"businessID"`   
-	Info          *BusinessBusiness `json:"info"`         
-	IsMapBusiness bool              `json:"isMapBusiness"`
+	ID            *string           `json:"_id,omitempty"`  
+	BusinessID    string            `json:"businessID"`     
+	Info          *BusinessBusiness `json:"info"`           
+	IsMapBusiness bool              `json:"isMapBusiness"`  
+	Order         *float64          `json:"order,omitempty"`
 }
 
 type FluffyBusiness struct {
@@ -687,14 +688,15 @@ type BusinessGetProfileByIDResponseError struct {
 
 // данные, передаваемые в ответ
 type BusinessGetProfileByIDResponseResult struct {
-	Active                *bool              `json:"active,omitempty"`               
-	Business              *ResultBusiness    `json:"business"`                       
-	FreeSMS               *float64           `json:"freeSms,omitempty"`              
-	MonthlyFreeSMS        *float64           `json:"monthlyFreeSms,omitempty"`       
-	Networks              []Network          `json:"networks"`                       
-	TopServices           *ResultTopServices `json:"top_services,omitempty"`         
-	UseDefaultSMSTemplate *bool              `json:"useDefaultSmsTemplate,omitempty"`
-	YandexFeedType        *YandexFeedType    `json:"yandexFeedType,omitempty"`       
+	Active                *bool                    `json:"active,omitempty"`               
+	Business              *ResultBusiness          `json:"business"`                       
+	FreeSMS               *float64                 `json:"freeSms,omitempty"`              
+	MonthlyFreeSMS        *float64                 `json:"monthlyFreeSms,omitempty"`       
+	Networks              []Network                `json:"networks"`                       
+	Profiles              []map[string]interface{} `json:"profiles"`                       
+	TopServices           *ResultTopServices       `json:"top_services,omitempty"`         
+	UseDefaultSMSTemplate *bool                    `json:"useDefaultSmsTemplate,omitempty"`
+	YandexFeedType        *YandexFeedType          `json:"yandexFeedType,omitempty"`       
 }
 
 type StickyBusiness struct {
@@ -1431,7 +1433,11 @@ type GetCRACDistributedResourcesAndRooms struct {
 }
 
 type CracSlotsGetCRACDistributedResourcesAndRoomsRequest struct {
-	Params CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams `json:"params"`// параметры запроса
+	Cred    *Cred                                                     `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                                            `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                                    `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                                    `json:"method"`        // название jsonrpc метода
+	Params  CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams `json:"params"`        // параметры запроса
 }
 
 // параметры запроса
@@ -1442,7 +1448,7 @@ type CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams struct {
 
 type HilariousBusiness struct {
 	GeneralInfo         PurpleGeneralInfo            `json:"general_info"`        
-	ID                  float64                      `json:"id"`                  
+	ID                  string                       `json:"id"`                  
 	WidgetConfiguration TentacledWidgetConfiguration `json:"widget_configuration"`
 }
 
@@ -1451,7 +1457,8 @@ type PurpleGeneralInfo struct {
 }
 
 type TentacledWidgetConfiguration struct {
-	CracServer string `json:"cracServer"`
+	CracServer     string `json:"cracServer"`              
+	MostFreeEnable *bool  `json:"mostFreeEnable,omitempty"`
 }
 
 type PurpleFilters struct {
@@ -1467,11 +1474,11 @@ type PurpleDate struct {
 }
 
 type PurpleResourceFilter struct {
-	Business AmbitiousBusiness `json:"business"`
-	Resource string            `json:"resource"`// идентификатор ресурса
+	Business ResourceBusiness `json:"business"`
+	Resource string           `json:"resource"`// идентификатор ресурса
 }
 
-type AmbitiousBusiness struct {
+type ResourceBusiness struct {
 	ID string `json:"id"`// идентификатор бизнеса
 }
 
@@ -1513,18 +1520,22 @@ type GetCRACInsuranceResourcesAndRooms struct {
 }
 
 type CracSlotsGetCRACInsuranceResourcesAndRoomsRequest struct {
-	Params CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams `json:"params"`// параметры запроса
+	Cred    *Cred                                                   `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                                          `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                                  `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                                  `json:"method"`        // название jsonrpc метода
+	Params  CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams `json:"params"`        // параметры запроса
 }
 
 // параметры запроса
 type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams struct {
-	Business CunningBusiness `json:"business"`
-	Filters  FluffyFilters   `json:"filters"` 
+	Business AmbitiousBusiness `json:"business"`
+	Filters  FluffyFilters     `json:"filters"` 
 }
 
-type CunningBusiness struct {
+type AmbitiousBusiness struct {
 	GeneralInfo         FluffyGeneralInfo         `json:"general_info"`        
-	ID                  float64                   `json:"id"`                  
+	ID                  string                    `json:"id"`                  
 	WidgetConfiguration StickyWidgetConfiguration `json:"widget_configuration"`
 }
 
@@ -1533,19 +1544,25 @@ type FluffyGeneralInfo struct {
 }
 
 type StickyWidgetConfiguration struct {
-	CracServer string `json:"cracServer"`
+	CracServer     string `json:"cracServer"`              
+	MostFreeEnable *bool  `json:"mostFreeEnable,omitempty"`
 }
 
 type FluffyFilters struct {
-	Date        FluffyDate `json:"date"`       
-	InsuranceID string     `json:"insuranceID"`
-	Rooms       []string   `json:"rooms"`      
-	Taxonomies  []string   `json:"taxonomies"` 
+	Date        FluffyDate             `json:"date"`       
+	InsuranceID string                 `json:"insuranceID"`
+	Resources   []FluffyResourceFilter `json:"resources"`  
+	Rooms       []string               `json:"rooms"`      
 }
 
 type FluffyDate struct {
 	From string `json:"from"`
 	To   string `json:"to"`  
+}
+
+type FluffyResourceFilter struct {
+	Duration float64 `json:"duration"`
+	ID       string  `json:"id"`      // идентификатор ресурса
 }
 
 type CracSlotsGetCRACInsuranceResourcesAndRoomsResponse struct {
@@ -1586,18 +1603,22 @@ type GetCRACResourcesAndRooms struct {
 }
 
 type CracSlotsGetCRACResourcesAndRoomsRequest struct {
-	Params CracSlotsGetCRACResourcesAndRoomsRequestParams `json:"params"`// параметры запроса
+	Cred    *Cred                                          `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                                 `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                         `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                         `json:"method"`        // название jsonrpc метода
+	Params  CracSlotsGetCRACResourcesAndRoomsRequestParams `json:"params"`        // параметры запроса
 }
 
 // параметры запроса
 type CracSlotsGetCRACResourcesAndRoomsRequestParams struct {
-	Business MagentaBusiness  `json:"business"`
+	Business CunningBusiness  `json:"business"`
 	Filters  TentacledFilters `json:"filters"` 
 }
 
-type MagentaBusiness struct {
+type CunningBusiness struct {
 	GeneralInfo         TentacledGeneralInfo      `json:"general_info"`        
-	ID                  float64                   `json:"id"`                  
+	ID                  string                    `json:"id"`                  
 	WidgetConfiguration IndigoWidgetConfiguration `json:"widget_configuration"`
 }
 
@@ -1606,14 +1627,15 @@ type TentacledGeneralInfo struct {
 }
 
 type IndigoWidgetConfiguration struct {
-	CracServer string `json:"cracServer"`
+	CracServer     string `json:"cracServer"`              
+	MostFreeEnable *bool  `json:"mostFreeEnable,omitempty"`
 }
 
 type TentacledFilters struct {
-	Date       TentacledDate          `json:"date"`      
-	Resources  []FluffyResourceFilter `json:"resources"` 
-	Rooms      []string               `json:"rooms"`     
-	Taxonomies []string               `json:"taxonomies"`
+	Date       TentacledDate             `json:"date"`      
+	Resources  []TentacledResourceFilter `json:"resources"` 
+	Rooms      []string                  `json:"rooms"`     
+	Taxonomies []string                  `json:"taxonomies"`
 }
 
 type TentacledDate struct {
@@ -1621,13 +1643,9 @@ type TentacledDate struct {
 	To   string `json:"to"`  
 }
 
-type FluffyResourceFilter struct {
-	Business FriskyBusiness `json:"business"`
-	Resource string         `json:"resource"`// идентификатор ресурса
-}
-
-type FriskyBusiness struct {
-	ID string `json:"id"`// идентификатор бизнеса
+type TentacledResourceFilter struct {
+	Duration float64 `json:"duration"`
+	ID       string  `json:"id"`      // идентификатор ресурса
 }
 
 type CracSlotsGetCRACResourcesAndRoomsResponse struct {

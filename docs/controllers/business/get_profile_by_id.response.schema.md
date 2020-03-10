@@ -110,6 +110,7 @@ The value of this property **must** be equal to:
 | `freeSms`               | number  | Optional     | `0`     |
 | `monthlyFreeSms`        | number  | Optional     | `0`     |
 | `networks`              | array   | Optional     |         |
+| `profiles`              | array   | Optional     |         |
 | `top_services`          | object  | Optional     |         |
 | `useDefaultSmsTemplate` | boolean | Optional     | `true`  |
 | `yandexFeedType`        | string  | Optional     | `"no"`  |
@@ -223,6 +224,23 @@ All items must be of the type: `object` with following properties:
 ##### internalID Type
 
 `string`
+
+#### profiles
+
+`profiles`
+
+- is optional
+- type: `object[]`
+
+##### profiles Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
 
 #### top_services
 

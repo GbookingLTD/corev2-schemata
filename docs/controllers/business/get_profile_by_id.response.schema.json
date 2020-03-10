@@ -138,6 +138,12 @@
                         "monthlyFreeSms": {
                             "type": "number",
                             "default": 0
+                        },
+                        "profiles": {
+                            "type": "array",
+                            "items": {
+                                "type": "object"
+                            }
                         }
                     },
                     "required": [

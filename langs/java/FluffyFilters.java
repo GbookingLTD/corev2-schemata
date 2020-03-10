@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.*;
 public class FluffyFilters {
     private FluffyDate date;
     private String insuranceID;
+    private List<FluffyResourceFilter> resources;
     private List<String> rooms;
-    private List<String> taxonomies;
 
     @JsonProperty("date")
     public FluffyDate getDate() { return date; }
@@ -19,13 +19,13 @@ public class FluffyFilters {
     @JsonProperty("insuranceID")
     public void setInsuranceID(String value) { this.insuranceID = value; }
 
+    @JsonProperty("resources")
+    public List<FluffyResourceFilter> getResources() { return resources; }
+    @JsonProperty("resources")
+    public void setResources(List<FluffyResourceFilter> value) { this.resources = value; }
+
     @JsonProperty("rooms")
     public List<String> getRooms() { return rooms; }
     @JsonProperty("rooms")
     public void setRooms(List<String> value) { this.rooms = value; }
-
-    @JsonProperty("taxonomies")
-    public List<String> getTaxonomies() { return taxonomies; }
-    @JsonProperty("taxonomies")
-    public void setTaxonomies(List<String> value) { this.taxonomies = value; }
 }

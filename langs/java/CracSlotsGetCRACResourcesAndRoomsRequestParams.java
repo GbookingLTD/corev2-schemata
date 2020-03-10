@@ -7,13 +7,13 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса
  */
 public class CracSlotsGetCRACResourcesAndRoomsRequestParams {
-    private MagentaBusiness business;
+    private CunningBusiness business;
     private TentacledFilters filters;
 
     @JsonProperty("business")
-    public MagentaBusiness getBusiness() { return business; }
+    public CunningBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(MagentaBusiness value) { this.business = value; }
+    public void setBusiness(CunningBusiness value) { this.business = value; }
 
     @JsonProperty("filters")
     public TentacledFilters getFilters() { return filters; }

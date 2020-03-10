@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class TentacledFilters {
     private TentacledDate date;
-    private List<FluffyResourceFilter> resources;
+    private List<TentacledResourceFilter> resources;
     private List<String> rooms;
     private List<String> taxonomies;
 
@@ -15,9 +15,9 @@ public class TentacledFilters {
     public void setDate(TentacledDate value) { this.date = value; }
 
     @JsonProperty("resources")
-    public List<FluffyResourceFilter> getResources() { return resources; }
+    public List<TentacledResourceFilter> getResources() { return resources; }
     @JsonProperty("resources")
-    public void setResources(List<FluffyResourceFilter> value) { this.resources = value; }
+    public void setResources(List<TentacledResourceFilter> value) { this.resources = value; }
 
     @JsonProperty("rooms")
     public List<String> getRooms() { return rooms; }

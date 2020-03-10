@@ -108,6 +108,9 @@
                                     },
                                     "info": {
                                         "$ref": "../../models/businessData.schema.json"
+                                    },
+                                    "order": {
+                                        "type": "number"
                                     }
                                 }
                             }

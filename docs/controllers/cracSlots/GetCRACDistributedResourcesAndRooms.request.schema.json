@@ -33,7 +33,7 @@
         },
         "Request": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "required": [
                 "params"
             ],
@@ -57,7 +57,7 @@
                             ],
                             "properties": {
                                 "id": {
-                                    "type": "number"
+                                    "type": "string"
                                 },
                                 "widget_configuration": {
                                     "type": "object",
@@ -68,6 +68,9 @@
                                     "properties": {
                                         "cracServer": {
                                             "type": "string"
+                                        },
+                                        "mostFreeEnable": {
+                                            "type": "boolean"
                                         }
                                     }
                                 },

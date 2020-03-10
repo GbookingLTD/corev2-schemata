@@ -4,13 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class PurpleResourceFilter {
-    private AmbitiousBusiness business;
+    private ResourceBusiness business;
     private String resource;
 
     @JsonProperty("business")
-    public AmbitiousBusiness getBusiness() { return business; }
+    public ResourceBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(AmbitiousBusiness value) { this.business = value; }
+    public void setBusiness(ResourceBusiness value) { this.business = value; }
 
     /**
      * идентификатор ресурса

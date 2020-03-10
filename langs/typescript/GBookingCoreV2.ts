@@ -249,6 +249,7 @@ export interface PurpleBusiness {
     businessID:    string;
     info:          BusinessBusiness;
     isMapBusiness: boolean;
+    order?:        number;
 }
 
 export type BusinessBusiness = any[] | boolean | FluffyBusiness | number | number | null | string;
@@ -1143,6 +1144,7 @@ export interface BusinessGetProfileByIdResponseResult {
     freeSms?:               number;
     monthlyFreeSms?:        number;
     networks?:              Network[];
+    profiles?:              { [key: string]: any }[];
     top_services?:          ResultTopServices;
     useDefaultSmsTemplate?: boolean;
     yandexFeedType?:        YandexFeedType;
@@ -2268,6 +2270,22 @@ export interface GetCracDistributedResourcesAndRooms {
 
 export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
     /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
      * параметры запроса
      */
     params: CracSlotsGetCracDistributedResourcesAndRoomsRequestParams;
@@ -2283,7 +2301,7 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
 
 export interface HilariousBusiness {
     general_info:         PurpleGeneralInfo;
-    id:                   number;
+    id:                   string;
     widget_configuration: TentacledWidgetConfiguration;
 }
 
@@ -2292,7 +2310,8 @@ export interface PurpleGeneralInfo {
 }
 
 export interface TentacledWidgetConfiguration {
-    cracServer: string;
+    cracServer:      string;
+    mostFreeEnable?: boolean;
 }
 
 export interface PurpleFilters {
@@ -2308,14 +2327,14 @@ export interface PurpleDate {
 }
 
 export interface PurpleResourceFilter {
-    business: AmbitiousBusiness;
+    business: ResourceBusiness;
     /**
      * идентификатор ресурса
      */
     resource: string;
 }
 
-export interface AmbitiousBusiness {
+export interface ResourceBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -2381,6 +2400,22 @@ export interface GetCracInsuranceResourcesAndRooms {
 
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
     /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
      * параметры запроса
      */
     params: CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams;
@@ -2390,13 +2425,13 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-    business: CunningBusiness;
+    business: AmbitiousBusiness;
     filters:  FluffyFilters;
 }
 
-export interface CunningBusiness {
+export interface AmbitiousBusiness {
     general_info:         FluffyGeneralInfo;
-    id:                   number;
+    id:                   string;
     widget_configuration: StickyWidgetConfiguration;
 }
 
@@ -2405,19 +2440,28 @@ export interface FluffyGeneralInfo {
 }
 
 export interface StickyWidgetConfiguration {
-    cracServer: string;
+    cracServer:      string;
+    mostFreeEnable?: boolean;
 }
 
 export interface FluffyFilters {
     date:        FluffyDate;
     insuranceID: string;
+    resources:   FluffyResourceFilter[];
     rooms:       string[];
-    taxonomies:  string[];
 }
 
 export interface FluffyDate {
     from: string;
     to:   string;
+}
+
+export interface FluffyResourceFilter {
+    duration: number;
+    /**
+     * идентификатор ресурса
+     */
+    id: string;
 }
 
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponse {
@@ -2479,6 +2523,22 @@ export interface GetCracResourcesAndRooms {
 
 export interface CracSlotsGetCracResourcesAndRoomsRequest {
     /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
      * параметры запроса
      */
     params: CracSlotsGetCracResourcesAndRoomsRequestParams;
@@ -2488,13 +2548,13 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
-    business: MagentaBusiness;
+    business: CunningBusiness;
     filters:  TentacledFilters;
 }
 
-export interface MagentaBusiness {
+export interface CunningBusiness {
     general_info:         TentacledGeneralInfo;
-    id:                   number;
+    id:                   string;
     widget_configuration: IndigoWidgetConfiguration;
 }
 
@@ -2503,32 +2563,26 @@ export interface TentacledGeneralInfo {
 }
 
 export interface IndigoWidgetConfiguration {
-    cracServer: string;
+    cracServer:      string;
+    mostFreeEnable?: boolean;
 }
 
 export interface TentacledFilters {
     date:       TentacledDate;
-    resources:  FluffyResourceFilter[];
+    resources:  TentacledResourceFilter[];
     rooms:      string[];
     taxonomies: string[];
 }
 
 export interface TentacledDate {
-    from: string;
-    to:   string;
+    from: Date;
+    to:   Date;
 }
 
-export interface FluffyResourceFilter {
-    business: FriskyBusiness;
+export interface TentacledResourceFilter {
+    duration: number;
     /**
      * идентификатор ресурса
-     */
-    resource: string;
-}
-
-export interface FriskyBusiness {
-    /**
-     * идентификатор бизнеса
      */
     id: string;
 }
@@ -3529,12 +3583,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("PurpleResourceFilter")), null, 2);
     }
 
-    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
-        return cast(JSON.parse(json), r("AmbitiousBusiness"));
+    public static toResourceBusiness(json: string): ResourceBusiness {
+        return cast(JSON.parse(json), r("ResourceBusiness"));
     }
 
-    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
-        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
+    public static resourceBusinessToJson(value: ResourceBusiness): string {
+        return JSON.stringify(uncast(value, r("ResourceBusiness")), null, 2);
     }
 
     public static toCracSlotsGetCracDistributedResourcesAndRoomsResponse(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponse {
@@ -3601,12 +3655,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toCunningBusiness(json: string): CunningBusiness {
-        return cast(JSON.parse(json), r("CunningBusiness"));
+    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
+        return cast(JSON.parse(json), r("AmbitiousBusiness"));
     }
 
-    public static cunningBusinessToJson(value: CunningBusiness): string {
-        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
+    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
+        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
     }
 
     public static toFluffyGeneralInfo(json: string): FluffyGeneralInfo {
@@ -3639,6 +3693,14 @@ export class Convert {
 
     public static fluffyDateToJson(value: FluffyDate): string {
         return JSON.stringify(uncast(value, r("FluffyDate")), null, 2);
+    }
+
+    public static toFluffyResourceFilter(json: string): FluffyResourceFilter {
+        return cast(JSON.parse(json), r("FluffyResourceFilter"));
+    }
+
+    public static fluffyResourceFilterToJson(value: FluffyResourceFilter): string {
+        return JSON.stringify(uncast(value, r("FluffyResourceFilter")), null, 2);
     }
 
     public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponse(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponse {
@@ -3705,12 +3767,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toMagentaBusiness(json: string): MagentaBusiness {
-        return cast(JSON.parse(json), r("MagentaBusiness"));
+    public static toCunningBusiness(json: string): CunningBusiness {
+        return cast(JSON.parse(json), r("CunningBusiness"));
     }
 
-    public static magentaBusinessToJson(value: MagentaBusiness): string {
-        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
+    public static cunningBusinessToJson(value: CunningBusiness): string {
+        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
     }
 
     public static toTentacledGeneralInfo(json: string): TentacledGeneralInfo {
@@ -3745,20 +3807,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("TentacledDate")), null, 2);
     }
 
-    public static toFluffyResourceFilter(json: string): FluffyResourceFilter {
-        return cast(JSON.parse(json), r("FluffyResourceFilter"));
+    public static toTentacledResourceFilter(json: string): TentacledResourceFilter {
+        return cast(JSON.parse(json), r("TentacledResourceFilter"));
     }
 
-    public static fluffyResourceFilterToJson(value: FluffyResourceFilter): string {
-        return JSON.stringify(uncast(value, r("FluffyResourceFilter")), null, 2);
-    }
-
-    public static toFriskyBusiness(json: string): FriskyBusiness {
-        return cast(JSON.parse(json), r("FriskyBusiness"));
-    }
-
-    public static friskyBusinessToJson(value: FriskyBusiness): string {
-        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
+    public static tentacledResourceFilterToJson(value: TentacledResourceFilter): string {
+        return JSON.stringify(uncast(value, r("TentacledResourceFilter")), null, 2);
     }
 
     public static toCracSlotsGetCracResourcesAndRoomsResponse(json: string): CracSlotsGetCracResourcesAndRoomsResponse {
@@ -4030,6 +4084,7 @@ const typeMap: any = {
         { json: "businessID", js: "businessID", typ: "" },
         { json: "info", js: "info", typ: u(a("any"), true, r("FluffyBusiness"), 3.14, 0, null, "") },
         { json: "isMapBusiness", js: "isMapBusiness", typ: true },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
     ], false),
     "FluffyBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },
@@ -4538,6 +4593,7 @@ const typeMap: any = {
         { json: "freeSms", js: "freeSms", typ: u(undefined, 3.14) },
         { json: "monthlyFreeSms", js: "monthlyFreeSms", typ: u(undefined, 3.14) },
         { json: "networks", js: "networks", typ: u(undefined, a(r("Network"))) },
+        { json: "profiles", js: "profiles", typ: u(undefined, a(m("any"))) },
         { json: "top_services", js: "top_services", typ: u(undefined, r("ResultTopServices")) },
         { json: "useDefaultSmsTemplate", js: "useDefaultSmsTemplate", typ: u(undefined, true) },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, r("YandexFeedType")) },
@@ -5214,6 +5270,10 @@ const typeMap: any = {
         { json: "response", js: "response", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsResponse") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
         { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
@@ -5222,7 +5282,7 @@ const typeMap: any = {
     ], false),
     "HilariousBusiness": o([
         { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
-        { json: "id", js: "id", typ: 3.14 },
+        { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
     ], false),
     "PurpleGeneralInfo": o([
@@ -5230,6 +5290,7 @@ const typeMap: any = {
     ], false),
     "TentacledWidgetConfiguration": o([
         { json: "cracServer", js: "cracServer", typ: "" },
+        { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
     ], false),
     "PurpleFilters": o([
         { json: "date", js: "date", typ: r("PurpleDate") },
@@ -5242,10 +5303,10 @@ const typeMap: any = {
         { json: "to", js: "to", typ: "" },
     ], false),
     "PurpleResourceFilter": o([
-        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "business", js: "business", typ: r("ResourceBusiness") },
         { json: "resource", js: "resource", typ: "" },
     ], "any"),
-    "AmbitiousBusiness": o([
+    "ResourceBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsResponse": o([
@@ -5277,15 +5338,19 @@ const typeMap: any = {
         { json: "response", js: "response", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsResponse") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
         { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
         { json: "filters", js: "filters", typ: r("FluffyFilters") },
     ], false),
-    "CunningBusiness": o([
+    "AmbitiousBusiness": o([
         { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
-        { json: "id", js: "id", typ: 3.14 },
+        { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
     ], false),
     "FluffyGeneralInfo": o([
@@ -5293,17 +5358,22 @@ const typeMap: any = {
     ], false),
     "StickyWidgetConfiguration": o([
         { json: "cracServer", js: "cracServer", typ: "" },
+        { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
     ], false),
     "FluffyFilters": o([
         { json: "date", js: "date", typ: r("FluffyDate") },
         { json: "insuranceID", js: "insuranceID", typ: "" },
+        { json: "resources", js: "resources", typ: a(r("FluffyResourceFilter")) },
         { json: "rooms", js: "rooms", typ: a("") },
-        { json: "taxonomies", js: "taxonomies", typ: a("") },
     ], false),
     "FluffyDate": o([
         { json: "from", js: "from", typ: "" },
         { json: "to", js: "to", typ: "" },
     ], false),
+    "FluffyResourceFilter": o([
+        { json: "duration", js: "duration", typ: 3.14 },
+        { json: "id", js: "id", typ: "" },
+    ], "any"),
     "CracSlotsGetCracInsuranceResourcesAndRoomsResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
@@ -5333,15 +5403,19 @@ const typeMap: any = {
         { json: "response", js: "response", typ: r("CracSlotsGetCracResourcesAndRoomsResponse") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
         { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "business", js: "business", typ: r("CunningBusiness") },
         { json: "filters", js: "filters", typ: r("TentacledFilters") },
     ], false),
-    "MagentaBusiness": o([
+    "CunningBusiness": o([
         { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
-        { json: "id", js: "id", typ: 3.14 },
+        { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },
     ], false),
     "TentacledGeneralInfo": o([
@@ -5349,24 +5423,22 @@ const typeMap: any = {
     ], false),
     "IndigoWidgetConfiguration": o([
         { json: "cracServer", js: "cracServer", typ: "" },
+        { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
     ], false),
     "TentacledFilters": o([
         { json: "date", js: "date", typ: r("TentacledDate") },
-        { json: "resources", js: "resources", typ: a(r("FluffyResourceFilter")) },
+        { json: "resources", js: "resources", typ: a(r("TentacledResourceFilter")) },
         { json: "rooms", js: "rooms", typ: a("") },
         { json: "taxonomies", js: "taxonomies", typ: a("") },
     ], false),
     "TentacledDate": o([
-        { json: "from", js: "from", typ: "" },
-        { json: "to", js: "to", typ: "" },
+        { json: "from", js: "from", typ: Date },
+        { json: "to", js: "to", typ: Date },
     ], false),
-    "FluffyResourceFilter": o([
-        { json: "business", js: "business", typ: r("FriskyBusiness") },
-        { json: "resource", js: "resource", typ: "" },
-    ], "any"),
-    "FriskyBusiness": o([
+    "TentacledResourceFilter": o([
+        { json: "duration", js: "duration", typ: 3.14 },
         { json: "id", js: "id", typ: "" },
-    ], false),
+    ], "any"),
     "CracSlotsGetCracResourcesAndRoomsResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },

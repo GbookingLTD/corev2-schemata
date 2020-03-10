@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class HilariousBusiness {
     private PurpleGeneralInfo generalInfo;
-    private double id;
+    private String id;
     private TentacledWidgetConfiguration widgetConfiguration;
 
     @JsonProperty("general_info")
@@ -14,9 +14,9 @@ public class HilariousBusiness {
     public void setGeneralInfo(PurpleGeneralInfo value) { this.generalInfo = value; }
 
     @JsonProperty("id")
-    public double getID() { return id; }
+    public String getID() { return id; }
     @JsonProperty("id")
-    public void setID(double value) { this.id = value; }
+    public void setID(String value) { this.id = value; }
 
     @JsonProperty("widget_configuration")
     public TentacledWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }

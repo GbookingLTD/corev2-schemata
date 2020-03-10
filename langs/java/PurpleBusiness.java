@@ -11,6 +11,7 @@ public class PurpleBusiness {
     private String businessID;
     private BusinessBusiness info;
     private boolean isMapBusiness;
+    private Double order;
 
     @JsonProperty("_id")
     public String getID() { return id; }
@@ -31,4 +32,9 @@ public class PurpleBusiness {
     public boolean getIsMapBusiness() { return isMapBusiness; }
     @JsonProperty("isMapBusiness")
     public void setIsMapBusiness(boolean value) { this.isMapBusiness = value; }
+
+    @JsonProperty("order")
+    public Double getOrder() { return order; }
+    @JsonProperty("order")
+    public void setOrder(Double value) { this.order = value; }
 }

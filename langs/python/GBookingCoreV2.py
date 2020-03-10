@@ -2551,12 +2551,14 @@ class PurpleBusiness:
     business_id: str
     info: Union[List[Any], bool, FluffyBusiness, float, int, None, str]
     is_map_business: bool
+    order: Optional[float]
 
-    def __init__(self, id: Optional[str], business_id: str, info: Union[List[Any], bool, FluffyBusiness, float, int, None, str], is_map_business: bool) -> None:
+    def __init__(self, id: Optional[str], business_id: str, info: Union[List[Any], bool, FluffyBusiness, float, int, None, str], is_map_business: bool, order: Optional[float]) -> None:
         self.id = id
         self.business_id = business_id
         self.info = info
         self.is_map_business = is_map_business
+        self.order = order
 
     @staticmethod
     def from_dict(obj: Any) -> 'PurpleBusiness':
@@ -2565,7 +2567,8 @@ class PurpleBusiness:
         business_id = from_str(obj.get("businessID"))
         info = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), FluffyBusiness.from_dict], obj.get("info"))
         is_map_business = from_bool(obj.get("isMapBusiness"))
-        return PurpleBusiness(id, business_id, info, is_map_business)
+        order = from_union([from_float, from_none], obj.get("order"))
+        return PurpleBusiness(id, business_id, info, is_map_business, order)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2573,6 +2576,7 @@ class PurpleBusiness:
         result["businessID"] = from_str(self.business_id)
         result["info"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(FluffyBusiness, x)], self.info)
         result["isMapBusiness"] = from_bool(self.is_map_business)
+        result["order"] = from_union([to_float, from_none], self.order)
         return result
 
 
@@ -5738,16 +5742,18 @@ class BusinessGetProfileByIDResponseResult:
     free_sms: Optional[float]
     monthly_free_sms: Optional[float]
     networks: Optional[List[Network]]
+    profiles: Optional[List[Dict[str, Any]]]
     top_services: Optional[ResultTopServices]
     use_default_sms_template: Optional[bool]
     yandex_feed_type: Optional[YandexFeedType]
 
-    def __init__(self, active: Optional[bool], business: Union[List[Any], bool, StickyBusiness, float, int, None, str], free_sms: Optional[float], monthly_free_sms: Optional[float], networks: Optional[List[Network]], top_services: Optional[ResultTopServices], use_default_sms_template: Optional[bool], yandex_feed_type: Optional[YandexFeedType]) -> None:
+    def __init__(self, active: Optional[bool], business: Union[List[Any], bool, StickyBusiness, float, int, None, str], free_sms: Optional[float], monthly_free_sms: Optional[float], networks: Optional[List[Network]], profiles: Optional[List[Dict[str, Any]]], top_services: Optional[ResultTopServices], use_default_sms_template: Optional[bool], yandex_feed_type: Optional[YandexFeedType]) -> None:
         self.active = active
         self.business = business
         self.free_sms = free_sms
         self.monthly_free_sms = monthly_free_sms
         self.networks = networks
+        self.profiles = profiles
         self.top_services = top_services
         self.use_default_sms_template = use_default_sms_template
         self.yandex_feed_type = yandex_feed_type
@@ -5760,10 +5766,11 @@ class BusinessGetProfileByIDResponseResult:
         free_sms = from_union([from_float, from_none], obj.get("freeSms"))
         monthly_free_sms = from_union([from_float, from_none], obj.get("monthlyFreeSms"))
         networks = from_union([lambda x: from_list(Network.from_dict, x), from_none], obj.get("networks"))
+        profiles = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("profiles"))
         top_services = from_union([ResultTopServices.from_dict, from_none], obj.get("top_services"))
         use_default_sms_template = from_union([from_bool, from_none], obj.get("useDefaultSmsTemplate"))
         yandex_feed_type = from_union([YandexFeedType, from_none], obj.get("yandexFeedType"))
-        return BusinessGetProfileByIDResponseResult(active, business, free_sms, monthly_free_sms, networks, top_services, use_default_sms_template, yandex_feed_type)
+        return BusinessGetProfileByIDResponseResult(active, business, free_sms, monthly_free_sms, networks, profiles, top_services, use_default_sms_template, yandex_feed_type)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -5772,6 +5779,7 @@ class BusinessGetProfileByIDResponseResult:
         result["freeSms"] = from_union([to_float, from_none], self.free_sms)
         result["monthlyFreeSms"] = from_union([to_float, from_none], self.monthly_free_sms)
         result["networks"] = from_union([lambda x: from_list(lambda x: to_class(Network, x), x), from_none], self.networks)
+        result["profiles"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.profiles)
         result["top_services"] = from_union([lambda x: to_class(ResultTopServices, x), from_none], self.top_services)
         result["useDefaultSmsTemplate"] = from_union([from_bool, from_none], self.use_default_sms_template)
         result["yandexFeedType"] = from_union([lambda x: to_enum(YandexFeedType, x), from_none], self.yandex_feed_type)
@@ -6236,28 +6244,32 @@ class PurpleGeneralInfo:
 
 class TentacledWidgetConfiguration:
     crac_server: str
+    most_free_enable: Optional[bool]
 
-    def __init__(self, crac_server: str) -> None:
+    def __init__(self, crac_server: str, most_free_enable: Optional[bool]) -> None:
         self.crac_server = crac_server
+        self.most_free_enable = most_free_enable
 
     @staticmethod
     def from_dict(obj: Any) -> 'TentacledWidgetConfiguration':
         assert isinstance(obj, dict)
         crac_server = from_str(obj.get("cracServer"))
-        return TentacledWidgetConfiguration(crac_server)
+        most_free_enable = from_union([from_bool, from_none], obj.get("mostFreeEnable"))
+        return TentacledWidgetConfiguration(crac_server, most_free_enable)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["cracServer"] = from_str(self.crac_server)
+        result["mostFreeEnable"] = from_union([from_bool, from_none], self.most_free_enable)
         return result
 
 
 class HilariousBusiness:
     general_info: PurpleGeneralInfo
-    id: float
+    id: str
     widget_configuration: TentacledWidgetConfiguration
 
-    def __init__(self, general_info: PurpleGeneralInfo, id: float, widget_configuration: TentacledWidgetConfiguration) -> None:
+    def __init__(self, general_info: PurpleGeneralInfo, id: str, widget_configuration: TentacledWidgetConfiguration) -> None:
         self.general_info = general_info
         self.id = id
         self.widget_configuration = widget_configuration
@@ -6266,14 +6278,14 @@ class HilariousBusiness:
     def from_dict(obj: Any) -> 'HilariousBusiness':
         assert isinstance(obj, dict)
         general_info = PurpleGeneralInfo.from_dict(obj.get("general_info"))
-        id = from_float(obj.get("id"))
+        id = from_str(obj.get("id"))
         widget_configuration = TentacledWidgetConfiguration.from_dict(obj.get("widget_configuration"))
         return HilariousBusiness(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["general_info"] = to_class(PurpleGeneralInfo, self.general_info)
-        result["id"] = to_float(self.id)
+        result["id"] = from_str(self.id)
         result["widget_configuration"] = to_class(TentacledWidgetConfiguration, self.widget_configuration)
         return result
 
@@ -6300,7 +6312,7 @@ class PurpleDate:
         return result
 
 
-class AmbitiousBusiness:
+class ResourceBusiness:
     """идентификатор бизнеса"""
     id: str
 
@@ -6308,10 +6320,10 @@ class AmbitiousBusiness:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AmbitiousBusiness':
+    def from_dict(obj: Any) -> 'ResourceBusiness':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return AmbitiousBusiness(id)
+        return ResourceBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -6320,24 +6332,24 @@ class AmbitiousBusiness:
 
 
 class PurpleResourceFilter:
-    business: AmbitiousBusiness
+    business: ResourceBusiness
     """идентификатор ресурса"""
     resource: str
 
-    def __init__(self, business: AmbitiousBusiness, resource: str) -> None:
+    def __init__(self, business: ResourceBusiness, resource: str) -> None:
         self.business = business
         self.resource = resource
 
     @staticmethod
     def from_dict(obj: Any) -> 'PurpleResourceFilter':
         assert isinstance(obj, dict)
-        business = AmbitiousBusiness.from_dict(obj.get("business"))
+        business = ResourceBusiness.from_dict(obj.get("business"))
         resource = from_str(obj.get("resource"))
         return PurpleResourceFilter(business, resource)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(AmbitiousBusiness, self.business)
+        result["business"] = to_class(ResourceBusiness, self.business)
         result["resource"] = from_str(self.resource)
         return result
 
@@ -6396,20 +6408,40 @@ class CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams:
 
 
 class CracSlotsGetCRACDistributedResourcesAndRoomsRequest:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
     """параметры запроса"""
     params: CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams
 
-    def __init__(self, params: CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams) -> None:
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
         self.params = params
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsRequest':
         assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
         params = CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams.from_dict(obj.get("params"))
-        return CracSlotsGetCRACDistributedResourcesAndRoomsRequest(params)
+        return CracSlotsGetCRACDistributedResourcesAndRoomsRequest(cred, id, jsonrpc, method, params)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
         result["params"] = to_class(CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams, self.params)
         return result
 
@@ -6592,44 +6624,48 @@ class FluffyGeneralInfo:
 
 class StickyWidgetConfiguration:
     crac_server: str
+    most_free_enable: Optional[bool]
 
-    def __init__(self, crac_server: str) -> None:
+    def __init__(self, crac_server: str, most_free_enable: Optional[bool]) -> None:
         self.crac_server = crac_server
+        self.most_free_enable = most_free_enable
 
     @staticmethod
     def from_dict(obj: Any) -> 'StickyWidgetConfiguration':
         assert isinstance(obj, dict)
         crac_server = from_str(obj.get("cracServer"))
-        return StickyWidgetConfiguration(crac_server)
+        most_free_enable = from_union([from_bool, from_none], obj.get("mostFreeEnable"))
+        return StickyWidgetConfiguration(crac_server, most_free_enable)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["cracServer"] = from_str(self.crac_server)
+        result["mostFreeEnable"] = from_union([from_bool, from_none], self.most_free_enable)
         return result
 
 
-class CunningBusiness:
+class AmbitiousBusiness:
     general_info: FluffyGeneralInfo
-    id: float
+    id: str
     widget_configuration: StickyWidgetConfiguration
 
-    def __init__(self, general_info: FluffyGeneralInfo, id: float, widget_configuration: StickyWidgetConfiguration) -> None:
+    def __init__(self, general_info: FluffyGeneralInfo, id: str, widget_configuration: StickyWidgetConfiguration) -> None:
         self.general_info = general_info
         self.id = id
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'CunningBusiness':
+    def from_dict(obj: Any) -> 'AmbitiousBusiness':
         assert isinstance(obj, dict)
         general_info = FluffyGeneralInfo.from_dict(obj.get("general_info"))
-        id = from_float(obj.get("id"))
+        id = from_str(obj.get("id"))
         widget_configuration = StickyWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return CunningBusiness(general_info, id, widget_configuration)
+        return AmbitiousBusiness(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["general_info"] = to_class(FluffyGeneralInfo, self.general_info)
-        result["id"] = to_float(self.id)
+        result["id"] = from_str(self.id)
         result["widget_configuration"] = to_class(StickyWidgetConfiguration, self.widget_configuration)
         return result
 
@@ -6656,74 +6692,117 @@ class FluffyDate:
         return result
 
 
+class FluffyResourceFilter:
+    duration: float
+    """идентификатор ресурса"""
+    id: str
+
+    def __init__(self, duration: float, id: str) -> None:
+        self.duration = duration
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyResourceFilter':
+        assert isinstance(obj, dict)
+        duration = from_float(obj.get("duration"))
+        id = from_str(obj.get("id"))
+        return FluffyResourceFilter(duration, id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["duration"] = to_float(self.duration)
+        result["id"] = from_str(self.id)
+        return result
+
+
 class FluffyFilters:
     date: FluffyDate
     insurance_id: str
+    resources: List[FluffyResourceFilter]
     rooms: List[str]
-    taxonomies: List[str]
 
-    def __init__(self, date: FluffyDate, insurance_id: str, rooms: List[str], taxonomies: List[str]) -> None:
+    def __init__(self, date: FluffyDate, insurance_id: str, resources: List[FluffyResourceFilter], rooms: List[str]) -> None:
         self.date = date
         self.insurance_id = insurance_id
+        self.resources = resources
         self.rooms = rooms
-        self.taxonomies = taxonomies
 
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyFilters':
         assert isinstance(obj, dict)
         date = FluffyDate.from_dict(obj.get("date"))
         insurance_id = from_str(obj.get("insuranceID"))
+        resources = from_list(FluffyResourceFilter.from_dict, obj.get("resources"))
         rooms = from_list(from_str, obj.get("rooms"))
-        taxonomies = from_list(from_str, obj.get("taxonomies"))
-        return FluffyFilters(date, insurance_id, rooms, taxonomies)
+        return FluffyFilters(date, insurance_id, resources, rooms)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["date"] = to_class(FluffyDate, self.date)
         result["insuranceID"] = from_str(self.insurance_id)
+        result["resources"] = from_list(lambda x: to_class(FluffyResourceFilter, x), self.resources)
         result["rooms"] = from_list(from_str, self.rooms)
-        result["taxonomies"] = from_list(from_str, self.taxonomies)
         return result
 
 
 class CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: CunningBusiness
+    business: AmbitiousBusiness
     filters: FluffyFilters
 
-    def __init__(self, business: CunningBusiness, filters: FluffyFilters) -> None:
+    def __init__(self, business: AmbitiousBusiness, filters: FluffyFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = CunningBusiness.from_dict(obj.get("business"))
+        business = AmbitiousBusiness.from_dict(obj.get("business"))
         filters = FluffyFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(CunningBusiness, self.business)
+        result["business"] = to_class(AmbitiousBusiness, self.business)
         result["filters"] = to_class(FluffyFilters, self.filters)
         return result
 
 
 class CracSlotsGetCRACInsuranceResourcesAndRoomsRequest:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
     """параметры запроса"""
     params: CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams
 
-    def __init__(self, params: CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams) -> None:
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
         self.params = params
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsRequest':
         assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
         params = CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams.from_dict(obj.get("params"))
-        return CracSlotsGetCRACInsuranceResourcesAndRoomsRequest(params)
+        return CracSlotsGetCRACInsuranceResourcesAndRoomsRequest(cred, id, jsonrpc, method, params)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
         result["params"] = to_class(CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams, self.params)
         return result
 
@@ -6906,119 +6985,104 @@ class TentacledGeneralInfo:
 
 class IndigoWidgetConfiguration:
     crac_server: str
+    most_free_enable: Optional[bool]
 
-    def __init__(self, crac_server: str) -> None:
+    def __init__(self, crac_server: str, most_free_enable: Optional[bool]) -> None:
         self.crac_server = crac_server
+        self.most_free_enable = most_free_enable
 
     @staticmethod
     def from_dict(obj: Any) -> 'IndigoWidgetConfiguration':
         assert isinstance(obj, dict)
         crac_server = from_str(obj.get("cracServer"))
-        return IndigoWidgetConfiguration(crac_server)
+        most_free_enable = from_union([from_bool, from_none], obj.get("mostFreeEnable"))
+        return IndigoWidgetConfiguration(crac_server, most_free_enable)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["cracServer"] = from_str(self.crac_server)
+        result["mostFreeEnable"] = from_union([from_bool, from_none], self.most_free_enable)
         return result
 
 
-class MagentaBusiness:
+class CunningBusiness:
     general_info: TentacledGeneralInfo
-    id: float
+    id: str
     widget_configuration: IndigoWidgetConfiguration
 
-    def __init__(self, general_info: TentacledGeneralInfo, id: float, widget_configuration: IndigoWidgetConfiguration) -> None:
+    def __init__(self, general_info: TentacledGeneralInfo, id: str, widget_configuration: IndigoWidgetConfiguration) -> None:
         self.general_info = general_info
         self.id = id
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'MagentaBusiness':
+    def from_dict(obj: Any) -> 'CunningBusiness':
         assert isinstance(obj, dict)
         general_info = TentacledGeneralInfo.from_dict(obj.get("general_info"))
-        id = from_float(obj.get("id"))
+        id = from_str(obj.get("id"))
         widget_configuration = IndigoWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return MagentaBusiness(general_info, id, widget_configuration)
+        return CunningBusiness(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["general_info"] = to_class(TentacledGeneralInfo, self.general_info)
-        result["id"] = to_float(self.id)
+        result["id"] = from_str(self.id)
         result["widget_configuration"] = to_class(IndigoWidgetConfiguration, self.widget_configuration)
         return result
 
 
 class TentacledDate:
-    date_from: str
-    to: str
+    date_from: datetime
+    to: datetime
 
-    def __init__(self, date_from: str, to: str) -> None:
+    def __init__(self, date_from: datetime, to: datetime) -> None:
         self.date_from = date_from
         self.to = to
 
     @staticmethod
     def from_dict(obj: Any) -> 'TentacledDate':
         assert isinstance(obj, dict)
-        date_from = from_str(obj.get("from"))
-        to = from_str(obj.get("to"))
+        date_from = from_datetime(obj.get("from"))
+        to = from_datetime(obj.get("to"))
         return TentacledDate(date_from, to)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["from"] = from_str(self.date_from)
-        result["to"] = from_str(self.to)
+        result["from"] = self.date_from.isoformat()
+        result["to"] = self.to.isoformat()
         return result
 
 
-class FriskyBusiness:
-    """идентификатор бизнеса"""
+class TentacledResourceFilter:
+    duration: float
+    """идентификатор ресурса"""
     id: str
 
-    def __init__(self, id: str) -> None:
+    def __init__(self, duration: float, id: str) -> None:
+        self.duration = duration
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'FriskyBusiness':
+    def from_dict(obj: Any) -> 'TentacledResourceFilter':
         assert isinstance(obj, dict)
+        duration = from_float(obj.get("duration"))
         id = from_str(obj.get("id"))
-        return FriskyBusiness(id)
+        return TentacledResourceFilter(duration, id)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["duration"] = to_float(self.duration)
         result["id"] = from_str(self.id)
-        return result
-
-
-class FluffyResourceFilter:
-    business: FriskyBusiness
-    """идентификатор ресурса"""
-    resource: str
-
-    def __init__(self, business: FriskyBusiness, resource: str) -> None:
-        self.business = business
-        self.resource = resource
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'FluffyResourceFilter':
-        assert isinstance(obj, dict)
-        business = FriskyBusiness.from_dict(obj.get("business"))
-        resource = from_str(obj.get("resource"))
-        return FluffyResourceFilter(business, resource)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["business"] = to_class(FriskyBusiness, self.business)
-        result["resource"] = from_str(self.resource)
         return result
 
 
 class TentacledFilters:
     date: TentacledDate
-    resources: List[FluffyResourceFilter]
+    resources: List[TentacledResourceFilter]
     rooms: List[str]
     taxonomies: List[str]
 
-    def __init__(self, date: TentacledDate, resources: List[FluffyResourceFilter], rooms: List[str], taxonomies: List[str]) -> None:
+    def __init__(self, date: TentacledDate, resources: List[TentacledResourceFilter], rooms: List[str], taxonomies: List[str]) -> None:
         self.date = date
         self.resources = resources
         self.rooms = rooms
@@ -7028,7 +7092,7 @@ class TentacledFilters:
     def from_dict(obj: Any) -> 'TentacledFilters':
         assert isinstance(obj, dict)
         date = TentacledDate.from_dict(obj.get("date"))
-        resources = from_list(FluffyResourceFilter.from_dict, obj.get("resources"))
+        resources = from_list(TentacledResourceFilter.from_dict, obj.get("resources"))
         rooms = from_list(from_str, obj.get("rooms"))
         taxonomies = from_list(from_str, obj.get("taxonomies"))
         return TentacledFilters(date, resources, rooms, taxonomies)
@@ -7036,7 +7100,7 @@ class TentacledFilters:
     def to_dict(self) -> dict:
         result: dict = {}
         result["date"] = to_class(TentacledDate, self.date)
-        result["resources"] = from_list(lambda x: to_class(FluffyResourceFilter, x), self.resources)
+        result["resources"] = from_list(lambda x: to_class(TentacledResourceFilter, x), self.resources)
         result["rooms"] = from_list(from_str, self.rooms)
         result["taxonomies"] = from_list(from_str, self.taxonomies)
         return result
@@ -7044,42 +7108,62 @@ class TentacledFilters:
 
 class CracSlotsGetCRACResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: MagentaBusiness
+    business: CunningBusiness
     filters: TentacledFilters
 
-    def __init__(self, business: MagentaBusiness, filters: TentacledFilters) -> None:
+    def __init__(self, business: CunningBusiness, filters: TentacledFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = MagentaBusiness.from_dict(obj.get("business"))
+        business = CunningBusiness.from_dict(obj.get("business"))
         filters = TentacledFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(MagentaBusiness, self.business)
+        result["business"] = to_class(CunningBusiness, self.business)
         result["filters"] = to_class(TentacledFilters, self.filters)
         return result
 
 
 class CracSlotsGetCRACResourcesAndRoomsRequest:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
     """параметры запроса"""
     params: CracSlotsGetCRACResourcesAndRoomsRequestParams
 
-    def __init__(self, params: CracSlotsGetCRACResourcesAndRoomsRequestParams) -> None:
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: CracSlotsGetCRACResourcesAndRoomsRequestParams) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
         self.params = params
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsRequest':
         assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
         params = CracSlotsGetCRACResourcesAndRoomsRequestParams.from_dict(obj.get("params"))
-        return CracSlotsGetCRACResourcesAndRoomsRequest(params)
+        return CracSlotsGetCRACResourcesAndRoomsRequest(cred, id, jsonrpc, method, params)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
         result["params"] = to_class(CracSlotsGetCRACResourcesAndRoomsRequestParams, self.params)
         return result
 
