@@ -18,13 +18,10 @@ definitions:
         type: "object"
         required:
           - start
-          - duration
         properties:
           start:
             type: "string"
             format: "date-time"
-          duration:
-            type: "number"
       source:
         type: "string"
       business:
@@ -47,7 +44,9 @@ definitions:
         additionalProperties: false
         properties:
           id:
-            type: "string"
+            type: "array"
+            items:
+              type: "string"
 
   Request:
     type: "object"
