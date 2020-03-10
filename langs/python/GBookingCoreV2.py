@@ -4191,11 +4191,11 @@ class BusinessTaxonomyPrice:
     """"Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)"""
     resource_level: float
     """Значение цены, с учётом промо акций"""
-    stock_amount: str
+    stock_amount: Optional[str]
     """Тип цены"""
     type: Optional[AdditionalPriceType]
 
-    def __init__(self, amount: Optional[str], currency: CurrencyList, resource_level: float, stock_amount: str, type: Optional[AdditionalPriceType]) -> None:
+    def __init__(self, amount: Optional[str], currency: CurrencyList, resource_level: float, stock_amount: Optional[str], type: Optional[AdditionalPriceType]) -> None:
         self.amount = amount
         self.currency = currency
         self.resource_level = resource_level
@@ -4208,7 +4208,7 @@ class BusinessTaxonomyPrice:
         amount = from_union([from_str, from_none], obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
         resource_level = from_float(obj.get("resourceLevel"))
-        stock_amount = from_str(obj.get("stockAmount"))
+        stock_amount = from_union([from_none, from_str], obj.get("stockAmount"))
         type = from_union([AdditionalPriceType, from_none], obj.get("type"))
         return BusinessTaxonomyPrice(amount, currency, resource_level, stock_amount, type)
 
@@ -4217,7 +4217,7 @@ class BusinessTaxonomyPrice:
         result["amount"] = from_union([from_str, from_none], self.amount)
         result["currency"] = to_enum(CurrencyList, self.currency)
         result["resourceLevel"] = to_float(self.resource_level)
-        result["stockAmount"] = from_str(self.stock_amount)
+        result["stockAmount"] = from_union([from_none, from_str], self.stock_amount)
         result["type"] = from_union([lambda x: to_enum(AdditionalPriceType, x), from_none], self.type)
         return result
 

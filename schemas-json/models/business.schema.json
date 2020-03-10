@@ -356,7 +356,10 @@
                 },
                 "stockAmount": {
                     "description": "Значение цены, с учётом промо акций",
-                    "type": "string",
+                    "type": [
+                        "null",
+                        "string"
+                    ],
                     "default": "0"
                 },
                 "type": {

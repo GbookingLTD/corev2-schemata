@@ -3801,7 +3801,7 @@ All items must be of the type: `object` with following properties:
 
 ### stockAmount Type
 
-`string`
+`string`, nullable
 
 ## taxonomyAppExtraID
 

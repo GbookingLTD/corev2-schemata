@@ -1769,7 +1769,7 @@ export interface BusinessTaxonomyPrice {
     /**
      * Значение цены, с учётом промо акций
      */
-    stockAmount: string;
+    stockAmount: null | string;
     /**
      * Тип цены
      */
@@ -5394,7 +5394,7 @@ const typeMap: any = {
         { json: "amount", js: "amount", typ: u(undefined, "") },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "resourceLevel", js: "resourceLevel", typ: 3.14 },
-        { json: "stockAmount", js: "stockAmount", typ: "" },
+        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
     ], false),
     "BusinessTaxonomyProduct": o([

@@ -1077,7 +1077,7 @@ type BusinessTaxonomyPrice struct {
 	Amount        *string              `json:"amount,omitempty"`// Значение цены
 	Currency      CurrencyList         `json:"currency"`        // Аббревиатура валюты
 	ResourceLevel float64              `json:"resourceLevel"`   // "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
-	StockAmount   string               `json:"stockAmount"`     // Значение цены, с учётом промо акций
+	StockAmount   *string              `json:"stockAmount"`     // Значение цены, с учётом промо акций
 	Type          *AdditionalPriceType `json:"type,omitempty"`  // Тип цены
 }
 
