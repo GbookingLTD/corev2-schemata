@@ -6479,55 +6479,29 @@ class CracSlotsGetCRACDistributedResourcesAndRoomsResponseError:
         return result
 
 
-class PurpleCutSlot:
-    available: bool
-    duration: float
-    end: float
-    start: float
-
-    def __init__(self, available: bool, duration: float, end: float, start: float) -> None:
-        self.available = available
-        self.duration = duration
-        self.end = end
-        self.start = start
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'PurpleCutSlot':
-        assert isinstance(obj, dict)
-        available = from_bool(obj.get("available"))
-        duration = from_float(obj.get("duration"))
-        end = from_float(obj.get("end"))
-        start = from_float(obj.get("start"))
-        return PurpleCutSlot(available, duration, end, start)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["available"] = from_bool(self.available)
-        result["duration"] = to_float(self.duration)
-        result["end"] = to_float(self.end)
-        result["start"] = to_float(self.start)
-        return result
-
-
 class PurpleSlot:
-    cut_slots: List[PurpleCutSlot]
-    resource_id: str
+    date: datetime
+    resources: List[Any]
+    rooms: List[Dict[str, Any]]
 
-    def __init__(self, cut_slots: List[PurpleCutSlot], resource_id: str) -> None:
-        self.cut_slots = cut_slots
-        self.resource_id = resource_id
+    def __init__(self, date: datetime, resources: List[Any], rooms: List[Dict[str, Any]]) -> None:
+        self.date = date
+        self.resources = resources
+        self.rooms = rooms
 
     @staticmethod
     def from_dict(obj: Any) -> 'PurpleSlot':
         assert isinstance(obj, dict)
-        cut_slots = from_list(PurpleCutSlot.from_dict, obj.get("cutSlots"))
-        resource_id = from_str(obj.get("resourceId"))
-        return PurpleSlot(cut_slots, resource_id)
+        date = from_datetime(obj.get("date"))
+        resources = from_list(lambda x: x, obj.get("resources"))
+        rooms = from_list(lambda x: from_dict(lambda x: x, x), obj.get("rooms"))
+        return PurpleSlot(date, resources, rooms)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["cutSlots"] = from_list(lambda x: to_class(PurpleCutSlot, x), self.cut_slots)
-        result["resourceId"] = from_str(self.resource_id)
+        result["date"] = self.date.isoformat()
+        result["resources"] = from_list(lambda x: x, self.resources)
+        result["rooms"] = from_list(lambda x: from_dict(lambda x: x, x), self.rooms)
         return result
 
 
@@ -6840,55 +6814,29 @@ class CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError:
         return result
 
 
-class FluffyCutSlot:
-    available: bool
-    duration: float
-    end: float
-    start: float
-
-    def __init__(self, available: bool, duration: float, end: float, start: float) -> None:
-        self.available = available
-        self.duration = duration
-        self.end = end
-        self.start = start
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'FluffyCutSlot':
-        assert isinstance(obj, dict)
-        available = from_bool(obj.get("available"))
-        duration = from_float(obj.get("duration"))
-        end = from_float(obj.get("end"))
-        start = from_float(obj.get("start"))
-        return FluffyCutSlot(available, duration, end, start)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["available"] = from_bool(self.available)
-        result["duration"] = to_float(self.duration)
-        result["end"] = to_float(self.end)
-        result["start"] = to_float(self.start)
-        return result
-
-
 class FluffySlot:
-    cut_slots: List[FluffyCutSlot]
-    resource_id: str
+    date: datetime
+    resources: List[Any]
+    rooms: List[Dict[str, Any]]
 
-    def __init__(self, cut_slots: List[FluffyCutSlot], resource_id: str) -> None:
-        self.cut_slots = cut_slots
-        self.resource_id = resource_id
+    def __init__(self, date: datetime, resources: List[Any], rooms: List[Dict[str, Any]]) -> None:
+        self.date = date
+        self.resources = resources
+        self.rooms = rooms
 
     @staticmethod
     def from_dict(obj: Any) -> 'FluffySlot':
         assert isinstance(obj, dict)
-        cut_slots = from_list(FluffyCutSlot.from_dict, obj.get("cutSlots"))
-        resource_id = from_str(obj.get("resourceId"))
-        return FluffySlot(cut_slots, resource_id)
+        date = from_datetime(obj.get("date"))
+        resources = from_list(lambda x: x, obj.get("resources"))
+        rooms = from_list(lambda x: from_dict(lambda x: x, x), obj.get("rooms"))
+        return FluffySlot(date, resources, rooms)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["cutSlots"] = from_list(lambda x: to_class(FluffyCutSlot, x), self.cut_slots)
-        result["resourceId"] = from_str(self.resource_id)
+        result["date"] = self.date.isoformat()
+        result["resources"] = from_list(lambda x: x, self.resources)
+        result["rooms"] = from_list(lambda x: from_dict(lambda x: x, x), self.rooms)
         return result
 
 
@@ -7201,55 +7149,29 @@ class CracSlotsGetCRACResourcesAndRoomsResponseError:
         return result
 
 
-class TentacledCutSlot:
-    available: bool
-    duration: float
-    end: float
-    start: float
-
-    def __init__(self, available: bool, duration: float, end: float, start: float) -> None:
-        self.available = available
-        self.duration = duration
-        self.end = end
-        self.start = start
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'TentacledCutSlot':
-        assert isinstance(obj, dict)
-        available = from_bool(obj.get("available"))
-        duration = from_float(obj.get("duration"))
-        end = from_float(obj.get("end"))
-        start = from_float(obj.get("start"))
-        return TentacledCutSlot(available, duration, end, start)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["available"] = from_bool(self.available)
-        result["duration"] = to_float(self.duration)
-        result["end"] = to_float(self.end)
-        result["start"] = to_float(self.start)
-        return result
-
-
 class TentacledSlot:
-    cut_slots: List[TentacledCutSlot]
-    resource_id: str
+    date: datetime
+    resources: List[Any]
+    rooms: List[Dict[str, Any]]
 
-    def __init__(self, cut_slots: List[TentacledCutSlot], resource_id: str) -> None:
-        self.cut_slots = cut_slots
-        self.resource_id = resource_id
+    def __init__(self, date: datetime, resources: List[Any], rooms: List[Dict[str, Any]]) -> None:
+        self.date = date
+        self.resources = resources
+        self.rooms = rooms
 
     @staticmethod
     def from_dict(obj: Any) -> 'TentacledSlot':
         assert isinstance(obj, dict)
-        cut_slots = from_list(TentacledCutSlot.from_dict, obj.get("cutSlots"))
-        resource_id = from_str(obj.get("resourceId"))
-        return TentacledSlot(cut_slots, resource_id)
+        date = from_datetime(obj.get("date"))
+        resources = from_list(lambda x: x, obj.get("resources"))
+        rooms = from_list(lambda x: from_dict(lambda x: x, x), obj.get("rooms"))
+        return TentacledSlot(date, resources, rooms)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["cutSlots"] = from_list(lambda x: to_class(TentacledCutSlot, x), self.cut_slots)
-        result["resourceId"] = from_str(self.resource_id)
+        result["date"] = self.date.isoformat()
+        result["resources"] = from_list(lambda x: x, self.resources)
+        result["rooms"] = from_list(lambda x: from_dict(lambda x: x, x), self.rooms)
         return result
 
 

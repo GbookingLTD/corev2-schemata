@@ -1503,15 +1503,9 @@ type CracSlotsGetCRACDistributedResourcesAndRoomsResponseResult struct {
 }
 
 type PurpleSlot struct {
-	CutSlots   []PurpleCutSlot `json:"cutSlots"`  
-	ResourceID string          `json:"resourceId"`
-}
-
-type PurpleCutSlot struct {
-	Available bool    `json:"available"`
-	Duration  float64 `json:"duration"` 
-	End       float64 `json:"end"`      
-	Start     float64 `json:"start"`    
+	Date      string                   `json:"date"`     
+	Resources []interface{}            `json:"resources"`
+	Rooms     []map[string]interface{} `json:"rooms"`    
 }
 
 type GetCRACInsuranceResourcesAndRooms struct {
@@ -1586,15 +1580,9 @@ type CracSlotsGetCRACInsuranceResourcesAndRoomsResponseResult struct {
 }
 
 type FluffySlot struct {
-	CutSlots   []FluffyCutSlot `json:"cutSlots"`  
-	ResourceID string          `json:"resourceId"`
-}
-
-type FluffyCutSlot struct {
-	Available bool    `json:"available"`
-	Duration  float64 `json:"duration"` 
-	End       float64 `json:"end"`      
-	Start     float64 `json:"start"`    
+	Date      string                   `json:"date"`     
+	Resources []interface{}            `json:"resources"`
+	Rooms     []map[string]interface{} `json:"rooms"`    
 }
 
 type GetCRACResourcesAndRooms struct {
@@ -1669,15 +1657,9 @@ type CracSlotsGetCRACResourcesAndRoomsResponseResult struct {
 }
 
 type TentacledSlot struct {
-	CutSlots   []TentacledCutSlot `json:"cutSlots"`  
-	ResourceID string             `json:"resourceId"`
-}
-
-type TentacledCutSlot struct {
-	Available bool    `json:"available"`
-	Duration  float64 `json:"duration"` 
-	End       float64 `json:"end"`      
-	Start     float64 `json:"start"`    
+	Date      string                   `json:"date"`     
+	Resources []interface{}            `json:"resources"`
+	Rooms     []map[string]interface{} `json:"rooms"`    
 }
 
 type Models struct {

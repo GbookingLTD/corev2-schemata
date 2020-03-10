@@ -27,8 +27,8 @@ require('./test')(function() {
 
         ],
         "date":{
-          "from":"2020-03-05T00:00:00.000Z",
-          "to":"2020-03-17T00:00:00.000Z"
+          "from":"2020-03-10T00:00:00.000Z",
+          "to":"2020-03-21T00:00:00.000Z"
         }
       }),
     CRAC.GetCRACDistributedResourcesAndRooms(null, "4000000006304", {
@@ -59,8 +59,8 @@ require('./test')(function() {
 
       ],
       "date":{
-        "from":"2020-03-06T00:00:00.000Z",
-        "to":"2020-03-10T00:00:00.000Z"
+        "from":"2020-03-10T00:00:00.000Z",
+        "to":"2020-03-21T00:00:00.000Z"
       }
     }),
     CRAC.GetCRACInsuranceResourcesAndRooms(null, "4000000006582", {
@@ -72,8 +72,8 @@ require('./test')(function() {
 
       ],
       "date":{
-        "from":"2020-03-04T00:00:00.000Z",
-        "to":"2020-03-11T00:00:00.000Z"
+        "from":"2020-03-10T00:00:00.000Z",
+        "to":"2020-03-21T00:00:00.000Z"
       }
     })
   ].map(p => function () {

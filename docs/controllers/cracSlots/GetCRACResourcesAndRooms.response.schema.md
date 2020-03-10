@@ -156,36 +156,52 @@ Array type: `object[]`
 
 All items must be of the type: `object` with following properties:
 
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `cutSlots`   | array  | **Required** |
-| `resourceId` | string | **Required** |
+| Property    | Type   | Required     |
+| ----------- | ------ | ------------ |
+| `date`      | string | **Required** |
+| `resources` | array  | **Required** |
+| `rooms`     | array  | **Required** |
 
-#### cutSlots
+#### date
 
-`cutSlots`
-
-- is **required**
-- type: reference
-
-##### cutSlots Type
-
-Array type: reference
-
-All items must be of the type:
-
-- []() – `#/definitions/CutSlot`
-
-#### resourceId
-
-`resourceId`
+`date`
 
 - is **required**
 - type: `string`
 
-##### resourceId Type
+##### date Type
 
 `string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
+#### resources
+
+`resources`
+
+- is **required**
+- type: `array`
+
+##### resources Type
+
+Array type: `array`
+
+#### rooms
+
+`rooms`
+
+- is **required**
+- type: `object[]`
+
+##### rooms Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
 
 ## start
 

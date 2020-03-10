@@ -4237,26 +4237,14 @@ namespace GBookingCoreV2
 
     public partial class PurpleSlot
     {
-        [JsonProperty("cutSlots")]
-        public List<PurpleCutSlot> CutSlots { get; set; }
+        [JsonProperty("date")]
+        public DateTimeOffset Date { get; set; }
 
-        [JsonProperty("resourceId")]
-        public string ResourceId { get; set; }
-    }
+        [JsonProperty("resources")]
+        public List<object> Resources { get; set; }
 
-    public partial class PurpleCutSlot
-    {
-        [JsonProperty("available")]
-        public bool Available { get; set; }
-
-        [JsonProperty("duration")]
-        public double Duration { get; set; }
-
-        [JsonProperty("end")]
-        public double End { get; set; }
-
-        [JsonProperty("start")]
-        public double Start { get; set; }
+        [JsonProperty("rooms")]
+        public List<Dictionary<string, object>> Rooms { get; set; }
     }
 
     public partial class GetCracInsuranceResourcesAndRooms
@@ -4434,26 +4422,14 @@ namespace GBookingCoreV2
 
     public partial class FluffySlot
     {
-        [JsonProperty("cutSlots")]
-        public List<FluffyCutSlot> CutSlots { get; set; }
+        [JsonProperty("date")]
+        public DateTimeOffset Date { get; set; }
 
-        [JsonProperty("resourceId")]
-        public string ResourceId { get; set; }
-    }
+        [JsonProperty("resources")]
+        public List<object> Resources { get; set; }
 
-    public partial class FluffyCutSlot
-    {
-        [JsonProperty("available")]
-        public bool Available { get; set; }
-
-        [JsonProperty("duration")]
-        public double Duration { get; set; }
-
-        [JsonProperty("end")]
-        public double End { get; set; }
-
-        [JsonProperty("start")]
-        public double Start { get; set; }
+        [JsonProperty("rooms")]
+        public List<Dictionary<string, object>> Rooms { get; set; }
     }
 
     public partial class GetCracResourcesAndRooms
@@ -4631,26 +4607,14 @@ namespace GBookingCoreV2
 
     public partial class TentacledSlot
     {
-        [JsonProperty("cutSlots")]
-        public List<TentacledCutSlot> CutSlots { get; set; }
+        [JsonProperty("date")]
+        public DateTimeOffset Date { get; set; }
 
-        [JsonProperty("resourceId")]
-        public string ResourceId { get; set; }
-    }
+        [JsonProperty("resources")]
+        public List<object> Resources { get; set; }
 
-    public partial class TentacledCutSlot
-    {
-        [JsonProperty("available")]
-        public bool Available { get; set; }
-
-        [JsonProperty("duration")]
-        public double Duration { get; set; }
-
-        [JsonProperty("end")]
-        public double End { get; set; }
-
-        [JsonProperty("start")]
-        public double Start { get; set; }
+        [JsonProperty("rooms")]
+        public List<Dictionary<string, object>> Rooms { get; set; }
     }
 
     public partial class Models

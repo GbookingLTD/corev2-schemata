@@ -2382,15 +2382,9 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsResponseResult {
 }
 
 export interface PurpleSlot {
-    cutSlots:   PurpleCutSlot[];
-    resourceId: string;
-}
-
-export interface PurpleCutSlot {
-    available: boolean;
-    duration:  number;
-    end:       number;
-    start:     number;
+    date:      Date;
+    resources: any[];
+    rooms:     { [key: string]: any }[];
 }
 
 export interface GetCracInsuranceResourcesAndRooms {
@@ -2505,15 +2499,9 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult {
 }
 
 export interface FluffySlot {
-    cutSlots:   FluffyCutSlot[];
-    resourceId: string;
-}
-
-export interface FluffyCutSlot {
-    available: boolean;
-    duration:  number;
-    end:       number;
-    start:     number;
+    date:      Date;
+    resources: any[];
+    rooms:     { [key: string]: any }[];
 }
 
 export interface GetCracResourcesAndRooms {
@@ -2628,15 +2616,9 @@ export interface CracSlotsGetCracResourcesAndRoomsResponseResult {
 }
 
 export interface TentacledSlot {
-    cutSlots:   TentacledCutSlot[];
-    resourceId: string;
-}
-
-export interface TentacledCutSlot {
-    available: boolean;
-    duration:  number;
-    end:       number;
-    start:     number;
+    date:      Date;
+    resources: any[];
+    rooms:     { [key: string]: any }[];
 }
 
 export interface Models {
@@ -3623,14 +3605,6 @@ export class Convert {
         return JSON.stringify(uncast(value, r("PurpleSlot")), null, 2);
     }
 
-    public static toPurpleCutSlot(json: string): PurpleCutSlot {
-        return cast(JSON.parse(json), r("PurpleCutSlot"));
-    }
-
-    public static purpleCutSlotToJson(value: PurpleCutSlot): string {
-        return JSON.stringify(uncast(value, r("PurpleCutSlot")), null, 2);
-    }
-
     public static toGetCracInsuranceResourcesAndRooms(json: string): GetCracInsuranceResourcesAndRooms {
         return cast(JSON.parse(json), r("GetCracInsuranceResourcesAndRooms"));
     }
@@ -3735,14 +3709,6 @@ export class Convert {
         return JSON.stringify(uncast(value, r("FluffySlot")), null, 2);
     }
 
-    public static toFluffyCutSlot(json: string): FluffyCutSlot {
-        return cast(JSON.parse(json), r("FluffyCutSlot"));
-    }
-
-    public static fluffyCutSlotToJson(value: FluffyCutSlot): string {
-        return JSON.stringify(uncast(value, r("FluffyCutSlot")), null, 2);
-    }
-
     public static toGetCracResourcesAndRooms(json: string): GetCracResourcesAndRooms {
         return cast(JSON.parse(json), r("GetCracResourcesAndRooms"));
     }
@@ -3845,14 +3811,6 @@ export class Convert {
 
     public static tentacledSlotToJson(value: TentacledSlot): string {
         return JSON.stringify(uncast(value, r("TentacledSlot")), null, 2);
-    }
-
-    public static toTentacledCutSlot(json: string): TentacledCutSlot {
-        return cast(JSON.parse(json), r("TentacledCutSlot"));
-    }
-
-    public static tentacledCutSlotToJson(value: TentacledCutSlot): string {
-        return JSON.stringify(uncast(value, r("TentacledCutSlot")), null, 2);
     }
 
     public static toModels(json: string): Models {
@@ -5324,14 +5282,9 @@ const typeMap: any = {
         { json: "slots", js: "slots", typ: a(r("PurpleSlot")) },
     ], false),
     "PurpleSlot": o([
-        { json: "cutSlots", js: "cutSlots", typ: a(r("PurpleCutSlot")) },
-        { json: "resourceId", js: "resourceId", typ: "" },
-    ], false),
-    "PurpleCutSlot": o([
-        { json: "available", js: "available", typ: true },
-        { json: "duration", js: "duration", typ: 3.14 },
-        { json: "end", js: "end", typ: 3.14 },
-        { json: "start", js: "start", typ: 3.14 },
+        { json: "date", js: "date", typ: Date },
+        { json: "resources", js: "resources", typ: a("any") },
+        { json: "rooms", js: "rooms", typ: a(m("any")) },
     ], false),
     "GetCracInsuranceResourcesAndRooms": o([
         { json: "request", js: "request", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequest") },
@@ -5389,14 +5342,9 @@ const typeMap: any = {
         { json: "slots", js: "slots", typ: a(r("FluffySlot")) },
     ], false),
     "FluffySlot": o([
-        { json: "cutSlots", js: "cutSlots", typ: a(r("FluffyCutSlot")) },
-        { json: "resourceId", js: "resourceId", typ: "" },
-    ], false),
-    "FluffyCutSlot": o([
-        { json: "available", js: "available", typ: true },
-        { json: "duration", js: "duration", typ: 3.14 },
-        { json: "end", js: "end", typ: 3.14 },
-        { json: "start", js: "start", typ: 3.14 },
+        { json: "date", js: "date", typ: Date },
+        { json: "resources", js: "resources", typ: a("any") },
+        { json: "rooms", js: "rooms", typ: a(m("any")) },
     ], false),
     "GetCracResourcesAndRooms": o([
         { json: "request", js: "request", typ: r("CracSlotsGetCracResourcesAndRoomsRequest") },
@@ -5454,14 +5402,9 @@ const typeMap: any = {
         { json: "slots", js: "slots", typ: a(r("TentacledSlot")) },
     ], false),
     "TentacledSlot": o([
-        { json: "cutSlots", js: "cutSlots", typ: a(r("TentacledCutSlot")) },
-        { json: "resourceId", js: "resourceId", typ: "" },
-    ], false),
-    "TentacledCutSlot": o([
-        { json: "available", js: "available", typ: true },
-        { json: "duration", js: "duration", typ: 3.14 },
-        { json: "end", js: "end", typ: 3.14 },
-        { json: "start", js: "start", typ: 3.14 },
+        { json: "date", js: "date", typ: Date },
+        { json: "resources", js: "resources", typ: a("any") },
+        { json: "rooms", js: "rooms", typ: a(m("any")) },
     ], false),
     "Models": o([
         { json: "Business", js: "Business", typ: u(a("any"), true, r("StickyBusiness"), 3.14, 0, null, "") },
