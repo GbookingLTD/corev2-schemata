@@ -7,6 +7,16 @@ var defaultEndpoint = 'http://apiv2.gbooking.ru/rpc';
 var defaultCracEndpoint = 'http://cracslots.gbooking.ru/rpc';
 var defaultOriginCracEndpoint = 'http://crac-prod3.gbooking.ru/rpc';
 
+exports.rpcRequestObject = function (method, data, cred) {
+  return {
+    jsonrpc: '2.0',
+    id: 2,
+    cred: cred,
+    method: method,
+    params: JSON.parse(JSON.stringify(data))
+  };
+};
+
 exports.rpcRequest = function (method, data, cred, endpoint) {
   var defer = Q.defer();
   if (arguments.length === 1) {

@@ -4,6 +4,7 @@ const Q = require('q');
 let Ajv = require('ajv')
   , ajv = new Ajv
   , rpcRequest = require('./rpcRequest').rpcRequest
+  , rpcRequestObject = require('./rpcRequest').rpcRequestObject
   , cracRpcRequest = require('./rpcRequest').cracRpcRequest
   , cracRpcRequestObject = require('./rpcRequest').cracRpcRequestObject
   , originCracRpcRequest = require('./rpcRequest').originCracRpcRequest
@@ -108,6 +109,45 @@ let getProfileByID = function (endpoint, baseBusinessId, cred, extraParams) {
   }).fail(function(err) {
     if (err.code === -32700) {
       _validate(pref, err.xtra);
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let reserveAppointment = function (endpoint, businessId, taxonomy, resource, start) {
+  var params = {
+    "appointment":{
+      "start":start
+    },
+    "source":"TEST_SCHEMA_SOURCE",
+    "taxonomy":{
+      "id":taxonomy
+    },
+    "resource":{
+      "id":[
+        resource
+      ]
+    },
+    "business":{
+      "id":businessId
+    }
+  };
+
+  let pref = 'appointment.reserve_appointment: ' + businessId;
+
+  let _validateReq = getValidateRequest('appointment', 'reserve_appointment');
+  let _validateRes = getValidateResponse('appointment', 'reserve_appointment');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('appointment.reserve_appointment', params, {}));
+    return rpcRequest('appointment.reserve_appointment', params, {}, endpoint);
+  }).then(function(json) {
+    console.info('<--- ' + pref, json);
+    _validateRes('<--- ' + pref, json)
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      console.info('<--! ' + pref, err.data, err.xtra);
+      _validateRes('<--! ' + pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
     }
@@ -343,6 +383,7 @@ module.exports = function(fn) {
 };
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
+module.exports.reserveAppointment = reserveAppointment;
 module.exports.getNetworkData = getNetworkData;
 module.exports.getNetworkDataWithBusinessInfo = getNetworkDataWithBusinessInfo;
 module.exports.CRAC = {
