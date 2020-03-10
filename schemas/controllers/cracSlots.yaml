@@ -30,6 +30,36 @@ properties:
         $ref: "./cracSlots/GetCRACDistributedResourcesAndRooms.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
+
+  CRACDistributedResourcesFreeByDate:
+    type: "object"
+    properties:
+      request:
+        $ref: "./cracSlots/CRACDistributedResourcesFreeByDate.request.schema.json"
+      response:
+        $ref: "./cracSlots/CRACDistributedResourcesFreeByDate.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+
+  CRACResourcesFreeByDate:
+    type: "object"
+    properties:
+      request:
+        $ref: "./cracSlots/CRACResourcesFreeByDate.request.schema.json"
+      response:
+        $ref: "./cracSlots/CRACResourcesFreeByDate.response.schema.json"
+    required: ['request', 'response']
+
+  CRACResourcesFreeByDateV2:
+    type: "object"
+    properties:
+      request:
+        $ref: "./cracSlots/CRACResourcesFreeByDateV2.request.schema.json"
+      response:
+        $ref: "./cracSlots/CRACResourcesFreeByDateV2.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+
 required:
   - GetCRACDistributedResourcesAndRooms
 additionalProperties: false

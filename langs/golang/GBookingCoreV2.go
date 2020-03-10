@@ -52,11 +52,11 @@ type Error struct {
 }
 
 type RequestClass struct {
-	Cred    *Cred                  `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate         `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                 `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string                 `json:"method"`        // название jsonrpc метода
-	Params  map[string]interface{} `json:"params"`        // параметры запроса
+	Cred    *Cred          `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string         `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string         `json:"method"`        // название jsonrpc метода
+	Params  *ParamsUnion   `json:"params"`        // параметры запроса
 }
 
 // авторизационные параметры
@@ -95,8 +95,6 @@ type BusinessGetNetworkDataRequest struct {
 	Params  BusinessGetNetworkDataRequestParams `json:"params"`        // параметры запроса; ; параметры запроса business.get_network_data
 }
 
-// параметры запроса
-//
 // параметры запроса business.get_network_data
 type BusinessGetNetworkDataRequestParams struct {
 	NetworkID        float64 `json:"networkID"`                   // идентификатор сети
@@ -645,8 +643,6 @@ type BusinessGetProfileByIDRequest struct {
 	Params  BusinessGetProfileByIDRequestParams `json:"params"`        // параметры запроса; ; параметры запроса business.get_profile_by_id
 }
 
-// параметры запроса
-//
 // параметры запроса business.get_profile_by_id
 type BusinessGetProfileByIDRequestParams struct {
 	Business             TentacledBusiness  `json:"business"`                        
@@ -1422,9 +1418,172 @@ type ResultProfile struct {
 }
 
 type CracSlotsController struct {
-	GetCRACDistributedResourcesAndRooms GetCRACDistributedResourcesAndRooms `json:"GetCRACDistributedResourcesAndRooms"`        
-	GetCRACInsuranceResourcesAndRooms   *GetCRACInsuranceResourcesAndRooms  `json:"GetCRACInsuranceResourcesAndRooms,omitempty"`
-	GetCRACResourcesAndRooms            *GetCRACResourcesAndRooms           `json:"GetCRACResourcesAndRooms,omitempty"`         
+	CRACDistributedResourcesFreeByDate  *CRACDistributedResourcesFreeByDate `json:"CRACDistributedResourcesFreeByDate,omitempty"`
+	CRACResourcesFreeByDate             *CRACResourcesFreeByDate            `json:"CRACResourcesFreeByDate,omitempty"`           
+	CRACResourcesFreeByDateV2           *CRACResourcesFreeByDateV2          `json:"CRACResourcesFreeByDateV2,omitempty"`         
+	GetCRACDistributedResourcesAndRooms GetCRACDistributedResourcesAndRooms `json:"GetCRACDistributedResourcesAndRooms"`         
+	GetCRACInsuranceResourcesAndRooms   *GetCRACInsuranceResourcesAndRooms  `json:"GetCRACInsuranceResourcesAndRooms,omitempty"` 
+	GetCRACResourcesAndRooms            *GetCRACResourcesAndRooms           `json:"GetCRACResourcesAndRooms,omitempty"`          
+}
+
+type CRACDistributedResourcesFreeByDate struct {
+	Request  CracCRACDistributedResourcesFreeByDateRequest  `json:"request"` 
+	Response CracCRACDistributedResourcesFreeByDateResponse `json:"response"`
+}
+
+type CracCRACDistributedResourcesFreeByDateRequest struct {
+	Cred    *Cred                                                `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                                       `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                               `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                               `json:"method"`        // название jsonrpc метода
+	Params  []CracCRACDistributedResourcesFreeByDateRequestParam `json:"params"`        // параметры запроса
+}
+
+type CracCRACDistributedResourcesFreeByDateRequestParam struct {
+	Business  HilariousBusiness `json:"business"` 
+	Resources []string          `json:"resources"`
+	Taxonomy  PurpleTaxonomy    `json:"taxonomy"` 
+}
+
+type HilariousBusiness struct {
+	ID string `json:"id"`
+}
+
+type PurpleTaxonomy struct {
+	ID string `json:"id"`
+}
+
+type CracCRACDistributedResourcesFreeByDateResponse struct {
+	Error   *CracCRACDistributedResourcesFreeByDateResponseError  `json:"error"`            // объект, содержащий информацию об ошибке
+	ID      float64                                               `json:"id"`               // значение числового типа для идентификации запроса на сервере
+	Result  *CracCRACDistributedResourcesFreeByDateResponseResult `json:"result,omitempty"` 
+	Jsonrpc *string                                               `json:"jsonrpc,omitempty"`// версия протокола (2.0)
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type CracCRACDistributedResourcesFreeByDateResponseError struct {
+	Code    *float64 `json:"code,omitempty"`   // код ошибки
+	Data    *string  `json:"data,omitempty"`   // дополнительные данные об ошибке
+	Message *string  `json:"message,omitempty"`// текстовая информация об ошибке
+}
+
+type CracCRACDistributedResourcesFreeByDateResponseResult struct {
+	Free []PurpleFree `json:"Free"`
+}
+
+type PurpleFree struct {
+	Date           string  `json:"date"`          
+	MaxFreeMinutes float64 `json:"maxFreeMinutes"`
+	Resource       string  `json:"resource"`      
+	Taxonomy       string  `json:"taxonomy"`      
+}
+
+type CRACResourcesFreeByDate struct {
+	Request  CracCRACResourcesFreeByDateRequest  `json:"request"` 
+	Response CracCRACResourcesFreeByDateResponse `json:"response"`
+}
+
+type CracCRACResourcesFreeByDateRequest struct {
+	Cred    *Cred                                     `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                            `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                    `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                    `json:"method"`        // название jsonrpc метода
+	Params  []CracCRACResourcesFreeByDateRequestParam `json:"params"`        // параметры запроса
+}
+
+type CracCRACResourcesFreeByDateRequestParam struct {
+	Duration  float64        `json:"duration"` 
+	Resources []string       `json:"resources"`
+	Taxonomy  FluffyTaxonomy `json:"taxonomy"` 
+}
+
+type FluffyTaxonomy struct {
+	ID string `json:"id"`
+}
+
+type CracCRACResourcesFreeByDateResponse struct {
+	Error   *CracCRACResourcesFreeByDateResponseError  `json:"error"`            // объект, содержащий информацию об ошибке
+	ID      float64                                    `json:"id"`               // значение числового типа для идентификации запроса на сервере
+	Result  *CracCRACResourcesFreeByDateResponseResult `json:"result,omitempty"` 
+	Jsonrpc *string                                    `json:"jsonrpc,omitempty"`// версия протокола (2.0)
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type CracCRACResourcesFreeByDateResponseError struct {
+	Code    *float64 `json:"code,omitempty"`   // код ошибки
+	Data    *string  `json:"data,omitempty"`   // дополнительные данные об ошибке
+	Message *string  `json:"message,omitempty"`// текстовая информация об ошибке
+}
+
+type CracCRACResourcesFreeByDateResponseResult struct {
+	Free []FluffyFree `json:"Free"`
+}
+
+type FluffyFree struct {
+	Date           string  `json:"date"`          
+	MaxFreeMinutes float64 `json:"maxFreeMinutes"`
+	Resource       string  `json:"resource"`      
+	Taxonomy       string  `json:"taxonomy"`      
+}
+
+type CRACResourcesFreeByDateV2 struct {
+	Request  CracCRACResourcesFreeByDateV2Request  `json:"request"` 
+	Response CracCRACResourcesFreeByDateV2Response `json:"response"`
+}
+
+type CracCRACResourcesFreeByDateV2Request struct {
+	Cred    *Cred                                       `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                              `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                      `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                      `json:"method"`        // название jsonrpc метода
+	Params  []CracCRACResourcesFreeByDateV2RequestParam `json:"params"`        // параметры запроса
+}
+
+type CracCRACResourcesFreeByDateV2RequestParam struct {
+	Business  AmbitiousBusiness `json:"business"` 
+	Duration  float64           `json:"duration"` 
+	Durations []float64         `json:"durations"`
+	Resources []string          `json:"resources"`
+	Taxonomy  TentacledTaxonomy `json:"taxonomy"` 
+}
+
+type AmbitiousBusiness struct {
+	ID string `json:"id"`
+}
+
+type TentacledTaxonomy struct {
+	ID string `json:"id"`
+}
+
+type CracCRACResourcesFreeByDateV2Response struct {
+	Error   *CracCRACResourcesFreeByDateV2ResponseError  `json:"error"`            // объект, содержащий информацию об ошибке
+	ID      float64                                      `json:"id"`               // значение числового типа для идентификации запроса на сервере
+	Result  *CracCRACResourcesFreeByDateV2ResponseResult `json:"result,omitempty"` 
+	Jsonrpc *string                                      `json:"jsonrpc,omitempty"`// версия протокола (2.0)
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type CracCRACResourcesFreeByDateV2ResponseError struct {
+	Code    *float64 `json:"code,omitempty"`   // код ошибки
+	Data    *string  `json:"data,omitempty"`   // дополнительные данные об ошибке
+	Message *string  `json:"message,omitempty"`// текстовая информация об ошибке
+}
+
+type CracCRACResourcesFreeByDateV2ResponseResult struct {
+	Free []TentacledFree `json:"Free"`
+}
+
+type TentacledFree struct {
+	Date           string  `json:"date"`          
+	MaxFreeMinutes float64 `json:"maxFreeMinutes"`
+	Resource       string  `json:"resource"`      
+	Taxonomy       string  `json:"taxonomy"`      
 }
 
 type GetCRACDistributedResourcesAndRooms struct {
@@ -1442,11 +1601,11 @@ type CracSlotsGetCRACDistributedResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams struct {
-	Business HilariousBusiness `json:"business"`
-	Filters  PurpleFilters     `json:"filters"` 
+	Business CunningBusiness `json:"business"`
+	Filters  PurpleFilters   `json:"filters"` 
 }
 
-type HilariousBusiness struct {
+type CunningBusiness struct {
 	GeneralInfo         PurpleGeneralInfo            `json:"general_info"`        
 	ID                  string                       `json:"id"`                  
 	WidgetConfiguration TentacledWidgetConfiguration `json:"widget_configuration"`
@@ -1523,11 +1682,11 @@ type CracSlotsGetCRACInsuranceResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams struct {
-	Business AmbitiousBusiness `json:"business"`
-	Filters  FluffyFilters     `json:"filters"` 
+	Business MagentaBusiness `json:"business"`
+	Filters  FluffyFilters   `json:"filters"` 
 }
 
-type AmbitiousBusiness struct {
+type MagentaBusiness struct {
 	GeneralInfo         FluffyGeneralInfo         `json:"general_info"`        
 	ID                  string                    `json:"id"`                  
 	WidgetConfiguration StickyWidgetConfiguration `json:"widget_configuration"`
@@ -1600,11 +1759,11 @@ type CracSlotsGetCRACResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACResourcesAndRoomsRequestParams struct {
-	Business CunningBusiness  `json:"business"`
+	Business FriskyBusiness   `json:"business"`
 	Filters  TentacledFilters `json:"filters"` 
 }
 
-type CunningBusiness struct {
+type FriskyBusiness struct {
 	GeneralInfo         TentacledGeneralInfo      `json:"general_info"`        
 	ID                  string                    `json:"id"`                  
 	WidgetConfiguration IndigoWidgetConfiguration `json:"widget_configuration"`
@@ -2045,6 +2204,28 @@ func (x *TimeFrameDate) UnmarshalJSON(data []byte) error {
 
 func (x *TimeFrameDate) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, false, nil, false, nil, false)
+}
+
+// параметры запроса
+type ParamsUnion struct {
+	AnythingArray []interface{}
+	AnythingMap   map[string]interface{}
+}
+
+func (x *ParamsUnion) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
+	x.AnythingMap = nil
+	object, err := unmarshalUnion(data, nil, nil, nil, nil, true, &x.AnythingArray, false, nil, true, &x.AnythingMap, false, nil, false)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *ParamsUnion) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, nil, nil, nil, x.AnythingArray != nil, x.AnythingArray, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, false)
 }
 
 type SuccessResponse struct {

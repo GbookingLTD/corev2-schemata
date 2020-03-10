@@ -51,7 +51,10 @@
         },
         "params": {
             "description": "параметры запроса",
-            "type": "object"
+            "type": [
+                "object",
+                "array"
+            ]
         }
     },
     "required": [

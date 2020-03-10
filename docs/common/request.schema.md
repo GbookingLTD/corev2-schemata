@@ -18,7 +18,7 @@ jsonrpc2 запрос
 | [id](#id)           | multiple | **Required** | No       | Request (this schema) |
 | [jsonrpc](#jsonrpc) | `const`  | **Required** | No       | Request (this schema) |
 | [method](#method)   | `string` | **Required** | No       | Request (this schema) |
-| [params](#params)   | `object` | **Required** | No       | Request (this schema) |
+| [params](#params)   | multiple | **Required** | No       | Request (this schema) |
 
 ## cred
 
@@ -131,13 +131,12 @@ The value of this property **must** be equal to:
 `params`
 
 - is **required**
-- type: `object`
+- type: multiple
 - defined in this schema
 
 ### params Type
 
-`object` with following properties:
+Either one of:
 
-| Property | Type | Required |
-| -------- | ---- | -------- |
-
+- `object`
+- `array`

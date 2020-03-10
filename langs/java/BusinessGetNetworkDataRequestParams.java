@@ -4,8 +4,6 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 /**
- * параметры запроса
- *
  * параметры запроса business.get_network_data
  */
 public class BusinessGetNetworkDataRequestParams {

@@ -59,6 +59,18 @@
 
 ## /controllers/cracSlots/
 
+- [Crac.CRACDistributedResourcesFreeByDate.request](./controllers/cracSlots/CRACDistributedResourcesFreeByDate.request.schema.md)
+  – `schemas-json/controllers/crackSlots/CRACDistributedResourcesFreeByDate.request.schema.json` (Unknown)
+- [Crac.CRACDistributedResourcesFreeByDate.response](./controllers/cracSlots/CRACDistributedResourcesFreeByDate.response.schema.md)
+  – `schemas-json/controllers/crackSlots/CRACDistributedResourcesFreeByDate.response.schema.json` (Unknown)
+- [Crac.CRACResourcesFreeByDate.request](./controllers/cracSlots/CRACResourcesFreeByDate.request.schema.md) –
+  `schemas-json/controllers/crackSlots/CRACResourcesFreeByDate.request.schema.json` (Unknown)
+- [Crac.CRACResourcesFreeByDate.response](./controllers/cracSlots/CRACResourcesFreeByDate.response.schema.md) –
+  `schemas-json/controllers/crackSlots/CRACResourcesFreeByDate.response.schema.json` (Unknown)
+- [Crac.CRACResourcesFreeByDateV2.request](./controllers/cracSlots/CRACResourcesFreeByDateV2.request.schema.md) –
+  `schemas-json/controllers/crackSlots/CRACResourcesFreeByDateV2.request.schema.json` (Unknown)
+- [Crac.CRACResourcesFreeByDateV2.response](./controllers/cracSlots/CRACResourcesFreeByDateV2.response.schema.md) –
+  `schemas-json/controllers/crackSlots/CRACResourcesFreeByDateV2.response.schema.json` (Unknown)
 - [CracSlots.GetCRACDistributedResourcesAndRooms.request](./controllers/cracSlots/GetCRACDistributedResourcesAndRooms.request.schema.md)
   – `schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.schema.json` (Unknown)
 - [CracSlots.GetCRACDistributedResourcesAndRooms.response](./controllers/cracSlots/GetCRACDistributedResourcesAndRooms.response.schema.md)

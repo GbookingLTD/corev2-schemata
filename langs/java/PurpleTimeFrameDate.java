@@ -13,8 +13,6 @@ import com.fasterxml.jackson.databind.annotation.*;
  * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
  *
  * идентификатор бизнеса
- *
- * вес работника, в зависимости от указанного способа сортировки
  */
 @JsonDeserialize(using = PurpleTimeFrameDate.Deserializer.class)
 @JsonSerialize(using = PurpleTimeFrameDate.Serializer.class)
@@ -27,8 +25,6 @@ public class PurpleTimeFrameDate {
         public PurpleTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
             PurpleTimeFrameDate value = new PurpleTimeFrameDate();
             switch (jsonParser.getCurrentToken()) {
-            case VALUE_NULL:
-                break;
             case VALUE_NUMBER_INT:
             case VALUE_NUMBER_FLOAT:
                 value.doubleValue = jsonParser.readValueAs(Double.class);
@@ -53,7 +49,7 @@ public class PurpleTimeFrameDate {
                 jsonGenerator.writeObject(obj.stringValue);
                 return;
             }
-            jsonGenerator.writeNull();
+            throw new IOException("PurpleTimeFrameDate must not be null");
         }
     }
 }

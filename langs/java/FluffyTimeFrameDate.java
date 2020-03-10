@@ -13,18 +13,22 @@ import com.fasterxml.jackson.databind.annotation.*;
  * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
  *
  * идентификатор бизнеса
+ *
+ * вес работника, в зависимости от указанного способа сортировки
  */
-@JsonDeserialize(using = RequestTimeFrameDate.Deserializer.class)
-@JsonSerialize(using = RequestTimeFrameDate.Serializer.class)
-public class RequestTimeFrameDate {
+@JsonDeserialize(using = FluffyTimeFrameDate.Deserializer.class)
+@JsonSerialize(using = FluffyTimeFrameDate.Serializer.class)
+public class FluffyTimeFrameDate {
     public Double doubleValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<RequestTimeFrameDate> {
+    static class Deserializer extends JsonDeserializer<FluffyTimeFrameDate> {
         @Override
-        public RequestTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            RequestTimeFrameDate value = new RequestTimeFrameDate();
+        public FluffyTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            FluffyTimeFrameDate value = new FluffyTimeFrameDate();
             switch (jsonParser.getCurrentToken()) {
+            case VALUE_NULL:
+                break;
             case VALUE_NUMBER_INT:
             case VALUE_NUMBER_FLOAT:
                 value.doubleValue = jsonParser.readValueAs(Double.class);
@@ -32,15 +36,15 @@ public class RequestTimeFrameDate {
             case VALUE_STRING:
                 value.stringValue = jsonParser.readValueAs(String.class);
                 break;
-            default: throw new IOException("Cannot deserialize RequestTimeFrameDate");
+            default: throw new IOException("Cannot deserialize FluffyTimeFrameDate");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<RequestTimeFrameDate> {
+    static class Serializer extends JsonSerializer<FluffyTimeFrameDate> {
         @Override
-        public void serialize(RequestTimeFrameDate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(FluffyTimeFrameDate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;
@@ -49,7 +53,7 @@ public class RequestTimeFrameDate {
                 jsonGenerator.writeObject(obj.stringValue);
                 return;
             }
-            throw new IOException("RequestTimeFrameDate must not be null");
+            jsonGenerator.writeNull();
         }
     }
 }

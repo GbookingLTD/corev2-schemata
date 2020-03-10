@@ -126,7 +126,7 @@ namespace GBookingCoreV2
         /// параметры запроса
         /// </summary>
         [JsonProperty("params")]
-        public Dictionary<string, object> Params { get; set; }
+        public ParamsUnion Params { get; set; }
     }
 
     /// <summary>
@@ -234,8 +234,6 @@ namespace GBookingCoreV2
     }
 
     /// <summary>
-    /// параметры запроса
-    ///
     /// параметры запроса business.get_network_data
     /// </summary>
     public partial class BusinessGetNetworkDataRequestParams
@@ -1732,8 +1730,6 @@ namespace GBookingCoreV2
     }
 
     /// <summary>
-    /// параметры запроса
-    ///
     /// параметры запроса business.get_profile_by_id
     /// </summary>
     public partial class BusinessGetProfileByIdRequestParams
@@ -4043,6 +4039,15 @@ namespace GBookingCoreV2
 
     public partial class CracSlotsController
     {
+        [JsonProperty("CRACDistributedResourcesFreeByDate", NullValueHandling = NullValueHandling.Ignore)]
+        public CracDistributedResourcesFreeByDate CracDistributedResourcesFreeByDate { get; set; }
+
+        [JsonProperty("CRACResourcesFreeByDate", NullValueHandling = NullValueHandling.Ignore)]
+        public CracResourcesFreeByDate CracResourcesFreeByDate { get; set; }
+
+        [JsonProperty("CRACResourcesFreeByDateV2", NullValueHandling = NullValueHandling.Ignore)]
+        public CracResourcesFreeByDateV2 CracResourcesFreeByDateV2 { get; set; }
+
         [JsonProperty("GetCRACDistributedResourcesAndRooms")]
         public GetCracDistributedResourcesAndRooms GetCracDistributedResourcesAndRooms { get; set; }
 
@@ -4051,6 +4056,417 @@ namespace GBookingCoreV2
 
         [JsonProperty("GetCRACResourcesAndRooms", NullValueHandling = NullValueHandling.Ignore)]
         public GetCracResourcesAndRooms GetCracResourcesAndRooms { get; set; }
+    }
+
+    public partial class CracDistributedResourcesFreeByDate
+    {
+        [JsonProperty("request")]
+        public CracCracDistributedResourcesFreeByDateRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public CracCracDistributedResourcesFreeByDateResponse Response { get; set; }
+    }
+
+    public partial class CracCracDistributedResourcesFreeByDateRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public List<CracCracDistributedResourcesFreeByDateRequestParam> Params { get; set; }
+    }
+
+    public partial class CracCracDistributedResourcesFreeByDateRequestParam
+    {
+        [JsonProperty("business")]
+        public HilariousBusiness Business { get; set; }
+
+        [JsonProperty("resources")]
+        public List<string> Resources { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public PurpleTaxonomy Taxonomy { get; set; }
+    }
+
+    public partial class HilariousBusiness
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class PurpleTaxonomy
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class CracCracDistributedResourcesFreeByDateResponse
+    {
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error")]
+        public CracCracDistributedResourcesFreeByDateResponseError Error { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public CracCracDistributedResourcesFreeByDateResponseResult Result { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc", NullValueHandling = NullValueHandling.Ignore)]
+        public string Jsonrpc { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class CracCracDistributedResourcesFreeByDateResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message", NullValueHandling = NullValueHandling.Ignore)]
+        public string Message { get; set; }
+    }
+
+    public partial class CracCracDistributedResourcesFreeByDateResponseResult
+    {
+        [JsonProperty("Free")]
+        public List<PurpleFree> Free { get; set; }
+    }
+
+    public partial class PurpleFree
+    {
+        [JsonProperty("date")]
+        public DateTimeOffset Date { get; set; }
+
+        [JsonProperty("maxFreeMinutes")]
+        public double MaxFreeMinutes { get; set; }
+
+        [JsonProperty("resource")]
+        public string Resource { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public string Taxonomy { get; set; }
+    }
+
+    public partial class CracResourcesFreeByDate
+    {
+        [JsonProperty("request")]
+        public CracCracResourcesFreeByDateRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public CracCracResourcesFreeByDateResponse Response { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public List<CracCracResourcesFreeByDateRequestParam> Params { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateRequestParam
+    {
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty("resources")]
+        public List<string> Resources { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public FluffyTaxonomy Taxonomy { get; set; }
+    }
+
+    public partial class FluffyTaxonomy
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateResponse
+    {
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error")]
+        public CracCracResourcesFreeByDateResponseError Error { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public CracCracResourcesFreeByDateResponseResult Result { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc", NullValueHandling = NullValueHandling.Ignore)]
+        public string Jsonrpc { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class CracCracResourcesFreeByDateResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message", NullValueHandling = NullValueHandling.Ignore)]
+        public string Message { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateResponseResult
+    {
+        [JsonProperty("Free")]
+        public List<FluffyFree> Free { get; set; }
+    }
+
+    public partial class FluffyFree
+    {
+        [JsonProperty("date")]
+        public DateTimeOffset Date { get; set; }
+
+        [JsonProperty("maxFreeMinutes")]
+        public double MaxFreeMinutes { get; set; }
+
+        [JsonProperty("resource")]
+        public string Resource { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public string Taxonomy { get; set; }
+    }
+
+    public partial class CracResourcesFreeByDateV2
+    {
+        [JsonProperty("request")]
+        public CracCracResourcesFreeByDateV2Request Request { get; set; }
+
+        [JsonProperty("response")]
+        public CracCracResourcesFreeByDateV2Response Response { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateV2Request
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public List<CracCracResourcesFreeByDateV2RequestParam> Params { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateV2RequestParam
+    {
+        [JsonProperty("business")]
+        public AmbitiousBusiness Business { get; set; }
+
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty("durations")]
+        public List<double> Durations { get; set; }
+
+        [JsonProperty("resources")]
+        public List<string> Resources { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public TentacledTaxonomy Taxonomy { get; set; }
+    }
+
+    public partial class AmbitiousBusiness
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class TentacledTaxonomy
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateV2Response
+    {
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error")]
+        public CracCracResourcesFreeByDateV2ResponseError Error { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public CracCracResourcesFreeByDateV2ResponseResult Result { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc", NullValueHandling = NullValueHandling.Ignore)]
+        public string Jsonrpc { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class CracCracResourcesFreeByDateV2ResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message", NullValueHandling = NullValueHandling.Ignore)]
+        public string Message { get; set; }
+    }
+
+    public partial class CracCracResourcesFreeByDateV2ResponseResult
+    {
+        [JsonProperty("Free")]
+        public List<TentacledFree> Free { get; set; }
+    }
+
+    public partial class TentacledFree
+    {
+        [JsonProperty("date")]
+        public DateTimeOffset Date { get; set; }
+
+        [JsonProperty("maxFreeMinutes")]
+        public double MaxFreeMinutes { get; set; }
+
+        [JsonProperty("resource")]
+        public string Resource { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public string Taxonomy { get; set; }
     }
 
     public partial class GetCracDistributedResourcesAndRooms
@@ -4101,13 +4517,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public HilariousBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public PurpleFilters Filters { get; set; }
     }
 
-    public partial class HilariousBusiness
+    public partial class CunningBusiness
     {
         [JsonProperty("general_info")]
         public PurpleGeneralInfo GeneralInfo { get; set; }
@@ -4295,13 +4711,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public AmbitiousBusiness Business { get; set; }
+        public MagentaBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public FluffyFilters Filters { get; set; }
     }
 
-    public partial class AmbitiousBusiness
+    public partial class MagentaBusiness
     {
         [JsonProperty("general_info")]
         public FluffyGeneralInfo GeneralInfo { get; set; }
@@ -4480,13 +4896,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public CunningBusiness Business { get; set; }
+        public FriskyBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public TentacledFilters Filters { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class FriskyBusiness
     {
         [JsonProperty("general_info")]
         public TentacledGeneralInfo GeneralInfo { get; set; }
@@ -4747,6 +5163,18 @@ namespace GBookingCoreV2
     }
 
     /// <summary>
+    /// параметры запроса
+    /// </summary>
+    public partial struct ParamsUnion
+    {
+        public List<object> AnythingArray;
+        public Dictionary<string, object> AnythingMap;
+
+        public static implicit operator ParamsUnion(List<object> AnythingArray) => new ParamsUnion { AnythingArray = AnythingArray };
+        public static implicit operator ParamsUnion(Dictionary<string, object> AnythingMap) => new ParamsUnion { AnythingMap = AnythingMap };
+    }
+
+    /// <summary>
     /// jsonrpc2 запрос
     /// </summary>
     public partial struct Request
@@ -4996,6 +5424,7 @@ namespace GBookingCoreV2
                 ErrorResponseConverter.Singleton,
                 RequestConverter.Singleton,
                 IdConverter.Singleton,
+                ParamsUnionConverter.Singleton,
                 SuccessResponseConverter.Singleton,
                 BusinessBusinessConverter.Singleton,
                 AppointmentExtensionTypeConverter.Singleton,
@@ -5239,6 +5668,43 @@ namespace GBookingCoreV2
         }
 
         public static readonly IdConverter Singleton = new IdConverter();
+    }
+
+    internal class ParamsUnionConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ParamsUnion) || t == typeof(ParamsUnion?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
+                    return new ParamsUnion { AnythingMap = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new ParamsUnion { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type ParamsUnion");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (ParamsUnion)untypedValue;
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.AnythingMap != null)
+            {
+                serializer.Serialize(writer, value.AnythingMap);
+                return;
+            }
+            throw new Exception("Cannot marshal type ParamsUnion");
+        }
+
+        public static readonly ParamsUnionConverter Singleton = new ParamsUnionConverter();
     }
 
     internal class SuccessResponseConverter : JsonConverter

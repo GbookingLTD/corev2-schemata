@@ -6,6 +6,8 @@ let Ajv = require('ajv')
   , rpcRequest = require('./rpcRequest').rpcRequest
   , cracRpcRequest = require('./rpcRequest').cracRpcRequest
   , cracRpcRequestObject = require('./rpcRequest').cracRpcRequestObject
+  , originCracRpcRequest = require('./rpcRequest').originCracRpcRequest
+  , originCracRpcRequestObject = require('./rpcRequest').originCracRpcRequestObject
 ;
 let corev2Schemata = require('../index');
 
@@ -248,6 +250,93 @@ let GetCRACInsuranceResourcesAndRooms = function (endpoint, businessID, filters)
       });
 };
 
+let CRACDistributedResourcesFreeByDate = function (endpoint, businessID, taxonomy, resources) {
+  var params = [{
+    "business":{
+      "id":businessID
+    },
+    taxonomy:{
+      "id":taxonomy
+    },
+    resources
+  }];
+
+  let _validateReq = getValidateRequest('cracSlots', 'CRACDistributedResourcesFreeByDate');
+  let _validateRes = getValidateResponse('cracSlots', 'CRACDistributedResourcesFreeByDate');
+  let pref = 'CracSlots.CRACDistributedResourcesFreeByDate: ' + businessID;
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, originCracRpcRequestObject('Crac.CRACDistributedResourcesFreeByDate', params, {}));
+    return originCracRpcRequest('Crac.CRACDistributedResourcesFreeByDate', params, {}, endpoint)
+  })
+      .then(function(json) {
+        _validateRes('<--- ' + pref, json)
+      }).fail(function(err) {
+        if (err.code === -32700) {
+          _validateRes('<--- ' + pref, err.xtra);
+        } else {
+          console.error(pref + ' - fail %j', err);
+        }
+      });
+};
+
+let CRACResourcesFreeByDate = function (endpoint, taxonomy, resources, duration) {
+  var params = [{
+    duration,
+    taxonomy:{
+      "id":taxonomy
+    },
+    resources
+  }];
+
+  let _validateReq = getValidateRequest('cracSlots', 'CRACResourcesFreeByDate');
+  let _validateRes = getValidateResponse('cracSlots', 'CRACResourcesFreeByDate');
+  let pref = 'CracSlots.CRACResourcesFreeByDate: ' + resources.join(',');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, originCracRpcRequestObject('Crac.CRACResourcesFreeByDate', params, {}));
+    return originCracRpcRequest('Crac.CRACResourcesFreeByDate', params, {}, endpoint)
+  })
+      .then(function(json) {
+        _validateRes('<--- ' + pref, json)
+      }).fail(function(err) {
+        if (err.code === -32700) {
+          _validateRes('<--- ' + pref, err.xtra);
+        } else {
+          console.error(pref + ' - fail %j', err);
+        }
+      });
+};
+
+let CRACResourcesFreeByDateV2 = function (endpoint, business, taxonomy, resources, durations) {
+  var params = [{
+    business:{
+      id:business
+    },
+    durations,
+    duration:durations[0],
+    taxonomy:{
+      "id":taxonomy
+    },
+    resources
+  }];
+
+  let _validateReq = getValidateRequest('cracSlots', 'CRACResourcesFreeByDateV2');
+  let _validateRes = getValidateResponse('cracSlots', 'CRACResourcesFreeByDateV2');
+  let pref = 'CracSlots.CRACResourcesFreeByDateV2: ' + resources.join(',');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, originCracRpcRequestObject('Crac.CRACResourcesFreeByDateV2', params, {}));
+    return originCracRpcRequest('Crac.CRACResourcesFreeByDateV2', params, {}, endpoint)
+  })
+      .then(function(json) {
+        _validateRes('<--- ' + pref, json)
+      }).fail(function(err) {
+        if (err.code === -32700) {
+          _validateRes('<--- ' + pref, err.xtra);
+        } else {
+          console.error(pref + ' - fail %j', err);
+        }
+      });
+};
+
 module.exports = function(fn) {
   if (loaded) fn();
   else onLoad = fn;
@@ -259,5 +348,8 @@ module.exports.getNetworkDataWithBusinessInfo = getNetworkDataWithBusinessInfo;
 module.exports.CRAC = {
   GetCRACResourcesAndRooms,
   GetCRACDistributedResourcesAndRooms,
-  GetCRACInsuranceResourcesAndRooms
+  GetCRACInsuranceResourcesAndRooms,
+  CRACDistributedResourcesFreeByDate,
+  CRACResourcesFreeByDate,
+  CRACResourcesFreeByDateV2
 };

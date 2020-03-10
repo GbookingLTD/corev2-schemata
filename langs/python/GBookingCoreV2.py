@@ -10,7 +10,7 @@
 #
 #     result = g_booking_core_v2_from_dict(json.loads(json_string))
 
-from typing import Any, Optional, Union, Dict, List, TypeVar, Type, cast, Callable
+from typing import Any, Optional, Union, List, Dict, TypeVar, Type, cast, Callable
 from enum import Enum
 from datetime import datetime
 import dateutil.parser
@@ -54,6 +54,11 @@ def to_class(c: Type[T], x: Any) -> dict:
     return cast(Any, x).to_dict()
 
 
+def from_list(f: Callable[[Any], T], x: Any) -> List[T]:
+    assert isinstance(x, list)
+    return [f(y) for y in x]
+
+
 def from_dict(f: Callable[[Any], T], x: Any) -> Dict[str, T]:
     assert isinstance(x, dict)
     return { k: f(v) for (k, v) in x.items() }
@@ -67,11 +72,6 @@ def from_int(x: Any) -> int:
 def from_bool(x: Any) -> bool:
     assert isinstance(x, bool)
     return x
-
-
-def from_list(f: Callable[[Any], T], x: Any) -> List[T]:
-    assert isinstance(x, list)
-    return [f(y) for y in x]
 
 
 def to_enum(c: Type[EnumT], x: Any) -> EnumT:
@@ -196,9 +196,9 @@ class RequestClass:
     """название jsonrpc метода"""
     method: str
     """параметры запроса"""
-    params: Dict[str, Any]
+    params: Union[List[Any], Dict[str, Any]]
 
-    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: Dict[str, Any]) -> None:
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: Union[List[Any], Dict[str, Any]]) -> None:
         self.cred = cred
         self.id = id
         self.jsonrpc = jsonrpc
@@ -212,7 +212,7 @@ class RequestClass:
         id = from_union([from_float, from_str], obj.get("id"))
         jsonrpc = from_str(obj.get("jsonrpc"))
         method = from_str(obj.get("method"))
-        params = from_dict(lambda x: x, obj.get("params"))
+        params = from_union([lambda x: from_list(lambda x: x, x), lambda x: from_dict(lambda x: x, x)], obj.get("params"))
         return RequestClass(cred, id, jsonrpc, method, params)
 
     def to_dict(self) -> dict:
@@ -221,7 +221,7 @@ class RequestClass:
         result["id"] = from_union([to_float, from_str], self.id)
         result["jsonrpc"] = from_str(self.jsonrpc)
         result["method"] = from_str(self.method)
-        result["params"] = from_dict(lambda x: x, self.params)
+        result["params"] = from_union([lambda x: from_list(lambda x: x, x), lambda x: from_dict(lambda x: x, x)], self.params)
         return result
 
 
@@ -285,10 +285,7 @@ class Common:
 
 
 class BusinessGetNetworkDataRequestParams:
-    """параметры запроса
-    
-    параметры запроса business.get_network_data
-    """
+    """параметры запроса business.get_network_data"""
     """идентификатор сети"""
     network_id: float
     """Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
@@ -2778,10 +2775,7 @@ class WorkerSortingType(Enum):
 
 
 class BusinessGetProfileByIDRequestParams:
-    """параметры запроса
-    
-    параметры запроса business.get_profile_by_id
-    """
+    """параметры запроса business.get_profile_by_id"""
     business: TentacledBusiness
     """если указано true - меняет формат представления discounts"""
     desktop_discounts: Optional[bool]
@@ -6224,6 +6218,707 @@ class ClientController:
         return result
 
 
+class HilariousBusiness:
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'HilariousBusiness':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return HilariousBusiness(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class PurpleTaxonomy:
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleTaxonomy':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return PurpleTaxonomy(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class CracCRACDistributedResourcesFreeByDateRequestParam:
+    business: HilariousBusiness
+    resources: List[str]
+    taxonomy: PurpleTaxonomy
+
+    def __init__(self, business: HilariousBusiness, resources: List[str], taxonomy: PurpleTaxonomy) -> None:
+        self.business = business
+        self.resources = resources
+        self.taxonomy = taxonomy
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateRequestParam':
+        assert isinstance(obj, dict)
+        business = HilariousBusiness.from_dict(obj.get("business"))
+        resources = from_list(from_str, obj.get("resources"))
+        taxonomy = PurpleTaxonomy.from_dict(obj.get("taxonomy"))
+        return CracCRACDistributedResourcesFreeByDateRequestParam(business, resources, taxonomy)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(HilariousBusiness, self.business)
+        result["resources"] = from_list(from_str, self.resources)
+        result["taxonomy"] = to_class(PurpleTaxonomy, self.taxonomy)
+        return result
+
+
+class CracCRACDistributedResourcesFreeByDateRequest:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
+    """параметры запроса"""
+    params: List[CracCRACDistributedResourcesFreeByDateRequestParam]
+
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: List[CracCRACDistributedResourcesFreeByDateRequestParam]) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateRequest':
+        assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
+        params = from_list(CracCRACDistributedResourcesFreeByDateRequestParam.from_dict, obj.get("params"))
+        return CracCRACDistributedResourcesFreeByDateRequest(cred, id, jsonrpc, method, params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
+        result["params"] = from_list(lambda x: to_class(CracCRACDistributedResourcesFreeByDateRequestParam, x), self.params)
+        return result
+
+
+class CracCRACDistributedResourcesFreeByDateResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки"""
+    code: Optional[float]
+    """дополнительные данные об ошибке"""
+    data: Optional[str]
+    """текстовая информация об ошибке"""
+    message: Optional[str]
+
+    def __init__(self, code: Optional[float], data: Optional[str], message: Optional[str]) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateResponseError':
+        assert isinstance(obj, dict)
+        code = from_union([from_float, from_none], obj.get("code"))
+        data = from_union([from_str, from_none], obj.get("data"))
+        message = from_union([from_str, from_none], obj.get("message"))
+        return CracCRACDistributedResourcesFreeByDateResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = from_union([to_float, from_none], self.code)
+        result["data"] = from_union([from_str, from_none], self.data)
+        result["message"] = from_union([from_str, from_none], self.message)
+        return result
+
+
+class PurpleFree:
+    date: datetime
+    max_free_minutes: float
+    resource: str
+    taxonomy: str
+
+    def __init__(self, date: datetime, max_free_minutes: float, resource: str, taxonomy: str) -> None:
+        self.date = date
+        self.max_free_minutes = max_free_minutes
+        self.resource = resource
+        self.taxonomy = taxonomy
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleFree':
+        assert isinstance(obj, dict)
+        date = from_datetime(obj.get("date"))
+        max_free_minutes = from_float(obj.get("maxFreeMinutes"))
+        resource = from_str(obj.get("resource"))
+        taxonomy = from_str(obj.get("taxonomy"))
+        return PurpleFree(date, max_free_minutes, resource, taxonomy)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["date"] = self.date.isoformat()
+        result["maxFreeMinutes"] = to_float(self.max_free_minutes)
+        result["resource"] = from_str(self.resource)
+        result["taxonomy"] = from_str(self.taxonomy)
+        return result
+
+
+class CracCRACDistributedResourcesFreeByDateResponseResult:
+    free: List[PurpleFree]
+
+    def __init__(self, free: List[PurpleFree]) -> None:
+        self.free = free
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateResponseResult':
+        assert isinstance(obj, dict)
+        free = from_list(PurpleFree.from_dict, obj.get("Free"))
+        return CracCRACDistributedResourcesFreeByDateResponseResult(free)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["Free"] = from_list(lambda x: to_class(PurpleFree, x), self.free)
+        return result
+
+
+class CracCRACDistributedResourcesFreeByDateResponse:
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[CracCRACDistributedResourcesFreeByDateResponseError]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: float
+    result: Optional[CracCRACDistributedResourcesFreeByDateResponseResult]
+    """версия протокола (2.0)"""
+    jsonrpc: Optional[str]
+
+    def __init__(self, error: Optional[CracCRACDistributedResourcesFreeByDateResponseError], id: float, result: Optional[CracCRACDistributedResourcesFreeByDateResponseResult], jsonrpc: Optional[str]) -> None:
+        self.error = error
+        self.id = id
+        self.result = result
+        self.jsonrpc = jsonrpc
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateResponse':
+        assert isinstance(obj, dict)
+        error = from_union([from_none, CracCRACDistributedResourcesFreeByDateResponseError.from_dict], obj.get("error"))
+        id = from_float(obj.get("id"))
+        result = from_union([CracCRACDistributedResourcesFreeByDateResponseResult.from_dict, from_none], obj.get("result"))
+        jsonrpc = from_union([from_str, from_none], obj.get("jsonrpc"))
+        return CracCRACDistributedResourcesFreeByDateResponse(error, id, result, jsonrpc)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["error"] = from_union([from_none, lambda x: to_class(CracCRACDistributedResourcesFreeByDateResponseError, x)], self.error)
+        result["id"] = to_float(self.id)
+        result["result"] = from_union([lambda x: to_class(CracCRACDistributedResourcesFreeByDateResponseResult, x), from_none], self.result)
+        result["jsonrpc"] = from_union([from_str, from_none], self.jsonrpc)
+        return result
+
+
+class CRACDistributedResourcesFreeByDate:
+    request: CracCRACDistributedResourcesFreeByDateRequest
+    response: CracCRACDistributedResourcesFreeByDateResponse
+
+    def __init__(self, request: CracCRACDistributedResourcesFreeByDateRequest, response: CracCRACDistributedResourcesFreeByDateResponse) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CRACDistributedResourcesFreeByDate':
+        assert isinstance(obj, dict)
+        request = CracCRACDistributedResourcesFreeByDateRequest.from_dict(obj.get("request"))
+        response = CracCRACDistributedResourcesFreeByDateResponse.from_dict(obj.get("response"))
+        return CRACDistributedResourcesFreeByDate(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(CracCRACDistributedResourcesFreeByDateRequest, self.request)
+        result["response"] = to_class(CracCRACDistributedResourcesFreeByDateResponse, self.response)
+        return result
+
+
+class FluffyTaxonomy:
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyTaxonomy':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return FluffyTaxonomy(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class CracCRACResourcesFreeByDateRequestParam:
+    duration: float
+    resources: List[str]
+    taxonomy: FluffyTaxonomy
+
+    def __init__(self, duration: float, resources: List[str], taxonomy: FluffyTaxonomy) -> None:
+        self.duration = duration
+        self.resources = resources
+        self.taxonomy = taxonomy
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateRequestParam':
+        assert isinstance(obj, dict)
+        duration = from_float(obj.get("duration"))
+        resources = from_list(from_str, obj.get("resources"))
+        taxonomy = FluffyTaxonomy.from_dict(obj.get("taxonomy"))
+        return CracCRACResourcesFreeByDateRequestParam(duration, resources, taxonomy)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["duration"] = to_float(self.duration)
+        result["resources"] = from_list(from_str, self.resources)
+        result["taxonomy"] = to_class(FluffyTaxonomy, self.taxonomy)
+        return result
+
+
+class CracCRACResourcesFreeByDateRequest:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
+    """параметры запроса"""
+    params: List[CracCRACResourcesFreeByDateRequestParam]
+
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: List[CracCRACResourcesFreeByDateRequestParam]) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateRequest':
+        assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
+        params = from_list(CracCRACResourcesFreeByDateRequestParam.from_dict, obj.get("params"))
+        return CracCRACResourcesFreeByDateRequest(cred, id, jsonrpc, method, params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
+        result["params"] = from_list(lambda x: to_class(CracCRACResourcesFreeByDateRequestParam, x), self.params)
+        return result
+
+
+class CracCRACResourcesFreeByDateResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки"""
+    code: Optional[float]
+    """дополнительные данные об ошибке"""
+    data: Optional[str]
+    """текстовая информация об ошибке"""
+    message: Optional[str]
+
+    def __init__(self, code: Optional[float], data: Optional[str], message: Optional[str]) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateResponseError':
+        assert isinstance(obj, dict)
+        code = from_union([from_float, from_none], obj.get("code"))
+        data = from_union([from_str, from_none], obj.get("data"))
+        message = from_union([from_str, from_none], obj.get("message"))
+        return CracCRACResourcesFreeByDateResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = from_union([to_float, from_none], self.code)
+        result["data"] = from_union([from_str, from_none], self.data)
+        result["message"] = from_union([from_str, from_none], self.message)
+        return result
+
+
+class FluffyFree:
+    date: datetime
+    max_free_minutes: float
+    resource: str
+    taxonomy: str
+
+    def __init__(self, date: datetime, max_free_minutes: float, resource: str, taxonomy: str) -> None:
+        self.date = date
+        self.max_free_minutes = max_free_minutes
+        self.resource = resource
+        self.taxonomy = taxonomy
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyFree':
+        assert isinstance(obj, dict)
+        date = from_datetime(obj.get("date"))
+        max_free_minutes = from_float(obj.get("maxFreeMinutes"))
+        resource = from_str(obj.get("resource"))
+        taxonomy = from_str(obj.get("taxonomy"))
+        return FluffyFree(date, max_free_minutes, resource, taxonomy)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["date"] = self.date.isoformat()
+        result["maxFreeMinutes"] = to_float(self.max_free_minutes)
+        result["resource"] = from_str(self.resource)
+        result["taxonomy"] = from_str(self.taxonomy)
+        return result
+
+
+class CracCRACResourcesFreeByDateResponseResult:
+    free: List[FluffyFree]
+
+    def __init__(self, free: List[FluffyFree]) -> None:
+        self.free = free
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateResponseResult':
+        assert isinstance(obj, dict)
+        free = from_list(FluffyFree.from_dict, obj.get("Free"))
+        return CracCRACResourcesFreeByDateResponseResult(free)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["Free"] = from_list(lambda x: to_class(FluffyFree, x), self.free)
+        return result
+
+
+class CracCRACResourcesFreeByDateResponse:
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[CracCRACResourcesFreeByDateResponseError]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: float
+    result: Optional[CracCRACResourcesFreeByDateResponseResult]
+    """версия протокола (2.0)"""
+    jsonrpc: Optional[str]
+
+    def __init__(self, error: Optional[CracCRACResourcesFreeByDateResponseError], id: float, result: Optional[CracCRACResourcesFreeByDateResponseResult], jsonrpc: Optional[str]) -> None:
+        self.error = error
+        self.id = id
+        self.result = result
+        self.jsonrpc = jsonrpc
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateResponse':
+        assert isinstance(obj, dict)
+        error = from_union([from_none, CracCRACResourcesFreeByDateResponseError.from_dict], obj.get("error"))
+        id = from_float(obj.get("id"))
+        result = from_union([CracCRACResourcesFreeByDateResponseResult.from_dict, from_none], obj.get("result"))
+        jsonrpc = from_union([from_str, from_none], obj.get("jsonrpc"))
+        return CracCRACResourcesFreeByDateResponse(error, id, result, jsonrpc)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["error"] = from_union([from_none, lambda x: to_class(CracCRACResourcesFreeByDateResponseError, x)], self.error)
+        result["id"] = to_float(self.id)
+        result["result"] = from_union([lambda x: to_class(CracCRACResourcesFreeByDateResponseResult, x), from_none], self.result)
+        result["jsonrpc"] = from_union([from_str, from_none], self.jsonrpc)
+        return result
+
+
+class CRACResourcesFreeByDate:
+    request: CracCRACResourcesFreeByDateRequest
+    response: CracCRACResourcesFreeByDateResponse
+
+    def __init__(self, request: CracCRACResourcesFreeByDateRequest, response: CracCRACResourcesFreeByDateResponse) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CRACResourcesFreeByDate':
+        assert isinstance(obj, dict)
+        request = CracCRACResourcesFreeByDateRequest.from_dict(obj.get("request"))
+        response = CracCRACResourcesFreeByDateResponse.from_dict(obj.get("response"))
+        return CRACResourcesFreeByDate(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(CracCRACResourcesFreeByDateRequest, self.request)
+        result["response"] = to_class(CracCRACResourcesFreeByDateResponse, self.response)
+        return result
+
+
+class AmbitiousBusiness:
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AmbitiousBusiness':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return AmbitiousBusiness(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class TentacledTaxonomy:
+    id: str
+
+    def __init__(self, id: str) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledTaxonomy':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        return TentacledTaxonomy(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        return result
+
+
+class CracCRACResourcesFreeByDateV2RequestParam:
+    business: AmbitiousBusiness
+    duration: float
+    durations: List[float]
+    resources: List[str]
+    taxonomy: TentacledTaxonomy
+
+    def __init__(self, business: AmbitiousBusiness, duration: float, durations: List[float], resources: List[str], taxonomy: TentacledTaxonomy) -> None:
+        self.business = business
+        self.duration = duration
+        self.durations = durations
+        self.resources = resources
+        self.taxonomy = taxonomy
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2RequestParam':
+        assert isinstance(obj, dict)
+        business = AmbitiousBusiness.from_dict(obj.get("business"))
+        duration = from_float(obj.get("duration"))
+        durations = from_list(from_float, obj.get("durations"))
+        resources = from_list(from_str, obj.get("resources"))
+        taxonomy = TentacledTaxonomy.from_dict(obj.get("taxonomy"))
+        return CracCRACResourcesFreeByDateV2RequestParam(business, duration, durations, resources, taxonomy)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = to_class(AmbitiousBusiness, self.business)
+        result["duration"] = to_float(self.duration)
+        result["durations"] = from_list(to_float, self.durations)
+        result["resources"] = from_list(from_str, self.resources)
+        result["taxonomy"] = to_class(TentacledTaxonomy, self.taxonomy)
+        return result
+
+
+class CracCRACResourcesFreeByDateV2Request:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
+    """параметры запроса"""
+    params: List[CracCRACResourcesFreeByDateV2RequestParam]
+
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: List[CracCRACResourcesFreeByDateV2RequestParam]) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2Request':
+        assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
+        params = from_list(CracCRACResourcesFreeByDateV2RequestParam.from_dict, obj.get("params"))
+        return CracCRACResourcesFreeByDateV2Request(cred, id, jsonrpc, method, params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
+        result["params"] = from_list(lambda x: to_class(CracCRACResourcesFreeByDateV2RequestParam, x), self.params)
+        return result
+
+
+class CracCRACResourcesFreeByDateV2ResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки"""
+    code: Optional[float]
+    """дополнительные данные об ошибке"""
+    data: Optional[str]
+    """текстовая информация об ошибке"""
+    message: Optional[str]
+
+    def __init__(self, code: Optional[float], data: Optional[str], message: Optional[str]) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2ResponseError':
+        assert isinstance(obj, dict)
+        code = from_union([from_float, from_none], obj.get("code"))
+        data = from_union([from_str, from_none], obj.get("data"))
+        message = from_union([from_str, from_none], obj.get("message"))
+        return CracCRACResourcesFreeByDateV2ResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = from_union([to_float, from_none], self.code)
+        result["data"] = from_union([from_str, from_none], self.data)
+        result["message"] = from_union([from_str, from_none], self.message)
+        return result
+
+
+class TentacledFree:
+    date: datetime
+    max_free_minutes: float
+    resource: str
+    taxonomy: str
+
+    def __init__(self, date: datetime, max_free_minutes: float, resource: str, taxonomy: str) -> None:
+        self.date = date
+        self.max_free_minutes = max_free_minutes
+        self.resource = resource
+        self.taxonomy = taxonomy
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledFree':
+        assert isinstance(obj, dict)
+        date = from_datetime(obj.get("date"))
+        max_free_minutes = from_float(obj.get("maxFreeMinutes"))
+        resource = from_str(obj.get("resource"))
+        taxonomy = from_str(obj.get("taxonomy"))
+        return TentacledFree(date, max_free_minutes, resource, taxonomy)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["date"] = self.date.isoformat()
+        result["maxFreeMinutes"] = to_float(self.max_free_minutes)
+        result["resource"] = from_str(self.resource)
+        result["taxonomy"] = from_str(self.taxonomy)
+        return result
+
+
+class CracCRACResourcesFreeByDateV2ResponseResult:
+    free: List[TentacledFree]
+
+    def __init__(self, free: List[TentacledFree]) -> None:
+        self.free = free
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2ResponseResult':
+        assert isinstance(obj, dict)
+        free = from_list(TentacledFree.from_dict, obj.get("Free"))
+        return CracCRACResourcesFreeByDateV2ResponseResult(free)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["Free"] = from_list(lambda x: to_class(TentacledFree, x), self.free)
+        return result
+
+
+class CracCRACResourcesFreeByDateV2Response:
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[CracCRACResourcesFreeByDateV2ResponseError]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: float
+    result: Optional[CracCRACResourcesFreeByDateV2ResponseResult]
+    """версия протокола (2.0)"""
+    jsonrpc: Optional[str]
+
+    def __init__(self, error: Optional[CracCRACResourcesFreeByDateV2ResponseError], id: float, result: Optional[CracCRACResourcesFreeByDateV2ResponseResult], jsonrpc: Optional[str]) -> None:
+        self.error = error
+        self.id = id
+        self.result = result
+        self.jsonrpc = jsonrpc
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2Response':
+        assert isinstance(obj, dict)
+        error = from_union([from_none, CracCRACResourcesFreeByDateV2ResponseError.from_dict], obj.get("error"))
+        id = from_float(obj.get("id"))
+        result = from_union([CracCRACResourcesFreeByDateV2ResponseResult.from_dict, from_none], obj.get("result"))
+        jsonrpc = from_union([from_str, from_none], obj.get("jsonrpc"))
+        return CracCRACResourcesFreeByDateV2Response(error, id, result, jsonrpc)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["error"] = from_union([from_none, lambda x: to_class(CracCRACResourcesFreeByDateV2ResponseError, x)], self.error)
+        result["id"] = to_float(self.id)
+        result["result"] = from_union([lambda x: to_class(CracCRACResourcesFreeByDateV2ResponseResult, x), from_none], self.result)
+        result["jsonrpc"] = from_union([from_str, from_none], self.jsonrpc)
+        return result
+
+
+class CRACResourcesFreeByDateV2:
+    request: CracCRACResourcesFreeByDateV2Request
+    response: CracCRACResourcesFreeByDateV2Response
+
+    def __init__(self, request: CracCRACResourcesFreeByDateV2Request, response: CracCRACResourcesFreeByDateV2Response) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CRACResourcesFreeByDateV2':
+        assert isinstance(obj, dict)
+        request = CracCRACResourcesFreeByDateV2Request.from_dict(obj.get("request"))
+        response = CracCRACResourcesFreeByDateV2Response.from_dict(obj.get("response"))
+        return CRACResourcesFreeByDateV2(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(CracCRACResourcesFreeByDateV2Request, self.request)
+        result["response"] = to_class(CracCRACResourcesFreeByDateV2Response, self.response)
+        return result
+
+
 class PurpleGeneralInfo:
     timezone: str
 
@@ -6264,7 +6959,7 @@ class TentacledWidgetConfiguration:
         return result
 
 
-class HilariousBusiness:
+class CunningBusiness:
     general_info: PurpleGeneralInfo
     id: str
     widget_configuration: TentacledWidgetConfiguration
@@ -6275,12 +6970,12 @@ class HilariousBusiness:
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'HilariousBusiness':
+    def from_dict(obj: Any) -> 'CunningBusiness':
         assert isinstance(obj, dict)
         general_info = PurpleGeneralInfo.from_dict(obj.get("general_info"))
         id = from_str(obj.get("id"))
         widget_configuration = TentacledWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return HilariousBusiness(general_info, id, widget_configuration)
+        return CunningBusiness(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -6386,23 +7081,23 @@ class PurpleFilters:
 
 class CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: HilariousBusiness
+    business: CunningBusiness
     filters: PurpleFilters
 
-    def __init__(self, business: HilariousBusiness, filters: PurpleFilters) -> None:
+    def __init__(self, business: CunningBusiness, filters: PurpleFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = HilariousBusiness.from_dict(obj.get("business"))
+        business = CunningBusiness.from_dict(obj.get("business"))
         filters = PurpleFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(HilariousBusiness, self.business)
+        result["business"] = to_class(CunningBusiness, self.business)
         result["filters"] = to_class(PurpleFilters, self.filters)
         return result
 
@@ -6618,7 +7313,7 @@ class StickyWidgetConfiguration:
         return result
 
 
-class AmbitiousBusiness:
+class MagentaBusiness:
     general_info: FluffyGeneralInfo
     id: str
     widget_configuration: StickyWidgetConfiguration
@@ -6629,12 +7324,12 @@ class AmbitiousBusiness:
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AmbitiousBusiness':
+    def from_dict(obj: Any) -> 'MagentaBusiness':
         assert isinstance(obj, dict)
         general_info = FluffyGeneralInfo.from_dict(obj.get("general_info"))
         id = from_str(obj.get("id"))
         widget_configuration = StickyWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return AmbitiousBusiness(general_info, id, widget_configuration)
+        return MagentaBusiness(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -6721,23 +7416,23 @@ class FluffyFilters:
 
 class CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: AmbitiousBusiness
+    business: MagentaBusiness
     filters: FluffyFilters
 
-    def __init__(self, business: AmbitiousBusiness, filters: FluffyFilters) -> None:
+    def __init__(self, business: MagentaBusiness, filters: FluffyFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = AmbitiousBusiness.from_dict(obj.get("business"))
+        business = MagentaBusiness.from_dict(obj.get("business"))
         filters = FluffyFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(AmbitiousBusiness, self.business)
+        result["business"] = to_class(MagentaBusiness, self.business)
         result["filters"] = to_class(FluffyFilters, self.filters)
         return result
 
@@ -6953,7 +7648,7 @@ class IndigoWidgetConfiguration:
         return result
 
 
-class CunningBusiness:
+class FriskyBusiness:
     general_info: TentacledGeneralInfo
     id: str
     widget_configuration: IndigoWidgetConfiguration
@@ -6964,12 +7659,12 @@ class CunningBusiness:
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'CunningBusiness':
+    def from_dict(obj: Any) -> 'FriskyBusiness':
         assert isinstance(obj, dict)
         general_info = TentacledGeneralInfo.from_dict(obj.get("general_info"))
         id = from_str(obj.get("id"))
         widget_configuration = IndigoWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return CunningBusiness(general_info, id, widget_configuration)
+        return FriskyBusiness(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7056,23 +7751,23 @@ class TentacledFilters:
 
 class CracSlotsGetCRACResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: CunningBusiness
+    business: FriskyBusiness
     filters: TentacledFilters
 
-    def __init__(self, business: CunningBusiness, filters: TentacledFilters) -> None:
+    def __init__(self, business: FriskyBusiness, filters: TentacledFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = CunningBusiness.from_dict(obj.get("business"))
+        business = FriskyBusiness.from_dict(obj.get("business"))
         filters = TentacledFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(CunningBusiness, self.business)
+        result["business"] = to_class(FriskyBusiness, self.business)
         result["filters"] = to_class(TentacledFilters, self.filters)
         return result
 
@@ -7249,11 +7944,17 @@ class GetCRACResourcesAndRooms:
 
 
 class CracSlotsController:
+    crac_distributed_resources_free_by_date: Optional[CRACDistributedResourcesFreeByDate]
+    crac_resources_free_by_date: Optional[CRACResourcesFreeByDate]
+    crac_resources_free_by_date_v2: Optional[CRACResourcesFreeByDateV2]
     get_crac_distributed_resources_and_rooms: GetCRACDistributedResourcesAndRooms
     get_crac_insurance_resources_and_rooms: Optional[GetCRACInsuranceResourcesAndRooms]
     get_crac_resources_and_rooms: Optional[GetCRACResourcesAndRooms]
 
-    def __init__(self, get_crac_distributed_resources_and_rooms: GetCRACDistributedResourcesAndRooms, get_crac_insurance_resources_and_rooms: Optional[GetCRACInsuranceResourcesAndRooms], get_crac_resources_and_rooms: Optional[GetCRACResourcesAndRooms]) -> None:
+    def __init__(self, crac_distributed_resources_free_by_date: Optional[CRACDistributedResourcesFreeByDate], crac_resources_free_by_date: Optional[CRACResourcesFreeByDate], crac_resources_free_by_date_v2: Optional[CRACResourcesFreeByDateV2], get_crac_distributed_resources_and_rooms: GetCRACDistributedResourcesAndRooms, get_crac_insurance_resources_and_rooms: Optional[GetCRACInsuranceResourcesAndRooms], get_crac_resources_and_rooms: Optional[GetCRACResourcesAndRooms]) -> None:
+        self.crac_distributed_resources_free_by_date = crac_distributed_resources_free_by_date
+        self.crac_resources_free_by_date = crac_resources_free_by_date
+        self.crac_resources_free_by_date_v2 = crac_resources_free_by_date_v2
         self.get_crac_distributed_resources_and_rooms = get_crac_distributed_resources_and_rooms
         self.get_crac_insurance_resources_and_rooms = get_crac_insurance_resources_and_rooms
         self.get_crac_resources_and_rooms = get_crac_resources_and_rooms
@@ -7261,13 +7962,19 @@ class CracSlotsController:
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsController':
         assert isinstance(obj, dict)
+        crac_distributed_resources_free_by_date = from_union([CRACDistributedResourcesFreeByDate.from_dict, from_none], obj.get("CRACDistributedResourcesFreeByDate"))
+        crac_resources_free_by_date = from_union([CRACResourcesFreeByDate.from_dict, from_none], obj.get("CRACResourcesFreeByDate"))
+        crac_resources_free_by_date_v2 = from_union([CRACResourcesFreeByDateV2.from_dict, from_none], obj.get("CRACResourcesFreeByDateV2"))
         get_crac_distributed_resources_and_rooms = GetCRACDistributedResourcesAndRooms.from_dict(obj.get("GetCRACDistributedResourcesAndRooms"))
         get_crac_insurance_resources_and_rooms = from_union([GetCRACInsuranceResourcesAndRooms.from_dict, from_none], obj.get("GetCRACInsuranceResourcesAndRooms"))
         get_crac_resources_and_rooms = from_union([GetCRACResourcesAndRooms.from_dict, from_none], obj.get("GetCRACResourcesAndRooms"))
-        return CracSlotsController(get_crac_distributed_resources_and_rooms, get_crac_insurance_resources_and_rooms, get_crac_resources_and_rooms)
+        return CracSlotsController(crac_distributed_resources_free_by_date, crac_resources_free_by_date, crac_resources_free_by_date_v2, get_crac_distributed_resources_and_rooms, get_crac_insurance_resources_and_rooms, get_crac_resources_and_rooms)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["CRACDistributedResourcesFreeByDate"] = from_union([lambda x: to_class(CRACDistributedResourcesFreeByDate, x), from_none], self.crac_distributed_resources_free_by_date)
+        result["CRACResourcesFreeByDate"] = from_union([lambda x: to_class(CRACResourcesFreeByDate, x), from_none], self.crac_resources_free_by_date)
+        result["CRACResourcesFreeByDateV2"] = from_union([lambda x: to_class(CRACResourcesFreeByDateV2, x), from_none], self.crac_resources_free_by_date_v2)
         result["GetCRACDistributedResourcesAndRooms"] = to_class(GetCRACDistributedResourcesAndRooms, self.get_crac_distributed_resources_and_rooms)
         result["GetCRACInsuranceResourcesAndRooms"] = from_union([lambda x: to_class(GetCRACInsuranceResourcesAndRooms, x), from_none], self.get_crac_insurance_resources_and_rooms)
         result["GetCRACResourcesAndRooms"] = from_union([lambda x: to_class(GetCRACResourcesAndRooms, x), from_none], self.get_crac_resources_and_rooms)

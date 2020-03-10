@@ -4,8 +4,6 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 /**
- * параметры запроса
- *
  * параметры запроса business.get_profile_by_id
  */
 public class BusinessGetProfileByIDRequestParams {
@@ -13,7 +11,7 @@ public class BusinessGetProfileByIDRequestParams {
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
-    private PurpleTimeFrameDate showcaseBusinessID;
+    private FluffyTimeFrameDate showcaseBusinessID;
     private Boolean skipWorkerSorting;
     private Boolean withBilling;
     private Boolean withBop;
@@ -59,9 +57,9 @@ public class BusinessGetProfileByIDRequestParams {
      * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
      */
     @JsonProperty("showcase_business_id")
-    public PurpleTimeFrameDate getShowcaseBusinessID() { return showcaseBusinessID; }
+    public FluffyTimeFrameDate getShowcaseBusinessID() { return showcaseBusinessID; }
     @JsonProperty("showcase_business_id")
-    public void setShowcaseBusinessID(PurpleTimeFrameDate value) { this.showcaseBusinessID = value; }
+    public void setShowcaseBusinessID(FluffyTimeFrameDate value) { this.showcaseBusinessID = value; }
 
     /**
      * если указано true - не приминяет сортировку работников

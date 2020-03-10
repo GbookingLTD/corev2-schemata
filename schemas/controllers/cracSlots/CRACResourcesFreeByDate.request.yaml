@@ -1,0 +1,36 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/crackSlots/CRACResourcesFreeByDate.request.schema.json"
+title: "Crac.CRACResourcesFreeByDate.request"
+type: "object"
+definitions:
+  Request:
+    type: "object"
+    additionalProperties: true
+    required: ["params"]
+    properties:
+      params:
+        description: "параметры запроса"
+        type: "array"
+        items:
+          type: "object"
+          additionalProperties: false
+          required: ["duration", "resources", "taxonomy"]
+          properties:
+            duration:
+              type: "number"
+            taxonomy:
+              type: "object"
+              additionalProperties: false
+              required: ["id"]
+              properties:
+                id:
+                  type: "string"
+            resources:
+              type: "array"
+              items:
+                type: "string"
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+

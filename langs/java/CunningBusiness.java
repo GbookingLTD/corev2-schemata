@@ -4,14 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class CunningBusiness {
-    private TentacledGeneralInfo generalInfo;
+    private PurpleGeneralInfo generalInfo;
     private String id;
-    private IndigoWidgetConfiguration widgetConfiguration;
+    private TentacledWidgetConfiguration widgetConfiguration;
 
     @JsonProperty("general_info")
-    public TentacledGeneralInfo getGeneralInfo() { return generalInfo; }
+    public PurpleGeneralInfo getGeneralInfo() { return generalInfo; }
     @JsonProperty("general_info")
-    public void setGeneralInfo(TentacledGeneralInfo value) { this.generalInfo = value; }
+    public void setGeneralInfo(PurpleGeneralInfo value) { this.generalInfo = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }
@@ -19,7 +19,7 @@ public class CunningBusiness {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("widget_configuration")
-    public IndigoWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
+    public TentacledWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
     @JsonProperty("widget_configuration")
-    public void setWidgetConfiguration(IndigoWidgetConfiguration value) { this.widgetConfiguration = value; }
+    public void setWidgetConfiguration(TentacledWidgetConfiguration value) { this.widgetConfiguration = value; }
 }

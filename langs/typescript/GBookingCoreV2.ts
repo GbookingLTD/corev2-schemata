@@ -87,7 +87,7 @@ export interface RequestClass {
     /**
      * параметры запроса
      */
-    params: { [key: string]: any };
+    params: ParamsUnion;
 }
 
 /**
@@ -112,6 +112,11 @@ export interface Cred {
  * идентификатор бизнеса
  */
 export type Id = number | string;
+
+/**
+ * параметры запроса
+ */
+export type ParamsUnion = any[] | { [key: string]: any };
 
 export type SuccessResponse = any[] | boolean | SuccessResponseClass | number | number | null | string;
 
@@ -172,8 +177,6 @@ export interface BusinessGetNetworkDataRequest {
 }
 
 /**
- * параметры запроса
- *
  * параметры запроса business.get_network_data
  */
 export interface BusinessGetNetworkDataRequestParams {
@@ -1013,8 +1016,6 @@ export interface BusinessGetProfileByIdRequest {
 }
 
 /**
- * параметры запроса
- *
  * параметры запроса business.get_profile_by_id
  */
 export interface BusinessGetProfileByIdRequestParams {
@@ -2258,9 +2259,277 @@ export interface ResultProfile {
 }
 
 export interface CracSlotsController {
+    CRACDistributedResourcesFreeByDate?: CracDistributedResourcesFreeByDate;
+    CRACResourcesFreeByDate?:            CracResourcesFreeByDate;
+    CRACResourcesFreeByDateV2?:          CracResourcesFreeByDateV2;
     GetCRACDistributedResourcesAndRooms: GetCracDistributedResourcesAndRooms;
     GetCRACInsuranceResourcesAndRooms?:  GetCracInsuranceResourcesAndRooms;
     GetCRACResourcesAndRooms?:           GetCracResourcesAndRooms;
+}
+
+export interface CracDistributedResourcesFreeByDate {
+    request:  CracCracDistributedResourcesFreeByDateRequest;
+    response: CracCracDistributedResourcesFreeByDateResponse;
+}
+
+export interface CracCracDistributedResourcesFreeByDateRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: CracCracDistributedResourcesFreeByDateRequestParam[];
+}
+
+export interface CracCracDistributedResourcesFreeByDateRequestParam {
+    business:  HilariousBusiness;
+    resources: string[];
+    taxonomy:  PurpleTaxonomy;
+}
+
+export interface HilariousBusiness {
+    id: string;
+}
+
+export interface PurpleTaxonomy {
+    id: string;
+}
+
+export interface CracCracDistributedResourcesFreeByDateResponse {
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error: null | CracCracDistributedResourcesFreeByDateResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id:      number;
+    result?: CracCracDistributedResourcesFreeByDateResponseResult;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface CracCracDistributedResourcesFreeByDateResponseError {
+    /**
+     * код ошибки
+     */
+    code?: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message?: string;
+}
+
+export interface CracCracDistributedResourcesFreeByDateResponseResult {
+    Free: PurpleFree[];
+}
+
+export interface PurpleFree {
+    date:           Date;
+    maxFreeMinutes: number;
+    resource:       string;
+    taxonomy:       string;
+}
+
+export interface CracResourcesFreeByDate {
+    request:  CracCracResourcesFreeByDateRequest;
+    response: CracCracResourcesFreeByDateResponse;
+}
+
+export interface CracCracResourcesFreeByDateRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: CracCracResourcesFreeByDateRequestParam[];
+}
+
+export interface CracCracResourcesFreeByDateRequestParam {
+    duration:  number;
+    resources: string[];
+    taxonomy:  FluffyTaxonomy;
+}
+
+export interface FluffyTaxonomy {
+    id: string;
+}
+
+export interface CracCracResourcesFreeByDateResponse {
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error: null | CracCracResourcesFreeByDateResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id:      number;
+    result?: CracCracResourcesFreeByDateResponseResult;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface CracCracResourcesFreeByDateResponseError {
+    /**
+     * код ошибки
+     */
+    code?: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message?: string;
+}
+
+export interface CracCracResourcesFreeByDateResponseResult {
+    Free: FluffyFree[];
+}
+
+export interface FluffyFree {
+    date:           Date;
+    maxFreeMinutes: number;
+    resource:       string;
+    taxonomy:       string;
+}
+
+export interface CracResourcesFreeByDateV2 {
+    request:  CracCracResourcesFreeByDateV2Request;
+    response: CracCracResourcesFreeByDateV2Response;
+}
+
+export interface CracCracResourcesFreeByDateV2Request {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: CracCracResourcesFreeByDateV2RequestParam[];
+}
+
+export interface CracCracResourcesFreeByDateV2RequestParam {
+    business:  AmbitiousBusiness;
+    duration:  number;
+    durations: number[];
+    resources: string[];
+    taxonomy:  TentacledTaxonomy;
+}
+
+export interface AmbitiousBusiness {
+    id: string;
+}
+
+export interface TentacledTaxonomy {
+    id: string;
+}
+
+export interface CracCracResourcesFreeByDateV2Response {
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error: null | CracCracResourcesFreeByDateV2ResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id:      number;
+    result?: CracCracResourcesFreeByDateV2ResponseResult;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface CracCracResourcesFreeByDateV2ResponseError {
+    /**
+     * код ошибки
+     */
+    code?: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message?: string;
+}
+
+export interface CracCracResourcesFreeByDateV2ResponseResult {
+    Free: TentacledFree[];
+}
+
+export interface TentacledFree {
+    date:           Date;
+    maxFreeMinutes: number;
+    resource:       string;
+    taxonomy:       string;
 }
 
 export interface GetCracDistributedResourcesAndRooms {
@@ -2295,11 +2564,11 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
-    business: HilariousBusiness;
+    business: CunningBusiness;
     filters:  PurpleFilters;
 }
 
-export interface HilariousBusiness {
+export interface CunningBusiness {
     general_info:         PurpleGeneralInfo;
     id:                   string;
     widget_configuration: TentacledWidgetConfiguration;
@@ -2419,11 +2688,11 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-    business: AmbitiousBusiness;
+    business: MagentaBusiness;
     filters:  FluffyFilters;
 }
 
-export interface AmbitiousBusiness {
+export interface MagentaBusiness {
     general_info:         FluffyGeneralInfo;
     id:                   string;
     widget_configuration: StickyWidgetConfiguration;
@@ -2536,11 +2805,11 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
-    business: CunningBusiness;
+    business: FriskyBusiness;
     filters:  TentacledFilters;
 }
 
-export interface CunningBusiness {
+export interface FriskyBusiness {
     general_info:         TentacledGeneralInfo;
     id:                   string;
     widget_configuration: IndigoWidgetConfiguration;
@@ -3493,6 +3762,214 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsController")), null, 2);
     }
 
+    public static toCracDistributedResourcesFreeByDate(json: string): CracDistributedResourcesFreeByDate {
+        return cast(JSON.parse(json), r("CracDistributedResourcesFreeByDate"));
+    }
+
+    public static cracDistributedResourcesFreeByDateToJson(value: CracDistributedResourcesFreeByDate): string {
+        return JSON.stringify(uncast(value, r("CracDistributedResourcesFreeByDate")), null, 2);
+    }
+
+    public static toCracCracDistributedResourcesFreeByDateRequest(json: string): CracCracDistributedResourcesFreeByDateRequest {
+        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateRequest"));
+    }
+
+    public static cracCracDistributedResourcesFreeByDateRequestToJson(value: CracCracDistributedResourcesFreeByDateRequest): string {
+        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateRequest")), null, 2);
+    }
+
+    public static toCracCracDistributedResourcesFreeByDateRequestParam(json: string): CracCracDistributedResourcesFreeByDateRequestParam {
+        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateRequestParam"));
+    }
+
+    public static cracCracDistributedResourcesFreeByDateRequestParamToJson(value: CracCracDistributedResourcesFreeByDateRequestParam): string {
+        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateRequestParam")), null, 2);
+    }
+
+    public static toHilariousBusiness(json: string): HilariousBusiness {
+        return cast(JSON.parse(json), r("HilariousBusiness"));
+    }
+
+    public static hilariousBusinessToJson(value: HilariousBusiness): string {
+        return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
+    }
+
+    public static toPurpleTaxonomy(json: string): PurpleTaxonomy {
+        return cast(JSON.parse(json), r("PurpleTaxonomy"));
+    }
+
+    public static purpleTaxonomyToJson(value: PurpleTaxonomy): string {
+        return JSON.stringify(uncast(value, r("PurpleTaxonomy")), null, 2);
+    }
+
+    public static toCracCracDistributedResourcesFreeByDateResponse(json: string): CracCracDistributedResourcesFreeByDateResponse {
+        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateResponse"));
+    }
+
+    public static cracCracDistributedResourcesFreeByDateResponseToJson(value: CracCracDistributedResourcesFreeByDateResponse): string {
+        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateResponse")), null, 2);
+    }
+
+    public static toCracCracDistributedResourcesFreeByDateResponseError(json: string): CracCracDistributedResourcesFreeByDateResponseError {
+        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateResponseError"));
+    }
+
+    public static cracCracDistributedResourcesFreeByDateResponseErrorToJson(value: CracCracDistributedResourcesFreeByDateResponseError): string {
+        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateResponseError")), null, 2);
+    }
+
+    public static toCracCracDistributedResourcesFreeByDateResponseResult(json: string): CracCracDistributedResourcesFreeByDateResponseResult {
+        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateResponseResult"));
+    }
+
+    public static cracCracDistributedResourcesFreeByDateResponseResultToJson(value: CracCracDistributedResourcesFreeByDateResponseResult): string {
+        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateResponseResult")), null, 2);
+    }
+
+    public static toPurpleFree(json: string): PurpleFree {
+        return cast(JSON.parse(json), r("PurpleFree"));
+    }
+
+    public static purpleFreeToJson(value: PurpleFree): string {
+        return JSON.stringify(uncast(value, r("PurpleFree")), null, 2);
+    }
+
+    public static toCracResourcesFreeByDate(json: string): CracResourcesFreeByDate {
+        return cast(JSON.parse(json), r("CracResourcesFreeByDate"));
+    }
+
+    public static cracResourcesFreeByDateToJson(value: CracResourcesFreeByDate): string {
+        return JSON.stringify(uncast(value, r("CracResourcesFreeByDate")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateRequest(json: string): CracCracResourcesFreeByDateRequest {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateRequest"));
+    }
+
+    public static cracCracResourcesFreeByDateRequestToJson(value: CracCracResourcesFreeByDateRequest): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateRequest")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateRequestParam(json: string): CracCracResourcesFreeByDateRequestParam {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateRequestParam"));
+    }
+
+    public static cracCracResourcesFreeByDateRequestParamToJson(value: CracCracResourcesFreeByDateRequestParam): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateRequestParam")), null, 2);
+    }
+
+    public static toFluffyTaxonomy(json: string): FluffyTaxonomy {
+        return cast(JSON.parse(json), r("FluffyTaxonomy"));
+    }
+
+    public static fluffyTaxonomyToJson(value: FluffyTaxonomy): string {
+        return JSON.stringify(uncast(value, r("FluffyTaxonomy")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateResponse(json: string): CracCracResourcesFreeByDateResponse {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateResponse"));
+    }
+
+    public static cracCracResourcesFreeByDateResponseToJson(value: CracCracResourcesFreeByDateResponse): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateResponse")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateResponseError(json: string): CracCracResourcesFreeByDateResponseError {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateResponseError"));
+    }
+
+    public static cracCracResourcesFreeByDateResponseErrorToJson(value: CracCracResourcesFreeByDateResponseError): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateResponseError")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateResponseResult(json: string): CracCracResourcesFreeByDateResponseResult {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateResponseResult"));
+    }
+
+    public static cracCracResourcesFreeByDateResponseResultToJson(value: CracCracResourcesFreeByDateResponseResult): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateResponseResult")), null, 2);
+    }
+
+    public static toFluffyFree(json: string): FluffyFree {
+        return cast(JSON.parse(json), r("FluffyFree"));
+    }
+
+    public static fluffyFreeToJson(value: FluffyFree): string {
+        return JSON.stringify(uncast(value, r("FluffyFree")), null, 2);
+    }
+
+    public static toCracResourcesFreeByDateV2(json: string): CracResourcesFreeByDateV2 {
+        return cast(JSON.parse(json), r("CracResourcesFreeByDateV2"));
+    }
+
+    public static cracResourcesFreeByDateV2ToJson(value: CracResourcesFreeByDateV2): string {
+        return JSON.stringify(uncast(value, r("CracResourcesFreeByDateV2")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateV2Request(json: string): CracCracResourcesFreeByDateV2Request {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2Request"));
+    }
+
+    public static cracCracResourcesFreeByDateV2RequestToJson(value: CracCracResourcesFreeByDateV2Request): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2Request")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateV2RequestParam(json: string): CracCracResourcesFreeByDateV2RequestParam {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2RequestParam"));
+    }
+
+    public static cracCracResourcesFreeByDateV2RequestParamToJson(value: CracCracResourcesFreeByDateV2RequestParam): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2RequestParam")), null, 2);
+    }
+
+    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
+        return cast(JSON.parse(json), r("AmbitiousBusiness"));
+    }
+
+    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
+        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
+    }
+
+    public static toTentacledTaxonomy(json: string): TentacledTaxonomy {
+        return cast(JSON.parse(json), r("TentacledTaxonomy"));
+    }
+
+    public static tentacledTaxonomyToJson(value: TentacledTaxonomy): string {
+        return JSON.stringify(uncast(value, r("TentacledTaxonomy")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateV2Response(json: string): CracCracResourcesFreeByDateV2Response {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2Response"));
+    }
+
+    public static cracCracResourcesFreeByDateV2ResponseToJson(value: CracCracResourcesFreeByDateV2Response): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2Response")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateV2ResponseError(json: string): CracCracResourcesFreeByDateV2ResponseError {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2ResponseError"));
+    }
+
+    public static cracCracResourcesFreeByDateV2ResponseErrorToJson(value: CracCracResourcesFreeByDateV2ResponseError): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2ResponseError")), null, 2);
+    }
+
+    public static toCracCracResourcesFreeByDateV2ResponseResult(json: string): CracCracResourcesFreeByDateV2ResponseResult {
+        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2ResponseResult"));
+    }
+
+    public static cracCracResourcesFreeByDateV2ResponseResultToJson(value: CracCracResourcesFreeByDateV2ResponseResult): string {
+        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2ResponseResult")), null, 2);
+    }
+
+    public static toTentacledFree(json: string): TentacledFree {
+        return cast(JSON.parse(json), r("TentacledFree"));
+    }
+
+    public static tentacledFreeToJson(value: TentacledFree): string {
+        return JSON.stringify(uncast(value, r("TentacledFree")), null, 2);
+    }
+
     public static toGetCracDistributedResourcesAndRooms(json: string): GetCracDistributedResourcesAndRooms {
         return cast(JSON.parse(json), r("GetCracDistributedResourcesAndRooms"));
     }
@@ -3517,12 +3994,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toHilariousBusiness(json: string): HilariousBusiness {
-        return cast(JSON.parse(json), r("HilariousBusiness"));
+    public static toCunningBusiness(json: string): CunningBusiness {
+        return cast(JSON.parse(json), r("CunningBusiness"));
     }
 
-    public static hilariousBusinessToJson(value: HilariousBusiness): string {
-        return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
+    public static cunningBusinessToJson(value: CunningBusiness): string {
+        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
     }
 
     public static toPurpleGeneralInfo(json: string): PurpleGeneralInfo {
@@ -3629,12 +4106,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
-        return cast(JSON.parse(json), r("AmbitiousBusiness"));
+    public static toMagentaBusiness(json: string): MagentaBusiness {
+        return cast(JSON.parse(json), r("MagentaBusiness"));
     }
 
-    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
-        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
+    public static magentaBusinessToJson(value: MagentaBusiness): string {
+        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
     }
 
     public static toFluffyGeneralInfo(json: string): FluffyGeneralInfo {
@@ -3733,12 +4210,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toCunningBusiness(json: string): CunningBusiness {
-        return cast(JSON.parse(json), r("CunningBusiness"));
+    public static toFriskyBusiness(json: string): FriskyBusiness {
+        return cast(JSON.parse(json), r("FriskyBusiness"));
     }
 
-    public static cunningBusinessToJson(value: CunningBusiness): string {
-        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
+    public static friskyBusinessToJson(value: FriskyBusiness): string {
+        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
     }
 
     public static toTentacledGeneralInfo(json: string): TentacledGeneralInfo {
@@ -3981,7 +4458,7 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: m("any") },
+        { json: "params", js: "params", typ: u(a("any"), m("any")) },
     ], false),
     "Cred": o([
         { json: "token", js: "token", typ: u(undefined, "") },
@@ -5219,10 +5696,138 @@ const typeMap: any = {
         { json: "id", js: "id", typ: "" },
     ], false),
     "CracSlotsController": o([
+        { json: "CRACDistributedResourcesFreeByDate", js: "CRACDistributedResourcesFreeByDate", typ: u(undefined, r("CracDistributedResourcesFreeByDate")) },
+        { json: "CRACResourcesFreeByDate", js: "CRACResourcesFreeByDate", typ: u(undefined, r("CracResourcesFreeByDate")) },
+        { json: "CRACResourcesFreeByDateV2", js: "CRACResourcesFreeByDateV2", typ: u(undefined, r("CracResourcesFreeByDateV2")) },
         { json: "GetCRACDistributedResourcesAndRooms", js: "GetCRACDistributedResourcesAndRooms", typ: r("GetCracDistributedResourcesAndRooms") },
         { json: "GetCRACInsuranceResourcesAndRooms", js: "GetCRACInsuranceResourcesAndRooms", typ: u(undefined, r("GetCracInsuranceResourcesAndRooms")) },
         { json: "GetCRACResourcesAndRooms", js: "GetCRACResourcesAndRooms", typ: u(undefined, r("GetCracResourcesAndRooms")) },
     ], false),
+    "CracDistributedResourcesFreeByDate": o([
+        { json: "request", js: "request", typ: r("CracCracDistributedResourcesFreeByDateRequest") },
+        { json: "response", js: "response", typ: r("CracCracDistributedResourcesFreeByDateResponse") },
+    ], false),
+    "CracCracDistributedResourcesFreeByDateRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
+    ], false),
+    "CracCracDistributedResourcesFreeByDateRequestParam": o([
+        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "resources", js: "resources", typ: a("") },
+        { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
+    ], false),
+    "HilariousBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "PurpleTaxonomy": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "CracCracDistributedResourcesFreeByDateResponse": o([
+        { json: "error", js: "error", typ: u(null, r("CracCracDistributedResourcesFreeByDateResponseError")) },
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "result", js: "result", typ: u(undefined, r("CracCracDistributedResourcesFreeByDateResponseResult")) },
+        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
+    ], false),
+    "CracCracDistributedResourcesFreeByDateResponseError": o([
+        { json: "code", js: "code", typ: u(undefined, 3.14) },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: u(undefined, "") },
+    ], "any"),
+    "CracCracDistributedResourcesFreeByDateResponseResult": o([
+        { json: "Free", js: "Free", typ: a(r("PurpleFree")) },
+    ], "any"),
+    "PurpleFree": o([
+        { json: "date", js: "date", typ: Date },
+        { json: "maxFreeMinutes", js: "maxFreeMinutes", typ: 3.14 },
+        { json: "resource", js: "resource", typ: "" },
+        { json: "taxonomy", js: "taxonomy", typ: "" },
+    ], "any"),
+    "CracResourcesFreeByDate": o([
+        { json: "request", js: "request", typ: r("CracCracResourcesFreeByDateRequest") },
+        { json: "response", js: "response", typ: r("CracCracResourcesFreeByDateResponse") },
+    ], "any"),
+    "CracCracResourcesFreeByDateRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateRequestParam")) },
+    ], false),
+    "CracCracResourcesFreeByDateRequestParam": o([
+        { json: "duration", js: "duration", typ: 3.14 },
+        { json: "resources", js: "resources", typ: a("") },
+        { json: "taxonomy", js: "taxonomy", typ: r("FluffyTaxonomy") },
+    ], false),
+    "FluffyTaxonomy": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "CracCracResourcesFreeByDateResponse": o([
+        { json: "error", js: "error", typ: u(null, r("CracCracResourcesFreeByDateResponseError")) },
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "result", js: "result", typ: u(undefined, r("CracCracResourcesFreeByDateResponseResult")) },
+        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
+    ], false),
+    "CracCracResourcesFreeByDateResponseError": o([
+        { json: "code", js: "code", typ: u(undefined, 3.14) },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: u(undefined, "") },
+    ], "any"),
+    "CracCracResourcesFreeByDateResponseResult": o([
+        { json: "Free", js: "Free", typ: a(r("FluffyFree")) },
+    ], "any"),
+    "FluffyFree": o([
+        { json: "date", js: "date", typ: Date },
+        { json: "maxFreeMinutes", js: "maxFreeMinutes", typ: 3.14 },
+        { json: "resource", js: "resource", typ: "" },
+        { json: "taxonomy", js: "taxonomy", typ: "" },
+    ], "any"),
+    "CracResourcesFreeByDateV2": o([
+        { json: "request", js: "request", typ: r("CracCracResourcesFreeByDateV2Request") },
+        { json: "response", js: "response", typ: r("CracCracResourcesFreeByDateV2Response") },
+    ], false),
+    "CracCracResourcesFreeByDateV2Request": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
+    ], false),
+    "CracCracResourcesFreeByDateV2RequestParam": o([
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "duration", js: "duration", typ: 3.14 },
+        { json: "durations", js: "durations", typ: a(3.14) },
+        { json: "resources", js: "resources", typ: a("") },
+        { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
+    ], false),
+    "AmbitiousBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "TentacledTaxonomy": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "CracCracResourcesFreeByDateV2Response": o([
+        { json: "error", js: "error", typ: u(null, r("CracCracResourcesFreeByDateV2ResponseError")) },
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "result", js: "result", typ: u(undefined, r("CracCracResourcesFreeByDateV2ResponseResult")) },
+        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
+    ], false),
+    "CracCracResourcesFreeByDateV2ResponseError": o([
+        { json: "code", js: "code", typ: u(undefined, 3.14) },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: u(undefined, "") },
+    ], "any"),
+    "CracCracResourcesFreeByDateV2ResponseResult": o([
+        { json: "Free", js: "Free", typ: a(r("TentacledFree")) },
+    ], "any"),
+    "TentacledFree": o([
+        { json: "date", js: "date", typ: Date },
+        { json: "maxFreeMinutes", js: "maxFreeMinutes", typ: 3.14 },
+        { json: "resource", js: "resource", typ: "" },
+        { json: "taxonomy", js: "taxonomy", typ: "" },
+    ], "any"),
     "GetCracDistributedResourcesAndRooms": o([
         { json: "request", js: "request", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequest") },
         { json: "response", js: "response", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsResponse") },
@@ -5235,10 +5840,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "business", js: "business", typ: r("CunningBusiness") },
         { json: "filters", js: "filters", typ: r("PurpleFilters") },
     ], false),
-    "HilariousBusiness": o([
+    "CunningBusiness": o([
         { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
@@ -5298,10 +5903,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
         { json: "filters", js: "filters", typ: r("FluffyFilters") },
     ], false),
-    "AmbitiousBusiness": o([
+    "MagentaBusiness": o([
         { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
@@ -5358,10 +5963,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("FriskyBusiness") },
         { json: "filters", js: "filters", typ: r("TentacledFilters") },
     ], false),
-    "CunningBusiness": o([
+    "FriskyBusiness": o([
         { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },

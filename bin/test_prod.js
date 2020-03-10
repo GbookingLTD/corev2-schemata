@@ -75,7 +75,23 @@ require('./test')(function() {
         "from":"2020-03-10T00:00:00.000Z",
         "to":"2020-03-21T00:00:00.000Z"
       }
-    })
+    }),
+    CRAC.CRACDistributedResourcesFreeByDate(null, "4000000006304", "9175167", [
+      "5afafbc373b6066443311f24",
+      "5afafbdaff64a76438ecde86",
+      "5afafb9fc28333643ea29636",
+      "5afafb9fc28333643ea2963c",
+      "5afafb9fc28333643ea29638",
+      "5afafbc373b6066443311f26"
+    ]),
+    CRAC.CRACResourcesFreeByDate(null, "9175163", [
+      "5afafbc373b6066443311f24",
+      "5afafbc373b6066443311f26"
+    ], 60),
+    CRAC.CRACResourcesFreeByDateV2(null, "4000000006304", "9175163", [
+      "5afafbc373b6066443311f24",
+      "5afafbc373b6066443311f26"
+    ], [60, 30]),
   ].map(p => function () {
     return p
   }).reduce(Q.when, Q());

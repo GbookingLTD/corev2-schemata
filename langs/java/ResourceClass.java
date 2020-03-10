@@ -35,7 +35,7 @@ public class ResourceClass {
     private String name;
     private String nickname;
     private Double order;
-    private PurpleTimeFrameDate orderWeight;
+    private FluffyTimeFrameDate orderWeight;
     private Info originGeneralInfo;
     private String originBusinessID;
     private List<String> originTaxonomies;
@@ -285,9 +285,9 @@ public class ResourceClass {
      * вес работника, в зависимости от указанного способа сортировки
      */
     @JsonProperty("orderWeight")
-    public PurpleTimeFrameDate getOrderWeight() { return orderWeight; }
+    public FluffyTimeFrameDate getOrderWeight() { return orderWeight; }
     @JsonProperty("orderWeight")
-    public void setOrderWeight(PurpleTimeFrameDate value) { this.orderWeight = value; }
+    public void setOrderWeight(FluffyTimeFrameDate value) { this.orderWeight = value; }
 
     /**
      * (только в витрине) объект с данными бизнеса-филиала

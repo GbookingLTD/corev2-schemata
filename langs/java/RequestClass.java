@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.*;
 
 public class RequestClass {
     private Cred cred;
-    private RequestTimeFrameDate id;
+    private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
-    private Map<String, Object> params;
+    private ParamsUnion params;
 
     /**
      * авторизационные параметры
@@ -22,9 +22,9 @@ public class RequestClass {
      * значение числового типа для идентификации запроса на сервере
      */
     @JsonProperty("id")
-    public RequestTimeFrameDate getID() { return id; }
+    public PurpleTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(RequestTimeFrameDate value) { this.id = value; }
+    public void setID(PurpleTimeFrameDate value) { this.id = value; }
 
     /**
      * версия протокола - 2.0
@@ -46,7 +46,7 @@ public class RequestClass {
      * параметры запроса
      */
     @JsonProperty("params")
-    public Map<String, Object> getParams() { return params; }
+    public ParamsUnion getParams() { return params; }
     @JsonProperty("params")
-    public void setParams(Map<String, Object> value) { this.params = value; }
+    public void setParams(ParamsUnion value) { this.params = value; }
 }
