@@ -887,8 +887,7 @@ definitions:
         type: "boolean"
         default: false
       clientCommentTitle:
-        type: "boolean"
-        default: false
+        type: "string"
       calendarMode:
         type: "boolean"
         default: false

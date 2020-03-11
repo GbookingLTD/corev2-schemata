@@ -64,6 +64,8 @@ require('./test')(function() {
     getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 305),
     getNetworkData(process.env.ENDPOINT, 257),
     getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 257),
+    getNetworkData(process.env.ENDPOINT, 342),
+    getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 342),
     reserveAppointment(process.env.ENDPOINT, "4000000003715", "9123154",
         "5d0a27dd73876619445a2910", "2020-03-11T11:00:00.000Z")
   ].forEach((p) => requests.push(p));

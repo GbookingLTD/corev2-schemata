@@ -179,7 +179,7 @@ let getNetworkDataWithBusinessInfo = function (endpoint, networkId) {
   };
 
   let _validate = getValidate('business', 'get_network_data');
-  let pref = 'business.get_network_data: ' + networkId;
+  let pref = 'business.get_network_data_with_business_info: ' + networkId;
   return rpcRequest('business.get_network_data', params, {}, endpoint).then(function(json) {
     _validate(pref, json)
   }).fail(function(err) {
