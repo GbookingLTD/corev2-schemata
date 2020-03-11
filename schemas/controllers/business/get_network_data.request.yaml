@@ -15,7 +15,7 @@ definitions:
         properties:
           networkID:
             description: "идентификатор сети"
-            type: "number"
+            type: ["number", "string"]
 
           with_business_info:
             description: "Если передано true - возвращает информацию business_info/general_info по каждому бизнесу в массиве businesses"
