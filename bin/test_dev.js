@@ -55,6 +55,10 @@ require('./test')(function() {
       user: "5d80e9f9238a0c13ab51a196"
     }),
     getProfileByID(process.env.ENDPOINT, 4000000006771),
+    getProfileByID(process.env.ENDPOINT, 4000000005156, {
+      token: "2a10ee035229b38b63c578999df4de284cdbecaf",
+      user: "5d15f3475e1bfd71b15fa738"
+    }, {with_bop:true}),
     getProfileByID(process.env.ENDPOINT, 4000000003715),
     getProfileByID(process.env.ENDPOINT, 4000000007101, {
       token: "9b8ae27a0c7cbb6172a4c5e61f1184056b3dc746",

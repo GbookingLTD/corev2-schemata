@@ -463,6 +463,8 @@ definitions:
             dateLimitTo:
               type: "string"
               format: "date-time"
+            _id:
+              type: "string"
           additionalProperties: false
       allowNextBookingCount:
         type: "number"
