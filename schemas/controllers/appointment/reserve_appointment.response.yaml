@@ -20,10 +20,18 @@ definitions:
                 type: "number"
                 enum:
                   - -10000
+                  - -10001
                   - -10200
-                meta:enum:
-                  -10000: "UNKNOWN_ERROR - Unknown error occurred"
-                  -10200: "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business"
+                  - -11800
+                  - -14500
+                  - -14600
+                  - -14610
+                  - -14650
+                  - -14700
+                  - -14800
+                  - -14900
+                  - -14901
+                  - -15200
 
   ErrorResponse:
     allOf:
@@ -43,13 +51,7 @@ definitions:
         type: "number"
       result:
         description: "данные, передаваемые в ответ"
-        type: ["null", "object"]
-        additionalProperties: false
-        properties:
-          appointment:
-            type: "object"
-        required:
-          - "appointment"
+        $ref: "../../models/appointment.schema.json"
     required:
       - "jsonrpc"
       - "id"

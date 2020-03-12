@@ -118,7 +118,8 @@ let getProfileByID = function (endpoint, baseBusinessId, cred, extraParams) {
 let reserveAppointment = function (endpoint, businessId, taxonomy, resource, start) {
   var params = {
     "appointment":{
-      "start":start
+      "start":start,
+      "price":{"currency":"RUB"}
     },
     "source":"TEST_SCHEMA_SOURCE",
     "taxonomy":{
@@ -144,9 +145,41 @@ let reserveAppointment = function (endpoint, businessId, taxonomy, resource, sta
   }).then(function(json) {
     console.info('<--- ' + pref, json);
     _validateRes('<--- ' + pref, json)
+    return json;
   }).fail(function(err) {
     if (err.code === -32700) {
-      console.info('<--! ' + pref, err.data, err.xtra);
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let clientRemoveEmptyAppointment = function (endpoint, businessId, appointmentId) {
+  var params = {
+    "appointment":{
+      "id": appointmentId
+    },
+    "business":{
+      "id":businessId
+    }
+  };
+
+  let pref = 'appointment.client_remove_empty_appointment: ' + businessId;
+
+  let _validateReq = getValidateRequest('appointment', 'client_remove_empty_appointment');
+  let _validateRes = getValidateResponse('appointment', 'client_remove_empty_appointment');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('appointment.client_remove_empty_appointment', params, {}));
+    return rpcRequest('appointment.client_remove_empty_appointment', params, {}, endpoint);
+  }).then(function(json) {
+    //console.info('<--- ' + pref, json);
+    _validateRes('<--- ' + pref, json)
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      //console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
@@ -384,6 +417,7 @@ module.exports = function(fn) {
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
 module.exports.reserveAppointment = reserveAppointment;
+module.exports.clientRemoveEmptyAppointment = clientRemoveEmptyAppointment;
 module.exports.getNetworkData = getNetworkData;
 module.exports.getNetworkDataWithBusinessInfo = getNetworkDataWithBusinessInfo;
 module.exports.CRAC = {

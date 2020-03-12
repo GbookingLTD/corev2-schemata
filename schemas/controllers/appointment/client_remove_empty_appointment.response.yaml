@@ -43,13 +43,7 @@ definitions:
         type: "number"
       result:
         description: "данные, передаваемые в ответ"
-        type: ["null", "object"]
-        additionalProperties: false
-        properties:
-          appointment:
-            type: "object"
-        required:
-          - "appointment"
+        type: "boolean"
     required:
       - "jsonrpc"
       - "id"
