@@ -29,10 +29,10 @@ schemas-json/controllers/business/business.get_network_data.request.schema.json
 
 `object` with following properties:
 
-| Property             | Type    | Required     | Default |
-| -------------------- | ------- | ------------ | ------- |
-| `networkID`          | number  | **Required** |         |
-| `with_business_info` | boolean | Optional     | `false` |
+| Property             | Type          | Required     | Default |
+| -------------------- | ------------- | ------------ | ------- |
+| `networkID`          | number,string | **Required** |         |
+| `with_business_info` | boolean       | Optional     | `false` |
 
 #### networkID
 
@@ -41,11 +41,19 @@ schemas-json/controllers/business/business.get_network_data.request.schema.json
 `networkID`
 
 - is **required**
-- type: `number`
+- type: multiple
 
 ##### networkID Type
 
-`number`
+Unknown type `number,string`.
+
+```json
+{
+  "description": "идентификатор сети",
+  "type": ["number", "string"],
+  "simpletype": "multiple"
+}
+```
 
 #### with_business_info
 

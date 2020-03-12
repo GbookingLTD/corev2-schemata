@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class CracCRACResourcesFreeByDateV2Request {
     private Cred cred;
-    private PurpleTimeFrameDate id;
+    private RequestTimeFrameDate id;
     private String jsonrpc;
     private String method;
     private List<CracCRACResourcesFreeByDateV2RequestParam> params;
@@ -22,9 +22,9 @@ public class CracCRACResourcesFreeByDateV2Request {
      * значение числового типа для идентификации запроса на сервере
      */
     @JsonProperty("id")
-    public PurpleTimeFrameDate getID() { return id; }
+    public RequestTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleTimeFrameDate value) { this.id = value; }
+    public void setID(RequestTimeFrameDate value) { this.id = value; }
 
     /**
      * версия протокола - 2.0

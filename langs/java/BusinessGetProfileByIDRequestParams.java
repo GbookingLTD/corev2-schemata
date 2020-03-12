@@ -11,7 +11,7 @@ public class BusinessGetProfileByIDRequestParams {
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
-    private FluffyTimeFrameDate showcaseBusinessID;
+    private EvenTimeFrameDate showcaseBusinessID;
     private Boolean skipWorkerSorting;
     private Boolean withBilling;
     private Boolean withBop;
@@ -57,9 +57,9 @@ public class BusinessGetProfileByIDRequestParams {
      * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
      */
     @JsonProperty("showcase_business_id")
-    public FluffyTimeFrameDate getShowcaseBusinessID() { return showcaseBusinessID; }
+    public EvenTimeFrameDate getShowcaseBusinessID() { return showcaseBusinessID; }
     @JsonProperty("showcase_business_id")
-    public void setShowcaseBusinessID(FluffyTimeFrameDate value) { this.showcaseBusinessID = value; }
+    public void setShowcaseBusinessID(EvenTimeFrameDate value) { this.showcaseBusinessID = value; }
 
     /**
      * если указано true - не приминяет сортировку работников

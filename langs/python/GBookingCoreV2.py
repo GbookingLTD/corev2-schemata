@@ -287,26 +287,26 @@ class Common:
 class BusinessGetNetworkDataRequestParams:
     """параметры запроса business.get_network_data"""
     """идентификатор сети"""
-    network_id: float
+    network_id: Union[float, str]
     """Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
     в массиве businesses
     """
     with_business_info: Optional[bool]
 
-    def __init__(self, network_id: float, with_business_info: Optional[bool]) -> None:
+    def __init__(self, network_id: Union[float, str], with_business_info: Optional[bool]) -> None:
         self.network_id = network_id
         self.with_business_info = with_business_info
 
     @staticmethod
     def from_dict(obj: Any) -> 'BusinessGetNetworkDataRequestParams':
         assert isinstance(obj, dict)
-        network_id = from_float(obj.get("networkID"))
+        network_id = from_union([from_float, from_str], obj.get("networkID"))
         with_business_info = from_union([from_bool, from_none], obj.get("with_business_info"))
         return BusinessGetNetworkDataRequestParams(network_id, with_business_info)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["networkID"] = to_float(self.network_id)
+        result["networkID"] = from_union([to_float, from_str], self.network_id)
         result["with_business_info"] = from_union([from_bool, from_none], self.with_business_info)
         return result
 
@@ -1985,7 +1985,7 @@ class PurpleWidgetConfiguration:
     calendar_mode: Optional[bool]
     calendar_mode_hide_time: Optional[bool]
     client_blocking_settings: Optional[PurpleClientBlockingSettings]
-    client_comment_title: Optional[bool]
+    client_comment_title: Optional[str]
     crac_server: Optional[CracServer]
     crac_slot_size: Optional[float]
     crunchv2: Optional[bool]
@@ -2078,7 +2078,7 @@ class PurpleWidgetConfiguration:
     worker_unavailability_text: Optional[str]
     worker_name_reverse: Optional[bool]
 
-    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], bookable_date_ranges: Optional[PurpleBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[PurpleClientBlockingSettings], client_comment_title: Optional[bool], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[PurpleDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[PurpleSocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
+    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], bookable_date_ranges: Optional[PurpleBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[PurpleClientBlockingSettings], client_comment_title: Optional[str], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[PurpleDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[PurpleSocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
         self.additional_name = additional_name
         self.alignment_taxonomy_slots = alignment_taxonomy_slots
         self.allow_auto_select = allow_auto_select
@@ -2203,7 +2203,7 @@ class PurpleWidgetConfiguration:
         calendar_mode = from_union([from_bool, from_none], obj.get("calendarMode"))
         calendar_mode_hide_time = from_union([from_bool, from_none], obj.get("calendarModeHideTime"))
         client_blocking_settings = from_union([PurpleClientBlockingSettings.from_dict, from_none], obj.get("clientBlockingSettings"))
-        client_comment_title = from_union([from_bool, from_none], obj.get("clientCommentTitle"))
+        client_comment_title = from_union([from_str, from_none], obj.get("clientCommentTitle"))
         crac_server = from_union([CracServer, from_none], obj.get("cracServer"))
         crac_slot_size = from_union([from_float, from_none], obj.get("cracSlotSize"))
         crunchv2 = from_union([from_bool, from_none], obj.get("crunchv2"))
@@ -2313,7 +2313,7 @@ class PurpleWidgetConfiguration:
         result["calendarMode"] = from_union([from_bool, from_none], self.calendar_mode)
         result["calendarModeHideTime"] = from_union([from_bool, from_none], self.calendar_mode_hide_time)
         result["clientBlockingSettings"] = from_union([lambda x: to_class(PurpleClientBlockingSettings, x), from_none], self.client_blocking_settings)
-        result["clientCommentTitle"] = from_union([from_bool, from_none], self.client_comment_title)
+        result["clientCommentTitle"] = from_union([from_str, from_none], self.client_comment_title)
         result["cracServer"] = from_union([lambda x: to_enum(CracServer, x), from_none], self.crac_server)
         result["cracSlotSize"] = from_union([to_float, from_none], self.crac_slot_size)
         result["crunchv2"] = from_union([from_bool, from_none], self.crunchv2)
@@ -4295,22 +4295,26 @@ class DateLimitType(Enum):
 
 
 class DateLimit:
+    id: Optional[str]
     date_limit_from: Optional[datetime]
     date_limit_to: Optional[datetime]
 
-    def __init__(self, date_limit_from: Optional[datetime], date_limit_to: Optional[datetime]) -> None:
+    def __init__(self, id: Optional[str], date_limit_from: Optional[datetime], date_limit_to: Optional[datetime]) -> None:
+        self.id = id
         self.date_limit_from = date_limit_from
         self.date_limit_to = date_limit_to
 
     @staticmethod
     def from_dict(obj: Any) -> 'DateLimit':
         assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("_id"))
         date_limit_from = from_union([from_datetime, from_none], obj.get("dateLimitFrom"))
         date_limit_to = from_union([from_datetime, from_none], obj.get("dateLimitTo"))
-        return DateLimit(date_limit_from, date_limit_to)
+        return DateLimit(id, date_limit_from, date_limit_to)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["_id"] = from_union([from_str, from_none], self.id)
         result["dateLimitFrom"] = from_union([lambda x: x.isoformat(), from_none], self.date_limit_from)
         result["dateLimitTo"] = from_union([lambda x: x.isoformat(), from_none], self.date_limit_to)
         return result
@@ -4965,7 +4969,7 @@ class FluffyWidgetConfiguration:
     calendar_mode: Optional[bool]
     calendar_mode_hide_time: Optional[bool]
     client_blocking_settings: Optional[FluffyClientBlockingSettings]
-    client_comment_title: Optional[bool]
+    client_comment_title: Optional[str]
     crac_server: Optional[CracServer]
     crac_slot_size: Optional[float]
     crunchv2: Optional[bool]
@@ -5058,7 +5062,7 @@ class FluffyWidgetConfiguration:
     worker_unavailability_text: Optional[str]
     worker_name_reverse: Optional[bool]
 
-    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], bookable_date_ranges: Optional[FluffyBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[FluffyClientBlockingSettings], client_comment_title: Optional[bool], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[FluffyDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[FluffySocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
+    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], bookable_date_ranges: Optional[FluffyBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[FluffyClientBlockingSettings], client_comment_title: Optional[str], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[FluffyDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[FluffySocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
         self.additional_name = additional_name
         self.alignment_taxonomy_slots = alignment_taxonomy_slots
         self.allow_auto_select = allow_auto_select
@@ -5183,7 +5187,7 @@ class FluffyWidgetConfiguration:
         calendar_mode = from_union([from_bool, from_none], obj.get("calendarMode"))
         calendar_mode_hide_time = from_union([from_bool, from_none], obj.get("calendarModeHideTime"))
         client_blocking_settings = from_union([FluffyClientBlockingSettings.from_dict, from_none], obj.get("clientBlockingSettings"))
-        client_comment_title = from_union([from_bool, from_none], obj.get("clientCommentTitle"))
+        client_comment_title = from_union([from_str, from_none], obj.get("clientCommentTitle"))
         crac_server = from_union([CracServer, from_none], obj.get("cracServer"))
         crac_slot_size = from_union([from_float, from_none], obj.get("cracSlotSize"))
         crunchv2 = from_union([from_bool, from_none], obj.get("crunchv2"))
@@ -5293,7 +5297,7 @@ class FluffyWidgetConfiguration:
         result["calendarMode"] = from_union([from_bool, from_none], self.calendar_mode)
         result["calendarModeHideTime"] = from_union([from_bool, from_none], self.calendar_mode_hide_time)
         result["clientBlockingSettings"] = from_union([lambda x: to_class(FluffyClientBlockingSettings, x), from_none], self.client_blocking_settings)
-        result["clientCommentTitle"] = from_union([from_bool, from_none], self.client_comment_title)
+        result["clientCommentTitle"] = from_union([from_str, from_none], self.client_comment_title)
         result["cracServer"] = from_union([lambda x: to_enum(CracServer, x), from_none], self.crac_server)
         result["cracSlotSize"] = from_union([to_float, from_none], self.crac_slot_size)
         result["crunchv2"] = from_union([from_bool, from_none], self.crunchv2)

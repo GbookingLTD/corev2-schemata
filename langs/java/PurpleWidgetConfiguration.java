@@ -18,7 +18,7 @@ public class PurpleWidgetConfiguration {
     private Boolean calendarMode;
     private Boolean calendarModeHideTime;
     private PurpleClientBlockingSettings clientBlockingSettings;
-    private Boolean clientCommentTitle;
+    private String clientCommentTitle;
     private CracServer cracServer;
     private Double cracSlotSize;
     private Boolean crunchv2;
@@ -182,9 +182,9 @@ public class PurpleWidgetConfiguration {
     public void setClientBlockingSettings(PurpleClientBlockingSettings value) { this.clientBlockingSettings = value; }
 
     @JsonProperty("clientCommentTitle")
-    public Boolean getClientCommentTitle() { return clientCommentTitle; }
+    public String getClientCommentTitle() { return clientCommentTitle; }
     @JsonProperty("clientCommentTitle")
-    public void setClientCommentTitle(Boolean value) { this.clientCommentTitle = value; }
+    public void setClientCommentTitle(String value) { this.clientCommentTitle = value; }
 
     @JsonProperty("cracServer")
     public CracServer getCracServer() { return cracServer; }

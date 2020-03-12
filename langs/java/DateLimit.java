@@ -4,8 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class DateLimit {
+    private String id;
     private String dateLimitFrom;
     private String dateLimitTo;
+
+    @JsonProperty("_id")
+    public String getID() { return id; }
+    @JsonProperty("_id")
+    public void setID(String value) { this.id = value; }
 
     @JsonProperty("dateLimitFrom")
     public String getDateLimitFrom() { return dateLimitFrom; }

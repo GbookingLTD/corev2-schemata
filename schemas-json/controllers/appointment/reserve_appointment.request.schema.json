@@ -20,16 +20,12 @@
                 "appointment": {
                     "type": "object",
                     "required": [
-                        "start",
-                        "duration"
+                        "start"
                     ],
                     "properties": {
                         "start": {
                             "type": "string",
                             "format": "date-time"
-                        },
-                        "duration": {
-                            "type": "number"
                         }
                     }
                 },
@@ -68,7 +64,10 @@
                     "additionalProperties": false,
                     "properties": {
                         "id": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
                         }
                     }
                 }

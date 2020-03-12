@@ -710,6 +710,9 @@
                             "dateLimitTo": {
                                 "type": "string",
                                 "format": "date-time"
+                            },
+                            "_id": {
+                                "type": "string"
                             }
                         },
                         "additionalProperties": false
@@ -1317,8 +1320,7 @@
                     "default": false
                 },
                 "clientCommentTitle": {
-                    "type": "boolean",
-                    "default": false
+                    "type": "string"
                 },
                 "calendarMode": {
                     "type": "boolean",

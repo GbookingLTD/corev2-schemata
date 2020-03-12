@@ -31,21 +31,9 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `object` with following properties:
 
-| Property   | Type   | Required     |
-| ---------- | ------ | ------------ |
-| `duration` | number | **Required** |
-| `start`    | string | **Required** |
-
-#### duration
-
-`duration`
-
-- is **required**
-- type: `number`
-
-##### duration Type
-
-`number`
+| Property | Type   | Required     |
+| -------- | ------ | ------------ |
+| `start`  | string | **Required** |
 
 #### start
 
@@ -111,20 +99,22 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property | Type  | Required     |
+| -------- | ----- | ------------ |
+| `id`     | array | **Required** |
 
 #### id
 
 `id`
 
 - is **required**
-- type: `string`
+- type: `string[]`
 
 ##### id Type
 
-`string`
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 ## source
 
@@ -204,21 +194,9 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `object` with following properties:
 
-| Property   | Type   | Required     |
-| ---------- | ------ | ------------ |
-| `duration` | number | **Required** |
-| `start`    | string | **Required** |
-
-#### duration
-
-`duration`
-
-- is **required**
-- type: `number`
-
-##### duration Type
-
-`number`
+| Property | Type   | Required     |
+| -------- | ------ | ------------ |
+| `start`  | string | **Required** |
 
 #### start
 
@@ -281,20 +259,22 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property | Type  | Required     |
+| -------- | ----- | ------------ |
+| `id`     | array | **Required** |
 
 #### id
 
 `id`
 
 - is **required**
-- type: `string`
+- type: `string[]`
 
 ##### id Type
 
-`string`
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 #### source
 

@@ -107,6 +107,8 @@ export interface Cred {
 /**
  * значение числового типа для идентификации запроса на сервере
  *
+ * идентификатор сети
+ *
  * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
  *
  * идентификатор бизнеса
@@ -183,7 +185,7 @@ export interface BusinessGetNetworkDataRequestParams {
     /**
      * идентификатор сети
      */
-    networkID: number;
+    networkID: Id;
     /**
      * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
      * в массиве businesses
@@ -818,7 +820,7 @@ export interface PurpleWidgetConfiguration {
     calendarMode?:                           boolean;
     calendarModeHideTime?:                   boolean;
     clientBlockingSettings?:                 PurpleClientBlockingSettings;
-    clientCommentTitle?:                     boolean;
+    clientCommentTitle?:                     string;
     cracServer?:                             CracServer;
     cracSlotSize?:                           number;
     crunchv2?:                               boolean;
@@ -1821,6 +1823,7 @@ export enum DateLimitType {
 }
 
 export interface DateLimit {
+    _id?:           string;
     dateLimitFrom?: Date;
     dateLimitTo?:   Date;
 }
@@ -1940,7 +1943,7 @@ export interface FluffyWidgetConfiguration {
     calendarMode?:                           boolean;
     calendarModeHideTime?:                   boolean;
     clientBlockingSettings?:                 FluffyClientBlockingSettings;
-    clientCommentTitle?:                     boolean;
+    clientCommentTitle?:                     string;
     cracServer?:                             CracServer;
     cracSlotSize?:                           number;
     crunchv2?:                               boolean;
@@ -4491,7 +4494,7 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("BusinessGetNetworkDataRequestParams") },
     ], false),
     "BusinessGetNetworkDataRequestParams": o([
-        { json: "networkID", js: "networkID", typ: 3.14 },
+        { json: "networkID", js: "networkID", typ: u(3.14, "") },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
     "BusinessGetNetworkDataResponse": o([
@@ -4849,7 +4852,7 @@ const typeMap: any = {
         { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
         { json: "calendarModeHideTime", js: "calendarModeHideTime", typ: u(undefined, true) },
         { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("PurpleClientBlockingSettings")) },
-        { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, true) },
+        { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, "") },
         { json: "cracServer", js: "cracServer", typ: u(undefined, r("CracServer")) },
         { json: "cracSlotSize", js: "cracSlotSize", typ: u(undefined, 3.14) },
         { json: "crunchv2", js: "crunchv2", typ: u(undefined, true) },
@@ -5409,6 +5412,7 @@ const typeMap: any = {
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
     "DateLimit": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
@@ -5470,7 +5474,7 @@ const typeMap: any = {
         { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
         { json: "calendarModeHideTime", js: "calendarModeHideTime", typ: u(undefined, true) },
         { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("FluffyClientBlockingSettings")) },
-        { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, true) },
+        { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, "") },
         { json: "cracServer", js: "cracServer", typ: u(undefined, r("CracServer")) },
         { json: "cracSlotSize", js: "cracSlotSize", typ: u(undefined, 3.14) },
         { json: "crunchv2", js: "crunchv2", typ: u(undefined, true) },

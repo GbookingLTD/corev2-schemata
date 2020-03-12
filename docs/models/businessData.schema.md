@@ -34,7 +34,7 @@ schemas-json/models/businessData.schema.json
 | [calendarModeHideTime](#calendarmodehidetime)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [checkClientOverlapping](#checkclientoverlapping)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
 | [clientBlockingSettings](#clientblockingsettings)                                                   | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [clientCommentTitle](#clientcommenttitle)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
+| [clientCommentTitle](#clientcommenttitle)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [cracServer](#cracserver)                                                                           | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [cracSlotSize](#cracslotsize)                                                                       | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [crunchv2](#crunchv2)                                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
@@ -656,13 +656,12 @@ schemas-json/models/businessData.schema.json
 `clientCommentTitle`
 
 - is optional
-- type: `boolean`
-- default: `false`
+- type: `string`
 - defined in this schema
 
 ### clientCommentTitle Type
 
-`boolean`
+`string`
 
 ## cracServer
 
@@ -5199,7 +5198,7 @@ Array type: `array`
 | `calendarMode`                           | boolean | Optional | `false`         |
 | `calendarModeHideTime`                   | boolean | Optional | `false`         |
 | `clientBlockingSettings`                 | object  | Optional |                 |
-| `clientCommentTitle`                     | boolean | Optional | `false`         |
+| `clientCommentTitle`                     | string  | Optional |                 |
 | `cracServer`                             | string  | Optional |                 |
 | `cracSlotSize`                           | number  | Optional | `5`             |
 | `crunchv2`                               | boolean | Optional | `false`         |
@@ -5608,12 +5607,11 @@ Array type: `array`
 `clientCommentTitle`
 
 - is optional
-- type: `boolean`
-- default: `false`
+- type: `string`
 
 ##### clientCommentTitle Type
 
-`boolean`
+`string`
 
 #### cracServer
 

@@ -19,7 +19,7 @@ public class Client {
     private Sex sex;
     private String surname;
     private String taxiPark;
-    private FluffyTimeFrameDate taxiParkMemberCount;
+    private EvenTimeFrameDate taxiParkMemberCount;
 
     @JsonProperty("birthday")
     public Birthday getBirthday() { return birthday; }
@@ -82,7 +82,7 @@ public class Client {
     public void setTaxiPark(String value) { this.taxiPark = value; }
 
     @JsonProperty("taxiParkMemberCount")
-    public FluffyTimeFrameDate getTaxiParkMemberCount() { return taxiParkMemberCount; }
+    public EvenTimeFrameDate getTaxiParkMemberCount() { return taxiParkMemberCount; }
     @JsonProperty("taxiParkMemberCount")
-    public void setTaxiParkMemberCount(FluffyTimeFrameDate value) { this.taxiParkMemberCount = value; }
+    public void setTaxiParkMemberCount(EvenTimeFrameDate value) { this.taxiParkMemberCount = value; }
 }

@@ -143,7 +143,7 @@ let reserveAppointment = function (endpoint, businessId, taxonomy, resource, sta
     _validateReq('---> ' + pref, rpcRequestObject('appointment.reserve_appointment', params, {}));
     return rpcRequest('appointment.reserve_appointment', params, {}, endpoint);
   }).then(function(json) {
-    console.info('<--- ' + pref, json);
+    console.info('<--- ' + pref + ' %j', json);
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {

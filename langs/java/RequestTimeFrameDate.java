@@ -10,20 +10,22 @@ import com.fasterxml.jackson.databind.annotation.*;
 /**
  * значение числового типа для идентификации запроса на сервере
  *
+ * идентификатор сети
+ *
  * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
  *
  * идентификатор бизнеса
  */
-@JsonDeserialize(using = PurpleTimeFrameDate.Deserializer.class)
-@JsonSerialize(using = PurpleTimeFrameDate.Serializer.class)
-public class PurpleTimeFrameDate {
+@JsonDeserialize(using = RequestTimeFrameDate.Deserializer.class)
+@JsonSerialize(using = RequestTimeFrameDate.Serializer.class)
+public class RequestTimeFrameDate {
     public Double doubleValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<PurpleTimeFrameDate> {
+    static class Deserializer extends JsonDeserializer<RequestTimeFrameDate> {
         @Override
-        public PurpleTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            PurpleTimeFrameDate value = new PurpleTimeFrameDate();
+        public RequestTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            RequestTimeFrameDate value = new RequestTimeFrameDate();
             switch (jsonParser.getCurrentToken()) {
             case VALUE_NUMBER_INT:
             case VALUE_NUMBER_FLOAT:
@@ -32,15 +34,15 @@ public class PurpleTimeFrameDate {
             case VALUE_STRING:
                 value.stringValue = jsonParser.readValueAs(String.class);
                 break;
-            default: throw new IOException("Cannot deserialize PurpleTimeFrameDate");
+            default: throw new IOException("Cannot deserialize RequestTimeFrameDate");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<PurpleTimeFrameDate> {
+    static class Serializer extends JsonSerializer<RequestTimeFrameDate> {
         @Override
-        public void serialize(PurpleTimeFrameDate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(RequestTimeFrameDate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;
@@ -49,7 +51,7 @@ public class PurpleTimeFrameDate {
                 jsonGenerator.writeObject(obj.stringValue);
                 return;
             }
-            throw new IOException("PurpleTimeFrameDate must not be null");
+            throw new IOException("RequestTimeFrameDate must not be null");
         }
     }
 }

@@ -97,8 +97,8 @@ type BusinessGetNetworkDataRequest struct {
 
 // параметры запроса business.get_network_data
 type BusinessGetNetworkDataRequestParams struct {
-	NetworkID        float64 `json:"networkID"`                   // идентификатор сети
-	WithBusinessInfo *bool   `json:"with_business_info,omitempty"`// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу; в массиве businesses
+	NetworkID        *TimeFrameDate `json:"networkID"`                   // идентификатор сети
+	WithBusinessInfo *bool          `json:"with_business_info,omitempty"`// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу; в массиве businesses
 }
 
 type BusinessGetNetworkDataResponse struct {
@@ -491,7 +491,7 @@ type PurpleWidgetConfiguration struct {
 	CalendarMode                           *bool                          `json:"calendarMode,omitempty"`                          
 	CalendarModeHideTime                   *bool                          `json:"calendarModeHideTime,omitempty"`                  
 	ClientBlockingSettings                 *PurpleClientBlockingSettings  `json:"clientBlockingSettings,omitempty"`                
-	ClientCommentTitle                     *bool                          `json:"clientCommentTitle,omitempty"`                    
+	ClientCommentTitle                     *string                        `json:"clientCommentTitle,omitempty"`                    
 	CracServer                             *CracServer                    `json:"cracServer,omitempty"`                            
 	CracSlotSize                           *float64                       `json:"cracSlotSize,omitempty"`                          
 	Crunchv2                               *bool                          `json:"crunchv2,omitempty"`                              
@@ -1095,6 +1095,7 @@ type AdjacentTaxonomy struct {
 }
 
 type DateLimit struct {
+	ID            *string `json:"_id,omitempty"`          
 	DateLimitFrom *string `json:"dateLimitFrom,omitempty"`
 	DateLimitTo   *string `json:"dateLimitTo,omitempty"`  
 }
@@ -1165,7 +1166,7 @@ type FluffyWidgetConfiguration struct {
 	CalendarMode                           *bool                          `json:"calendarMode,omitempty"`                          
 	CalendarModeHideTime                   *bool                          `json:"calendarModeHideTime,omitempty"`                  
 	ClientBlockingSettings                 *FluffyClientBlockingSettings  `json:"clientBlockingSettings,omitempty"`                
-	ClientCommentTitle                     *bool                          `json:"clientCommentTitle,omitempty"`                    
+	ClientCommentTitle                     *string                        `json:"clientCommentTitle,omitempty"`                    
 	CracServer                             *CracServer                    `json:"cracServer,omitempty"`                            
 	CracSlotSize                           *float64                       `json:"cracSlotSize,omitempty"`                          
 	Crunchv2                               *bool                          `json:"crunchv2,omitempty"`                              
@@ -2184,6 +2185,8 @@ func (x *Request) MarshalJSON() ([]byte, error) {
 }
 
 // значение числового типа для идентификации запроса на сервере
+//
+// идентификатор сети
 //
 // идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
 //

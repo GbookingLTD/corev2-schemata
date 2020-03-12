@@ -58,6 +58,18 @@ The value of this property **must** be equal to one of the [known values below](
 | -------- | ------------------------------------------------------ |
 | `-10000` | UNKNOWN_ERROR - Unknown error occurred                 |
 | `-10200` | BUSINESS_RETRIEVE_FAILED - Failed to retrieve business |
+| `-10001` |                                                        |
+| `-11800` |                                                        |
+| `-14100` |                                                        |
+| `-14500` |                                                        |
+| `-14600` |                                                        |
+| `-14610` |                                                        |
+| `-14650` |                                                        |
+| `-14700` |                                                        |
+| `-14800` |                                                        |
+| `-14900` |                                                        |
+| `-14901` |                                                        |
+| `-15200` |                                                        |
 
 ## id
 

@@ -50,7 +50,7 @@ schemas-json/models/business.schema.json
 | [checkClientOverlapping](#checkclientoverlapping)                                                   | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [childrenTaxonomyTypes](#childrentaxonomytypes)                                                     | `enum[]`   | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [clientBlockingSettings](#clientblockingsettings)                                                   | `object`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
-| [clientCommentTitle](#clientcommenttitle)                                                           | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [clientCommentTitle](#clientcommenttitle)                                                           | `string`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [color](#color)                                                                                     | `string`   | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [confirmationAlert](#confirmationalert)                                                             | `string`   | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [confirmationSmsAlert](#confirmationsmsalert)                                                       | `string`   | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
@@ -993,13 +993,12 @@ All items must be of the type: `string`
 `clientCommentTitle`
 
 - is optional
-- type: `boolean`
-- default: `false`
+- type: `string`
 - defined in this schema
 
 ### clientCommentTitle Type
 
-`boolean`
+`string`
 
 ## color
 
@@ -1148,8 +1147,20 @@ All items must be of the type: `object` with following properties:
 
 | Property        | Type   | Required |
 | --------------- | ------ | -------- |
+| `_id`           | string | Optional |
 | `dateLimitFrom` | string | Optional |
 | `dateLimitTo`   | string | Optional |
+
+#### \_id
+
+`_id`
+
+- is optional
+- type: `string`
+
+##### \_id Type
+
+`string`
 
 #### dateLimitFrom
 
@@ -6282,7 +6293,7 @@ Array type: `array`
 | `calendarMode`                           | boolean | Optional | `false`         |
 | `calendarModeHideTime`                   | boolean | Optional | `false`         |
 | `clientBlockingSettings`                 | object  | Optional |                 |
-| `clientCommentTitle`                     | boolean | Optional | `false`         |
+| `clientCommentTitle`                     | string  | Optional |                 |
 | `cracServer`                             | string  | Optional |                 |
 | `cracSlotSize`                           | number  | Optional | `5`             |
 | `crunchv2`                               | boolean | Optional | `false`         |
@@ -6691,12 +6702,11 @@ Array type: `array`
 `clientCommentTitle`
 
 - is optional
-- type: `boolean`
-- default: `false`
+- type: `string`
 
 ##### clientCommentTitle Type
 
-`boolean`
+`string`
 
 #### cracServer
 

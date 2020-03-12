@@ -242,7 +242,7 @@ namespace GBookingCoreV2
         /// идентификатор сети
         /// </summary>
         [JsonProperty("networkID")]
-        public double NetworkId { get; set; }
+        public Id NetworkId { get; set; }
 
         /// <summary>
         /// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
@@ -1310,7 +1310,7 @@ namespace GBookingCoreV2
         public PurpleClientBlockingSettings ClientBlockingSettings { get; set; }
 
         [JsonProperty("clientCommentTitle", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ClientCommentTitle { get; set; }
+        public string ClientCommentTitle { get; set; }
 
         [JsonProperty("cracServer", NullValueHandling = NullValueHandling.Ignore)]
         public CracServer? CracServer { get; set; }
@@ -3198,6 +3198,9 @@ namespace GBookingCoreV2
 
     public partial class DateLimit
     {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
         [JsonProperty("dateLimitFrom", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? DateLimitFrom { get; set; }
 
@@ -3370,7 +3373,7 @@ namespace GBookingCoreV2
         public FluffyClientBlockingSettings ClientBlockingSettings { get; set; }
 
         [JsonProperty("clientCommentTitle", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ClientCommentTitle { get; set; }
+        public string ClientCommentTitle { get; set; }
 
         [JsonProperty("cracServer", NullValueHandling = NullValueHandling.Ignore)]
         public CracServer? CracServer { get; set; }
@@ -5151,6 +5154,8 @@ namespace GBookingCoreV2
 
     /// <summary>
     /// значение числового типа для идентификации запроса на сервере
+    ///
+    /// идентификатор сети
     ///
     /// идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
     ///

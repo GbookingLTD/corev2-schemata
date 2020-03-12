@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class CracSlotsGetCRACInsuranceResourcesAndRoomsRequest {
     private Cred cred;
-    private PurpleTimeFrameDate id;
+    private RequestTimeFrameDate id;
     private String jsonrpc;
     private String method;
     private CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams params;
@@ -22,9 +22,9 @@ public class CracSlotsGetCRACInsuranceResourcesAndRoomsRequest {
      * значение числового типа для идентификации запроса на сервере
      */
     @JsonProperty("id")
-    public PurpleTimeFrameDate getID() { return id; }
+    public RequestTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleTimeFrameDate value) { this.id = value; }
+    public void setID(RequestTimeFrameDate value) { this.id = value; }
 
     /**
      * версия протокола - 2.0
