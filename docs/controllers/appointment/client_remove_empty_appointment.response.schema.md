@@ -10,12 +10,12 @@ schemas-json/controllers/appointment/client_remove_empty_appointment.response.sc
 
 # appointment.client_remove_empty_appointment.response Definitions
 
-| Property            | Type     | Group                                                                                                                    |
-| ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [error](#error)     | complex  | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/ErrorCodes`      |
-| [id](#id)           | `number` | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/SuccessResponse` |
-| [jsonrpc](#jsonrpc) | `const`  | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/SuccessResponse` |
-| [result](#result)   | `object` | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/SuccessResponse` |
+| Property            | Type      | Group                                                                                                                    |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| [error](#error)     | complex   | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/ErrorCodes`      |
+| [id](#id)           | `number`  | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/SuccessResponse` |
+| [jsonrpc](#jsonrpc) | `const`   | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/SuccessResponse` |
+| [result](#result)   | `boolean` | `schemas-json/controllers/appointment/client_remove_empty_appointment.response.schema.json#/definitions/SuccessResponse` |
 
 ## error
 
@@ -96,31 +96,12 @@ The value of this property **must** be equal to:
 `result`
 
 - is **required**
-- type: `object`
+- type: `boolean`
 - defined in this schema
 
 ### result Type
 
-`object`, nullable, with following properties:
-
-| Property      | Type   | Required     |
-| ------------- | ------ | ------------ |
-| `appointment` | object | **Required** |
-
-#### appointment
-
-`appointment`
-
-- is **required**
-- type: `object`
-
-##### appointment Type
-
-`object` with following properties:
-
-| Property | Type | Required |
-| -------- | ---- | -------- |
-
+`boolean`
 
 **One** of the following _conditions_ need to be fulfilled.
 
