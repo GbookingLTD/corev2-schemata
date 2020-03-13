@@ -102,7 +102,7 @@ definitions:
   Review:
     type: "object"
     additionalProperties: false
-    required: ["rate", "comment"]
+    required: []
     properties:
       rate:
         type: "number"
@@ -226,6 +226,42 @@ definitions:
       extraData:
         type: "object"
 
+  Price:
+    type: "object"
+    additionalProperties: false
+    required:
+      - amount
+      - currency
+      - additionalTaxonomyDiscount
+    properties:
+      amount:
+        type: "number"
+      originalAmount:
+        type: "number"
+      discount:
+        type: "number"
+      discountType:
+        type: "string"
+      discountProvider:
+        type: "string"
+        enum: ['LOCAL', 'YANDEX', 'GROUPON']
+      currency:
+        $ref: "./partials/currency.schema.json#/definitions/CurrencyList"
+      additionalTaxonomyDiscount:
+        type: "object"
+        additionalProperties: false
+        required: []
+        properties:
+          taxonomyID:
+            type: "string"
+          discount:
+            type: "number"
+          discountType:
+            type: "string"
+          discountProvider:
+            type: "string"
+            enum: ['LOCAL', 'YANDEX', 'GROUPON']
+
   AppointmentInfo:
     type: "object"
     additionalProperties: false
@@ -240,6 +276,8 @@ definitions:
       - "created"
       - "updated"
       - "status"
+      - "drinkAnswer"
+      - "talkAnswer"
       - "price"
       - "shortId"
     properties:
@@ -268,8 +306,17 @@ definitions:
         format: "date-time"
       status:
         $ref: "#/definitions/AppointmentStatus"
+
+      drinkAnswer:
+        type: "string"
+        enum: ['NOT_IMPORTANT', 'TEA', 'COFFEE']
+        default: 'NOT_IMPORTANT'
+      talkAnswer:
+        type: "string"
+        enum: ['NOT_IMPORTANT', 'TALK', 'NOT_TALK']
+        default: 'NOT_IMPORTANT'
       price:
-        $ref: ""
+        $ref: "#/definitions/Price"
       shortId:
         type: "string"
 
@@ -331,17 +378,13 @@ properties:
     type: "object"
   masterImportance:
     type: "boolean"
-  drinkAnswer:
-    type: "boolean"
-  talkAnswer:
-    type: "boolean"
 
   adjacentId:
     type: "string"
   cabinet:
     type: "object"
     additionalProperties: false
-    required: ["id"]
+    required: []
     properties:
       id:
         type: "string"
@@ -484,7 +527,7 @@ properties:
   showcase:
     type: "object"
     additionalProperties: false
-    required: ["businessID"]
+    required: []
     properties:
       businessID:
         type: "string"
@@ -498,7 +541,13 @@ properties:
         type: "string"
 
   client:
-    $ref: "#/definitions/AppointmentClient"
+    oneOf:
+     - $ref: "#/definitions/AppointmentClient"
+     - type: "object"
+       description: "пустой объект в момент резервирования"
+       required: []
+       additionalProperties: false
+       properties: {}
 
   client_med_code:
     type: "string"
@@ -509,30 +558,35 @@ properties:
       $ref: "#/definitions/AppointmentClient"
 
   removedClientsData:
-    type: "object"
-    additionalProperties: false
-    required: ["client"]
-    properties:
-      client:
-        $ref: "#/definitions/AppointmentClient"
-      status:
-        $ref: "#/definitions/AppointmentStatus"
-      payment:
-        $ref: "#/definitions/AppointmentClientPayment"
-      payment_invoice:
-        type: "string"
-      appear:
-        $ref: "#/definitions/AppointmentClientAppear"
-      created:
-        type: "string"
-        format: "date-time"
-      source:
-        type: "string"
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["client"]
+      properties:
+        client:
+          $ref: "#/definitions/AppointmentClient"
+        status:
+          $ref: "#/definitions/AppointmentStatus"
+        payment:
+          $ref: "#/definitions/AppointmentClientPayment"
+        payment_invoice:
+          type: "string"
+        appear:
+          $ref: "#/definitions/AppointmentClientAppear"
+        created:
+          type: "string"
+          format: "date-time"
+        source:
+          type: "string"
 
   review:
     type: "object"
     additionalProperties: false
-    required: []
+    required:
+      - worker
+      - taxonomy
+      - business
     properties:
       worker:
         $ref: "#/definitions/Review"
@@ -587,10 +641,10 @@ properties:
   reminder:
     type: "object"
     additionalProperties: false
-    required: ["extraId"]
+    required: ["status", "time_reminder"]
     properties:
       status:
-        type: "boolean"
+        type: "string"
         enum: ["ON", "OFF", "NOT_SET"]
       time_reminder:
         type: "number"

@@ -41,7 +41,7 @@ public class Info {
     private String shortName;
     private Boolean showAppointmentColor;
     private Boolean showAppointmentTooltip;
-    private List<Showcase> showcases;
+    private List<ShowcaseElement> showcases;
     private Boolean showResourceWorkStatistics;
     private Boolean showWorkerProfession;
     private Boolean skipBilling;
@@ -240,9 +240,9 @@ public class Info {
      * идентификаторы витрин, в которых участвует данный бизнес
      */
     @JsonProperty("showcases")
-    public List<Showcase> getShowcases() { return showcases; }
+    public List<ShowcaseElement> getShowcases() { return showcases; }
     @JsonProperty("showcases")
-    public void setShowcases(List<Showcase> value) { this.showcases = value; }
+    public void setShowcases(List<ShowcaseElement> value) { this.showcases = value; }
 
     @JsonProperty("showResourceWorkStatistics")
     public Boolean getShowResourceWorkStatistics() { return showResourceWorkStatistics; }

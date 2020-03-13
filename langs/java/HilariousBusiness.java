@@ -4,10 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class HilariousBusiness {
-    private String id;
+    private RequestTimeFrameDate id;
 
+    /**
+     * идентификатор бизнеса
+     */
     @JsonProperty("id")
-    public String getID() { return id; }
+    public RequestTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(String value) { this.id = value; }
+    public void setID(RequestTimeFrameDate value) { this.id = value; }
 }

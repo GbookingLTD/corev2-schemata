@@ -91,11 +91,23 @@ schemas-json/CoreV2.schema.json
 
 `object` with following properties:
 
-| Property    | Type | Required     |
-| ----------- | ---- | ------------ |
-| `Business`  |      | **Required** |
-| `Client`    |      | **Required** |
-| `CracSlots` |      | **Required** |
+| Property      | Type | Required     |
+| ------------- | ---- | ------------ |
+| `Appointment` |      | **Required** |
+| `Business`    |      | **Required** |
+| `Client`      |      | **Required** |
+| `CracSlots`   |      | **Required** |
+
+#### Appointment
+
+`Appointment`
+
+- is **required**
+- type: reference
+
+##### Appointment Type
+
+- []() – `./controllers/appointment.schema.json`
 
 #### Business
 
@@ -142,10 +154,22 @@ schemas-json/CoreV2.schema.json
 
 `object` with following properties:
 
-| Property   | Type | Required     |
-| ---------- | ---- | ------------ |
-| `Business` |      | **Required** |
-| `Client`   |      | **Required** |
+| Property      | Type | Required     |
+| ------------- | ---- | ------------ |
+| `Appointment` |      | **Required** |
+| `Business`    |      | **Required** |
+| `Client`      |      | **Required** |
+
+#### Appointment
+
+`Appointment`
+
+- is **required**
+- type: reference
+
+##### Appointment Type
+
+- []() – `./models/appointment.schema.json`
 
 #### Business
 

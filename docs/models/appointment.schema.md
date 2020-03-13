@@ -10,68 +10,77 @@ schemas-json/models/appointment.schema.json
 
 # Definitions
 
-| Property                                    | Type      | Group                                                                                |
-| ------------------------------------------- | --------- | ------------------------------------------------------------------------------------ |
-| [GAClientID](#gaclientid)                   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [adminComment](#admincomment)               | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [alias](#alias)                             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentTaxonomy`       |
-| [areaCode](#areacode)                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
-| [backofficeID](#backofficeid)               | multiple  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [birthday](#birthday)                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [blockSMS](#blocksms)                       | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [clientCardNumber](#clientcardnumber)       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [comment](#comment)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Review`                    |
-| [complaintActionText](#complaintactiontext) | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
-| [complaintStatus](#complaintstatus)         | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
-| [complaintText](#complainttext)             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
-| [countryCode](#countrycode)                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
-| [created](#created)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [creatorProfileID](#creatorprofileid)       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [creatorProfileName](#creatorprofilename)   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [driverLicense](#driverlicense)             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [duration](#duration)                       | `number`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [email](#email)                             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [extraData](#extradata)                     | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [extraID](#extraid)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [extraId](#extraid-1)                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentTaxonomy`       |
-| [extraVisitors](#extravisitors)             | `number`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [fax](#fax)                                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [feedback](#feedback)                       | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [fieldID](#fieldid)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/ExtraField`                |
-| [fieldName](#fieldname)                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/ExtraField`                |
-| [hideAppointmentTime](#hideappointmenttime) | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [houseNumber](#housenumber)                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [id](#id)                                   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [incomingPhone](#incomingphone)             | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [inprogress](#inprogress)                   | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
-| [isVIP](#isvip)                             | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [israelCity](#israelcity)                   | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [kupatHolim](#kupatholim)                   | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [language](#language)                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [middleName](#middlename)                   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [name](#name)                               | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [number](#number)                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
-| [originalMessage](#originalmessage)         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
-| [passportId](#passportid)                   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [phone](#phone)                             | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [price](#price)                             | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [rate](#rate)                               | `number`  | `schemas-json/models/appointment.schema.json#/definitions/Review`                    |
-| [rating](#rating)                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
-| [requiredField](#requiredfield)             | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AdditionalField`           |
-| [seasonTicketId](#seasonticketid)           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [seasonTicketNumber](#seasonticketnumber)   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [sex](#sex)                                 | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [shortId](#shortid)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [shortName](#shortname)                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AdditionalField`           |
-| [start](#start)                             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [status](#status)                           | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [surname](#surname)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [taxiPark](#taxipark)                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [taxiParkMemberCount](#taxiparkmembercount) | `number`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
-| [testRecord](#testrecord)                   | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [type](#type)                               | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AdditionalField`           |
-| [updated](#updated)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [value](#value)                             | multiple  | `schemas-json/models/appointment.schema.json#/definitions/ExtraField`                |
+| Property                                                  | Type      | Group                                                                                |
+| --------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------ |
+| [GAClientID](#gaclientid)                                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [additionalTaxonomyDiscount](#additionaltaxonomydiscount) | `object`  | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [adminComment](#admincomment)                             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [alias](#alias)                                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentTaxonomy`       |
+| [amount](#amount)                                         | `number`  | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [areaCode](#areacode)                                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
+| [backofficeID](#backofficeid)                             | multiple  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [birthday](#birthday)                                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [blockSMS](#blocksms)                                     | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [clientCardNumber](#clientcardnumber)                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [comment](#comment)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Review`                    |
+| [complaintActionText](#complaintactiontext)               | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [complaintStatus](#complaintstatus)                       | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [complaintText](#complainttext)                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [countryCode](#countrycode)                               | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
+| [created](#created)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [creatorProfileID](#creatorprofileid)                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [creatorProfileName](#creatorprofilename)                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [currency](#currency)                                     | reference | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [discount](#discount)                                     | `number`  | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [discountProvider](#discountprovider)                     | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [discountType](#discounttype)                             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [drinkAnswer](#drinkanswer)                               | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [driverLicense](#driverlicense)                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [duration](#duration)                                     | `number`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [email](#email)                                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [extraData](#extradata)                                   | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [extraID](#extraid)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [extraId](#extraid-1)                                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentTaxonomy`       |
+| [extraVisitors](#extravisitors)                           | `number`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [fax](#fax)                                               | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [feedback](#feedback)                                     | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [fieldID](#fieldid)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/ExtraField`                |
+| [fieldName](#fieldname)                                   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/ExtraField`                |
+| [hideAppointmentTime](#hideappointmenttime)               | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [houseNumber](#housenumber)                               | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [id](#id)                                                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [incomingPhone](#incomingphone)                           | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [inprogress](#inprogress)                                 | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [isVIP](#isvip)                                           | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [israelCity](#israelcity)                                 | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [kupatHolim](#kupatholim)                                 | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [language](#language)                                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [middleName](#middlename)                                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [name](#name)                                             | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [number](#number)                                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
+| [originalAmount](#originalamount)                         | `number`  | `schemas-json/models/appointment.schema.json#/definitions/Price`                     |
+| [originalMessage](#originalmessage)                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [passportId](#passportid)                                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [phone](#phone)                                           | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [price](#price)                                           | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [rate](#rate)                                             | `number`  | `schemas-json/models/appointment.schema.json#/definitions/Review`                    |
+| [rating](#rating)                                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [requiredField](#requiredfield)                           | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AdditionalField`           |
+| [seasonTicketId](#seasonticketid)                         | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [seasonTicketNumber](#seasonticketnumber)                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [sex](#sex)                                               | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [shortId](#shortid)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [shortName](#shortname)                                   | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AdditionalField`           |
+| [start](#start)                                           | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [status](#status)                                         | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [surname](#surname)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [talkAnswer](#talkanswer)                                 | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [taxiPark](#taxipark)                                     | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [taxiParkMemberCount](#taxiparkmembercount)               | `number`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
+| [testRecord](#testrecord)                                 | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [type](#type)                                             | `enum`    | `schemas-json/models/appointment.schema.json#/definitions/AdditionalField`           |
+| [updated](#updated)                                       | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
+| [value](#value)                                           | multiple  | `schemas-json/models/appointment.schema.json#/definitions/ExtraField`                |
 
 ## GAClientID
 
@@ -82,6 +91,76 @@ schemas-json/models/appointment.schema.json
 - defined in this schema
 
 ### GAClientID Type
+
+`string`
+
+## additionalTaxonomyDiscount
+
+`additionalTaxonomyDiscount`
+
+- is **required**
+- type: `object`
+- defined in this schema
+
+### additionalTaxonomyDiscount Type
+
+`object` with following properties:
+
+| Property           | Type   | Required |
+| ------------------ | ------ | -------- |
+| `discount`         | number | Optional |
+| `discountProvider` | string | Optional |
+| `discountType`     | string | Optional |
+| `taxonomyID`       | string | Optional |
+
+#### discount
+
+`discount`
+
+- is optional
+- type: `number`
+
+##### discount Type
+
+`number`
+
+#### discountProvider
+
+`discountProvider`
+
+- is optional
+- type: `enum`
+
+The value of this property **must** be equal to one of the
+[known values below](#additionaltaxonomydiscount-known-values).
+
+##### discountProvider Known Values
+
+| Value     | Description |
+| --------- | ----------- |
+| `LOCAL`   |             |
+| `YANDEX`  |             |
+| `GROUPON` |             |
+
+#### discountType
+
+`discountType`
+
+- is optional
+- type: `string`
+
+##### discountType Type
+
+`string`
+
+#### taxonomyID
+
+`taxonomyID`
+
+- is optional
+- type: `string`
+
+##### taxonomyID Type
 
 `string`
 
@@ -108,6 +187,18 @@ schemas-json/models/appointment.schema.json
 ### alias Type
 
 `string`
+
+## amount
+
+`amount`
+
+- is **required**
+- type: `number`
+- defined in this schema
+
+### amount Type
+
+`number`
 
 ## areaCode
 
@@ -177,7 +268,7 @@ Either one of:
 
 `comment`
 
-- is **required**
+- is optional
 - type: `string`
 - defined in this schema
 
@@ -279,6 +370,79 @@ The value of this property **must** be equal to one of the [known values below](
 ### creatorProfileName Type
 
 `string`
+
+## currency
+
+`currency`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### currency Type
+
+- []() – `./partials/currency.schema.json#/definitions/CurrencyList`
+
+## discount
+
+`discount`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### discount Type
+
+`number`
+
+## discountProvider
+
+`discountProvider`
+
+- is optional
+- type: `enum`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#discountprovider-known-values).
+
+### discountProvider Known Values
+
+| Value     | Description |
+| --------- | ----------- |
+| `LOCAL`   |             |
+| `YANDEX`  |             |
+| `GROUPON` |             |
+
+## discountType
+
+`discountType`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### discountType Type
+
+`string`
+
+## drinkAnswer
+
+`drinkAnswer`
+
+- is **required**
+- type: `enum`
+- default: `"NOT_IMPORTANT"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#drinkanswer-known-values).
+
+### drinkAnswer Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `NOT_IMPORTANT` |             |
+| `TEA`           |             |
+| `COFFEE`        |             |
 
 ## driverLicense
 
@@ -614,6 +778,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `string`
 
+## originalAmount
+
+`originalAmount`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### originalAmount Type
+
+`number`
+
 ## originalMessage
 
 `originalMessage`
@@ -660,13 +836,13 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### price Type
 
-- []() – ``
+- []() – `#/definitions/Price`
 
 ## rate
 
 `rate`
 
-- is **required**
+- is optional
 - type: `number`
 - defined in this schema
 
@@ -802,6 +978,25 @@ The value of this property **must** be equal to one of the [known values below](
 
 `string`
 
+## talkAnswer
+
+`talkAnswer`
+
+- is **required**
+- type: `enum`
+- default: `"NOT_IMPORTANT"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#talkanswer-known-values).
+
+### talkAnswer Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `NOT_IMPORTANT` |             |
+| `TALK`          |             |
+| `NOT_TALK`      |             |
+
 ## taxiPark
 
 `taxiPark`
@@ -913,7 +1108,7 @@ Either one of:
 | [cabinet](#cabinet)                                   | `object`   | **Required** | No       |         | (this schema) |
 | [capacity](#capacity)                                 | `number`   | Optional     | No       | `1`     | (this schema) |
 | [changeReason](#changereason)                         | `string`   | **Required** | No       | `""`    | (this schema) |
-| [client](#client)                                     | `object`   | **Required** | No       |         | (this schema) |
+| [client](#client)                                     | complex    | **Required** | No       |         | (this schema) |
 | [clientComment](#clientcomment)                       | `string`   | **Required** | No       | `""`    | (this schema) |
 | [clientVisitors](#clientvisitors)                     | reference  | **Required** | No       |         | (this schema) |
 | [client_appear](#client_appear)                       | `enum`     | **Required** | No       |         | (this schema) |
@@ -923,7 +1118,6 @@ Either one of:
 | [color](#color)                                       | `string`   | Optional     | No       |         | (this schema) |
 | [destinationKeyword](#destinationkeyword)             | `string`   | Optional     | No       |         | (this schema) |
 | [destinationLink](#destinationlink)                   | `string`   | Optional     | No       |         | (this schema) |
-| [drinkAnswer](#drinkanswer)                           | `boolean`  | Optional     | No       |         | (this schema) |
 | [extraFields](#extrafields)                           | reference  | **Required** | No       |         | (this schema) |
 | [gt](#gt)                                             | `boolean`  | Optional     | No       |         | (this schema) |
 | [gtTimeFrame](#gttimeframe)                           | `string`   | Optional     | No       |         | (this schema) |
@@ -943,14 +1137,13 @@ Either one of:
 | [refererLink](#refererlink)                           | `string`   | Optional     | No       |         | (this schema) |
 | [referrer](#referrer)                                 | `string`   | Optional     | No       |         | (this schema) |
 | [reminder](#reminder)                                 | `object`   | **Required** | No       |         | (this schema) |
-| [removedClientsData](#removedclientsdata)             | `object`   | **Required** | No       |         | (this schema) |
+| [removedClientsData](#removedclientsdata)             | `object[]` | **Required** | No       |         | (this schema) |
 | [resource](#resource)                                 | `object`   | **Required** | No       |         | (this schema) |
 | [review](#review)                                     | `object`   | **Required** | No       |         | (this schema) |
 | [room](#room)                                         | `object`   | Optional     | No       |         | (this schema) |
 | [showcase](#showcase)                                 | `object`   | **Required** | No       |         | (this schema) |
 | [socialToken](#socialtoken)                           | `string`   | Optional     | No       |         | (this schema) |
 | [source](#source)                                     | `string`   | **Required** | No       |         | (this schema) |
-| [talkAnswer](#talkanswer)                             | `boolean`  | Optional     | No       |         | (this schema) |
 | [taxonomy](#taxonomy)                                 | `object`   | **Required** | No       |         | (this schema) |
 | [utm](#utm)                                           | `object`   | Optional     | No       |         | (this schema) |
 | [withCoSale](#withcosale)                             | `boolean`  | Optional     | No       |         | (this schema) |
@@ -1305,20 +1498,22 @@ All items must be of the type:
 
 `object` with following properties:
 
-| Property              | Type          | Required     | Default |
-| --------------------- | ------------- | ------------ | ------- |
-| `backofficeID`        | string,number | **Required** | `0`     |
-| `blockSMS`            | boolean       | **Required** |         |
-| `created`             | string        | **Required** |         |
-| `duration`            | number        | **Required** |         |
-| `hideAppointmentTime` | boolean       | **Required** |         |
-| `id`                  | string        | **Required** |         |
-| `price`               |               | **Required** |         |
-| `shortId`             | string        | **Required** |         |
-| `start`               | string        | **Required** |         |
-| `status`              |               | **Required** |         |
-| `testRecord`          | boolean       | **Required** | `false` |
-| `updated`             | string        | **Required** |         |
+| Property              | Type          | Required     | Default           |
+| --------------------- | ------------- | ------------ | ----------------- |
+| `backofficeID`        | string,number | **Required** | `0`               |
+| `blockSMS`            | boolean       | **Required** |                   |
+| `created`             | string        | **Required** |                   |
+| `drinkAnswer`         | string        | **Required** | `"NOT_IMPORTANT"` |
+| `duration`            | number        | **Required** |                   |
+| `hideAppointmentTime` | boolean       | **Required** |                   |
+| `id`                  | string        | **Required** |                   |
+| `price`               |               | **Required** |                   |
+| `shortId`             | string        | **Required** |                   |
+| `start`               | string        | **Required** |                   |
+| `status`              |               | **Required** |                   |
+| `talkAnswer`          | string        | **Required** | `"NOT_IMPORTANT"` |
+| `testRecord`          | boolean       | **Required** | `false`           |
+| `updated`             | string        | **Required** |                   |
 
 #### backofficeID
 
@@ -1364,6 +1559,24 @@ Unknown type `string,number`.
 
 - format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
+#### drinkAnswer
+
+`drinkAnswer`
+
+- is **required**
+- type: `enum`
+- default: `"NOT_IMPORTANT"`
+
+The value of this property **must** be equal to one of the [known values below](#appointment-known-values).
+
+##### drinkAnswer Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `NOT_IMPORTANT` |             |
+| `TEA`           |             |
+| `COFFEE`        |             |
+
 #### duration
 
 `duration`
@@ -1406,7 +1619,7 @@ Unknown type `string,number`.
 
 ##### price Type
 
-- []() – ``
+- []() – `#/definitions/Price`
 
 #### shortId
 
@@ -1442,6 +1655,24 @@ Unknown type `string,number`.
 ##### status Type
 
 - []() – `#/definitions/AppointmentStatus`
+
+#### talkAnswer
+
+`talkAnswer`
+
+- is **required**
+- type: `enum`
+- default: `"NOT_IMPORTANT"`
+
+The value of this property **must** be equal to one of the [known values below](#appointment-known-values).
+
+##### talkAnswer Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `NOT_IMPORTANT` |             |
+| `TALK`          |             |
+| `NOT_TALK`      |             |
 
 #### testRecord
 
@@ -1533,15 +1764,15 @@ All items must be of the type: `string`
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property | Type   | Required |
+| -------- | ------ | -------- |
+| `id`     | string | Optional |
 
 #### id
 
 `id`
 
-- is **required**
+- is optional
 - type: `string`
 
 ##### id Type
@@ -1579,475 +1810,24 @@ All items must be of the type: `string`
 `client`
 
 - is **required**
-- type: `object`
+- type: complex
 - defined in this schema
 
 ### client Type
 
-`object` with following properties:
+**One** of the following _conditions_ need to be fulfilled.
 
-| Property              | Type    | Required     |
-| --------------------- | ------- | ------------ |
-| `GAClientID`          | string  | Optional     |
-| `address`             | string  | Optional     |
-| `adminComment`        | string  | Optional     |
-| `birthday`            | string  | Optional     |
-| `clientCardNumber`    | string  | Optional     |
-| `clientComment`       | string  | Optional     |
-| `creatorProfileID`    | string  | Optional     |
-| `creatorProfileName`  | string  | Optional     |
-| `driverLicense`       | string  | Optional     |
-| `email`               | string  | Optional     |
-| `extraData`           | object  | Optional     |
-| `extraID`             | string  | Optional     |
-| `extraVisitors`       | number  | Optional     |
-| `fax`                 | string  | Optional     |
-| `feedback`            |         | Optional     |
-| `houseNumber`         | string  | Optional     |
-| `id`                  | string  | **Required** |
-| `incomingPhone`       |         | Optional     |
-| `isVIP`               | boolean | Optional     |
-| `israelCity`          | object  | Optional     |
-| `kupatHolim`          | object  | Optional     |
-| `language`            | string  | Optional     |
-| `middleName`          | string  | Optional     |
-| `name`                | string  | **Required** |
-| `passportId`          | string  | Optional     |
-| `phone`               |         | Optional     |
-| `seasonTicketId`      | string  | Optional     |
-| `seasonTicketNumber`  | string  | Optional     |
-| `sex`                 | string  | Optional     |
-| `shortId`             | string  | Optional     |
-| `surname`             | string  | **Required** |
-| `taxiPark`            | string  | Optional     |
-| `taxiParkMemberCount` | number  | Optional     |
+#### Condition 1
 
-#### GAClientID
+- []() – `#/definitions/AppointmentClient`
 
-`GAClientID`
-
-- is optional
-- type: `string`
-
-##### GAClientID Type
-
-`string`
-
-#### address
-
-`address`
-
-- is optional
-- type: `string`
-
-##### address Type
-
-`string`
-
-#### adminComment
-
-`adminComment`
-
-- is optional
-- type: `string`
-
-##### adminComment Type
-
-`string`
-
-#### birthday
-
-`birthday`
-
-- is optional
-- type: `string`
-
-##### birthday Type
-
-`string`
-
-#### clientCardNumber
-
-`clientCardNumber`
-
-- is optional
-- type: `string`
-
-##### clientCardNumber Type
-
-`string`
-
-#### clientComment
-
-`clientComment`
-
-- is optional
-- type: `string`
-
-##### clientComment Type
-
-`string`
-
-#### creatorProfileID
-
-`creatorProfileID`
-
-- is optional
-- type: `string`
-
-##### creatorProfileID Type
-
-`string`
-
-#### creatorProfileName
-
-`creatorProfileName`
-
-- is optional
-- type: `string`
-
-##### creatorProfileName Type
-
-`string`
-
-#### driverLicense
-
-`driverLicense`
-
-- is optional
-- type: `string`
-
-##### driverLicense Type
-
-`string`
-
-#### email
-
-`email`
-
-- is optional
-- type: `string`
-
-##### email Type
-
-`string`
-
-#### extraData
-
-`extraData`
-
-- is optional
-- type: `object`
-
-##### extraData Type
+#### Condition 2
 
 `object` with following properties:
 
 | Property | Type | Required |
 | -------- | ---- | -------- |
 
-
-#### extraID
-
-`extraID`
-
-- is optional
-- type: `string`
-
-##### extraID Type
-
-`string`
-
-#### extraVisitors
-
-`extraVisitors`
-
-- is optional
-- type: `number`
-
-##### extraVisitors Type
-
-`number`
-
-#### fax
-
-`fax`
-
-- is optional
-- type: `string`
-
-##### fax Type
-
-`string`
-
-#### feedback
-
-`feedback`
-
-- is optional
-- type: reference
-
-##### feedback Type
-
-- []() – `#/definitions/AppointmentClientFeedback`
-
-#### houseNumber
-
-`houseNumber`
-
-- is optional
-- type: `string`
-
-##### houseNumber Type
-
-`string`
-
-#### id
-
-`id`
-
-- is **required**
-- type: `string`
-
-##### id Type
-
-`string`
-
-#### incomingPhone
-
-`incomingPhone`
-
-- is optional
-- type: reference
-
-##### incomingPhone Type
-
-- []() – `#/definitions/Phone`
-
-#### isVIP
-
-`isVIP`
-
-- is optional
-- type: `boolean`
-
-##### isVIP Type
-
-`boolean`
-
-#### israelCity
-
-`israelCity`
-
-- is optional
-- type: `object`
-
-##### israelCity Type
-
-`object` with following properties:
-
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `cityId` | string | **Required** |
-| `name`   | string | **Required** |
-
-#### cityId
-
-`cityId`
-
-- is **required**
-- type: `string`
-
-##### cityId Type
-
-`string`
-
-#### name
-
-`name`
-
-- is **required**
-- type: `string`
-
-##### name Type
-
-`string`
-
-#### kupatHolim
-
-`kupatHolim`
-
-- is optional
-- type: `object`
-
-##### kupatHolim Type
-
-`object` with following properties:
-
-| Property       | Type   | Required     |
-| -------------- | ------ | ------------ |
-| `kupatHolimId` | string | **Required** |
-| `name`         | string | **Required** |
-
-#### kupatHolimId
-
-`kupatHolimId`
-
-- is **required**
-- type: `string`
-
-##### kupatHolimId Type
-
-`string`
-
-#### name
-
-`name`
-
-- is **required**
-- type: `string`
-
-##### name Type
-
-`string`
-
-#### language
-
-`language`
-
-- is optional
-- type: `string`
-
-##### language Type
-
-`string`
-
-#### middleName
-
-`middleName`
-
-- is optional
-- type: `string`
-
-##### middleName Type
-
-`string`
-
-#### name
-
-`name`
-
-- is **required**
-- type: `string`
-
-##### name Type
-
-`string`
-
-#### passportId
-
-`passportId`
-
-- is optional
-- type: `string`
-
-##### passportId Type
-
-`string`
-
-#### phone
-
-`phone`
-
-- is optional
-- type: reference
-
-##### phone Type
-
-- []() – `#/definitions/Phone`
-
-#### seasonTicketId
-
-`seasonTicketId`
-
-- is optional
-- type: `string`
-
-##### seasonTicketId Type
-
-`string`
-
-#### seasonTicketNumber
-
-`seasonTicketNumber`
-
-- is optional
-- type: `string`
-
-##### seasonTicketNumber Type
-
-`string`
-
-#### sex
-
-`sex`
-
-- is optional
-- type: `enum`
-
-The value of this property **must** be equal to one of the [known values below](#client-known-values).
-
-##### sex Known Values
-
-| Value           | Description |
-| --------------- | ----------- |
-| `MALE`          |             |
-| `FEMALE`        |             |
-| `NOT_SPECIFIED` |             |
-
-#### shortId
-
-`shortId`
-
-- is optional
-- type: `string`
-
-##### shortId Type
-
-`string`
-
-#### surname
-
-`surname`
-
-- is **required**
-- type: `string`
-
-##### surname Type
-
-`string`
-
-#### taxiPark
-
-`taxiPark`
-
-- is optional
-- type: `string`
-
-##### taxiPark Type
-
-`string`
-
-#### taxiParkMemberCount
-
-`taxiParkMemberCount`
-
-- is optional
-- type: `number`
-
-##### taxiParkMemberCount Type
-
-`number`
 
 ## clientComment
 
@@ -2175,18 +1955,6 @@ The value of this property **must** be equal to one of the [known values below](
 ### destinationLink Type
 
 `string`
-
-## drinkAnswer
-
-`drinkAnswer`
-
-- is optional
-- type: `boolean`
-- defined in this schema
-
-### drinkAnswer Type
-
-`boolean`
 
 ## extraFields
 
@@ -2482,16 +2250,16 @@ All items must be of the type:
 
 `object` with following properties:
 
-| Property        | Type    | Required |
-| --------------- | ------- | -------- |
-| `status`        | boolean | Optional |
-| `time_reminder` | number  | Optional |
+| Property        | Type   | Required     |
+| --------------- | ------ | ------------ |
+| `status`        | string | **Required** |
+| `time_reminder` | number | **Required** |
 
 #### status
 
 `status`
 
-- is optional
+- is **required**
 - type: `enum`
 
 The value of this property **must** be equal to one of the [known values below](#reminder-known-values).
@@ -2508,7 +2276,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 `time_reminder`
 
-- is optional
+- is **required**
 - type: `enum`
 
 The value of this property **must** be equal to one of the [known values below](#reminder-known-values).
@@ -2531,12 +2299,14 @@ The value of this property **must** be equal to one of the [known values below](
 `removedClientsData`
 
 - is **required**
-- type: `object`
+- type: `object[]`
 - defined in this schema
 
 ### removedClientsData Type
 
-`object` with following properties:
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
 
 | Property          | Type   | Required     |
 | ----------------- | ------ | ------------ |
@@ -2714,17 +2484,17 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property   | Type | Required |
-| ---------- | ---- | -------- |
-| `business` |      | Optional |
-| `taxonomy` |      | Optional |
-| `worker`   |      | Optional |
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `business` |      | **Required** |
+| `taxonomy` |      | **Required** |
+| `worker`   |      | **Required** |
 
 #### business
 
 `business`
 
-- is optional
+- is **required**
 - type: reference
 
 ##### business Type
@@ -2735,7 +2505,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 `taxonomy`
 
-- is optional
+- is **required**
 - type: reference
 
 ##### taxonomy Type
@@ -2746,7 +2516,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 `worker`
 
-- is optional
+- is **required**
 - type: reference
 
 ##### worker Type
@@ -2792,15 +2562,15 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `businessID` | string | **Required** |
+| Property     | Type   | Required |
+| ------------ | ------ | -------- |
+| `businessID` | string | Optional |
 
 #### businessID
 
 `businessID`
 
-- is **required**
+- is optional
 - type: `string`
 
 ##### businessID Type
@@ -2830,18 +2600,6 @@ The value of this property **must** be equal to one of the [known values below](
 ### source Type
 
 `string`
-
-## talkAnswer
-
-`talkAnswer`
-
-- is optional
-- type: `boolean`
-- defined in this schema
-
-### talkAnswer Type
-
-`boolean`
 
 ## taxonomy
 

@@ -7,7 +7,7 @@ public class AdditionalFieldsClass {
     private String name;
     private boolean requiredField;
     private String shortName;
-    private AdditionalFieldsType type;
+    private AdditionalFieldType type;
     private String value;
 
     @JsonProperty("name")
@@ -26,9 +26,9 @@ public class AdditionalFieldsClass {
     public void setShortName(String value) { this.shortName = value; }
 
     @JsonProperty("type")
-    public AdditionalFieldsType getType() { return type; }
+    public AdditionalFieldType getType() { return type; }
     @JsonProperty("type")
-    public void setType(AdditionalFieldsType value) { this.type = value; }
+    public void setType(AdditionalFieldType value) { this.type = value; }
 
     @JsonProperty("value")
     public String getValue() { return value; }

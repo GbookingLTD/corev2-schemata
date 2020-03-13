@@ -4,14 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class CracCRACDistributedResourcesFreeByDateRequestParam {
-    private HilariousBusiness business;
+    private CunningBusiness business;
     private List<String> resources;
     private PurpleTaxonomy taxonomy;
 
     @JsonProperty("business")
-    public HilariousBusiness getBusiness() { return business; }
+    public CunningBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(HilariousBusiness value) { this.business = value; }
+    public void setBusiness(CunningBusiness value) { this.business = value; }
 
     @JsonProperty("resources")
     public List<String> getResources() { return resources; }

@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
-public enum Status {
+public enum ResourceStatus {
     ACTIVE, INACTIVE;
 
     @JsonValue
@@ -17,9 +17,9 @@ public enum Status {
     }
 
     @JsonCreator
-    public static Status forValue(String value) throws IOException {
+    public static ResourceStatus forValue(String value) throws IOException {
         if (value.equals("ACTIVE")) return ACTIVE;
         if (value.equals("INACTIVE")) return INACTIVE;
-        throw new IOException("Cannot deserialize Status");
+        throw new IOException("Cannot deserialize ResourceStatus");
     }
 }

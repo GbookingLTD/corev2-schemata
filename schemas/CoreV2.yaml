@@ -17,6 +17,8 @@ properties:
   Controllers:
     type: "object"
     properties:
+      Appointment:
+        $ref: "./controllers/appointment.schema.json"
       Business:
         $ref: "./controllers/business.schema.json"
       Client:
@@ -24,6 +26,7 @@ properties:
       CracSlots:
         $ref: "./controllers/cracSlots.schema.json"
     required:
+      - Appointment
       - Business
       - Client
       - CracSlots
@@ -31,11 +34,14 @@ properties:
   Models:
     type: "object"
     properties:
+      Appointment:
+        $ref: "./models/appointment.schema.json"
       Business:
         $ref: "./models/business.schema.json"
       Client:
         $ref: "./models/client.schema.json"
     required:
+      - Appointment
       - Business
       - Client
     additionalProperties: false

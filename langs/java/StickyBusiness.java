@@ -5,18 +5,18 @@ import com.fasterxml.jackson.annotation.*;
 
 public class StickyBusiness {
     private Boolean active;
-    private FluffyAdditionalSettings additionalSettings;
+    private PurpleAdditionalSettings additionalSettings;
     private Boolean allowCategoryBooking;
-    private StickyBackofficeConfiguration businessBackofficeConfiguration;
-    private TentacledBackofficeConfiguration backofficeConfiguration;
+    private FluffyBackofficeConfiguration businessBackofficeConfiguration;
+    private PurpleBackofficeConfiguration backofficeConfiguration;
     private BackofficeType backofficeType;
-    private List<FluffyCabinet> cabinets;
+    private List<PurpleCabinet> cabinets;
     private Boolean cabinetsEnabled;
-    private FluffyCallbackWidgetConfiguration callbackWidgetConfiguration;
-    private List<FluffyConsumable> consumables;
+    private PurpleCallbackWidgetConfiguration callbackWidgetConfiguration;
+    private List<PurpleConsumable> consumables;
     private String createdOn;
     private List<String> defaultFilteredWorkers;
-    private List<FluffyDepartment> departments;
+    private List<PurpleDepartment> departments;
     private List<Map<String, Object>> designs;
     private String extraID;
     private Boolean flatTaxonomyDisplay;
@@ -24,17 +24,15 @@ public class StickyBusiness {
     private Group group;
     private String id;
     private Map<String, Object> integrationData;
-    private FluffyMiniWidgetConfiguration miniWidgetConfiguration;
+    private PurpleMiniWidgetConfiguration miniWidgetConfiguration;
     private List<Object> mobileData;
     private List<Object> notifications;
-    private List<Resource> resources;
     private Boolean stateLevelHolidaysNotWorking;
-    private List<BusinessTaxonomy> taxonomies;
-    private List<FluffyTaxonomiesComplex> taxonomiesComplex;
+    private List<PurpleTaxonomiesComplex> taxonomiesComplex;
     private List<Map<String, Object>> taxonomyTreeCapacity;
-    private FluffyTopServices topServices;
+    private PurpleTopServices topServices;
     private String vertical;
-    private FluffyWidgetConfiguration widgetConfiguration;
+    private PurpleWidgetConfiguration widgetConfiguration;
     private String yandexFeedType;
 
     @JsonProperty("active")
@@ -43,9 +41,9 @@ public class StickyBusiness {
     public void setActive(Boolean value) { this.active = value; }
 
     @JsonProperty("additionalSettings")
-    public FluffyAdditionalSettings getAdditionalSettings() { return additionalSettings; }
+    public PurpleAdditionalSettings getAdditionalSettings() { return additionalSettings; }
     @JsonProperty("additionalSettings")
-    public void setAdditionalSettings(FluffyAdditionalSettings value) { this.additionalSettings = value; }
+    public void setAdditionalSettings(PurpleAdditionalSettings value) { this.additionalSettings = value; }
 
     @JsonProperty("allowCategoryBooking")
     public Boolean getAllowCategoryBooking() { return allowCategoryBooking; }
@@ -53,14 +51,14 @@ public class StickyBusiness {
     public void setAllowCategoryBooking(Boolean value) { this.allowCategoryBooking = value; }
 
     @JsonProperty("backoffice_configuration")
-    public StickyBackofficeConfiguration getBusinessBackofficeConfiguration() { return businessBackofficeConfiguration; }
+    public FluffyBackofficeConfiguration getBusinessBackofficeConfiguration() { return businessBackofficeConfiguration; }
     @JsonProperty("backoffice_configuration")
-    public void setBusinessBackofficeConfiguration(StickyBackofficeConfiguration value) { this.businessBackofficeConfiguration = value; }
+    public void setBusinessBackofficeConfiguration(FluffyBackofficeConfiguration value) { this.businessBackofficeConfiguration = value; }
 
     @JsonProperty("backofficeConfiguration")
-    public TentacledBackofficeConfiguration getBackofficeConfiguration() { return backofficeConfiguration; }
+    public PurpleBackofficeConfiguration getBackofficeConfiguration() { return backofficeConfiguration; }
     @JsonProperty("backofficeConfiguration")
-    public void setBackofficeConfiguration(TentacledBackofficeConfiguration value) { this.backofficeConfiguration = value; }
+    public void setBackofficeConfiguration(PurpleBackofficeConfiguration value) { this.backofficeConfiguration = value; }
 
     @JsonProperty("backofficeType")
     public BackofficeType getBackofficeType() { return backofficeType; }
@@ -68,9 +66,9 @@ public class StickyBusiness {
     public void setBackofficeType(BackofficeType value) { this.backofficeType = value; }
 
     @JsonProperty("cabinets")
-    public List<FluffyCabinet> getCabinets() { return cabinets; }
+    public List<PurpleCabinet> getCabinets() { return cabinets; }
     @JsonProperty("cabinets")
-    public void setCabinets(List<FluffyCabinet> value) { this.cabinets = value; }
+    public void setCabinets(List<PurpleCabinet> value) { this.cabinets = value; }
 
     @JsonProperty("cabinetsEnabled")
     public Boolean getCabinetsEnabled() { return cabinetsEnabled; }
@@ -78,14 +76,14 @@ public class StickyBusiness {
     public void setCabinetsEnabled(Boolean value) { this.cabinetsEnabled = value; }
 
     @JsonProperty("callback_widget_configuration")
-    public FluffyCallbackWidgetConfiguration getCallbackWidgetConfiguration() { return callbackWidgetConfiguration; }
+    public PurpleCallbackWidgetConfiguration getCallbackWidgetConfiguration() { return callbackWidgetConfiguration; }
     @JsonProperty("callback_widget_configuration")
-    public void setCallbackWidgetConfiguration(FluffyCallbackWidgetConfiguration value) { this.callbackWidgetConfiguration = value; }
+    public void setCallbackWidgetConfiguration(PurpleCallbackWidgetConfiguration value) { this.callbackWidgetConfiguration = value; }
 
     @JsonProperty("consumables")
-    public List<FluffyConsumable> getConsumables() { return consumables; }
+    public List<PurpleConsumable> getConsumables() { return consumables; }
     @JsonProperty("consumables")
-    public void setConsumables(List<FluffyConsumable> value) { this.consumables = value; }
+    public void setConsumables(List<PurpleConsumable> value) { this.consumables = value; }
 
     @JsonProperty("created_on")
     public String getCreatedOn() { return createdOn; }
@@ -98,9 +96,9 @@ public class StickyBusiness {
     public void setDefaultFilteredWorkers(List<String> value) { this.defaultFilteredWorkers = value; }
 
     @JsonProperty("departments")
-    public List<FluffyDepartment> getDepartments() { return departments; }
+    public List<PurpleDepartment> getDepartments() { return departments; }
     @JsonProperty("departments")
-    public void setDepartments(List<FluffyDepartment> value) { this.departments = value; }
+    public void setDepartments(List<PurpleDepartment> value) { this.departments = value; }
 
     @JsonProperty("designs")
     public List<Map<String, Object>> getDesigns() { return designs; }
@@ -138,9 +136,9 @@ public class StickyBusiness {
     public void setIntegrationData(Map<String, Object> value) { this.integrationData = value; }
 
     @JsonProperty("mini_widget_configuration")
-    public FluffyMiniWidgetConfiguration getMiniWidgetConfiguration() { return miniWidgetConfiguration; }
+    public PurpleMiniWidgetConfiguration getMiniWidgetConfiguration() { return miniWidgetConfiguration; }
     @JsonProperty("mini_widget_configuration")
-    public void setMiniWidgetConfiguration(FluffyMiniWidgetConfiguration value) { this.miniWidgetConfiguration = value; }
+    public void setMiniWidgetConfiguration(PurpleMiniWidgetConfiguration value) { this.miniWidgetConfiguration = value; }
 
     @JsonProperty("mobileData")
     public List<Object> getMobileData() { return mobileData; }
@@ -152,25 +150,15 @@ public class StickyBusiness {
     @JsonProperty("notifications")
     public void setNotifications(List<Object> value) { this.notifications = value; }
 
-    @JsonProperty("resources")
-    public List<Resource> getResources() { return resources; }
-    @JsonProperty("resources")
-    public void setResources(List<Resource> value) { this.resources = value; }
-
     @JsonProperty("stateLevelHolidaysNotWorking")
     public Boolean getStateLevelHolidaysNotWorking() { return stateLevelHolidaysNotWorking; }
     @JsonProperty("stateLevelHolidaysNotWorking")
     public void setStateLevelHolidaysNotWorking(Boolean value) { this.stateLevelHolidaysNotWorking = value; }
 
-    @JsonProperty("taxonomies")
-    public List<BusinessTaxonomy> getTaxonomies() { return taxonomies; }
-    @JsonProperty("taxonomies")
-    public void setTaxonomies(List<BusinessTaxonomy> value) { this.taxonomies = value; }
-
     @JsonProperty("taxonomiesComplex")
-    public List<FluffyTaxonomiesComplex> getTaxonomiesComplex() { return taxonomiesComplex; }
+    public List<PurpleTaxonomiesComplex> getTaxonomiesComplex() { return taxonomiesComplex; }
     @JsonProperty("taxonomiesComplex")
-    public void setTaxonomiesComplex(List<FluffyTaxonomiesComplex> value) { this.taxonomiesComplex = value; }
+    public void setTaxonomiesComplex(List<PurpleTaxonomiesComplex> value) { this.taxonomiesComplex = value; }
 
     @JsonProperty("taxonomy_tree_capacity")
     public List<Map<String, Object>> getTaxonomyTreeCapacity() { return taxonomyTreeCapacity; }
@@ -178,9 +166,9 @@ public class StickyBusiness {
     public void setTaxonomyTreeCapacity(List<Map<String, Object>> value) { this.taxonomyTreeCapacity = value; }
 
     @JsonProperty("top_services")
-    public FluffyTopServices getTopServices() { return topServices; }
+    public PurpleTopServices getTopServices() { return topServices; }
     @JsonProperty("top_services")
-    public void setTopServices(FluffyTopServices value) { this.topServices = value; }
+    public void setTopServices(PurpleTopServices value) { this.topServices = value; }
 
     @JsonProperty("vertical")
     public String getVertical() { return vertical; }
@@ -188,9 +176,9 @@ public class StickyBusiness {
     public void setVertical(String value) { this.vertical = value; }
 
     @JsonProperty("widget_configuration")
-    public FluffyWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
+    public PurpleWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
     @JsonProperty("widget_configuration")
-    public void setWidgetConfiguration(FluffyWidgetConfiguration value) { this.widgetConfiguration = value; }
+    public void setWidgetConfiguration(PurpleWidgetConfiguration value) { this.widgetConfiguration = value; }
 
     @JsonProperty("yandexFeedType")
     public String getYandexFeedType() { return yandexFeedType; }

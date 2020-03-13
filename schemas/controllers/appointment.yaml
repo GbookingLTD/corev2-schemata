@@ -1,0 +1,27 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/appointment.schema.json"
+title: "AppointmentController"
+type: "object"
+properties:
+  reserve_appointment:
+    type: "object"
+    properties:
+      request:
+        $ref: "./appointment/reserve_appointment.request.schema.json"
+      response:
+        $ref: "./appointment/reserve_appointment.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+  client_remove_empty_appointment:
+    type: "object"
+    properties:
+      request:
+        $ref: "./appointment/client_remove_empty_appointment.request.schema.json"
+      response:
+        $ref: "./appointment/client_remove_empty_appointment.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+required:
+  - reserve_appointment
+  - client_remove_empty_appointment
+additionalProperties: false

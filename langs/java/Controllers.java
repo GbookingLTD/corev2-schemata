@@ -4,9 +4,15 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Controllers {
+    private AppointmentController appointment;
     private BusinessController business;
     private ClientController client;
     private CracSlotsController cracSlots;
+
+    @JsonProperty("Appointment")
+    public AppointmentController getAppointment() { return appointment; }
+    @JsonProperty("Appointment")
+    public void setAppointment(AppointmentController value) { this.appointment = value; }
 
     @JsonProperty("Business")
     public BusinessController getBusiness() { return business; }

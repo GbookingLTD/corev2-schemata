@@ -4,13 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class IndigoBusiness {
-    private RequestTimeFrameDate id;
+    private String id;
 
     /**
      * идентификатор бизнеса
      */
     @JsonProperty("id")
-    public RequestTimeFrameDate getID() { return id; }
+    public String getID() { return id; }
     @JsonProperty("id")
-    public void setID(RequestTimeFrameDate value) { this.id = value; }
+    public void setID(String value) { this.id = value; }
 }

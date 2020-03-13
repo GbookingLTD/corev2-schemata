@@ -24,6 +24,9 @@
         "Controllers": {
             "type": "object",
             "properties": {
+                "Appointment": {
+                    "$ref": "./controllers/appointment.schema.json"
+                },
                 "Business": {
                     "$ref": "./controllers/business.schema.json"
                 },
@@ -35,6 +38,7 @@
                 }
             },
             "required": [
+                "Appointment",
                 "Business",
                 "Client",
                 "CracSlots"
@@ -44,6 +48,9 @@
         "Models": {
             "type": "object",
             "properties": {
+                "Appointment": {
+                    "$ref": "./models/appointment.schema.json"
+                },
                 "Business": {
                     "$ref": "./models/business.schema.json"
                 },
@@ -52,6 +59,7 @@
                 }
             },
             "required": [
+                "Appointment",
                 "Business",
                 "Client"
             ],

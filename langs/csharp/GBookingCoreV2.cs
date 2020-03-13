@@ -170,6 +170,9 @@ namespace GBookingCoreV2
 
     public partial class Controllers
     {
+        [JsonProperty("Appointment")]
+        public AppointmentController Appointment { get; set; }
+
         [JsonProperty("Business")]
         public BusinessController Business { get; set; }
 
@@ -178,6 +181,1006 @@ namespace GBookingCoreV2
 
         [JsonProperty("CracSlots")]
         public CracSlotsController CracSlots { get; set; }
+    }
+
+    public partial class AppointmentController
+    {
+        [JsonProperty("client_remove_empty_appointment")]
+        public ClientRemoveEmptyAppointment ClientRemoveEmptyAppointment { get; set; }
+
+        [JsonProperty("reserve_appointment")]
+        public ReserveAppointment ReserveAppointment { get; set; }
+    }
+
+    public partial class ClientRemoveEmptyAppointment
+    {
+        [JsonProperty("request")]
+        public AppointmentClientRemoveEmptyAppointmentRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public AppointmentClientRemoveEmptyAppointmentResponse Response { get; set; }
+    }
+
+    public partial class AppointmentClientRemoveEmptyAppointmentRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public RemoveEmptyAppointment Params { get; set; }
+    }
+
+    public partial class RemoveEmptyAppointment
+    {
+        [JsonProperty("appointment")]
+        public PurpleAppointment Appointment { get; set; }
+
+        [JsonProperty("business")]
+        public PurpleBusiness Business { get; set; }
+    }
+
+    public partial class PurpleAppointment
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class PurpleBusiness
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class AppointmentClientRemoveEmptyAppointmentResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// данные, передаваемые в ответ
+        /// </summary>
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentClientRemoveEmptyAppointmentResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AppointmentClientRemoveEmptyAppointmentResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class ReserveAppointment
+    {
+        [JsonProperty("request")]
+        public AppointmentReserveAppointmentRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public AppointmentReserveAppointmentResponse Response { get; set; }
+    }
+
+    public partial class AppointmentReserveAppointmentRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public AppointmentReserve Params { get; set; }
+    }
+
+    public partial class AppointmentReserve
+    {
+        [JsonProperty("appointment")]
+        public FluffyAppointment Appointment { get; set; }
+
+        [JsonProperty("business")]
+        public FluffyBusiness Business { get; set; }
+
+        [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string OriginBusinessId { get; set; }
+
+        [JsonProperty("resource")]
+        public ResourceClass Resource { get; set; }
+
+        [JsonProperty("source")]
+        public string Source { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public ParamsTaxonomy Taxonomy { get; set; }
+    }
+
+    public partial class FluffyAppointment
+    {
+        [JsonProperty("start")]
+        public DateTimeOffset Start { get; set; }
+    }
+
+    public partial class FluffyBusiness
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class ResourceClass
+    {
+        [JsonProperty("id")]
+        public List<string> Id { get; set; }
+    }
+
+    public partial class ParamsTaxonomy
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class AppointmentReserveAppointmentResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// данные, передаваемые в ответ
+        /// </summary>
+        [JsonProperty("result")]
+        public AppointmentUnion? Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentReserveAppointmentResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AppointmentReserveAppointmentResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class AppointmentSchema
+    {
+        [JsonProperty("additional_info", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> AdditionalInfo { get; set; }
+
+        [JsonProperty("additionalClientAppears")]
+        public List<AdditionalClientAppear> AdditionalClientAppears { get; set; }
+
+        [JsonProperty("additionalClientPayments")]
+        public List<AdditionalClientPayment> AdditionalClientPayments { get; set; }
+
+        [JsonProperty("additionalClients")]
+        public List<AdditionalClientElement> AdditionalClients { get; set; }
+
+        [JsonProperty("additionalClientSources")]
+        public List<AdditionalClientSource> AdditionalClientSources { get; set; }
+
+        [JsonProperty("additionalClientStatuses")]
+        public List<AdditionalClientStatus> AdditionalClientStatuses { get; set; }
+
+        [JsonProperty("additionalClientUtms")]
+        public List<AdditionalClientUtm> AdditionalClientUtms { get; set; }
+
+        [JsonProperty("additionalFields")]
+        public List<AdditionalField> AdditionalFields { get; set; }
+
+        [JsonProperty("additionalProducts")]
+        public List<AdditionalProduct> AdditionalProducts { get; set; }
+
+        [JsonProperty("additionalTaxonomies")]
+        public List<AppointmentTaxonomy> AdditionalTaxonomies { get; set; }
+
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public string Address { get; set; }
+
+        [JsonProperty("adjacentId", NullValueHandling = NullValueHandling.Ignore)]
+        public string AdjacentId { get; set; }
+
+        [JsonProperty("appointment")]
+        public AppointmentInfo Appointment { get; set; }
+
+        [JsonProperty("autoPhoneCallStatus", NullValueHandling = NullValueHandling.Ignore)]
+        public string AutoPhoneCallStatus { get; set; }
+
+        [JsonProperty("bannedClients")]
+        public List<string> BannedClients { get; set; }
+
+        [JsonProperty("business")]
+        public AppointmentBusiness Business { get; set; }
+
+        [JsonProperty("cabinet")]
+        public Cabinet Cabinet { get; set; }
+
+        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Capacity { get; set; }
+
+        [JsonProperty("changeReason")]
+        public string ChangeReason { get; set; }
+
+        [JsonProperty("client")]
+        public PurpleAppointmentClient Client { get; set; }
+
+        [JsonProperty("client_appear")]
+        public AppointmentClientAppear ClientAppear { get; set; }
+
+        [JsonProperty("client_med_code", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientMedCode { get; set; }
+
+        [JsonProperty("client_payment")]
+        public AppointmentClientPayment ClientPayment { get; set; }
+
+        [JsonProperty("client_payment_invoice", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientPaymentInvoice { get; set; }
+
+        [JsonProperty("clientComment")]
+        public string ClientComment { get; set; }
+
+        [JsonProperty("clientVisitors")]
+        public List<AdditionalClientElement> ClientVisitors { get; set; }
+
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public string Color { get; set; }
+
+        [JsonProperty("destinationKeyword", NullValueHandling = NullValueHandling.Ignore)]
+        public string DestinationKeyword { get; set; }
+
+        [JsonProperty("destinationLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string DestinationLink { get; set; }
+
+        [JsonProperty("extraFields")]
+        public List<ExtraField> ExtraFields { get; set; }
+
+        [JsonProperty("gt", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Gt { get; set; }
+
+        [JsonProperty("gtTimeFrame", NullValueHandling = NullValueHandling.Ignore)]
+        public string GtTimeFrame { get; set; }
+
+        [JsonProperty("integration_data", NullValueHandling = NullValueHandling.Ignore)]
+        public IntegrationData AppointmentSchemaIntegrationData { get; set; }
+
+        [JsonProperty("integrationData", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> IntegrationData { get; set; }
+
+        [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
+        public Location Location { get; set; }
+
+        [JsonProperty("masterImportance", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MasterImportance { get; set; }
+
+        [JsonProperty("minClients", NullValueHandling = NullValueHandling.Ignore)]
+        public double? MinClients { get; set; }
+
+        [JsonProperty("moveCounter")]
+        public double MoveCounter { get; set; }
+
+        [JsonProperty("movedByRobot")]
+        public bool MovedByRobot { get; set; }
+
+        [JsonProperty("movedFromFired", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MovedFromFired { get; set; }
+
+        [JsonProperty("networkID")]
+        public string NetworkId { get; set; }
+
+        [JsonProperty("notes")]
+        public string Notes { get; set; }
+
+        [JsonProperty("order")]
+        public Order Order { get; set; }
+
+        [JsonProperty("preferredResource", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? PreferredResource { get; set; }
+
+        [JsonProperty("promoCode", NullValueHandling = NullValueHandling.Ignore)]
+        public string PromoCode { get; set; }
+
+        [JsonProperty("refererLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string RefererLink { get; set; }
+
+        [JsonProperty("referrer", NullValueHandling = NullValueHandling.Ignore)]
+        public string Referrer { get; set; }
+
+        [JsonProperty("reminder")]
+        public Reminder Reminder { get; set; }
+
+        [JsonProperty("removedClientsData")]
+        public List<RemovedClientsDatum> RemovedClientsData { get; set; }
+
+        [JsonProperty("resource")]
+        public AppointmentResource Resource { get; set; }
+
+        [JsonProperty("review")]
+        public Review Review { get; set; }
+
+        [JsonProperty("room", NullValueHandling = NullValueHandling.Ignore)]
+        public Room Room { get; set; }
+
+        [JsonProperty("showcase")]
+        public AppointmentShowcase Showcase { get; set; }
+
+        [JsonProperty("socialToken", NullValueHandling = NullValueHandling.Ignore)]
+        public string SocialToken { get; set; }
+
+        [JsonProperty("source")]
+        public string Source { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public AppointmentTaxonomy Taxonomy { get; set; }
+
+        [JsonProperty("utm", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> Utm { get; set; }
+
+        [JsonProperty("withCoSale", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithCoSale { get; set; }
+    }
+
+    public partial class AdditionalClientAppear
+    {
+        [JsonProperty("appear")]
+        public AppointmentClientAppear Appear { get; set; }
+
+        [JsonProperty("clientID")]
+        public string ClientId { get; set; }
+    }
+
+    public partial class AdditionalClientPayment
+    {
+        [JsonProperty("clientID")]
+        public string ClientId { get; set; }
+
+        [JsonProperty("payment")]
+        public AppointmentClientPayment Payment { get; set; }
+    }
+
+    public partial class AdditionalClientSource
+    {
+        [JsonProperty("clientID")]
+        public string ClientId { get; set; }
+
+        [JsonProperty("source")]
+        public string Source { get; set; }
+    }
+
+    public partial class AdditionalClientStatus
+    {
+        [JsonProperty("clientID")]
+        public string ClientId { get; set; }
+
+        [JsonProperty("status")]
+        public AppointmentStatus Status { get; set; }
+    }
+
+    public partial class AdditionalClientUtm
+    {
+        [JsonProperty("clientID")]
+        public string ClientId { get; set; }
+
+        [JsonProperty("utm")]
+        public Dictionary<string, object> Utm { get; set; }
+    }
+
+    public partial class AdditionalClientElement
+    {
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public string Address { get; set; }
+
+        [JsonProperty("adminComment", NullValueHandling = NullValueHandling.Ignore)]
+        public string AdminComment { get; set; }
+
+        [JsonProperty("birthday", NullValueHandling = NullValueHandling.Ignore)]
+        public string Birthday { get; set; }
+
+        [JsonProperty("clientCardNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientCardNumber { get; set; }
+
+        [JsonProperty("clientComment", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientComment { get; set; }
+
+        [JsonProperty("creatorProfileID", NullValueHandling = NullValueHandling.Ignore)]
+        public string CreatorProfileId { get; set; }
+
+        [JsonProperty("creatorProfileName", NullValueHandling = NullValueHandling.Ignore)]
+        public string CreatorProfileName { get; set; }
+
+        [JsonProperty("driverLicense", NullValueHandling = NullValueHandling.Ignore)]
+        public string DriverLicense { get; set; }
+
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        [JsonProperty("extraData", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> ExtraData { get; set; }
+
+        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("extraVisitors", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ExtraVisitors { get; set; }
+
+        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
+        public string Fax { get; set; }
+
+        [JsonProperty("feedback", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentClientFeedback Feedback { get; set; }
+
+        [JsonProperty("GAClientID", NullValueHandling = NullValueHandling.Ignore)]
+        public string GaClientId { get; set; }
+
+        [JsonProperty("houseNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string HouseNumber { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
+        public IncomingPhoneClass IncomingPhone { get; set; }
+
+        [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
+        public IsraelCity IsraelCity { get; set; }
+
+        [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsVip { get; set; }
+
+        [JsonProperty("kupatHolim", NullValueHandling = NullValueHandling.Ignore)]
+        public KupatHolim KupatHolim { get; set; }
+
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
+        public string Language { get; set; }
+
+        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        public string MiddleName { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("passportId", NullValueHandling = NullValueHandling.Ignore)]
+        public string PassportId { get; set; }
+
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public IncomingPhoneClass Phone { get; set; }
+
+        [JsonProperty("seasonTicketId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SeasonTicketId { get; set; }
+
+        [JsonProperty("seasonTicketNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string SeasonTicketNumber { get; set; }
+
+        [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
+        public Sex? Sex { get; set; }
+
+        [JsonProperty("shortId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShortId { get; set; }
+
+        [JsonProperty("surname")]
+        public string Surname { get; set; }
+
+        [JsonProperty("taxiPark", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxiPark { get; set; }
+
+        [JsonProperty("taxiParkMemberCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? TaxiParkMemberCount { get; set; }
+    }
+
+    public partial class AppointmentClientFeedback
+    {
+        [JsonProperty("complaintActionText", NullValueHandling = NullValueHandling.Ignore)]
+        public string ComplaintActionText { get; set; }
+
+        [JsonProperty("complaintStatus", NullValueHandling = NullValueHandling.Ignore)]
+        public ComplaintStatus? ComplaintStatus { get; set; }
+
+        [JsonProperty("complaintText", NullValueHandling = NullValueHandling.Ignore)]
+        public string ComplaintText { get; set; }
+
+        [JsonProperty("extraFields", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ExtraField> ExtraFields { get; set; }
+
+        [JsonProperty("inprogress", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Inprogress { get; set; }
+
+        [JsonProperty("originalMessage", NullValueHandling = NullValueHandling.Ignore)]
+        public string OriginalMessage { get; set; }
+
+        [JsonProperty("rating", NullValueHandling = NullValueHandling.Ignore)]
+        public string Rating { get; set; }
+    }
+
+    public partial class ExtraField
+    {
+        [JsonProperty("fieldID")]
+        public string FieldId { get; set; }
+
+        [JsonProperty("fieldName")]
+        public string FieldName { get; set; }
+
+        [JsonProperty("value")]
+        public Value Value { get; set; }
+    }
+
+    public partial class IncomingPhoneClass
+    {
+        [JsonProperty("areaCode")]
+        public string AreaCode { get; set; }
+
+        [JsonProperty("countryCode")]
+        public string CountryCode { get; set; }
+
+        [JsonProperty("number")]
+        public string Number { get; set; }
+    }
+
+    public partial class IsraelCity
+    {
+        [JsonProperty("cityId")]
+        public string CityId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public partial class KupatHolim
+    {
+        [JsonProperty("kupatHolimId")]
+        public string KupatHolimId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public partial class AdditionalField
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("requiredField")]
+        public bool RequiredField { get; set; }
+
+        [JsonProperty("shortName")]
+        public string ShortName { get; set; }
+
+        [JsonProperty("type")]
+        public AdditionalFieldType Type { get; set; }
+
+        [JsonProperty("value")]
+        public string Value { get; set; }
+    }
+
+    public partial class AdditionalProduct
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("price")]
+        public double Price { get; set; }
+    }
+
+    public partial class AppointmentTaxonomy
+    {
+        [JsonProperty("alias")]
+        public string Alias { get; set; }
+
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class AppointmentInfo
+    {
+        [JsonProperty("backofficeID")]
+        public Id BackofficeId { get; set; }
+
+        [JsonProperty("blockSMS")]
+        public bool BlockSms { get; set; }
+
+        [JsonProperty("created")]
+        public DateTimeOffset Created { get; set; }
+
+        [JsonProperty("drinkAnswer")]
+        public DrinkAnswer DrinkAnswer { get; set; }
+
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty("hideAppointmentTime")]
+        public bool HideAppointmentTime { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("price")]
+        public Price Price { get; set; }
+
+        [JsonProperty("shortId")]
+        public string ShortId { get; set; }
+
+        [JsonProperty("start")]
+        public DateTimeOffset Start { get; set; }
+
+        [JsonProperty("status")]
+        public AppointmentStatus Status { get; set; }
+
+        [JsonProperty("talkAnswer")]
+        public TalkAnswer TalkAnswer { get; set; }
+
+        [JsonProperty("testRecord")]
+        public bool TestRecord { get; set; }
+
+        [JsonProperty("updated")]
+        public DateTimeOffset Updated { get; set; }
+    }
+
+    public partial class Price
+    {
+        [JsonProperty("additionalTaxonomyDiscount")]
+        public AdditionalTaxonomyDiscount AdditionalTaxonomyDiscount { get; set; }
+
+        [JsonProperty("amount")]
+        public double Amount { get; set; }
+
+        [JsonProperty("currency")]
+        public CurrencyList Currency { get; set; }
+
+        [JsonProperty("discount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Discount { get; set; }
+
+        [JsonProperty("discountProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscountProvider? DiscountProvider { get; set; }
+
+        [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
+        public string DiscountType { get; set; }
+
+        [JsonProperty("originalAmount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? OriginalAmount { get; set; }
+    }
+
+    public partial class AdditionalTaxonomyDiscount
+    {
+        [JsonProperty("discount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Discount { get; set; }
+
+        [JsonProperty("discountProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscountProvider? DiscountProvider { get; set; }
+
+        [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
+        public string DiscountType { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
+    }
+
+    public partial class IntegrationData
+    {
+        [JsonProperty("extraId")]
+        public string ExtraId { get; set; }
+    }
+
+    public partial class AppointmentBusiness
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class Cabinet
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// пустой объект в момент резервирования
+    /// </summary>
+    public partial class PurpleAppointmentClient
+    {
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public string Address { get; set; }
+
+        [JsonProperty("adminComment", NullValueHandling = NullValueHandling.Ignore)]
+        public string AdminComment { get; set; }
+
+        [JsonProperty("birthday", NullValueHandling = NullValueHandling.Ignore)]
+        public string Birthday { get; set; }
+
+        [JsonProperty("clientCardNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientCardNumber { get; set; }
+
+        [JsonProperty("clientComment", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientComment { get; set; }
+
+        [JsonProperty("creatorProfileID", NullValueHandling = NullValueHandling.Ignore)]
+        public string CreatorProfileId { get; set; }
+
+        [JsonProperty("creatorProfileName", NullValueHandling = NullValueHandling.Ignore)]
+        public string CreatorProfileName { get; set; }
+
+        [JsonProperty("driverLicense", NullValueHandling = NullValueHandling.Ignore)]
+        public string DriverLicense { get; set; }
+
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        [JsonProperty("extraData", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> ExtraData { get; set; }
+
+        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("extraVisitors", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ExtraVisitors { get; set; }
+
+        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
+        public string Fax { get; set; }
+
+        [JsonProperty("feedback", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentClientFeedback Feedback { get; set; }
+
+        [JsonProperty("GAClientID", NullValueHandling = NullValueHandling.Ignore)]
+        public string GaClientId { get; set; }
+
+        [JsonProperty("houseNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string HouseNumber { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
+        public IncomingPhoneClass IncomingPhone { get; set; }
+
+        [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
+        public IsraelCity IsraelCity { get; set; }
+
+        [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsVip { get; set; }
+
+        [JsonProperty("kupatHolim", NullValueHandling = NullValueHandling.Ignore)]
+        public KupatHolim KupatHolim { get; set; }
+
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
+        public string Language { get; set; }
+
+        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        public string MiddleName { get; set; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [JsonProperty("passportId", NullValueHandling = NullValueHandling.Ignore)]
+        public string PassportId { get; set; }
+
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public IncomingPhoneClass Phone { get; set; }
+
+        [JsonProperty("seasonTicketId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SeasonTicketId { get; set; }
+
+        [JsonProperty("seasonTicketNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string SeasonTicketNumber { get; set; }
+
+        [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
+        public Sex? Sex { get; set; }
+
+        [JsonProperty("shortId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShortId { get; set; }
+
+        [JsonProperty("surname", NullValueHandling = NullValueHandling.Ignore)]
+        public string Surname { get; set; }
+
+        [JsonProperty("taxiPark", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxiPark { get; set; }
+
+        [JsonProperty("taxiParkMemberCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? TaxiParkMemberCount { get; set; }
+    }
+
+    public partial class Location
+    {
+        [JsonProperty("latitude")]
+        public double Latitude { get; set; }
+
+        [JsonProperty("longitude")]
+        public double Longitude { get; set; }
+    }
+
+    public partial class Order
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class Reminder
+    {
+        [JsonProperty("status")]
+        public ReminderStatus Status { get; set; }
+
+        [JsonProperty("time_reminder")]
+        public double TimeReminder { get; set; }
+    }
+
+    public partial class RemovedClientsDatum
+    {
+        [JsonProperty("appear", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentClientAppear? Appear { get; set; }
+
+        [JsonProperty("client")]
+        public AdditionalClientElement Client { get; set; }
+
+        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Created { get; set; }
+
+        [JsonProperty("payment", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentClientPayment? Payment { get; set; }
+
+        [JsonProperty("payment_invoice", NullValueHandling = NullValueHandling.Ignore)]
+        public string PaymentInvoice { get; set; }
+
+        [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
+        public string Source { get; set; }
+
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentStatus? Status { get; set; }
+    }
+
+    public partial class AppointmentResource
+    {
+        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        public string MiddleName { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("surname")]
+        public string Surname { get; set; }
+    }
+
+    public partial class Review
+    {
+        [JsonProperty("business")]
+        public BusinessClass Business { get; set; }
+
+        [JsonProperty("taxonomy")]
+        public BusinessClass Taxonomy { get; set; }
+
+        [JsonProperty("worker")]
+        public BusinessClass Worker { get; set; }
+    }
+
+    public partial class BusinessClass
+    {
+        [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
+        public string Comment { get; set; }
+
+        [JsonProperty("rate", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Rate { get; set; }
+    }
+
+    public partial class Room
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class AppointmentShowcase
+    {
+        [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BusinessId { get; set; }
     }
 
     public partial class BusinessController
@@ -311,7 +1314,7 @@ namespace GBookingCoreV2
         public Dictionary<string, object> BusinessConfiguration { get; set; }
 
         [JsonProperty("businesses")]
-        public List<PurpleBusiness> Businesses { get; set; }
+        public List<TentacledBusiness> Businesses { get; set; }
 
         [JsonProperty("clientVIPPhones")]
         public List<string> ClientVipPhones { get; set; }
@@ -338,7 +1341,7 @@ namespace GBookingCoreV2
     /// <summary>
     /// указатель на бизнес в сети
     /// </summary>
-    public partial class PurpleBusiness
+    public partial class TentacledBusiness
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -359,7 +1362,7 @@ namespace GBookingCoreV2
         public List<string> VirtualTaxonomies { get; set; }
     }
 
-    public partial class FluffyBusiness
+    public partial class StickyBusiness
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -944,7 +1947,7 @@ namespace GBookingCoreV2
         /// идентификаторы витрин, в которых участвует данный бизнес
         /// </summary>
         [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Showcase> Showcases { get; set; }
+        public List<ShowcaseElement> Showcases { get; set; }
 
         [JsonProperty("showResourceWorkStatistics", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowResourceWorkStatistics { get; set; }
@@ -986,7 +1989,7 @@ namespace GBookingCoreV2
         public string ShortName { get; set; }
 
         [JsonProperty("type")]
-        public AdditionalFieldsType Type { get; set; }
+        public AdditionalFieldType Type { get; set; }
 
         [JsonProperty("value")]
         public string Value { get; set; }
@@ -1127,7 +2130,7 @@ namespace GBookingCoreV2
         public string Name { get; set; }
     }
 
-    public partial class Showcase
+    public partial class ShowcaseElement
     {
         [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BaseBusinessId { get; set; }
@@ -1738,7 +2741,7 @@ namespace GBookingCoreV2
     public partial class BusinessGetProfileByIdRequestParams
     {
         [JsonProperty("business")]
-        public TentacledBusiness Business { get; set; }
+        public IndigoBusiness Business { get; set; }
 
         /// <summary>
         /// если указано true - меняет формат представления discounts
@@ -1828,7 +2831,7 @@ namespace GBookingCoreV2
         public WorkerSortingType? WorkerSortingType { get; set; }
     }
 
-    public partial class TentacledBusiness
+    public partial class IndigoBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -1923,7 +2926,7 @@ namespace GBookingCoreV2
         public YandexFeedType? YandexFeedType { get; set; }
     }
 
-    public partial class StickyBusiness
+    public partial class IndecentBusiness
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -2397,7 +3400,7 @@ namespace GBookingCoreV2
         public string Title2 { get; set; }
     }
 
-    public partial class ResourceClass
+    public partial class ResourceResource
     {
         /// <summary>
         /// информация из внешней информационной системы как есть (при интеграции)
@@ -2634,7 +3637,7 @@ namespace GBookingCoreV2
         public bool? SmsEnabled { get; set; }
 
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
-        public Status? Status { get; set; }
+        public ResourceStatus? Status { get; set; }
 
         /// <summary>
         /// фамилия и отчество работника
@@ -2842,7 +3845,7 @@ namespace GBookingCoreV2
         /// идентификаторы витрин, в которых участвует данный бизнес
         /// </summary>
         [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Showcase> Showcases { get; set; }
+        public List<ShowcaseElement> Showcases { get; set; }
 
         [JsonProperty("showResourceWorkStatistics", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowResourceWorkStatistics { get; set; }
@@ -3067,7 +4070,7 @@ namespace GBookingCoreV2
         public double? Popularity { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public Price Price { get; set; }
+        public TaxonomyPrice Price { get; set; }
 
         [JsonProperty("priceLink", NullValueHandling = NullValueHandling.Ignore)]
         public string PriceLink { get; set; }
@@ -3238,7 +4241,7 @@ namespace GBookingCoreV2
         public TimeFrame Time { get; set; }
     }
 
-    public partial class Price
+    public partial class TaxonomyPrice
     {
         /// <summary>
         /// Значение цены
@@ -3886,7 +4889,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientRequestParams
     {
         [JsonProperty("business")]
-        public IndigoBusiness Business { get; set; }
+        public HilariousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public Client Client { get; set; }
@@ -3901,7 +4904,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class IndigoBusiness
+    public partial class HilariousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -4019,7 +5022,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public IndecentBusiness Business { get; set; }
+        public AmbitiousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public Client Client { get; set; }
@@ -4031,7 +5034,7 @@ namespace GBookingCoreV2
         public ResultProfile Profile { get; set; }
     }
 
-    public partial class IndecentBusiness
+    public partial class AmbitiousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -4109,7 +5112,7 @@ namespace GBookingCoreV2
     public partial class CracCracDistributedResourcesFreeByDateRequestParam
     {
         [JsonProperty("business")]
-        public HilariousBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("resources")]
         public List<string> Resources { get; set; }
@@ -4118,7 +5121,7 @@ namespace GBookingCoreV2
         public PurpleTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class HilariousBusiness
+    public partial class CunningBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -4377,7 +5380,7 @@ namespace GBookingCoreV2
     public partial class CracCracResourcesFreeByDateV2RequestParam
     {
         [JsonProperty("business")]
-        public AmbitiousBusiness Business { get; set; }
+        public MagentaBusiness Business { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -4392,7 +5395,7 @@ namespace GBookingCoreV2
         public TentacledTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class AmbitiousBusiness
+    public partial class MagentaBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -4523,13 +5526,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public CunningBusiness Business { get; set; }
+        public FriskyBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public PurpleFilters Filters { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class FriskyBusiness
     {
         [JsonProperty("general_info")]
         public PurpleGeneralInfo GeneralInfo { get; set; }
@@ -4717,13 +5720,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public MagentaBusiness Business { get; set; }
+        public MischievousBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public FluffyFilters Filters { get; set; }
     }
 
-    public partial class MagentaBusiness
+    public partial class MischievousBusiness
     {
         [JsonProperty("general_info")]
         public FluffyGeneralInfo GeneralInfo { get; set; }
@@ -4902,13 +5905,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public FriskyBusiness Business { get; set; }
+        public BraggadociousBusiness Business { get; set; }
 
         [JsonProperty("filters")]
         public TentacledFilters Filters { get; set; }
     }
 
-    public partial class FriskyBusiness
+    public partial class BraggadociousBusiness
     {
         [JsonProperty("general_info")]
         public TentacledGeneralInfo GeneralInfo { get; set; }
@@ -5041,12 +6044,42 @@ namespace GBookingCoreV2
 
     public partial class Models
     {
+        [JsonProperty("Appointment")]
+        public AppointmentUnion Appointment { get; set; }
+
         [JsonProperty("Business")]
         public ResultBusiness Business { get; set; }
 
         [JsonProperty("Client")]
         public Client Client { get; set; }
     }
+
+    public enum AppointmentClientAppear { NoAppear, None, YesAppear };
+
+    public enum AppointmentClientPayment { NoPayment, None, YesPayedFull, YesPayedOnline, YesPayedPart };
+
+    public enum AppointmentStatus { Active, CancelledByAdmin, CancelledByBusiness, CancelledByClient, ConfirmedByAdmin, ConfirmedByBusiness, ConfirmedByClient, ConfirmedMoved, Denied, Done, Tentative, TimedOut };
+
+    public enum ComplaintStatus { Checking, Closed, Entered, Invalid, Investigation, NotEntered };
+
+    public enum Sex { Female, Male, NotSpecified };
+
+    public enum AdditionalFieldType { Bool, Coupon, File, Radio, String };
+
+    public enum DrinkAnswer { Coffee, NotImportant, Tea };
+
+    public enum DiscountProvider { Groupon, Local, Yandex };
+
+    /// <summary>
+    /// Аббревиатура валюты
+    ///
+    /// Аббревиатура валюты (например, RUB - рубль)
+    /// </summary>
+    public enum CurrencyList { Cny, Eur, Gbp, Huf, Ils, Kzt, Rub, Uah, Usd, Uzs };
+
+    public enum TalkAnswer { NotImportant, NotTalk, Talk };
+
+    public enum ReminderStatus { NotSet, Off, On };
 
     public enum AppointmentExtensionType { Minutes, Percent };
 
@@ -5059,15 +6092,6 @@ namespace GBookingCoreV2
     public enum SchedulerWeekViewType { Week, WorkWeek };
 
     public enum BackofficeType { Common, Gt, Ll, Mb, Mu };
-
-    /// <summary>
-    /// Аббревиатура валюты
-    ///
-    /// Аббревиатура валюты (например, RUB - рубль)
-    /// </summary>
-    public enum CurrencyList { Cny, Eur, Gbp, Huf, Ils, Kzt, Rub, Uah, Usd, Uzs };
-
-    public enum AdditionalFieldsType { Bool, Coupon, File, Radio, String };
 
     public enum Country { Am, Blr, Ch, De, Empty, Es, Fi, Fr, Ge, Hu, Il, Kz, Li, Lt, Lv, Ru, Ua, Uk, Us, Uz };
 
@@ -5111,7 +6135,7 @@ namespace GBookingCoreV2
     /// </summary>
     public enum AccessType { None, WorkerExtended, WorkerSimple };
 
-    public enum Status { Active, Inactive };
+    public enum ResourceStatus { Active, Inactive };
 
     /// <summary>
     /// Тип цены
@@ -5131,8 +6155,6 @@ namespace GBookingCoreV2
     public enum TaxonomyType { Category, Service, Subcategory };
 
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
-
-    public enum Sex { Female, Male, NotSpecified };
 
     public partial struct ErrorResponse
     {
@@ -5221,6 +6243,39 @@ namespace GBookingCoreV2
         public bool IsNull => AnythingArray == null && Bool == null && SuccessResponseClass == null && Double == null && Integer == null && String == null;
     }
 
+    public partial struct Value
+    {
+        public Dictionary<string, object> AnythingMap;
+        public double? Double;
+        public string String;
+
+        public static implicit operator Value(Dictionary<string, object> AnythingMap) => new Value { AnythingMap = AnythingMap };
+        public static implicit operator Value(double Double) => new Value { Double = Double };
+        public static implicit operator Value(string String) => new Value { String = String };
+        public bool IsNull => Double == null && AnythingMap == null && String == null;
+    }
+
+    /// <summary>
+    /// данные, передаваемые в ответ
+    /// </summary>
+    public partial struct AppointmentUnion
+    {
+        public List<object> AnythingArray;
+        public AppointmentSchema AppointmentSchema;
+        public bool? Bool;
+        public double? Double;
+        public long? Integer;
+        public string String;
+
+        public static implicit operator AppointmentUnion(List<object> AnythingArray) => new AppointmentUnion { AnythingArray = AnythingArray };
+        public static implicit operator AppointmentUnion(AppointmentSchema AppointmentSchema) => new AppointmentUnion { AppointmentSchema = AppointmentSchema };
+        public static implicit operator AppointmentUnion(bool Bool) => new AppointmentUnion { Bool = Bool };
+        public static implicit operator AppointmentUnion(double Double) => new AppointmentUnion { Double = Double };
+        public static implicit operator AppointmentUnion(long Integer) => new AppointmentUnion { Integer = Integer };
+        public static implicit operator AppointmentUnion(string String) => new AppointmentUnion { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && AppointmentSchema == null && Double == null && Integer == null && String == null;
+    }
+
     public partial struct AdditionalFields
     {
         public AdditionalFieldsClass AdditionalFieldsClass;
@@ -5289,17 +6344,17 @@ namespace GBookingCoreV2
         public List<object> AnythingArray;
         public bool? Bool;
         public double? Double;
-        public FluffyBusiness FluffyBusiness;
         public long? Integer;
+        public StickyBusiness StickyBusiness;
         public string String;
 
         public static implicit operator BusinessBusiness(List<object> AnythingArray) => new BusinessBusiness { AnythingArray = AnythingArray };
         public static implicit operator BusinessBusiness(bool Bool) => new BusinessBusiness { Bool = Bool };
         public static implicit operator BusinessBusiness(double Double) => new BusinessBusiness { Double = Double };
-        public static implicit operator BusinessBusiness(FluffyBusiness FluffyBusiness) => new BusinessBusiness { FluffyBusiness = FluffyBusiness };
         public static implicit operator BusinessBusiness(long Integer) => new BusinessBusiness { Integer = Integer };
+        public static implicit operator BusinessBusiness(StickyBusiness StickyBusiness) => new BusinessBusiness { StickyBusiness = StickyBusiness };
         public static implicit operator BusinessBusiness(string String) => new BusinessBusiness { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && FluffyBusiness == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && StickyBusiness == null && Double == null && Integer == null && String == null;
     }
 
     /// <summary>
@@ -5324,16 +6379,16 @@ namespace GBookingCoreV2
         public bool? Bool;
         public double? Double;
         public long? Integer;
-        public ResourceClass ResourceClass;
+        public ResourceResource ResourceResource;
         public string String;
 
         public static implicit operator Resource(List<object> AnythingArray) => new Resource { AnythingArray = AnythingArray };
         public static implicit operator Resource(bool Bool) => new Resource { Bool = Bool };
         public static implicit operator Resource(double Double) => new Resource { Double = Double };
         public static implicit operator Resource(long Integer) => new Resource { Integer = Integer };
-        public static implicit operator Resource(ResourceClass ResourceClass) => new Resource { ResourceClass = ResourceClass };
+        public static implicit operator Resource(ResourceResource ResourceResource) => new Resource { ResourceResource = ResourceResource };
         public static implicit operator Resource(string String) => new Resource { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && ResourceClass == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && ResourceResource == null && Double == null && Integer == null && String == null;
     }
 
     /// <summary>
@@ -5362,17 +6417,17 @@ namespace GBookingCoreV2
         public List<object> AnythingArray;
         public bool? Bool;
         public double? Double;
+        public IndecentBusiness IndecentBusiness;
         public long? Integer;
-        public StickyBusiness StickyBusiness;
         public string String;
 
         public static implicit operator ResultBusiness(List<object> AnythingArray) => new ResultBusiness { AnythingArray = AnythingArray };
         public static implicit operator ResultBusiness(bool Bool) => new ResultBusiness { Bool = Bool };
         public static implicit operator ResultBusiness(double Double) => new ResultBusiness { Double = Double };
+        public static implicit operator ResultBusiness(IndecentBusiness IndecentBusiness) => new ResultBusiness { IndecentBusiness = IndecentBusiness };
         public static implicit operator ResultBusiness(long Integer) => new ResultBusiness { Integer = Integer };
-        public static implicit operator ResultBusiness(StickyBusiness StickyBusiness) => new ResultBusiness { StickyBusiness = StickyBusiness };
         public static implicit operator ResultBusiness(string String) => new ResultBusiness { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && StickyBusiness == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && IndecentBusiness == null && Double == null && Integer == null && String == null;
     }
 
     public partial struct Address
@@ -5434,6 +6489,19 @@ namespace GBookingCoreV2
                 IdConverter.Singleton,
                 ParamsUnionConverter.Singleton,
                 SuccessResponseConverter.Singleton,
+                AppointmentUnionConverter.Singleton,
+                AppointmentClientAppearConverter.Singleton,
+                AppointmentClientPaymentConverter.Singleton,
+                AppointmentStatusConverter.Singleton,
+                ComplaintStatusConverter.Singleton,
+                ValueConverter.Singleton,
+                SexConverter.Singleton,
+                AdditionalFieldTypeConverter.Singleton,
+                DrinkAnswerConverter.Singleton,
+                DiscountProviderConverter.Singleton,
+                CurrencyListConverter.Singleton,
+                TalkAnswerConverter.Singleton,
+                ReminderStatusConverter.Singleton,
                 BusinessBusinessConverter.Singleton,
                 AppointmentExtensionTypeConverter.Singleton,
                 FeedBackMinRatingConverter.Singleton,
@@ -5441,9 +6509,7 @@ namespace GBookingCoreV2
                 ResourceTimetableTypeConverter.Singleton,
                 SchedulerWeekViewTypeConverter.Singleton,
                 BackofficeTypeConverter.Singleton,
-                CurrencyListConverter.Singleton,
                 AdditionalFieldsConverter.Singleton,
-                AdditionalFieldsTypeConverter.Singleton,
                 AddressElementConverter.Singleton,
                 CountryConverter.Singleton,
                 PhoneConverter.Singleton,
@@ -5466,7 +6532,7 @@ namespace GBookingCoreV2
                 StartPeriodConverter.Singleton,
                 OrderWeightConverter.Singleton,
                 AccessTypeConverter.Singleton,
-                StatusConverter.Singleton,
+                ResourceStatusConverter.Singleton,
                 AdditionalPriceTypeConverter.Singleton,
                 ChildrenTaxonomyTypeConverter.Singleton,
                 DateLimitTypeConverter.Singleton,
@@ -5479,7 +6545,6 @@ namespace GBookingCoreV2
                 YandexFeedTypeConverter.Singleton,
                 BirthdayConverter.Singleton,
                 FromSmsConverter.Singleton,
-                SexConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };
@@ -5792,6 +6857,758 @@ namespace GBookingCoreV2
         public static readonly SuccessResponseConverter Singleton = new SuccessResponseConverter();
     }
 
+    internal class AppointmentUnionConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AppointmentUnion) || t == typeof(AppointmentUnion?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new AppointmentUnion { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new AppointmentUnion { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new AppointmentUnion { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new AppointmentUnion { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new AppointmentUnion { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<AppointmentSchema>(reader);
+                    return new AppointmentUnion { AppointmentSchema = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new AppointmentUnion { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type AppointmentUnion");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (AppointmentUnion)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.AppointmentSchema != null)
+            {
+                serializer.Serialize(writer, value.AppointmentSchema);
+                return;
+            }
+            throw new Exception("Cannot marshal type AppointmentUnion");
+        }
+
+        public static readonly AppointmentUnionConverter Singleton = new AppointmentUnionConverter();
+    }
+
+    internal class AppointmentClientAppearConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AppointmentClientAppear) || t == typeof(AppointmentClientAppear?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NONE":
+                    return AppointmentClientAppear.None;
+                case "NO_APPEAR":
+                    return AppointmentClientAppear.NoAppear;
+                case "YES_APPEAR":
+                    return AppointmentClientAppear.YesAppear;
+            }
+            throw new Exception("Cannot unmarshal type AppointmentClientAppear");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (AppointmentClientAppear)untypedValue;
+            switch (value)
+            {
+                case AppointmentClientAppear.None:
+                    serializer.Serialize(writer, "NONE");
+                    return;
+                case AppointmentClientAppear.NoAppear:
+                    serializer.Serialize(writer, "NO_APPEAR");
+                    return;
+                case AppointmentClientAppear.YesAppear:
+                    serializer.Serialize(writer, "YES_APPEAR");
+                    return;
+            }
+            throw new Exception("Cannot marshal type AppointmentClientAppear");
+        }
+
+        public static readonly AppointmentClientAppearConverter Singleton = new AppointmentClientAppearConverter();
+    }
+
+    internal class AppointmentClientPaymentConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AppointmentClientPayment) || t == typeof(AppointmentClientPayment?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NONE":
+                    return AppointmentClientPayment.None;
+                case "NO_PAYMENT":
+                    return AppointmentClientPayment.NoPayment;
+                case "YES_PAYED_FULL":
+                    return AppointmentClientPayment.YesPayedFull;
+                case "YES_PAYED_ONLINE":
+                    return AppointmentClientPayment.YesPayedOnline;
+                case "YES_PAYED_PART":
+                    return AppointmentClientPayment.YesPayedPart;
+            }
+            throw new Exception("Cannot unmarshal type AppointmentClientPayment");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (AppointmentClientPayment)untypedValue;
+            switch (value)
+            {
+                case AppointmentClientPayment.None:
+                    serializer.Serialize(writer, "NONE");
+                    return;
+                case AppointmentClientPayment.NoPayment:
+                    serializer.Serialize(writer, "NO_PAYMENT");
+                    return;
+                case AppointmentClientPayment.YesPayedFull:
+                    serializer.Serialize(writer, "YES_PAYED_FULL");
+                    return;
+                case AppointmentClientPayment.YesPayedOnline:
+                    serializer.Serialize(writer, "YES_PAYED_ONLINE");
+                    return;
+                case AppointmentClientPayment.YesPayedPart:
+                    serializer.Serialize(writer, "YES_PAYED_PART");
+                    return;
+            }
+            throw new Exception("Cannot marshal type AppointmentClientPayment");
+        }
+
+        public static readonly AppointmentClientPaymentConverter Singleton = new AppointmentClientPaymentConverter();
+    }
+
+    internal class AppointmentStatusConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AppointmentStatus) || t == typeof(AppointmentStatus?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "ACTIVE":
+                    return AppointmentStatus.Active;
+                case "CANCELLED_BY_ADMIN":
+                    return AppointmentStatus.CancelledByAdmin;
+                case "CANCELLED_BY_BUSINESS":
+                    return AppointmentStatus.CancelledByBusiness;
+                case "CANCELLED_BY_CLIENT":
+                    return AppointmentStatus.CancelledByClient;
+                case "CONFIRMED_BY_ADMIN":
+                    return AppointmentStatus.ConfirmedByAdmin;
+                case "CONFIRMED_BY_BUSINESS":
+                    return AppointmentStatus.ConfirmedByBusiness;
+                case "CONFIRMED_BY_CLIENT":
+                    return AppointmentStatus.ConfirmedByClient;
+                case "CONFIRMED_MOVED":
+                    return AppointmentStatus.ConfirmedMoved;
+                case "DENIED":
+                    return AppointmentStatus.Denied;
+                case "DONE":
+                    return AppointmentStatus.Done;
+                case "TENTATIVE":
+                    return AppointmentStatus.Tentative;
+                case "TIMED_OUT":
+                    return AppointmentStatus.TimedOut;
+            }
+            throw new Exception("Cannot unmarshal type AppointmentStatus");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (AppointmentStatus)untypedValue;
+            switch (value)
+            {
+                case AppointmentStatus.Active:
+                    serializer.Serialize(writer, "ACTIVE");
+                    return;
+                case AppointmentStatus.CancelledByAdmin:
+                    serializer.Serialize(writer, "CANCELLED_BY_ADMIN");
+                    return;
+                case AppointmentStatus.CancelledByBusiness:
+                    serializer.Serialize(writer, "CANCELLED_BY_BUSINESS");
+                    return;
+                case AppointmentStatus.CancelledByClient:
+                    serializer.Serialize(writer, "CANCELLED_BY_CLIENT");
+                    return;
+                case AppointmentStatus.ConfirmedByAdmin:
+                    serializer.Serialize(writer, "CONFIRMED_BY_ADMIN");
+                    return;
+                case AppointmentStatus.ConfirmedByBusiness:
+                    serializer.Serialize(writer, "CONFIRMED_BY_BUSINESS");
+                    return;
+                case AppointmentStatus.ConfirmedByClient:
+                    serializer.Serialize(writer, "CONFIRMED_BY_CLIENT");
+                    return;
+                case AppointmentStatus.ConfirmedMoved:
+                    serializer.Serialize(writer, "CONFIRMED_MOVED");
+                    return;
+                case AppointmentStatus.Denied:
+                    serializer.Serialize(writer, "DENIED");
+                    return;
+                case AppointmentStatus.Done:
+                    serializer.Serialize(writer, "DONE");
+                    return;
+                case AppointmentStatus.Tentative:
+                    serializer.Serialize(writer, "TENTATIVE");
+                    return;
+                case AppointmentStatus.TimedOut:
+                    serializer.Serialize(writer, "TIMED_OUT");
+                    return;
+            }
+            throw new Exception("Cannot marshal type AppointmentStatus");
+        }
+
+        public static readonly AppointmentStatusConverter Singleton = new AppointmentStatusConverter();
+    }
+
+    internal class ComplaintStatusConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ComplaintStatus) || t == typeof(ComplaintStatus?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "CHECKING":
+                    return ComplaintStatus.Checking;
+                case "CLOSED":
+                    return ComplaintStatus.Closed;
+                case "ENTERED":
+                    return ComplaintStatus.Entered;
+                case "INVALID":
+                    return ComplaintStatus.Invalid;
+                case "INVESTIGATION":
+                    return ComplaintStatus.Investigation;
+                case "NOT_ENTERED":
+                    return ComplaintStatus.NotEntered;
+            }
+            throw new Exception("Cannot unmarshal type ComplaintStatus");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (ComplaintStatus)untypedValue;
+            switch (value)
+            {
+                case ComplaintStatus.Checking:
+                    serializer.Serialize(writer, "CHECKING");
+                    return;
+                case ComplaintStatus.Closed:
+                    serializer.Serialize(writer, "CLOSED");
+                    return;
+                case ComplaintStatus.Entered:
+                    serializer.Serialize(writer, "ENTERED");
+                    return;
+                case ComplaintStatus.Invalid:
+                    serializer.Serialize(writer, "INVALID");
+                    return;
+                case ComplaintStatus.Investigation:
+                    serializer.Serialize(writer, "INVESTIGATION");
+                    return;
+                case ComplaintStatus.NotEntered:
+                    serializer.Serialize(writer, "NOT_ENTERED");
+                    return;
+            }
+            throw new Exception("Cannot marshal type ComplaintStatus");
+        }
+
+        public static readonly ComplaintStatusConverter Singleton = new ComplaintStatusConverter();
+    }
+
+    internal class ValueConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Value) || t == typeof(Value?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new Value { };
+                case JsonToken.Integer:
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new Value { Double = doubleValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new Value { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
+                    return new Value { AnythingMap = objectValue };
+            }
+            throw new Exception("Cannot unmarshal type Value");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (Value)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingMap != null)
+            {
+                serializer.Serialize(writer, value.AnythingMap);
+                return;
+            }
+            throw new Exception("Cannot marshal type Value");
+        }
+
+        public static readonly ValueConverter Singleton = new ValueConverter();
+    }
+
+    internal class SexConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Sex) || t == typeof(Sex?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "FEMALE":
+                    return Sex.Female;
+                case "MALE":
+                    return Sex.Male;
+                case "NOT_SPECIFIED":
+                    return Sex.NotSpecified;
+            }
+            throw new Exception("Cannot unmarshal type Sex");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Sex)untypedValue;
+            switch (value)
+            {
+                case Sex.Female:
+                    serializer.Serialize(writer, "FEMALE");
+                    return;
+                case Sex.Male:
+                    serializer.Serialize(writer, "MALE");
+                    return;
+                case Sex.NotSpecified:
+                    serializer.Serialize(writer, "NOT_SPECIFIED");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Sex");
+        }
+
+        public static readonly SexConverter Singleton = new SexConverter();
+    }
+
+    internal class AdditionalFieldTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AdditionalFieldType) || t == typeof(AdditionalFieldType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "BOOL":
+                    return AdditionalFieldType.Bool;
+                case "COUPON":
+                    return AdditionalFieldType.Coupon;
+                case "FILE":
+                    return AdditionalFieldType.File;
+                case "RADIO":
+                    return AdditionalFieldType.Radio;
+                case "STRING":
+                    return AdditionalFieldType.String;
+            }
+            throw new Exception("Cannot unmarshal type AdditionalFieldType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (AdditionalFieldType)untypedValue;
+            switch (value)
+            {
+                case AdditionalFieldType.Bool:
+                    serializer.Serialize(writer, "BOOL");
+                    return;
+                case AdditionalFieldType.Coupon:
+                    serializer.Serialize(writer, "COUPON");
+                    return;
+                case AdditionalFieldType.File:
+                    serializer.Serialize(writer, "FILE");
+                    return;
+                case AdditionalFieldType.Radio:
+                    serializer.Serialize(writer, "RADIO");
+                    return;
+                case AdditionalFieldType.String:
+                    serializer.Serialize(writer, "STRING");
+                    return;
+            }
+            throw new Exception("Cannot marshal type AdditionalFieldType");
+        }
+
+        public static readonly AdditionalFieldTypeConverter Singleton = new AdditionalFieldTypeConverter();
+    }
+
+    internal class DrinkAnswerConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(DrinkAnswer) || t == typeof(DrinkAnswer?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "COFFEE":
+                    return DrinkAnswer.Coffee;
+                case "NOT_IMPORTANT":
+                    return DrinkAnswer.NotImportant;
+                case "TEA":
+                    return DrinkAnswer.Tea;
+            }
+            throw new Exception("Cannot unmarshal type DrinkAnswer");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (DrinkAnswer)untypedValue;
+            switch (value)
+            {
+                case DrinkAnswer.Coffee:
+                    serializer.Serialize(writer, "COFFEE");
+                    return;
+                case DrinkAnswer.NotImportant:
+                    serializer.Serialize(writer, "NOT_IMPORTANT");
+                    return;
+                case DrinkAnswer.Tea:
+                    serializer.Serialize(writer, "TEA");
+                    return;
+            }
+            throw new Exception("Cannot marshal type DrinkAnswer");
+        }
+
+        public static readonly DrinkAnswerConverter Singleton = new DrinkAnswerConverter();
+    }
+
+    internal class DiscountProviderConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(DiscountProvider) || t == typeof(DiscountProvider?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "GROUPON":
+                    return DiscountProvider.Groupon;
+                case "LOCAL":
+                    return DiscountProvider.Local;
+                case "YANDEX":
+                    return DiscountProvider.Yandex;
+            }
+            throw new Exception("Cannot unmarshal type DiscountProvider");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (DiscountProvider)untypedValue;
+            switch (value)
+            {
+                case DiscountProvider.Groupon:
+                    serializer.Serialize(writer, "GROUPON");
+                    return;
+                case DiscountProvider.Local:
+                    serializer.Serialize(writer, "LOCAL");
+                    return;
+                case DiscountProvider.Yandex:
+                    serializer.Serialize(writer, "YANDEX");
+                    return;
+            }
+            throw new Exception("Cannot marshal type DiscountProvider");
+        }
+
+        public static readonly DiscountProviderConverter Singleton = new DiscountProviderConverter();
+    }
+
+    internal class CurrencyListConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(CurrencyList) || t == typeof(CurrencyList?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "CNY":
+                    return CurrencyList.Cny;
+                case "EUR":
+                    return CurrencyList.Eur;
+                case "GBP":
+                    return CurrencyList.Gbp;
+                case "HUF":
+                    return CurrencyList.Huf;
+                case "ILS":
+                    return CurrencyList.Ils;
+                case "KZT":
+                    return CurrencyList.Kzt;
+                case "RUB":
+                    return CurrencyList.Rub;
+                case "UAH":
+                    return CurrencyList.Uah;
+                case "USD":
+                    return CurrencyList.Usd;
+                case "UZS":
+                    return CurrencyList.Uzs;
+            }
+            throw new Exception("Cannot unmarshal type CurrencyList");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (CurrencyList)untypedValue;
+            switch (value)
+            {
+                case CurrencyList.Cny:
+                    serializer.Serialize(writer, "CNY");
+                    return;
+                case CurrencyList.Eur:
+                    serializer.Serialize(writer, "EUR");
+                    return;
+                case CurrencyList.Gbp:
+                    serializer.Serialize(writer, "GBP");
+                    return;
+                case CurrencyList.Huf:
+                    serializer.Serialize(writer, "HUF");
+                    return;
+                case CurrencyList.Ils:
+                    serializer.Serialize(writer, "ILS");
+                    return;
+                case CurrencyList.Kzt:
+                    serializer.Serialize(writer, "KZT");
+                    return;
+                case CurrencyList.Rub:
+                    serializer.Serialize(writer, "RUB");
+                    return;
+                case CurrencyList.Uah:
+                    serializer.Serialize(writer, "UAH");
+                    return;
+                case CurrencyList.Usd:
+                    serializer.Serialize(writer, "USD");
+                    return;
+                case CurrencyList.Uzs:
+                    serializer.Serialize(writer, "UZS");
+                    return;
+            }
+            throw new Exception("Cannot marshal type CurrencyList");
+        }
+
+        public static readonly CurrencyListConverter Singleton = new CurrencyListConverter();
+    }
+
+    internal class TalkAnswerConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(TalkAnswer) || t == typeof(TalkAnswer?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NOT_IMPORTANT":
+                    return TalkAnswer.NotImportant;
+                case "NOT_TALK":
+                    return TalkAnswer.NotTalk;
+                case "TALK":
+                    return TalkAnswer.Talk;
+            }
+            throw new Exception("Cannot unmarshal type TalkAnswer");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (TalkAnswer)untypedValue;
+            switch (value)
+            {
+                case TalkAnswer.NotImportant:
+                    serializer.Serialize(writer, "NOT_IMPORTANT");
+                    return;
+                case TalkAnswer.NotTalk:
+                    serializer.Serialize(writer, "NOT_TALK");
+                    return;
+                case TalkAnswer.Talk:
+                    serializer.Serialize(writer, "TALK");
+                    return;
+            }
+            throw new Exception("Cannot marshal type TalkAnswer");
+        }
+
+        public static readonly TalkAnswerConverter Singleton = new TalkAnswerConverter();
+    }
+
+    internal class ReminderStatusConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ReminderStatus) || t == typeof(ReminderStatus?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NOT_SET":
+                    return ReminderStatus.NotSet;
+                case "OFF":
+                    return ReminderStatus.Off;
+                case "ON":
+                    return ReminderStatus.On;
+            }
+            throw new Exception("Cannot unmarshal type ReminderStatus");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (ReminderStatus)untypedValue;
+            switch (value)
+            {
+                case ReminderStatus.NotSet:
+                    serializer.Serialize(writer, "NOT_SET");
+                    return;
+                case ReminderStatus.Off:
+                    serializer.Serialize(writer, "OFF");
+                    return;
+                case ReminderStatus.On:
+                    serializer.Serialize(writer, "ON");
+                    return;
+            }
+            throw new Exception("Cannot marshal type ReminderStatus");
+        }
+
+        public static readonly ReminderStatusConverter Singleton = new ReminderStatusConverter();
+    }
+
     internal class BusinessBusinessConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(BusinessBusiness) || t == typeof(BusinessBusiness?);
@@ -5816,8 +7633,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new BusinessBusiness { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<FluffyBusiness>(reader);
-                    return new BusinessBusiness { FluffyBusiness = objectValue };
+                    var objectValue = serializer.Deserialize<StickyBusiness>(reader);
+                    return new BusinessBusiness { StickyBusiness = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new BusinessBusiness { AnythingArray = arrayValue };
@@ -5858,9 +7675,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.FluffyBusiness != null)
+            if (value.StickyBusiness != null)
             {
-                serializer.Serialize(writer, value.FluffyBusiness);
+                serializer.Serialize(writer, value.StickyBusiness);
                 return;
             }
             throw new Exception("Cannot marshal type BusinessBusiness");
@@ -6150,87 +7967,6 @@ namespace GBookingCoreV2
         public static readonly BackofficeTypeConverter Singleton = new BackofficeTypeConverter();
     }
 
-    internal class CurrencyListConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(CurrencyList) || t == typeof(CurrencyList?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "CNY":
-                    return CurrencyList.Cny;
-                case "EUR":
-                    return CurrencyList.Eur;
-                case "GBP":
-                    return CurrencyList.Gbp;
-                case "HUF":
-                    return CurrencyList.Huf;
-                case "ILS":
-                    return CurrencyList.Ils;
-                case "KZT":
-                    return CurrencyList.Kzt;
-                case "RUB":
-                    return CurrencyList.Rub;
-                case "UAH":
-                    return CurrencyList.Uah;
-                case "USD":
-                    return CurrencyList.Usd;
-                case "UZS":
-                    return CurrencyList.Uzs;
-            }
-            throw new Exception("Cannot unmarshal type CurrencyList");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (CurrencyList)untypedValue;
-            switch (value)
-            {
-                case CurrencyList.Cny:
-                    serializer.Serialize(writer, "CNY");
-                    return;
-                case CurrencyList.Eur:
-                    serializer.Serialize(writer, "EUR");
-                    return;
-                case CurrencyList.Gbp:
-                    serializer.Serialize(writer, "GBP");
-                    return;
-                case CurrencyList.Huf:
-                    serializer.Serialize(writer, "HUF");
-                    return;
-                case CurrencyList.Ils:
-                    serializer.Serialize(writer, "ILS");
-                    return;
-                case CurrencyList.Kzt:
-                    serializer.Serialize(writer, "KZT");
-                    return;
-                case CurrencyList.Rub:
-                    serializer.Serialize(writer, "RUB");
-                    return;
-                case CurrencyList.Uah:
-                    serializer.Serialize(writer, "UAH");
-                    return;
-                case CurrencyList.Usd:
-                    serializer.Serialize(writer, "USD");
-                    return;
-                case CurrencyList.Uzs:
-                    serializer.Serialize(writer, "UZS");
-                    return;
-            }
-            throw new Exception("Cannot marshal type CurrencyList");
-        }
-
-        public static readonly CurrencyListConverter Singleton = new CurrencyListConverter();
-    }
-
     internal class AdditionalFieldsConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AdditionalFields) || t == typeof(AdditionalFields?);
@@ -6306,62 +8042,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly AdditionalFieldsConverter Singleton = new AdditionalFieldsConverter();
-    }
-
-    internal class AdditionalFieldsTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(AdditionalFieldsType) || t == typeof(AdditionalFieldsType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "BOOL":
-                    return AdditionalFieldsType.Bool;
-                case "COUPON":
-                    return AdditionalFieldsType.Coupon;
-                case "FILE":
-                    return AdditionalFieldsType.File;
-                case "RADIO":
-                    return AdditionalFieldsType.Radio;
-                case "STRING":
-                    return AdditionalFieldsType.String;
-            }
-            throw new Exception("Cannot unmarshal type AdditionalFieldsType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (AdditionalFieldsType)untypedValue;
-            switch (value)
-            {
-                case AdditionalFieldsType.Bool:
-                    serializer.Serialize(writer, "BOOL");
-                    return;
-                case AdditionalFieldsType.Coupon:
-                    serializer.Serialize(writer, "COUPON");
-                    return;
-                case AdditionalFieldsType.File:
-                    serializer.Serialize(writer, "FILE");
-                    return;
-                case AdditionalFieldsType.Radio:
-                    serializer.Serialize(writer, "RADIO");
-                    return;
-                case AdditionalFieldsType.String:
-                    serializer.Serialize(writer, "STRING");
-                    return;
-            }
-            throw new Exception("Cannot marshal type AdditionalFieldsType");
-        }
-
-        public static readonly AdditionalFieldsTypeConverter Singleton = new AdditionalFieldsTypeConverter();
     }
 
     internal class AddressElementConverter : JsonConverter
@@ -7428,8 +9108,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new ResultBusiness { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<StickyBusiness>(reader);
-                    return new ResultBusiness { StickyBusiness = objectValue };
+                    var objectValue = serializer.Deserialize<IndecentBusiness>(reader);
+                    return new ResultBusiness { IndecentBusiness = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new ResultBusiness { AnythingArray = arrayValue };
@@ -7470,9 +9150,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.StickyBusiness != null)
+            if (value.IndecentBusiness != null)
             {
-                serializer.Serialize(writer, value.StickyBusiness);
+                serializer.Serialize(writer, value.IndecentBusiness);
                 return;
             }
             throw new Exception("Cannot marshal type ResultBusiness");
@@ -7505,8 +9185,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new Resource { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<ResourceClass>(reader);
-                    return new Resource { ResourceClass = objectValue };
+                    var objectValue = serializer.Deserialize<ResourceResource>(reader);
+                    return new Resource { ResourceResource = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new Resource { AnythingArray = arrayValue };
@@ -7547,9 +9227,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.ResourceClass != null)
+            if (value.ResourceResource != null)
             {
-                serializer.Serialize(writer, value.ResourceClass);
+                serializer.Serialize(writer, value.ResourceResource);
                 return;
             }
             throw new Exception("Cannot marshal type Resource");
@@ -7691,9 +9371,9 @@ namespace GBookingCoreV2
         public static readonly AccessTypeConverter Singleton = new AccessTypeConverter();
     }
 
-    internal class StatusConverter : JsonConverter
+    internal class ResourceStatusConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(Status) || t == typeof(Status?);
+        public override bool CanConvert(Type t) => t == typeof(ResourceStatus) || t == typeof(ResourceStatus?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -7702,11 +9382,11 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "ACTIVE":
-                    return Status.Active;
+                    return ResourceStatus.Active;
                 case "INACTIVE":
-                    return Status.Inactive;
+                    return ResourceStatus.Inactive;
             }
-            throw new Exception("Cannot unmarshal type Status");
+            throw new Exception("Cannot unmarshal type ResourceStatus");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -7716,20 +9396,20 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (Status)untypedValue;
+            var value = (ResourceStatus)untypedValue;
             switch (value)
             {
-                case Status.Active:
+                case ResourceStatus.Active:
                     serializer.Serialize(writer, "ACTIVE");
                     return;
-                case Status.Inactive:
+                case ResourceStatus.Inactive:
                     serializer.Serialize(writer, "INACTIVE");
                     return;
             }
-            throw new Exception("Cannot marshal type Status");
+            throw new Exception("Cannot marshal type ResourceStatus");
         }
 
-        public static readonly StatusConverter Singleton = new StatusConverter();
+        public static readonly ResourceStatusConverter Singleton = new ResourceStatusConverter();
     }
 
     internal class AdditionalPriceTypeConverter : JsonConverter
@@ -8363,51 +10043,5 @@ namespace GBookingCoreV2
         }
 
         public static readonly FromSmsConverter Singleton = new FromSmsConverter();
-    }
-
-    internal class SexConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Sex) || t == typeof(Sex?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "FEMALE":
-                    return Sex.Female;
-                case "MALE":
-                    return Sex.Male;
-                case "NOT_SPECIFIED":
-                    return Sex.NotSpecified;
-            }
-            throw new Exception("Cannot unmarshal type Sex");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Sex)untypedValue;
-            switch (value)
-            {
-                case Sex.Female:
-                    serializer.Serialize(writer, "FEMALE");
-                    return;
-                case Sex.Male:
-                    serializer.Serialize(writer, "MALE");
-                    return;
-                case Sex.NotSpecified:
-                    serializer.Serialize(writer, "NOT_SPECIFIED");
-                    return;
-            }
-            throw new Exception("Cannot marshal type Sex");
-        }
-
-        public static readonly SexConverter Singleton = new SexConverter();
     }
 }

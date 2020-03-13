@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
-public enum AdditionalFieldsType {
+public enum AdditionalFieldType {
     BOOL, COUPON, FILE, RADIO, STRING;
 
     @JsonValue
@@ -20,12 +20,12 @@ public enum AdditionalFieldsType {
     }
 
     @JsonCreator
-    public static AdditionalFieldsType forValue(String value) throws IOException {
+    public static AdditionalFieldType forValue(String value) throws IOException {
         if (value.equals("BOOL")) return BOOL;
         if (value.equals("COUPON")) return COUPON;
         if (value.equals("FILE")) return FILE;
         if (value.equals("RADIO")) return RADIO;
         if (value.equals("STRING")) return STRING;
-        throw new IOException("Cannot deserialize AdditionalFieldsType");
+        throw new IOException("Cannot deserialize AdditionalFieldType");
     }
 }
