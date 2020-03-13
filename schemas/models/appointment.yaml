@@ -319,6 +319,13 @@ definitions:
         $ref: "#/definitions/Price"
       shortId:
         type: "string"
+      integration_data:
+        type: "object"
+        additionalProperties: false
+        required: ["extraId"]
+        properties:
+          extraId:
+            type: "string"
 
 required:
   - "appointment"
@@ -495,8 +502,6 @@ properties:
         source:
           type: "string"
 
-  integrationData:
-    type: "object"
   taxonomy:
     $ref: "#/definitions/AppointmentTaxonomy"
   additionalTaxonomies:
@@ -629,15 +634,6 @@ properties:
         type: "number"
       latitude:
         type: "number"
-
-  integration_data:
-    type: "object"
-    additionalProperties: false
-    required: ["extraId"]
-    properties:
-      extraId:
-        type: "string"
-
   reminder:
     type: "object"
     additionalProperties: false
