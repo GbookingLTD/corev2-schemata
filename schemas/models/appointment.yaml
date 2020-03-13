@@ -357,7 +357,6 @@ required:
   - "additionalClientSources"
   - "additionalClientUtms"
   - "additionalClientPayments"
-  - "networkID"
   - "reminder"
   - "clientVisitors"
 

@@ -86,6 +86,22 @@ require('./test')(function() {
 
           return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000003715", appointmentId)
         }),
+    
+    reserveAppointment(process.env.ENDPOINT, "4000000007105", "9160021",
+        "5e6a150547325625a769eb97", "Mon, 16 Mar 2020 10:00:00 GMT")
+        .then((res) => {
+          let appointmentId = undefined;
+          console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
+          if (res.result)
+            appointmentId = res.result.appointment.id;
+
+          if (!appointmentId) {
+            console.warn("skip appointment.client_remove_empty_appointment");
+            return Q();
+          }
+
+          return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000007105", appointmentId)
+        }),
   ].forEach((p) => requests.push(p));
     
   return requests.map((p) => function () {
