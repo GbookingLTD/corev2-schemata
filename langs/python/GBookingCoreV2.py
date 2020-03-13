@@ -11,8 +11,8 @@
 #     result = g_booking_core_v2_from_dict(json.loads(json_string))
 
 from typing import Any, Optional, Union, List, Dict, TypeVar, Type, cast, Callable
-from datetime import datetime
 from enum import Enum
+from datetime import datetime
 import dateutil.parser
 
 
@@ -74,13 +74,13 @@ def from_bool(x: Any) -> bool:
     return x
 
 
-def from_datetime(x: Any) -> datetime:
-    return dateutil.parser.parse(x)
-
-
 def to_enum(c: Type[EnumT], x: Any) -> EnumT:
     assert isinstance(x, c)
     return x.value
+
+
+def from_datetime(x: Any) -> datetime:
+    return dateutil.parser.parse(x)
 
 
 class AuthErrorCodesClass:
@@ -471,20 +471,20 @@ class ClientRemoveEmptyAppointment:
 
 
 class FluffyAppointment:
-    start: datetime
+    start: str
 
-    def __init__(self, start: datetime) -> None:
+    def __init__(self, start: str) -> None:
         self.start = start
 
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyAppointment':
         assert isinstance(obj, dict)
-        start = from_datetime(obj.get("start"))
+        start = from_str(obj.get("start"))
         return FluffyAppointment(start)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["start"] = self.start.isoformat()
+        result["start"] = from_str(self.start)
         return result
 
 

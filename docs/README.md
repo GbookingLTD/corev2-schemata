@@ -27,6 +27,12 @@
 - [ClientController](./controllers/client.schema.md) – `schemas-json/controllers/client.schema.json` (Unknown)
 - [CracSlotsController](./controllers/cracSlots.schema.md) – `schemas-json/controllers/cracSlots.schema.json` (Unknown)
 
+## /common/
+
+- [Error Response](./common/errorResponse.schema.md) – `schemas-json/common/errorResponse.schema.json` (Unknown)
+- [Request](./common/request.schema.md) – `schemas-json/common/request.schema.json` (Unknown)
+- [Success Response](./common/successResponse.schema.md) – `schemas-json/common/successResponse.schema.json` (Unknown)
+
 ## /models/partials/
 
 - [BusinessInfo](./models/partials/businessInfo.schema.md) – `schemas-json/models/partials/businessInfo.schema.json`
@@ -35,12 +41,6 @@
 - [](./models/partials/currency.schema.md) – `schemas-json/models/partials/currency.schema.json` (Unknown)
 - [](./models/partials/language.schema.md) – `schemas-json/models/partials/language.schema.json` (Unknown)
 - [](./models/partials/taxonomyType.schema.md) – `schemas-json/models/partials/taxonomyType.schema.json` (Unknown)
-
-## /common/
-
-- [Error Response](./common/errorResponse.schema.md) – `schemas-json/common/errorResponse.schema.json` (Unknown)
-- [Request](./common/request.schema.md) – `schemas-json/common/request.schema.json` (Unknown)
-- [Success Response](./common/successResponse.schema.md) – `schemas-json/common/successResponse.schema.json` (Unknown)
 
 ## /controllers/cracSlots/
 
@@ -76,6 +76,11 @@
 - [client.add_client.response](./controllers/client/add_client.response.schema.md) –
   `schemas-json/controllers/business/client.add_client.schema.json` (Unknown)
 
+## /common/partials/
+
+- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
+  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)
+
 ## /controllers/business/
 
 - [business.get_network_data.request](./controllers/business/get_network_data.request.schema.md) –
@@ -97,8 +102,3 @@
   `schemas-json/controllers/appointment/reserve_appointment.request.schema.json` (Unknown)
 - [appointment.reserve_appointment.response](./controllers/appointment/reserve_appointment.response.schema.md) –
   `schemas-json/controllers/appointment/reserve_appointment.response.schema.json` (Unknown)
-
-## /common/partials/
-
-- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
-  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)

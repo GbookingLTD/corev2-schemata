@@ -267,7 +267,7 @@ export interface AppointmentReserve {
 }
 
 export interface AppointmentObject {
-    start: Date;
+    start: string;
 }
 
 export interface FluffyBusiness {
@@ -5476,7 +5476,7 @@ const typeMap: any = {
         { json: "taxonomy", js: "taxonomy", typ: r("ParamsTaxonomy") },
     ], "any"),
     "AppointmentObject": o([
-        { json: "start", js: "start", typ: Date },
+        { json: "start", js: "start", typ: "" },
     ], "any"),
     "FluffyBusiness": o([
         { json: "id", js: "id", typ: "" },

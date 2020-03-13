@@ -374,7 +374,7 @@ namespace GBookingCoreV2
     public partial class FluffyAppointment
     {
         [JsonProperty("start")]
-        public DateTimeOffset Start { get; set; }
+        public string Start { get; set; }
     }
 
     public partial class FluffyBusiness

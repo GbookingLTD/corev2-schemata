@@ -46,8 +46,6 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `string`
 
-- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
-
 ## business
 
 `business`
@@ -208,8 +206,6 @@ All items must be of the type: `string`
 ##### start Type
 
 `string`
-
-- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 #### business
 
