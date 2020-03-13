@@ -72,7 +72,7 @@ require('./test')(function() {
     getNetworkData(process.env.ENDPOINT, 342),
     getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 342),
     reserveAppointment(process.env.ENDPOINT, "4000000003715", "9123154",
-        "5d0a27dd73876619445a2910", "2020-03-17T17:00:00.000Z")
+        "5d0a27dd73876619445a2910", "Sun, 17 Mar 2020 09:30:00 GMT")
         .then((res) => {
           let appointmentId = undefined;
           console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");

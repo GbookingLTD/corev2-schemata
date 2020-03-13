@@ -21,7 +21,6 @@ definitions:
         properties:
           start:
             type: "string"
-            format: "date-time"
       source:
         type: "string"
       business:
