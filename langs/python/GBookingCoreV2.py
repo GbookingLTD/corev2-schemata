@@ -1186,6 +1186,24 @@ class DrinkAnswer(Enum):
     TEA = "TEA"
 
 
+class IntegrationData:
+    extra_id: str
+
+    def __init__(self, extra_id: str) -> None:
+        self.extra_id = extra_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'IntegrationData':
+        assert isinstance(obj, dict)
+        extra_id = from_str(obj.get("extraId"))
+        return IntegrationData(extra_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["extraId"] = from_str(self.extra_id)
+        return result
+
+
 class DiscountProvider(Enum):
     GROUPON = "GROUPON"
     LOCAL = "LOCAL"
@@ -1295,6 +1313,7 @@ class AppointmentInfo:
     duration: float
     hide_appointment_time: bool
     id: str
+    integration_data: Optional[IntegrationData]
     price: Price
     short_id: str
     start: datetime
@@ -1303,7 +1322,7 @@ class AppointmentInfo:
     test_record: bool
     updated: datetime
 
-    def __init__(self, backoffice_id: Union[float, str], block_sms: bool, created: datetime, drink_answer: DrinkAnswer, duration: float, hide_appointment_time: bool, id: str, price: Price, short_id: str, start: datetime, status: AppointmentStatus, talk_answer: TalkAnswer, test_record: bool, updated: datetime) -> None:
+    def __init__(self, backoffice_id: Union[float, str], block_sms: bool, created: datetime, drink_answer: DrinkAnswer, duration: float, hide_appointment_time: bool, id: str, integration_data: Optional[IntegrationData], price: Price, short_id: str, start: datetime, status: AppointmentStatus, talk_answer: TalkAnswer, test_record: bool, updated: datetime) -> None:
         self.backoffice_id = backoffice_id
         self.block_sms = block_sms
         self.created = created
@@ -1311,6 +1330,7 @@ class AppointmentInfo:
         self.duration = duration
         self.hide_appointment_time = hide_appointment_time
         self.id = id
+        self.integration_data = integration_data
         self.price = price
         self.short_id = short_id
         self.start = start
@@ -1329,6 +1349,7 @@ class AppointmentInfo:
         duration = from_float(obj.get("duration"))
         hide_appointment_time = from_bool(obj.get("hideAppointmentTime"))
         id = from_str(obj.get("id"))
+        integration_data = from_union([IntegrationData.from_dict, from_none], obj.get("integration_data"))
         price = Price.from_dict(obj.get("price"))
         short_id = from_str(obj.get("shortId"))
         start = from_datetime(obj.get("start"))
@@ -1336,7 +1357,7 @@ class AppointmentInfo:
         talk_answer = TalkAnswer(obj.get("talkAnswer"))
         test_record = from_bool(obj.get("testRecord"))
         updated = from_datetime(obj.get("updated"))
-        return AppointmentInfo(backoffice_id, block_sms, created, drink_answer, duration, hide_appointment_time, id, price, short_id, start, status, talk_answer, test_record, updated)
+        return AppointmentInfo(backoffice_id, block_sms, created, drink_answer, duration, hide_appointment_time, id, integration_data, price, short_id, start, status, talk_answer, test_record, updated)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -1347,6 +1368,7 @@ class AppointmentInfo:
         result["duration"] = to_float(self.duration)
         result["hideAppointmentTime"] = from_bool(self.hide_appointment_time)
         result["id"] = from_str(self.id)
+        result["integration_data"] = from_union([lambda x: to_class(IntegrationData, x), from_none], self.integration_data)
         result["price"] = to_class(Price, self.price)
         result["shortId"] = from_str(self.short_id)
         result["start"] = self.start.isoformat()
@@ -1354,24 +1376,6 @@ class AppointmentInfo:
         result["talkAnswer"] = to_enum(TalkAnswer, self.talk_answer)
         result["testRecord"] = from_bool(self.test_record)
         result["updated"] = self.updated.isoformat()
-        return result
-
-
-class IntegrationData:
-    extra_id: str
-
-    def __init__(self, extra_id: str) -> None:
-        self.extra_id = extra_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'IntegrationData':
-        assert isinstance(obj, dict)
-        extra_id = from_str(obj.get("extraId"))
-        return IntegrationData(extra_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["extraId"] = from_str(self.extra_id)
         return result
 
 
@@ -1819,8 +1823,6 @@ class AppointmentSchema:
     extra_fields: List[ExtraField]
     gt: Optional[bool]
     gt_time_frame: Optional[str]
-    appointment_schema_integration_data: Optional[IntegrationData]
-    integration_data: Optional[Dict[str, Any]]
     location: Optional[Location]
     master_importance: Optional[bool]
     min_clients: Optional[float]
@@ -1846,7 +1848,7 @@ class AppointmentSchema:
     utm: Optional[Dict[str, Any]]
     with_co_sale: Optional[bool]
 
-    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_comment: str, client_visitors: List[AdditionalClientElement], color: Optional[str], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], appointment_schema_integration_data: Optional[IntegrationData], integration_data: Optional[Dict[str, Any]], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: str, notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: Reminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Review, room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
+    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_comment: str, client_visitors: List[AdditionalClientElement], color: Optional[str], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: str, notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: Reminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Review, room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
         self.additional_info = additional_info
         self.additional_client_appears = additional_client_appears
         self.additional_client_payments = additional_client_payments
@@ -1879,8 +1881,6 @@ class AppointmentSchema:
         self.extra_fields = extra_fields
         self.gt = gt
         self.gt_time_frame = gt_time_frame
-        self.appointment_schema_integration_data = appointment_schema_integration_data
-        self.integration_data = integration_data
         self.location = location
         self.master_importance = master_importance
         self.min_clients = min_clients
@@ -1941,8 +1941,6 @@ class AppointmentSchema:
         extra_fields = from_list(ExtraField.from_dict, obj.get("extraFields"))
         gt = from_union([from_bool, from_none], obj.get("gt"))
         gt_time_frame = from_union([from_str, from_none], obj.get("gtTimeFrame"))
-        appointment_schema_integration_data = from_union([IntegrationData.from_dict, from_none], obj.get("integration_data"))
-        integration_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("integrationData"))
         location = from_union([Location.from_dict, from_none], obj.get("location"))
         master_importance = from_union([from_bool, from_none], obj.get("masterImportance"))
         min_clients = from_union([from_float, from_none], obj.get("minClients"))
@@ -1967,7 +1965,7 @@ class AppointmentSchema:
         taxonomy = AppointmentTaxonomy.from_dict(obj.get("taxonomy"))
         utm = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("utm"))
         with_co_sale = from_union([from_bool, from_none], obj.get("withCoSale"))
-        return AppointmentSchema(additional_info, additional_client_appears, additional_client_payments, additional_clients, additional_client_sources, additional_client_statuses, additional_client_utms, additional_fields, additional_products, additional_taxonomies, address, adjacent_id, appointment, auto_phone_call_status, banned_clients, business, cabinet, capacity, change_reason, client, client_appear, client_med_code, client_payment, client_payment_invoice, client_comment, client_visitors, color, destination_keyword, destination_link, extra_fields, gt, gt_time_frame, appointment_schema_integration_data, integration_data, location, master_importance, min_clients, move_counter, moved_by_robot, moved_from_fired, network_id, notes, order, preferred_resource, promo_code, referer_link, referrer, reminder, removed_clients_data, resource, review, room, showcase, social_token, source, taxonomy, utm, with_co_sale)
+        return AppointmentSchema(additional_info, additional_client_appears, additional_client_payments, additional_clients, additional_client_sources, additional_client_statuses, additional_client_utms, additional_fields, additional_products, additional_taxonomies, address, adjacent_id, appointment, auto_phone_call_status, banned_clients, business, cabinet, capacity, change_reason, client, client_appear, client_med_code, client_payment, client_payment_invoice, client_comment, client_visitors, color, destination_keyword, destination_link, extra_fields, gt, gt_time_frame, location, master_importance, min_clients, move_counter, moved_by_robot, moved_from_fired, network_id, notes, order, preferred_resource, promo_code, referer_link, referrer, reminder, removed_clients_data, resource, review, room, showcase, social_token, source, taxonomy, utm, with_co_sale)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2003,8 +2001,6 @@ class AppointmentSchema:
         result["extraFields"] = from_list(lambda x: to_class(ExtraField, x), self.extra_fields)
         result["gt"] = from_union([from_bool, from_none], self.gt)
         result["gtTimeFrame"] = from_union([from_str, from_none], self.gt_time_frame)
-        result["integration_data"] = from_union([lambda x: to_class(IntegrationData, x), from_none], self.appointment_schema_integration_data)
-        result["integrationData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.integration_data)
         result["location"] = from_union([lambda x: to_class(Location, x), from_none], self.location)
         result["masterImportance"] = from_union([from_bool, from_none], self.master_importance)
         result["minClients"] = from_union([to_float, from_none], self.min_clients)

@@ -180,64 +180,62 @@ type AppointmentReserveAppointmentResponseError struct {
 }
 
 type AppointmentSchema struct {
-	AdditionalInfo                   map[string]interface{}    `json:"additional_info,omitempty"`       
-	AdditionalClientAppears          []AdditionalClientAppear  `json:"additionalClientAppears"`         
-	AdditionalClientPayments         []AdditionalClientPayment `json:"additionalClientPayments"`        
-	AdditionalClients                []AdditionalClientElement `json:"additionalClients"`               
-	AdditionalClientSources          []AdditionalClientSource  `json:"additionalClientSources"`         
-	AdditionalClientStatuses         []AdditionalClientStatus  `json:"additionalClientStatuses"`        
-	AdditionalClientUtms             []AdditionalClientUtm     `json:"additionalClientUtms"`            
-	AdditionalFields                 []AdditionalField         `json:"additionalFields"`                
-	AdditionalProducts               []AdditionalProduct       `json:"additionalProducts"`              
-	AdditionalTaxonomies             []AppointmentTaxonomy     `json:"additionalTaxonomies"`            
-	Address                          *string                   `json:"address,omitempty"`               
-	AdjacentID                       *string                   `json:"adjacentId,omitempty"`            
-	Appointment                      AppointmentInfo           `json:"appointment"`                     
-	AutoPhoneCallStatus              *string                   `json:"autoPhoneCallStatus,omitempty"`   
-	BannedClients                    []string                  `json:"bannedClients"`                   
-	Business                         AppointmentBusiness       `json:"business"`                        
-	Cabinet                          Cabinet                   `json:"cabinet"`                         
-	Capacity                         *float64                  `json:"capacity,omitempty"`              
-	ChangeReason                     string                    `json:"changeReason"`                    
-	Client                           PurpleAppointmentClient   `json:"client"`                          
-	ClientAppear                     AppointmentClientAppear   `json:"client_appear"`                   
-	ClientMedCode                    *string                   `json:"client_med_code,omitempty"`       
-	ClientPayment                    AppointmentClientPayment  `json:"client_payment"`                  
-	ClientPaymentInvoice             *string                   `json:"client_payment_invoice,omitempty"`
-	ClientComment                    string                    `json:"clientComment"`                   
-	ClientVisitors                   []AdditionalClientElement `json:"clientVisitors"`                  
-	Color                            *string                   `json:"color,omitempty"`                 
-	DestinationKeyword               *string                   `json:"destinationKeyword,omitempty"`    
-	DestinationLink                  *string                   `json:"destinationLink,omitempty"`       
-	ExtraFields                      []ExtraField              `json:"extraFields"`                     
-	Gt                               *bool                     `json:"gt,omitempty"`                    
-	GtTimeFrame                      *string                   `json:"gtTimeFrame,omitempty"`           
-	AppointmentSchemaIntegrationData *IntegrationData          `json:"integration_data,omitempty"`      
-	IntegrationData                  map[string]interface{}    `json:"integrationData,omitempty"`       
-	Location                         *Location                 `json:"location,omitempty"`              
-	MasterImportance                 *bool                     `json:"masterImportance,omitempty"`      
-	MinClients                       *float64                  `json:"minClients,omitempty"`            
-	MoveCounter                      float64                   `json:"moveCounter"`                     
-	MovedByRobot                     bool                      `json:"movedByRobot"`                    
-	MovedFromFired                   *bool                     `json:"movedFromFired,omitempty"`        
-	NetworkID                        string                    `json:"networkID"`                       
-	Notes                            string                    `json:"notes"`                           
-	Order                            Order                     `json:"order"`                           
-	PreferredResource                *bool                     `json:"preferredResource,omitempty"`     
-	PromoCode                        *string                   `json:"promoCode,omitempty"`             
-	RefererLink                      *string                   `json:"refererLink,omitempty"`           
-	Referrer                         *string                   `json:"referrer,omitempty"`              
-	Reminder                         Reminder                  `json:"reminder"`                        
-	RemovedClientsData               []RemovedClientsDatum     `json:"removedClientsData"`              
-	Resource                         AppointmentResource       `json:"resource"`                        
-	Review                           Review                    `json:"review"`                          
-	Room                             *Room                     `json:"room,omitempty"`                  
-	Showcase                         AppointmentShowcase       `json:"showcase"`                        
-	SocialToken                      *string                   `json:"socialToken,omitempty"`           
-	Source                           string                    `json:"source"`                          
-	Taxonomy                         AppointmentTaxonomy       `json:"taxonomy"`                        
-	Utm                              map[string]interface{}    `json:"utm,omitempty"`                   
-	WithCoSale                       *bool                     `json:"withCoSale,omitempty"`            
+	AdditionalInfo           map[string]interface{}    `json:"additional_info,omitempty"`       
+	AdditionalClientAppears  []AdditionalClientAppear  `json:"additionalClientAppears"`         
+	AdditionalClientPayments []AdditionalClientPayment `json:"additionalClientPayments"`        
+	AdditionalClients        []AdditionalClientElement `json:"additionalClients"`               
+	AdditionalClientSources  []AdditionalClientSource  `json:"additionalClientSources"`         
+	AdditionalClientStatuses []AdditionalClientStatus  `json:"additionalClientStatuses"`        
+	AdditionalClientUtms     []AdditionalClientUtm     `json:"additionalClientUtms"`            
+	AdditionalFields         []AdditionalField         `json:"additionalFields"`                
+	AdditionalProducts       []AdditionalProduct       `json:"additionalProducts"`              
+	AdditionalTaxonomies     []AppointmentTaxonomy     `json:"additionalTaxonomies"`            
+	Address                  *string                   `json:"address,omitempty"`               
+	AdjacentID               *string                   `json:"adjacentId,omitempty"`            
+	Appointment              AppointmentInfo           `json:"appointment"`                     
+	AutoPhoneCallStatus      *string                   `json:"autoPhoneCallStatus,omitempty"`   
+	BannedClients            []string                  `json:"bannedClients"`                   
+	Business                 AppointmentBusiness       `json:"business"`                        
+	Cabinet                  Cabinet                   `json:"cabinet"`                         
+	Capacity                 *float64                  `json:"capacity,omitempty"`              
+	ChangeReason             string                    `json:"changeReason"`                    
+	Client                   PurpleAppointmentClient   `json:"client"`                          
+	ClientAppear             AppointmentClientAppear   `json:"client_appear"`                   
+	ClientMedCode            *string                   `json:"client_med_code,omitempty"`       
+	ClientPayment            AppointmentClientPayment  `json:"client_payment"`                  
+	ClientPaymentInvoice     *string                   `json:"client_payment_invoice,omitempty"`
+	ClientComment            string                    `json:"clientComment"`                   
+	ClientVisitors           []AdditionalClientElement `json:"clientVisitors"`                  
+	Color                    *string                   `json:"color,omitempty"`                 
+	DestinationKeyword       *string                   `json:"destinationKeyword,omitempty"`    
+	DestinationLink          *string                   `json:"destinationLink,omitempty"`       
+	ExtraFields              []ExtraField              `json:"extraFields"`                     
+	Gt                       *bool                     `json:"gt,omitempty"`                    
+	GtTimeFrame              *string                   `json:"gtTimeFrame,omitempty"`           
+	Location                 *Location                 `json:"location,omitempty"`              
+	MasterImportance         *bool                     `json:"masterImportance,omitempty"`      
+	MinClients               *float64                  `json:"minClients,omitempty"`            
+	MoveCounter              float64                   `json:"moveCounter"`                     
+	MovedByRobot             bool                      `json:"movedByRobot"`                    
+	MovedFromFired           *bool                     `json:"movedFromFired,omitempty"`        
+	NetworkID                string                    `json:"networkID"`                       
+	Notes                    string                    `json:"notes"`                           
+	Order                    Order                     `json:"order"`                           
+	PreferredResource        *bool                     `json:"preferredResource,omitempty"`     
+	PromoCode                *string                   `json:"promoCode,omitempty"`             
+	RefererLink              *string                   `json:"refererLink,omitempty"`           
+	Referrer                 *string                   `json:"referrer,omitempty"`              
+	Reminder                 Reminder                  `json:"reminder"`                        
+	RemovedClientsData       []RemovedClientsDatum     `json:"removedClientsData"`              
+	Resource                 AppointmentResource       `json:"resource"`                        
+	Review                   Review                    `json:"review"`                          
+	Room                     *Room                     `json:"room,omitempty"`                  
+	Showcase                 AppointmentShowcase       `json:"showcase"`                        
+	SocialToken              *string                   `json:"socialToken,omitempty"`           
+	Source                   string                    `json:"source"`                          
+	Taxonomy                 AppointmentTaxonomy       `json:"taxonomy"`                        
+	Utm                      map[string]interface{}    `json:"utm,omitempty"`                   
+	WithCoSale               *bool                     `json:"withCoSale,omitempty"`            
 }
 
 type AdditionalClientAppear struct {
@@ -353,20 +351,25 @@ type AppointmentTaxonomy struct {
 }
 
 type AppointmentInfo struct {
-	BackofficeID        *TimeFrameDate    `json:"backofficeID"`       
-	BlockSMS            bool              `json:"blockSMS"`           
-	Created             string            `json:"created"`            
-	DrinkAnswer         DrinkAnswer       `json:"drinkAnswer"`        
-	Duration            float64           `json:"duration"`           
-	HideAppointmentTime bool              `json:"hideAppointmentTime"`
-	ID                  string            `json:"id"`                 
-	Price               Price             `json:"price"`              
-	ShortID             string            `json:"shortId"`            
-	Start               string            `json:"start"`              
-	Status              AppointmentStatus `json:"status"`             
-	TalkAnswer          TalkAnswer        `json:"talkAnswer"`         
-	TestRecord          bool              `json:"testRecord"`         
-	Updated             string            `json:"updated"`            
+	BackofficeID        *TimeFrameDate    `json:"backofficeID"`              
+	BlockSMS            bool              `json:"blockSMS"`                  
+	Created             string            `json:"created"`                   
+	DrinkAnswer         DrinkAnswer       `json:"drinkAnswer"`               
+	Duration            float64           `json:"duration"`                  
+	HideAppointmentTime bool              `json:"hideAppointmentTime"`       
+	ID                  string            `json:"id"`                        
+	IntegrationData     *IntegrationData  `json:"integration_data,omitempty"`
+	Price               Price             `json:"price"`                     
+	ShortID             string            `json:"shortId"`                   
+	Start               string            `json:"start"`                     
+	Status              AppointmentStatus `json:"status"`                    
+	TalkAnswer          TalkAnswer        `json:"talkAnswer"`                
+	TestRecord          bool              `json:"testRecord"`                
+	Updated             string            `json:"updated"`                   
+}
+
+type IntegrationData struct {
+	ExtraID string `json:"extraId"`
 }
 
 type Price struct {
@@ -384,10 +387,6 @@ type AdditionalTaxonomyDiscount struct {
 	DiscountProvider *DiscountProvider `json:"discountProvider,omitempty"`
 	DiscountType     *string           `json:"discountType,omitempty"`    
 	TaxonomyID       *string           `json:"taxonomyID,omitempty"`      
-}
-
-type IntegrationData struct {
-	ExtraID string `json:"extraId"`
 }
 
 type AppointmentBusiness struct {

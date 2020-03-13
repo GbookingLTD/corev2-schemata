@@ -359,8 +359,6 @@ export interface AppointmentSchema {
     extraFields:              ExtraField[];
     gt?:                      boolean;
     gtTimeFrame?:             string;
-    integration_data?:        IntegrationData;
-    integrationData?:         { [key: string]: any };
     location?:                Location;
     masterImportance?:        boolean;
     minClients?:              number;
@@ -561,6 +559,7 @@ export interface AppointmentInfo {
     duration:            number;
     hideAppointmentTime: boolean;
     id:                  string;
+    integration_data?:   IntegrationData;
     price:               Price;
     shortId:             string;
     start:               Date;
@@ -574,6 +573,10 @@ export enum DrinkAnswer {
     Coffee = "COFFEE",
     NotImportant = "NOT_IMPORTANT",
     Tea = "TEA",
+}
+
+export interface IntegrationData {
+    extraId: string;
 }
 
 export interface Price {
@@ -668,10 +671,6 @@ export interface PurpleAppointmentClient {
     surname?:             string;
     taxiPark?:            string;
     taxiParkMemberCount?: number;
-}
-
-export interface IntegrationData {
-    extraId: string;
 }
 
 export interface Location {
@@ -3795,6 +3794,14 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AppointmentInfo")), null, 2);
     }
 
+    public static toIntegrationData(json: string): IntegrationData {
+        return cast(JSON.parse(json), r("IntegrationData"));
+    }
+
+    public static integrationDataToJson(value: IntegrationData): string {
+        return JSON.stringify(uncast(value, r("IntegrationData")), null, 2);
+    }
+
     public static toPrice(json: string): Price {
         return cast(JSON.parse(json), r("Price"));
     }
@@ -3833,14 +3840,6 @@ export class Convert {
 
     public static purpleAppointmentClientToJson(value: PurpleAppointmentClient): string {
         return JSON.stringify(uncast(value, r("PurpleAppointmentClient")), null, 2);
-    }
-
-    public static toIntegrationData(json: string): IntegrationData {
-        return cast(JSON.parse(json), r("IntegrationData"));
-    }
-
-    public static integrationDataToJson(value: IntegrationData): string {
-        return JSON.stringify(uncast(value, r("IntegrationData")), null, 2);
     }
 
     public static toLocation(json: string): Location {
@@ -5531,8 +5530,6 @@ const typeMap: any = {
         { json: "extraFields", js: "extraFields", typ: a(r("ExtraField")) },
         { json: "gt", js: "gt", typ: u(undefined, true) },
         { json: "gtTimeFrame", js: "gtTimeFrame", typ: u(undefined, "") },
-        { json: "integration_data", js: "integration_data", typ: u(undefined, r("IntegrationData")) },
-        { json: "integrationData", js: "integrationData", typ: u(undefined, m("any")) },
         { json: "location", js: "location", typ: u(undefined, r("Location")) },
         { json: "masterImportance", js: "masterImportance", typ: u(undefined, true) },
         { json: "minClients", js: "minClients", typ: u(undefined, 3.14) },
@@ -5664,6 +5661,7 @@ const typeMap: any = {
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "hideAppointmentTime", js: "hideAppointmentTime", typ: true },
         { json: "id", js: "id", typ: "" },
+        { json: "integration_data", js: "integration_data", typ: u(undefined, r("IntegrationData")) },
         { json: "price", js: "price", typ: r("Price") },
         { json: "shortId", js: "shortId", typ: "" },
         { json: "start", js: "start", typ: Date },
@@ -5671,6 +5669,9 @@ const typeMap: any = {
         { json: "talkAnswer", js: "talkAnswer", typ: r("TalkAnswer") },
         { json: "testRecord", js: "testRecord", typ: true },
         { json: "updated", js: "updated", typ: Date },
+    ], false),
+    "IntegrationData": o([
+        { json: "extraId", js: "extraId", typ: "" },
     ], false),
     "Price": o([
         { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: r("AdditionalTaxonomyDiscount") },
@@ -5727,9 +5728,6 @@ const typeMap: any = {
         { json: "surname", js: "surname", typ: u(undefined, "") },
         { json: "taxiPark", js: "taxiPark", typ: u(undefined, "") },
         { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, 3.14) },
-    ], false),
-    "IntegrationData": o([
-        { json: "extraId", js: "extraId", typ: "" },
     ], false),
     "Location": o([
         { json: "latitude", js: "latitude", typ: 3.14 },

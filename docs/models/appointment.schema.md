@@ -51,6 +51,7 @@ schemas-json/models/appointment.schema.json
 | [id](#id)                                                 | `string`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
 | [incomingPhone](#incomingphone)                           | reference | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
 | [inprogress](#inprogress)                                 | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientFeedback` |
+| [integration_data](#integration_data)                     | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
 | [isVIP](#isvip)                                           | `boolean` | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
 | [israelCity](#israelcity)                                 | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
 | [kupatHolim](#kupatholim)                                 | `object`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
@@ -640,6 +641,33 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## integration_data
+
+`integration_data`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### integration_data Type
+
+`object` with following properties:
+
+| Property  | Type   | Required     |
+| --------- | ------ | ------------ |
+| `extraId` | string | **Required** |
+
+#### extraId
+
+`extraId`
+
+- is **required**
+- type: `string`
+
+##### extraId Type
+
+`string`
+
 ## isVIP
 
 `isVIP`
@@ -1121,8 +1149,6 @@ Either one of:
 | [extraFields](#extrafields)                           | reference  | **Required** | No       |         | (this schema) |
 | [gt](#gt)                                             | `boolean`  | Optional     | No       |         | (this schema) |
 | [gtTimeFrame](#gttimeframe)                           | `string`   | Optional     | No       |         | (this schema) |
-| [integrationData](#integrationdata)                   | `object`   | Optional     | No       |         | (this schema) |
-| [integration_data](#integration_data)                 | `object`   | Optional     | No       |         | (this schema) |
 | [location](#location)                                 | `object`   | Optional     | No       |         | (this schema) |
 | [masterImportance](#masterimportance)                 | `boolean`  | Optional     | No       |         | (this schema) |
 | [minClients](#minclients)                             | `number`   | Optional     | No       |         | (this schema) |
@@ -1507,6 +1533,7 @@ All items must be of the type:
 | `duration`            | number        | **Required** |                   |
 | `hideAppointmentTime` | boolean       | **Required** |                   |
 | `id`                  | string        | **Required** |                   |
+| `integration_data`    | object        | Optional     |                   |
 | `price`               |               | **Required** |                   |
 | `shortId`             | string        | **Required** |                   |
 | `start`               | string        | **Required** |                   |
@@ -1607,6 +1634,32 @@ The value of this property **must** be equal to one of the [known values below](
 - type: `string`
 
 ##### id Type
+
+`string`
+
+#### integration_data
+
+`integration_data`
+
+- is optional
+- type: `object`
+
+##### integration_data Type
+
+`object` with following properties:
+
+| Property  | Type   | Required     |
+| --------- | ------ | ------------ |
+| `extraId` | string | **Required** |
+
+#### extraId
+
+`extraId`
+
+- is **required**
+- type: `string`
+
+##### extraId Type
 
 `string`
 
@@ -1993,49 +2046,6 @@ All items must be of the type:
 - defined in this schema
 
 ### gtTimeFrame Type
-
-`string`
-
-## integrationData
-
-`integrationData`
-
-- is optional
-- type: `object`
-- defined in this schema
-
-### integrationData Type
-
-`object` with following properties:
-
-| Property | Type | Required |
-| -------- | ---- | -------- |
-
-
-## integration_data
-
-`integration_data`
-
-- is optional
-- type: `object`
-- defined in this schema
-
-### integration_data Type
-
-`object` with following properties:
-
-| Property  | Type   | Required     |
-| --------- | ------ | ------------ |
-| `extraId` | string | **Required** |
-
-#### extraId
-
-`extraId`
-
-- is **required**
-- type: `string`
-
-##### extraId Type
 
 `string`
 

@@ -11,6 +11,7 @@ public class AppointmentInfo {
     private double duration;
     private boolean hideAppointmentTime;
     private String id;
+    private IntegrationData integrationData;
     private Price price;
     private String shortID;
     private String start;
@@ -53,6 +54,11 @@ public class AppointmentInfo {
     public String getID() { return id; }
     @JsonProperty("id")
     public void setID(String value) { this.id = value; }
+
+    @JsonProperty("integration_data")
+    public IntegrationData getIntegrationData() { return integrationData; }
+    @JsonProperty("integration_data")
+    public void setIntegrationData(IntegrationData value) { this.integrationData = value; }
 
     @JsonProperty("price")
     public Price getPrice() { return price; }

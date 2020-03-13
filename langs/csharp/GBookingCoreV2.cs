@@ -546,12 +546,6 @@ namespace GBookingCoreV2
         [JsonProperty("gtTimeFrame", NullValueHandling = NullValueHandling.Ignore)]
         public string GtTimeFrame { get; set; }
 
-        [JsonProperty("integration_data", NullValueHandling = NullValueHandling.Ignore)]
-        public IntegrationData AppointmentSchemaIntegrationData { get; set; }
-
-        [JsonProperty("integrationData", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, object> IntegrationData { get; set; }
-
         [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
         public Location Location { get; set; }
 
@@ -900,6 +894,9 @@ namespace GBookingCoreV2
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        [JsonProperty("integration_data", NullValueHandling = NullValueHandling.Ignore)]
+        public IntegrationData IntegrationData { get; set; }
+
         [JsonProperty("price")]
         public Price Price { get; set; }
 
@@ -920,6 +917,12 @@ namespace GBookingCoreV2
 
         [JsonProperty("updated")]
         public DateTimeOffset Updated { get; set; }
+    }
+
+    public partial class IntegrationData
+    {
+        [JsonProperty("extraId")]
+        public string ExtraId { get; set; }
     }
 
     public partial class Price
@@ -959,12 +962,6 @@ namespace GBookingCoreV2
 
         [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
         public string TaxonomyId { get; set; }
-    }
-
-    public partial class IntegrationData
-    {
-        [JsonProperty("extraId")]
-        public string ExtraId { get; set; }
     }
 
     public partial class AppointmentBusiness

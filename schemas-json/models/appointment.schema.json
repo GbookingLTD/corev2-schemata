@@ -494,6 +494,18 @@
                 },
                 "shortId": {
                     "type": "string"
+                },
+                "integration_data": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "extraId"
+                    ],
+                    "properties": {
+                        "extraId": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         }
@@ -736,9 +748,6 @@
                 }
             }
         },
-        "integrationData": {
-            "type": "object"
-        },
         "taxonomy": {
             "$ref": "#/definitions/AppointmentTaxonomy"
         },
@@ -924,18 +933,6 @@
                 },
                 "latitude": {
                     "type": "number"
-                }
-            }
-        },
-        "integration_data": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-                "extraId"
-            ],
-            "properties": {
-                "extraId": {
-                    "type": "string"
                 }
             }
         },

@@ -36,8 +36,6 @@ public class AppointmentSchema {
     private List<ExtraField> extraFields;
     private Boolean gt;
     private String gtTimeFrame;
-    private IntegrationData appointmentSchemaIntegrationData;
-    private Map<String, Object> integrationData;
     private Location location;
     private Boolean masterImportance;
     private Double minClients;
@@ -222,16 +220,6 @@ public class AppointmentSchema {
     public String getGtTimeFrame() { return gtTimeFrame; }
     @JsonProperty("gtTimeFrame")
     public void setGtTimeFrame(String value) { this.gtTimeFrame = value; }
-
-    @JsonProperty("integration_data")
-    public IntegrationData getAppointmentSchemaIntegrationData() { return appointmentSchemaIntegrationData; }
-    @JsonProperty("integration_data")
-    public void setAppointmentSchemaIntegrationData(IntegrationData value) { this.appointmentSchemaIntegrationData = value; }
-
-    @JsonProperty("integrationData")
-    public Map<String, Object> getIntegrationData() { return integrationData; }
-    @JsonProperty("integrationData")
-    public void setIntegrationData(Map<String, Object> value) { this.integrationData = value; }
 
     @JsonProperty("location")
     public Location getLocation() { return location; }
