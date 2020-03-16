@@ -21,33 +21,6 @@ properties:
         $ref: "./client/find_or_create_client.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
-  client_confirm_appointment:
-    type: "object"
-    properties:
-      request:
-        $ref: "./client/client_confirm_appointment.request.schema.json"
-      response:
-        $ref: "./client/client_confirm_appointment.response.schema.json"
-    required: ['request', 'response']
-    additionalProperties: false
-  cancel_appointment_by_client:
-    type: "object"
-    properties:
-      request:
-        $ref: "./client/cancel_appointment_by_client.request.schema.json"
-      response:
-        $ref: "./client/cancel_appointment_by_client.response.schema.json"
-    required: ['request', 'response']
-    additionalProperties: false
-  cancel_appointment_by_business:
-    type: "object"
-    properties:
-      request:
-        $ref: "./client/cancel_appointment_by_business.request.schema.json"
-      response:
-        $ref: "./client/cancel_appointment_by_business.response.schema.json"
-    required: ['request', 'response']
-    additionalProperties: false
 required:
   - add_client
 additionalProperties: false
