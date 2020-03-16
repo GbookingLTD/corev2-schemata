@@ -7,7 +7,7 @@ public class AppointmentSchema {
     private Map<String, Object> additionalInfo;
     private List<AdditionalClientAppear> additionalClientAppears;
     private List<AdditionalClientPayment> additionalClientPayments;
-    private List<AdditionalClientElement> additionalClients;
+    private List<PurpleAppointmentClient> additionalClients;
     private List<AdditionalClientSource> additionalClientSources;
     private List<AdditionalClientStatus> additionalClientStatuses;
     private List<AdditionalClientUtm> additionalClientUtms;
@@ -23,13 +23,13 @@ public class AppointmentSchema {
     private Cabinet cabinet;
     private Double capacity;
     private String changeReason;
-    private PurpleAppointmentClient client;
+    private AppointmentClient client;
     private AppointmentClientAppear clientAppear;
     private String clientMedCode;
     private AppointmentClientPayment clientPayment;
     private String clientPaymentInvoice;
     private String clientComment;
-    private List<AdditionalClientElement> clientVisitors;
+    private List<PurpleAppointmentClient> clientVisitors;
     private String color;
     private String destinationKeyword;
     private String destinationLink;
@@ -77,9 +77,9 @@ public class AppointmentSchema {
     public void setAdditionalClientPayments(List<AdditionalClientPayment> value) { this.additionalClientPayments = value; }
 
     @JsonProperty("additionalClients")
-    public List<AdditionalClientElement> getAdditionalClients() { return additionalClients; }
+    public List<PurpleAppointmentClient> getAdditionalClients() { return additionalClients; }
     @JsonProperty("additionalClients")
-    public void setAdditionalClients(List<AdditionalClientElement> value) { this.additionalClients = value; }
+    public void setAdditionalClients(List<PurpleAppointmentClient> value) { this.additionalClients = value; }
 
     @JsonProperty("additionalClientSources")
     public List<AdditionalClientSource> getAdditionalClientSources() { return additionalClientSources; }
@@ -157,9 +157,9 @@ public class AppointmentSchema {
     public void setChangeReason(String value) { this.changeReason = value; }
 
     @JsonProperty("client")
-    public PurpleAppointmentClient getClient() { return client; }
+    public AppointmentClient getClient() { return client; }
     @JsonProperty("client")
-    public void setClient(PurpleAppointmentClient value) { this.client = value; }
+    public void setClient(AppointmentClient value) { this.client = value; }
 
     @JsonProperty("client_appear")
     public AppointmentClientAppear getClientAppear() { return clientAppear; }
@@ -187,9 +187,9 @@ public class AppointmentSchema {
     public void setClientComment(String value) { this.clientComment = value; }
 
     @JsonProperty("clientVisitors")
-    public List<AdditionalClientElement> getClientVisitors() { return clientVisitors; }
+    public List<PurpleAppointmentClient> getClientVisitors() { return clientVisitors; }
     @JsonProperty("clientVisitors")
-    public void setClientVisitors(List<AdditionalClientElement> value) { this.clientVisitors = value; }
+    public void setClientVisitors(List<PurpleAppointmentClient> value) { this.clientVisitors = value; }
 
     @JsonProperty("color")
     public String getColor() { return color; }

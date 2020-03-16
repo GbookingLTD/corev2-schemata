@@ -133,6 +133,7 @@ schemas-json/models/business.schema.json
 | [manualExceptionSupport](#manualexceptionsupport)                                                   | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [maxServiceBooking](#maxservicebooking)                                                             | `number`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [maxTimeslotBooking](#maxtimeslotbooking)                                                           | `number`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
+| [middleNameSupport](#middlenamesupport)                                                             | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [mostFreeEnable](#mostfreeenable)                                                                   | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [multiServiceBooking](#multiservicebooking)                                                         | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [multiTimeslotBooking](#multitimeslotbooking)                                                       | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
@@ -2147,6 +2148,18 @@ All items must be of the type: `string`
 ### maxTimeslotBooking Type
 
 `number`
+
+## middleNameSupport
+
+`middleNameSupport`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### middleNameSupport Type
+
+`boolean`
 
 ## mostFreeEnable
 
@@ -6326,6 +6339,7 @@ Array type: `array`
 | `insuranceClientSupportPhone`            | array   | Optional |                 |
 | `maxServiceBooking`                      | number  | Optional | `1`             |
 | `maxTimeslotBooking`                     | number  | Optional | `1`             |
+| `middleNameSupport`                      | boolean | Optional |                 |
 | `mostFreeEnable`                         | boolean | Optional | `false`         |
 | `multiServiceBooking`                    | boolean | Optional | `false`         |
 | `multiTimeslotBooking`                   | boolean | Optional | `false`         |
@@ -7130,6 +7144,17 @@ All items must be of the type:
 ##### maxTimeslotBooking Type
 
 `number`
+
+#### middleNameSupport
+
+`middleNameSupport`
+
+- is optional
+- type: `boolean`
+
+##### middleNameSupport Type
+
+`boolean`
 
 #### mostFreeEnable
 

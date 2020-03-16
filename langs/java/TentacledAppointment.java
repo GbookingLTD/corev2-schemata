@@ -3,12 +3,9 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class ParamsProfile {
+public class TentacledAppointment {
     private String id;
 
-    /**
-     * идентификатор профиля пользователя
-     */
     @JsonProperty("id")
     public String getID() { return id; }
     @JsonProperty("id")

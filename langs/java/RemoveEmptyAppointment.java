@@ -4,13 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class RemoveEmptyAppointment {
-    private PurpleAppointment appointment;
+    private StickyAppointment appointment;
     private PurpleBusiness business;
 
     @JsonProperty("appointment")
-    public PurpleAppointment getAppointment() { return appointment; }
+    public StickyAppointment getAppointment() { return appointment; }
     @JsonProperty("appointment")
-    public void setAppointment(PurpleAppointment value) { this.appointment = value; }
+    public void setAppointment(StickyAppointment value) { this.appointment = value; }
 
     @JsonProperty("business")
     public PurpleBusiness getBusiness() { return business; }

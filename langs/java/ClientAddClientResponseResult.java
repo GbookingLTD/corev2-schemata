@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.*;
 
 public class ClientAddClientResponseResult {
     private AmbitiousBusiness business;
-    private Client client;
+    private ClientClass client;
     private List<Object> documents;
-    private ResultProfile profile;
+    private FluffyProfile profile;
 
     @JsonProperty("business")
     public AmbitiousBusiness getBusiness() { return business; }
@@ -15,9 +15,9 @@ public class ClientAddClientResponseResult {
     public void setBusiness(AmbitiousBusiness value) { this.business = value; }
 
     @JsonProperty("client")
-    public Client getClient() { return client; }
+    public ClientClass getClient() { return client; }
     @JsonProperty("client")
-    public void setClient(Client value) { this.client = value; }
+    public void setClient(ClientClass value) { this.client = value; }
 
     @JsonProperty("documents")
     public List<Object> getDocuments() { return documents; }
@@ -25,7 +25,7 @@ public class ClientAddClientResponseResult {
     public void setDocuments(List<Object> value) { this.documents = value; }
 
     @JsonProperty("profile")
-    public ResultProfile getProfile() { return profile; }
+    public FluffyProfile getProfile() { return profile; }
     @JsonProperty("profile")
-    public void setProfile(ResultProfile value) { this.profile = value; }
+    public void setProfile(FluffyProfile value) { this.profile = value; }
 }

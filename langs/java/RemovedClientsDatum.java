@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class RemovedClientsDatum {
     private AppointmentClientAppear appear;
-    private AdditionalClientElement client;
+    private PurpleAppointmentClient client;
     private String created;
     private AppointmentClientPayment payment;
     private String paymentInvoice;
@@ -18,9 +18,9 @@ public class RemovedClientsDatum {
     public void setAppear(AppointmentClientAppear value) { this.appear = value; }
 
     @JsonProperty("client")
-    public AdditionalClientElement getClient() { return client; }
+    public PurpleAppointmentClient getClient() { return client; }
     @JsonProperty("client")
-    public void setClient(AdditionalClientElement value) { this.client = value; }
+    public void setClient(PurpleAppointmentClient value) { this.client = value; }
 
     @JsonProperty("created")
     public String getCreated() { return created; }

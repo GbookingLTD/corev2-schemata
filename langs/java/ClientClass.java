@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 /**
  * Данные клиента
  */
-public class Client {
+public class ClientClass {
     private Birthday birthday;
     private String creatorProfileID;
     private String creatorProfileName;
@@ -19,7 +19,7 @@ public class Client {
     private Sex sex;
     private String surname;
     private String taxiPark;
-    private EvenTimeFrameDate taxiParkMemberCount;
+    private FluffyTimeFrameDate taxiParkMemberCount;
 
     @JsonProperty("birthday")
     public Birthday getBirthday() { return birthday; }
@@ -82,7 +82,7 @@ public class Client {
     public void setTaxiPark(String value) { this.taxiPark = value; }
 
     @JsonProperty("taxiParkMemberCount")
-    public EvenTimeFrameDate getTaxiParkMemberCount() { return taxiParkMemberCount; }
+    public FluffyTimeFrameDate getTaxiParkMemberCount() { return taxiParkMemberCount; }
     @JsonProperty("taxiParkMemberCount")
-    public void setTaxiParkMemberCount(EvenTimeFrameDate value) { this.taxiParkMemberCount = value; }
+    public void setTaxiParkMemberCount(FluffyTimeFrameDate value) { this.taxiParkMemberCount = value; }
 }

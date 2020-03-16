@@ -3,7 +3,10 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AdditionalClientElement {
+/**
+ * пустой объект в момент резервирования
+ */
+public class AppointmentClient {
     private String address;
     private String adminComment;
     private String birthday;

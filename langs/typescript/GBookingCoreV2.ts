@@ -145,16 +145,19 @@ export interface Controllers {
 }
 
 export interface AppointmentController {
+    cancel_appointment_by_business?: CancelAppointmentByBusiness;
+    cancel_appointment_by_client?:   CancelAppointmentByClient;
+    client_confirm_appointment?:     ClientConfirmAppointment;
     client_remove_empty_appointment: ClientRemoveEmptyAppointment;
     reserve_appointment:             ReserveAppointment;
 }
 
-export interface ClientRemoveEmptyAppointment {
-    request:  AppointmentClientRemoveEmptyAppointmentRequest;
-    response: AppointmentClientRemoveEmptyAppointmentResponse;
+export interface CancelAppointmentByBusiness {
+    request:  AppointmentCancelAppointmentByBusinessRequest;
+    response: AppointmentCancelAppointmentByBusinessResponse;
 }
 
-export interface AppointmentClientRemoveEmptyAppointmentRequest {
+export interface AppointmentCancelAppointmentByBusinessRequest {
     /**
      * авторизационные параметры
      */
@@ -174,23 +177,25 @@ export interface AppointmentClientRemoveEmptyAppointmentRequest {
     /**
      * параметры запроса
      */
-    params: RemoveEmptyAppointment;
+    params: AppointmentCancelAppointmentByBusinessRequestParams;
 }
 
-export interface RemoveEmptyAppointment {
-    appointment: AppointmentClass;
-    business:    PurpleBusiness;
+export interface AppointmentCancelAppointmentByBusinessRequestParams {
+    appointment: PurpleAppointment;
+    client?:     PurpleClient;
+    business:    any;
 }
 
-export interface AppointmentClass {
+export interface PurpleAppointment {
     id: string;
 }
 
-export interface PurpleBusiness {
-    id: string;
+export interface PurpleClient {
+    comment?: string;
+    id:       string;
 }
 
-export interface AppointmentClientRemoveEmptyAppointmentResponse {
+export interface AppointmentCancelAppointmentByBusinessResponse {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
@@ -206,7 +211,7 @@ export interface AppointmentClientRemoveEmptyAppointmentResponse {
     /**
      * объект, содержащий информацию об ошибке
      */
-    error?: AppointmentClientRemoveEmptyAppointmentResponseError;
+    error?: AppointmentCancelAppointmentByBusinessResponseError;
 }
 
 /**
@@ -214,7 +219,7 @@ export interface AppointmentClientRemoveEmptyAppointmentResponse {
  *
  * Код ошибки авторизации
  */
-export interface AppointmentClientRemoveEmptyAppointmentResponseError {
+export interface AppointmentCancelAppointmentByBusinessResponseError {
     /**
      * код ошибки
      */
@@ -229,12 +234,12 @@ export interface AppointmentClientRemoveEmptyAppointmentResponseError {
     message: string;
 }
 
-export interface ReserveAppointment {
-    request:  AppointmentReserveAppointmentRequest;
-    response: AppointmentReserveAppointmentResponse;
+export interface CancelAppointmentByClient {
+    request:  AppointmentCancelAppointmentByClientRequest;
+    response: AppointmentCancelAppointmentByClientResponse;
 }
 
-export interface AppointmentReserveAppointmentRequest {
+export interface AppointmentCancelAppointmentByClientRequest {
     /**
      * авторизационные параметры
      */
@@ -254,35 +259,107 @@ export interface AppointmentReserveAppointmentRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentReserve;
+    params: AppointmentCancelAppointmentByClientRequestParams;
 }
 
-export interface AppointmentReserve {
-    appointment:       AppointmentObject;
-    business:          FluffyBusiness;
-    originBusinessID?: string;
-    resource:          ResourceClass;
-    source:            string;
-    taxonomy:          ParamsTaxonomy;
+export interface AppointmentCancelAppointmentByClientRequestParams {
+    appointment: FluffyAppointment;
+    client?:     FluffyClient;
+    business:    any;
 }
 
-export interface AppointmentObject {
-    start: string;
-}
-
-export interface FluffyBusiness {
+export interface FluffyAppointment {
     id: string;
 }
 
-export interface ResourceClass {
-    id: string[];
+export interface FluffyClient {
+    comment?: string;
+    id:       string;
 }
 
-export interface ParamsTaxonomy {
+export interface AppointmentCancelAppointmentByClientResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: boolean;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentCancelAppointmentByClientResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentCancelAppointmentByClientResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface ClientConfirmAppointment {
+    request:  AppointmentClientConfirmAppointmentRequest;
+    response: AppointmentClientConfirmAppointmentResponse;
+}
+
+export interface AppointmentClientConfirmAppointmentRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: ConfirmAppointment;
+}
+
+export interface ConfirmAppointment {
+    appointment: TentacledAppointment;
+    client?:     TentacledClient;
+    business:    any;
+}
+
+export interface TentacledAppointment {
     id: string;
 }
 
-export interface AppointmentReserveAppointmentResponse {
+export interface TentacledClient {
+    comment?: string;
+    id:       string;
+}
+
+export interface AppointmentClientConfirmAppointmentResponse {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
@@ -298,7 +375,7 @@ export interface AppointmentReserveAppointmentResponse {
     /**
      * объект, содержащий информацию об ошибке
      */
-    error?: AppointmentReserveAppointmentResponseError;
+    error?: AppointmentClientConfirmAppointmentResponseError;
 }
 
 /**
@@ -306,7 +383,7 @@ export interface AppointmentReserveAppointmentResponse {
  *
  * Код ошибки авторизации
  */
-export interface AppointmentReserveAppointmentResponseError {
+export interface AppointmentClientConfirmAppointmentResponseError {
     /**
      * код ошибки
      */
@@ -330,7 +407,7 @@ export interface AppointmentSchema {
     additional_info?:         { [key: string]: any };
     additionalClientAppears:  AdditionalClientAppear[];
     additionalClientPayments: AdditionalClientPayment[];
-    additionalClients:        AdditionalClientElement[];
+    additionalClients:        PurpleAppointmentClient[];
     additionalClientSources:  AdditionalClientSource[];
     additionalClientStatuses: AdditionalClientStatus[];
     additionalClientUtms:     AdditionalClientUtm[];
@@ -346,13 +423,13 @@ export interface AppointmentSchema {
     cabinet:                  Cabinet;
     capacity?:                number;
     changeReason:             string;
-    client:                   PurpleAppointmentClient;
+    client:                   ClientClass;
     client_appear:            AppointmentClientAppear;
     client_med_code?:         string;
     client_payment:           AppointmentClientPayment;
     client_payment_invoice?:  string;
     clientComment:            string;
-    clientVisitors:           AdditionalClientElement[];
+    clientVisitors:           PurpleAppointmentClient[];
     color?:                   string;
     destinationKeyword?:      string;
     destinationLink?:         string;
@@ -365,7 +442,7 @@ export interface AppointmentSchema {
     moveCounter:              number;
     movedByRobot:             boolean;
     movedFromFired?:          boolean;
-    networkID:                string;
+    networkID?:               string;
     notes:                    string;
     order:                    Order;
     preferredResource?:       boolean;
@@ -439,7 +516,7 @@ export interface AdditionalClientUtm {
     utm:      { [key: string]: any };
 }
 
-export interface AdditionalClientElement {
+export interface PurpleAppointmentClient {
     address?:             string;
     adminComment?:        string;
     birthday?:            string;
@@ -637,7 +714,7 @@ export interface Cabinet {
 /**
  * пустой объект в момент резервирования
  */
-export interface PurpleAppointmentClient {
+export interface ClientClass {
     address?:             string;
     adminComment?:        string;
     birthday?:            string;
@@ -695,7 +772,7 @@ export enum ReminderStatus {
 
 export interface RemovedClientsDatum {
     appear?:          AppointmentClientAppear;
-    client:           AdditionalClientElement;
+    client:           PurpleAppointmentClient;
     created?:         Date;
     payment?:         AppointmentClientPayment;
     payment_invoice?: string;
@@ -728,6 +805,178 @@ export interface Room {
 
 export interface AppointmentShowcase {
     businessID?: string;
+}
+
+export interface ClientRemoveEmptyAppointment {
+    request:  AppointmentClientRemoveEmptyAppointmentRequest;
+    response: AppointmentClientRemoveEmptyAppointmentResponse;
+}
+
+export interface AppointmentClientRemoveEmptyAppointmentRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: RemoveEmptyAppointment;
+}
+
+export interface RemoveEmptyAppointment {
+    appointment: StickyAppointment;
+    business:    PurpleBusiness;
+}
+
+export interface StickyAppointment {
+    id: string;
+}
+
+export interface PurpleBusiness {
+    id: string;
+}
+
+export interface AppointmentClientRemoveEmptyAppointmentResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: boolean;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentClientRemoveEmptyAppointmentResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentClientRemoveEmptyAppointmentResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface ReserveAppointment {
+    request:  AppointmentReserveAppointmentRequest;
+    response: AppointmentReserveAppointmentResponse;
+}
+
+export interface AppointmentReserveAppointmentRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: AppointmentReserve;
+}
+
+export interface AppointmentReserve {
+    appointment:       AppointmentObject;
+    business:          FluffyBusiness;
+    originBusinessID?: string;
+    resource:          ResourceClass;
+    source:            string;
+    taxonomy:          ParamsTaxonomy;
+}
+
+export interface AppointmentObject {
+    start: string;
+}
+
+export interface FluffyBusiness {
+    id: string;
+}
+
+export interface ResourceClass {
+    id: string[];
+}
+
+export interface ParamsTaxonomy {
+    id: string;
+}
+
+export interface AppointmentReserveAppointmentResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: AppointmentUnion;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentReserveAppointmentResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentReserveAppointmentResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
 }
 
 export interface BusinessController {
@@ -1414,6 +1663,7 @@ export interface PurpleWidgetConfiguration {
     insuranceClientSupportPhone?:            Phone[];
     maxServiceBooking?:                      number;
     maxTimeslotBooking?:                     number;
+    middleNameSupport?:                      boolean;
     mostFreeEnable?:                         boolean;
     multiServiceBooking?:                    boolean;
     multiTimeslotBooking?:                   boolean;
@@ -2537,6 +2787,7 @@ export interface FluffyWidgetConfiguration {
     insuranceClientSupportPhone?:            Phone[];
     maxServiceBooking?:                      number;
     maxTimeslotBooking?:                     number;
+    middleNameSupport?:                      boolean;
     mostFreeEnable?:                         boolean;
     multiServiceBooking?:                    boolean;
     multiTimeslotBooking?:                   boolean;
@@ -2685,7 +2936,8 @@ export enum YandexFeedType {
 }
 
 export interface ClientController {
-    add_client: AddClient;
+    add_client:             AddClient;
+    find_or_create_client?: FindOrCreateClient;
 }
 
 export interface AddClient {
@@ -2721,8 +2973,8 @@ export interface ClientAddClientRequest {
  */
 export interface ClientAddClientRequestParams {
     business:           HilariousBusiness;
-    client:             Client;
-    profile?:           ParamsProfile;
+    client:             ClientObject;
+    profile?:           PurpleProfile;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
 }
@@ -2737,7 +2989,7 @@ export interface HilariousBusiness {
 /**
  * Данные клиента
  */
-export interface Client {
+export interface ClientObject {
     birthday?:            Birthday;
     creatorProfileID?:    null | string;
     creatorProfileName?:  null | string;
@@ -2757,7 +3009,7 @@ export type Birthday = { [key: string]: any } | string;
 
 export type FromSms = boolean | string;
 
-export interface ParamsProfile {
+export interface PurpleProfile {
     /**
      * идентификатор профиля пользователя
      */
@@ -2804,16 +3056,122 @@ export interface ClientAddClientResponseError {
 
 export interface ClientAddClientResponseResult {
     business?:  AmbitiousBusiness;
-    client:     Client;
+    client:     ClientObject;
     documents?: any[];
-    profile?:   ResultProfile;
+    profile?:   FluffyProfile;
 }
 
 export interface AmbitiousBusiness {
     id: string;
 }
 
-export interface ResultProfile {
+export interface FluffyProfile {
+    id: string;
+}
+
+export interface FindOrCreateClient {
+    request:  ClientFindOrCreateClientRequest;
+    response: ClientFindOfCreateClientResponse;
+}
+
+export interface ClientFindOrCreateClientRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: ClientFindOrCreateClientRequestParams;
+}
+
+/**
+ * параметры запроса
+ */
+export interface ClientFindOrCreateClientRequestParams {
+    business:           CunningBusiness;
+    client:             ClientObject;
+    profile?:           TentacledProfile;
+    skipEmailCheck?:    boolean;
+    skipProfileUpdate?: boolean;
+}
+
+export interface CunningBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: Id;
+}
+
+export interface TentacledProfile {
+    /**
+     * идентификатор профиля пользователя
+     */
+    id: string;
+}
+
+export interface ClientFindOfCreateClientResponse {
+    result?: ClientFindOfCreateClientResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: ClientFindOfCreateClientResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id?: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface ClientFindOfCreateClientResponseError {
+    /**
+     * код ошибки
+     *
+     * код ошибки создания клиента
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface ClientFindOfCreateClientResponseResult {
+    business?:  MagentaBusiness;
+    client:     ClientObject;
+    documents?: any[];
+    profile?:   StickyProfile;
+}
+
+export interface MagentaBusiness {
+    id: string;
+}
+
+export interface StickyProfile {
     id: string;
 }
 
@@ -2855,12 +3213,12 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
 }
 
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business:  CunningBusiness;
+    business:  FriskyBusiness;
     resources: string[];
     taxonomy:  PurpleTaxonomy;
 }
 
-export interface CunningBusiness {
+export interface FriskyBusiness {
     id: string;
 }
 
@@ -3029,14 +3387,14 @@ export interface CracCracResourcesFreeByDateV2Request {
 }
 
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business:  MagentaBusiness;
+    business:  MischievousBusiness;
     duration:  number;
     durations: number[];
     resources: string[];
     taxonomy:  TentacledTaxonomy;
 }
 
-export interface MagentaBusiness {
+export interface MischievousBusiness {
     id: string;
 }
 
@@ -3123,11 +3481,11 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
-    business: FriskyBusiness;
+    business: BraggadociousBusiness;
     filters:  PurpleFilters;
 }
 
-export interface FriskyBusiness {
+export interface BraggadociousBusiness {
     general_info:         PurpleGeneralInfo;
     id:                   string;
     widget_configuration: TentacledWidgetConfiguration;
@@ -3247,11 +3605,11 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-    business: MischievousBusiness;
+    business: Business1;
     filters:  FluffyFilters;
 }
 
-export interface MischievousBusiness {
+export interface Business1 {
     general_info:         FluffyGeneralInfo;
     id:                   string;
     widget_configuration: StickyWidgetConfiguration;
@@ -3364,11 +3722,11 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
-    business: BraggadociousBusiness;
+    business: Business2;
     filters:  TentacledFilters;
 }
 
-export interface BraggadociousBusiness {
+export interface Business2 {
     general_info:         TentacledGeneralInfo;
     id:                   string;
     widget_configuration: IndigoWidgetConfiguration;
@@ -3452,7 +3810,7 @@ export interface TentacledSlot {
 export interface Models {
     Appointment: AppointmentUnion;
     Business:    ResultBusiness;
-    Client:      Client;
+    Client:      ClientObject;
 }
 
 // Converts JSON strings to/from your types
@@ -3538,132 +3896,172 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AppointmentController")), null, 2);
     }
 
-    public static toClientRemoveEmptyAppointment(json: string): ClientRemoveEmptyAppointment {
-        return cast(JSON.parse(json), r("ClientRemoveEmptyAppointment"));
+    public static toCancelAppointmentByBusiness(json: string): CancelAppointmentByBusiness {
+        return cast(JSON.parse(json), r("CancelAppointmentByBusiness"));
     }
 
-    public static clientRemoveEmptyAppointmentToJson(value: ClientRemoveEmptyAppointment): string {
-        return JSON.stringify(uncast(value, r("ClientRemoveEmptyAppointment")), null, 2);
+    public static cancelAppointmentByBusinessToJson(value: CancelAppointmentByBusiness): string {
+        return JSON.stringify(uncast(value, r("CancelAppointmentByBusiness")), null, 2);
     }
 
-    public static toAppointmentClientRemoveEmptyAppointmentRequest(json: string): AppointmentClientRemoveEmptyAppointmentRequest {
-        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentRequest"));
+    public static toAppointmentCancelAppointmentByBusinessRequest(json: string): AppointmentCancelAppointmentByBusinessRequest {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessRequest"));
     }
 
-    public static appointmentClientRemoveEmptyAppointmentRequestToJson(value: AppointmentClientRemoveEmptyAppointmentRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentRequest")), null, 2);
+    public static appointmentCancelAppointmentByBusinessRequestToJson(value: AppointmentCancelAppointmentByBusinessRequest): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessRequest")), null, 2);
     }
 
-    public static toRemoveEmptyAppointment(json: string): RemoveEmptyAppointment {
-        return cast(JSON.parse(json), r("RemoveEmptyAppointment"));
+    public static toAppointmentCancelAppointmentByBusinessRequestParams(json: string): AppointmentCancelAppointmentByBusinessRequestParams {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessRequestParams"));
     }
 
-    public static removeEmptyAppointmentToJson(value: RemoveEmptyAppointment): string {
-        return JSON.stringify(uncast(value, r("RemoveEmptyAppointment")), null, 2);
+    public static appointmentCancelAppointmentByBusinessRequestParamsToJson(value: AppointmentCancelAppointmentByBusinessRequestParams): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessRequestParams")), null, 2);
     }
 
-    public static toAppointmentClass(json: string): AppointmentClass {
-        return cast(JSON.parse(json), r("AppointmentClass"));
+    public static toPurpleAppointment(json: string): PurpleAppointment {
+        return cast(JSON.parse(json), r("PurpleAppointment"));
     }
 
-    public static appointmentClassToJson(value: AppointmentClass): string {
-        return JSON.stringify(uncast(value, r("AppointmentClass")), null, 2);
+    public static purpleAppointmentToJson(value: PurpleAppointment): string {
+        return JSON.stringify(uncast(value, r("PurpleAppointment")), null, 2);
     }
 
-    public static toPurpleBusiness(json: string): PurpleBusiness {
-        return cast(JSON.parse(json), r("PurpleBusiness"));
+    public static toPurpleClient(json: string): PurpleClient {
+        return cast(JSON.parse(json), r("PurpleClient"));
     }
 
-    public static purpleBusinessToJson(value: PurpleBusiness): string {
-        return JSON.stringify(uncast(value, r("PurpleBusiness")), null, 2);
+    public static purpleClientToJson(value: PurpleClient): string {
+        return JSON.stringify(uncast(value, r("PurpleClient")), null, 2);
     }
 
-    public static toAppointmentClientRemoveEmptyAppointmentResponse(json: string): AppointmentClientRemoveEmptyAppointmentResponse {
-        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentResponse"));
+    public static toAppointmentCancelAppointmentByBusinessResponse(json: string): AppointmentCancelAppointmentByBusinessResponse {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessResponse"));
     }
 
-    public static appointmentClientRemoveEmptyAppointmentResponseToJson(value: AppointmentClientRemoveEmptyAppointmentResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponse")), null, 2);
+    public static appointmentCancelAppointmentByBusinessResponseToJson(value: AppointmentCancelAppointmentByBusinessResponse): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessResponse")), null, 2);
     }
 
-    public static toAppointmentClientRemoveEmptyAppointmentResponseError(json: string): AppointmentClientRemoveEmptyAppointmentResponseError {
-        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentResponseError"));
+    public static toAppointmentCancelAppointmentByBusinessResponseError(json: string): AppointmentCancelAppointmentByBusinessResponseError {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessResponseError"));
     }
 
-    public static appointmentClientRemoveEmptyAppointmentResponseErrorToJson(value: AppointmentClientRemoveEmptyAppointmentResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponseError")), null, 2);
+    public static appointmentCancelAppointmentByBusinessResponseErrorToJson(value: AppointmentCancelAppointmentByBusinessResponseError): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessResponseError")), null, 2);
     }
 
-    public static toReserveAppointment(json: string): ReserveAppointment {
-        return cast(JSON.parse(json), r("ReserveAppointment"));
+    public static toCancelAppointmentByClient(json: string): CancelAppointmentByClient {
+        return cast(JSON.parse(json), r("CancelAppointmentByClient"));
     }
 
-    public static reserveAppointmentToJson(value: ReserveAppointment): string {
-        return JSON.stringify(uncast(value, r("ReserveAppointment")), null, 2);
+    public static cancelAppointmentByClientToJson(value: CancelAppointmentByClient): string {
+        return JSON.stringify(uncast(value, r("CancelAppointmentByClient")), null, 2);
     }
 
-    public static toAppointmentReserveAppointmentRequest(json: string): AppointmentReserveAppointmentRequest {
-        return cast(JSON.parse(json), r("AppointmentReserveAppointmentRequest"));
+    public static toAppointmentCancelAppointmentByClientRequest(json: string): AppointmentCancelAppointmentByClientRequest {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientRequest"));
     }
 
-    public static appointmentReserveAppointmentRequestToJson(value: AppointmentReserveAppointmentRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentRequest")), null, 2);
+    public static appointmentCancelAppointmentByClientRequestToJson(value: AppointmentCancelAppointmentByClientRequest): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientRequest")), null, 2);
     }
 
-    public static toAppointmentReserve(json: string): AppointmentReserve {
-        return cast(JSON.parse(json), r("AppointmentReserve"));
+    public static toAppointmentCancelAppointmentByClientRequestParams(json: string): AppointmentCancelAppointmentByClientRequestParams {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientRequestParams"));
     }
 
-    public static appointmentReserveToJson(value: AppointmentReserve): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserve")), null, 2);
+    public static appointmentCancelAppointmentByClientRequestParamsToJson(value: AppointmentCancelAppointmentByClientRequestParams): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientRequestParams")), null, 2);
     }
 
-    public static toAppointmentObject(json: string): AppointmentObject {
-        return cast(JSON.parse(json), r("AppointmentObject"));
+    public static toFluffyAppointment(json: string): FluffyAppointment {
+        return cast(JSON.parse(json), r("FluffyAppointment"));
     }
 
-    public static appointmentObjectToJson(value: AppointmentObject): string {
-        return JSON.stringify(uncast(value, r("AppointmentObject")), null, 2);
+    public static fluffyAppointmentToJson(value: FluffyAppointment): string {
+        return JSON.stringify(uncast(value, r("FluffyAppointment")), null, 2);
     }
 
-    public static toFluffyBusiness(json: string): FluffyBusiness {
-        return cast(JSON.parse(json), r("FluffyBusiness"));
+    public static toFluffyClient(json: string): FluffyClient {
+        return cast(JSON.parse(json), r("FluffyClient"));
     }
 
-    public static fluffyBusinessToJson(value: FluffyBusiness): string {
-        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
+    public static fluffyClientToJson(value: FluffyClient): string {
+        return JSON.stringify(uncast(value, r("FluffyClient")), null, 2);
     }
 
-    public static toResourceClass(json: string): ResourceClass {
-        return cast(JSON.parse(json), r("ResourceClass"));
+    public static toAppointmentCancelAppointmentByClientResponse(json: string): AppointmentCancelAppointmentByClientResponse {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientResponse"));
     }
 
-    public static resourceClassToJson(value: ResourceClass): string {
-        return JSON.stringify(uncast(value, r("ResourceClass")), null, 2);
+    public static appointmentCancelAppointmentByClientResponseToJson(value: AppointmentCancelAppointmentByClientResponse): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientResponse")), null, 2);
     }
 
-    public static toParamsTaxonomy(json: string): ParamsTaxonomy {
-        return cast(JSON.parse(json), r("ParamsTaxonomy"));
+    public static toAppointmentCancelAppointmentByClientResponseError(json: string): AppointmentCancelAppointmentByClientResponseError {
+        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientResponseError"));
     }
 
-    public static paramsTaxonomyToJson(value: ParamsTaxonomy): string {
-        return JSON.stringify(uncast(value, r("ParamsTaxonomy")), null, 2);
+    public static appointmentCancelAppointmentByClientResponseErrorToJson(value: AppointmentCancelAppointmentByClientResponseError): string {
+        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientResponseError")), null, 2);
     }
 
-    public static toAppointmentReserveAppointmentResponse(json: string): AppointmentReserveAppointmentResponse {
-        return cast(JSON.parse(json), r("AppointmentReserveAppointmentResponse"));
+    public static toClientConfirmAppointment(json: string): ClientConfirmAppointment {
+        return cast(JSON.parse(json), r("ClientConfirmAppointment"));
     }
 
-    public static appointmentReserveAppointmentResponseToJson(value: AppointmentReserveAppointmentResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentResponse")), null, 2);
+    public static clientConfirmAppointmentToJson(value: ClientConfirmAppointment): string {
+        return JSON.stringify(uncast(value, r("ClientConfirmAppointment")), null, 2);
     }
 
-    public static toAppointmentReserveAppointmentResponseError(json: string): AppointmentReserveAppointmentResponseError {
-        return cast(JSON.parse(json), r("AppointmentReserveAppointmentResponseError"));
+    public static toAppointmentClientConfirmAppointmentRequest(json: string): AppointmentClientConfirmAppointmentRequest {
+        return cast(JSON.parse(json), r("AppointmentClientConfirmAppointmentRequest"));
     }
 
-    public static appointmentReserveAppointmentResponseErrorToJson(value: AppointmentReserveAppointmentResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentResponseError")), null, 2);
+    public static appointmentClientConfirmAppointmentRequestToJson(value: AppointmentClientConfirmAppointmentRequest): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientConfirmAppointmentRequest")), null, 2);
+    }
+
+    public static toConfirmAppointment(json: string): ConfirmAppointment {
+        return cast(JSON.parse(json), r("ConfirmAppointment"));
+    }
+
+    public static confirmAppointmentToJson(value: ConfirmAppointment): string {
+        return JSON.stringify(uncast(value, r("ConfirmAppointment")), null, 2);
+    }
+
+    public static toTentacledAppointment(json: string): TentacledAppointment {
+        return cast(JSON.parse(json), r("TentacledAppointment"));
+    }
+
+    public static tentacledAppointmentToJson(value: TentacledAppointment): string {
+        return JSON.stringify(uncast(value, r("TentacledAppointment")), null, 2);
+    }
+
+    public static toTentacledClient(json: string): TentacledClient {
+        return cast(JSON.parse(json), r("TentacledClient"));
+    }
+
+    public static tentacledClientToJson(value: TentacledClient): string {
+        return JSON.stringify(uncast(value, r("TentacledClient")), null, 2);
+    }
+
+    public static toAppointmentClientConfirmAppointmentResponse(json: string): AppointmentClientConfirmAppointmentResponse {
+        return cast(JSON.parse(json), r("AppointmentClientConfirmAppointmentResponse"));
+    }
+
+    public static appointmentClientConfirmAppointmentResponseToJson(value: AppointmentClientConfirmAppointmentResponse): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientConfirmAppointmentResponse")), null, 2);
+    }
+
+    public static toAppointmentClientConfirmAppointmentResponseError(json: string): AppointmentClientConfirmAppointmentResponseError {
+        return cast(JSON.parse(json), r("AppointmentClientConfirmAppointmentResponseError"));
+    }
+
+    public static appointmentClientConfirmAppointmentResponseErrorToJson(value: AppointmentClientConfirmAppointmentResponseError): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientConfirmAppointmentResponseError")), null, 2);
     }
 
     public static toAppointmentSchema(json: string): AppointmentSchema {
@@ -3714,12 +4112,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AdditionalClientUtm")), null, 2);
     }
 
-    public static toAdditionalClientElement(json: string): AdditionalClientElement {
-        return cast(JSON.parse(json), r("AdditionalClientElement"));
+    public static toPurpleAppointmentClient(json: string): PurpleAppointmentClient {
+        return cast(JSON.parse(json), r("PurpleAppointmentClient"));
     }
 
-    public static additionalClientElementToJson(value: AdditionalClientElement): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientElement")), null, 2);
+    public static purpleAppointmentClientToJson(value: PurpleAppointmentClient): string {
+        return JSON.stringify(uncast(value, r("PurpleAppointmentClient")), null, 2);
     }
 
     public static toAppointmentClientFeedback(json: string): AppointmentClientFeedback {
@@ -3834,12 +4232,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("Cabinet")), null, 2);
     }
 
-    public static toPurpleAppointmentClient(json: string): PurpleAppointmentClient {
-        return cast(JSON.parse(json), r("PurpleAppointmentClient"));
+    public static toClientClass(json: string): ClientClass {
+        return cast(JSON.parse(json), r("ClientClass"));
     }
 
-    public static purpleAppointmentClientToJson(value: PurpleAppointmentClient): string {
-        return JSON.stringify(uncast(value, r("PurpleAppointmentClient")), null, 2);
+    public static clientClassToJson(value: ClientClass): string {
+        return JSON.stringify(uncast(value, r("ClientClass")), null, 2);
     }
 
     public static toLocation(json: string): Location {
@@ -3912,6 +4310,134 @@ export class Convert {
 
     public static appointmentShowcaseToJson(value: AppointmentShowcase): string {
         return JSON.stringify(uncast(value, r("AppointmentShowcase")), null, 2);
+    }
+
+    public static toClientRemoveEmptyAppointment(json: string): ClientRemoveEmptyAppointment {
+        return cast(JSON.parse(json), r("ClientRemoveEmptyAppointment"));
+    }
+
+    public static clientRemoveEmptyAppointmentToJson(value: ClientRemoveEmptyAppointment): string {
+        return JSON.stringify(uncast(value, r("ClientRemoveEmptyAppointment")), null, 2);
+    }
+
+    public static toAppointmentClientRemoveEmptyAppointmentRequest(json: string): AppointmentClientRemoveEmptyAppointmentRequest {
+        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentRequest"));
+    }
+
+    public static appointmentClientRemoveEmptyAppointmentRequestToJson(value: AppointmentClientRemoveEmptyAppointmentRequest): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentRequest")), null, 2);
+    }
+
+    public static toRemoveEmptyAppointment(json: string): RemoveEmptyAppointment {
+        return cast(JSON.parse(json), r("RemoveEmptyAppointment"));
+    }
+
+    public static removeEmptyAppointmentToJson(value: RemoveEmptyAppointment): string {
+        return JSON.stringify(uncast(value, r("RemoveEmptyAppointment")), null, 2);
+    }
+
+    public static toStickyAppointment(json: string): StickyAppointment {
+        return cast(JSON.parse(json), r("StickyAppointment"));
+    }
+
+    public static stickyAppointmentToJson(value: StickyAppointment): string {
+        return JSON.stringify(uncast(value, r("StickyAppointment")), null, 2);
+    }
+
+    public static toPurpleBusiness(json: string): PurpleBusiness {
+        return cast(JSON.parse(json), r("PurpleBusiness"));
+    }
+
+    public static purpleBusinessToJson(value: PurpleBusiness): string {
+        return JSON.stringify(uncast(value, r("PurpleBusiness")), null, 2);
+    }
+
+    public static toAppointmentClientRemoveEmptyAppointmentResponse(json: string): AppointmentClientRemoveEmptyAppointmentResponse {
+        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentResponse"));
+    }
+
+    public static appointmentClientRemoveEmptyAppointmentResponseToJson(value: AppointmentClientRemoveEmptyAppointmentResponse): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponse")), null, 2);
+    }
+
+    public static toAppointmentClientRemoveEmptyAppointmentResponseError(json: string): AppointmentClientRemoveEmptyAppointmentResponseError {
+        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentResponseError"));
+    }
+
+    public static appointmentClientRemoveEmptyAppointmentResponseErrorToJson(value: AppointmentClientRemoveEmptyAppointmentResponseError): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponseError")), null, 2);
+    }
+
+    public static toReserveAppointment(json: string): ReserveAppointment {
+        return cast(JSON.parse(json), r("ReserveAppointment"));
+    }
+
+    public static reserveAppointmentToJson(value: ReserveAppointment): string {
+        return JSON.stringify(uncast(value, r("ReserveAppointment")), null, 2);
+    }
+
+    public static toAppointmentReserveAppointmentRequest(json: string): AppointmentReserveAppointmentRequest {
+        return cast(JSON.parse(json), r("AppointmentReserveAppointmentRequest"));
+    }
+
+    public static appointmentReserveAppointmentRequestToJson(value: AppointmentReserveAppointmentRequest): string {
+        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentRequest")), null, 2);
+    }
+
+    public static toAppointmentReserve(json: string): AppointmentReserve {
+        return cast(JSON.parse(json), r("AppointmentReserve"));
+    }
+
+    public static appointmentReserveToJson(value: AppointmentReserve): string {
+        return JSON.stringify(uncast(value, r("AppointmentReserve")), null, 2);
+    }
+
+    public static toAppointmentObject(json: string): AppointmentObject {
+        return cast(JSON.parse(json), r("AppointmentObject"));
+    }
+
+    public static appointmentObjectToJson(value: AppointmentObject): string {
+        return JSON.stringify(uncast(value, r("AppointmentObject")), null, 2);
+    }
+
+    public static toFluffyBusiness(json: string): FluffyBusiness {
+        return cast(JSON.parse(json), r("FluffyBusiness"));
+    }
+
+    public static fluffyBusinessToJson(value: FluffyBusiness): string {
+        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
+    }
+
+    public static toResourceClass(json: string): ResourceClass {
+        return cast(JSON.parse(json), r("ResourceClass"));
+    }
+
+    public static resourceClassToJson(value: ResourceClass): string {
+        return JSON.stringify(uncast(value, r("ResourceClass")), null, 2);
+    }
+
+    public static toParamsTaxonomy(json: string): ParamsTaxonomy {
+        return cast(JSON.parse(json), r("ParamsTaxonomy"));
+    }
+
+    public static paramsTaxonomyToJson(value: ParamsTaxonomy): string {
+        return JSON.stringify(uncast(value, r("ParamsTaxonomy")), null, 2);
+    }
+
+    public static toAppointmentReserveAppointmentResponse(json: string): AppointmentReserveAppointmentResponse {
+        return cast(JSON.parse(json), r("AppointmentReserveAppointmentResponse"));
+    }
+
+    public static appointmentReserveAppointmentResponseToJson(value: AppointmentReserveAppointmentResponse): string {
+        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentResponse")), null, 2);
+    }
+
+    public static toAppointmentReserveAppointmentResponseError(json: string): AppointmentReserveAppointmentResponseError {
+        return cast(JSON.parse(json), r("AppointmentReserveAppointmentResponseError"));
+    }
+
+    public static appointmentReserveAppointmentResponseErrorToJson(value: AppointmentReserveAppointmentResponseError): string {
+        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentResponseError")), null, 2);
     }
 
     public static toBusinessController(json: string): BusinessController {
@@ -4642,20 +5168,20 @@ export class Convert {
         return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
     }
 
-    public static toClient(json: string): Client {
-        return cast(JSON.parse(json), r("Client"));
+    public static toClientObject(json: string): ClientObject {
+        return cast(JSON.parse(json), r("ClientObject"));
     }
 
-    public static clientToJson(value: Client): string {
-        return JSON.stringify(uncast(value, r("Client")), null, 2);
+    public static clientObjectToJson(value: ClientObject): string {
+        return JSON.stringify(uncast(value, r("ClientObject")), null, 2);
     }
 
-    public static toParamsProfile(json: string): ParamsProfile {
-        return cast(JSON.parse(json), r("ParamsProfile"));
+    public static toPurpleProfile(json: string): PurpleProfile {
+        return cast(JSON.parse(json), r("PurpleProfile"));
     }
 
-    public static paramsProfileToJson(value: ParamsProfile): string {
-        return JSON.stringify(uncast(value, r("ParamsProfile")), null, 2);
+    public static purpleProfileToJson(value: PurpleProfile): string {
+        return JSON.stringify(uncast(value, r("PurpleProfile")), null, 2);
     }
 
     public static toClientAddClientResponse(json: string): ClientAddClientResponse {
@@ -4690,12 +5216,92 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
     }
 
-    public static toResultProfile(json: string): ResultProfile {
-        return cast(JSON.parse(json), r("ResultProfile"));
+    public static toFluffyProfile(json: string): FluffyProfile {
+        return cast(JSON.parse(json), r("FluffyProfile"));
     }
 
-    public static resultProfileToJson(value: ResultProfile): string {
-        return JSON.stringify(uncast(value, r("ResultProfile")), null, 2);
+    public static fluffyProfileToJson(value: FluffyProfile): string {
+        return JSON.stringify(uncast(value, r("FluffyProfile")), null, 2);
+    }
+
+    public static toFindOrCreateClient(json: string): FindOrCreateClient {
+        return cast(JSON.parse(json), r("FindOrCreateClient"));
+    }
+
+    public static findOrCreateClientToJson(value: FindOrCreateClient): string {
+        return JSON.stringify(uncast(value, r("FindOrCreateClient")), null, 2);
+    }
+
+    public static toClientFindOrCreateClientRequest(json: string): ClientFindOrCreateClientRequest {
+        return cast(JSON.parse(json), r("ClientFindOrCreateClientRequest"));
+    }
+
+    public static clientFindOrCreateClientRequestToJson(value: ClientFindOrCreateClientRequest): string {
+        return JSON.stringify(uncast(value, r("ClientFindOrCreateClientRequest")), null, 2);
+    }
+
+    public static toClientFindOrCreateClientRequestParams(json: string): ClientFindOrCreateClientRequestParams {
+        return cast(JSON.parse(json), r("ClientFindOrCreateClientRequestParams"));
+    }
+
+    public static clientFindOrCreateClientRequestParamsToJson(value: ClientFindOrCreateClientRequestParams): string {
+        return JSON.stringify(uncast(value, r("ClientFindOrCreateClientRequestParams")), null, 2);
+    }
+
+    public static toCunningBusiness(json: string): CunningBusiness {
+        return cast(JSON.parse(json), r("CunningBusiness"));
+    }
+
+    public static cunningBusinessToJson(value: CunningBusiness): string {
+        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
+    }
+
+    public static toTentacledProfile(json: string): TentacledProfile {
+        return cast(JSON.parse(json), r("TentacledProfile"));
+    }
+
+    public static tentacledProfileToJson(value: TentacledProfile): string {
+        return JSON.stringify(uncast(value, r("TentacledProfile")), null, 2);
+    }
+
+    public static toClientFindOfCreateClientResponse(json: string): ClientFindOfCreateClientResponse {
+        return cast(JSON.parse(json), r("ClientFindOfCreateClientResponse"));
+    }
+
+    public static clientFindOfCreateClientResponseToJson(value: ClientFindOfCreateClientResponse): string {
+        return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponse")), null, 2);
+    }
+
+    public static toClientFindOfCreateClientResponseError(json: string): ClientFindOfCreateClientResponseError {
+        return cast(JSON.parse(json), r("ClientFindOfCreateClientResponseError"));
+    }
+
+    public static clientFindOfCreateClientResponseErrorToJson(value: ClientFindOfCreateClientResponseError): string {
+        return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponseError")), null, 2);
+    }
+
+    public static toClientFindOfCreateClientResponseResult(json: string): ClientFindOfCreateClientResponseResult {
+        return cast(JSON.parse(json), r("ClientFindOfCreateClientResponseResult"));
+    }
+
+    public static clientFindOfCreateClientResponseResultToJson(value: ClientFindOfCreateClientResponseResult): string {
+        return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponseResult")), null, 2);
+    }
+
+    public static toMagentaBusiness(json: string): MagentaBusiness {
+        return cast(JSON.parse(json), r("MagentaBusiness"));
+    }
+
+    public static magentaBusinessToJson(value: MagentaBusiness): string {
+        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
+    }
+
+    public static toStickyProfile(json: string): StickyProfile {
+        return cast(JSON.parse(json), r("StickyProfile"));
+    }
+
+    public static stickyProfileToJson(value: StickyProfile): string {
+        return JSON.stringify(uncast(value, r("StickyProfile")), null, 2);
     }
 
     public static toCracSlotsController(json: string): CracSlotsController {
@@ -4730,12 +5336,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateRequestParam")), null, 2);
     }
 
-    public static toCunningBusiness(json: string): CunningBusiness {
-        return cast(JSON.parse(json), r("CunningBusiness"));
+    public static toFriskyBusiness(json: string): FriskyBusiness {
+        return cast(JSON.parse(json), r("FriskyBusiness"));
     }
 
-    public static cunningBusinessToJson(value: CunningBusiness): string {
-        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
+    public static friskyBusinessToJson(value: FriskyBusiness): string {
+        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
     }
 
     public static toPurpleTaxonomy(json: string): PurpleTaxonomy {
@@ -4866,12 +5472,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2RequestParam")), null, 2);
     }
 
-    public static toMagentaBusiness(json: string): MagentaBusiness {
-        return cast(JSON.parse(json), r("MagentaBusiness"));
+    public static toMischievousBusiness(json: string): MischievousBusiness {
+        return cast(JSON.parse(json), r("MischievousBusiness"));
     }
 
-    public static magentaBusinessToJson(value: MagentaBusiness): string {
-        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
+    public static mischievousBusinessToJson(value: MischievousBusiness): string {
+        return JSON.stringify(uncast(value, r("MischievousBusiness")), null, 2);
     }
 
     public static toTentacledTaxonomy(json: string): TentacledTaxonomy {
@@ -4938,12 +5544,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toFriskyBusiness(json: string): FriskyBusiness {
-        return cast(JSON.parse(json), r("FriskyBusiness"));
+    public static toBraggadociousBusiness(json: string): BraggadociousBusiness {
+        return cast(JSON.parse(json), r("BraggadociousBusiness"));
     }
 
-    public static friskyBusinessToJson(value: FriskyBusiness): string {
-        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
+    public static braggadociousBusinessToJson(value: BraggadociousBusiness): string {
+        return JSON.stringify(uncast(value, r("BraggadociousBusiness")), null, 2);
     }
 
     public static toPurpleGeneralInfo(json: string): PurpleGeneralInfo {
@@ -5050,12 +5656,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toMischievousBusiness(json: string): MischievousBusiness {
-        return cast(JSON.parse(json), r("MischievousBusiness"));
+    public static toBusiness1(json: string): Business1 {
+        return cast(JSON.parse(json), r("Business1"));
     }
 
-    public static mischievousBusinessToJson(value: MischievousBusiness): string {
-        return JSON.stringify(uncast(value, r("MischievousBusiness")), null, 2);
+    public static business1ToJson(value: Business1): string {
+        return JSON.stringify(uncast(value, r("Business1")), null, 2);
     }
 
     public static toFluffyGeneralInfo(json: string): FluffyGeneralInfo {
@@ -5154,12 +5760,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toBraggadociousBusiness(json: string): BraggadociousBusiness {
-        return cast(JSON.parse(json), r("BraggadociousBusiness"));
+    public static toBusiness2(json: string): Business2 {
+        return cast(JSON.parse(json), r("Business2"));
     }
 
-    public static braggadociousBusinessToJson(value: BraggadociousBusiness): string {
-        return JSON.stringify(uncast(value, r("BraggadociousBusiness")), null, 2);
+    public static business2ToJson(value: Business2): string {
+        return JSON.stringify(uncast(value, r("Business2")), null, 2);
     }
 
     public static toTentacledGeneralInfo(json: string): TentacledGeneralInfo {
@@ -5420,79 +6026,110 @@ const typeMap: any = {
         { json: "CracSlots", js: "CracSlots", typ: r("CracSlotsController") },
     ], false),
     "AppointmentController": o([
+        { json: "cancel_appointment_by_business", js: "cancel_appointment_by_business", typ: u(undefined, r("CancelAppointmentByBusiness")) },
+        { json: "cancel_appointment_by_client", js: "cancel_appointment_by_client", typ: u(undefined, r("CancelAppointmentByClient")) },
+        { json: "client_confirm_appointment", js: "client_confirm_appointment", typ: u(undefined, r("ClientConfirmAppointment")) },
         { json: "client_remove_empty_appointment", js: "client_remove_empty_appointment", typ: r("ClientRemoveEmptyAppointment") },
         { json: "reserve_appointment", js: "reserve_appointment", typ: r("ReserveAppointment") },
     ], false),
-    "ClientRemoveEmptyAppointment": o([
-        { json: "request", js: "request", typ: r("AppointmentClientRemoveEmptyAppointmentRequest") },
-        { json: "response", js: "response", typ: r("AppointmentClientRemoveEmptyAppointmentResponse") },
+    "CancelAppointmentByBusiness": o([
+        { json: "request", js: "request", typ: r("AppointmentCancelAppointmentByBusinessRequest") },
+        { json: "response", js: "response", typ: r("AppointmentCancelAppointmentByBusinessResponse") },
     ], false),
-    "AppointmentClientRemoveEmptyAppointmentRequest": o([
+    "AppointmentCancelAppointmentByBusinessRequest": o([
         { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("RemoveEmptyAppointment") },
+        { json: "params", js: "params", typ: r("AppointmentCancelAppointmentByBusinessRequestParams") },
     ], false),
-    "RemoveEmptyAppointment": o([
-        { json: "appointment", js: "appointment", typ: r("AppointmentClass") },
-        { json: "business", js: "business", typ: r("PurpleBusiness") },
+    "AppointmentCancelAppointmentByBusinessRequestParams": o([
+        { json: "appointment", js: "appointment", typ: r("PurpleAppointment") },
+        { json: "client", js: "client", typ: u(undefined, r("PurpleClient")) },
+        { json: "business", js: "business", typ: "any" },
     ], "any"),
-    "AppointmentClass": o([
+    "PurpleAppointment": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "PurpleBusiness": o([
+    "PurpleClient": o([
+        { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
     ], false),
-    "AppointmentClientRemoveEmptyAppointmentResponse": o([
+    "AppointmentCancelAppointmentByBusinessResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "result", js: "result", typ: u(undefined, true) },
-        { json: "error", js: "error", typ: u(undefined, r("AppointmentClientRemoveEmptyAppointmentResponseError")) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentCancelAppointmentByBusinessResponseError")) },
     ], false),
-    "AppointmentClientRemoveEmptyAppointmentResponseError": o([
+    "AppointmentCancelAppointmentByBusinessResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "ReserveAppointment": o([
-        { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
-        { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
+    "CancelAppointmentByClient": o([
+        { json: "request", js: "request", typ: r("AppointmentCancelAppointmentByClientRequest") },
+        { json: "response", js: "response", typ: r("AppointmentCancelAppointmentByClientResponse") },
     ], false),
-    "AppointmentReserveAppointmentRequest": o([
+    "AppointmentCancelAppointmentByClientRequest": o([
         { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("AppointmentReserve") },
+        { json: "params", js: "params", typ: r("AppointmentCancelAppointmentByClientRequestParams") },
     ], false),
-    "AppointmentReserve": o([
-        { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
-        { json: "business", js: "business", typ: r("FluffyBusiness") },
-        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
-        { json: "resource", js: "resource", typ: r("ResourceClass") },
-        { json: "source", js: "source", typ: "" },
-        { json: "taxonomy", js: "taxonomy", typ: r("ParamsTaxonomy") },
+    "AppointmentCancelAppointmentByClientRequestParams": o([
+        { json: "appointment", js: "appointment", typ: r("FluffyAppointment") },
+        { json: "client", js: "client", typ: u(undefined, r("FluffyClient")) },
+        { json: "business", js: "business", typ: "any" },
     ], "any"),
-    "AppointmentObject": o([
-        { json: "start", js: "start", typ: "" },
-    ], "any"),
-    "FluffyBusiness": o([
+    "FluffyAppointment": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "ResourceClass": o([
-        { json: "id", js: "id", typ: a("") },
-    ], false),
-    "ParamsTaxonomy": o([
+    "FluffyClient": o([
+        { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
     ], false),
-    "AppointmentReserveAppointmentResponse": o([
+    "AppointmentCancelAppointmentByClientResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, true) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentCancelAppointmentByClientResponseError")) },
+    ], false),
+    "AppointmentCancelAppointmentByClientResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "ClientConfirmAppointment": o([
+        { json: "request", js: "request", typ: r("AppointmentClientConfirmAppointmentRequest") },
+        { json: "response", js: "response", typ: r("AppointmentClientConfirmAppointmentResponse") },
+    ], false),
+    "AppointmentClientConfirmAppointmentRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("ConfirmAppointment") },
+    ], false),
+    "ConfirmAppointment": o([
+        { json: "appointment", js: "appointment", typ: r("TentacledAppointment") },
+        { json: "client", js: "client", typ: u(undefined, r("TentacledClient")) },
+        { json: "business", js: "business", typ: "any" },
+    ], "any"),
+    "TentacledAppointment": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "TentacledClient": o([
+        { json: "comment", js: "comment", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "AppointmentClientConfirmAppointmentResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "result", js: "result", typ: u(undefined, u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "")) },
-        { json: "error", js: "error", typ: u(undefined, r("AppointmentReserveAppointmentResponseError")) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentClientConfirmAppointmentResponseError")) },
     ], false),
-    "AppointmentReserveAppointmentResponseError": o([
+    "AppointmentClientConfirmAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
@@ -5501,7 +6138,7 @@ const typeMap: any = {
         { json: "additional_info", js: "additional_info", typ: u(undefined, m("any")) },
         { json: "additionalClientAppears", js: "additionalClientAppears", typ: a(r("AdditionalClientAppear")) },
         { json: "additionalClientPayments", js: "additionalClientPayments", typ: a(r("AdditionalClientPayment")) },
-        { json: "additionalClients", js: "additionalClients", typ: a(r("AdditionalClientElement")) },
+        { json: "additionalClients", js: "additionalClients", typ: a(r("PurpleAppointmentClient")) },
         { json: "additionalClientSources", js: "additionalClientSources", typ: a(r("AdditionalClientSource")) },
         { json: "additionalClientStatuses", js: "additionalClientStatuses", typ: a(r("AdditionalClientStatus")) },
         { json: "additionalClientUtms", js: "additionalClientUtms", typ: a(r("AdditionalClientUtm")) },
@@ -5517,13 +6154,13 @@ const typeMap: any = {
         { json: "cabinet", js: "cabinet", typ: r("Cabinet") },
         { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
         { json: "changeReason", js: "changeReason", typ: "" },
-        { json: "client", js: "client", typ: r("PurpleAppointmentClient") },
+        { json: "client", js: "client", typ: r("ClientClass") },
         { json: "client_appear", js: "client_appear", typ: r("AppointmentClientAppear") },
         { json: "client_med_code", js: "client_med_code", typ: u(undefined, "") },
         { json: "client_payment", js: "client_payment", typ: r("AppointmentClientPayment") },
         { json: "client_payment_invoice", js: "client_payment_invoice", typ: u(undefined, "") },
         { json: "clientComment", js: "clientComment", typ: "" },
-        { json: "clientVisitors", js: "clientVisitors", typ: a(r("AdditionalClientElement")) },
+        { json: "clientVisitors", js: "clientVisitors", typ: a(r("PurpleAppointmentClient")) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "destinationKeyword", js: "destinationKeyword", typ: u(undefined, "") },
         { json: "destinationLink", js: "destinationLink", typ: u(undefined, "") },
@@ -5536,7 +6173,7 @@ const typeMap: any = {
         { json: "moveCounter", js: "moveCounter", typ: 3.14 },
         { json: "movedByRobot", js: "movedByRobot", typ: true },
         { json: "movedFromFired", js: "movedFromFired", typ: u(undefined, true) },
-        { json: "networkID", js: "networkID", typ: "" },
+        { json: "networkID", js: "networkID", typ: u(undefined, "") },
         { json: "notes", js: "notes", typ: "" },
         { json: "order", js: "order", typ: r("Order") },
         { json: "preferredResource", js: "preferredResource", typ: u(undefined, true) },
@@ -5575,7 +6212,7 @@ const typeMap: any = {
         { json: "clientID", js: "clientID", typ: "" },
         { json: "utm", js: "utm", typ: m("any") },
     ], false),
-    "AdditionalClientElement": o([
+    "PurpleAppointmentClient": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, "") },
@@ -5694,7 +6331,7 @@ const typeMap: any = {
     "Cabinet": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], false),
-    "PurpleAppointmentClient": o([
+    "ClientClass": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, "") },
@@ -5742,7 +6379,7 @@ const typeMap: any = {
     ], false),
     "RemovedClientsDatum": o([
         { json: "appear", js: "appear", typ: u(undefined, r("AppointmentClientAppear")) },
-        { json: "client", js: "client", typ: r("AdditionalClientElement") },
+        { json: "client", js: "client", typ: r("PurpleAppointmentClient") },
         { json: "created", js: "created", typ: u(undefined, Date) },
         { json: "payment", js: "payment", typ: u(undefined, r("AppointmentClientPayment")) },
         { json: "payment_invoice", js: "payment_invoice", typ: u(undefined, "") },
@@ -5771,6 +6408,80 @@ const typeMap: any = {
     "AppointmentShowcase": o([
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
     ], false),
+    "ClientRemoveEmptyAppointment": o([
+        { json: "request", js: "request", typ: r("AppointmentClientRemoveEmptyAppointmentRequest") },
+        { json: "response", js: "response", typ: r("AppointmentClientRemoveEmptyAppointmentResponse") },
+    ], false),
+    "AppointmentClientRemoveEmptyAppointmentRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("RemoveEmptyAppointment") },
+    ], false),
+    "RemoveEmptyAppointment": o([
+        { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
+        { json: "business", js: "business", typ: r("PurpleBusiness") },
+    ], "any"),
+    "StickyAppointment": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "PurpleBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "AppointmentClientRemoveEmptyAppointmentResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, true) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentClientRemoveEmptyAppointmentResponseError")) },
+    ], false),
+    "AppointmentClientRemoveEmptyAppointmentResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "ReserveAppointment": o([
+        { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
+        { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
+    ], false),
+    "AppointmentReserveAppointmentRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("AppointmentReserve") },
+    ], false),
+    "AppointmentReserve": o([
+        { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
+        { json: "business", js: "business", typ: r("FluffyBusiness") },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "resource", js: "resource", typ: r("ResourceClass") },
+        { json: "source", js: "source", typ: "" },
+        { json: "taxonomy", js: "taxonomy", typ: r("ParamsTaxonomy") },
+    ], "any"),
+    "AppointmentObject": o([
+        { json: "start", js: "start", typ: "" },
+    ], "any"),
+    "FluffyBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "ResourceClass": o([
+        { json: "id", js: "id", typ: a("") },
+    ], false),
+    "ParamsTaxonomy": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "AppointmentReserveAppointmentResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "")) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentReserveAppointmentResponseError")) },
+    ], false),
+    "AppointmentReserveAppointmentResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
     "BusinessController": o([
         { json: "get_network_data", js: "get_network_data", typ: r("GetNetworkData") },
         { json: "get_profile_by_id", js: "get_profile_by_id", typ: r("GetProfileById") },
@@ -6178,6 +6889,7 @@ const typeMap: any = {
         { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
         { json: "maxServiceBooking", js: "maxServiceBooking", typ: u(undefined, 3.14) },
         { json: "maxTimeslotBooking", js: "maxTimeslotBooking", typ: u(undefined, 3.14) },
+        { json: "middleNameSupport", js: "middleNameSupport", typ: u(undefined, true) },
         { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
         { json: "multiServiceBooking", js: "multiServiceBooking", typ: u(undefined, true) },
         { json: "multiTimeslotBooking", js: "multiTimeslotBooking", typ: u(undefined, true) },
@@ -6800,6 +7512,7 @@ const typeMap: any = {
         { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
         { json: "maxServiceBooking", js: "maxServiceBooking", typ: u(undefined, 3.14) },
         { json: "maxTimeslotBooking", js: "maxTimeslotBooking", typ: u(undefined, 3.14) },
+        { json: "middleNameSupport", js: "middleNameSupport", typ: u(undefined, true) },
         { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
         { json: "multiServiceBooking", js: "multiServiceBooking", typ: u(undefined, true) },
         { json: "multiTimeslotBooking", js: "multiTimeslotBooking", typ: u(undefined, true) },
@@ -6931,6 +7644,7 @@ const typeMap: any = {
     ], "any"),
     "ClientController": o([
         { json: "add_client", js: "add_client", typ: r("AddClient") },
+        { json: "find_or_create_client", js: "find_or_create_client", typ: u(undefined, r("FindOrCreateClient")) },
     ], false),
     "AddClient": o([
         { json: "request", js: "request", typ: r("ClientAddClientRequest") },
@@ -6945,15 +7659,15 @@ const typeMap: any = {
     ], false),
     "ClientAddClientRequestParams": o([
         { json: "business", js: "business", typ: r("HilariousBusiness") },
-        { json: "client", js: "client", typ: r("Client") },
-        { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
+        { json: "client", js: "client", typ: r("ClientObject") },
+        { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
     "HilariousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
-    "Client": o([
+    "ClientObject": o([
         { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), "")) },
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
@@ -6968,7 +7682,7 @@ const typeMap: any = {
         { json: "taxiPark", js: "taxiPark", typ: u(undefined, u(null, "")) },
         { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, u(3.14, null, "")) },
     ], "any"),
-    "ParamsProfile": o([
+    "PurpleProfile": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ClientAddClientResponse": o([
@@ -6984,14 +7698,61 @@ const typeMap: any = {
     ], "any"),
     "ClientAddClientResponseResult": o([
         { json: "business", js: "business", typ: u(undefined, r("AmbitiousBusiness")) },
-        { json: "client", js: "client", typ: r("Client") },
+        { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
-        { json: "profile", js: "profile", typ: u(undefined, r("ResultProfile")) },
+        { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
     "AmbitiousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "ResultProfile": o([
+    "FluffyProfile": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "FindOrCreateClient": o([
+        { json: "request", js: "request", typ: r("ClientFindOrCreateClientRequest") },
+        { json: "response", js: "response", typ: r("ClientFindOfCreateClientResponse") },
+    ], false),
+    "ClientFindOrCreateClientRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
+    ], false),
+    "ClientFindOrCreateClientRequestParams": o([
+        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "client", js: "client", typ: r("ClientObject") },
+        { json: "profile", js: "profile", typ: u(undefined, r("TentacledProfile")) },
+        { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
+        { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
+    ], false),
+    "CunningBusiness": o([
+        { json: "id", js: "id", typ: u(3.14, "") },
+    ], false),
+    "TentacledProfile": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "ClientFindOfCreateClientResponse": o([
+        { json: "result", js: "result", typ: u(undefined, r("ClientFindOfCreateClientResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("ClientFindOfCreateClientResponseError")) },
+        { json: "id", js: "id", typ: u(undefined, 3.14) },
+        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
+    ], "any"),
+    "ClientFindOfCreateClientResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "ClientFindOfCreateClientResponseResult": o([
+        { json: "business", js: "business", typ: u(undefined, r("MagentaBusiness")) },
+        { json: "client", js: "client", typ: r("ClientObject") },
+        { json: "documents", js: "documents", typ: u(undefined, a("any")) },
+        { json: "profile", js: "profile", typ: u(undefined, r("StickyProfile")) },
+    ], "any"),
+    "MagentaBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "StickyProfile": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "CracSlotsController": o([
@@ -7014,11 +7775,11 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("FriskyBusiness") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "CunningBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -7095,13 +7856,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "business", js: "business", typ: r("MischievousBusiness") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "MagentaBusiness": o([
+    "MischievousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([
@@ -7139,10 +7900,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
         { json: "filters", js: "filters", typ: r("PurpleFilters") },
     ], false),
-    "FriskyBusiness": o([
+    "BraggadociousBusiness": o([
         { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
@@ -7202,10 +7963,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "filters", js: "filters", typ: r("FluffyFilters") },
     ], false),
-    "MischievousBusiness": o([
+    "Business1": o([
         { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
@@ -7262,10 +8023,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("Business2") },
         { json: "filters", js: "filters", typ: r("TentacledFilters") },
     ], false),
-    "BraggadociousBusiness": o([
+    "Business2": o([
         { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },
@@ -7313,7 +8074,7 @@ const typeMap: any = {
     "Models": o([
         { json: "Appointment", js: "Appointment", typ: u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "") },
         { json: "Business", js: "Business", typ: u(a("any"), true, r("IndecentBusiness"), 3.14, 0, null, "") },
-        { json: "Client", js: "Client", typ: r("Client") },
+        { json: "Client", js: "Client", typ: r("ClientObject") },
     ], false),
     "AppointmentClientAppear": [
         "NO_APPEAR",

@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса business.get_network_data
  */
 public class BusinessGetNetworkDataRequestParams {
-    private RequestTimeFrameDate networkID;
+    private PurpleTimeFrameDate networkID;
     private Boolean withBusinessInfo;
 
     /**
      * идентификатор сети
      */
     @JsonProperty("networkID")
-    public RequestTimeFrameDate getNetworkID() { return networkID; }
+    public PurpleTimeFrameDate getNetworkID() { return networkID; }
     @JsonProperty("networkID")
-    public void setNetworkID(RequestTimeFrameDate value) { this.networkID = value; }
+    public void setNetworkID(PurpleTimeFrameDate value) { this.networkID = value; }
 
     /**
      * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу

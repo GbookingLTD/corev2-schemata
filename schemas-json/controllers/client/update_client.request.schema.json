@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/client/update_client.request.schema.json",
+    "title": "client.update_client.request",
+    "type": "object",
+    "definitions": {
+        "Request": {
+            "type": "object",
+            "required": [
+                "params"
+            ],
+            "properties": {
+                "params": {
+                    "description": "параметры запроса",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "business",
+                        "client"
+                    ],
+                    "properties": {
+                        "business": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "id"
+                            ],
+                            "properties": {
+                                "id": {
+                                    "type": [
+                                        "string",
+                                        "number"
+                                    ],
+                                    "description": "идентификатор бизнеса"
+                                }
+                            }
+                        },
+                        "client": {
+                            "$ref": "../../models/client.schema.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "../../common/request.schema.json"
+        },
+        {
+            "$ref": "#/definitions/Request"
+        }
+    ]
+}

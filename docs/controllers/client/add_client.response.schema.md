@@ -1,7 +1,7 @@
 # client.add_client.response Schema
 
 ```
-schemas-json/controllers/business/client.add_client.schema.json
+schemas-json/controllers/client/add_client.response.schema.json
 ```
 
 | Abstract               | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                                            |
@@ -12,8 +12,8 @@ schemas-json/controllers/business/client.add_client.schema.json
 
 | Property          | Type     | Group                                                                                          |
 | ----------------- | -------- | ---------------------------------------------------------------------------------------------- |
-| [error](#error)   | complex  | `schemas-json/controllers/business/client.add_client.schema.json#/definitions/ErrorCodes`      |
-| [result](#result) | `object` | `schemas-json/controllers/business/client.add_client.schema.json#/definitions/SuccessResponse` |
+| [error](#error)   | complex  | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ErrorCodes`      |
+| [result](#result) | `object` | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/SuccessResponse` |
 
 ## error
 

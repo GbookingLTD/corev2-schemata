@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class ClientAddClientRequestParams {
     private HilariousBusiness business;
-    private Client client;
-    private ParamsProfile profile;
+    private ClientClass client;
+    private PurpleProfile profile;
     private Boolean skipEmailCheck;
     private Boolean skipProfileUpdate;
 
@@ -19,14 +19,14 @@ public class ClientAddClientRequestParams {
     public void setBusiness(HilariousBusiness value) { this.business = value; }
 
     @JsonProperty("client")
-    public Client getClient() { return client; }
+    public ClientClass getClient() { return client; }
     @JsonProperty("client")
-    public void setClient(Client value) { this.client = value; }
+    public void setClient(ClientClass value) { this.client = value; }
 
     @JsonProperty("profile")
-    public ParamsProfile getProfile() { return profile; }
+    public PurpleProfile getProfile() { return profile; }
     @JsonProperty("profile")
-    public void setProfile(ParamsProfile value) { this.profile = value; }
+    public void setProfile(PurpleProfile value) { this.profile = value; }
 
     @JsonProperty("skipEmailCheck")
     public Boolean getSkipEmailCheck() { return skipEmailCheck; }

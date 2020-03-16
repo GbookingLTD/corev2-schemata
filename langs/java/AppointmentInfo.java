@@ -4,7 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentInfo {
-    private RequestTimeFrameDate backofficeID;
+    private PurpleTimeFrameDate backofficeID;
     private boolean blockSMS;
     private String created;
     private DrinkAnswer drinkAnswer;
@@ -21,9 +21,9 @@ public class AppointmentInfo {
     private String updated;
 
     @JsonProperty("backofficeID")
-    public RequestTimeFrameDate getBackofficeID() { return backofficeID; }
+    public PurpleTimeFrameDate getBackofficeID() { return backofficeID; }
     @JsonProperty("backofficeID")
-    public void setBackofficeID(RequestTimeFrameDate value) { this.backofficeID = value; }
+    public void setBackofficeID(PurpleTimeFrameDate value) { this.backofficeID = value; }
 
     @JsonProperty("blockSMS")
     public boolean getBlockSMS() { return blockSMS; }

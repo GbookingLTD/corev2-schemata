@@ -3,9 +3,6 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-/**
- * пустой объект в момент резервирования
- */
 public class PurpleAppointmentClient {
     private String address;
     private String adminComment;

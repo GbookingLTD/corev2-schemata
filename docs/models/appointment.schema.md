@@ -1155,7 +1155,7 @@ Either one of:
 | [moveCounter](#movecounter)                           | `number`   | **Required** | No       |         | (this schema) |
 | [movedByRobot](#movedbyrobot)                         | `boolean`  | **Required** | No       |         | (this schema) |
 | [movedFromFired](#movedfromfired)                     | `boolean`  | Optional     | No       |         | (this schema) |
-| [networkID](#networkid)                               | `string`   | **Required** | No       |         | (this schema) |
+| [networkID](#networkid)                               | `string`   | Optional     | No       |         | (this schema) |
 | [notes](#notes)                                       | `string`   | **Required** | No       | `""`    | (this schema) |
 | [order](#order)                                       | `object`   | **Required** | No       |         | (this schema) |
 | [preferredResource](#preferredresource)               | `boolean`  | Optional     | No       |         | (this schema) |
@@ -2152,7 +2152,7 @@ All items must be of the type:
 
 `networkID`
 
-- is **required**
+- is optional
 - type: `string`
 - defined in this schema
 

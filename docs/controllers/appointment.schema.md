@@ -12,8 +12,128 @@ schemas-json/controllers/appointment.schema.json
 
 | Property                                                            | Type     | Required     | Nullable | Defined by                          |
 | ------------------------------------------------------------------- | -------- | ------------ | -------- | ----------------------------------- |
+| [cancel_appointment_by_business](#cancel_appointment_by_business)   | `object` | Optional     | No       | AppointmentController (this schema) |
+| [cancel_appointment_by_client](#cancel_appointment_by_client)       | `object` | Optional     | No       | AppointmentController (this schema) |
+| [client_confirm_appointment](#client_confirm_appointment)           | `object` | Optional     | No       | AppointmentController (this schema) |
 | [client_remove_empty_appointment](#client_remove_empty_appointment) | `object` | **Required** | No       | AppointmentController (this schema) |
 | [reserve_appointment](#reserve_appointment)                         | `object` | **Required** | No       | AppointmentController (this schema) |
+
+## cancel_appointment_by_business
+
+`cancel_appointment_by_business`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### cancel_appointment_by_business Type
+
+`object` with following properties:
+
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `request`  |      | **Required** |
+| `response` |      | **Required** |
+
+#### request
+
+`request`
+
+- is **required**
+- type: reference
+
+##### request Type
+
+- []() – `./appointment/cancel_appointment_by_business.request.schema.json`
+
+#### response
+
+`response`
+
+- is **required**
+- type: reference
+
+##### response Type
+
+- []() – `./appointment/cancel_appointment_by_business.response.schema.json`
+
+## cancel_appointment_by_client
+
+`cancel_appointment_by_client`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### cancel_appointment_by_client Type
+
+`object` with following properties:
+
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `request`  |      | **Required** |
+| `response` |      | **Required** |
+
+#### request
+
+`request`
+
+- is **required**
+- type: reference
+
+##### request Type
+
+- []() – `./appointment/cancel_appointment_by_client.request.schema.json`
+
+#### response
+
+`response`
+
+- is **required**
+- type: reference
+
+##### response Type
+
+- []() – `./appointment/cancel_appointment_by_client.response.schema.json`
+
+## client_confirm_appointment
+
+`client_confirm_appointment`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### client_confirm_appointment Type
+
+`object` with following properties:
+
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `request`  |      | **Required** |
+| `response` |      | **Required** |
+
+#### request
+
+`request`
+
+- is **required**
+- type: reference
+
+##### request Type
+
+- []() – `./appointment/client_confirm_appointment.request.schema.json`
+
+#### response
+
+`response`
+
+- is **required**
+- type: reference
+
+##### response Type
+
+- []() – `./appointment/client_confirm_appointment.response.schema.json`
 
 ## client_remove_empty_appointment
 

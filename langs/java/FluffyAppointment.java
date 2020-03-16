@@ -4,10 +4,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyAppointment {
-    private String start;
+    private String id;
 
-    @JsonProperty("start")
-    public String getStart() { return start; }
-    @JsonProperty("start")
-    public void setStart(String value) { this.start = value; }
+    @JsonProperty("id")
+    public String getID() { return id; }
+    @JsonProperty("id")
+    public void setID(String value) { this.id = value; }
 }

@@ -18,16 +18,16 @@ import com.fasterxml.jackson.databind.annotation.*;
  *
  * вес работника, в зависимости от указанного способа сортировки
  */
-@JsonDeserialize(using = EvenTimeFrameDate.Deserializer.class)
-@JsonSerialize(using = EvenTimeFrameDate.Serializer.class)
-public class EvenTimeFrameDate {
+@JsonDeserialize(using = FluffyTimeFrameDate.Deserializer.class)
+@JsonSerialize(using = FluffyTimeFrameDate.Serializer.class)
+public class FluffyTimeFrameDate {
     public Double doubleValue;
     public String stringValue;
 
-    static class Deserializer extends JsonDeserializer<EvenTimeFrameDate> {
+    static class Deserializer extends JsonDeserializer<FluffyTimeFrameDate> {
         @Override
-        public EvenTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            EvenTimeFrameDate value = new EvenTimeFrameDate();
+        public FluffyTimeFrameDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            FluffyTimeFrameDate value = new FluffyTimeFrameDate();
             switch (jsonParser.getCurrentToken()) {
             case VALUE_NULL:
                 break;
@@ -38,15 +38,15 @@ public class EvenTimeFrameDate {
             case VALUE_STRING:
                 value.stringValue = jsonParser.readValueAs(String.class);
                 break;
-            default: throw new IOException("Cannot deserialize EvenTimeFrameDate");
+            default: throw new IOException("Cannot deserialize FluffyTimeFrameDate");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<EvenTimeFrameDate> {
+    static class Serializer extends JsonSerializer<FluffyTimeFrameDate> {
         @Override
-        public void serialize(EvenTimeFrameDate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(FluffyTimeFrameDate obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;

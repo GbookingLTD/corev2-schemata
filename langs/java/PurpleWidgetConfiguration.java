@@ -51,6 +51,7 @@ public class PurpleWidgetConfiguration {
     private List<Phone> insuranceClientSupportPhone;
     private Double maxServiceBooking;
     private Double maxTimeslotBooking;
+    private Boolean middleNameSupport;
     private Boolean mostFreeEnable;
     private Boolean multiServiceBooking;
     private Boolean multiTimeslotBooking;
@@ -345,6 +346,11 @@ public class PurpleWidgetConfiguration {
     public Double getMaxTimeslotBooking() { return maxTimeslotBooking; }
     @JsonProperty("maxTimeslotBooking")
     public void setMaxTimeslotBooking(Double value) { this.maxTimeslotBooking = value; }
+
+    @JsonProperty("middleNameSupport")
+    public Boolean getMiddleNameSupport() { return middleNameSupport; }
+    @JsonProperty("middleNameSupport")
+    public void setMiddleNameSupport(Boolean value) { this.middleNameSupport = value; }
 
     @JsonProperty("mostFreeEnable")
     public Boolean getMostFreeEnable() { return mostFreeEnable; }
