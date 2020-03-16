@@ -1,0 +1,38 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema.json"
+title: "appointment.cancel_appointment_by_client.request"
+type: "object"
+definitions:
+  ConfirmAppointment:
+    type: "object"
+    required:
+      - appointment
+      - business
+    properties:
+      appointment:
+        type: "object"
+        required: ["id"]
+        additionalProperties: false
+        properties:
+          id:
+            type: "string"
+      client:
+        type: "object"
+        required: ["id"]
+        additionalProperties: false
+        properties:
+          id:
+            type: "string"
+          comment:
+            type: "string"
+  Request:
+    type: "object"
+    required: ["params"]
+    properties:
+      params:
+        $ref: '#/definitions/ConfirmAppointment'
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+

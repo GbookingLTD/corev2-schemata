@@ -1181,4 +1181,6 @@ definitions:
         additionalProperties: true
       worker_unavailability_text:
         type: "string"
+      middleNameSupport:
+        type: "boolean"
     additionalProperties: false

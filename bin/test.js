@@ -64,26 +64,74 @@ let addClient = function (endpoint, data) {
   var params = {
     "business": {"id": ''+data.business.id},
     "client":{
-         "name":"test_client",
-         "surname":"test_client",
-         "phone":[
-            {
-               "country_code": data.phone[0],
-               "area_code": data.phone[1],
-               "number": data.phone[2]
-            }
-         ],
-         "email": [data.email]
-      }
+      "name":"test_client",
+      "surname":"test_client",
+      "phone":[
+        {
+          "country_code": data.phone[0],
+          "area_code": data.phone[1],
+          "number": data.phone[2]
+        }
+      ],
+      "email": [data.email]
+    }
   };
-  
-  let _validate = getValidate('client', 'add_client');
+
   let pref = 'client.add_client: ' + data.business.id;
-  return rpcRequest('client.add_client', params, {}, endpoint).then(function(json) {
-    _validate(pref, json)
+
+  let _validateReq = getValidateRequest('client', 'add_client');
+  let _validateRes = getValidateResponse('client', 'add_client');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('client.add_client', params, {}));
+    return rpcRequest('client.add_client', params, {}, endpoint);
+  }).then(function(json) {
+    // console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json)
+    return json;
   }).fail(function(err) {
     if (err.code === -32700) {
-      _validate(pref, err.xtra);
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let findOrCreateClient = function (endpoint, data, cred) {
+  var params = {
+    "business": {"id": ''+data.business.id},
+    "client":{
+      "name":"test_client",
+      "surname":"test_client",
+      "phone":[
+        {
+          "country_code": data.phone[0],
+          "area_code": data.phone[1],
+          "number": data.phone[2]
+        }
+      ],
+      "email": [data.email]
+    }
+  };
+
+  let pref = 'client.find_or_create_client: ' + data.business.id;
+
+  let _validateReq = getValidateRequest('client', 'find_or_create_client');
+  let _validateRes = getValidateResponse('client', 'find_or_create_client');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('client.find_or_create_client', params, {}));
+    return rpcRequest('client.find_or_create_client', params, cred, endpoint);
+  }).then(function(json) {
+    // console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json)
+    return json;
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
     } else {
       console.error(pref + ' - fail %j', err);
     }
@@ -143,7 +191,7 @@ let reserveAppointment = function (endpoint, businessId, taxonomy, resource, sta
     _validateReq('---> ' + pref, rpcRequestObject('appointment.reserve_appointment', params, {}));
     return rpcRequest('appointment.reserve_appointment', params, {}, endpoint);
   }).then(function(json) {
-    console.info('<--- ' + pref + ' %j', json);
+    // console.info('<--- ' + pref + ' %j', json);
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {
@@ -416,6 +464,7 @@ module.exports = function(fn) {
 };
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
+module.exports.findOrCreateClient = findOrCreateClient;
 module.exports.reserveAppointment = reserveAppointment;
 module.exports.clientRemoveEmptyAppointment = clientRemoveEmptyAppointment;
 module.exports.getNetworkData = getNetworkData;

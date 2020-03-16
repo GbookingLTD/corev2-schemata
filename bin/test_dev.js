@@ -3,6 +3,7 @@
 const Q = require('q')
   , getProfileByID = require('./test').getProfileByID
   , addClient = require('./test').addClient
+  , findOrCreateClient = require('./test').findOrCreateClient
   , getNetworkData = require('./test').getNetworkData
   , getNetworkDataWithBusinessInfo = require('./test').getNetworkDataWithBusinessInfo
   , reserveAppointment = require('./test').reserveAppointment
@@ -23,7 +24,16 @@ require('./test')(function() {
       business: { id:4000000006957 },
       email: '',
       phone: ['7', '111', '1111115']
-    })
+    }),
+    findOrCreateClient(process.env.ENDPOINT, {
+      profile:{id: "5b1671531e0bbb19ac9f8b15"},
+      business: { id:4000000005153 },
+      email: 'test@gbooking.ru',
+      phone: ['7', '123', '1231231']
+    }, {
+      token: "f1f5bd7c84bd67a2b9797cf05866459ad3a52bc7",
+      user: "5b1671531e0bbb19ac9f8b15"
+    }),
   ].forEach((p) => {requests.push(p)});
 
   [
