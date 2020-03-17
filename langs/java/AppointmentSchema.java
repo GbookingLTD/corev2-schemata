@@ -7,7 +7,7 @@ public class AppointmentSchema {
     private Map<String, Object> additionalInfo;
     private List<AdditionalClientAppear> additionalClientAppears;
     private List<AdditionalClientPayment> additionalClientPayments;
-    private List<PurpleAppointmentClient> additionalClients;
+    private List<AdditionalClientElement> additionalClients;
     private List<AdditionalClientSource> additionalClientSources;
     private List<AdditionalClientStatus> additionalClientStatuses;
     private List<AdditionalClientUtm> additionalClientUtms;
@@ -29,7 +29,7 @@ public class AppointmentSchema {
     private AppointmentClientPayment clientPayment;
     private String clientPaymentInvoice;
     private String clientComment;
-    private List<PurpleAppointmentClient> clientVisitors;
+    private List<AdditionalClientElement> clientVisitors;
     private String color;
     private String destinationKeyword;
     private String destinationLink;
@@ -77,9 +77,9 @@ public class AppointmentSchema {
     public void setAdditionalClientPayments(List<AdditionalClientPayment> value) { this.additionalClientPayments = value; }
 
     @JsonProperty("additionalClients")
-    public List<PurpleAppointmentClient> getAdditionalClients() { return additionalClients; }
+    public List<AdditionalClientElement> getAdditionalClients() { return additionalClients; }
     @JsonProperty("additionalClients")
-    public void setAdditionalClients(List<PurpleAppointmentClient> value) { this.additionalClients = value; }
+    public void setAdditionalClients(List<AdditionalClientElement> value) { this.additionalClients = value; }
 
     @JsonProperty("additionalClientSources")
     public List<AdditionalClientSource> getAdditionalClientSources() { return additionalClientSources; }
@@ -187,9 +187,9 @@ public class AppointmentSchema {
     public void setClientComment(String value) { this.clientComment = value; }
 
     @JsonProperty("clientVisitors")
-    public List<PurpleAppointmentClient> getClientVisitors() { return clientVisitors; }
+    public List<AdditionalClientElement> getClientVisitors() { return clientVisitors; }
     @JsonProperty("clientVisitors")
-    public void setClientVisitors(List<PurpleAppointmentClient> value) { this.clientVisitors = value; }
+    public void setClientVisitors(List<AdditionalClientElement> value) { this.clientVisitors = value; }
 
     @JsonProperty("color")
     public String getColor() { return color; }

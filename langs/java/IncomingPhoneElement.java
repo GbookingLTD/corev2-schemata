@@ -3,19 +3,19 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class IncomingPhoneClass {
+public class IncomingPhoneElement {
     private String areaCode;
     private String countryCode;
     private String number;
 
-    @JsonProperty("areaCode")
+    @JsonProperty("area_code")
     public String getAreaCode() { return areaCode; }
-    @JsonProperty("areaCode")
+    @JsonProperty("area_code")
     public void setAreaCode(String value) { this.areaCode = value; }
 
-    @JsonProperty("countryCode")
+    @JsonProperty("country_code")
     public String getCountryCode() { return countryCode; }
-    @JsonProperty("countryCode")
+    @JsonProperty("country_code")
     public void setCountryCode(String value) { this.countryCode = value; }
 
     @JsonProperty("number")

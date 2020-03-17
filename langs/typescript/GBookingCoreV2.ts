@@ -149,6 +149,7 @@ export interface AppointmentController {
     cancel_appointment_by_client?:   CancelAppointmentByClient;
     client_confirm_appointment?:     ClientConfirmAppointment;
     client_remove_empty_appointment: ClientRemoveEmptyAppointment;
+    get_appointment_by_filter?:      GetAppointmentByFilter;
     reserve_appointment:             ReserveAppointment;
 }
 
@@ -371,7 +372,7 @@ export interface AppointmentClientConfirmAppointmentResponse {
     /**
      * данные, передаваемые в ответ
      */
-    result?: AppointmentUnion;
+    result?: AppointmentElement;
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -401,13 +402,13 @@ export interface AppointmentClientConfirmAppointmentResponseError {
 /**
  * данные, передаваемые в ответ
  */
-export type AppointmentUnion = any[] | boolean | AppointmentSchema | number | number | null | string;
+export type AppointmentElement = any[] | boolean | AppointmentSchema | number | number | null | string;
 
 export interface AppointmentSchema {
     additional_info?:         { [key: string]: any };
     additionalClientAppears:  AdditionalClientAppear[];
     additionalClientPayments: AdditionalClientPayment[];
-    additionalClients:        PurpleAppointmentClient[];
+    additionalClients:        AdditionalClientElement[];
     additionalClientSources:  AdditionalClientSource[];
     additionalClientStatuses: AdditionalClientStatus[];
     additionalClientUtms:     AdditionalClientUtm[];
@@ -423,13 +424,13 @@ export interface AppointmentSchema {
     cabinet:                  Cabinet;
     capacity?:                number;
     changeReason:             string;
-    client:                   ClientClass;
+    client:                   AppointmentClient;
     client_appear:            AppointmentClientAppear;
     client_med_code?:         string;
     client_payment:           AppointmentClientPayment;
     client_payment_invoice?:  string;
     clientComment:            string;
-    clientVisitors:           PurpleAppointmentClient[];
+    clientVisitors?:          AdditionalClientElement[];
     color?:                   string;
     destinationKeyword?:      string;
     destinationLink?:         string;
@@ -452,7 +453,7 @@ export interface AppointmentSchema {
     reminder:                 Reminder;
     removedClientsData:       RemovedClientsDatum[];
     resource:                 AppointmentResource;
-    review:                   Review;
+    review?:                  Review;
     room?:                    Room;
     showcase:                 AppointmentShowcase;
     socialToken?:             string;
@@ -487,12 +488,15 @@ export enum AppointmentClientPayment {
 }
 
 export interface AdditionalClientSource {
+    _id?:     string;
     clientID: string;
     source:   string;
 }
 
 export interface AdditionalClientStatus {
+    _id?:     string;
     clientID: string;
+    history?: { [key: string]: any }[];
     status:   AppointmentStatus;
 }
 
@@ -512,11 +516,12 @@ export enum AppointmentStatus {
 }
 
 export interface AdditionalClientUtm {
+    _id?:     string;
     clientID: string;
-    utm:      { [key: string]: any };
+    utm?:     { [key: string]: any };
 }
 
-export interface PurpleAppointmentClient {
+export interface AdditionalClientElement {
     address?:             string;
     adminComment?:        string;
     birthday?:            string;
@@ -525,7 +530,7 @@ export interface PurpleAppointmentClient {
     creatorProfileID?:    string;
     creatorProfileName?:  string;
     driverLicense?:       string;
-    email?:               string;
+    email?:               string[];
     extraData?:           { [key: string]: any };
     extraID?:             string;
     extraVisitors?:       number;
@@ -534,7 +539,7 @@ export interface PurpleAppointmentClient {
     GAClientID?:          string;
     houseNumber?:         string;
     id:                   string;
-    incomingPhone?:       IncomingPhoneClass;
+    incomingPhone?:       IncomingPhoneElement[];
     israelCity?:          IsraelCity;
     isVIP?:               boolean;
     kupatHolim?:          KupatHolim;
@@ -542,7 +547,7 @@ export interface PurpleAppointmentClient {
     middleName?:          string;
     name:                 string;
     passportId?:          string;
-    phone?:               IncomingPhoneClass;
+    phone?:               IncomingPhoneElement[];
     seasonTicketId?:      string;
     seasonTicketNumber?:  string;
     sex?:                 Sex;
@@ -579,10 +584,10 @@ export interface ExtraField {
 
 export type Value = number | { [key: string]: any } | null | string;
 
-export interface IncomingPhoneClass {
-    areaCode:    string;
-    countryCode: string;
-    number:      string;
+export interface IncomingPhoneElement {
+    area_code:    string;
+    country_code: string;
+    number:       string;
 }
 
 export interface IsraelCity {
@@ -632,7 +637,7 @@ export interface AppointmentInfo {
     backofficeID:        Id;
     blockSMS:            boolean;
     created:             Date;
-    drinkAnswer:         DrinkAnswer;
+    drinkAnswer?:        DrinkAnswer;
     duration:            number;
     hideAppointmentTime: boolean;
     id:                  string;
@@ -641,7 +646,7 @@ export interface AppointmentInfo {
     shortId:             string;
     start:               Date;
     status:              AppointmentStatus;
-    talkAnswer:          TalkAnswer;
+    talkAnswer?:         TalkAnswer;
     testRecord:          boolean;
     updated:             Date;
 }
@@ -657,7 +662,7 @@ export interface IntegrationData {
 }
 
 export interface Price {
-    additionalTaxonomyDiscount: AdditionalTaxonomyDiscount;
+    additionalTaxonomyDiscount: AdditionalTaxonomyDiscount[];
     amount:                     number;
     currency:                   CurrencyList;
     discount?:                  number;
@@ -714,7 +719,7 @@ export interface Cabinet {
 /**
  * пустой объект в момент резервирования
  */
-export interface ClientClass {
+export interface AppointmentClient {
     address?:             string;
     adminComment?:        string;
     birthday?:            string;
@@ -723,7 +728,7 @@ export interface ClientClass {
     creatorProfileID?:    string;
     creatorProfileName?:  string;
     driverLicense?:       string;
-    email?:               string;
+    email?:               string[];
     extraData?:           { [key: string]: any };
     extraID?:             string;
     extraVisitors?:       number;
@@ -732,7 +737,7 @@ export interface ClientClass {
     GAClientID?:          string;
     houseNumber?:         string;
     id?:                  string;
-    incomingPhone?:       IncomingPhoneClass;
+    incomingPhone?:       IncomingPhoneElement[];
     israelCity?:          IsraelCity;
     isVIP?:               boolean;
     kupatHolim?:          KupatHolim;
@@ -740,7 +745,7 @@ export interface ClientClass {
     middleName?:          string;
     name?:                string;
     passportId?:          string;
-    phone?:               IncomingPhoneClass;
+    phone?:               IncomingPhoneElement[];
     seasonTicketId?:      string;
     seasonTicketNumber?:  string;
     sex?:                 Sex;
@@ -772,7 +777,7 @@ export enum ReminderStatus {
 
 export interface RemovedClientsDatum {
     appear?:          AppointmentClientAppear;
-    client:           PurpleAppointmentClient;
+    client:           AdditionalClientElement;
     created?:         Date;
     payment?:         AppointmentClientPayment;
     payment_invoice?: string;
@@ -887,6 +892,134 @@ export interface AppointmentClientRemoveEmptyAppointmentResponseError {
     message: string;
 }
 
+export interface GetAppointmentByFilter {
+    request:  AppointmentGetAppointmentByFilterRequest;
+    response: AppointmentGetAppointmentByFilterResponse;
+}
+
+export interface AppointmentGetAppointmentByFilterRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: Id;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: Filters;
+}
+
+export interface Filters {
+    business:               FluffyBusiness;
+    extraFilters?:          ExtraFilters;
+    filter?:                Filter;
+    network?:               NetworkClass;
+    page:                   number;
+    pageSize:               number;
+    skipBusinessCancelled?: boolean;
+}
+
+export interface FluffyBusiness {
+    id?: Id;
+}
+
+export interface ExtraFilters {
+    sort?: Sort[];
+}
+
+export interface Sort {
+    dir:   Dir;
+    field: SortField;
+}
+
+export enum Dir {
+    Asc = "asc",
+    Desc = "desc",
+}
+
+export enum SortField {
+    Created = "created",
+    Start = "start",
+}
+
+export interface Filter {
+    created?:     Created;
+    end?:         Date;
+    services?:    string[];
+    skipUpdated?: boolean;
+    start?:       Date;
+    workers?:     string[];
+}
+
+export interface Created {
+    end:   Date;
+    start: Date;
+}
+
+export interface NetworkClass {
+    id?: Id;
+}
+
+export interface AppointmentGetAppointmentByFilterResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: AppointmentGetAppointmentByFilterResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentGetAppointmentByFilterResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentGetAppointmentByFilterResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+/**
+ * данные, передаваемые в ответ
+ */
+export interface AppointmentGetAppointmentByFilterResponseResult {
+    data:        AppointmentElement[];
+    page:        number;
+    total:       number;
+    unconfirmed: number;
+}
+
 export interface ReserveAppointment {
     request:  AppointmentReserveAppointmentRequest;
     response: AppointmentReserveAppointmentResponse;
@@ -917,7 +1050,7 @@ export interface AppointmentReserveAppointmentRequest {
 
 export interface AppointmentReserve {
     appointment:       AppointmentObject;
-    business:          FluffyBusiness;
+    business:          TentacledBusiness;
     originBusinessID?: string;
     resource:          ResourceClass;
     source:            string;
@@ -928,7 +1061,7 @@ export interface AppointmentObject {
     start: string;
 }
 
-export interface FluffyBusiness {
+export interface TentacledBusiness {
     id: string;
 }
 
@@ -952,7 +1085,7 @@ export interface AppointmentReserveAppointmentResponse {
     /**
      * данные, передаваемые в ответ
      */
-    result?: AppointmentUnion;
+    result?: AppointmentElement;
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1041,7 +1174,7 @@ export interface BusinessGetNetworkDataResponse {
     /**
      * данные, передаваемые в ответ
      */
-    result?: ResultClass | null;
+    result?: BusinessGetNetworkDataResponseResult | null;
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1068,9 +1201,9 @@ export interface BusinessGetNetworkDataResponseError {
     message: string;
 }
 
-export interface ResultClass {
+export interface BusinessGetNetworkDataResponseResult {
     businessConfiguration: { [key: string]: any };
-    businesses:            TentacledBusiness[];
+    businesses:            StickyBusiness[];
     clientVIPPhones:       string[];
     grantGroups:           { [key: string]: any }[];
     networkID:             string;
@@ -1085,7 +1218,7 @@ export interface ResultClass {
 /**
  * указатель на бизнес в сети
  */
-export interface TentacledBusiness {
+export interface StickyBusiness {
     _id?:               string;
     businessID:         string;
     info?:              BusinessBusiness;
@@ -1094,9 +1227,9 @@ export interface TentacledBusiness {
     virtualTaxonomies?: string[];
 }
 
-export type BusinessBusiness = any[] | boolean | StickyBusiness | number | number | null | string;
+export type BusinessBusiness = any[] | boolean | IndigoBusiness | number | number | null | string;
 
-export interface StickyBusiness {
+export interface IndigoBusiness {
     active?:                        boolean;
     additionalSettings?:            PurpleAdditionalSettings;
     allowCategoryBooking?:          boolean;
@@ -1594,12 +1727,12 @@ export enum Group {
 }
 
 export interface PurpleMiniWidgetConfiguration {
-    fields?: Field[];
+    fields?: FieldElement[];
     title1?: string;
     title2?: string;
 }
 
-export enum Field {
+export enum FieldElement {
     Email = "email",
     Name = "name",
     Surname = "surname",
@@ -1833,7 +1966,7 @@ export interface BusinessGetProfileByIdRequest {
  * параметры запроса business.get_profile_by_id
  */
 export interface BusinessGetProfileByIdRequestParams {
-    business: IndigoBusiness;
+    business: IndecentBusiness;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -1895,7 +2028,7 @@ export interface BusinessGetProfileByIdRequestParams {
     worker_sorting_type?: WorkerSortingType;
 }
 
-export interface IndigoBusiness {
+export interface IndecentBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -1958,16 +2091,16 @@ export interface BusinessGetProfileByIdResponseResult {
     business:               ResultBusiness;
     freeSms?:               number;
     monthlyFreeSms?:        number;
-    networks?:              Network[];
+    networks?:              NetworkElement[];
     profiles?:              { [key: string]: any }[];
     top_services?:          ResultTopServices;
     useDefaultSmsTemplate?: boolean;
     yandexFeedType?:        YandexFeedType;
 }
 
-export type ResultBusiness = any[] | boolean | IndecentBusiness | number | number | null | string;
+export type ResultBusiness = any[] | boolean | HilariousBusiness | number | number | null | string;
 
-export interface IndecentBusiness {
+export interface HilariousBusiness {
     active?:                        boolean;
     additionalSettings?:            FluffyAdditionalSettings;
     allowCategoryBooking?:          boolean;
@@ -2138,7 +2271,7 @@ export interface FluffyDepartment {
 }
 
 export interface FluffyMiniWidgetConfiguration {
-    fields?: Field[];
+    fields?: FieldElement[];
     title1?: string;
     title2?: string;
 }
@@ -2879,7 +3012,7 @@ export interface FluffySocialSharing {
     widgetText?:      null | string;
 }
 
-export interface Network {
+export interface NetworkElement {
     address?:     Address;
     businessName: string;
     description:  string;
@@ -2972,14 +3105,14 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business:           HilariousBusiness;
+    business:           AmbitiousBusiness;
     client:             ClientObject;
     profile?:           PurpleProfile;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
 }
 
-export interface HilariousBusiness {
+export interface AmbitiousBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3055,13 +3188,13 @@ export interface ClientAddClientResponseError {
 }
 
 export interface ClientAddClientResponseResult {
-    business?:  AmbitiousBusiness;
+    business?:  CunningBusiness;
     client:     ClientObject;
     documents?: any[];
     profile?:   FluffyProfile;
 }
 
-export interface AmbitiousBusiness {
+export interface CunningBusiness {
     id: string;
 }
 
@@ -3101,14 +3234,14 @@ export interface ClientFindOrCreateClientRequest {
  * параметры запроса
  */
 export interface ClientFindOrCreateClientRequestParams {
-    business:           CunningBusiness;
+    business:           MagentaBusiness;
     client:             ClientObject;
     profile?:           TentacledProfile;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
 }
 
-export interface CunningBusiness {
+export interface MagentaBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3161,13 +3294,13 @@ export interface ClientFindOfCreateClientResponseError {
 }
 
 export interface ClientFindOfCreateClientResponseResult {
-    business?:  MagentaBusiness;
+    business?:  FriskyBusiness;
     client:     ClientObject;
     documents?: any[];
     profile?:   StickyProfile;
 }
 
-export interface MagentaBusiness {
+export interface FriskyBusiness {
     id: string;
 }
 
@@ -3213,12 +3346,12 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
 }
 
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business:  FriskyBusiness;
+    business:  MischievousBusiness;
     resources: string[];
     taxonomy:  PurpleTaxonomy;
 }
 
-export interface FriskyBusiness {
+export interface MischievousBusiness {
     id: string;
 }
 
@@ -3387,14 +3520,14 @@ export interface CracCracResourcesFreeByDateV2Request {
 }
 
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business:  MischievousBusiness;
+    business:  BraggadociousBusiness;
     duration:  number;
     durations: number[];
     resources: string[];
     taxonomy:  TentacledTaxonomy;
 }
 
-export interface MischievousBusiness {
+export interface BraggadociousBusiness {
     id: string;
 }
 
@@ -3481,11 +3614,11 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
-    business: BraggadociousBusiness;
+    business: Business1;
     filters:  PurpleFilters;
 }
 
-export interface BraggadociousBusiness {
+export interface Business1 {
     general_info:         PurpleGeneralInfo;
     id:                   string;
     widget_configuration: TentacledWidgetConfiguration;
@@ -3605,11 +3738,11 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-    business: Business1;
+    business: Business2;
     filters:  FluffyFilters;
 }
 
-export interface Business1 {
+export interface Business2 {
     general_info:         FluffyGeneralInfo;
     id:                   string;
     widget_configuration: StickyWidgetConfiguration;
@@ -3722,11 +3855,11 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
-    business: Business2;
+    business: Business3;
     filters:  TentacledFilters;
 }
 
-export interface Business2 {
+export interface Business3 {
     general_info:         TentacledGeneralInfo;
     id:                   string;
     widget_configuration: IndigoWidgetConfiguration;
@@ -3808,7 +3941,7 @@ export interface TentacledSlot {
 }
 
 export interface Models {
-    Appointment: AppointmentUnion;
+    Appointment: AppointmentElement;
     Business:    ResultBusiness;
     Client:      ClientObject;
 }
@@ -4112,12 +4245,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AdditionalClientUtm")), null, 2);
     }
 
-    public static toPurpleAppointmentClient(json: string): PurpleAppointmentClient {
-        return cast(JSON.parse(json), r("PurpleAppointmentClient"));
+    public static toAdditionalClientElement(json: string): AdditionalClientElement {
+        return cast(JSON.parse(json), r("AdditionalClientElement"));
     }
 
-    public static purpleAppointmentClientToJson(value: PurpleAppointmentClient): string {
-        return JSON.stringify(uncast(value, r("PurpleAppointmentClient")), null, 2);
+    public static additionalClientElementToJson(value: AdditionalClientElement): string {
+        return JSON.stringify(uncast(value, r("AdditionalClientElement")), null, 2);
     }
 
     public static toAppointmentClientFeedback(json: string): AppointmentClientFeedback {
@@ -4136,12 +4269,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ExtraField")), null, 2);
     }
 
-    public static toIncomingPhoneClass(json: string): IncomingPhoneClass {
-        return cast(JSON.parse(json), r("IncomingPhoneClass"));
+    public static toIncomingPhoneElement(json: string): IncomingPhoneElement {
+        return cast(JSON.parse(json), r("IncomingPhoneElement"));
     }
 
-    public static incomingPhoneClassToJson(value: IncomingPhoneClass): string {
-        return JSON.stringify(uncast(value, r("IncomingPhoneClass")), null, 2);
+    public static incomingPhoneElementToJson(value: IncomingPhoneElement): string {
+        return JSON.stringify(uncast(value, r("IncomingPhoneElement")), null, 2);
     }
 
     public static toIsraelCity(json: string): IsraelCity {
@@ -4232,12 +4365,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("Cabinet")), null, 2);
     }
 
-    public static toClientClass(json: string): ClientClass {
-        return cast(JSON.parse(json), r("ClientClass"));
+    public static toAppointmentClient(json: string): AppointmentClient {
+        return cast(JSON.parse(json), r("AppointmentClient"));
     }
 
-    public static clientClassToJson(value: ClientClass): string {
-        return JSON.stringify(uncast(value, r("ClientClass")), null, 2);
+    public static appointmentClientToJson(value: AppointmentClient): string {
+        return JSON.stringify(uncast(value, r("AppointmentClient")), null, 2);
     }
 
     public static toLocation(json: string): Location {
@@ -4368,6 +4501,102 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponseError")), null, 2);
     }
 
+    public static toGetAppointmentByFilter(json: string): GetAppointmentByFilter {
+        return cast(JSON.parse(json), r("GetAppointmentByFilter"));
+    }
+
+    public static getAppointmentByFilterToJson(value: GetAppointmentByFilter): string {
+        return JSON.stringify(uncast(value, r("GetAppointmentByFilter")), null, 2);
+    }
+
+    public static toAppointmentGetAppointmentByFilterRequest(json: string): AppointmentGetAppointmentByFilterRequest {
+        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterRequest"));
+    }
+
+    public static appointmentGetAppointmentByFilterRequestToJson(value: AppointmentGetAppointmentByFilterRequest): string {
+        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterRequest")), null, 2);
+    }
+
+    public static toFilters(json: string): Filters {
+        return cast(JSON.parse(json), r("Filters"));
+    }
+
+    public static filtersToJson(value: Filters): string {
+        return JSON.stringify(uncast(value, r("Filters")), null, 2);
+    }
+
+    public static toFluffyBusiness(json: string): FluffyBusiness {
+        return cast(JSON.parse(json), r("FluffyBusiness"));
+    }
+
+    public static fluffyBusinessToJson(value: FluffyBusiness): string {
+        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
+    }
+
+    public static toExtraFilters(json: string): ExtraFilters {
+        return cast(JSON.parse(json), r("ExtraFilters"));
+    }
+
+    public static extraFiltersToJson(value: ExtraFilters): string {
+        return JSON.stringify(uncast(value, r("ExtraFilters")), null, 2);
+    }
+
+    public static toSort(json: string): Sort {
+        return cast(JSON.parse(json), r("Sort"));
+    }
+
+    public static sortToJson(value: Sort): string {
+        return JSON.stringify(uncast(value, r("Sort")), null, 2);
+    }
+
+    public static toFilter(json: string): Filter {
+        return cast(JSON.parse(json), r("Filter"));
+    }
+
+    public static filterToJson(value: Filter): string {
+        return JSON.stringify(uncast(value, r("Filter")), null, 2);
+    }
+
+    public static toCreated(json: string): Created {
+        return cast(JSON.parse(json), r("Created"));
+    }
+
+    public static createdToJson(value: Created): string {
+        return JSON.stringify(uncast(value, r("Created")), null, 2);
+    }
+
+    public static toNetworkClass(json: string): NetworkClass {
+        return cast(JSON.parse(json), r("NetworkClass"));
+    }
+
+    public static networkClassToJson(value: NetworkClass): string {
+        return JSON.stringify(uncast(value, r("NetworkClass")), null, 2);
+    }
+
+    public static toAppointmentGetAppointmentByFilterResponse(json: string): AppointmentGetAppointmentByFilterResponse {
+        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterResponse"));
+    }
+
+    public static appointmentGetAppointmentByFilterResponseToJson(value: AppointmentGetAppointmentByFilterResponse): string {
+        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterResponse")), null, 2);
+    }
+
+    public static toAppointmentGetAppointmentByFilterResponseError(json: string): AppointmentGetAppointmentByFilterResponseError {
+        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterResponseError"));
+    }
+
+    public static appointmentGetAppointmentByFilterResponseErrorToJson(value: AppointmentGetAppointmentByFilterResponseError): string {
+        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterResponseError")), null, 2);
+    }
+
+    public static toAppointmentGetAppointmentByFilterResponseResult(json: string): AppointmentGetAppointmentByFilterResponseResult {
+        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterResponseResult"));
+    }
+
+    public static appointmentGetAppointmentByFilterResponseResultToJson(value: AppointmentGetAppointmentByFilterResponseResult): string {
+        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterResponseResult")), null, 2);
+    }
+
     public static toReserveAppointment(json: string): ReserveAppointment {
         return cast(JSON.parse(json), r("ReserveAppointment"));
     }
@@ -4400,12 +4629,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("AppointmentObject")), null, 2);
     }
 
-    public static toFluffyBusiness(json: string): FluffyBusiness {
-        return cast(JSON.parse(json), r("FluffyBusiness"));
+    public static toTentacledBusiness(json: string): TentacledBusiness {
+        return cast(JSON.parse(json), r("TentacledBusiness"));
     }
 
-    public static fluffyBusinessToJson(value: FluffyBusiness): string {
-        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
+    public static tentacledBusinessToJson(value: TentacledBusiness): string {
+        return JSON.stringify(uncast(value, r("TentacledBusiness")), null, 2);
     }
 
     public static toResourceClass(json: string): ResourceClass {
@@ -4488,20 +4717,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponseError")), null, 2);
     }
 
-    public static toResultClass(json: string): ResultClass {
-        return cast(JSON.parse(json), r("ResultClass"));
+    public static toBusinessGetNetworkDataResponseResult(json: string): BusinessGetNetworkDataResponseResult {
+        return cast(JSON.parse(json), r("BusinessGetNetworkDataResponseResult"));
     }
 
-    public static resultClassToJson(value: ResultClass): string {
-        return JSON.stringify(uncast(value, r("ResultClass")), null, 2);
-    }
-
-    public static toTentacledBusiness(json: string): TentacledBusiness {
-        return cast(JSON.parse(json), r("TentacledBusiness"));
-    }
-
-    public static tentacledBusinessToJson(value: TentacledBusiness): string {
-        return JSON.stringify(uncast(value, r("TentacledBusiness")), null, 2);
+    public static businessGetNetworkDataResponseResultToJson(value: BusinessGetNetworkDataResponseResult): string {
+        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponseResult")), null, 2);
     }
 
     public static toStickyBusiness(json: string): StickyBusiness {
@@ -4510,6 +4731,14 @@ export class Convert {
 
     public static stickyBusinessToJson(value: StickyBusiness): string {
         return JSON.stringify(uncast(value, r("StickyBusiness")), null, 2);
+    }
+
+    public static toIndigoBusiness(json: string): IndigoBusiness {
+        return cast(JSON.parse(json), r("IndigoBusiness"));
+    }
+
+    public static indigoBusinessToJson(value: IndigoBusiness): string {
+        return JSON.stringify(uncast(value, r("IndigoBusiness")), null, 2);
     }
 
     public static toPurpleAdditionalSettings(json: string): PurpleAdditionalSettings {
@@ -4784,12 +5013,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequestParams")), null, 2);
     }
 
-    public static toIndigoBusiness(json: string): IndigoBusiness {
-        return cast(JSON.parse(json), r("IndigoBusiness"));
+    public static toIndecentBusiness(json: string): IndecentBusiness {
+        return cast(JSON.parse(json), r("IndecentBusiness"));
     }
 
-    public static indigoBusinessToJson(value: IndigoBusiness): string {
-        return JSON.stringify(uncast(value, r("IndigoBusiness")), null, 2);
+    public static indecentBusinessToJson(value: IndecentBusiness): string {
+        return JSON.stringify(uncast(value, r("IndecentBusiness")), null, 2);
     }
 
     public static toBusinessGetProfileByIdResponse(json: string): BusinessGetProfileByIdResponse {
@@ -4816,12 +5045,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseResult")), null, 2);
     }
 
-    public static toIndecentBusiness(json: string): IndecentBusiness {
-        return cast(JSON.parse(json), r("IndecentBusiness"));
+    public static toHilariousBusiness(json: string): HilariousBusiness {
+        return cast(JSON.parse(json), r("HilariousBusiness"));
     }
 
-    public static indecentBusinessToJson(value: IndecentBusiness): string {
-        return JSON.stringify(uncast(value, r("IndecentBusiness")), null, 2);
+    public static hilariousBusinessToJson(value: HilariousBusiness): string {
+        return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
     }
 
     public static toFluffyAdditionalSettings(json: string): FluffyAdditionalSettings {
@@ -5096,12 +5325,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("FluffySocialSharing")), null, 2);
     }
 
-    public static toNetwork(json: string): Network {
-        return cast(JSON.parse(json), r("Network"));
+    public static toNetworkElement(json: string): NetworkElement {
+        return cast(JSON.parse(json), r("NetworkElement"));
     }
 
-    public static networkToJson(value: Network): string {
-        return JSON.stringify(uncast(value, r("Network")), null, 2);
+    public static networkElementToJson(value: NetworkElement): string {
+        return JSON.stringify(uncast(value, r("NetworkElement")), null, 2);
     }
 
     public static toAddressCamelCaseSchema(json: string): AddressCamelCaseSchema {
@@ -5160,12 +5389,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ClientAddClientRequestParams")), null, 2);
     }
 
-    public static toHilariousBusiness(json: string): HilariousBusiness {
-        return cast(JSON.parse(json), r("HilariousBusiness"));
+    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
+        return cast(JSON.parse(json), r("AmbitiousBusiness"));
     }
 
-    public static hilariousBusinessToJson(value: HilariousBusiness): string {
-        return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
+    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
+        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
     }
 
     public static toClientObject(json: string): ClientObject {
@@ -5208,12 +5437,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ClientAddClientResponseResult")), null, 2);
     }
 
-    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
-        return cast(JSON.parse(json), r("AmbitiousBusiness"));
+    public static toCunningBusiness(json: string): CunningBusiness {
+        return cast(JSON.parse(json), r("CunningBusiness"));
     }
 
-    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
-        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
+    public static cunningBusinessToJson(value: CunningBusiness): string {
+        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
     }
 
     public static toFluffyProfile(json: string): FluffyProfile {
@@ -5248,12 +5477,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ClientFindOrCreateClientRequestParams")), null, 2);
     }
 
-    public static toCunningBusiness(json: string): CunningBusiness {
-        return cast(JSON.parse(json), r("CunningBusiness"));
+    public static toMagentaBusiness(json: string): MagentaBusiness {
+        return cast(JSON.parse(json), r("MagentaBusiness"));
     }
 
-    public static cunningBusinessToJson(value: CunningBusiness): string {
-        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
+    public static magentaBusinessToJson(value: MagentaBusiness): string {
+        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
     }
 
     public static toTentacledProfile(json: string): TentacledProfile {
@@ -5288,12 +5517,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponseResult")), null, 2);
     }
 
-    public static toMagentaBusiness(json: string): MagentaBusiness {
-        return cast(JSON.parse(json), r("MagentaBusiness"));
+    public static toFriskyBusiness(json: string): FriskyBusiness {
+        return cast(JSON.parse(json), r("FriskyBusiness"));
     }
 
-    public static magentaBusinessToJson(value: MagentaBusiness): string {
-        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
+    public static friskyBusinessToJson(value: FriskyBusiness): string {
+        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
     }
 
     public static toStickyProfile(json: string): StickyProfile {
@@ -5336,12 +5565,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateRequestParam")), null, 2);
     }
 
-    public static toFriskyBusiness(json: string): FriskyBusiness {
-        return cast(JSON.parse(json), r("FriskyBusiness"));
+    public static toMischievousBusiness(json: string): MischievousBusiness {
+        return cast(JSON.parse(json), r("MischievousBusiness"));
     }
 
-    public static friskyBusinessToJson(value: FriskyBusiness): string {
-        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
+    public static mischievousBusinessToJson(value: MischievousBusiness): string {
+        return JSON.stringify(uncast(value, r("MischievousBusiness")), null, 2);
     }
 
     public static toPurpleTaxonomy(json: string): PurpleTaxonomy {
@@ -5472,12 +5701,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2RequestParam")), null, 2);
     }
 
-    public static toMischievousBusiness(json: string): MischievousBusiness {
-        return cast(JSON.parse(json), r("MischievousBusiness"));
+    public static toBraggadociousBusiness(json: string): BraggadociousBusiness {
+        return cast(JSON.parse(json), r("BraggadociousBusiness"));
     }
 
-    public static mischievousBusinessToJson(value: MischievousBusiness): string {
-        return JSON.stringify(uncast(value, r("MischievousBusiness")), null, 2);
+    public static braggadociousBusinessToJson(value: BraggadociousBusiness): string {
+        return JSON.stringify(uncast(value, r("BraggadociousBusiness")), null, 2);
     }
 
     public static toTentacledTaxonomy(json: string): TentacledTaxonomy {
@@ -5544,12 +5773,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toBraggadociousBusiness(json: string): BraggadociousBusiness {
-        return cast(JSON.parse(json), r("BraggadociousBusiness"));
+    public static toBusiness1(json: string): Business1 {
+        return cast(JSON.parse(json), r("Business1"));
     }
 
-    public static braggadociousBusinessToJson(value: BraggadociousBusiness): string {
-        return JSON.stringify(uncast(value, r("BraggadociousBusiness")), null, 2);
+    public static business1ToJson(value: Business1): string {
+        return JSON.stringify(uncast(value, r("Business1")), null, 2);
     }
 
     public static toPurpleGeneralInfo(json: string): PurpleGeneralInfo {
@@ -5656,12 +5885,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toBusiness1(json: string): Business1 {
-        return cast(JSON.parse(json), r("Business1"));
+    public static toBusiness2(json: string): Business2 {
+        return cast(JSON.parse(json), r("Business2"));
     }
 
-    public static business1ToJson(value: Business1): string {
-        return JSON.stringify(uncast(value, r("Business1")), null, 2);
+    public static business2ToJson(value: Business2): string {
+        return JSON.stringify(uncast(value, r("Business2")), null, 2);
     }
 
     public static toFluffyGeneralInfo(json: string): FluffyGeneralInfo {
@@ -5760,12 +5989,12 @@ export class Convert {
         return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequestParams")), null, 2);
     }
 
-    public static toBusiness2(json: string): Business2 {
-        return cast(JSON.parse(json), r("Business2"));
+    public static toBusiness3(json: string): Business3 {
+        return cast(JSON.parse(json), r("Business3"));
     }
 
-    public static business2ToJson(value: Business2): string {
-        return JSON.stringify(uncast(value, r("Business2")), null, 2);
+    public static business3ToJson(value: Business3): string {
+        return JSON.stringify(uncast(value, r("Business3")), null, 2);
     }
 
     public static toTentacledGeneralInfo(json: string): TentacledGeneralInfo {
@@ -6030,6 +6259,7 @@ const typeMap: any = {
         { json: "cancel_appointment_by_client", js: "cancel_appointment_by_client", typ: u(undefined, r("CancelAppointmentByClient")) },
         { json: "client_confirm_appointment", js: "client_confirm_appointment", typ: u(undefined, r("ClientConfirmAppointment")) },
         { json: "client_remove_empty_appointment", js: "client_remove_empty_appointment", typ: r("ClientRemoveEmptyAppointment") },
+        { json: "get_appointment_by_filter", js: "get_appointment_by_filter", typ: u(undefined, r("GetAppointmentByFilter")) },
         { json: "reserve_appointment", js: "reserve_appointment", typ: r("ReserveAppointment") },
     ], false),
     "CancelAppointmentByBusiness": o([
@@ -6138,7 +6368,7 @@ const typeMap: any = {
         { json: "additional_info", js: "additional_info", typ: u(undefined, m("any")) },
         { json: "additionalClientAppears", js: "additionalClientAppears", typ: a(r("AdditionalClientAppear")) },
         { json: "additionalClientPayments", js: "additionalClientPayments", typ: a(r("AdditionalClientPayment")) },
-        { json: "additionalClients", js: "additionalClients", typ: a(r("PurpleAppointmentClient")) },
+        { json: "additionalClients", js: "additionalClients", typ: a(r("AdditionalClientElement")) },
         { json: "additionalClientSources", js: "additionalClientSources", typ: a(r("AdditionalClientSource")) },
         { json: "additionalClientStatuses", js: "additionalClientStatuses", typ: a(r("AdditionalClientStatus")) },
         { json: "additionalClientUtms", js: "additionalClientUtms", typ: a(r("AdditionalClientUtm")) },
@@ -6154,13 +6384,13 @@ const typeMap: any = {
         { json: "cabinet", js: "cabinet", typ: r("Cabinet") },
         { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
         { json: "changeReason", js: "changeReason", typ: "" },
-        { json: "client", js: "client", typ: r("ClientClass") },
+        { json: "client", js: "client", typ: r("AppointmentClient") },
         { json: "client_appear", js: "client_appear", typ: r("AppointmentClientAppear") },
         { json: "client_med_code", js: "client_med_code", typ: u(undefined, "") },
         { json: "client_payment", js: "client_payment", typ: r("AppointmentClientPayment") },
         { json: "client_payment_invoice", js: "client_payment_invoice", typ: u(undefined, "") },
         { json: "clientComment", js: "clientComment", typ: "" },
-        { json: "clientVisitors", js: "clientVisitors", typ: a(r("PurpleAppointmentClient")) },
+        { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AdditionalClientElement"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "destinationKeyword", js: "destinationKeyword", typ: u(undefined, "") },
         { json: "destinationLink", js: "destinationLink", typ: u(undefined, "") },
@@ -6183,7 +6413,7 @@ const typeMap: any = {
         { json: "reminder", js: "reminder", typ: r("Reminder") },
         { json: "removedClientsData", js: "removedClientsData", typ: a(r("RemovedClientsDatum")) },
         { json: "resource", js: "resource", typ: r("AppointmentResource") },
-        { json: "review", js: "review", typ: r("Review") },
+        { json: "review", js: "review", typ: u(undefined, r("Review")) },
         { json: "room", js: "room", typ: u(undefined, r("Room")) },
         { json: "showcase", js: "showcase", typ: r("AppointmentShowcase") },
         { json: "socialToken", js: "socialToken", typ: u(undefined, "") },
@@ -6201,18 +6431,22 @@ const typeMap: any = {
         { json: "payment", js: "payment", typ: r("AppointmentClientPayment") },
     ], false),
     "AdditionalClientSource": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "clientID", js: "clientID", typ: "" },
         { json: "source", js: "source", typ: "" },
     ], false),
     "AdditionalClientStatus": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "clientID", js: "clientID", typ: "" },
+        { json: "history", js: "history", typ: u(undefined, a(m("any"))) },
         { json: "status", js: "status", typ: r("AppointmentStatus") },
     ], false),
     "AdditionalClientUtm": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "clientID", js: "clientID", typ: "" },
-        { json: "utm", js: "utm", typ: m("any") },
+        { json: "utm", js: "utm", typ: u(undefined, m("any")) },
     ], false),
-    "PurpleAppointmentClient": o([
+    "AdditionalClientElement": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, "") },
@@ -6221,7 +6455,7 @@ const typeMap: any = {
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, "") },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, "") },
         { json: "driverLicense", js: "driverLicense", typ: u(undefined, "") },
-        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraData", js: "extraData", typ: u(undefined, m("any")) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, 3.14) },
@@ -6230,7 +6464,7 @@ const typeMap: any = {
         { json: "GAClientID", js: "GAClientID", typ: u(undefined, "") },
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
-        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, r("IncomingPhoneClass")) },
+        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
         { json: "israelCity", js: "israelCity", typ: u(undefined, r("IsraelCity")) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
         { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, r("KupatHolim")) },
@@ -6238,7 +6472,7 @@ const typeMap: any = {
         { json: "middleName", js: "middleName", typ: u(undefined, "") },
         { json: "name", js: "name", typ: "" },
         { json: "passportId", js: "passportId", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, r("IncomingPhoneClass")) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
         { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, "") },
         { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, "") },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
@@ -6261,9 +6495,9 @@ const typeMap: any = {
         { json: "fieldName", js: "fieldName", typ: "" },
         { json: "value", js: "value", typ: u(3.14, m("any"), null, "") },
     ], false),
-    "IncomingPhoneClass": o([
-        { json: "areaCode", js: "areaCode", typ: "" },
-        { json: "countryCode", js: "countryCode", typ: "" },
+    "IncomingPhoneElement": o([
+        { json: "area_code", js: "area_code", typ: "" },
+        { json: "country_code", js: "country_code", typ: "" },
         { json: "number", js: "number", typ: "" },
     ], false),
     "IsraelCity": o([
@@ -6294,7 +6528,7 @@ const typeMap: any = {
         { json: "backofficeID", js: "backofficeID", typ: u(3.14, "") },
         { json: "blockSMS", js: "blockSMS", typ: true },
         { json: "created", js: "created", typ: Date },
-        { json: "drinkAnswer", js: "drinkAnswer", typ: r("DrinkAnswer") },
+        { json: "drinkAnswer", js: "drinkAnswer", typ: u(undefined, r("DrinkAnswer")) },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "hideAppointmentTime", js: "hideAppointmentTime", typ: true },
         { json: "id", js: "id", typ: "" },
@@ -6303,7 +6537,7 @@ const typeMap: any = {
         { json: "shortId", js: "shortId", typ: "" },
         { json: "start", js: "start", typ: Date },
         { json: "status", js: "status", typ: r("AppointmentStatus") },
-        { json: "talkAnswer", js: "talkAnswer", typ: r("TalkAnswer") },
+        { json: "talkAnswer", js: "talkAnswer", typ: u(undefined, r("TalkAnswer")) },
         { json: "testRecord", js: "testRecord", typ: true },
         { json: "updated", js: "updated", typ: Date },
     ], false),
@@ -6311,7 +6545,7 @@ const typeMap: any = {
         { json: "extraId", js: "extraId", typ: "" },
     ], false),
     "Price": o([
-        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: r("AdditionalTaxonomyDiscount") },
+        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: a(r("AdditionalTaxonomyDiscount")) },
         { json: "amount", js: "amount", typ: 3.14 },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
@@ -6331,7 +6565,7 @@ const typeMap: any = {
     "Cabinet": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], false),
-    "ClientClass": o([
+    "AppointmentClient": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, "") },
@@ -6340,7 +6574,7 @@ const typeMap: any = {
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, "") },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, "") },
         { json: "driverLicense", js: "driverLicense", typ: u(undefined, "") },
-        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraData", js: "extraData", typ: u(undefined, m("any")) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, 3.14) },
@@ -6349,7 +6583,7 @@ const typeMap: any = {
         { json: "GAClientID", js: "GAClientID", typ: u(undefined, "") },
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
-        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, r("IncomingPhoneClass")) },
+        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
         { json: "israelCity", js: "israelCity", typ: u(undefined, r("IsraelCity")) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
         { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, r("KupatHolim")) },
@@ -6357,7 +6591,7 @@ const typeMap: any = {
         { json: "middleName", js: "middleName", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "passportId", js: "passportId", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, r("IncomingPhoneClass")) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
         { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, "") },
         { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, "") },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
@@ -6379,7 +6613,7 @@ const typeMap: any = {
     ], false),
     "RemovedClientsDatum": o([
         { json: "appear", js: "appear", typ: u(undefined, r("AppointmentClientAppear")) },
-        { json: "client", js: "client", typ: r("PurpleAppointmentClient") },
+        { json: "client", js: "client", typ: r("AdditionalClientElement") },
         { json: "created", js: "created", typ: u(undefined, Date) },
         { json: "payment", js: "payment", typ: u(undefined, r("AppointmentClientPayment")) },
         { json: "payment_invoice", js: "payment_invoice", typ: u(undefined, "") },
@@ -6440,6 +6674,68 @@ const typeMap: any = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
+    "GetAppointmentByFilter": o([
+        { json: "request", js: "request", typ: r("AppointmentGetAppointmentByFilterRequest") },
+        { json: "response", js: "response", typ: r("AppointmentGetAppointmentByFilterResponse") },
+    ], false),
+    "AppointmentGetAppointmentByFilterRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("Filters") },
+    ], false),
+    "Filters": o([
+        { json: "business", js: "business", typ: r("FluffyBusiness") },
+        { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("ExtraFilters")) },
+        { json: "filter", js: "filter", typ: u(undefined, r("Filter")) },
+        { json: "network", js: "network", typ: u(undefined, r("NetworkClass")) },
+        { json: "page", js: "page", typ: 3.14 },
+        { json: "pageSize", js: "pageSize", typ: 3.14 },
+        { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
+    ], "any"),
+    "FluffyBusiness": o([
+        { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
+    ], false),
+    "ExtraFilters": o([
+        { json: "sort", js: "sort", typ: u(undefined, a(r("Sort"))) },
+    ], false),
+    "Sort": o([
+        { json: "dir", js: "dir", typ: r("Dir") },
+        { json: "field", js: "field", typ: r("SortField") },
+    ], false),
+    "Filter": o([
+        { json: "created", js: "created", typ: u(undefined, r("Created")) },
+        { json: "end", js: "end", typ: u(undefined, Date) },
+        { json: "services", js: "services", typ: u(undefined, a("")) },
+        { json: "skipUpdated", js: "skipUpdated", typ: u(undefined, true) },
+        { json: "start", js: "start", typ: u(undefined, Date) },
+        { json: "workers", js: "workers", typ: u(undefined, a("")) },
+    ], false),
+    "Created": o([
+        { json: "end", js: "end", typ: Date },
+        { json: "start", js: "start", typ: Date },
+    ], false),
+    "NetworkClass": o([
+        { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
+    ], false),
+    "AppointmentGetAppointmentByFilterResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentByFilterResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentByFilterResponseError")) },
+    ], false),
+    "AppointmentGetAppointmentByFilterResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "AppointmentGetAppointmentByFilterResponseResult": o([
+        { json: "data", js: "data", typ: a(u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "")) },
+        { json: "page", js: "page", typ: 3.14 },
+        { json: "total", js: "total", typ: 3.14 },
+        { json: "unconfirmed", js: "unconfirmed", typ: 3.14 },
+    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -6453,7 +6749,7 @@ const typeMap: any = {
     ], false),
     "AppointmentReserve": o([
         { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
-        { json: "business", js: "business", typ: r("FluffyBusiness") },
+        { json: "business", js: "business", typ: r("TentacledBusiness") },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
         { json: "resource", js: "resource", typ: r("ResourceClass") },
         { json: "source", js: "source", typ: "" },
@@ -6462,7 +6758,7 @@ const typeMap: any = {
     "AppointmentObject": o([
         { json: "start", js: "start", typ: "" },
     ], "any"),
-    "FluffyBusiness": o([
+    "TentacledBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ResourceClass": o([
@@ -6504,7 +6800,7 @@ const typeMap: any = {
     "BusinessGetNetworkDataResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, u(r("ResultClass"), null)) },
+        { json: "result", js: "result", typ: u(undefined, u(r("BusinessGetNetworkDataResponseResult"), null)) },
         { json: "error", js: "error", typ: u(undefined, r("BusinessGetNetworkDataResponseError")) },
     ], false),
     "BusinessGetNetworkDataResponseError": o([
@@ -6512,9 +6808,9 @@ const typeMap: any = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "ResultClass": o([
+    "BusinessGetNetworkDataResponseResult": o([
         { json: "businessConfiguration", js: "businessConfiguration", typ: m("any") },
-        { json: "businesses", js: "businesses", typ: a(r("TentacledBusiness")) },
+        { json: "businesses", js: "businesses", typ: a(r("StickyBusiness")) },
         { json: "clientVIPPhones", js: "clientVIPPhones", typ: a("") },
         { json: "grantGroups", js: "grantGroups", typ: a(m("any")) },
         { json: "networkID", js: "networkID", typ: "" },
@@ -6522,15 +6818,15 @@ const typeMap: any = {
         { json: "networkName", js: "networkName", typ: u(undefined, "") },
         { json: "networkWidgetConfiguration", js: "networkWidgetConfiguration", typ: a(r("NetworkWidgetConfiguration")) },
     ], false),
-    "TentacledBusiness": o([
+    "StickyBusiness": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "businessID", js: "businessID", typ: "" },
-        { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("StickyBusiness"), 3.14, 0, null, "")) },
+        { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("IndigoBusiness"), 3.14, 0, null, "")) },
         { json: "isMapBusiness", js: "isMapBusiness", typ: true },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "virtualTaxonomies", js: "virtualTaxonomies", typ: u(undefined, a("")) },
     ], false),
-    "StickyBusiness": o([
+    "IndigoBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("PurpleAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
@@ -6829,7 +7125,7 @@ const typeMap: any = {
         { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
     ], false),
     "PurpleMiniWidgetConfiguration": o([
-        { json: "fields", js: "fields", typ: u(undefined, a(r("Field"))) },
+        { json: "fields", js: "fields", typ: u(undefined, a(r("FieldElement"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
@@ -7002,7 +7298,7 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("IndigoBusiness") },
+        { json: "business", js: "business", typ: r("IndecentBusiness") },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -7018,7 +7314,7 @@ const typeMap: any = {
         { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
         { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
     ], false),
-    "IndigoBusiness": o([
+    "IndecentBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "BusinessGetProfileByIdResponse": o([
@@ -7034,16 +7330,16 @@ const typeMap: any = {
     ], "any"),
     "BusinessGetProfileByIdResponseResult": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "business", js: "business", typ: u(a("any"), true, r("IndecentBusiness"), 3.14, 0, null, "") },
+        { json: "business", js: "business", typ: u(a("any"), true, r("HilariousBusiness"), 3.14, 0, null, "") },
         { json: "freeSms", js: "freeSms", typ: u(undefined, 3.14) },
         { json: "monthlyFreeSms", js: "monthlyFreeSms", typ: u(undefined, 3.14) },
-        { json: "networks", js: "networks", typ: u(undefined, a(r("Network"))) },
+        { json: "networks", js: "networks", typ: u(undefined, a(r("NetworkElement"))) },
         { json: "profiles", js: "profiles", typ: u(undefined, a(m("any"))) },
         { json: "top_services", js: "top_services", typ: u(undefined, r("ResultTopServices")) },
         { json: "useDefaultSmsTemplate", js: "useDefaultSmsTemplate", typ: u(undefined, true) },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, r("YandexFeedType")) },
     ], "any"),
-    "IndecentBusiness": o([
+    "HilariousBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("FluffyAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
@@ -7206,7 +7502,7 @@ const typeMap: any = {
         { json: "name", js: "name", typ: "" },
     ], false),
     "FluffyMiniWidgetConfiguration": o([
-        { json: "fields", js: "fields", typ: u(undefined, a(r("Field"))) },
+        { json: "fields", js: "fields", typ: u(undefined, a(r("FieldElement"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
@@ -7599,7 +7895,7 @@ const typeMap: any = {
         { json: "text", js: "text", typ: u(undefined, u(null, "")) },
         { json: "widgetText", js: "widgetText", typ: u(undefined, u(null, "")) },
     ], "any"),
-    "Network": o([
+    "NetworkElement": o([
         { json: "address", js: "address", typ: u(undefined, u(a("any"), true, r("AddressCamelCaseSchema"), 3.14, 0, null, "")) },
         { json: "businessName", js: "businessName", typ: "" },
         { json: "description", js: "description", typ: "" },
@@ -7658,13 +7954,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "HilariousBusiness": o([
+    "AmbitiousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientObject": o([
@@ -7697,12 +7993,12 @@ const typeMap: any = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("AmbitiousBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("CunningBusiness")) },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
-    "AmbitiousBusiness": o([
+    "CunningBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "FluffyProfile": o([
@@ -7720,13 +8016,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "profile", js: "profile", typ: u(undefined, r("TentacledProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "CunningBusiness": o([
+    "MagentaBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "TentacledProfile": o([
@@ -7744,12 +8040,12 @@ const typeMap: any = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("MagentaBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("FriskyBusiness")) },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("StickyProfile")) },
     ], "any"),
-    "MagentaBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "StickyProfile": o([
@@ -7775,11 +8071,11 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "business", js: "business", typ: r("MischievousBusiness") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "FriskyBusiness": o([
+    "MischievousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -7856,13 +8152,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "MischievousBusiness": o([
+    "BraggadociousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([
@@ -7900,10 +8196,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "filters", js: "filters", typ: r("PurpleFilters") },
     ], false),
-    "BraggadociousBusiness": o([
+    "Business1": o([
         { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
@@ -7963,10 +8259,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business1") },
+        { json: "business", js: "business", typ: r("Business2") },
         { json: "filters", js: "filters", typ: r("FluffyFilters") },
     ], false),
-    "Business1": o([
+    "Business2": o([
         { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
@@ -8023,10 +8319,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business2") },
+        { json: "business", js: "business", typ: r("Business3") },
         { json: "filters", js: "filters", typ: r("TentacledFilters") },
     ], false),
-    "Business2": o([
+    "Business3": o([
         { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },
@@ -8073,7 +8369,7 @@ const typeMap: any = {
     ], false),
     "Models": o([
         { json: "Appointment", js: "Appointment", typ: u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "") },
-        { json: "Business", js: "Business", typ: u(a("any"), true, r("IndecentBusiness"), 3.14, 0, null, "") },
+        { json: "Business", js: "Business", typ: u(a("any"), true, r("HilariousBusiness"), 3.14, 0, null, "") },
         { json: "Client", js: "Client", typ: r("ClientObject") },
     ], false),
     "AppointmentClientAppear": [
@@ -8153,6 +8449,14 @@ const typeMap: any = {
         "NOT_SET",
         "OFF",
         "ON",
+    ],
+    "Dir": [
+        "asc",
+        "desc",
+    ],
+    "SortField": [
+        "created",
+        "start",
     ],
     "AppointmentExtensionType": [
         "MINUTES",
@@ -8262,7 +8566,7 @@ const typeMap: any = {
         "HUNGARIAN",
         "LATVIAN",
     ],
-    "Field": [
+    "FieldElement": [
         "email",
         "name",
         "surname",

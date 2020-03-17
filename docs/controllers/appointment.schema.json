@@ -83,6 +83,22 @@
                 "response"
             ],
             "additionalProperties": false
+        },
+        "get_appointment_by_filter": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/get_appointment_by_filter.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/get_appointment_by_filter.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
         }
     },
     "required": [

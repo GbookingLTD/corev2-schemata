@@ -15,7 +15,7 @@ public class AppointmentClient {
     private String creatorProfileID;
     private String creatorProfileName;
     private String driverLicense;
-    private String email;
+    private List<String> email;
     private Map<String, Object> extraData;
     private String extraID;
     private Double extraVisitors;
@@ -24,7 +24,7 @@ public class AppointmentClient {
     private String gaClientID;
     private String houseNumber;
     private String id;
-    private IncomingPhoneClass incomingPhone;
+    private List<IncomingPhoneElement> incomingPhone;
     private IsraelCity israelCity;
     private Boolean isVIP;
     private KupatHolim kupatHolim;
@@ -32,7 +32,7 @@ public class AppointmentClient {
     private String middleName;
     private String name;
     private String passportID;
-    private IncomingPhoneClass phone;
+    private List<IncomingPhoneElement> phone;
     private String seasonTicketID;
     private String seasonTicketNumber;
     private Sex sex;
@@ -82,9 +82,9 @@ public class AppointmentClient {
     public void setDriverLicense(String value) { this.driverLicense = value; }
 
     @JsonProperty("email")
-    public String getEmail() { return email; }
+    public List<String> getEmail() { return email; }
     @JsonProperty("email")
-    public void setEmail(String value) { this.email = value; }
+    public void setEmail(List<String> value) { this.email = value; }
 
     @JsonProperty("extraData")
     public Map<String, Object> getExtraData() { return extraData; }
@@ -127,9 +127,9 @@ public class AppointmentClient {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("incomingPhone")
-    public IncomingPhoneClass getIncomingPhone() { return incomingPhone; }
+    public List<IncomingPhoneElement> getIncomingPhone() { return incomingPhone; }
     @JsonProperty("incomingPhone")
-    public void setIncomingPhone(IncomingPhoneClass value) { this.incomingPhone = value; }
+    public void setIncomingPhone(List<IncomingPhoneElement> value) { this.incomingPhone = value; }
 
     @JsonProperty("israelCity")
     public IsraelCity getIsraelCity() { return israelCity; }
@@ -167,9 +167,9 @@ public class AppointmentClient {
     public void setPassportID(String value) { this.passportID = value; }
 
     @JsonProperty("phone")
-    public IncomingPhoneClass getPhone() { return phone; }
+    public List<IncomingPhoneElement> getPhone() { return phone; }
     @JsonProperty("phone")
-    public void setPhone(IncomingPhoneClass value) { this.phone = value; }
+    public void setPhone(List<IncomingPhoneElement> value) { this.phone = value; }
 
     @JsonProperty("seasonTicketId")
     public String getSeasonTicketID() { return seasonTicketID; }

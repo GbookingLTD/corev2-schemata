@@ -4,8 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AdditionalClientUtm {
+    private String id;
     private String clientID;
     private Map<String, Object> utm;
+
+    @JsonProperty("_id")
+    public String getID() { return id; }
+    @JsonProperty("_id")
+    public void setID(String value) { this.id = value; }
 
     @JsonProperty("clientID")
     public String getClientID() { return clientID; }

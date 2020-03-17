@@ -4,10 +4,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyBusiness {
-    private String id;
+    private FluffyTimeFrameDate id;
 
     @JsonProperty("id")
-    public String getID() { return id; }
+    public FluffyTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(String value) { this.id = value; }
+    public void setID(FluffyTimeFrameDate value) { this.id = value; }
 }

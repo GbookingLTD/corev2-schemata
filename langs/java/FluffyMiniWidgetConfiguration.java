@@ -4,14 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyMiniWidgetConfiguration {
-    private List<Field> fields;
+    private List<FieldElement> fields;
     private String title1;
     private String title2;
 
     @JsonProperty("fields")
-    public List<Field> getFields() { return fields; }
+    public List<FieldElement> getFields() { return fields; }
     @JsonProperty("fields")
-    public void setFields(List<Field> value) { this.fields = value; }
+    public void setFields(List<FieldElement> value) { this.fields = value; }
 
     @JsonProperty("title1")
     public String getTitle1() { return title1; }

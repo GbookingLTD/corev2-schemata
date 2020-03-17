@@ -48,7 +48,7 @@ properties:
         $ref: "./appointment/cancel_appointment_by_business.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
-  get_appointment_by_filter:
+  пше get_appointment_by_filter:
     type: "object"
     properties:
       request:

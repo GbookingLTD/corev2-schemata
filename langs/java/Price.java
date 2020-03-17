@@ -4,7 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Price {
-    private AdditionalTaxonomyDiscount additionalTaxonomyDiscount;
+    private List<AdditionalTaxonomyDiscount> additionalTaxonomyDiscount;
     private double amount;
     private CurrencyList currency;
     private Double discount;
@@ -13,9 +13,9 @@ public class Price {
     private Double originalAmount;
 
     @JsonProperty("additionalTaxonomyDiscount")
-    public AdditionalTaxonomyDiscount getAdditionalTaxonomyDiscount() { return additionalTaxonomyDiscount; }
+    public List<AdditionalTaxonomyDiscount> getAdditionalTaxonomyDiscount() { return additionalTaxonomyDiscount; }
     @JsonProperty("additionalTaxonomyDiscount")
-    public void setAdditionalTaxonomyDiscount(AdditionalTaxonomyDiscount value) { this.additionalTaxonomyDiscount = value; }
+    public void setAdditionalTaxonomyDiscount(List<AdditionalTaxonomyDiscount> value) { this.additionalTaxonomyDiscount = value; }
 
     @JsonProperty("amount")
     public double getAmount() { return amount; }

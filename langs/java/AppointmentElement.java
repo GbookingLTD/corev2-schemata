@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.annotation.*;
 /**
  * данные, передаваемые в ответ
  */
-@JsonDeserialize(using = AppointmentUnion.Deserializer.class)
-@JsonSerialize(using = AppointmentUnion.Serializer.class)
-public class AppointmentUnion {
+@JsonDeserialize(using = AppointmentElement.Deserializer.class)
+@JsonSerialize(using = AppointmentElement.Serializer.class)
+public class AppointmentElement {
     public Double doubleValue;
     public Long integerValue;
     public Boolean boolValue;
@@ -20,10 +20,10 @@ public class AppointmentUnion {
     public List<Object> anythingArrayValue;
     public AppointmentSchema appointmentSchemaValue;
 
-    static class Deserializer extends JsonDeserializer<AppointmentUnion> {
+    static class Deserializer extends JsonDeserializer<AppointmentElement> {
         @Override
-        public AppointmentUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            AppointmentUnion value = new AppointmentUnion();
+        public AppointmentElement deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            AppointmentElement value = new AppointmentElement();
             switch (jsonParser.getCurrentToken()) {
             case VALUE_NULL:
                 break;
@@ -46,15 +46,15 @@ public class AppointmentUnion {
             case START_OBJECT:
                 value.appointmentSchemaValue = jsonParser.readValueAs(AppointmentSchema.class);
                 break;
-            default: throw new IOException("Cannot deserialize AppointmentUnion");
+            default: throw new IOException("Cannot deserialize AppointmentElement");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<AppointmentUnion> {
+    static class Serializer extends JsonSerializer<AppointmentElement> {
         @Override
-        public void serialize(AppointmentUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(AppointmentElement obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;

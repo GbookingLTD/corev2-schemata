@@ -47,7 +47,7 @@
                 }
             }
         },
-        "Phone": {
+        "CamelPhone": {
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -63,6 +63,26 @@
                     "type": "string"
                 },
                 "areaCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "Phone": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "number",
+                "country_code",
+                "area_code"
+            ],
+            "properties": {
+                "number": {
+                    "type": "string"
+                },
+                "country_code": {
+                    "type": "string"
+                },
+                "area_code": {
                     "type": "string"
                 }
             }
@@ -247,7 +267,10 @@
                     ]
                 },
                 "email": {
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "passportId": {
                     "type": "string"
@@ -339,13 +362,19 @@
                     "type": "number"
                 },
                 "incomingPhone": {
-                    "$ref": "#/definitions/Phone"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Phone"
+                    }
                 },
                 "shortId": {
                     "type": "string"
                 },
                 "phone": {
-                    "$ref": "#/definitions/Phone"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Phone"
+                    }
                 },
                 "feedback": {
                     "$ref": "#/definitions/AppointmentClientFeedback"
@@ -388,26 +417,29 @@
                     "$ref": "./partials/currency.schema.json#/definitions/CurrencyList"
                 },
                 "additionalTaxonomyDiscount": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [],
-                    "properties": {
-                        "taxonomyID": {
-                            "type": "string"
-                        },
-                        "discount": {
-                            "type": "number"
-                        },
-                        "discountType": {
-                            "type": "string"
-                        },
-                        "discountProvider": {
-                            "type": "string",
-                            "enum": [
-                                "LOCAL",
-                                "YANDEX",
-                                "GROUPON"
-                            ]
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [],
+                        "properties": {
+                            "taxonomyID": {
+                                "type": "string"
+                            },
+                            "discount": {
+                                "type": "number"
+                            },
+                            "discountType": {
+                                "type": "string"
+                            },
+                            "discountProvider": {
+                                "type": "string",
+                                "enum": [
+                                    "LOCAL",
+                                    "YANDEX",
+                                    "GROUPON"
+                                ]
+                            }
                         }
                     }
                 }
@@ -427,8 +459,6 @@
                 "created",
                 "updated",
                 "status",
-                "drinkAnswer",
-                "talkAnswer",
                 "price",
                 "shortId"
             ],
@@ -532,7 +562,6 @@
         "client",
         "additionalClients",
         "removedClientsData",
-        "review",
         "additionalFields",
         "extraFields",
         "additionalClientAppears",
@@ -540,8 +569,7 @@
         "additionalClientSources",
         "additionalClientUtms",
         "additionalClientPayments",
-        "reminder",
-        "clientVisitors"
+        "reminder"
     ],
     "additionalProperties": false,
     "properties": {
@@ -561,11 +589,21 @@
                     "status"
                 ],
                 "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
                     "clientID": {
                         "type": "string"
                     },
                     "status": {
                         "$ref": "#/definitions/AppointmentStatus"
+                    },
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
                     }
                 }
             }
@@ -623,10 +661,12 @@
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
-                    "clientID",
-                    "utm"
+                    "clientID"
                 ],
                 "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
                     "clientID": {
                         "type": "string"
                     },
@@ -738,6 +778,9 @@
                     "source"
                 ],
                 "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
                     "clientID": {
                         "type": "string"
                     },

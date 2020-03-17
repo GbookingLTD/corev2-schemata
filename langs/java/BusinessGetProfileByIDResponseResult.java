@@ -11,7 +11,7 @@ public class BusinessGetProfileByIDResponseResult {
     private ResultBusiness business;
     private Double freeSMS;
     private Double monthlyFreeSMS;
-    private List<Network> networks;
+    private List<NetworkElement> networks;
     private List<Map<String, Object>> profiles;
     private ResultTopServices topServices;
     private Boolean useDefaultSMSTemplate;
@@ -38,9 +38,9 @@ public class BusinessGetProfileByIDResponseResult {
     public void setMonthlyFreeSMS(Double value) { this.monthlyFreeSMS = value; }
 
     @JsonProperty("networks")
-    public List<Network> getNetworks() { return networks; }
+    public List<NetworkElement> getNetworks() { return networks; }
     @JsonProperty("networks")
-    public void setNetworks(List<Network> value) { this.networks = value; }
+    public void setNetworks(List<NetworkElement> value) { this.networks = value; }
 
     @JsonProperty("profiles")
     public List<Map<String, Object>> getProfiles() { return profiles; }

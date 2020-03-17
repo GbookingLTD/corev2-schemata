@@ -15,7 +15,7 @@ public class ResultBusiness {
     public Boolean boolValue;
     public String stringValue;
     public List<Object> anythingArrayValue;
-    public IndecentBusiness indecentBusinessValue;
+    public HilariousBusiness hilariousBusinessValue;
 
     static class Deserializer extends JsonDeserializer<ResultBusiness> {
         @Override
@@ -41,7 +41,7 @@ public class ResultBusiness {
                 value.anythingArrayValue = jsonParser.readValueAs(new TypeReference<List<Object>>() {});
                 break;
             case START_OBJECT:
-                value.indecentBusinessValue = jsonParser.readValueAs(IndecentBusiness.class);
+                value.hilariousBusinessValue = jsonParser.readValueAs(HilariousBusiness.class);
                 break;
             default: throw new IOException("Cannot deserialize ResultBusiness");
             }
@@ -72,8 +72,8 @@ public class ResultBusiness {
                 jsonGenerator.writeObject(obj.anythingArrayValue);
                 return;
             }
-            if (obj.indecentBusinessValue != null) {
-                jsonGenerator.writeObject(obj.indecentBusinessValue);
+            if (obj.hilariousBusinessValue != null) {
+                jsonGenerator.writeObject(obj.hilariousBusinessValue);
                 return;
             }
             jsonGenerator.writeNull();

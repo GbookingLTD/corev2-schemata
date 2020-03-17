@@ -8,6 +8,7 @@ public class AppointmentController {
     private CancelAppointmentByClient cancelAppointmentByClient;
     private ClientConfirmAppointment clientConfirmAppointment;
     private ClientRemoveEmptyAppointment clientRemoveEmptyAppointment;
+    private GetAppointmentByFilter getAppointmentByFilter;
     private ReserveAppointment reserveAppointment;
 
     @JsonProperty("cancel_appointment_by_business")
@@ -29,6 +30,11 @@ public class AppointmentController {
     public ClientRemoveEmptyAppointment getClientRemoveEmptyAppointment() { return clientRemoveEmptyAppointment; }
     @JsonProperty("client_remove_empty_appointment")
     public void setClientRemoveEmptyAppointment(ClientRemoveEmptyAppointment value) { this.clientRemoveEmptyAppointment = value; }
+
+    @JsonProperty("get_appointment_by_filter")
+    public GetAppointmentByFilter getGetAppointmentByFilter() { return getAppointmentByFilter; }
+    @JsonProperty("get_appointment_by_filter")
+    public void setGetAppointmentByFilter(GetAppointmentByFilter value) { this.getAppointmentByFilter = value; }
 
     @JsonProperty("reserve_appointment")
     public ReserveAppointment getReserveAppointment() { return reserveAppointment; }

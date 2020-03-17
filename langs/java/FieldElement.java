@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
-public enum Field {
+public enum FieldElement {
     EMAIL, NAME, SURNAME;
 
     @JsonValue
@@ -18,10 +18,10 @@ public enum Field {
     }
 
     @JsonCreator
-    public static Field forValue(String value) throws IOException {
+    public static FieldElement forValue(String value) throws IOException {
         if (value.equals("email")) return EMAIL;
         if (value.equals("name")) return NAME;
         if (value.equals("surname")) return SURNAME;
-        throw new IOException("Cannot deserialize Field");
+        throw new IOException("Cannot deserialize FieldElement");
     }
 }

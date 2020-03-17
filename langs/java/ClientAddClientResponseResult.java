@@ -4,15 +4,15 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class ClientAddClientResponseResult {
-    private AmbitiousBusiness business;
+    private CunningBusiness business;
     private ClientClass client;
     private List<Object> documents;
     private FluffyProfile profile;
 
     @JsonProperty("business")
-    public AmbitiousBusiness getBusiness() { return business; }
+    public CunningBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(AmbitiousBusiness value) { this.business = value; }
+    public void setBusiness(CunningBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public ClientClass getClient() { return client; }

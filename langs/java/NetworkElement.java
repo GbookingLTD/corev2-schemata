@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Network {
+public class NetworkElement {
     private Address address;
     private String businessName;
     private String description;

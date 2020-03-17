@@ -197,6 +197,9 @@ namespace GBookingCoreV2
         [JsonProperty("client_remove_empty_appointment")]
         public ClientRemoveEmptyAppointment ClientRemoveEmptyAppointment { get; set; }
 
+        [JsonProperty("get_appointment_by_filter", NullValueHandling = NullValueHandling.Ignore)]
+        public GetAppointmentByFilter GetAppointmentByFilter { get; set; }
+
         [JsonProperty("reserve_appointment")]
         public ReserveAppointment ReserveAppointment { get; set; }
     }
@@ -532,7 +535,7 @@ namespace GBookingCoreV2
         /// данные, передаваемые в ответ
         /// </summary>
         [JsonProperty("result")]
-        public AppointmentUnion? Result { get; set; }
+        public AppointmentElement? Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -579,7 +582,7 @@ namespace GBookingCoreV2
         public List<AdditionalClientPayment> AdditionalClientPayments { get; set; }
 
         [JsonProperty("additionalClients")]
-        public List<PurpleAppointmentClient> AdditionalClients { get; set; }
+        public List<AdditionalClientElement> AdditionalClients { get; set; }
 
         [JsonProperty("additionalClientSources")]
         public List<AdditionalClientSource> AdditionalClientSources { get; set; }
@@ -644,8 +647,8 @@ namespace GBookingCoreV2
         [JsonProperty("clientComment")]
         public string ClientComment { get; set; }
 
-        [JsonProperty("clientVisitors")]
-        public List<PurpleAppointmentClient> ClientVisitors { get; set; }
+        [JsonProperty("clientVisitors", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AdditionalClientElement> ClientVisitors { get; set; }
 
         [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
         public string Color { get; set; }
@@ -713,7 +716,7 @@ namespace GBookingCoreV2
         [JsonProperty("resource")]
         public AppointmentResource Resource { get; set; }
 
-        [JsonProperty("review")]
+        [JsonProperty("review", NullValueHandling = NullValueHandling.Ignore)]
         public Review Review { get; set; }
 
         [JsonProperty("room", NullValueHandling = NullValueHandling.Ignore)]
@@ -758,6 +761,9 @@ namespace GBookingCoreV2
 
     public partial class AdditionalClientSource
     {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
         [JsonProperty("clientID")]
         public string ClientId { get; set; }
 
@@ -767,8 +773,14 @@ namespace GBookingCoreV2
 
     public partial class AdditionalClientStatus
     {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
         [JsonProperty("clientID")]
         public string ClientId { get; set; }
+
+        [JsonProperty("history", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> History { get; set; }
 
         [JsonProperty("status")]
         public AppointmentStatus Status { get; set; }
@@ -776,14 +788,17 @@ namespace GBookingCoreV2
 
     public partial class AdditionalClientUtm
     {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
         [JsonProperty("clientID")]
         public string ClientId { get; set; }
 
-        [JsonProperty("utm")]
+        [JsonProperty("utm", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Utm { get; set; }
     }
 
-    public partial class PurpleAppointmentClient
+    public partial class AdditionalClientElement
     {
         [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
         public string Address { get; set; }
@@ -810,7 +825,7 @@ namespace GBookingCoreV2
         public string DriverLicense { get; set; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; set; }
+        public List<string> Email { get; set; }
 
         [JsonProperty("extraData", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> ExtraData { get; set; }
@@ -837,7 +852,7 @@ namespace GBookingCoreV2
         public string Id { get; set; }
 
         [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
-        public IncomingPhoneClass IncomingPhone { get; set; }
+        public List<IncomingPhoneElement> IncomingPhone { get; set; }
 
         [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
         public IsraelCity IsraelCity { get; set; }
@@ -861,7 +876,7 @@ namespace GBookingCoreV2
         public string PassportId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public IncomingPhoneClass Phone { get; set; }
+        public List<IncomingPhoneElement> Phone { get; set; }
 
         [JsonProperty("seasonTicketId", NullValueHandling = NullValueHandling.Ignore)]
         public string SeasonTicketId { get; set; }
@@ -921,12 +936,12 @@ namespace GBookingCoreV2
         public Value Value { get; set; }
     }
 
-    public partial class IncomingPhoneClass
+    public partial class IncomingPhoneElement
     {
-        [JsonProperty("areaCode")]
+        [JsonProperty("area_code")]
         public string AreaCode { get; set; }
 
-        [JsonProperty("countryCode")]
+        [JsonProperty("country_code")]
         public string CountryCode { get; set; }
 
         [JsonProperty("number")]
@@ -1001,8 +1016,8 @@ namespace GBookingCoreV2
         [JsonProperty("created")]
         public DateTimeOffset Created { get; set; }
 
-        [JsonProperty("drinkAnswer")]
-        public DrinkAnswer DrinkAnswer { get; set; }
+        [JsonProperty("drinkAnswer", NullValueHandling = NullValueHandling.Ignore)]
+        public DrinkAnswer? DrinkAnswer { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -1028,8 +1043,8 @@ namespace GBookingCoreV2
         [JsonProperty("status")]
         public AppointmentStatus Status { get; set; }
 
-        [JsonProperty("talkAnswer")]
-        public TalkAnswer TalkAnswer { get; set; }
+        [JsonProperty("talkAnswer", NullValueHandling = NullValueHandling.Ignore)]
+        public TalkAnswer? TalkAnswer { get; set; }
 
         [JsonProperty("testRecord")]
         public bool TestRecord { get; set; }
@@ -1047,7 +1062,7 @@ namespace GBookingCoreV2
     public partial class Price
     {
         [JsonProperty("additionalTaxonomyDiscount")]
-        public AdditionalTaxonomyDiscount AdditionalTaxonomyDiscount { get; set; }
+        public List<AdditionalTaxonomyDiscount> AdditionalTaxonomyDiscount { get; set; }
 
         [JsonProperty("amount")]
         public double Amount { get; set; }
@@ -1125,7 +1140,7 @@ namespace GBookingCoreV2
         public string DriverLicense { get; set; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; set; }
+        public List<string> Email { get; set; }
 
         [JsonProperty("extraData", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> ExtraData { get; set; }
@@ -1152,7 +1167,7 @@ namespace GBookingCoreV2
         public string Id { get; set; }
 
         [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
-        public IncomingPhoneClass IncomingPhone { get; set; }
+        public List<IncomingPhoneElement> IncomingPhone { get; set; }
 
         [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
         public IsraelCity IsraelCity { get; set; }
@@ -1176,7 +1191,7 @@ namespace GBookingCoreV2
         public string PassportId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public IncomingPhoneClass Phone { get; set; }
+        public List<IncomingPhoneElement> Phone { get; set; }
 
         [JsonProperty("seasonTicketId", NullValueHandling = NullValueHandling.Ignore)]
         public string SeasonTicketId { get; set; }
@@ -1230,7 +1245,7 @@ namespace GBookingCoreV2
         public AppointmentClientAppear? Appear { get; set; }
 
         [JsonProperty("client")]
-        public PurpleAppointmentClient Client { get; set; }
+        public AdditionalClientElement Client { get; set; }
 
         [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? Created { get; set; }
@@ -1415,6 +1430,200 @@ namespace GBookingCoreV2
         public string Message { get; set; }
     }
 
+    public partial class GetAppointmentByFilter
+    {
+        [JsonProperty("request")]
+        public AppointmentGetAppointmentByFilterRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public AppointmentGetAppointmentByFilterResponse Response { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentByFilterRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public Id Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public Filters Params { get; set; }
+    }
+
+    public partial class Filters
+    {
+        [JsonProperty("business")]
+        public FluffyBusiness Business { get; set; }
+
+        [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
+        public ExtraFilters ExtraFilters { get; set; }
+
+        [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
+        public Filter Filter { get; set; }
+
+        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
+        public ParamsNetwork Network { get; set; }
+
+        [JsonProperty("page")]
+        public double Page { get; set; }
+
+        [JsonProperty("pageSize")]
+        public double PageSize { get; set; }
+
+        [JsonProperty("skipBusinessCancelled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipBusinessCancelled { get; set; }
+    }
+
+    public partial class FluffyBusiness
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public Id? Id { get; set; }
+    }
+
+    public partial class ExtraFilters
+    {
+        [JsonProperty("sort", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Sort> Sort { get; set; }
+    }
+
+    public partial class Sort
+    {
+        [JsonProperty("dir")]
+        public Dir Dir { get; set; }
+
+        [JsonProperty("field")]
+        public SortField Field { get; set; }
+    }
+
+    public partial class Filter
+    {
+        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
+        public Created Created { get; set; }
+
+        [JsonProperty("end", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? End { get; set; }
+
+        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Services { get; set; }
+
+        [JsonProperty("skipUpdated", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipUpdated { get; set; }
+
+        [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Start { get; set; }
+
+        [JsonProperty("workers", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Workers { get; set; }
+    }
+
+    public partial class Created
+    {
+        [JsonProperty("end")]
+        public DateTimeOffset End { get; set; }
+
+        [JsonProperty("start")]
+        public DateTimeOffset Start { get; set; }
+    }
+
+    public partial class ParamsNetwork
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public Id? Id { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentByFilterResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// данные, передаваемые в ответ
+        /// </summary>
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentGetAppointmentByFilterResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentGetAppointmentByFilterResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AppointmentGetAppointmentByFilterResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// данные, передаваемые в ответ
+    /// </summary>
+    public partial class AppointmentGetAppointmentByFilterResponseResult
+    {
+        [JsonProperty("data")]
+        public List<AppointmentElement> Data { get; set; }
+
+        [JsonProperty("page")]
+        public double Page { get; set; }
+
+        [JsonProperty("total")]
+        public double Total { get; set; }
+
+        [JsonProperty("unconfirmed")]
+        public double Unconfirmed { get; set; }
+    }
+
     public partial class ReserveAppointment
     {
         [JsonProperty("request")]
@@ -1463,7 +1672,7 @@ namespace GBookingCoreV2
         public IndigoAppointment Appointment { get; set; }
 
         [JsonProperty("business")]
-        public FluffyBusiness Business { get; set; }
+        public TentacledBusiness Business { get; set; }
 
         [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
         public string OriginBusinessId { get; set; }
@@ -1484,7 +1693,7 @@ namespace GBookingCoreV2
         public string Start { get; set; }
     }
 
-    public partial class FluffyBusiness
+    public partial class TentacledBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -1520,7 +1729,7 @@ namespace GBookingCoreV2
         /// данные, передаваемые в ответ
         /// </summary>
         [JsonProperty("result")]
-        public AppointmentUnion? Result { get; set; }
+        public AppointmentElement? Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -1686,7 +1895,7 @@ namespace GBookingCoreV2
         public Dictionary<string, object> BusinessConfiguration { get; set; }
 
         [JsonProperty("businesses")]
-        public List<TentacledBusiness> Businesses { get; set; }
+        public List<StickyBusiness> Businesses { get; set; }
 
         [JsonProperty("clientVIPPhones")]
         public List<string> ClientVipPhones { get; set; }
@@ -1713,7 +1922,7 @@ namespace GBookingCoreV2
     /// <summary>
     /// указатель на бизнес в сети
     /// </summary>
-    public partial class TentacledBusiness
+    public partial class StickyBusiness
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -1734,7 +1943,7 @@ namespace GBookingCoreV2
         public List<string> VirtualTaxonomies { get; set; }
     }
 
-    public partial class StickyBusiness
+    public partial class IndigoBusiness
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -2613,7 +2822,7 @@ namespace GBookingCoreV2
     public partial class PurpleMiniWidgetConfiguration
     {
         [JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Field> Fields { get; set; }
+        public List<FieldElement> Fields { get; set; }
 
         [JsonProperty("title1", NullValueHandling = NullValueHandling.Ignore)]
         public string Title1 { get; set; }
@@ -3116,7 +3325,7 @@ namespace GBookingCoreV2
     public partial class BusinessGetProfileByIdRequestParams
     {
         [JsonProperty("business")]
-        public IndigoBusiness Business { get; set; }
+        public IndecentBusiness Business { get; set; }
 
         /// <summary>
         /// если указано true - меняет формат представления discounts
@@ -3206,7 +3415,7 @@ namespace GBookingCoreV2
         public WorkerSortingType? WorkerSortingType { get; set; }
     }
 
-    public partial class IndigoBusiness
+    public partial class IndecentBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -3286,7 +3495,7 @@ namespace GBookingCoreV2
         public double? MonthlyFreeSms { get; set; }
 
         [JsonProperty("networks", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Network> Networks { get; set; }
+        public List<NetworkElement> Networks { get; set; }
 
         [JsonProperty("profiles", NullValueHandling = NullValueHandling.Ignore)]
         public List<Dictionary<string, object>> Profiles { get; set; }
@@ -3301,7 +3510,7 @@ namespace GBookingCoreV2
         public YandexFeedType? YandexFeedType { get; set; }
     }
 
-    public partial class IndecentBusiness
+    public partial class HilariousBusiness
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -3766,7 +3975,7 @@ namespace GBookingCoreV2
     public partial class FluffyMiniWidgetConfiguration
     {
         [JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Field> Fields { get; set; }
+        public List<FieldElement> Fields { get; set; }
 
         [JsonProperty("title1", NullValueHandling = NullValueHandling.Ignore)]
         public string Title1 { get; set; }
@@ -5096,7 +5305,7 @@ namespace GBookingCoreV2
         public string WidgetText { get; set; }
     }
 
-    public partial class Network
+    public partial class NetworkElement
     {
         [JsonProperty("address")]
         public Address? Address { get; set; }
@@ -5270,7 +5479,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientRequestParams
     {
         [JsonProperty("business")]
-        public HilariousBusiness Business { get; set; }
+        public AmbitiousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -5285,7 +5494,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class HilariousBusiness
+    public partial class AmbitiousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -5403,7 +5612,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public AmbitiousBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -5415,7 +5624,7 @@ namespace GBookingCoreV2
         public FluffyProfile Profile { get; set; }
     }
 
-    public partial class AmbitiousBusiness
+    public partial class CunningBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -5475,7 +5684,7 @@ namespace GBookingCoreV2
     public partial class ClientFindOrCreateClientRequestParams
     {
         [JsonProperty("business")]
-        public CunningBusiness Business { get; set; }
+        public MagentaBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -5490,7 +5699,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class MagentaBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -5563,7 +5772,7 @@ namespace GBookingCoreV2
     public partial class ClientFindOfCreateClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public MagentaBusiness Business { get; set; }
+        public FriskyBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -5575,7 +5784,7 @@ namespace GBookingCoreV2
         public StickyProfile Profile { get; set; }
     }
 
-    public partial class MagentaBusiness
+    public partial class FriskyBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -5653,7 +5862,7 @@ namespace GBookingCoreV2
     public partial class CracCracDistributedResourcesFreeByDateRequestParam
     {
         [JsonProperty("business")]
-        public FriskyBusiness Business { get; set; }
+        public MischievousBusiness Business { get; set; }
 
         [JsonProperty("resources")]
         public List<string> Resources { get; set; }
@@ -5662,7 +5871,7 @@ namespace GBookingCoreV2
         public PurpleTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class FriskyBusiness
+    public partial class MischievousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -5921,7 +6130,7 @@ namespace GBookingCoreV2
     public partial class CracCracResourcesFreeByDateV2RequestParam
     {
         [JsonProperty("business")]
-        public MischievousBusiness Business { get; set; }
+        public BraggadociousBusiness Business { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -5936,7 +6145,7 @@ namespace GBookingCoreV2
         public TentacledTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class MischievousBusiness
+    public partial class BraggadociousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6067,13 +6276,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public BraggadociousBusiness Business { get; set; }
+        public Business1 Business { get; set; }
 
         [JsonProperty("filters")]
         public PurpleFilters Filters { get; set; }
     }
 
-    public partial class BraggadociousBusiness
+    public partial class Business1
     {
         [JsonProperty("general_info")]
         public PurpleGeneralInfo GeneralInfo { get; set; }
@@ -6261,13 +6470,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public Business1 Business { get; set; }
+        public Business2 Business { get; set; }
 
         [JsonProperty("filters")]
         public FluffyFilters Filters { get; set; }
     }
 
-    public partial class Business1
+    public partial class Business2
     {
         [JsonProperty("general_info")]
         public FluffyGeneralInfo GeneralInfo { get; set; }
@@ -6446,13 +6655,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public Business2 Business { get; set; }
+        public Business3 Business { get; set; }
 
         [JsonProperty("filters")]
         public TentacledFilters Filters { get; set; }
     }
 
-    public partial class Business2
+    public partial class Business3
     {
         [JsonProperty("general_info")]
         public TentacledGeneralInfo GeneralInfo { get; set; }
@@ -6586,7 +6795,7 @@ namespace GBookingCoreV2
     public partial class Models
     {
         [JsonProperty("Appointment")]
-        public AppointmentUnion Appointment { get; set; }
+        public AppointmentElement Appointment { get; set; }
 
         [JsonProperty("Business")]
         public ResultBusiness Business { get; set; }
@@ -6622,6 +6831,10 @@ namespace GBookingCoreV2
 
     public enum ReminderStatus { NotSet, Off, On };
 
+    public enum Dir { Asc, Desc };
+
+    public enum SortField { Created, Start };
+
     public enum AppointmentExtensionType { Minutes, Percent };
 
     public enum FeedBackMinRating { The1, The2, The3, The4, The5 };
@@ -6648,7 +6861,7 @@ namespace GBookingCoreV2
 
     public enum Group { French, General, Hungarian, Latvian };
 
-    public enum Field { Email, Name, Surname };
+    public enum FieldElement { Email, Name, Surname };
 
     public enum CracServer { Crac, CracProd3 };
 
@@ -6799,7 +7012,7 @@ namespace GBookingCoreV2
     /// <summary>
     /// данные, передаваемые в ответ
     /// </summary>
-    public partial struct AppointmentUnion
+    public partial struct AppointmentElement
     {
         public List<object> AnythingArray;
         public AppointmentSchema AppointmentSchema;
@@ -6808,12 +7021,12 @@ namespace GBookingCoreV2
         public long? Integer;
         public string String;
 
-        public static implicit operator AppointmentUnion(List<object> AnythingArray) => new AppointmentUnion { AnythingArray = AnythingArray };
-        public static implicit operator AppointmentUnion(AppointmentSchema AppointmentSchema) => new AppointmentUnion { AppointmentSchema = AppointmentSchema };
-        public static implicit operator AppointmentUnion(bool Bool) => new AppointmentUnion { Bool = Bool };
-        public static implicit operator AppointmentUnion(double Double) => new AppointmentUnion { Double = Double };
-        public static implicit operator AppointmentUnion(long Integer) => new AppointmentUnion { Integer = Integer };
-        public static implicit operator AppointmentUnion(string String) => new AppointmentUnion { String = String };
+        public static implicit operator AppointmentElement(List<object> AnythingArray) => new AppointmentElement { AnythingArray = AnythingArray };
+        public static implicit operator AppointmentElement(AppointmentSchema AppointmentSchema) => new AppointmentElement { AppointmentSchema = AppointmentSchema };
+        public static implicit operator AppointmentElement(bool Bool) => new AppointmentElement { Bool = Bool };
+        public static implicit operator AppointmentElement(double Double) => new AppointmentElement { Double = Double };
+        public static implicit operator AppointmentElement(long Integer) => new AppointmentElement { Integer = Integer };
+        public static implicit operator AppointmentElement(string String) => new AppointmentElement { String = String };
         public bool IsNull => AnythingArray == null && Bool == null && AppointmentSchema == null && Double == null && Integer == null && String == null;
     }
 
@@ -6885,17 +7098,17 @@ namespace GBookingCoreV2
         public List<object> AnythingArray;
         public bool? Bool;
         public double? Double;
+        public IndigoBusiness IndigoBusiness;
         public long? Integer;
-        public StickyBusiness StickyBusiness;
         public string String;
 
         public static implicit operator BusinessBusiness(List<object> AnythingArray) => new BusinessBusiness { AnythingArray = AnythingArray };
         public static implicit operator BusinessBusiness(bool Bool) => new BusinessBusiness { Bool = Bool };
         public static implicit operator BusinessBusiness(double Double) => new BusinessBusiness { Double = Double };
+        public static implicit operator BusinessBusiness(IndigoBusiness IndigoBusiness) => new BusinessBusiness { IndigoBusiness = IndigoBusiness };
         public static implicit operator BusinessBusiness(long Integer) => new BusinessBusiness { Integer = Integer };
-        public static implicit operator BusinessBusiness(StickyBusiness StickyBusiness) => new BusinessBusiness { StickyBusiness = StickyBusiness };
         public static implicit operator BusinessBusiness(string String) => new BusinessBusiness { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && StickyBusiness == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && IndigoBusiness == null && Double == null && Integer == null && String == null;
     }
 
     /// <summary>
@@ -6958,17 +7171,17 @@ namespace GBookingCoreV2
         public List<object> AnythingArray;
         public bool? Bool;
         public double? Double;
-        public IndecentBusiness IndecentBusiness;
+        public HilariousBusiness HilariousBusiness;
         public long? Integer;
         public string String;
 
         public static implicit operator ResultBusiness(List<object> AnythingArray) => new ResultBusiness { AnythingArray = AnythingArray };
         public static implicit operator ResultBusiness(bool Bool) => new ResultBusiness { Bool = Bool };
         public static implicit operator ResultBusiness(double Double) => new ResultBusiness { Double = Double };
-        public static implicit operator ResultBusiness(IndecentBusiness IndecentBusiness) => new ResultBusiness { IndecentBusiness = IndecentBusiness };
+        public static implicit operator ResultBusiness(HilariousBusiness HilariousBusiness) => new ResultBusiness { HilariousBusiness = HilariousBusiness };
         public static implicit operator ResultBusiness(long Integer) => new ResultBusiness { Integer = Integer };
         public static implicit operator ResultBusiness(string String) => new ResultBusiness { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && IndecentBusiness == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && HilariousBusiness == null && Double == null && Integer == null && String == null;
     }
 
     public partial struct Address
@@ -7030,7 +7243,7 @@ namespace GBookingCoreV2
                 IdConverter.Singleton,
                 ParamsUnionConverter.Singleton,
                 SuccessResponseConverter.Singleton,
-                AppointmentUnionConverter.Singleton,
+                AppointmentElementConverter.Singleton,
                 AppointmentClientAppearConverter.Singleton,
                 AppointmentClientPaymentConverter.Singleton,
                 AppointmentStatusConverter.Singleton,
@@ -7043,6 +7256,8 @@ namespace GBookingCoreV2
                 CurrencyListConverter.Singleton,
                 TalkAnswerConverter.Singleton,
                 ReminderStatusConverter.Singleton,
+                DirConverter.Singleton,
+                SortFieldConverter.Singleton,
                 BusinessBusinessConverter.Singleton,
                 AppointmentExtensionTypeConverter.Singleton,
                 FeedBackMinRatingConverter.Singleton,
@@ -7061,7 +7276,7 @@ namespace GBookingCoreV2
                 TimeFrameDateConverter.Singleton,
                 VerticalTranslationConverter.Singleton,
                 GroupConverter.Singleton,
-                FieldConverter.Singleton,
+                FieldElementConverter.Singleton,
                 CracServerConverter.Singleton,
                 RuleConverter.Singleton,
                 PaymentConverter.Singleton,
@@ -7398,42 +7613,42 @@ namespace GBookingCoreV2
         public static readonly SuccessResponseConverter Singleton = new SuccessResponseConverter();
     }
 
-    internal class AppointmentUnionConverter : JsonConverter
+    internal class AppointmentElementConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(AppointmentUnion) || t == typeof(AppointmentUnion?);
+        public override bool CanConvert(Type t) => t == typeof(AppointmentElement) || t == typeof(AppointmentElement?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
             switch (reader.TokenType)
             {
                 case JsonToken.Null:
-                    return new AppointmentUnion { };
+                    return new AppointmentElement { };
                 case JsonToken.Integer:
                     var integerValue = serializer.Deserialize<long>(reader);
-                    return new AppointmentUnion { Integer = integerValue };
+                    return new AppointmentElement { Integer = integerValue };
                 case JsonToken.Float:
                     var doubleValue = serializer.Deserialize<double>(reader);
-                    return new AppointmentUnion { Double = doubleValue };
+                    return new AppointmentElement { Double = doubleValue };
                 case JsonToken.Boolean:
                     var boolValue = serializer.Deserialize<bool>(reader);
-                    return new AppointmentUnion { Bool = boolValue };
+                    return new AppointmentElement { Bool = boolValue };
                 case JsonToken.String:
                 case JsonToken.Date:
                     var stringValue = serializer.Deserialize<string>(reader);
-                    return new AppointmentUnion { String = stringValue };
+                    return new AppointmentElement { String = stringValue };
                 case JsonToken.StartObject:
                     var objectValue = serializer.Deserialize<AppointmentSchema>(reader);
-                    return new AppointmentUnion { AppointmentSchema = objectValue };
+                    return new AppointmentElement { AppointmentSchema = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
-                    return new AppointmentUnion { AnythingArray = arrayValue };
+                    return new AppointmentElement { AnythingArray = arrayValue };
             }
-            throw new Exception("Cannot unmarshal type AppointmentUnion");
+            throw new Exception("Cannot unmarshal type AppointmentElement");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
         {
-            var value = (AppointmentUnion)untypedValue;
+            var value = (AppointmentElement)untypedValue;
             if (value.IsNull)
             {
                 serializer.Serialize(writer, null);
@@ -7469,10 +7684,10 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AppointmentSchema);
                 return;
             }
-            throw new Exception("Cannot marshal type AppointmentUnion");
+            throw new Exception("Cannot marshal type AppointmentElement");
         }
 
-        public static readonly AppointmentUnionConverter Singleton = new AppointmentUnionConverter();
+        public static readonly AppointmentElementConverter Singleton = new AppointmentElementConverter();
     }
 
     internal class AppointmentClientAppearConverter : JsonConverter
@@ -8150,6 +8365,88 @@ namespace GBookingCoreV2
         public static readonly ReminderStatusConverter Singleton = new ReminderStatusConverter();
     }
 
+    internal class DirConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Dir) || t == typeof(Dir?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "asc":
+                    return Dir.Asc;
+                case "desc":
+                    return Dir.Desc;
+            }
+            throw new Exception("Cannot unmarshal type Dir");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Dir)untypedValue;
+            switch (value)
+            {
+                case Dir.Asc:
+                    serializer.Serialize(writer, "asc");
+                    return;
+                case Dir.Desc:
+                    serializer.Serialize(writer, "desc");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Dir");
+        }
+
+        public static readonly DirConverter Singleton = new DirConverter();
+    }
+
+    internal class SortFieldConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(SortField) || t == typeof(SortField?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "created":
+                    return SortField.Created;
+                case "start":
+                    return SortField.Start;
+            }
+            throw new Exception("Cannot unmarshal type SortField");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (SortField)untypedValue;
+            switch (value)
+            {
+                case SortField.Created:
+                    serializer.Serialize(writer, "created");
+                    return;
+                case SortField.Start:
+                    serializer.Serialize(writer, "start");
+                    return;
+            }
+            throw new Exception("Cannot marshal type SortField");
+        }
+
+        public static readonly SortFieldConverter Singleton = new SortFieldConverter();
+    }
+
     internal class BusinessBusinessConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(BusinessBusiness) || t == typeof(BusinessBusiness?);
@@ -8174,8 +8471,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new BusinessBusiness { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<StickyBusiness>(reader);
-                    return new BusinessBusiness { StickyBusiness = objectValue };
+                    var objectValue = serializer.Deserialize<IndigoBusiness>(reader);
+                    return new BusinessBusiness { IndigoBusiness = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new BusinessBusiness { AnythingArray = arrayValue };
@@ -8216,9 +8513,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.StickyBusiness != null)
+            if (value.IndigoBusiness != null)
             {
-                serializer.Serialize(writer, value.StickyBusiness);
+                serializer.Serialize(writer, value.IndigoBusiness);
                 return;
             }
             throw new Exception("Cannot marshal type BusinessBusiness");
@@ -9315,9 +9612,9 @@ namespace GBookingCoreV2
         public static readonly GroupConverter Singleton = new GroupConverter();
     }
 
-    internal class FieldConverter : JsonConverter
+    internal class FieldElementConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(Field) || t == typeof(Field?);
+        public override bool CanConvert(Type t) => t == typeof(FieldElement) || t == typeof(FieldElement?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -9326,13 +9623,13 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "email":
-                    return Field.Email;
+                    return FieldElement.Email;
                 case "name":
-                    return Field.Name;
+                    return FieldElement.Name;
                 case "surname":
-                    return Field.Surname;
+                    return FieldElement.Surname;
             }
-            throw new Exception("Cannot unmarshal type Field");
+            throw new Exception("Cannot unmarshal type FieldElement");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -9342,23 +9639,23 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (Field)untypedValue;
+            var value = (FieldElement)untypedValue;
             switch (value)
             {
-                case Field.Email:
+                case FieldElement.Email:
                     serializer.Serialize(writer, "email");
                     return;
-                case Field.Name:
+                case FieldElement.Name:
                     serializer.Serialize(writer, "name");
                     return;
-                case Field.Surname:
+                case FieldElement.Surname:
                     serializer.Serialize(writer, "surname");
                     return;
             }
-            throw new Exception("Cannot marshal type Field");
+            throw new Exception("Cannot marshal type FieldElement");
         }
 
-        public static readonly FieldConverter Singleton = new FieldConverter();
+        public static readonly FieldElementConverter Singleton = new FieldElementConverter();
     }
 
     internal class CracServerConverter : JsonConverter
@@ -9649,8 +9946,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new ResultBusiness { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<IndecentBusiness>(reader);
-                    return new ResultBusiness { IndecentBusiness = objectValue };
+                    var objectValue = serializer.Deserialize<HilariousBusiness>(reader);
+                    return new ResultBusiness { HilariousBusiness = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new ResultBusiness { AnythingArray = arrayValue };
@@ -9691,9 +9988,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.IndecentBusiness != null)
+            if (value.HilariousBusiness != null)
             {
-                serializer.Serialize(writer, value.IndecentBusiness);
+                serializer.Serialize(writer, value.HilariousBusiness);
                 return;
             }
             throw new Exception("Cannot marshal type ResultBusiness");
