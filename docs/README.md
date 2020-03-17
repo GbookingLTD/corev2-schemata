@@ -66,6 +66,8 @@
   – `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json` (Unknown)
 - [appointment.get_appointment_by_showcase.request](./controllers/appointment/get_appointment_by_showcase.request.schema.md)
   – `schemas-json/controllers/appointment/get_appointment_by_showcase.request.schema.json` (Unknown)
+- [appointment.get_appointment_by_showcase.response](./controllers/appointment/get_appointment_by_showcase.response.schema.md)
+  – `schemas-json/controllers/appointment/get_appointment_by_showcase.response.schema.json` (Unknown)
 - [appointment.reserve_appointment.request](./controllers/appointment/reserve_appointment.request.schema.md) –
   `schemas-json/controllers/appointment/reserve_appointment.request.schema.json` (Unknown)
 - [appointment.reserve_appointment.response](./controllers/appointment/reserve_appointment.response.schema.md) –

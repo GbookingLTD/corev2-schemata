@@ -4,14 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Business3 {
-    private TentacledGeneralInfo generalInfo;
+    private FluffyGeneralInfo generalInfo;
     private String id;
-    private IndigoWidgetConfiguration widgetConfiguration;
+    private StickyWidgetConfiguration widgetConfiguration;
 
     @JsonProperty("general_info")
-    public TentacledGeneralInfo getGeneralInfo() { return generalInfo; }
+    public FluffyGeneralInfo getGeneralInfo() { return generalInfo; }
     @JsonProperty("general_info")
-    public void setGeneralInfo(TentacledGeneralInfo value) { this.generalInfo = value; }
+    public void setGeneralInfo(FluffyGeneralInfo value) { this.generalInfo = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }
@@ -19,7 +19,7 @@ public class Business3 {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("widget_configuration")
-    public IndigoWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
+    public StickyWidgetConfiguration getWidgetConfiguration() { return widgetConfiguration; }
     @JsonProperty("widget_configuration")
-    public void setWidgetConfiguration(IndigoWidgetConfiguration value) { this.widgetConfiguration = value; }
+    public void setWidgetConfiguration(StickyWidgetConfiguration value) { this.widgetConfiguration = value; }
 }

@@ -24,7 +24,7 @@ schemas-json/controllers/appointment/get_appointment_by_filter.request.schema.js
 
 `business`
 
-- is **required**
+- is optional
 - type: `object`
 - defined in this schema
 
@@ -339,7 +339,7 @@ Unknown type `string,number`.
 
 | Property                | Type    | Required     | Default |
 | ----------------------- | ------- | ------------ | ------- |
-| `business`              | object  | **Required** |         |
+| `business`              | object  | Optional     |         |
 | `extraFilters`          | object  | Optional     |         |
 | `filter`                | object  | Optional     |         |
 | `network`               | object  | Optional     |         |
@@ -351,7 +351,7 @@ Unknown type `string,number`.
 
 `business`
 
-- is **required**
+- is optional
 - type: `object`
 
 ##### business Type

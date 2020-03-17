@@ -99,6 +99,22 @@
                 "response"
             ],
             "additionalProperties": false
+        },
+        "get_appointment_by_showcase": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/get_appointment_by_showcase.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/get_appointment_by_showcase.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
         }
     },
     "required": [

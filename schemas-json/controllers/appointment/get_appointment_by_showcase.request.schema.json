@@ -20,7 +20,10 @@
                     "additionalProperties": false,
                     "properties": {
                         "id": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "number"
+                            ]
                         }
                     }
                 },
@@ -36,16 +39,16 @@
                 "created": {
                     "type": "object",
                     "required": [
-                        "from",
-                        "to"
+                        "start",
+                        "end"
                     ],
                     "additionalProperties": false,
                     "properties": {
-                        "from": {
+                        "start": {
                             "type": "string",
                             "format": "date-time"
                         },
-                        "to": {
+                        "end": {
                             "type": "string",
                             "format": "date-time"
                         }

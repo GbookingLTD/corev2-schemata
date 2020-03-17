@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Filters {
+public class AppointmentGetAppointmentByFilterRequestParams {
     private FluffyBusiness business;
     private ExtraFilters extraFilters;
     private Filter filter;

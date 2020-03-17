@@ -30,20 +30,27 @@ schemas-json/controllers/appointment/get_appointment_by_showcase.request.schema.
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property | Type          | Required     |
+| -------- | ------------- | ------------ |
+| `id`     | string,number | **Required** |
 
 #### id
 
 `id`
 
 - is **required**
-- type: `string`
+- type: multiple
 
 ##### id Type
 
-`string`
+Unknown type `string,number`.
+
+```json
+{
+  "type": ["string", "number"],
+  "simpletype": "multiple"
+}
+```
 
 ## created
 
@@ -59,30 +66,30 @@ schemas-json/controllers/appointment/get_appointment_by_showcase.request.schema.
 
 | Property | Type   | Required     |
 | -------- | ------ | ------------ |
-| `from`   | string | **Required** |
-| `to`     | string | **Required** |
+| `end`    | string | **Required** |
+| `start`  | string | **Required** |
 
-#### from
+#### end
 
-`from`
+`end`
 
 - is **required**
 - type: `string`
 
-##### from Type
+##### end Type
 
 `string`
 
 - format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
-#### to
+#### start
 
-`to`
+`start`
 
 - is **required**
 - type: `string`
 
-##### to Type
+##### start Type
 
 `string`
 
@@ -162,20 +169,27 @@ schemas-json/controllers/appointment/get_appointment_by_showcase.request.schema.
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property | Type          | Required     |
+| -------- | ------------- | ------------ |
+| `id`     | string,number | **Required** |
 
 #### id
 
 `id`
 
 - is **required**
-- type: `string`
+- type: multiple
 
 ##### id Type
 
-`string`
+Unknown type `string,number`.
+
+```json
+{
+  "type": ["string", "number"],
+  "simpletype": "multiple"
+}
+```
 
 #### created
 
@@ -190,30 +204,30 @@ schemas-json/controllers/appointment/get_appointment_by_showcase.request.schema.
 
 | Property | Type   | Required     |
 | -------- | ------ | ------------ |
-| `from`   | string | **Required** |
-| `to`     | string | **Required** |
+| `end`    | string | **Required** |
+| `start`  | string | **Required** |
 
-#### from
+#### end
 
-`from`
+`end`
 
 - is **required**
 - type: `string`
 
-##### from Type
+##### end Type
 
 `string`
 
 - format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
-#### to
+#### start
 
-`to`
+`start`
 
 - is **required**
 - type: `string`
 
-##### to Type
+##### start Type
 
 `string`
 

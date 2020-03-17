@@ -4,7 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Filter {
-    private Created created;
+    private FilterCreated created;
     private String end;
     private List<String> services;
     private Boolean skipUpdated;
@@ -12,9 +12,9 @@ public class Filter {
     private List<String> workers;
 
     @JsonProperty("created")
-    public Created getCreated() { return created; }
+    public FilterCreated getCreated() { return created; }
     @JsonProperty("created")
-    public void setCreated(Created value) { this.created = value; }
+    public void setCreated(FilterCreated value) { this.created = value; }
 
     @JsonProperty("end")
     public String getEnd() { return end; }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class BusinessGetNetworkDataResponseResult {
     private Map<String, Object> businessConfiguration;
-    private List<StickyBusiness> businesses;
+    private List<IndigoBusiness> businesses;
     private List<String> clientVIPPhones;
     private List<Map<String, Object>> grantGroups;
     private String networkID;
@@ -19,9 +19,9 @@ public class BusinessGetNetworkDataResponseResult {
     public void setBusinessConfiguration(Map<String, Object> value) { this.businessConfiguration = value; }
 
     @JsonProperty("businesses")
-    public List<StickyBusiness> getBusinesses() { return businesses; }
+    public List<IndigoBusiness> getBusinesses() { return businesses; }
     @JsonProperty("businesses")
-    public void setBusinesses(List<StickyBusiness> value) { this.businesses = value; }
+    public void setBusinesses(List<IndigoBusiness> value) { this.businesses = value; }
 
     @JsonProperty("clientVIPPhones")
     public List<String> getClientVIPPhones() { return clientVIPPhones; }

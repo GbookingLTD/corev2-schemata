@@ -84,6 +84,7 @@ type AppointmentController struct {
 	ClientConfirmAppointment     *ClientConfirmAppointment    `json:"client_confirm_appointment,omitempty"`    
 	ClientRemoveEmptyAppointment ClientRemoveEmptyAppointment `json:"client_remove_empty_appointment"`         
 	GetAppointmentByFilter       *GetAppointmentByFilter      `json:"get_appointment_by_filter,omitempty"`     
+	GetAppointmentByShowcase     *GetAppointmentByShowcase    `json:"get_appointment_by_showcase,omitempty"`   
 	ReserveAppointment           ReserveAppointment           `json:"reserve_appointment"`                     
 }
 
@@ -577,21 +578,21 @@ type GetAppointmentByFilter struct {
 }
 
 type AppointmentGetAppointmentByFilterRequest struct {
-	Cred    *Cred          `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string         `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string         `json:"method"`        // название jsonrpc метода
-	Params  Filters        `json:"params"`        // параметры запроса
+	Cred    *Cred                                          `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                                 `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                         `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                         `json:"method"`        // название jsonrpc метода
+	Params  AppointmentGetAppointmentByFilterRequestParams `json:"params"`        // параметры запроса
 }
 
-type Filters struct {
-	Business              FluffyBusiness `json:"business"`                       
-	ExtraFilters          *ExtraFilters  `json:"extraFilters,omitempty"`         
-	Filter                *Filter        `json:"filter,omitempty"`               
-	Network               *ParamsNetwork `json:"network,omitempty"`              
-	Page                  float64        `json:"page"`                           
-	PageSize              float64        `json:"pageSize"`                       
-	SkipBusinessCancelled *bool          `json:"skipBusinessCancelled,omitempty"`
+type AppointmentGetAppointmentByFilterRequestParams struct {
+	Business              *FluffyBusiness `json:"business,omitempty"`             
+	ExtraFilters          *ExtraFilters   `json:"extraFilters,omitempty"`         
+	Filter                *Filter         `json:"filter,omitempty"`               
+	Network               *ParamsNetwork  `json:"network,omitempty"`              
+	Page                  float64         `json:"page"`                           
+	PageSize              float64         `json:"pageSize"`                       
+	SkipBusinessCancelled *bool           `json:"skipBusinessCancelled,omitempty"`
 }
 
 type FluffyBusiness struct {
@@ -608,15 +609,15 @@ type Sort struct {
 }
 
 type Filter struct {
-	Created     *CreatedClass `json:"created,omitempty"`    
-	End         *string       `json:"end,omitempty"`        
-	Services    []string      `json:"services"`             
-	SkipUpdated *bool         `json:"skipUpdated,omitempty"`
-	Start       *string       `json:"start,omitempty"`      
-	Workers     []string      `json:"workers"`              
+	Created     *FilterCreated `json:"created,omitempty"`    
+	End         *string        `json:"end,omitempty"`        
+	Services    []string       `json:"services"`             
+	SkipUpdated *bool          `json:"skipUpdated,omitempty"`
+	Start       *string        `json:"start,omitempty"`      
+	Workers     []string       `json:"workers"`              
 }
 
-type CreatedClass struct {
+type FilterCreated struct {
 	End   string `json:"end"`  
 	Start string `json:"start"`
 }
@@ -649,6 +650,52 @@ type AppointmentGetAppointmentByFilterResponseResult struct {
 	Unconfirmed float64              `json:"unconfirmed"`
 }
 
+type GetAppointmentByShowcase struct {
+	Request  AppointmentGetAppointmentByShowcaseRequest  `json:"request"` 
+	Response AppointmentGetAppointmentByShowcaseResponse `json:"response"`
+}
+
+type AppointmentGetAppointmentByShowcaseRequest struct {
+	Cred    *Cred                                            `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                                   `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                           `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                                           `json:"method"`        // название jsonrpc метода
+	Params  AppointmentGetAppointmentByShowcaseRequestParams `json:"params"`        // параметры запроса
+}
+
+type AppointmentGetAppointmentByShowcaseRequestParams struct {
+	Business TentacledBusiness `json:"business"`         
+	Created  *ParamsCreated    `json:"created,omitempty"`
+	Page     float64           `json:"page"`             
+	PageSize float64           `json:"pageSize"`         
+	Source   *string           `json:"source,omitempty"` 
+}
+
+type TentacledBusiness struct {
+	ID *TimeFrameDate `json:"id"`
+}
+
+type ParamsCreated struct {
+	End   string `json:"end"`  
+	Start string `json:"start"`
+}
+
+type AppointmentGetAppointmentByShowcaseResponse struct {
+	ID      float64                                           `json:"id"`             // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                            `json:"jsonrpc"`        // версия протокола (2.0)
+	Result  []AppointmentElement                              `json:"result"`         
+	Error   *AppointmentGetAppointmentByShowcaseResponseError `json:"error,omitempty"`// объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type AppointmentGetAppointmentByShowcaseResponseError struct {
+	Code    float64 `json:"code"`          // код ошибки
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
 type ReserveAppointment struct {
 	Request  AppointmentReserveAppointmentRequest  `json:"request"` 
 	Response AppointmentReserveAppointmentResponse `json:"response"`
@@ -664,7 +711,7 @@ type AppointmentReserveAppointmentRequest struct {
 
 type AppointmentReserve struct {
 	Appointment      IndigoAppointment `json:"appointment"`               
-	Business         TentacledBusiness `json:"business"`                  
+	Business         StickyBusiness    `json:"business"`                  
 	OriginBusinessID *string           `json:"originBusinessID,omitempty"`
 	Resource         ResourceClass     `json:"resource"`                  
 	Source           string            `json:"source"`                    
@@ -675,7 +722,7 @@ type IndigoAppointment struct {
 	Start string `json:"start"`
 }
 
-type TentacledBusiness struct {
+type StickyBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -745,7 +792,7 @@ type BusinessGetNetworkDataResponseError struct {
 
 type BusinessGetNetworkDataResponseResult struct {
 	BusinessConfiguration      map[string]interface{}       `json:"businessConfiguration"`     
-	Businesses                 []StickyBusiness             `json:"businesses"`                
+	Businesses                 []IndigoBusiness             `json:"businesses"`                
 	ClientVIPPhones            []string                     `json:"clientVIPPhones"`           
 	GrantGroups                []map[string]interface{}     `json:"grantGroups"`               
 	NetworkID                  string                       `json:"networkID"`                 
@@ -755,7 +802,7 @@ type BusinessGetNetworkDataResponseResult struct {
 }
 
 // указатель на бизнес в сети
-type StickyBusiness struct {
+type IndigoBusiness struct {
 	ID                *string           `json:"_id,omitempty"`    
 	BusinessID        string            `json:"businessID"`       
 	Info              *BusinessBusiness `json:"info"`             
@@ -764,7 +811,7 @@ type StickyBusiness struct {
 	VirtualTaxonomies []string          `json:"virtualTaxonomies"`
 }
 
-type IndigoBusiness struct {
+type IndecentBusiness struct {
 	Active                          *bool                              `json:"active,omitempty"`                       
 	AdditionalSettings              *PurpleAdditionalSettings          `json:"additionalSettings,omitempty"`           
 	AllowCategoryBooking            *bool                              `json:"allowCategoryBooking,omitempty"`         
@@ -1273,7 +1320,7 @@ type BusinessGetProfileByIDRequest struct {
 
 // параметры запроса business.get_profile_by_id
 type BusinessGetProfileByIDRequestParams struct {
-	Business             IndecentBusiness   `json:"business"`                        
+	Business             HilariousBusiness  `json:"business"`                        
 	DesktopDiscounts     *bool              `json:"desktop_discounts,omitempty"`     // если указано true - меняет формат представления discounts
 	OnlyActiveWorkers    *bool              `json:"only_active_workers,omitempty"`   // если указано true - возвращает только активных работников (status == 'INACTIVE')
 	ShowInactiveWorkers  *bool              `json:"show_inactive_workers,omitempty"` // если указано true - возвращает всех работников в том числе и неактивных (status ==; 'INACTIVE')
@@ -1290,7 +1337,7 @@ type BusinessGetProfileByIDRequestParams struct {
 	WorkerSortingType    *WorkerSortingType `json:"worker_sorting_type,omitempty"`   // тип сортировки работника
 }
 
-type IndecentBusiness struct {
+type HilariousBusiness struct {
 	ID string `json:"id"`// идентификатор бизнеса
 }
 
@@ -1323,7 +1370,7 @@ type BusinessGetProfileByIDResponseResult struct {
 	YandexFeedType        *YandexFeedType          `json:"yandexFeedType,omitempty"`       
 }
 
-type HilariousBusiness struct {
+type AmbitiousBusiness struct {
 	Active                          *bool                              `json:"active,omitempty"`                       
 	AdditionalSettings              *FluffyAdditionalSettings          `json:"additionalSettings,omitempty"`           
 	AllowCategoryBooking            *bool                              `json:"allowCategoryBooking,omitempty"`         
@@ -1985,14 +2032,14 @@ type ClientAddClientRequest struct {
 
 // параметры запроса
 type ClientAddClientRequestParams struct {
-	Business          AmbitiousBusiness `json:"business"`                   
-	Client            ClientClass       `json:"client"`                     
-	Profile           *PurpleProfile    `json:"profile,omitempty"`          
-	SkipEmailCheck    *bool             `json:"skipEmailCheck,omitempty"`   
-	SkipProfileUpdate *bool             `json:"skipProfileUpdate,omitempty"`
+	Business          CunningBusiness `json:"business"`                   
+	Client            ClientClass     `json:"client"`                     
+	Profile           *PurpleProfile  `json:"profile,omitempty"`          
+	SkipEmailCheck    *bool           `json:"skipEmailCheck,omitempty"`   
+	SkipProfileUpdate *bool           `json:"skipProfileUpdate,omitempty"`
 }
 
-type AmbitiousBusiness struct {
+type CunningBusiness struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -2034,13 +2081,13 @@ type ClientAddClientResponseError struct {
 }
 
 type ClientAddClientResponseResult struct {
-	Business  *CunningBusiness `json:"business,omitempty"`
+	Business  *MagentaBusiness `json:"business,omitempty"`
 	Client    ClientClass      `json:"client"`            
 	Documents []interface{}    `json:"documents"`         
 	Profile   *FluffyProfile   `json:"profile,omitempty"` 
 }
 
-type CunningBusiness struct {
+type MagentaBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -2063,14 +2110,14 @@ type ClientFindOrCreateClientRequest struct {
 
 // параметры запроса
 type ClientFindOrCreateClientRequestParams struct {
-	Business          MagentaBusiness   `json:"business"`                   
+	Business          FriskyBusiness    `json:"business"`                   
 	Client            ClientClass       `json:"client"`                     
 	Profile           *TentacledProfile `json:"profile,omitempty"`          
 	SkipEmailCheck    *bool             `json:"skipEmailCheck,omitempty"`   
 	SkipProfileUpdate *bool             `json:"skipProfileUpdate,omitempty"`
 }
 
-type MagentaBusiness struct {
+type FriskyBusiness struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -2095,13 +2142,13 @@ type ClientFindOfCreateClientResponseError struct {
 }
 
 type ClientFindOfCreateClientResponseResult struct {
-	Business  *FriskyBusiness `json:"business,omitempty"`
-	Client    ClientClass     `json:"client"`            
-	Documents []interface{}   `json:"documents"`         
-	Profile   *StickyProfile  `json:"profile,omitempty"` 
+	Business  *MischievousBusiness `json:"business,omitempty"`
+	Client    ClientClass          `json:"client"`            
+	Documents []interface{}        `json:"documents"`         
+	Profile   *StickyProfile       `json:"profile,omitempty"` 
 }
 
-type FriskyBusiness struct {
+type MischievousBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -2132,12 +2179,12 @@ type CracCRACDistributedResourcesFreeByDateRequest struct {
 }
 
 type CracCRACDistributedResourcesFreeByDateRequestParam struct {
-	Business  MischievousBusiness `json:"business"` 
-	Resources []string            `json:"resources"`
-	Taxonomy  PurpleTaxonomy      `json:"taxonomy"` 
+	Business  BraggadociousBusiness `json:"business"` 
+	Resources []string              `json:"resources"`
+	Taxonomy  PurpleTaxonomy        `json:"taxonomy"` 
 }
 
-type MischievousBusiness struct {
+type BraggadociousBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -2236,14 +2283,14 @@ type CracCRACResourcesFreeByDateV2Request struct {
 }
 
 type CracCRACResourcesFreeByDateV2RequestParam struct {
-	Business  BraggadociousBusiness `json:"business"` 
-	Duration  float64               `json:"duration"` 
-	Durations []float64             `json:"durations"`
-	Resources []string              `json:"resources"`
-	Taxonomy  TentacledTaxonomy     `json:"taxonomy"` 
+	Business  Business1         `json:"business"` 
+	Duration  float64           `json:"duration"` 
+	Durations []float64         `json:"durations"`
+	Resources []string          `json:"resources"`
+	Taxonomy  TentacledTaxonomy `json:"taxonomy"` 
 }
 
-type BraggadociousBusiness struct {
+type Business1 struct {
 	ID string `json:"id"`
 }
 
@@ -2293,11 +2340,11 @@ type CracSlotsGetCRACDistributedResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams struct {
-	Business Business1     `json:"business"`
+	Business Business2     `json:"business"`
 	Filters  PurpleFilters `json:"filters"` 
 }
 
-type Business1 struct {
+type Business2 struct {
 	GeneralInfo         PurpleGeneralInfo            `json:"general_info"`        
 	ID                  string                       `json:"id"`                  
 	WidgetConfiguration TentacledWidgetConfiguration `json:"widget_configuration"`
@@ -2374,11 +2421,11 @@ type CracSlotsGetCRACInsuranceResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams struct {
-	Business Business2     `json:"business"`
+	Business Business3     `json:"business"`
 	Filters  FluffyFilters `json:"filters"` 
 }
 
-type Business2 struct {
+type Business3 struct {
 	GeneralInfo         FluffyGeneralInfo         `json:"general_info"`        
 	ID                  string                    `json:"id"`                  
 	WidgetConfiguration StickyWidgetConfiguration `json:"widget_configuration"`
@@ -2451,11 +2498,11 @@ type CracSlotsGetCRACResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACResourcesAndRoomsRequestParams struct {
-	Business Business3        `json:"business"`
+	Business Business4        `json:"business"`
 	Filters  TentacledFilters `json:"filters"` 
 }
 
-type Business3 struct {
+type Business4 struct {
 	GeneralInfo         TentacledGeneralInfo      `json:"general_info"`        
 	ID                  string                    `json:"id"`                  
 	WidgetConfiguration IndigoWidgetConfiguration `json:"widget_configuration"`
@@ -3082,30 +3129,30 @@ func (x *Value) MarshalJSON() ([]byte, error) {
 }
 
 type BusinessBusiness struct {
-	AnythingArray  []interface{}
-	Bool           *bool
-	Double         *float64
-	IndigoBusiness *IndigoBusiness
-	Integer        *int64
-	String         *string
+	AnythingArray    []interface{}
+	Bool             *bool
+	Double           *float64
+	IndecentBusiness *IndecentBusiness
+	Integer          *int64
+	String           *string
 }
 
 func (x *BusinessBusiness) UnmarshalJSON(data []byte) error {
 	x.AnythingArray = nil
-	x.IndigoBusiness = nil
-	var c IndigoBusiness
+	x.IndecentBusiness = nil
+	var c IndecentBusiness
 	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
 	if err != nil {
 		return err
 	}
 	if object {
-		x.IndigoBusiness = &c
+		x.IndecentBusiness = &c
 	}
 	return nil
 }
 
 func (x *BusinessBusiness) MarshalJSON() ([]byte, error) {
-	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.IndigoBusiness != nil, x.IndigoBusiness, false, nil, false, nil, true)
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.IndecentBusiness != nil, x.IndecentBusiness, false, nil, false, nil, true)
 }
 
 type AdditionalFields struct {
@@ -3190,30 +3237,30 @@ func (x *Phone) MarshalJSON() ([]byte, error) {
 }
 
 type ResultBusiness struct {
+	AmbitiousBusiness *AmbitiousBusiness
 	AnythingArray     []interface{}
 	Bool              *bool
 	Double            *float64
-	HilariousBusiness *HilariousBusiness
 	Integer           *int64
 	String            *string
 }
 
 func (x *ResultBusiness) UnmarshalJSON(data []byte) error {
 	x.AnythingArray = nil
-	x.HilariousBusiness = nil
-	var c HilariousBusiness
+	x.AmbitiousBusiness = nil
+	var c AmbitiousBusiness
 	object, err := unmarshalUnion(data, &x.Integer, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, true, &c, false, nil, false, nil, true)
 	if err != nil {
 		return err
 	}
 	if object {
-		x.HilariousBusiness = &c
+		x.AmbitiousBusiness = &c
 	}
 	return nil
 }
 
 func (x *ResultBusiness) MarshalJSON() ([]byte, error) {
-	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.HilariousBusiness != nil, x.HilariousBusiness, false, nil, false, nil, true)
+	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.AmbitiousBusiness != nil, x.AmbitiousBusiness, false, nil, false, nil, true)
 }
 
 // Данные о работнике бизнеса

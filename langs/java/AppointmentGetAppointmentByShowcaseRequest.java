@@ -3,12 +3,12 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AppointmentGetAppointmentByFilterRequest {
+public class AppointmentGetAppointmentByShowcaseRequest {
     private Cred cred;
     private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
-    private AppointmentGetAppointmentByFilterRequestParams params;
+    private AppointmentGetAppointmentByShowcaseRequestParams params;
 
     /**
      * авторизационные параметры
@@ -46,7 +46,7 @@ public class AppointmentGetAppointmentByFilterRequest {
      * параметры запроса
      */
     @JsonProperty("params")
-    public AppointmentGetAppointmentByFilterRequestParams getParams() { return params; }
+    public AppointmentGetAppointmentByShowcaseRequestParams getParams() { return params; }
     @JsonProperty("params")
-    public void setParams(AppointmentGetAppointmentByFilterRequestParams value) { this.params = value; }
+    public void setParams(AppointmentGetAppointmentByShowcaseRequestParams value) { this.params = value; }
 }

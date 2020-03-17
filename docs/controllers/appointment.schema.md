@@ -17,6 +17,7 @@ schemas-json/controllers/appointment.schema.json
 | [client_confirm_appointment](#client_confirm_appointment)           | `object` | Optional     | No       | AppointmentController (this schema) |
 | [client_remove_empty_appointment](#client_remove_empty_appointment) | `object` | **Required** | No       | AppointmentController (this schema) |
 | [get_appointment_by_filter](#get_appointment_by_filter)             | `object` | Optional     | No       | AppointmentController (this schema) |
+| [get_appointment_by_showcase](#get_appointment_by_showcase)         | `object` | Optional     | No       | AppointmentController (this schema) |
 | [reserve_appointment](#reserve_appointment)                         | `object` | **Required** | No       | AppointmentController (this schema) |
 
 ## cancel_appointment_by_business
@@ -213,6 +214,45 @@ schemas-json/controllers/appointment.schema.json
 ##### response Type
 
 - []() – `./appointment/get_appointment_by_filter.response.schema.json`
+
+## get_appointment_by_showcase
+
+`get_appointment_by_showcase`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### get_appointment_by_showcase Type
+
+`object` with following properties:
+
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `request`  |      | **Required** |
+| `response` |      | **Required** |
+
+#### request
+
+`request`
+
+- is **required**
+- type: reference
+
+##### request Type
+
+- []() – `./appointment/get_appointment_by_showcase.request.schema.json`
+
+#### response
+
+`response`
+
+- is **required**
+- type: reference
+
+##### response Type
+
+- []() – `./appointment/get_appointment_by_showcase.response.schema.json`
 
 ## reserve_appointment
 
