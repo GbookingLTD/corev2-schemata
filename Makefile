@@ -73,10 +73,10 @@ spellcheck:
 	node load.js
 
 test_dev:
-	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/test_dev.js
+	ENDPOINT=http://api2.dev.gbooking.ru/rpc node bin/test_dev.js $(GROUP)
 
 test_prod:
-	ENDPOINT=http://apiv2.gbooking.ru/rpc node bin/test_prod.js
+	ENDPOINT=http://apiv2.gbooking.ru/rpc node bin/test_prod.js $(GROUP)
 
 example_ts:
 	tsc examples/typescript/business.get_profile_by_id.ts && \

@@ -12,14 +12,14 @@ definitions:
     properties:
       business:
         type: "object"
-        required: ["id"]
+        required: []
         additionalProperties: false
         properties:
           id:
             type: ["string", "number"]
       network:
         type: "object"
-        required: ["id"]
+        required: []
         additionalProperties: false
         properties:
           id:
@@ -34,17 +34,17 @@ definitions:
         properties:
           sort:
             type: "array"
-              items:
-                type: "object"
-                required: ["dir", "field"]
-                additionalProperties: false
-                properties:
-                  dir:
-                    type: "string"
-                    enum: ["asc", "desc"]
-                  field:
-                    type: "string"
-                    enum: ["created", "start"]
+            items:
+              type: "object"
+              required: ["dir", "field"]
+              additionalProperties: false
+              properties:
+                dir:
+                  type: "string"
+                  enum: ["asc", "desc"]
+                field:
+                  type: "string"
+                  enum: ["created", "start"]
       skipBusinessCancelled:
         type: "boolean"
         default: false
@@ -61,13 +61,13 @@ definitions:
             format: "date-time"
           created:
             type: "object"
-            required: ["from", "to"]
+            required: ["start", "end"]
             additionalProperties: false
             properties:
-              from:
+              start:
                 type: "string"
                 format: "date-time"
-              to:
+              end:
                 type: "string"
                 format: "date-time"
           skipUpdated:

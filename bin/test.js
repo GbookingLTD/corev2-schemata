@@ -138,6 +138,104 @@ let findOrCreateClient = function (endpoint, data, cred) {
   });
 };
 
+let getAppointmentByStartEnd = function (endpoint, data, cred) {
+  var params = {
+    "business": {
+      "id": ''+data.business.id
+    },
+    "network": {
+      "id": data.network ? ''+data.network.id : undefined
+    },
+    "extraFilters": {
+      "sort": [{
+        "dir":"desc",
+        "field":"created"
+      }]
+    },
+    "pageSize": 100500,
+    "page": 1,
+    "skipBusinessCancelled": false,
+    "filter":{
+      "start": data.filter.start,
+      "end": data.filter.end,
+      "skipUpdated": false,
+      "services": [],
+      "workers": []
+    }
+  };
+
+  let pref = 'appointment.get_appointment_by_start_end: ' + data.business.id;
+
+  let _validateReq = getValidateRequest('appointment', 'get_appointment_by_filter');
+  let _validateRes = getValidateResponse('appointment', 'get_appointment_by_filter');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('appointment.get_appointment_by_filter', params, {}));
+    return rpcRequest('appointment.get_appointment_by_filter', params, cred, endpoint);
+  }).then(function(json) {
+    //console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json)
+    return json;
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
+let getAppointmentByCreated = function (endpoint, data, cred) {
+  var params = {
+    "business": {
+      "id": ''+data.business.id
+    },
+    "network": {
+      "id": data.network ? ''+data.network.id : undefined
+    },
+    "extraFilters": {
+      "sort": [{
+        "dir":"desc",
+        "field":"created"
+      }]
+    },
+    "pageSize": 100500,
+    "page": 1,
+    "skipBusinessCancelled": false,
+    "filter":{
+      "created": {
+        "start": data.filter.created.start,
+        "end": data.filter.created.end
+      },
+      "skipUpdated": false,
+      "services": [],
+      "workers": []
+    }
+  };
+
+  let pref = 'appointment.get_appointment_by_created: ' + data.business.id;
+
+  let _validateReq = getValidateRequest('appointment', 'get_appointment_by_filter');
+  let _validateRes = getValidateResponse('appointment', 'get_appointment_by_filter');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('appointment.get_appointment_by_filter', params, {}));
+    return rpcRequest('appointment.get_appointment_by_filter', params, cred, endpoint);
+  }).then(function(json) {
+    //console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json)
+    return json;
+  }).fail(function(err) {
+    if (err.code === -32700) {
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
 let getProfileByID = function (endpoint, baseBusinessId, cred, extraParams) {
   var params = {
     "business": {"id": ''+baseBusinessId},
@@ -465,6 +563,8 @@ module.exports = function(fn) {
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
 module.exports.findOrCreateClient = findOrCreateClient;
+module.exports.getAppointmentByStartEnd = getAppointmentByStartEnd;
+module.exports.getAppointmentByCreated = getAppointmentByCreated;
 module.exports.reserveAppointment = reserveAppointment;
 module.exports.clientRemoveEmptyAppointment = clientRemoveEmptyAppointment;
 module.exports.getNetworkData = getNetworkData;

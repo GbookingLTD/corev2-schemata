@@ -30,7 +30,7 @@ definitions:
       extraID:
         type: "string"
 
-  Phone:
+  CamelPhone:
     type: "object"
     additionalProperties: false
     required: ["number", "countryCode", "areaCode"]
@@ -40,6 +40,18 @@ definitions:
       countryCode:
         type: "string"
       areaCode:
+        type: "string"
+
+  Phone:
+    type: "object"
+    additionalProperties: false
+    required: ["number", "country_code", "area_code"]
+    properties:
+      number:
+        type: "string"
+      country_code:
+        type: "string"
+      area_code:
         type: "string"
 
 
@@ -158,7 +170,9 @@ definitions:
         type: "string"
         enum: ['MALE','FEMALE','NOT_SPECIFIED']
       email:
-        type: "string"
+        type: "array"
+        items:
+          type: "string"
       passportId:
         type: "string"
       clientCardNumber:
@@ -216,11 +230,15 @@ definitions:
       extraVisitors:
         type: "number"
       incomingPhone:
-        $ref: "#/definitions/Phone"
+        type: "array"
+        items:
+          $ref: "#/definitions/Phone"
       shortId:
         type: "string"
       phone:
-        $ref: "#/definitions/Phone"
+        type: "array"
+        items:
+          $ref: "#/definitions/Phone"
       feedback:
         $ref: "#/definitions/AppointmentClientFeedback"
       extraData:
@@ -248,19 +266,21 @@ definitions:
       currency:
         $ref: "./partials/currency.schema.json#/definitions/CurrencyList"
       additionalTaxonomyDiscount:
-        type: "object"
-        additionalProperties: false
-        required: []
-        properties:
-          taxonomyID:
-            type: "string"
-          discount:
-            type: "number"
-          discountType:
-            type: "string"
-          discountProvider:
-            type: "string"
-            enum: ['LOCAL', 'YANDEX', 'GROUPON']
+        type: "array"
+        items:
+          type: "object"
+          additionalProperties: false
+          required: []
+          properties:
+            taxonomyID:
+              type: "string"
+            discount:
+              type: "number"
+            discountType:
+              type: "string"
+            discountProvider:
+              type: "string"
+              enum: ['LOCAL', 'YANDEX', 'GROUPON']
 
   AppointmentInfo:
     type: "object"
@@ -276,8 +296,6 @@ definitions:
       - "created"
       - "updated"
       - "status"
-      - "drinkAnswer"
-      - "talkAnswer"
       - "price"
       - "shortId"
     properties:
@@ -349,7 +367,6 @@ required:
   - "client"
   - "additionalClients"
   - "removedClientsData"
-  - "review"
   - "additionalFields"
   - "extraFields"
   - "additionalClientAppears"
@@ -358,7 +375,6 @@ required:
   - "additionalClientUtms"
   - "additionalClientPayments"
   - "reminder"
-  - "clientVisitors"
 
 additionalProperties: false
 
@@ -376,10 +392,17 @@ properties:
       additionalProperties: false
       required: ["clientID", "status"]
       properties:
+        _id:
+          type: "string"
         clientID:
           type: "string"
         status:
           $ref: "#/definitions/AppointmentStatus"
+        history:
+          type: "array"
+          items:
+            type: "object"
+            additionalProperties: true
   additional_info:
     type: "object"
   masterImportance:
@@ -419,8 +442,10 @@ properties:
     items:
       type: "object"
       additionalProperties: false
-      required: ["clientID", "utm"]
+      required: ["clientID"]
       properties:
+        _id:
+          type: "string"
         clientID:
           type: "string"
         utm:
@@ -496,6 +521,8 @@ properties:
       additionalProperties: false
       required: ["clientID", "source"]
       properties:
+        _id:
+          type: "string"
         clientID:
           type: "string"
         source:

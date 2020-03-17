@@ -13,7 +13,7 @@ const Q = require('q')
 // test get_profile_by_id for dev
 require('./test')(function() {
   let requests = [];
-  
+  if (process.argv.length === 2 || process.argv[2] === 'client')
   [
     addClient(process.env.ENDPOINT, {
       business: { id:4000000005153 },
@@ -36,6 +36,42 @@ require('./test')(function() {
     }),
   ].forEach((p) => {requests.push(p)});
 
+  if (process.argv.length === 2 || process.argv[2] === 'reserve')
+  [
+    reserveAppointment(process.env.ENDPOINT, "4000000003715", "9123154",
+        "5d0a27dd73876619445a2910", "Tue, 24 Mar 2020 10:00:00 GMT")
+        .then((res) => {
+          let appointmentId = undefined;
+          console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
+          if (res.result)
+            appointmentId = res.result.appointment.id;
+
+          if (!appointmentId) {
+            console.warn("skip appointment.client_remove_empty_appointment");
+            return Q();
+          }
+
+          return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000003715", appointmentId)
+        }),
+
+    reserveAppointment(process.env.ENDPOINT, "4000000007105", "9160021",
+        "5e6a150547325625a769eb97", "Mon, 16 Mar 2020 10:00:00 GMT")
+        .then((res) => {
+          let appointmentId = undefined;
+          console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
+          if (res.result)
+            appointmentId = res.result.appointment.id;
+
+          if (!appointmentId) {
+            console.warn("skip appointment.client_remove_empty_appointment");
+            return Q();
+          }
+
+          return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000007105", appointmentId)
+        }),
+  ].forEach((p) => {requests.push(p)});
+
+  if (process.argv.length === 2 || process.argv[2] === 'business')
   [
     getProfileByID(process.env.ENDPOINT, 4000000005153),
     getProfileByID(process.env.ENDPOINT, 4000000005153, {
@@ -81,39 +117,9 @@ require('./test')(function() {
     getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 257),
     getNetworkData(process.env.ENDPOINT, 342),
     getNetworkDataWithBusinessInfo(process.env.ENDPOINT, 342),
-    reserveAppointment(process.env.ENDPOINT, "4000000003715", "9123154",
-        "5d0a27dd73876619445a2910", "Tue, 24 Mar 2020 10:00:00 GMT")
-        .then((res) => {
-          let appointmentId = undefined;
-          console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
-          if (res.result)
-            appointmentId = res.result.appointment.id;
 
-          if (!appointmentId) {
-            console.warn("skip appointment.client_remove_empty_appointment");
-            return Q();
-          }
-
-          return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000003715", appointmentId)
-        }),
-    
-    reserveAppointment(process.env.ENDPOINT, "4000000007105", "9160021",
-        "5e6a150547325625a769eb97", "Mon, 16 Mar 2020 10:00:00 GMT")
-        .then((res) => {
-          let appointmentId = undefined;
-          console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
-          if (res.result)
-            appointmentId = res.result.appointment.id;
-
-          if (!appointmentId) {
-            console.warn("skip appointment.client_remove_empty_appointment");
-            return Q();
-          }
-
-          return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000007105", appointmentId)
-        }),
   ].forEach((p) => requests.push(p));
-    
+
   return requests.map((p) => function () {
     return p
   }).reduce(Q.when, Q());
