@@ -6,7 +6,6 @@ definitions:
   Filters:
     type: "object"
     required:
-      - business
       - pageSize
       - page
     properties:

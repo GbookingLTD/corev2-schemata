@@ -16,7 +16,7 @@ definitions:
         additionalProperties: false
         properties:
           id:
-            type: "string"
+            type: ["string", "number"]
       pageSize:
         type: "number"
       page:
@@ -25,13 +25,13 @@ definitions:
         type: "string"
       created:
         type: "object"
-        required: ["from", "to"]
+        required: ["start", "end"]
         additionalProperties: false
         properties:
-          from:
+          start:
             type: "string"
             format: "date-time"
-          to:
+          end:
             type: "string"
             format: "date-time"
   Request:
