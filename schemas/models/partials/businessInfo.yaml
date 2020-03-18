@@ -188,7 +188,7 @@ properties:
           description: "Адреса компании или филиала"
           type: "array"
           items:
-            $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
+            $ref: "../address.schema.json"
         email:
           description: "Список e-mail адресов компании или филиала"
           type: "string"
@@ -196,9 +196,9 @@ properties:
           description: "Список телефонов бизнеса"
           type: "array"
           items:
-            $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+            $ref: "../phone.schema.json"
         language:
-          $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList"
+          $ref: "language.schema.json#/definitions/LanguageList"
         timezone:
           type: "string"
         receptionTypes:
