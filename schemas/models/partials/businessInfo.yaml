@@ -203,8 +203,8 @@ properties:
           type: "string"
         receptionTypes:
           description: "Список видов приема филиала"
-            type: "array"
-            items:
-              type: "string"
+          type: "array"
+          items:
+            type: "string"
       additionalProperties: true
 additionalProperties: false
