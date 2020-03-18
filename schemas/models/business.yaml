@@ -487,9 +487,9 @@ definitions:
         default: "PLAN_CLINIC"
       receptionTypes:
         description: "Список видов приема услуги"
-          type: "array"
-          items:
-            type: "string"
+        type: "array"
+        items:
+          type: "string"
       showcaseItems:
         type: "array"
         items:
@@ -517,9 +517,9 @@ definitions:
               type: "string"
             receptionTypes:
               description: "Список видов приема услуги"
-                type: "array"
-                items:
-                  type: "string"
+              type: "array"
+              items:
+                type: "string"
           additionalProperties: false
     additionalProperties: false
   BackofficeConfiguration:
