@@ -485,6 +485,11 @@ definitions:
           - ONCALL_ONLINE: "дежурный прием онлайн"
           - PLAN_ONLINE: "плановый прием только онлайн"
         default: "PLAN_CLINIC"
+      receptionTypes:
+        description: "Список видов приема услуги"
+          type: "array"
+          items:
+            type: "string"
       showcaseItems:
         type: "array"
         items:
@@ -510,6 +515,11 @@ definitions:
                 additionalProperties: false
             businessID:
               type: "string"
+            receptionTypes:
+              description: "Список видов приема услуги"
+                type: "array"
+                items:
+                  type: "string"
           additionalProperties: false
     additionalProperties: false
   BackofficeConfiguration:
