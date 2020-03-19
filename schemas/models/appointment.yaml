@@ -243,10 +243,6 @@ definitions:
         $ref: "#/definitions/AppointmentClientFeedback"
       extraData:
         type: "object"
-      parentClientID:
-        type: "string"
-      parentProfileID:
-        type: "string"
 
   Price:
     type: "object"
@@ -348,6 +344,32 @@ definitions:
         properties:
           extraId:
             type: "string"
+
+  AppointmentClientVisitor:           
+    type: "object"
+    additionalProperties: false
+    properties:
+      parentClientID:
+        type: "string"
+      parentProfileID:
+        type: "string"
+      sex:
+        type: "string"
+        enum: ['MALE','FEMALE','NOT_SPECIFIED']
+      email:
+        type: "array"
+        items:
+          type: "string"
+      extraVisitors:
+        type: "number"
+      phone:
+        type: "array"
+        items:
+          $ref: "#/definitions/Phone"
+      name:
+        type: "string"
+      birthday:
+        type: "string"
 
 required:
   - "appointment"
@@ -679,7 +701,7 @@ properties:
   clientVisitors:
     type: "array"
     items:
-      $ref: "#/definitions/AppointmentClient"
+      $ref: "#/definitions/AppointmentClientVisitor"
 
 
 
