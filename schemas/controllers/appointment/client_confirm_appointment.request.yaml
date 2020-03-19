@@ -16,6 +16,8 @@ definitions:
         properties:
           id:
             type: "string"
+          source:
+            type: "string"
       client:
         type: "object"
         required: ["id"]
