@@ -27,14 +27,6 @@ definitions:
             type: "string"
           comment:
             type: "string"
-          extraVisitors:
-            type: "number"
-          extraFields:
-            type: "array"
-          clientExtraData: 
-            type: "object"
-          clientExtraId:
-            type: "string"          
   Request:
     type: "object"
     required: ["params"]
