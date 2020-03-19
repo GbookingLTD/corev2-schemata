@@ -21,12 +21,20 @@ definitions:
       client:
         type: "object"
         required: ["id"]
-        additionalProperties: false
+        additionalProperties: true
         properties:
           id:
             type: "string"
           comment:
             type: "string"
+          extraVisitors:
+            type: "number"
+          extraFields:
+            type: "array"
+          clientExtraData: 
+            type: "object"
+          clientExtraId:
+            type: "string"          
   Request:
     type: "object"
     required: ["params"]
