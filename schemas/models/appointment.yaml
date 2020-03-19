@@ -243,6 +243,10 @@ definitions:
         $ref: "#/definitions/AppointmentClientFeedback"
       extraData:
         type: "object"
+      parentClientID":
+        type: "string"
+      parentProfileID:
+        type: "string"
 
   Price:
     type: "object"
