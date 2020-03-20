@@ -1186,6 +1186,13 @@ definitions:
       useResourcePageLoading:
         type: "boolean"
         default: false
+      showStartText: 
+        type: "boolean"
+        default: false
+      startTextMessage:
+        type: "string"
+      startTextButton:
+        type: "string"
       newWidgetTheme:
         type: "object"
         additionalProperties: true
