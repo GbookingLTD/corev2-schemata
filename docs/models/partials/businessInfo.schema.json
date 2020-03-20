@@ -136,8 +136,10 @@
             ]
         },
         "align_min_booking_time": {
-            "type": "boolean",
-            "default": false
+            "type": [
+                "boolean",
+                "null"
+            ]
         },
         "images": {
             "type": "array",
