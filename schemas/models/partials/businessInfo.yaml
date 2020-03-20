@@ -49,9 +49,9 @@ properties:
     items:
       $ref: "../additionalField.schema.json"
   contactName:
-    type: "string"
+    type: ["string", "null"]
   website:
-    type: "string"
+    type:  ["string", "null"]
   timetable:
     $ref: "../timetable.schema.json"
   instant_messaging:
