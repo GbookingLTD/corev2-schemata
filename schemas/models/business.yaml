@@ -690,7 +690,7 @@ definitions:
         type: "boolean"
         default: false
       stateLevelHolidays:
-        type: "array"
+        type: ["array", "null"]
         items:
           type: "object"
       stateLevelHolidaysNotWorking:
