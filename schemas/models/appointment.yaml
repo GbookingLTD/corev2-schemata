@@ -187,32 +187,32 @@ definitions:
         type: "string"
       israelCity:
         oneOf:
-          - type: "object"
-            additionalProperties: false
-            required: []
-            properties: []
-          - type: "object"
-            additionalProperties: false
-            required: ["cityId", "name"]
-            properties:
-              cityId:
-                type: "string"
-              name:
-                type: "string"
+        - type: "object"
+          additionalProperties: false
+          required: []
+          properties: {}
+        - type: "object"
+          additionalProperties: false
+          required: ["cityId", "name"]
+          properties:
+            cityId:
+              type: "string"
+            name:
+              type: "string"
       kupatHolim:
         oneOf:
-          - type: "object"
-            additionalProperties: false
-            required: []
-            properties: []
-          - type: "object"
-            additionalProperties: false
-            required: ["kupatHolimId", "name"]
-            properties:
-              kupatHolimId:
-                type: "string"
-              name:
-                type: "string"
+        - type: "object"
+          additionalProperties: false
+          required: []
+          properties: {}
+        - type: "object"
+          additionalProperties: false
+          required: ["kupatHolimId", "name"]
+          properties:
+            kupatHolimId:
+              type: "string"
+            name:
+              type: "string"
       isVIP:
         type: "boolean"
       clientComment:
