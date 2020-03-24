@@ -22,6 +22,20 @@ definitions:
             type: "boolean"
             default: false
 
+          resource:
+            type: "object"
+            properties:
+              id:
+                description: "идентификатор работника, если передано - возвращает все бизнесы нетворка где есть работник с таким ключем"
+                type: "string"
+          
+          taxonomy:
+            type: "object"
+            properties:
+              id:
+                description: "идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой"
+                type: "string"
+
 allOf:
   - $ref: "../../common/request.schema.json"
   - $ref: "#/definitions/Request"
