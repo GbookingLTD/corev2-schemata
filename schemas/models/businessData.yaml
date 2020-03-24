@@ -15,6 +15,14 @@ properties:
     format: "date-time"
   general_info:
     $ref: "./partials/businessInfo.schema.json"
+  taxonomies:
+    type: "array"
+    items:
+      $ref: "#/definitions/BusinessTaxonomy"
+  resources:
+    type: "array"
+    items:
+      $ref: "./resource.schema.json"
   designs:
     type: "array"
     items:
@@ -137,6 +145,14 @@ properties:
       enableMasterImportance:
         type: "boolean"
         default: false
+  
+  activeResourceCount:
+    type: "number"
+    description: "колличество активных рабоников, возвращается при вызове через get_network_data при передаче ключа работника или услуги"
+  
+  activeTaxonomyCount:
+    type: "number"
+    description: "колличество активных услуг, возвращается при вызове через get_network_data при передаче ключа работника или услуги"
       
 required:
 - "general_info"

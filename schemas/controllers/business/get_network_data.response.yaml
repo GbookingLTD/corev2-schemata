@@ -72,7 +72,7 @@ definitions:
                 businessID:
                   type: "string"
                 info:
-                  $ref: "../../models/business.schema.json"
+                  $ref: "../../models/businessData.schema.json"
                 order:
                   type: "number"
                 virtualTaxonomies:
