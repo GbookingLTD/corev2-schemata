@@ -21,6 +21,14 @@ definitions:
               id:
                 type: ["string", "number"]
                 description: "идентификатор бизнеса"
+          network:
+            type: "object"
+            additionalProperties: false
+            required: ["id"]
+            properties:
+              id:
+                type: ["string", "number"]
+                description: "идентификатор нетворка"
           profile:
             type: "object"
             required: ["id"]
