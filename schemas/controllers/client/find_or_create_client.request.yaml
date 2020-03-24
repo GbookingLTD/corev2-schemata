@@ -29,17 +29,6 @@ definitions:
               id:
                 type: ["string", "number"]
                 description: "идентификатор нетворка"
-          profile:
-            type: "object"
-            required: ["id"]
-            additionalProperties: false
-            properties:
-              id:
-                type: "string"
-                description: "идентификатор профиля пользователя"
-          client:
-            $ref: "../../models/client.schema.json"
-
           skipEmailCheck:
             type: "boolean"
             default: false
