@@ -75,7 +75,7 @@ export interface RequestClass {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -113,7 +113,7 @@ export interface Cred {
  *
  * идентификатор бизнеса
  */
-export type Id = number | string;
+export type BackofficeIdUnion = number | string;
 
 /**
  * параметры запроса
@@ -167,7 +167,7 @@ export interface AppointmentCancelAppointmentByBusinessRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -249,7 +249,7 @@ export interface AppointmentCancelAppointmentByClientRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -331,7 +331,7 @@ export interface AppointmentClientConfirmAppointmentRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -348,12 +348,12 @@ export interface AppointmentClientConfirmAppointmentRequest {
 
 export interface ConfirmAppointment {
     appointment: TentacledAppointment;
-    client?:     TentacledClient;
-    business:    any;
+    client:      TentacledClient;
 }
 
 export interface TentacledAppointment {
-    id: string;
+    id:      string;
+    source?: string;
 }
 
 export interface TentacledClient {
@@ -425,13 +425,13 @@ export interface AppointmentSchema {
     cabinet:                  Cabinet;
     capacity?:                number;
     changeReason:             string;
-    client:                   AppointmentClient;
+    client:                   PurpleAppointmentClient;
     client_appear:            AppointmentClientAppear;
     client_med_code?:         string;
     client_payment:           AppointmentClientPayment;
     client_payment_invoice?:  string;
     clientComment:            string;
-    clientVisitors?:          AdditionalClientElement[];
+    clientVisitors?:          AppointmentClientVisitor[];
     color?:                   string;
     destinationKeyword?:      string;
     destinationLink?:         string;
@@ -592,13 +592,13 @@ export interface IncomingPhoneElement {
 }
 
 export interface IsraelCity {
-    cityId: string;
-    name:   string;
+    cityId?: string;
+    name?:   string;
 }
 
 export interface KupatHolim {
-    kupatHolimId: string;
-    name:         string;
+    kupatHolimId?: string;
+    name?:         string;
 }
 
 export enum Sex {
@@ -635,7 +635,7 @@ export interface AppointmentTaxonomy {
 }
 
 export interface AppointmentInfo {
-    backofficeID:        Id;
+    backofficeID:        BackofficeIdUnion;
     blockSMS:            boolean;
     created:             Date;
     drinkAnswer?:        DrinkAnswer;
@@ -720,7 +720,7 @@ export interface Cabinet {
 /**
  * пустой объект в момент резервирования
  */
-export interface AppointmentClient {
+export interface PurpleAppointmentClient {
     address?:             string;
     adminComment?:        string;
     birthday?:            string;
@@ -754,6 +754,17 @@ export interface AppointmentClient {
     surname?:             string;
     taxiPark?:            string;
     taxiParkMemberCount?: number;
+}
+
+export interface AppointmentClientVisitor {
+    birthday?:        string;
+    email?:           string[];
+    extraVisitors?:   number;
+    name?:            string;
+    parentClientID?:  string;
+    parentProfileID?: string;
+    phone?:           IncomingPhoneElement[];
+    sex?:             Sex;
 }
 
 export interface Location {
@@ -826,7 +837,7 @@ export interface AppointmentClientRemoveEmptyAppointmentRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -906,7 +917,7 @@ export interface AppointmentGetAppointmentByFilterRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -932,7 +943,7 @@ export interface AppointmentGetAppointmentByFilterRequestParams {
 }
 
 export interface FluffyBusiness {
-    id?: Id;
+    id?: BackofficeIdUnion;
 }
 
 export interface ExtraFilters {
@@ -969,7 +980,7 @@ export interface FilterCreated {
 }
 
 export interface NetworkClass {
-    id?: Id;
+    id?: BackofficeIdUnion;
 }
 
 export interface AppointmentGetAppointmentByFilterResponse {
@@ -1034,7 +1045,7 @@ export interface AppointmentGetAppointmentByShowcaseRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -1058,7 +1069,7 @@ export interface AppointmentGetAppointmentByShowcaseRequestParams {
 }
 
 export interface TentacledBusiness {
-    id: Id;
+    id: BackofficeIdUnion;
 }
 
 export interface ParamsCreated {
@@ -1115,7 +1126,7 @@ export interface AppointmentReserveAppointmentRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -1148,8 +1159,10 @@ export interface StickyBusiness {
 }
 
 export interface ResourceClass {
-    id: string[];
+    id: ResourceId;
 }
+
+export type ResourceId = string[] | string;
 
 export interface ParamsTaxonomy {
     id: string;
@@ -1212,7 +1225,7 @@ export interface BusinessGetNetworkDataRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -1236,7 +1249,7 @@ export interface BusinessGetNetworkDataRequestParams {
     /**
      * идентификатор сети
      */
-    networkID: Id;
+    networkID: BackofficeIdUnion;
     /**
      * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
      * в массиве businesses
@@ -1393,7 +1406,7 @@ export interface PurpleBackofficeConfiguration {
     manualExceptionSupport?:                          boolean;
     noInternetAlert?:                                 boolean;
     pastTimeEdit?:                                    number;
-    paymentProvider?:                                 PaymentProvider;
+    paymentProvider?:                                 PurplePaymentProvider;
     readonlyResourceSchedule?:                        boolean;
     resourceTimetableType?:                           ResourceTimetableType;
     revisionVersion?:                                 number;
@@ -1464,7 +1477,7 @@ export enum FeedBackMinRating {
     The5 = "5",
 }
 
-export enum PaymentProvider {
+export enum PurplePaymentProvider {
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
     YandexMoney = "yandexMoney",
@@ -1526,13 +1539,14 @@ export interface BusinessInfo {
     /**
      * Адреса компании или филиала
      */
-    address?:               AddressElement[];
-    autoAcceptAppointment?: boolean;
+    address?:                AddressElement[];
+    align_min_booking_time?: boolean | null;
+    autoAcceptAppointment?:  boolean;
     /**
      * если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
      */
     businessShowcaseAliases?: BusinessShowcaseAlias[];
-    contactName?:             string;
+    contactName?:             null | string;
     date_joined?:             Date;
     description?:             string;
     /**
@@ -1577,6 +1591,11 @@ export interface BusinessInfo {
     showAppointmentColor?:   boolean;
     showAppointmentTooltip?: boolean;
     /**
+     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+     * витрины
+     */
+    showcaseBusinessData?: ShowcaseBusinessDatum[];
+    /**
      * идентификаторы витрин, в которых участвует данный бизнес
      */
     showcases?:                  ShowcaseElement[];
@@ -1588,7 +1607,7 @@ export interface BusinessInfo {
     timetable?:                  Timetable;
     timezone?:                   null | string;
     verticalTranslation?:        VerticalTranslation;
-    website?:                    string;
+    website?:                    null | string;
 }
 
 export type AdditionalFields = any[] | boolean | number | number | null | AdditionalFieldsObject | string;
@@ -1714,6 +1733,32 @@ export enum PaymentMethods {
 export enum PricingType {
     Default = "DEFAULT",
     MasterTopmaster = "MASTER_TOPMASTER",
+}
+
+export interface ShowcaseBusinessDatum {
+    /**
+     * Адреса компании или филиала
+     */
+    address?: AddressElement[];
+    /**
+     * Список e-mail адресов компании или филиала
+     */
+    email?:      string;
+    internalID?: string;
+    language?:   LanguageList;
+    /**
+     * Название бизнеса
+     */
+    name?: string;
+    /**
+     * Список телефонов бизнеса
+     */
+    phone?: Phone[];
+    /**
+     * Список видов приема филиала
+     */
+    receptionTypes?: string[];
+    timezone?:       string;
 }
 
 export interface ShowcaseElement {
@@ -1887,7 +1932,7 @@ export interface PurpleWidgetConfiguration {
     noDefaultImages?:                        boolean;
     overrideFooter?:                         string;
     payment?:                                Payment;
-    paymentProvider?:                        PaymentProvider;
+    paymentProvider?:                        PurplePaymentProvider;
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
@@ -1898,6 +1943,7 @@ export interface PurpleWidgetConfiguration {
     showDisabledTaxonomies?:                 boolean;
     showDrinkQuestion?:                      boolean;
     showMap?:                                boolean;
+    showStartText?:                          boolean;
     showSurnameFirst?:                       boolean;
     showTalkQuestion?:                       boolean;
     showTaxonomyConfirmationAlert?:          boolean;
@@ -1916,6 +1962,8 @@ export interface PurpleWidgetConfiguration {
     sortWorkersByWorkload?:                  boolean;
     splitInsuranceClient?:                   boolean;
     splitName?:                              boolean;
+    startTextButton?:                        string;
+    startTextMessage?:                       string;
     tentativeTTL?:                           number;
     theme?:                                  string;
     useAppointmentReminder?:                 boolean;
@@ -2027,7 +2075,7 @@ export interface BusinessGetProfileByIdRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -2065,7 +2113,7 @@ export interface BusinessGetProfileByIdRequestParams {
     /**
      * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
      */
-    showcase_business_id?: Id;
+    showcase_business_id?: BackofficeIdUnion;
     /**
      * если указано true - не приминяет сортировку работников
      */
@@ -2261,7 +2309,7 @@ export interface TentacledBackofficeConfiguration {
     manualExceptionSupport?:                          boolean;
     noInternetAlert?:                                 boolean;
     pastTimeEdit?:                                    number;
-    paymentProvider?:                                 PaymentProvider;
+    paymentProvider?:                                 FluffyPaymentProvider;
     readonlyResourceSchedule?:                        boolean;
     resourceTimetableType?:                           ResourceTimetableType;
     revisionVersion?:                                 number;
@@ -2313,7 +2361,7 @@ export interface TentacledBackofficeConfiguration {
     skipCancelIfClientNotAppear?:                     boolean;
     skipServiceFiltering?:                            boolean;
     splitFullNameXlsExport?:                          boolean;
-    stateLevelHolidays?:                              { [key: string]: any }[];
+    stateLevelHolidays?:                              { [key: string]: any }[] | null;
     stateLevelHolidaysNotWorking?:                    boolean;
     taxonomyChildrenMaxAge?:                          number;
     useAdditionalDurations?:                          boolean;
@@ -2322,6 +2370,13 @@ export interface TentacledBackofficeConfiguration {
     useGtAppMethod?:                                  boolean;
     workWeekEnd?:                                     number;
     workWeekStart?:                                   number;
+}
+
+export enum FluffyPaymentProvider {
+    Cloudpayments = "cloudpayments",
+    DeltaProcessing = "deltaProcessing",
+    Disable = "DISABLE",
+    YandexMoney = "yandexMoney",
 }
 
 export interface StickyBackofficeConfiguration {
@@ -2585,13 +2640,14 @@ export interface Info {
     /**
      * Адреса компании или филиала
      */
-    address?:               AddressElement[];
-    autoAcceptAppointment?: boolean;
+    address?:                AddressElement[];
+    align_min_booking_time?: boolean | null;
+    autoAcceptAppointment?:  boolean;
     /**
      * если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
      */
     businessShowcaseAliases?: BusinessShowcaseAlias[];
-    contactName?:             string;
+    contactName?:             null | string;
     date_joined?:             Date;
     description?:             string;
     /**
@@ -2636,6 +2692,11 @@ export interface Info {
     showAppointmentColor?:   boolean;
     showAppointmentTooltip?: boolean;
     /**
+     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+     * витрины
+     */
+    showcaseBusinessData?: ShowcaseBusinessDatum[];
+    /**
      * идентификаторы витрин, в которых участвует данный бизнес
      */
     showcases?:                  ShowcaseElement[];
@@ -2647,7 +2708,7 @@ export interface Info {
     timetable?:                  Timetable;
     timezone?:                   null | string;
     verticalTranslation?:        VerticalTranslation;
-    website?:                    string;
+    website?:                    null | string;
 }
 
 /**
@@ -2755,9 +2816,13 @@ export interface BusinessTaxonomy {
     popularity?:                 number;
     price?:                      TaxonomyPrice;
     priceLink?:                  string;
-    rooms?:                      string[];
-    showcaseItems?:              ShowcaseItem[];
-    showcases?:                  TaxonomyShowcase[];
+    /**
+     * Список видов приема услуги
+     */
+    receptionTypes?: string[];
+    rooms?:          string[];
+    showcaseItems?:  ShowcaseItem[];
+    showcases?:      TaxonomyShowcase[];
     /**
      * Идентификатор услуги в витрине
      */
@@ -2919,7 +2984,11 @@ export interface ShowcaseItem {
     _id?:                 string;
     additionalDurations?: ShowcaseItemAdditionalDuration[];
     businessID?:          string;
-    taxonomyID?:          string;
+    /**
+     * Список видов приема услуги
+     */
+    receptionTypes?: string[];
+    taxonomyID?:     string;
 }
 
 export interface ShowcaseItemAdditionalDuration {
@@ -3011,7 +3080,7 @@ export interface FluffyWidgetConfiguration {
     noDefaultImages?:                        boolean;
     overrideFooter?:                         string;
     payment?:                                Payment;
-    paymentProvider?:                        PaymentProvider;
+    paymentProvider?:                        FluffyPaymentProvider;
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
@@ -3022,6 +3091,7 @@ export interface FluffyWidgetConfiguration {
     showDisabledTaxonomies?:                 boolean;
     showDrinkQuestion?:                      boolean;
     showMap?:                                boolean;
+    showStartText?:                          boolean;
     showSurnameFirst?:                       boolean;
     showTalkQuestion?:                       boolean;
     showTaxonomyConfirmationAlert?:          boolean;
@@ -3040,6 +3110,8 @@ export interface FluffyWidgetConfiguration {
     sortWorkersByWorkload?:                  boolean;
     splitInsuranceClient?:                   boolean;
     splitName?:                              boolean;
+    startTextButton?:                        string;
+    startTextMessage?:                       string;
     tentativeTTL?:                           number;
     theme?:                                  string;
     useAppointmentReminder?:                 boolean;
@@ -3168,7 +3240,7 @@ export interface ClientAddClientRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3198,7 +3270,7 @@ export interface CunningBusiness {
     /**
      * идентификатор бизнеса
      */
-    id: Id;
+    id: BackofficeIdUnion;
 }
 
 /**
@@ -3297,7 +3369,7 @@ export interface ClientFindOrCreateClientRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3327,7 +3399,7 @@ export interface FriskyBusiness {
     /**
      * идентификатор бизнеса
      */
-    id: Id;
+    id: BackofficeIdUnion;
 }
 
 export interface TentacledProfile {
@@ -3412,7 +3484,7 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3501,7 +3573,7 @@ export interface CracCracResourcesFreeByDateRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3586,7 +3658,7 @@ export interface CracCracResourcesFreeByDateV2Request {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3677,7 +3749,7 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3801,7 +3873,7 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -3918,7 +3990,7 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
-    id: Id;
+    id: BackofficeIdUnion;
     /**
      * версия протокола - 2.0
      */
@@ -4447,12 +4519,20 @@ export class Convert {
         return JSON.stringify(uncast(value, r("Cabinet")), null, 2);
     }
 
-    public static toAppointmentClient(json: string): AppointmentClient {
-        return cast(JSON.parse(json), r("AppointmentClient"));
+    public static toPurpleAppointmentClient(json: string): PurpleAppointmentClient {
+        return cast(JSON.parse(json), r("PurpleAppointmentClient"));
     }
 
-    public static appointmentClientToJson(value: AppointmentClient): string {
-        return JSON.stringify(uncast(value, r("AppointmentClient")), null, 2);
+    public static purpleAppointmentClientToJson(value: PurpleAppointmentClient): string {
+        return JSON.stringify(uncast(value, r("PurpleAppointmentClient")), null, 2);
+    }
+
+    public static toAppointmentClientVisitor(json: string): AppointmentClientVisitor {
+        return cast(JSON.parse(json), r("AppointmentClientVisitor"));
+    }
+
+    public static appointmentClientVisitorToJson(value: AppointmentClientVisitor): string {
+        return JSON.stringify(uncast(value, r("AppointmentClientVisitor")), null, 2);
     }
 
     public static toLocation(json: string): Location {
@@ -4997,6 +5077,14 @@ export class Convert {
 
     public static metroToJson(value: Metro): string {
         return JSON.stringify(uncast(value, r("Metro")), null, 2);
+    }
+
+    public static toShowcaseBusinessDatum(json: string): ShowcaseBusinessDatum {
+        return cast(JSON.parse(json), r("ShowcaseBusinessDatum"));
+    }
+
+    public static showcaseBusinessDatumToJson(value: ShowcaseBusinessDatum): string {
+        return JSON.stringify(uncast(value, r("ShowcaseBusinessDatum")), null, 2);
     }
 
     public static toShowcaseElement(json: string): ShowcaseElement {
@@ -6482,16 +6570,16 @@ const typeMap: any = {
     ], false),
     "ConfirmAppointment": o([
         { json: "appointment", js: "appointment", typ: r("TentacledAppointment") },
-        { json: "client", js: "client", typ: u(undefined, r("TentacledClient")) },
-        { json: "business", js: "business", typ: "any" },
+        { json: "client", js: "client", typ: r("TentacledClient") },
     ], "any"),
     "TentacledAppointment": o([
         { json: "id", js: "id", typ: "" },
+        { json: "source", js: "source", typ: u(undefined, "") },
     ], false),
     "TentacledClient": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
-    ], false),
+    ], "any"),
     "AppointmentClientConfirmAppointmentResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
@@ -6523,13 +6611,13 @@ const typeMap: any = {
         { json: "cabinet", js: "cabinet", typ: r("Cabinet") },
         { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
         { json: "changeReason", js: "changeReason", typ: "" },
-        { json: "client", js: "client", typ: r("AppointmentClient") },
+        { json: "client", js: "client", typ: r("PurpleAppointmentClient") },
         { json: "client_appear", js: "client_appear", typ: r("AppointmentClientAppear") },
         { json: "client_med_code", js: "client_med_code", typ: u(undefined, "") },
         { json: "client_payment", js: "client_payment", typ: r("AppointmentClientPayment") },
         { json: "client_payment_invoice", js: "client_payment_invoice", typ: u(undefined, "") },
         { json: "clientComment", js: "clientComment", typ: "" },
-        { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AdditionalClientElement"))) },
+        { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AppointmentClientVisitor"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "destinationKeyword", js: "destinationKeyword", typ: u(undefined, "") },
         { json: "destinationLink", js: "destinationLink", typ: u(undefined, "") },
@@ -6640,12 +6728,12 @@ const typeMap: any = {
         { json: "number", js: "number", typ: "" },
     ], false),
     "IsraelCity": o([
-        { json: "cityId", js: "cityId", typ: "" },
-        { json: "name", js: "name", typ: "" },
+        { json: "cityId", js: "cityId", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
     "KupatHolim": o([
-        { json: "kupatHolimId", js: "kupatHolimId", typ: "" },
-        { json: "name", js: "name", typ: "" },
+        { json: "kupatHolimId", js: "kupatHolimId", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
     "AdditionalField": o([
         { json: "name", js: "name", typ: "" },
@@ -6704,7 +6792,7 @@ const typeMap: any = {
     "Cabinet": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], false),
-    "AppointmentClient": o([
+    "PurpleAppointmentClient": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, "") },
@@ -6738,6 +6826,16 @@ const typeMap: any = {
         { json: "surname", js: "surname", typ: u(undefined, "") },
         { json: "taxiPark", js: "taxiPark", typ: u(undefined, "") },
         { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, 3.14) },
+    ], false),
+    "AppointmentClientVisitor": o([
+        { json: "birthday", js: "birthday", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, a("")) },
+        { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, 3.14) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "parentClientID", js: "parentClientID", typ: u(undefined, "") },
+        { json: "parentProfileID", js: "parentProfileID", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
+        { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
     ], false),
     "Location": o([
         { json: "latitude", js: "latitude", typ: 3.14 },
@@ -6937,7 +7035,7 @@ const typeMap: any = {
         { json: "id", js: "id", typ: "" },
     ], false),
     "ResourceClass": o([
-        { json: "id", js: "id", typ: a("") },
+        { json: "id", js: "id", typ: u(a(""), "") },
     ], false),
     "ParamsTaxonomy": o([
         { json: "id", js: "id", typ: "" },
@@ -7076,7 +7174,7 @@ const typeMap: any = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -7166,9 +7264,10 @@ const typeMap: any = {
         { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
         { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(u(a("any"), true, 3.14, 0, null, r("AdditionalFieldsObject"), ""))) },
         { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
         { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
         { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
-        { json: "contactName", js: "contactName", typ: u(undefined, "") },
+        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
         { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "email", js: "email", typ: u(undefined, "") },
@@ -7194,6 +7293,7 @@ const typeMap: any = {
         { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
         { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
         { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
+        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
         { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
         { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
         { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
@@ -7203,7 +7303,7 @@ const typeMap: any = {
         { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
         { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
-        { json: "website", js: "website", typ: u(undefined, "") },
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
     ], false),
     "AdditionalFieldsObject": o([
         { json: "name", js: "name", typ: "" },
@@ -7263,6 +7363,16 @@ const typeMap: any = {
         { json: "distance", js: "distance", typ: u(undefined, 3.14) },
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
+    "ShowcaseBusinessDatum": o([
+        { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "internalID", js: "internalID", typ: u(undefined, "") },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "timezone", js: "timezone", typ: u(undefined, "") },
+    ], "any"),
     "ShowcaseElement": o([
         { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
     ], false),
@@ -7369,7 +7479,7 @@ const typeMap: any = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -7380,6 +7490,7 @@ const typeMap: any = {
         { json: "showDisabledTaxonomies", js: "showDisabledTaxonomies", typ: u(undefined, true) },
         { json: "showDrinkQuestion", js: "showDrinkQuestion", typ: u(undefined, true) },
         { json: "showMap", js: "showMap", typ: u(undefined, true) },
+        { json: "showStartText", js: "showStartText", typ: u(undefined, true) },
         { json: "showSurnameFirst", js: "showSurnameFirst", typ: u(undefined, true) },
         { json: "showTalkQuestion", js: "showTalkQuestion", typ: u(undefined, true) },
         { json: "showTaxonomyConfirmationAlert", js: "showTaxonomyConfirmationAlert", typ: u(undefined, true) },
@@ -7398,6 +7509,8 @@ const typeMap: any = {
         { json: "sortWorkersByWorkload", js: "sortWorkersByWorkload", typ: u(undefined, true) },
         { json: "splitInsuranceClient", js: "splitInsuranceClient", typ: u(undefined, true) },
         { json: "splitName", js: "splitName", typ: u(undefined, true) },
+        { json: "startTextButton", js: "startTextButton", typ: u(undefined, "") },
+        { json: "startTextMessage", js: "startTextMessage", typ: u(undefined, "") },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
@@ -7591,7 +7704,7 @@ const typeMap: any = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -7643,7 +7756,7 @@ const typeMap: any = {
         { json: "skipCancelIfClientNotAppear", js: "skipCancelIfClientNotAppear", typ: u(undefined, true) },
         { json: "skipServiceFiltering", js: "skipServiceFiltering", typ: u(undefined, true) },
         { json: "splitFullNameXlsExport", js: "splitFullNameXlsExport", typ: u(undefined, true) },
-        { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
+        { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, u(a(m("any")), null)) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
@@ -7751,9 +7864,10 @@ const typeMap: any = {
         { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
         { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(u(a("any"), true, 3.14, 0, null, r("AdditionalFieldsObject"), ""))) },
         { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
         { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
         { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
-        { json: "contactName", js: "contactName", typ: u(undefined, "") },
+        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
         { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "email", js: "email", typ: u(undefined, "") },
@@ -7779,6 +7893,7 @@ const typeMap: any = {
         { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
         { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
         { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
+        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
         { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
         { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
         { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
@@ -7788,7 +7903,7 @@ const typeMap: any = {
         { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
         { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
-        { json: "website", js: "website", typ: u(undefined, "") },
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
     ], false),
     "ИнформацияОПрофилеРаботника": o([
         { json: "accessType", js: "accessType", typ: r("AccessType") },
@@ -7851,6 +7966,7 @@ const typeMap: any = {
         { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
         { json: "price", js: "price", typ: u(undefined, r("TaxonomyPrice")) },
         { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
         { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("ShowcaseItem"))) },
         { json: "showcases", js: "showcases", typ: u(undefined, a(r("TaxonomyShowcase"))) },
@@ -7914,6 +8030,7 @@ const typeMap: any = {
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("ShowcaseItemAdditionalDuration"))) },
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
     "ShowcaseItemAdditionalDuration": o([
@@ -7992,7 +8109,7 @@ const typeMap: any = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -8003,6 +8120,7 @@ const typeMap: any = {
         { json: "showDisabledTaxonomies", js: "showDisabledTaxonomies", typ: u(undefined, true) },
         { json: "showDrinkQuestion", js: "showDrinkQuestion", typ: u(undefined, true) },
         { json: "showMap", js: "showMap", typ: u(undefined, true) },
+        { json: "showStartText", js: "showStartText", typ: u(undefined, true) },
         { json: "showSurnameFirst", js: "showSurnameFirst", typ: u(undefined, true) },
         { json: "showTalkQuestion", js: "showTalkQuestion", typ: u(undefined, true) },
         { json: "showTaxonomyConfirmationAlert", js: "showTaxonomyConfirmationAlert", typ: u(undefined, true) },
@@ -8021,6 +8139,8 @@ const typeMap: any = {
         { json: "sortWorkersByWorkload", js: "sortWorkersByWorkload", typ: u(undefined, true) },
         { json: "splitInsuranceClient", js: "splitInsuranceClient", typ: u(undefined, true) },
         { json: "splitName", js: "splitName", typ: u(undefined, true) },
+        { json: "startTextButton", js: "startTextButton", typ: u(undefined, "") },
+        { json: "startTextMessage", js: "startTextMessage", typ: u(undefined, "") },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
@@ -8644,7 +8764,7 @@ const typeMap: any = {
         "4",
         "5",
     ],
-    "PaymentProvider": [
+    "PurplePaymentProvider": [
         "deltaProcessing",
         "DISABLE",
         "yandexMoney",
@@ -8773,6 +8893,12 @@ const typeMap: any = {
         "most_free",
         "none",
         "workload",
+    ],
+    "FluffyPaymentProvider": [
+        "cloudpayments",
+        "deltaProcessing",
+        "DISABLE",
+        "yandexMoney",
     ],
     "StartPeriod": [
         "month",

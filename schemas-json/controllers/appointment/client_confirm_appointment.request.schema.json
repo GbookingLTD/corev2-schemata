@@ -8,7 +8,7 @@
             "type": "object",
             "required": [
                 "appointment",
-                "business"
+                "client"
             ],
             "properties": {
                 "appointment": {
@@ -20,6 +20,9 @@
                     "properties": {
                         "id": {
                             "type": "string"
+                        },
+                        "source": {
+                            "type": "string"
                         }
                     }
                 },
@@ -28,7 +31,7 @@
                     "required": [
                         "id"
                     ],
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "id": {
                             "type": "string"

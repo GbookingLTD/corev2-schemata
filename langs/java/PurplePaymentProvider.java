@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
-public enum PaymentProvider {
+public enum PurplePaymentProvider {
     DELTA_PROCESSING, DISABLE, YANDEX_MONEY;
 
     @JsonValue
@@ -18,10 +18,10 @@ public enum PaymentProvider {
     }
 
     @JsonCreator
-    public static PaymentProvider forValue(String value) throws IOException {
+    public static PurplePaymentProvider forValue(String value) throws IOException {
         if (value.equals("deltaProcessing")) return DELTA_PROCESSING;
         if (value.equals("DISABLE")) return DISABLE;
         if (value.equals("yandexMoney")) return YANDEX_MONEY;
-        throw new IOException("Cannot deserialize PaymentProvider");
+        throw new IOException("Cannot deserialize PurplePaymentProvider");
     }
 }

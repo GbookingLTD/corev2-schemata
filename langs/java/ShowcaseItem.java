@@ -7,6 +7,7 @@ public class ShowcaseItem {
     private String id;
     private List<ShowcaseItemAdditionalDuration> additionalDurations;
     private String businessID;
+    private List<String> receptionTypes;
     private String taxonomyID;
 
     @JsonProperty("_id")
@@ -23,6 +24,14 @@ public class ShowcaseItem {
     public String getBusinessID() { return businessID; }
     @JsonProperty("businessID")
     public void setBusinessID(String value) { this.businessID = value; }
+
+    /**
+     * Список видов приема услуги
+     */
+    @JsonProperty("receptionTypes")
+    public List<String> getReceptionTypes() { return receptionTypes; }
+    @JsonProperty("receptionTypes")
+    public void setReceptionTypes(List<String> value) { this.receptionTypes = value; }
 
     @JsonProperty("taxonomyID")
     public String getTaxonomyID() { return taxonomyID; }

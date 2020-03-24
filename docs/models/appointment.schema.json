@@ -291,36 +291,56 @@
                     "type": "string"
                 },
                 "israelCity": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                        "cityId",
-                        "name"
-                    ],
-                    "properties": {
-                        "cityId": {
-                            "type": "string"
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [],
+                            "properties": {}
                         },
-                        "name": {
-                            "type": "string"
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "cityId",
+                                "name"
+                            ],
+                            "properties": {
+                                "cityId": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
                         }
-                    }
+                    ]
                 },
                 "kupatHolim": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                        "kupatHolimId",
-                        "name"
-                    ],
-                    "properties": {
-                        "kupatHolimId": {
-                            "type": "string"
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [],
+                            "properties": {}
                         },
-                        "name": {
-                            "type": "string"
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "kupatHolimId",
+                                "name"
+                            ],
+                            "properties": {
+                                "kupatHolimId": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
                         }
-                    }
+                    ]
                 },
                 "isVIP": {
                     "type": "boolean"
@@ -536,6 +556,47 @@
                             "type": "string"
                         }
                     }
+                }
+            }
+        },
+        "AppointmentClientVisitor": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "parentClientID": {
+                    "type": "string"
+                },
+                "parentProfileID": {
+                    "type": "string"
+                },
+                "sex": {
+                    "type": "string",
+                    "enum": [
+                        "MALE",
+                        "FEMALE",
+                        "NOT_SPECIFIED"
+                    ]
+                },
+                "email": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "extraVisitors": {
+                    "type": "number"
+                },
+                "phone": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Phone"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
                 }
             }
         }
@@ -1012,7 +1073,7 @@
         "clientVisitors": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/AppointmentClient"
+                "$ref": "#/definitions/AppointmentClientVisitor"
             }
         }
     }

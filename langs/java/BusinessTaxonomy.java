@@ -50,6 +50,7 @@ public class BusinessTaxonomy {
     private Double popularity;
     private TaxonomyPrice price;
     private String priceLink;
+    private List<String> receptionTypes;
     private List<String> rooms;
     private List<ShowcaseItem> showcaseItems;
     private List<TaxonomyShowcase> showcases;
@@ -293,6 +294,14 @@ public class BusinessTaxonomy {
     public String getPriceLink() { return priceLink; }
     @JsonProperty("priceLink")
     public void setPriceLink(String value) { this.priceLink = value; }
+
+    /**
+     * Список видов приема услуги
+     */
+    @JsonProperty("receptionTypes")
+    public List<String> getReceptionTypes() { return receptionTypes; }
+    @JsonProperty("receptionTypes")
+    public void setReceptionTypes(List<String> value) { this.receptionTypes = value; }
 
     @JsonProperty("rooms")
     public List<String> getRooms() { return rooms; }

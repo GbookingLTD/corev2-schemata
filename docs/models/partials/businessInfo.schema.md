@@ -18,9 +18,10 @@ schemas-json/models/partials/businessInfo.schema.json
 | [additionalFields](#additionalfields)                     | reference  | Optional | No       |             | BusinessInfo (this schema) |
 | [additional_info](#additional_info)                       | `string`   | Optional | Yes      |             | BusinessInfo (this schema) |
 | [address](#address)                                       | reference  | Optional | No       |             | BusinessInfo (this schema) |
+| [align_min_booking_time](#align_min_booking_time)         | `boolean`  | Optional | Yes      |             | BusinessInfo (this schema) |
 | [autoAcceptAppointment](#autoacceptappointment)           | `boolean`  | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [businessShowcaseAliases](#businessshowcasealiases)       | `object[]` | Optional | No       |             | BusinessInfo (this schema) |
-| [contactName](#contactname)                               | `string`   | Optional | No       |             | BusinessInfo (this schema) |
+| [contactName](#contactname)                               | `string`   | Optional | Yes      |             | BusinessInfo (this schema) |
 | [date_joined](#date_joined)                               | `string`   | Optional | No       |             | BusinessInfo (this schema) |
 | [description](#description)                               | `string`   | Optional | No       |             | BusinessInfo (this schema) |
 | [email](#email)                                           | `string`   | Optional | No       |             | BusinessInfo (this schema) |
@@ -48,6 +49,7 @@ schemas-json/models/partials/businessInfo.schema.json
 | [showAppointmentTooltip](#showappointmenttooltip)         | `boolean`  | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [showResourceWorkStatistics](#showresourceworkstatistics) | `boolean`  | Optional | No       |             | BusinessInfo (this schema) |
 | [showWorkerProfession](#showworkerprofession)             | `boolean`  | Optional | No       | `false`     | BusinessInfo (this schema) |
+| [showcaseBusinessData](#showcasebusinessdata)             | `object[]` | Optional | No       |             | BusinessInfo (this schema) |
 | [showcases](#showcases)                                   | `object[]` | Optional | No       |             | BusinessInfo (this schema) |
 | [skipBilling](#skipbilling)                               | `boolean`  | Optional | No       | `false`     | BusinessInfo (this schema) |
 | [smsDuplicateFilter](#smsduplicatefilter)                 | `object`   | Optional | No       |             | BusinessInfo (this schema) |
@@ -55,7 +57,7 @@ schemas-json/models/partials/businessInfo.schema.json
 | [timetable](#timetable)                                   | reference  | Optional | No       |             | BusinessInfo (this schema) |
 | [timezone](#timezone)                                     | `string`   | Optional | Yes      |             | BusinessInfo (this schema) |
 | [verticalTranslation](#verticaltranslation)               | `enum`     | Optional | No       | `"NONE"`    | BusinessInfo (this schema) |
-| [website](#website)                                       | `string`   | Optional | No       |             | BusinessInfo (this schema) |
+| [website](#website)                                       | `string`   | Optional | Yes      |             | BusinessInfo (this schema) |
 
 ## accepted_currency
 
@@ -117,6 +119,18 @@ All items must be of the type:
 
 - []() – `../address.schema.json`
 
+## align_min_booking_time
+
+`align_min_booking_time`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### align_min_booking_time Type
+
+`boolean` , nullable
+
 ## autoAcceptAppointment
 
 `autoAcceptAppointment`
@@ -171,7 +185,7 @@ All items must be of the type: `object` with following properties:
 
 ### contactName Type
 
-`string`
+`string`, nullable
 
 ## date_joined
 
@@ -633,6 +647,141 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## showcaseBusinessData
+
+если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из витрины
+
+`showcaseBusinessData`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### showcaseBusinessData Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property         | Type   | Required |
+| ---------------- | ------ | -------- |
+| `address`        | array  | Optional |
+| `email`          | string | Optional |
+| `internalID`     | string | Optional |
+| `language`       |        | Optional |
+| `name`           | string | Optional |
+| `phone`          | array  | Optional |
+| `receptionTypes` | array  | Optional |
+| `timezone`       | string | Optional |
+
+#### address
+
+Адреса компании или филиала
+
+`address`
+
+- is optional
+- type: reference
+
+##### address Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `../address.schema.json`
+
+#### email
+
+Список e-mail адресов компании или филиала
+
+`email`
+
+- is optional
+- type: `string`
+
+##### email Type
+
+`string`
+
+#### internalID
+
+`internalID`
+
+- is optional
+- type: `string`
+
+##### internalID Type
+
+`string`
+
+#### language
+
+`language`
+
+- is optional
+- type: reference
+
+##### language Type
+
+- []() – `language.schema.json#/definitions/LanguageList`
+
+#### name
+
+Название бизнеса
+
+`name`
+
+- is optional
+- type: `string`
+
+##### name Type
+
+`string`
+
+#### phone
+
+Список телефонов бизнеса
+
+`phone`
+
+- is optional
+- type: reference
+
+##### phone Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `../phone.schema.json`
+
+#### receptionTypes
+
+Список видов приема филиала
+
+`receptionTypes`
+
+- is optional
+- type: `string[]`
+
+##### receptionTypes Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
+
+#### timezone
+
+`timezone`
+
+- is optional
+- type: `string`
+
+##### timezone Type
+
+`string`
+
 ## showcases
 
 идентификаторы витрин, в которых участвует данный бизнес
@@ -777,4 +926,4 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### website Type
 
-`string`
+`string`, nullable

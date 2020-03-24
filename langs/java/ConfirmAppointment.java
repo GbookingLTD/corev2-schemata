@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.*;
 public class ConfirmAppointment {
     private TentacledAppointment appointment;
     private TentacledClient client;
-    private Object business;
 
     @JsonProperty("appointment")
     public TentacledAppointment getAppointment() { return appointment; }
@@ -17,9 +16,4 @@ public class ConfirmAppointment {
     public TentacledClient getClient() { return client; }
     @JsonProperty("client")
     public void setClient(TentacledClient value) { this.client = value; }
-
-    @JsonProperty("business")
-    public Object getBusiness() { return business; }
-    @JsonProperty("business")
-    public void setBusiness(Object value) { this.business = value; }
 }

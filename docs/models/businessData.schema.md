@@ -161,6 +161,7 @@ schemas-json/models/businessData.schema.json
 | [showPassportId](#showpassportid)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
 | [showRooms](#showrooms)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
 | [showSeasonTickets](#showseasontickets)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
+| [showStartText](#showstarttext)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [showSurnameFirst](#showsurnamefirst)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [showTalkQuestion](#showtalkquestion)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [showTaxonomyChildren](#showtaxonomychildren)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
@@ -193,6 +194,8 @@ schemas-json/models/businessData.schema.json
 | [splitFullNameXlsExport](#splitfullnamexlsexport)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
 | [splitInsuranceClient](#splitinsuranceclient)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [splitName](#splitname)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
+| [startTextButton](#starttextbutton)                                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
+| [startTextMessage](#starttextmessage)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
 | [stateLevelHolidays](#statelevelholidays)                                                           | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
 | [taxonomyChildrenMaxAge](#taxonomychildrenmaxage)                                                   | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
 | [tentativeTTL](#tentativettl)                                                                       | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
@@ -2359,6 +2362,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## showStartText
+
+`showStartText`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### showStartText Type
+
+`boolean`
+
 ## showSurnameFirst
 
 `showSurnameFirst`
@@ -2854,6 +2870,30 @@ The value of this property **must** be equal to one of the [known values below](
 ### splitName Type
 
 `boolean`
+
+## startTextButton
+
+`startTextButton`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### startTextButton Type
+
+`string`
+
+## startTextMessage
+
+`startTextMessage`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### startTextMessage Type
+
+`string`
 
 ## stateLevelHolidays
 
@@ -5264,6 +5304,7 @@ Array type: `array`
 | `showDisabledTaxonomies`                 | boolean | Optional | `false`         |
 | `showDrinkQuestion`                      | boolean | Optional | `false`         |
 | `showMap`                                | boolean | Optional | `false`         |
+| `showStartText`                          | boolean | Optional | `false`         |
 | `showSurnameFirst`                       | boolean | Optional | `false`         |
 | `showTalkQuestion`                       | boolean | Optional | `false`         |
 | `showTaxonomyConfirmationAlert`          | boolean | Optional | `false`         |
@@ -5282,6 +5323,8 @@ Array type: `array`
 | `sortWorkersByWorkload`                  | boolean | Optional | `false`         |
 | `splitInsuranceClient`                   | boolean | Optional | `false`         |
 | `splitName`                              | boolean | Optional | `false`         |
+| `startTextButton`                        | string  | Optional |                 |
+| `startTextMessage`                       | string  | Optional |                 |
 | `tentativeTTL`                           | number  | Optional |                 |
 | `theme`                                  | string  | Optional | `"theme1"`      |
 | `useAppointmentReminder`                 | boolean | Optional | `false`         |
@@ -6302,6 +6345,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+#### showStartText
+
+`showStartText`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### showStartText Type
+
+`boolean`
+
 #### showSurnameFirst
 
 `showSurnameFirst`
@@ -6598,6 +6653,28 @@ The value of this property **must** be equal to one of the [known values below](
 ##### splitName Type
 
 `boolean`
+
+#### startTextButton
+
+`startTextButton`
+
+- is optional
+- type: `string`
+
+##### startTextButton Type
+
+`string`
+
+#### startTextMessage
+
+`startTextMessage`
+
+- is optional
+- type: `string`
+
+##### startTextMessage Type
+
+`string`
 
 #### tentativeTTL
 

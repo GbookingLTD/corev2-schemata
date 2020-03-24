@@ -76,10 +76,16 @@
             }
         },
         "contactName": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "website": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "timetable": {
             "$ref": "../timetable.schema.json"
@@ -285,6 +291,54 @@
                 "properties": {
                     "internalID": {
                         "type": "string"
+                    }
+                },
+                "additionalProperties": true
+            }
+        },
+        "showcaseBusinessData": {
+            "description": "если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из витрины",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "internalID": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Название бизнеса",
+                        "type": "string"
+                    },
+                    "address": {
+                        "description": "Адреса компании или филиала",
+                        "type": "array",
+                        "items": {
+                            "$ref": "../address.schema.json"
+                        }
+                    },
+                    "email": {
+                        "description": "Список e-mail адресов компании или филиала",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "description": "Список телефонов бизнеса",
+                        "type": "array",
+                        "items": {
+                            "$ref": "../phone.schema.json"
+                        }
+                    },
+                    "language": {
+                        "$ref": "language.schema.json#/definitions/LanguageList"
+                    },
+                    "timezone": {
+                        "type": "string"
+                    },
+                    "receptionTypes": {
+                        "description": "Список видов приема филиала",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "additionalProperties": true

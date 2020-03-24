@@ -42,7 +42,7 @@ public class PurpleBackofficeConfiguration {
     private Boolean manualExceptionSupport;
     private Boolean noInternetAlert;
     private Double pastTimeEdit;
-    private PaymentProvider paymentProvider;
+    private PurplePaymentProvider paymentProvider;
     private Boolean readonlyResourceSchedule;
     private ResourceTimetableType resourceTimetableType;
     private Double revisionVersion;
@@ -295,9 +295,9 @@ public class PurpleBackofficeConfiguration {
     public void setPastTimeEdit(Double value) { this.pastTimeEdit = value; }
 
     @JsonProperty("paymentProvider")
-    public PaymentProvider getPaymentProvider() { return paymentProvider; }
+    public PurplePaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(PaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(PurplePaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("readonlyResourceSchedule")
     public Boolean getReadonlyResourceSchedule() { return readonlyResourceSchedule; }

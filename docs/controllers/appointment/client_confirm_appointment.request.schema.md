@@ -30,6 +30,7 @@ schemas-json/controllers/appointment/client_confirm_appointment.request.schema.j
 | Property | Type   | Required     |
 | -------- | ------ | ------------ |
 | `id`     | string | **Required** |
+| `source` | string | Optional     |
 
 #### id
 
@@ -42,11 +43,22 @@ schemas-json/controllers/appointment/client_confirm_appointment.request.schema.j
 
 `string`
 
+#### source
+
+`source`
+
+- is optional
+- type: `string`
+
+##### source Type
+
+`string`
+
 ## client
 
 `client`
 
-- is optional
+- is **required**
 - type: `object`
 - defined in this schema
 
@@ -103,7 +115,7 @@ schemas-json/controllers/appointment/client_confirm_appointment.request.schema.j
 | Property      | Type   | Required     |
 | ------------- | ------ | ------------ |
 | `appointment` | object | **Required** |
-| `client`      | object | Optional     |
+| `client`      | object | **Required** |
 
 #### appointment
 
@@ -119,6 +131,7 @@ schemas-json/controllers/appointment/client_confirm_appointment.request.schema.j
 | Property | Type   | Required     |
 | -------- | ------ | ------------ |
 | `id`     | string | **Required** |
+| `source` | string | Optional     |
 
 #### id
 
@@ -131,11 +144,22 @@ schemas-json/controllers/appointment/client_confirm_appointment.request.schema.j
 
 `string`
 
+#### source
+
+`source`
+
+- is optional
+- type: `string`
+
+##### source Type
+
+`string`
+
 #### client
 
 `client`
 
-- is optional
+- is **required**
 - type: `object`
 
 ##### client Type
