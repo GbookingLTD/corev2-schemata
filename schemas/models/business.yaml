@@ -145,7 +145,15 @@ properties:
       enableMasterImportance:
         type: "boolean"
         default: false
-      
+  
+  activeResourceCount:
+    type: "number"
+    description: "колличество активных рабоников, возвращается при вызове через get_network_data при передаче ключа работника или услуги"
+  
+  activeTaxonomyCount:
+    type: "number"
+    description: "колличество активных услуг, возвращается при вызове через get_network_data при передаче ключа работника или услуги"
+
 required:
 - "general_info"
 - "widget_configuration"
