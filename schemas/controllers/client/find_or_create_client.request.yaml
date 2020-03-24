@@ -11,7 +11,7 @@ definitions:
         description: "параметры запроса"
         type: "object"
         additionalProperties: false
-        required: ["business", "client"]
+        required: ["business"]
         properties:
           business:
             type: "object"
