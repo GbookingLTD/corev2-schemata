@@ -18,7 +18,7 @@ gen_java: clear_java
 clear_java:
 	rm -f ./langs/java/*
 
-gen_csharp: clear_csharp
+gen_csharp: json clear_csharp
 	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l csharp \
 		-o ./langs/csharp/GBookingCoreV2.cs \
 		--namespace GBookingCoreV2 \
@@ -30,7 +30,7 @@ gen_csharp: clear_csharp
 clear_csharp:
 	rm -f ./langs/csharp/*
 
-gen_typescript: clear_typescript
+gen_typescript: json clear_typescript
 	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l ts \
  		-o ./langs/typescript/GBookingCoreV2.ts \
 		--no-just-types \
@@ -42,7 +42,7 @@ gen_typescript: clear_typescript
 clear_typescript:
 	rm -f ./langs/typescript/*
 
-gen_golang: clear_golang
+gen_golang: json clear_golang
 	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l golang \
 		-o ./langs/golang/GBookingCoreV2.go \
 		--no-just-types \
@@ -51,7 +51,7 @@ gen_golang: clear_golang
 clear_golang:
 	rm -f ./langs/golang/*
 
-gen_python: clear_python
+gen_python: json clear_python
 	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l python \
 		-o ./langs/python/GBookingCoreV2.py \
 		--no-just-types \
