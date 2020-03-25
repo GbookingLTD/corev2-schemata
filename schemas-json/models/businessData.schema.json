@@ -320,6 +320,15 @@
                     "type": "number",
                     "default": 25
                 },
+                "scheduleDefaultWorkersLimitView": {
+                    "type": "string",
+                    "enum": [
+                        "DAY",
+                        "WEEK",
+                        "DAY_WEEK"
+                    ],
+                    "default": "DAY_WEEK"
+                },
                 "resourceTimetableType": {
                     "type": "string",
                     "enum": [
