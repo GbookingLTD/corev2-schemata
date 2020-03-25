@@ -145,7 +145,7 @@ properties:
       enableMasterImportance:
         type: "boolean"
         default: false
-  
+      
 required:
 - "general_info"
 - "widget_configuration"
@@ -698,7 +698,7 @@ definitions:
         default: false
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "DISABLE"]
+        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
       showDefaulterBlockscreen:
         type: "boolean"
         default: false
