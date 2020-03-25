@@ -976,7 +976,7 @@ definitions:
         default: "WITHOUT"
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "DISABLE"]
+        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
         default: "yandexMoney"
       alignmentTaxonomySlots:
         type: "boolean"
