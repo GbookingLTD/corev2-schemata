@@ -4,10 +4,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class ResourceClass {
-    private List<String> id;
+    private ID id;
 
     @JsonProperty("id")
-    public List<String> getID() { return id; }
+    public ID getID() { return id; }
     @JsonProperty("id")
-    public void setID(List<String> value) { this.id = value; }
+    public void setID(ID value) { this.id = value; }
 }

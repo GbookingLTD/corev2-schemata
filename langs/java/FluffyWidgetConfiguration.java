@@ -60,7 +60,7 @@ public class FluffyWidgetConfiguration {
     private Boolean noDefaultImages;
     private String overrideFooter;
     private Payment payment;
-    private PaymentProvider paymentProvider;
+    private FluffyPaymentProvider paymentProvider;
     private Boolean requireAgreement;
     private String requireAgreementLink;
     private Double revisionVersion;
@@ -71,6 +71,7 @@ public class FluffyWidgetConfiguration {
     private Boolean showDisabledTaxonomies;
     private Boolean showDrinkQuestion;
     private Boolean showMap;
+    private Boolean showStartText;
     private Boolean showSurnameFirst;
     private Boolean showTalkQuestion;
     private Boolean showTaxonomyConfirmationAlert;
@@ -89,6 +90,8 @@ public class FluffyWidgetConfiguration {
     private Boolean sortWorkersByWorkload;
     private Boolean splitInsuranceClient;
     private Boolean splitName;
+    private String startTextButton;
+    private String startTextMessage;
     private Double tentativeTTL;
     private String theme;
     private Boolean useAppointmentReminder;
@@ -393,9 +396,9 @@ public class FluffyWidgetConfiguration {
     public void setPayment(Payment value) { this.payment = value; }
 
     @JsonProperty("paymentProvider")
-    public PaymentProvider getPaymentProvider() { return paymentProvider; }
+    public FluffyPaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(PaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(FluffyPaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("requireAgreement")
     public Boolean getRequireAgreement() { return requireAgreement; }
@@ -446,6 +449,11 @@ public class FluffyWidgetConfiguration {
     public Boolean getShowMap() { return showMap; }
     @JsonProperty("showMap")
     public void setShowMap(Boolean value) { this.showMap = value; }
+
+    @JsonProperty("showStartText")
+    public Boolean getShowStartText() { return showStartText; }
+    @JsonProperty("showStartText")
+    public void setShowStartText(Boolean value) { this.showStartText = value; }
 
     @JsonProperty("showSurnameFirst")
     public Boolean getShowSurnameFirst() { return showSurnameFirst; }
@@ -536,6 +544,16 @@ public class FluffyWidgetConfiguration {
     public Boolean getSplitName() { return splitName; }
     @JsonProperty("splitName")
     public void setSplitName(Boolean value) { this.splitName = value; }
+
+    @JsonProperty("startTextButton")
+    public String getStartTextButton() { return startTextButton; }
+    @JsonProperty("startTextButton")
+    public void setStartTextButton(String value) { this.startTextButton = value; }
+
+    @JsonProperty("startTextMessage")
+    public String getStartTextMessage() { return startTextMessage; }
+    @JsonProperty("startTextMessage")
+    public void setStartTextMessage(String value) { this.startTextMessage = value; }
 
     @JsonProperty("tentativeTTL")
     public Double getTentativeTTL() { return tentativeTTL; }

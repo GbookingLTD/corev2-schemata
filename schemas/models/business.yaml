@@ -690,7 +690,7 @@ definitions:
         type: "boolean"
         default: false
       stateLevelHolidays:
-        type: "array"
+        type: ["array", "null"]
         items:
           type: "object"
       stateLevelHolidaysNotWorking:
@@ -698,7 +698,7 @@ definitions:
         default: false
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "DISABLE"]
+        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
       showDefaulterBlockscreen:
         type: "boolean"
         default: false
@@ -976,7 +976,7 @@ definitions:
         default: "WITHOUT"
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "DISABLE"]
+        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
         default: "yandexMoney"
       alignmentTaxonomySlots:
         type: "boolean"

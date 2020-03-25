@@ -13,7 +13,7 @@ definitions:
       - resource
     properties:
       originBusinessID:
-        type: "string"
+        type: ["string","null"]
       appointment:
         type: "object"
         required:
@@ -43,9 +43,11 @@ definitions:
         additionalProperties: false
         properties:
           id:
-            type: "array"
-            items:
-              type: "string"
+            oneOf:
+              - type: "string"
+              - type: "array"
+                items:
+                  type: "string"
 
   Request:
     type: "object"

@@ -42,7 +42,7 @@ public class TentacledBackofficeConfiguration {
     private Boolean manualExceptionSupport;
     private Boolean noInternetAlert;
     private Double pastTimeEdit;
-    private PaymentProvider paymentProvider;
+    private FluffyPaymentProvider paymentProvider;
     private Boolean readonlyResourceSchedule;
     private ResourceTimetableType resourceTimetableType;
     private Double revisionVersion;
@@ -295,9 +295,9 @@ public class TentacledBackofficeConfiguration {
     public void setPastTimeEdit(Double value) { this.pastTimeEdit = value; }
 
     @JsonProperty("paymentProvider")
-    public PaymentProvider getPaymentProvider() { return paymentProvider; }
+    public FluffyPaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(PaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(FluffyPaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("readonlyResourceSchedule")
     public Boolean getReadonlyResourceSchedule() { return readonlyResourceSchedule; }

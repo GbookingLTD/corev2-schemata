@@ -756,6 +756,13 @@
                     ],
                     "default": "PLAN_CLINIC"
                 },
+                "receptionTypes": {
+                    "description": "Список видов приема услуги",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "showcaseItems": {
                     "type": "array",
                     "items": {
@@ -789,6 +796,13 @@
                             },
                             "businessID": {
                                 "type": "string"
+                            },
+                            "receptionTypes": {
+                                "description": "Список видов приема услуги",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             }
                         },
                         "additionalProperties": false
@@ -1034,7 +1048,10 @@
                     "default": false
                 },
                 "stateLevelHolidays": {
-                    "type": "array",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
                     "items": {
                         "type": "object"
                     }
@@ -1048,6 +1065,7 @@
                     "enum": [
                         "yandexMoney",
                         "deltaProcessing",
+                        "cloudpayments",
                         "DISABLE"
                     ]
                 },
@@ -1454,6 +1472,7 @@
                     "enum": [
                         "yandexMoney",
                         "deltaProcessing",
+                        "cloudpayments",
                         "DISABLE"
                     ],
                     "default": "yandexMoney"
@@ -1758,6 +1777,16 @@
                 "useResourcePageLoading": {
                     "type": "boolean",
                     "default": false
+                },
+                "showStartText": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "startTextMessage": {
+                    "type": "string"
+                },
+                "startTextButton": {
+                    "type": "string"
                 },
                 "newWidgetTheme": {
                     "type": "object",

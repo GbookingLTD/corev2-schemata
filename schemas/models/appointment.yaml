@@ -186,23 +186,33 @@ definitions:
       houseNumber:
         type: "string"
       israelCity:
-        type: "object"
-        additionalProperties: false
-        required: ["cityId", "name"]
-        properties:
-          cityId:
-            type: "string"
-          name:
-            type: "string"
+        oneOf:
+        - type: "object"
+          additionalProperties: false
+          required: []
+          properties: {}
+        - type: "object"
+          additionalProperties: false
+          required: ["cityId", "name"]
+          properties:
+            cityId:
+              type: "string"
+            name:
+              type: "string"
       kupatHolim:
-        type: "object"
-        additionalProperties: false
-        required: ["kupatHolimId", "name"]
-        properties:
-          kupatHolimId:
-            type: "string"
-          name:
-            type: "string"
+        oneOf:
+        - type: "object"
+          additionalProperties: false
+          required: []
+          properties: {}
+        - type: "object"
+          additionalProperties: false
+          required: ["kupatHolimId", "name"]
+          properties:
+            kupatHolimId:
+              type: "string"
+            name:
+              type: "string"
       isVIP:
         type: "boolean"
       clientComment:

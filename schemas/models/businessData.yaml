@@ -15,6 +15,14 @@ properties:
     format: "date-time"
   general_info:
     $ref: "./partials/businessInfo.schema.json"
+  taxonomies:
+    type: "array"
+    items:
+      $ref: "#/definitions/BusinessTaxonomy"
+  resources:
+    type: "array"
+    items:
+      $ref: "./resource.schema.json"
   designs:
     type: "array"
     items:
@@ -137,6 +145,14 @@ properties:
       enableMasterImportance:
         type: "boolean"
         default: false
+  
+  activeResourceCount:
+    type: "number"
+    description: "колличество активных рабоников, возвращается при вызове через get_network_data при передаче ключа работника или услуги"
+  
+  activeTaxonomyCount:
+    type: "number"
+    description: "колличество активных услуг, возвращается при вызове через get_network_data при передаче ключа работника или услуги"
       
 required:
 - "general_info"
@@ -885,3 +901,312 @@ definitions:
       middleNameSupport:
         type: "boolean"
     additionalProperties: false
+
+  BusinessTaxonomy:
+    title: "BusinessTaxonomy"
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      taxonomyParentID:
+        type: "string"
+      taxonomyCategoryExtraID:
+        type: "string"
+      taxonomyAppExtraID:
+        type: "string"
+      extraId:
+        type: "string"
+      siteId:
+        description: "Внешний идентификатор таксономии"
+        type: "string"
+      alias:
+        type: "object"
+      showcases:
+        type: "array"
+        items:
+          $ref: "#/definitions/TaxonomyShowcase"
+      rooms:
+        type: "array"
+        items:
+          type: "string"
+      cabinetsEnabled:
+        type: "boolean"
+        default: false
+      cabinets:
+        type: "array"
+        items:
+          type: "string"
+      specialCabinet:
+        type: "string"
+      lastModified:
+        type: "string"
+        format: "date-time"
+      price:
+        type: "object"
+        $ref: "#/definitions/BusinessTaxonomyPrice"
+      additionalPrices:
+        type: "array"
+        items:
+          $ref: "#/definitions/AdditionalBusinessTaxonomyPrice"
+      additionalProducts:
+        type: "array"
+        items:
+          $ref: "#/definitions/AdditionalBusinessTaxonomyProduct"
+      capacity:
+        type: "number"
+      capacity_decrease:
+        type: "number"
+        default: 1
+      duration:
+        type: "number"
+      popularity:
+        type: "number"
+      active:
+        type: "boolean"
+      extraDescription:
+        type: "string"
+      confirmationAlert:
+        type: "string"
+      extraLink:
+        type: "string"
+      priceLink:
+        type: "string"
+      color:
+        type: "string"
+      order:
+        type: "number"
+      images:
+        type: "array"
+        items:
+          type: "string"
+      manualChanges:
+        type: "boolean"
+      discounts:
+        $ref: "./discount.schema.json"
+      additionalDurations:
+        type: "array"
+        items:
+          $ref: "#/definitions/AdditionalDuration"
+      additionalTaxonomyExtraId:
+        type: "array"
+        items:
+          type: "object"
+          properies:
+            taxonomyExtraID:
+              type: "string"
+            extraId:
+              type: "string"
+      parallelTaxonomies:
+        type: "array"
+        items:
+          type: "string"
+      onlyAfterTaxonomies:
+        type: "array"
+        items:
+          type: "string"
+          
+      displayInWidget:
+        type: "boolean"
+      allowNextBookingInDays:
+        type: "number"
+        default: 0
+      allowNextBookingInDaysText:
+        type: "string"
+      taxonomyType:
+        $ref: "./partials/taxonomyType.schema.json#/definitions/TaxonomyType"
+      designs:
+        type: "array"
+        items:
+          type: "string"
+      isOther:
+        type: "boolean"
+      chargeUnitsStep:
+        type: "number"
+      forPay:
+        type: "boolean"
+        default: false
+      childrenTaxonomyTypes:
+        type: "array"
+        items:
+          type: "string"
+          enum: ["child", "parent", "none"]
+      visitType:
+        type: "string"
+      timetable:
+        $ref: "./timetable.schema.json"
+      exceptions:
+        type: "array"
+      leaves:
+        type: "array"
+        items:
+          type: "string"
+      showcaseTaxonomyID:
+        description: "Идентификатор услуги в витрине"
+        type: "string"
+      newTaxonomy:
+        type: "boolean"
+        default: false
+      adjacentTaxonomies:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            slotDuration:
+              type: "number"
+              default: 20
+            isAnyAvailable:
+              type: "boolean"
+              default: false
+            taxonomyID:
+              type: "string"
+            order:
+              type: "number"
+          additionalProperties: false
+      adjacentSameTimeStart:
+        type: "boolean"
+      dateLimitType:
+        type: "string"
+        enum: ["all_dates","from_date","to_date","range_dates"]
+        default: "all_dates"
+      dateLimits:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            dateLimitFrom:
+              type: "string"
+              format: "date-time"
+            dateLimitTo:
+              type: "string"
+              format: "date-time"
+            _id:
+              type: "string"
+          additionalProperties: false
+      allowNextBookingCount:
+        type: "number"
+        default: 1
+      allowBookingInBO:
+        type: "boolean"
+        default: true
+      confirmationSmsAlert:
+        type: "string"
+      useConfirmationSmsAlert:
+        type: "boolean"
+      onlineMode:
+        type: "string"
+        enum: ["PLAN_CLINIC", "PLAN_CLINIC_ONLINE", "ONCALL_ONLINE", "PLAN_ONLINE"]
+        meta:enum:
+          - PLAN_CLINIC: "плановый прием в клинике"
+          - PLAN_CLINIC_ONLINE: "плановый прием в клинике или онлайн"
+          - ONCALL_ONLINE: "дежурный прием онлайн"
+          - PLAN_ONLINE: "плановый прием только онлайн"
+        default: "PLAN_CLINIC"
+      receptionTypes:
+        description: "Список видов приема услуги"
+        type: "array"
+        items:
+          type: "string"
+      showcaseItems:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+            taxonomyID:
+              type: "string"
+            additionalDurations:
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  _id:
+                    type: "string"
+                  level:
+                    type: "number"
+                    description: "поддержка различной длительности услуг в зависимости от работника"
+                  duration:
+                    type: "number"
+                    default: 0
+                additionalProperties: false
+            businessID:
+              type: "string"
+            receptionTypes:
+              description: "Список видов приема услуги"
+              type: "array"
+              items:
+                type: "string"
+          additionalProperties: false
+    additionalProperties: false
+  
+  BusinessTaxonomyPrice:
+    title: "BusinessTaxonomyPrice"
+    type: "object"
+    properties:
+      currency:
+        description: "Аббревиатура валюты (например, RUB - рубль)"
+        $ref: "./partials/currency.schema.json#/definitions/CurrencyList"
+      amount:
+        description: "Значение цены"
+        type: "string"
+        default: "0"
+      stockAmount:
+        description: "Значение цены, с учётом промо акций"
+        type: ["string", "null"]
+        default: "0"
+      type:
+        description: "Тип цены"
+        type: "string"
+        enum: ["equal", "begin_with", "average"]
+        meta:enum:
+        - equal: "Цена ровно как указана в поле amount"
+        - begin_with: "Цена \"от\" - в поле amount указано начальное значение"
+        - average: "Средняя цена (deprecated)"
+    required: ["currency", "amount", "stockAmount", "type"]
+    additionalProperties: false
+
+  AdditionalBusinessTaxonomyPrice:
+    title: "BusinessTaxonomyPrice"
+    type: "object"
+    properties:
+      resourceLevel:
+        description: "\"Уровень\" цены. Работнику можно выставить его \"уровень\" (поле level в resources)"
+        type: "number"
+      currency:
+        description: "Аббревиатура валюты"
+        $ref: "./partials/currency.schema.json#/definitions/CurrencyList"
+      amount:
+        description: "Значение цены"
+        type: "string"
+        default: "0"
+      stockAmount:
+        description: "Значение цены, с учётом промо акций"
+        type: ["null", "string"]
+        default: "0"
+      type:
+        description: "Тип цены"
+        type: "string"
+        enum: ["equal", "begin_with", "average"]
+        meta:enum:
+        - equal: "Цена ровно как указана в поле amount"
+        - begin_with: "Цена \"от\" - в поле amount указано начальное значение"
+        - average: "Средняя цена (deprecated)"
+    required: ["resourceLevel", "currency", "stockAmount"]
+    additionalProperties: false
+
+  AdditionalBusinessTaxonomyProduct:
+    title: "BusinessTaxonomyProduct"
+    type: "object"
+    properties:
+      id:
+        description: "ID товара"
+        type: "string"
+      extraID:
+        description: "Дополнительный ID товара"
+        type: "string"
+      required:
+        description: "Является ли обязательным при выполнении данной услуги"
+        type: "boolean"
+    required: ["id", "extraID", "required"]
+    additionalProperties: false
+    

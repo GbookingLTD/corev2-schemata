@@ -11,6 +11,7 @@ public class BusinessInfo {
     private String additionalInfo;
     private List<AdditionalFields> additionalFields;
     private List<AddressElement> address;
+    private Boolean alignMinBookingTime;
     private Boolean autoAcceptAppointment;
     private List<BusinessShowcaseAlias> businessShowcaseAliases;
     private String contactName;
@@ -39,6 +40,7 @@ public class BusinessInfo {
     private String shortName;
     private Boolean showAppointmentColor;
     private Boolean showAppointmentTooltip;
+    private List<ShowcaseBusinessDatum> showcaseBusinessData;
     private List<ShowcaseElement> showcases;
     private Boolean showResourceWorkStatistics;
     private Boolean showWorkerProfession;
@@ -72,6 +74,11 @@ public class BusinessInfo {
     public List<AddressElement> getAddress() { return address; }
     @JsonProperty("address")
     public void setAddress(List<AddressElement> value) { this.address = value; }
+
+    @JsonProperty("align_min_booking_time")
+    public Boolean getAlignMinBookingTime() { return alignMinBookingTime; }
+    @JsonProperty("align_min_booking_time")
+    public void setAlignMinBookingTime(Boolean value) { this.alignMinBookingTime = value; }
 
     @JsonProperty("autoAcceptAppointment")
     public Boolean getAutoAcceptAppointment() { return autoAcceptAppointment; }
@@ -233,6 +240,15 @@ public class BusinessInfo {
     public Boolean getShowAppointmentTooltip() { return showAppointmentTooltip; }
     @JsonProperty("showAppointmentTooltip")
     public void setShowAppointmentTooltip(Boolean value) { this.showAppointmentTooltip = value; }
+
+    /**
+     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+     * витрины
+     */
+    @JsonProperty("showcaseBusinessData")
+    public List<ShowcaseBusinessDatum> getShowcaseBusinessData() { return showcaseBusinessData; }
+    @JsonProperty("showcaseBusinessData")
+    public void setShowcaseBusinessData(List<ShowcaseBusinessDatum> value) { this.showcaseBusinessData = value; }
 
     /**
      * идентификаторы витрин, в которых участвует данный бизнес

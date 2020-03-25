@@ -11,7 +11,7 @@ definitions:
         description: "параметры запроса"
         type: "object"
         additionalProperties: false
-        required: ["business", "client"]
+        required: ["business"]
         properties:
           business:
             type: "object"
@@ -21,17 +21,14 @@ definitions:
               id:
                 type: ["string", "number"]
                 description: "идентификатор бизнеса"
-          profile:
+          network:
             type: "object"
-            required: ["id"]
             additionalProperties: false
+            required: ["id"]
             properties:
               id:
-                type: "string"
-                description: "идентификатор профиля пользователя"
-          client:
-            $ref: "../../models/client.schema.json"
-
+                type: ["string", "number"]
+                description: "идентификатор нетворка"
           skipEmailCheck:
             type: "boolean"
             default: false

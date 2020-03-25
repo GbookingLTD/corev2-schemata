@@ -190,13 +190,13 @@ type AppointmentClientConfirmAppointmentRequest struct {
 }
 
 type ConfirmAppointment struct {
-	Appointment TentacledAppointment `json:"appointment"`     
-	Client      *TentacledClient     `json:"client,omitempty"`
-	Business    interface{}          `json:"business"`        
+	Appointment TentacledAppointment `json:"appointment"`
+	Client      TentacledClient      `json:"client"`     
 }
 
 type TentacledAppointment struct {
-	ID string `json:"id"`
+	ID     string  `json:"id"`              
+	Source *string `json:"source,omitempty"`
 }
 
 type TentacledClient struct {
@@ -221,62 +221,62 @@ type AppointmentClientConfirmAppointmentResponseError struct {
 }
 
 type AppointmentSchema struct {
-	AdditionalInfo           map[string]interface{}    `json:"additional_info,omitempty"`       
-	AdditionalClientAppears  []AdditionalClientAppear  `json:"additionalClientAppears"`         
-	AdditionalClientPayments []AdditionalClientPayment `json:"additionalClientPayments"`        
-	AdditionalClients        []AdditionalClientElement `json:"additionalClients"`               
-	AdditionalClientSources  []AdditionalClientSource  `json:"additionalClientSources"`         
-	AdditionalClientStatuses []AdditionalClientStatus  `json:"additionalClientStatuses"`        
-	AdditionalClientUtms     []AdditionalClientUtm     `json:"additionalClientUtms"`            
-	AdditionalFields         []AdditionalField         `json:"additionalFields"`                
-	AdditionalProducts       []AdditionalProduct       `json:"additionalProducts"`              
-	AdditionalTaxonomies     []AppointmentTaxonomy     `json:"additionalTaxonomies"`            
-	Address                  *string                   `json:"address,omitempty"`               
-	AdjacentID               *string                   `json:"adjacentId,omitempty"`            
-	Appointment              AppointmentInfo           `json:"appointment"`                     
-	AutoPhoneCallStatus      *string                   `json:"autoPhoneCallStatus,omitempty"`   
-	BannedClients            []string                  `json:"bannedClients"`                   
-	Business                 AppointmentBusiness       `json:"business"`                        
-	Cabinet                  Cabinet                   `json:"cabinet"`                         
-	Capacity                 *float64                  `json:"capacity,omitempty"`              
-	ChangeReason             string                    `json:"changeReason"`                    
-	Client                   AppointmentClient         `json:"client"`                          
-	ClientAppear             AppointmentClientAppear   `json:"client_appear"`                   
-	ClientMedCode            *string                   `json:"client_med_code,omitempty"`       
-	ClientPayment            AppointmentClientPayment  `json:"client_payment"`                  
-	ClientPaymentInvoice     *string                   `json:"client_payment_invoice,omitempty"`
-	ClientComment            string                    `json:"clientComment"`                   
-	ClientVisitors           []AdditionalClientElement `json:"clientVisitors"`                  
-	Color                    *string                   `json:"color,omitempty"`                 
-	DestinationKeyword       *string                   `json:"destinationKeyword,omitempty"`    
-	DestinationLink          *string                   `json:"destinationLink,omitempty"`       
-	ExtraFields              []ExtraField              `json:"extraFields"`                     
-	Gt                       *bool                     `json:"gt,omitempty"`                    
-	GtTimeFrame              *string                   `json:"gtTimeFrame,omitempty"`           
-	Location                 *Location                 `json:"location,omitempty"`              
-	MasterImportance         *bool                     `json:"masterImportance,omitempty"`      
-	MinClients               *float64                  `json:"minClients,omitempty"`            
-	MoveCounter              float64                   `json:"moveCounter"`                     
-	MovedByRobot             bool                      `json:"movedByRobot"`                    
-	MovedFromFired           *bool                     `json:"movedFromFired,omitempty"`        
-	NetworkID                *string                   `json:"networkID,omitempty"`             
-	Notes                    string                    `json:"notes"`                           
-	Order                    Order                     `json:"order"`                           
-	PreferredResource        *bool                     `json:"preferredResource,omitempty"`     
-	PromoCode                *string                   `json:"promoCode,omitempty"`             
-	RefererLink              *string                   `json:"refererLink,omitempty"`           
-	Referrer                 *string                   `json:"referrer,omitempty"`              
-	Reminder                 Reminder                  `json:"reminder"`                        
-	RemovedClientsData       []RemovedClientsDatum     `json:"removedClientsData"`              
-	Resource                 AppointmentResource       `json:"resource"`                        
-	Review                   *Review                   `json:"review,omitempty"`                
-	Room                     *Room                     `json:"room,omitempty"`                  
-	Showcase                 AppointmentShowcase       `json:"showcase"`                        
-	SocialToken              *string                   `json:"socialToken,omitempty"`           
-	Source                   string                    `json:"source"`                          
-	Taxonomy                 AppointmentTaxonomy       `json:"taxonomy"`                        
-	Utm                      map[string]interface{}    `json:"utm,omitempty"`                   
-	WithCoSale               *bool                     `json:"withCoSale,omitempty"`            
+	AdditionalInfo           map[string]interface{}     `json:"additional_info,omitempty"`       
+	AdditionalClientAppears  []AdditionalClientAppear   `json:"additionalClientAppears"`         
+	AdditionalClientPayments []AdditionalClientPayment  `json:"additionalClientPayments"`        
+	AdditionalClients        []AdditionalClientElement  `json:"additionalClients"`               
+	AdditionalClientSources  []AdditionalClientSource   `json:"additionalClientSources"`         
+	AdditionalClientStatuses []AdditionalClientStatus   `json:"additionalClientStatuses"`        
+	AdditionalClientUtms     []AdditionalClientUtm      `json:"additionalClientUtms"`            
+	AdditionalFields         []AdditionalField          `json:"additionalFields"`                
+	AdditionalProducts       []AdditionalProduct        `json:"additionalProducts"`              
+	AdditionalTaxonomies     []AppointmentTaxonomy      `json:"additionalTaxonomies"`            
+	Address                  *string                    `json:"address,omitempty"`               
+	AdjacentID               *string                    `json:"adjacentId,omitempty"`            
+	Appointment              AppointmentInfo            `json:"appointment"`                     
+	AutoPhoneCallStatus      *string                    `json:"autoPhoneCallStatus,omitempty"`   
+	BannedClients            []string                   `json:"bannedClients"`                   
+	Business                 AppointmentBusiness        `json:"business"`                        
+	Cabinet                  Cabinet                    `json:"cabinet"`                         
+	Capacity                 *float64                   `json:"capacity,omitempty"`              
+	ChangeReason             string                     `json:"changeReason"`                    
+	Client                   PurpleAppointmentClient    `json:"client"`                          
+	ClientAppear             AppointmentClientAppear    `json:"client_appear"`                   
+	ClientMedCode            *string                    `json:"client_med_code,omitempty"`       
+	ClientPayment            AppointmentClientPayment   `json:"client_payment"`                  
+	ClientPaymentInvoice     *string                    `json:"client_payment_invoice,omitempty"`
+	ClientComment            string                     `json:"clientComment"`                   
+	ClientVisitors           []AppointmentClientVisitor `json:"clientVisitors"`                  
+	Color                    *string                    `json:"color,omitempty"`                 
+	DestinationKeyword       *string                    `json:"destinationKeyword,omitempty"`    
+	DestinationLink          *string                    `json:"destinationLink,omitempty"`       
+	ExtraFields              []ExtraField               `json:"extraFields"`                     
+	Gt                       *bool                      `json:"gt,omitempty"`                    
+	GtTimeFrame              *string                    `json:"gtTimeFrame,omitempty"`           
+	Location                 *Location                  `json:"location,omitempty"`              
+	MasterImportance         *bool                      `json:"masterImportance,omitempty"`      
+	MinClients               *float64                   `json:"minClients,omitempty"`            
+	MoveCounter              float64                    `json:"moveCounter"`                     
+	MovedByRobot             bool                       `json:"movedByRobot"`                    
+	MovedFromFired           *bool                      `json:"movedFromFired,omitempty"`        
+	NetworkID                *string                    `json:"networkID,omitempty"`             
+	Notes                    string                     `json:"notes"`                           
+	Order                    Order                      `json:"order"`                           
+	PreferredResource        *bool                      `json:"preferredResource,omitempty"`     
+	PromoCode                *string                    `json:"promoCode,omitempty"`             
+	RefererLink              *string                    `json:"refererLink,omitempty"`           
+	Referrer                 *string                    `json:"referrer,omitempty"`              
+	Reminder                 Reminder                   `json:"reminder"`                        
+	RemovedClientsData       []RemovedClientsDatum      `json:"removedClientsData"`              
+	Resource                 AppointmentResource        `json:"resource"`                        
+	Review                   *Review                    `json:"review,omitempty"`                
+	Room                     *Room                      `json:"room,omitempty"`                  
+	Showcase                 AppointmentShowcase        `json:"showcase"`                        
+	SocialToken              *string                    `json:"socialToken,omitempty"`           
+	Source                   string                     `json:"source"`                          
+	Taxonomy                 AppointmentTaxonomy        `json:"taxonomy"`                        
+	Utm                      map[string]interface{}     `json:"utm,omitempty"`                   
+	WithCoSale               *bool                      `json:"withCoSale,omitempty"`            
 }
 
 type AdditionalClientAppear struct {
@@ -367,13 +367,13 @@ type IncomingPhoneElement struct {
 }
 
 type IsraelCity struct {
-	CityID string `json:"cityId"`
-	Name   string `json:"name"`  
+	CityID *string `json:"cityId,omitempty"`
+	Name   *string `json:"name,omitempty"`  
 }
 
 type KupatHolim struct {
-	KupatHolimID string `json:"kupatHolimId"`
-	Name         string `json:"name"`        
+	KupatHolimID *string `json:"kupatHolimId,omitempty"`
+	Name         *string `json:"name,omitempty"`        
 }
 
 type AdditionalField struct {
@@ -443,7 +443,7 @@ type Cabinet struct {
 }
 
 // пустой объект в момент резервирования
-type AppointmentClient struct {
+type PurpleAppointmentClient struct {
 	Address             *string                    `json:"address,omitempty"`            
 	AdminComment        *string                    `json:"adminComment,omitempty"`       
 	Birthday            *string                    `json:"birthday,omitempty"`           
@@ -477,6 +477,17 @@ type AppointmentClient struct {
 	Surname             *string                    `json:"surname,omitempty"`            
 	TaxiPark            *string                    `json:"taxiPark,omitempty"`           
 	TaxiParkMemberCount *float64                   `json:"taxiParkMemberCount,omitempty"`
+}
+
+type AppointmentClientVisitor struct {
+	Birthday        *string                `json:"birthday,omitempty"`       
+	Email           []string               `json:"email"`                    
+	ExtraVisitors   *float64               `json:"extraVisitors,omitempty"`  
+	Name            *string                `json:"name,omitempty"`           
+	ParentClientID  *string                `json:"parentClientID,omitempty"` 
+	ParentProfileID *string                `json:"parentProfileID,omitempty"`
+	Phone           []IncomingPhoneElement `json:"phone"`                    
+	Sex             *Sex                   `json:"sex,omitempty"`            
 }
 
 type Location struct {
@@ -727,7 +738,7 @@ type StickyBusiness struct {
 }
 
 type ResourceClass struct {
-	ID []string `json:"id"`
+	ID *ID `json:"id"`
 }
 
 type ParamsTaxonomy struct {
@@ -888,7 +899,7 @@ type PurpleBackofficeConfiguration struct {
 	ManualExceptionSupport                          *bool                    `json:"manualExceptionSupport,omitempty"`                         
 	NoInternetAlert                                 *bool                    `json:"noInternetAlert,omitempty"`                                
 	PastTimeEdit                                    *float64                 `json:"pastTimeEdit,omitempty"`                                   
-	PaymentProvider                                 *PaymentProvider         `json:"paymentProvider,omitempty"`                                
+	PaymentProvider                                 *PurplePaymentProvider   `json:"paymentProvider,omitempty"`                                
 	ReadonlyResourceSchedule                        *bool                    `json:"readonlyResourceSchedule,omitempty"`                       
 	ResourceTimetableType                           *ResourceTimetableType   `json:"resourceTimetableType,omitempty"`                          
 	RevisionVersion                                 *float64                 `json:"revisionVersion,omitempty"`                                
@@ -985,9 +996,10 @@ type BusinessInfo struct {
 	AdditionalInfo             *string                  `json:"additional_info"`                     
 	AdditionalFields           []AdditionalFields       `json:"additionalFields"`                    
 	Address                    []AddressElement         `json:"address"`                             // Адреса компании или филиала
+	AlignMinBookingTime        *bool                    `json:"align_min_booking_time"`              
 	AutoAcceptAppointment      *bool                    `json:"autoAcceptAppointment,omitempty"`     
 	BusinessShowcaseAliases    []BusinessShowcaseAlias  `json:"businessShowcaseAliases"`             // если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
-	ContactName                *string                  `json:"contactName,omitempty"`               
+	ContactName                *string                  `json:"contactName"`                         
 	DateJoined                 *string                  `json:"date_joined,omitempty"`               
 	Description                *string                  `json:"description,omitempty"`               
 	Email                      *string                  `json:"email,omitempty"`                     // Список e-mail адресов компании или филиала
@@ -1013,6 +1025,7 @@ type BusinessInfo struct {
 	ShortName                  *string                  `json:"shortName"`                           // Короткое название филиала
 	ShowAppointmentColor       *bool                    `json:"showAppointmentColor,omitempty"`      
 	ShowAppointmentTooltip     *bool                    `json:"showAppointmentTooltip,omitempty"`    
+	ShowcaseBusinessData       []ShowcaseBusinessDatum  `json:"showcaseBusinessData"`                // если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из; витрины
 	Showcases                  []ShowcaseElement        `json:"showcases"`                           // идентификаторы витрин, в которых участвует данный бизнес
 	ShowResourceWorkStatistics *bool                    `json:"showResourceWorkStatistics,omitempty"`
 	ShowWorkerProfession       *bool                    `json:"showWorkerProfession,omitempty"`      
@@ -1022,7 +1035,7 @@ type BusinessInfo struct {
 	Timetable                  *Timetable               `json:"timetable,omitempty"`                 
 	Timezone                   *string                  `json:"timezone"`                            
 	VerticalTranslation        *VerticalTranslation     `json:"verticalTranslation,omitempty"`       
-	Website                    *string                  `json:"website,omitempty"`                   
+	Website                    *string                  `json:"website"`                             
 }
 
 type AdditionalFieldsClass struct {
@@ -1092,6 +1105,17 @@ type Metro struct {
 
 type SMSDuplicateFilter struct {
 	Active *bool `json:"active,omitempty"`
+}
+
+type ShowcaseBusinessDatum struct {
+	Address        []AddressElement `json:"address"`             // Адреса компании или филиала
+	Email          *string          `json:"email,omitempty"`     // Список e-mail адресов компании или филиала
+	InternalID     *string          `json:"internalID,omitempty"`
+	Language       *LanguageList    `json:"language,omitempty"`  
+	Name           *string          `json:"name,omitempty"`      // Название бизнеса
+	Phone          []Phone          `json:"phone"`               // Список телефонов бизнеса
+	ReceptionTypes []string         `json:"receptionTypes"`      // Список видов приема филиала
+	Timezone       *string          `json:"timezone,omitempty"`  
 }
 
 type ShowcaseElement struct {
@@ -1206,7 +1230,7 @@ type PurpleWidgetConfiguration struct {
 	NoDefaultImages                        *bool                          `json:"noDefaultImages,omitempty"`                       
 	OverrideFooter                         *string                        `json:"overrideFooter,omitempty"`                        
 	Payment                                *Payment                       `json:"payment,omitempty"`                               
-	PaymentProvider                        *PaymentProvider               `json:"paymentProvider,omitempty"`                       
+	PaymentProvider                        *PurplePaymentProvider         `json:"paymentProvider,omitempty"`                       
 	RequireAgreement                       *bool                          `json:"requireAgreement,omitempty"`                      
 	RequireAgreementLink                   *string                        `json:"requireAgreementLink,omitempty"`                  
 	RevisionVersion                        *float64                       `json:"revisionVersion,omitempty"`                       
@@ -1217,6 +1241,7 @@ type PurpleWidgetConfiguration struct {
 	ShowDisabledTaxonomies                 *bool                          `json:"showDisabledTaxonomies,omitempty"`                
 	ShowDrinkQuestion                      *bool                          `json:"showDrinkQuestion,omitempty"`                     
 	ShowMap                                *bool                          `json:"showMap,omitempty"`                               
+	ShowStartText                          *bool                          `json:"showStartText,omitempty"`                         
 	ShowSurnameFirst                       *bool                          `json:"showSurnameFirst,omitempty"`                      
 	ShowTalkQuestion                       *bool                          `json:"showTalkQuestion,omitempty"`                      
 	ShowTaxonomyConfirmationAlert          *bool                          `json:"showTaxonomyConfirmationAlert,omitempty"`         
@@ -1235,6 +1260,8 @@ type PurpleWidgetConfiguration struct {
 	SortWorkersByWorkload                  *bool                          `json:"sortWorkersByWorkload,omitempty"`                 
 	SplitInsuranceClient                   *bool                          `json:"splitInsuranceClient,omitempty"`                  
 	SplitName                              *bool                          `json:"splitName,omitempty"`                             
+	StartTextButton                        *string                        `json:"startTextButton,omitempty"`                       
+	StartTextMessage                       *string                        `json:"startTextMessage,omitempty"`                      
 	TentativeTTL                           *float64                       `json:"tentativeTTL,omitempty"`                          
 	Theme                                  *string                        `json:"theme,omitempty"`                                 
 	UseAppointmentReminder                 *bool                          `json:"useAppointmentReminder,omitempty"`                
@@ -1449,7 +1476,7 @@ type TentacledBackofficeConfiguration struct {
 	ManualExceptionSupport                          *bool                    `json:"manualExceptionSupport,omitempty"`                         
 	NoInternetAlert                                 *bool                    `json:"noInternetAlert,omitempty"`                                
 	PastTimeEdit                                    *float64                 `json:"pastTimeEdit,omitempty"`                                   
-	PaymentProvider                                 *PaymentProvider         `json:"paymentProvider,omitempty"`                                
+	PaymentProvider                                 *FluffyPaymentProvider   `json:"paymentProvider,omitempty"`                                
 	ReadonlyResourceSchedule                        *bool                    `json:"readonlyResourceSchedule,omitempty"`                       
 	ResourceTimetableType                           *ResourceTimetableType   `json:"resourceTimetableType,omitempty"`                          
 	RevisionVersion                                 *float64                 `json:"revisionVersion,omitempty"`                                
@@ -1622,9 +1649,10 @@ type Info struct {
 	AdditionalInfo             *string                  `json:"additional_info"`                     
 	AdditionalFields           []AdditionalFields       `json:"additionalFields"`                    
 	Address                    []AddressElement         `json:"address"`                             // Адреса компании или филиала
+	AlignMinBookingTime        *bool                    `json:"align_min_booking_time"`              
 	AutoAcceptAppointment      *bool                    `json:"autoAcceptAppointment,omitempty"`     
 	BusinessShowcaseAliases    []BusinessShowcaseAlias  `json:"businessShowcaseAliases"`             // если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
-	ContactName                *string                  `json:"contactName,omitempty"`               
+	ContactName                *string                  `json:"contactName"`                         
 	DateJoined                 *string                  `json:"date_joined,omitempty"`               
 	Description                *string                  `json:"description,omitempty"`               
 	Email                      *string                  `json:"email,omitempty"`                     // Список e-mail адресов компании или филиала
@@ -1650,6 +1678,7 @@ type Info struct {
 	ShortName                  *string                  `json:"shortName"`                           // Короткое название филиала
 	ShowAppointmentColor       *bool                    `json:"showAppointmentColor,omitempty"`      
 	ShowAppointmentTooltip     *bool                    `json:"showAppointmentTooltip,omitempty"`    
+	ShowcaseBusinessData       []ShowcaseBusinessDatum  `json:"showcaseBusinessData"`                // если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из; витрины
 	Showcases                  []ShowcaseElement        `json:"showcases"`                           // идентификаторы витрин, в которых участвует данный бизнес
 	ShowResourceWorkStatistics *bool                    `json:"showResourceWorkStatistics,omitempty"`
 	ShowWorkerProfession       *bool                    `json:"showWorkerProfession,omitempty"`      
@@ -1659,7 +1688,7 @@ type Info struct {
 	Timetable                  *Timetable               `json:"timetable,omitempty"`                 
 	Timezone                   *string                  `json:"timezone"`                            
 	VerticalTranslation        *VerticalTranslation     `json:"verticalTranslation,omitempty"`       
-	Website                    *string                  `json:"website,omitempty"`                   
+	Website                    *string                  `json:"website"`                             
 }
 
 // Доступ имеют только пользователи с правами resource или admin
@@ -1727,6 +1756,7 @@ type BusinessTaxonomy struct {
 	Popularity                 *float64                  `json:"popularity,omitempty"`                
 	Price                      *TaxonomyPrice            `json:"price,omitempty"`                     
 	PriceLink                  *string                   `json:"priceLink,omitempty"`                 
+	ReceptionTypes             []string                  `json:"receptionTypes"`                      // Список видов приема услуги
 	Rooms                      []string                  `json:"rooms"`                               
 	ShowcaseItems              []ShowcaseItem            `json:"showcaseItems"`                       
 	Showcases                  []TaxonomyShowcase        `json:"showcases"`                           
@@ -1799,6 +1829,7 @@ type ShowcaseItem struct {
 	ID                  *string                          `json:"_id,omitempty"`       
 	AdditionalDurations []ShowcaseItemAdditionalDuration `json:"additionalDurations"` 
 	BusinessID          *string                          `json:"businessID,omitempty"`
+	ReceptionTypes      []string                         `json:"receptionTypes"`      // Список видов приема услуги
 	TaxonomyID          *string                          `json:"taxonomyID,omitempty"`
 }
 
@@ -1882,7 +1913,7 @@ type FluffyWidgetConfiguration struct {
 	NoDefaultImages                        *bool                          `json:"noDefaultImages,omitempty"`                       
 	OverrideFooter                         *string                        `json:"overrideFooter,omitempty"`                        
 	Payment                                *Payment                       `json:"payment,omitempty"`                               
-	PaymentProvider                        *PaymentProvider               `json:"paymentProvider,omitempty"`                       
+	PaymentProvider                        *FluffyPaymentProvider         `json:"paymentProvider,omitempty"`                       
 	RequireAgreement                       *bool                          `json:"requireAgreement,omitempty"`                      
 	RequireAgreementLink                   *string                        `json:"requireAgreementLink,omitempty"`                  
 	RevisionVersion                        *float64                       `json:"revisionVersion,omitempty"`                       
@@ -1893,6 +1924,7 @@ type FluffyWidgetConfiguration struct {
 	ShowDisabledTaxonomies                 *bool                          `json:"showDisabledTaxonomies,omitempty"`                
 	ShowDrinkQuestion                      *bool                          `json:"showDrinkQuestion,omitempty"`                     
 	ShowMap                                *bool                          `json:"showMap,omitempty"`                               
+	ShowStartText                          *bool                          `json:"showStartText,omitempty"`                         
 	ShowSurnameFirst                       *bool                          `json:"showSurnameFirst,omitempty"`                      
 	ShowTalkQuestion                       *bool                          `json:"showTalkQuestion,omitempty"`                      
 	ShowTaxonomyConfirmationAlert          *bool                          `json:"showTaxonomyConfirmationAlert,omitempty"`         
@@ -1911,6 +1943,8 @@ type FluffyWidgetConfiguration struct {
 	SortWorkersByWorkload                  *bool                          `json:"sortWorkersByWorkload,omitempty"`                 
 	SplitInsuranceClient                   *bool                          `json:"splitInsuranceClient,omitempty"`                  
 	SplitName                              *bool                          `json:"splitName,omitempty"`                             
+	StartTextButton                        *string                        `json:"startTextButton,omitempty"`                       
+	StartTextMessage                       *string                        `json:"startTextMessage,omitempty"`                      
 	TentativeTTL                           *float64                       `json:"tentativeTTL,omitempty"`                          
 	Theme                                  *string                        `json:"theme,omitempty"`                                 
 	UseAppointmentReminder                 *bool                          `json:"useAppointmentReminder,omitempty"`                
@@ -2696,11 +2730,11 @@ const (
 	The5 FeedBackMinRating = "5"
 )
 
-type PaymentProvider string
+type PurplePaymentProvider string
 const (
-	DeltaProcessing PaymentProvider = "deltaProcessing"
-	Disable PaymentProvider = "DISABLE"
-	YandexMoney PaymentProvider = "yandexMoney"
+	PurpleDISABLE PurplePaymentProvider = "DISABLE"
+	PurpleDeltaProcessing PurplePaymentProvider = "deltaProcessing"
+	PurpleYandexMoney PurplePaymentProvider = "yandexMoney"
 )
 
 type ResourceTimetableType string
@@ -2861,6 +2895,14 @@ const (
 	MostFree WorkerSortingType = "most_free"
 	WorkerSortingTypeNone WorkerSortingType = "none"
 	Workload WorkerSortingType = "workload"
+)
+
+type FluffyPaymentProvider string
+const (
+	Cloudpayments FluffyPaymentProvider = "cloudpayments"
+	FluffyDISABLE FluffyPaymentProvider = "DISABLE"
+	FluffyDeltaProcessing FluffyPaymentProvider = "deltaProcessing"
+	FluffyYandexMoney FluffyPaymentProvider = "yandexMoney"
 )
 
 // month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
@@ -3126,6 +3168,26 @@ func (x *Value) UnmarshalJSON(data []byte) error {
 
 func (x *Value) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
+}
+
+type ID struct {
+	String      *string
+	StringArray []string
+}
+
+func (x *ID) UnmarshalJSON(data []byte) error {
+	x.StringArray = nil
+	object, err := unmarshalUnion(data, nil, nil, nil, &x.String, true, &x.StringArray, false, nil, false, nil, false, nil, false)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *ID) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, nil, nil, x.String, x.StringArray != nil, x.StringArray, false, nil, false, nil, false, nil, false)
 }
 
 type BusinessBusiness struct {

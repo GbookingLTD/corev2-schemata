@@ -97,20 +97,28 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `object` with following properties:
 
-| Property | Type  | Required     |
-| -------- | ----- | ------------ |
-| `id`     | array | **Required** |
+| Property | Type | Required     |
+| -------- | ---- | ------------ |
+| `id`     |      | **Required** |
 
 #### id
 
 `id`
 
 - is **required**
-- type: `string[]`
+- type: complex
 
 ##### id Type
 
-Array type: `string[]`
+**One** of the following _conditions_ need to be fulfilled.
+
+#### Condition 1
+
+`string`
+
+#### Condition 2
+
+Array type:
 
 All items must be of the type: `string`
 
@@ -255,20 +263,28 @@ All items must be of the type: `string`
 
 `object` with following properties:
 
-| Property | Type  | Required     |
-| -------- | ----- | ------------ |
-| `id`     | array | **Required** |
+| Property | Type | Required     |
+| -------- | ---- | ------------ |
+| `id`     |      | **Required** |
 
 #### id
 
 `id`
 
 - is **required**
-- type: `string[]`
+- type: complex
 
 ##### id Type
 
-Array type: `string[]`
+**One** of the following _conditions_ need to be fulfilled.
+
+#### Condition 1
+
+`string`
+
+#### Condition 2
+
+Array type:
 
 All items must be of the type: `string`
 
