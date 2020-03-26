@@ -21,6 +21,8 @@ definitions:
               id:
                 type: ["string", "number"]
                 description: "идентификатор бизнеса"
+          client:
+            $ref: "../../models/client.schema.json"
           network:
             type: "object"
             additionalProperties: false

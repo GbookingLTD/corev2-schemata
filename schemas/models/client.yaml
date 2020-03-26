@@ -10,7 +10,7 @@ properties:
   surname:
     type: "string"
   middle_name:
-    type: "string"
+    type: ["string", "null"]
   birthday:
     type: ["string", "object", "null"]
   phone:
