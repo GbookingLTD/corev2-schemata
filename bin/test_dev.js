@@ -1,14 +1,28 @@
 "use strict";
 
 const Q = require('q')
-  , getProfileByID = require('./test').getProfileByID
-  , addClient = require('./test').addClient
-  , findOrCreateClient = require('./test').findOrCreateClient
-  , getNetworkData = require('./test').getNetworkData
-  , getNetworkDataWithBusinessInfo = require('./test').getNetworkDataWithBusinessInfo
-  , reserveAppointment = require('./test').reserveAppointment
-  , clientRemoveEmptyAppointment = require('./test').clientRemoveEmptyAppointment
+    , time = require('./time')
+    , getProfileByID = require('./test').getProfileByID
+    , addClient = require('./test').addClient
+    , findOrCreateClient = require('./test').findOrCreateClient
+    , clientConfirmAppointment = require('./test').clientConfirmAppointment
+    , cancelAppointmentByClient = require('./test').cancelAppointmentByClient
+    , getAppointmentByStartEnd = require('./test').getAppointmentByStartEnd
+    , getAppointmentByCreated = require('./test').getAppointmentByCreated
+    , getNetworkData = require('./test').getNetworkData
+    , getNetworkDataWithBusinessInfo = require('./test').getNetworkDataWithBusinessInfo
+    , reserveAppointment = require('./test').reserveAppointment
+    , clientRemoveEmptyAppointment = require('./test').clientRemoveEmptyAppointment
 ;
+
+const dateTimeRangeIterator = new time.DateTimeRangeIterator(time.oneWeekLater, new time.DayMinutesIterator(
+    13 * time.TimeMinutes.Hour,
+    21 * time.TimeMinutes.Hour,
+    1.5 * time.TimeMinutes.Hour
+));
+//console.info('date time iso         %s', dateTimeRangeIterator.currentISOString());
+//console.info('date time local gmt+0 %s', dateTimeRangeIterator.currentLocalString(true));
+//console.info('date time local gmt+n %s', dateTimeRangeIterator.currentLocalString());
 
 // test get_profile_by_id for dev
 require('./test')(function() {
@@ -39,7 +53,7 @@ require('./test')(function() {
   if (process.argv.length === 2 || process.argv[2] === 'reserve')
   [
     reserveAppointment(process.env.ENDPOINT, "4000000003715", "9123154",
-        "5d0a27dd73876619445a2910", "Tue, 24 Mar 2020 10:00:00 GMT")
+        "5e5783f768d4fc094c24a5ee", dateTimeRangeIterator.currentLocalString(true))
         .then((res) => {
           let appointmentId = undefined;
           console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
@@ -54,22 +68,85 @@ require('./test')(function() {
           return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000003715", appointmentId)
         }),
 
-    reserveAppointment(process.env.ENDPOINT, "4000000007105", "9160021",
-        "5e6a150547325625a769eb97", "Mon, 16 Mar 2020 10:00:00 GMT")
+      reserveAppointment(process.env.ENDPOINT, "4000000003715", "9123154", "5e5783f768d4fc094c24a5ee",
+          dateTimeRangeIterator.next() && dateTimeRangeIterator.currentLocalString(true))
         .then((res) => {
           let appointmentId = undefined;
-          console.info("setup appointmentId", res.result? res.result.appointment.id : "unknown");
+          console.info("setup appointmentId", res.result ? res.result.appointment.id : "unknown");
           if (res.result)
             appointmentId = res.result.appointment.id;
 
-          if (!appointmentId) {
-            console.warn("skip appointment.client_remove_empty_appointment");
-            return Q();
-          }
+          if (!appointmentId)
+            throw {message: "error reservation", step: "reserve"};
 
-          return clientRemoveEmptyAppointment(process.env.ENDPOINT, "4000000007105", appointmentId)
+          return addClient(process.env.ENDPOINT, {
+            business: {id: 4000000003715},
+            email: 'test@gbooking.ru',
+            phone: ['7', '123', '1231231']
+          })
+              .then((res) => {
+                console.info("add_client client_id=%s", res.result? res.result.client.id: "unknown");
+                if (!res.result)
+                  throw {message: "error client creation", step: "add_client"};
+
+                return clientConfirmAppointment(process.env.ENDPOINT, appointmentId, res.result.client.id,
+                    ['7', '123', '1231231'],
+                    [
+                      {"fieldID": "5e6f1a31d7464b53a955ec96", "fieldName": "Цвет"},
+                      {"fieldID": "5e6f1a47d7464b53a955ec97", "fieldName": "Животное"},
+                      {
+                        "fieldID": "5e6f1a6dd7464b53a955ec98",
+                        "fieldName": "Число",
+                        "value": "1",
+                        "optionName": "1"
+                      }]
+                );
+              })
+              .then((res) => {
+                console.info("client_confirm_appointment short_id=%s", res.result? res.result
+                    .client.shortId: "unknown");
+                if (!res.result)
+                  throw {message: "error appointment confirmation", step: "client_confirm_appointment"};
+
+                return cancelAppointmentByClient(process.env.ENDPOINT, appointmentId, res.result.client.shortId);
+              })
+        })
+
+        .catch((err) => {
+          console.error("booking/cancellation cycle failed %swith message", err.step ? "on step " + err.step : "",
+              err.message);
         }),
   ].forEach((p) => {requests.push(p)});
+
+  if (process.argv.length === 2 || process.argv[2] === 'appointment')
+      [
+          getAppointmentByStartEnd(process.env.ENDPOINT, {
+              business: {
+                  id:4000000003715
+              },
+              filter: {
+                  start: time.twoWeeksBefore.toISOString(),
+                  end: time.oneWeekLater.toISOString()
+              }
+          }, {
+              token: "2788c07ffbec424b7cca1cf914200e4bd47393aa",
+              user: "5d15f3475e1bfd71b15fa738"
+          }),
+          getAppointmentByCreated(process.env.ENDPOINT, {
+              business: {
+                  id:4000000003715
+              },
+              filter: {
+                  created: {
+                      start: time.twoWeeksBefore.toISOString(),
+                      end: time.oneWeekLater.toISOString()
+                  }
+              }
+          }, {
+              token: "2788c07ffbec424b7cca1cf914200e4bd47393aa",
+              user: "5d15f3475e1bfd71b15fa738"
+          }),
+      ].forEach((p) => {requests.push(p)});
 
   if (process.argv.length === 2 || process.argv[2] === 'business')
   [

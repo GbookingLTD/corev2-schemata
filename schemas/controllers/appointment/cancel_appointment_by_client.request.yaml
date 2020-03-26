@@ -16,6 +16,8 @@ definitions:
         properties:
           id:
             type: "string"
+          shortId:
+            type: "string"
       client:
         type: "object"
         required: ["id"]

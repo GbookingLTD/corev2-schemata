@@ -31,7 +31,7 @@ exports.rpcRequest = function (method, data, cred, endpoint) {
     method: method,
     params: JSON.parse(JSON.stringify(data))
   };
-
+  //console.info(JSON.stringify(json));
   if (!json.method) {
     throw new Error('rpc request unknown method');
   }

@@ -142,7 +142,7 @@ definitions:
   ExtraField:
     type: "object"
     additionalProperties: false
-    required: ["fieldID", "fieldName", "value"]
+    required: ["fieldID", "fieldName"]
     properties:
       fieldID:
         type: "string"

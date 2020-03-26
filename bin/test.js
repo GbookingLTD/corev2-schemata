@@ -89,7 +89,7 @@ let addClient = function (endpoint, data) {
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
@@ -128,7 +128,7 @@ let findOrCreateClient = function (endpoint, data, cred) {
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
@@ -176,7 +176,7 @@ let getAppointmentByStartEnd = function (endpoint, data, cred) {
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
@@ -226,7 +226,7 @@ let getAppointmentByCreated = function (endpoint, data, cred) {
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
@@ -253,7 +253,7 @@ let getProfileByID = function (endpoint, baseBusinessId, cred, extraParams) {
   return rpcRequest('business.get_profile_by_id', params, cred, endpoint).then(function(json) {
     _validate(pref, json)
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       _validate(pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
@@ -281,7 +281,7 @@ let reserveAppointment = function (endpoint, businessId, taxonomy, resource, sta
     }
   };
 
-  let pref = 'appointment.reserve_appointment: ' + businessId;
+  let pref = 'appointment.reserve_appointment: ' + businessId + ' - ' + start;
 
   let _validateReq = getValidateRequest('appointment', 'reserve_appointment');
   let _validateRes = getValidateResponse('appointment', 'reserve_appointment');
@@ -289,16 +289,80 @@ let reserveAppointment = function (endpoint, businessId, taxonomy, resource, sta
     _validateReq('---> ' + pref, rpcRequestObject('appointment.reserve_appointment', params, {}));
     return rpcRequest('appointment.reserve_appointment', params, {}, endpoint);
   }).then(function(json) {
-    // console.info('<--- ' + pref + ' %j', json);
+    //console.info('<--- ' + pref + ' %j', json);
     _validateRes('<--- ' + pref, json)
     return json;
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
     } else {
-      console.error(pref + ' - fail %j', err);
+      console.error('<--- ' + pref + ' - fail %j', err);
+    }
+  });
+};
+
+let clientConfirmAppointment = function(endpoint, appointmentId, clientId, phone, extraFields) {
+  var params = {
+    "client":{
+      "id":clientId,
+      "phone":[{"country_code":phone[0],"area_code":phone[1],"number":phone[2]}],
+      "name":"test_user",
+      "extraFields":extraFields || []
+    },
+    "appointment":{"id":appointmentId,"source":"TEST"},
+    "skipClientRecordsCheck":true,
+    "utm":{},
+    "language":"ru-ru"
+  };
+
+  let pref = 'appointment.client_confirm_appointment: ' + appointmentId;
+
+  let _validateReq = getValidateRequest('appointment', 'client_confirm_appointment');
+  let _validateRes = getValidateResponse('appointment', 'client_confirm_appointment');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('appointment.client_confirm_appointment', params, {}));
+    return rpcRequest('appointment.client_confirm_appointment', params, {}, endpoint);
+  }).then(function(json) {
+    console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json);
+    return json;
+  }).fail(function(err) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error('<--- ' + pref + ' - fail %j', err);
+    }
+  });
+};
+
+let cancelAppointmentByClient = function(endpoint, appointmentId, shortId) {
+  var params = {
+    "business":{},
+    "appointment":{"id":appointmentId,"shortId":shortId},
+  };
+
+  let pref = 'appointment.cancel_appointment_by_client: ' + appointmentId;
+
+  let _validateReq = getValidateRequest('appointment', 'cancel_appointment_by_client');
+  let _validateRes = getValidateResponse('appointment', 'cancel_appointment_by_client');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('appointment.cancel_appointment_by_client', params, {}));
+    return rpcRequest('appointment.cancel_appointment_by_client', params, {}, endpoint);
+  }).then(function(json) {
+    console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json);
+    return json;
+  }).fail(function(err) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error('<--- ' + pref + ' - fail %j', err);
     }
   });
 };
@@ -324,7 +388,7 @@ let clientRemoveEmptyAppointment = function (endpoint, businessId, appointmentId
     //console.info('<--- ' + pref, json);
     _validateRes('<--- ' + pref, json)
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       //console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
     } else {
@@ -343,7 +407,7 @@ let getNetworkData = function (endpoint, networkId) {
   return rpcRequest('business.get_network_data', params, {}, endpoint).then(function(json) {
     _validate(pref, json)
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       _validate(pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
@@ -362,7 +426,7 @@ let getNetworkDataWithBusinessInfo = function (endpoint, networkId) {
   return rpcRequest('business.get_network_data', params, {}, endpoint).then(function(json) {
     _validate(pref, json)
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       _validate(pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
@@ -395,7 +459,7 @@ let GetCRACResourcesAndRooms = function (endpoint, businessID, filters) {
   }).then(function(json) {
     _validateRes('<--- ' + pref, json)
   }).fail(function(err) {
-    if (err.code === -32700) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
       _validateRes('<--- ' + pref, err.xtra);
     } else {
       console.error(pref + ' - fail %j', err);
@@ -428,7 +492,7 @@ let GetCRACDistributedResourcesAndRooms = function (endpoint, businessID, filter
       .then(function(json) {
         _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
-        if (err.code === -32700) {
+        if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
           _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
@@ -461,7 +525,7 @@ let GetCRACInsuranceResourcesAndRooms = function (endpoint, businessID, filters)
       .then(function(json) {
         _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
-        if (err.code === -32700) {
+        if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
           _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
@@ -490,7 +554,7 @@ let CRACDistributedResourcesFreeByDate = function (endpoint, businessID, taxonom
       .then(function(json) {
         _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
-        if (err.code === -32700) {
+        if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
           _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
@@ -517,7 +581,7 @@ let CRACResourcesFreeByDate = function (endpoint, taxonomy, resources, duration)
       .then(function(json) {
         _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
-        if (err.code === -32700) {
+        if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
           _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
@@ -548,7 +612,7 @@ let CRACResourcesFreeByDateV2 = function (endpoint, business, taxonomy, resource
       .then(function(json) {
         _validateRes('<--- ' + pref, json)
       }).fail(function(err) {
-        if (err.code === -32700) {
+        if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
           _validateRes('<--- ' + pref, err.xtra);
         } else {
           console.error(pref + ' - fail %j', err);
@@ -563,6 +627,8 @@ module.exports = function(fn) {
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
 module.exports.findOrCreateClient = findOrCreateClient;
+module.exports.clientConfirmAppointment = clientConfirmAppointment;
+module.exports.cancelAppointmentByClient = cancelAppointmentByClient;
 module.exports.getAppointmentByStartEnd = getAppointmentByStartEnd;
 module.exports.getAppointmentByCreated = getAppointmentByCreated;
 module.exports.reserveAppointment = reserveAppointment;

@@ -1,5 +1,6 @@
 js2md=jsonschema2md
 qt=quicktype
+tsc=tsc
 
 .PHONY: default
 default: json docu gen_java gen_csharp gen_typescript gen_golang gen_python
@@ -37,7 +38,8 @@ gen_typescript: json clear_typescript
 		--explicit-unions \
 		--runtime-typecheck \
 		--acronym-style camel \
-		--converters all-objects
+		--converters top-level && \
+	$(tsc) --declaration langs/typescript/GBookingCoreV2.ts
 
 clear_typescript:
 	rm -f ./langs/typescript/*
