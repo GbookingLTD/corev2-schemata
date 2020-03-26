@@ -7,7 +7,7 @@ public class AppointmentGetAppointmentByFilterRequestParams {
     private FluffyBusiness business;
     private ExtraFilters extraFilters;
     private Filter filter;
-    private ParamsNetwork network;
+    private PurpleNetwork network;
     private double page;
     private double pageSize;
     private Boolean skipBusinessCancelled;
@@ -28,9 +28,9 @@ public class AppointmentGetAppointmentByFilterRequestParams {
     public void setFilter(Filter value) { this.filter = value; }
 
     @JsonProperty("network")
-    public ParamsNetwork getNetwork() { return network; }
+    public PurpleNetwork getNetwork() { return network; }
     @JsonProperty("network")
-    public void setNetwork(ParamsNetwork value) { this.network = value; }
+    public void setNetwork(PurpleNetwork value) { this.network = value; }
 
     @JsonProperty("page")
     public double getPage() { return page; }

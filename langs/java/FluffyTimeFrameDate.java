@@ -16,6 +16,8 @@ import com.fasterxml.jackson.databind.annotation.*;
  *
  * идентификатор бизнеса
  *
+ * идентификатор нетворка
+ *
  * вес работника, в зависимости от указанного способа сортировки
  */
 @JsonDeserialize(using = FluffyTimeFrameDate.Deserializer.class)

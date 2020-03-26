@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class NetworkWidgetConfigurationBusiness {
+public class BusinessElement {
     private String id;
     private boolean active;
     private String internalID;

@@ -51,6 +51,39 @@
                 }
             ]
         },
+        "BusinessRefInNetwork": {
+            "description": "указатель на бизнес в сети",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "isMapBusiness",
+                "businessID"
+            ],
+            "properties": {
+                "isMapBusiness": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "businessID": {
+                    "type": "string"
+                },
+                "info": {
+                    "$ref": "../../models/businessData.schema.json"
+                },
+                "order": {
+                    "type": "number"
+                },
+                "virtualTaxonomies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
         "SuccessResponse": {
             "type": "object",
             "additionalProperties": false,
@@ -87,37 +120,7 @@
                         "businesses": {
                             "type": "array",
                             "items": {
-                                "description": "указатель на бизнес в сети",
-                                "type": "object",
-                                "additionalProperties": false,
-                                "required": [
-                                    "isMapBusiness",
-                                    "businessID"
-                                ],
-                                "properties": {
-                                    "isMapBusiness": {
-                                        "type": "boolean",
-                                        "default": false
-                                    },
-                                    "_id": {
-                                        "type": "string"
-                                    },
-                                    "businessID": {
-                                        "type": "string"
-                                    },
-                                    "info": {
-                                        "$ref": "../../models/businessData.schema.json"
-                                    },
-                                    "order": {
-                                        "type": "number"
-                                    },
-                                    "virtualTaxonomies": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
+                                "$ref": "#/definitions/BusinessRefInNetwork"
                             }
                         },
                         "networkWidgetConfiguration": {

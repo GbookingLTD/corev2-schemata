@@ -214,8 +214,7 @@
             "additionalProperties": false,
             "required": [
                 "fieldID",
-                "fieldName",
-                "value"
+                "fieldName"
             ],
             "properties": {
                 "fieldID": {

@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BusinessTaxonomyPrice {
+public class PurpleBusinessTaxonomyPrice {
     private String amount;
     private CurrencyList currency;
     private double resourceLevel;

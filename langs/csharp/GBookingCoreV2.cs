@@ -387,6 +387,9 @@ namespace GBookingCoreV2
     {
         [JsonProperty("id")]
         public string Id { get; set; }
+
+        [JsonProperty("shortId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShortId { get; set; }
     }
 
     public partial class FluffyClient
@@ -936,7 +939,7 @@ namespace GBookingCoreV2
         public string FieldName { get; set; }
 
         [JsonProperty("value")]
-        public Value Value { get; set; }
+        public Value? Value { get; set; }
     }
 
     public partial class IncomingPhoneElement
@@ -1514,7 +1517,7 @@ namespace GBookingCoreV2
         public Filter Filter { get; set; }
 
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
-        public ParamsNetwork Network { get; set; }
+        public PurpleNetwork Network { get; set; }
 
         [JsonProperty("page")]
         public double Page { get; set; }
@@ -1577,7 +1580,7 @@ namespace GBookingCoreV2
         public DateTimeOffset Start { get; set; }
     }
 
-    public partial class ParamsNetwork
+    public partial class PurpleNetwork
     {
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public BackofficeIdUnion? Id { get; set; }
@@ -1829,17 +1832,17 @@ namespace GBookingCoreV2
         [JsonProperty("business")]
         public StickyBusiness Business { get; set; }
 
-        [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("originBusinessID")]
         public string OriginBusinessId { get; set; }
 
         [JsonProperty("resource")]
-        public ResourceClass Resource { get; set; }
+        public PurpleResource Resource { get; set; }
 
         [JsonProperty("source")]
         public string Source { get; set; }
 
         [JsonProperty("taxonomy")]
-        public ParamsTaxonomy Taxonomy { get; set; }
+        public PurpleTaxonomy Taxonomy { get; set; }
     }
 
     public partial class IndigoAppointment
@@ -1854,13 +1857,13 @@ namespace GBookingCoreV2
         public string Id { get; set; }
     }
 
-    public partial class ResourceClass
+    public partial class PurpleResource
     {
         [JsonProperty("id")]
         public ResourceId Id { get; set; }
     }
 
-    public partial class ParamsTaxonomy
+    public partial class PurpleTaxonomy
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -1983,12 +1986,37 @@ namespace GBookingCoreV2
         [JsonProperty("networkID")]
         public BackofficeIdUnion NetworkId { get; set; }
 
+        [JsonProperty("resource", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyResource Resource { get; set; }
+
+        [JsonProperty("taxonomy", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyTaxonomy Taxonomy { get; set; }
+
         /// <summary>
         /// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
         /// в массиве businesses
         /// </summary>
         [JsonProperty("with_business_info", NullValueHandling = NullValueHandling.Ignore)]
         public bool? WithBusinessInfo { get; set; }
+    }
+
+    public partial class FluffyResource
+    {
+        /// <summary>
+        /// идентификатор работника, если передано - возвращает все бизнесы нетворка где есть
+        /// работник с таким ключем
+        /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+    }
+
+    public partial class FluffyTaxonomy
+    {
+        /// <summary>
+        /// идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой
+        /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class BusinessGetNetworkDataResponse
@@ -2050,7 +2078,7 @@ namespace GBookingCoreV2
         public Dictionary<string, object> BusinessConfiguration { get; set; }
 
         [JsonProperty("businesses")]
-        public List<IndigoBusiness> Businesses { get; set; }
+        public List<BusinessRefInNetwork> Businesses { get; set; }
 
         [JsonProperty("clientVIPPhones")]
         public List<string> ClientVipPhones { get; set; }
@@ -2077,7 +2105,7 @@ namespace GBookingCoreV2
     /// <summary>
     /// указатель на бизнес в сети
     /// </summary>
-    public partial class IndigoBusiness
+    public partial class BusinessRefInNetwork
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -2098,10 +2126,24 @@ namespace GBookingCoreV2
         public List<string> VirtualTaxonomies { get; set; }
     }
 
-    public partial class IndecentBusiness
+    public partial class IndigoBusiness
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
+
+        /// <summary>
+        /// колличество активных рабоников, возвращается при вызове через get_network_data при
+        /// передаче ключа работника или услуги
+        /// </summary>
+        [JsonProperty("activeResourceCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ActiveResourceCount { get; set; }
+
+        /// <summary>
+        /// колличество активных услуг, возвращается при вызове через get_network_data при передаче
+        /// ключа работника или услуги
+        /// </summary>
+        [JsonProperty("activeTaxonomyCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ActiveTaxonomyCount { get; set; }
 
         [JsonProperty("additionalSettings", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleAdditionalSettings AdditionalSettings { get; set; }
@@ -2169,8 +2211,14 @@ namespace GBookingCoreV2
         [JsonProperty("notifications", NullValueHandling = NullValueHandling.Ignore)]
         public List<object> Notifications { get; set; }
 
+        [JsonProperty("resources", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Resource> Resources { get; set; }
+
         [JsonProperty("stateLevelHolidaysNotWorking", NullValueHandling = NullValueHandling.Ignore)]
         public bool? StateLevelHolidaysNotWorking { get; set; }
+
+        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleBusinessTaxonomy> Taxonomies { get; set; }
 
         [JsonProperty("taxonomiesComplex", NullValueHandling = NullValueHandling.Ignore)]
         public List<PurpleTaxonomiesComplex> TaxonomiesComplex { get; set; }
@@ -2333,6 +2381,12 @@ namespace GBookingCoreV2
 
         [JsonProperty("scheduleDefaultWorkersLimit", NullValueHandling = NullValueHandling.Ignore)]
         public double? ScheduleDefaultWorkersLimit { get; set; }
+
+        [JsonProperty("scheduleDefaultWorkersLimitDay")]
+        public double? ScheduleDefaultWorkersLimitDay { get; set; }
+
+        [JsonProperty("scheduleDefaultWorkersLimitWeek")]
+        public double? ScheduleDefaultWorkersLimitWeek { get; set; }
 
         [JsonProperty("schedulerWeekViewType", NullValueHandling = NullValueHandling.Ignore)]
         public SchedulerWeekViewType? SchedulerWeekViewType { get; set; }
@@ -3038,1169 +3092,7 @@ namespace GBookingCoreV2
         public string Title2 { get; set; }
     }
 
-    public partial class PurpleTaxonomiesComplex
-    {
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
-
-        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Taxonomies { get; set; }
-    }
-
-    public partial class PurpleTopServices
-    {
-        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
-        public List<object> Services { get; set; }
-
-        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
-        public string Status { get; set; }
-    }
-
-    public partial class PurpleWidgetConfiguration
-    {
-        [JsonProperty("additionalName", NullValueHandling = NullValueHandling.Ignore)]
-        public string AdditionalName { get; set; }
-
-        [JsonProperty("alignmentTaxonomySlots", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AlignmentTaxonomySlots { get; set; }
-
-        [JsonProperty("allowAutoSelect", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowAutoSelect { get; set; }
-
-        [JsonProperty("allowBookVisitor", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowBookVisitor { get; set; }
-
-        [JsonProperty("allowSkipTimeCheck", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowSkipTimeCheck { get; set; }
-
-        [JsonProperty("appointment_confirmation_text", NullValueHandling = NullValueHandling.Ignore)]
-        public string AppointmentConfirmationText { get; set; }
-
-        [JsonProperty("appointment_confirmation_title", NullValueHandling = NullValueHandling.Ignore)]
-        public string AppointmentConfirmationTitle { get; set; }
-
-        [JsonProperty("askClientBirthday", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AskClientBirthday { get; set; }
-
-        [JsonProperty("askClientGender", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AskClientGender { get; set; }
-
-        [JsonProperty("bookableDateRanges", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleBookableDateRanges BookableDateRanges { get; set; }
-
-        [JsonProperty("bookableMonthsCount", NullValueHandling = NullValueHandling.Ignore)]
-        public double? BookableMonthsCount { get; set; }
-
-        [JsonProperty("calendarMode", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? CalendarMode { get; set; }
-
-        [JsonProperty("calendarModeHideTime", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? CalendarModeHideTime { get; set; }
-
-        [JsonProperty("clientBlockingSettings", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleClientBlockingSettings ClientBlockingSettings { get; set; }
-
-        [JsonProperty("clientCommentTitle", NullValueHandling = NullValueHandling.Ignore)]
-        public string ClientCommentTitle { get; set; }
-
-        [JsonProperty("cracServer", NullValueHandling = NullValueHandling.Ignore)]
-        public CracServer? CracServer { get; set; }
-
-        [JsonProperty("cracSlotSize", NullValueHandling = NullValueHandling.Ignore)]
-        public double? CracSlotSize { get; set; }
-
-        [JsonProperty("crunchv2", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Crunchv2 { get; set; }
-
-        [JsonProperty("dayOffLabel", NullValueHandling = NullValueHandling.Ignore)]
-        public string DayOffLabel { get; set; }
-
-        [JsonProperty("daysForward", NullValueHandling = NullValueHandling.Ignore)]
-        public double? DaysForward { get; set; }
-
-        [JsonProperty("dayUnavailableLabel", NullValueHandling = NullValueHandling.Ignore)]
-        public string DayUnavailableLabel { get; set; }
-
-        [JsonProperty("defaultServiceImgUrl", NullValueHandling = NullValueHandling.Ignore)]
-        public string DefaultServiceImgUrl { get; set; }
-
-        [JsonProperty("defaultWorkerImgUrl", NullValueHandling = NullValueHandling.Ignore)]
-        public string DefaultWorkerImgUrl { get; set; }
-
-        [JsonProperty("denySameTimeRecords", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DenySameTimeRecords { get; set; }
-
-        [JsonProperty("disabledTaxonomiesText", NullValueHandling = NullValueHandling.Ignore)]
-        public string DisabledTaxonomiesText { get; set; }
-
-        [JsonProperty("disableMobileWidget", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DisableMobileWidget { get; set; }
-
-        [JsonProperty("disableWidget", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DisableWidget { get; set; }
-
-        [JsonProperty("disableWidgetMessage", NullValueHandling = NullValueHandling.Ignore)]
-        public string DisableWidgetMessage { get; set; }
-
-        [JsonProperty("discountedPriceRounding", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleDiscountedPriceRounding DiscountedPriceRounding { get; set; }
-
-        [JsonProperty("displaySlotSize", NullValueHandling = NullValueHandling.Ignore)]
-        public double? DisplaySlotSize { get; set; }
-
-        [JsonProperty("dontRequireEmail", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DontRequireEmail { get; set; }
-
-        [JsonProperty("emailIsMandatory", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EmailIsMandatory { get; set; }
-
-        [JsonProperty("enableOverrideFooter", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableOverrideFooter { get; set; }
-
-        [JsonProperty("enableWarningContactData", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableWarningContactData { get; set; }
-
-        [JsonProperty("extraVisitors", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ExtraVisitors { get; set; }
-
-        [JsonProperty("filterNonInsuranceSchedule", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? FilterNonInsuranceSchedule { get; set; }
-
-        [JsonProperty("hideAnyWorkerBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideAnyWorkerBooking { get; set; }
-
-        [JsonProperty("hideCallButton", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideCallButton { get; set; }
-
-        [JsonProperty("hideEmptyDays", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideEmptyDays { get; set; }
-
-        [JsonProperty("hideGBookingLogo", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideGBookingLogo { get; set; }
-
-        [JsonProperty("hideGraySlots", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideGraySlots { get; set; }
-
-        [JsonProperty("hideNewAppointmentButton", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideNewAppointmentButton { get; set; }
-
-        [JsonProperty("hidePrices", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HidePrices { get; set; }
-
-        [JsonProperty("hideSocialNetworksAuthentication", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideSocialNetworksAuthentication { get; set; }
-
-        [JsonProperty("insuranceClientSupportPhone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Phone> InsuranceClientSupportPhone { get; set; }
-
-        [JsonProperty("maxServiceBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public double? MaxServiceBooking { get; set; }
-
-        [JsonProperty("maxTimeslotBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public double? MaxTimeslotBooking { get; set; }
-
-        [JsonProperty("middleNameSupport", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? MiddleNameSupport { get; set; }
-
-        [JsonProperty("mostFreeEnable", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? MostFreeEnable { get; set; }
-
-        [JsonProperty("multiServiceBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? MultiServiceBooking { get; set; }
-
-        [JsonProperty("multiTimeslotBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? MultiTimeslotBooking { get; set; }
-
-        [JsonProperty("multiTimeslotBookingAllDays", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? MultiTimeslotBookingAllDays { get; set; }
-
-        [JsonProperty("newWidgetTheme", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, object> NewWidgetTheme { get; set; }
-
-        [JsonProperty("noDefaultImages", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? NoDefaultImages { get; set; }
-
-        [JsonProperty("overrideFooter", NullValueHandling = NullValueHandling.Ignore)]
-        public string OverrideFooter { get; set; }
-
-        [JsonProperty("payment", NullValueHandling = NullValueHandling.Ignore)]
-        public Payment? Payment { get; set; }
-
-        [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePaymentProvider? PaymentProvider { get; set; }
-
-        [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? RequireAgreement { get; set; }
-
-        [JsonProperty("requireAgreementLink", NullValueHandling = NullValueHandling.Ignore)]
-        public string RequireAgreementLink { get; set; }
-
-        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
-        public double? RevisionVersion { get; set; }
-
-        [JsonProperty("shortLink", NullValueHandling = NullValueHandling.Ignore)]
-        public string ShortLink { get; set; }
-
-        [JsonProperty("showAllWorkers", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowAllWorkers { get; set; }
-
-        [JsonProperty("showClientAddress", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientAddress { get; set; }
-
-        [JsonProperty("showClientComment", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientComment { get; set; }
-
-        [JsonProperty("showDisabledTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDisabledTaxonomies { get; set; }
-
-        [JsonProperty("showDrinkQuestion", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDrinkQuestion { get; set; }
-
-        [JsonProperty("showMap", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowMap { get; set; }
-
-        [JsonProperty("showStartText", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowStartText { get; set; }
-
-        [JsonProperty("showSurnameFirst", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowSurnameFirst { get; set; }
-
-        [JsonProperty("showTalkQuestion", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowTalkQuestion { get; set; }
-
-        [JsonProperty("showTaxonomyConfirmationAlert", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowTaxonomyConfirmationAlert { get; set; }
-
-        [JsonProperty("skipAuthentication", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipAuthentication { get; set; }
-
-        [JsonProperty("skipDaysForward", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipDaysForward { get; set; }
-
-        [JsonProperty("skipMobileMap", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipMobileMap { get; set; }
-
-        [JsonProperty("skipServiceDurationAlignment", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipServiceDurationAlignment { get; set; }
-
-        [JsonProperty("skipServiceSelection", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipServiceSelection { get; set; }
-
-        [JsonProperty("skipTimeSelection", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipTimeSelection { get; set; }
-
-        [JsonProperty("skipTimeSelectionServiceIDs", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> SkipTimeSelectionServiceIDs { get; set; }
-
-        [JsonProperty("skipWorkerSelectedServiceIDs", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> SkipWorkerSelectedServiceIDs { get; set; }
-
-        [JsonProperty("skipWorkerServicesSelection", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipWorkerServicesSelection { get; set; }
-
-        [JsonProperty("socialNetworkImage", NullValueHandling = NullValueHandling.Ignore)]
-        public string SocialNetworkImage { get; set; }
-
-        [JsonProperty("socialSharing", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleSocialSharing SocialSharing { get; set; }
-
-        [JsonProperty("sortByMostFree", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SortByMostFree { get; set; }
-
-        [JsonProperty("sortWorkersByWorkload", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SortWorkersByWorkload { get; set; }
-
-        [JsonProperty("splitInsuranceClient", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SplitInsuranceClient { get; set; }
-
-        [JsonProperty("splitName", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SplitName { get; set; }
-
-        [JsonProperty("startTextButton", NullValueHandling = NullValueHandling.Ignore)]
-        public string StartTextButton { get; set; }
-
-        [JsonProperty("startTextMessage", NullValueHandling = NullValueHandling.Ignore)]
-        public string StartTextMessage { get; set; }
-
-        [JsonProperty("tentativeTTL", NullValueHandling = NullValueHandling.Ignore)]
-        public double? TentativeTtl { get; set; }
-
-        [JsonProperty("theme", NullValueHandling = NullValueHandling.Ignore)]
-        public string Theme { get; set; }
-
-        [JsonProperty("useAppointmentReminder", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseAppointmentReminder { get; set; }
-
-        [JsonProperty("useBusinessScheduleForUnavailableLabel", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseBusinessScheduleForUnavailableLabel { get; set; }
-
-        [JsonProperty("useClustersMap", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseClustersMap { get; set; }
-
-        [JsonProperty("useCoupon", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseCoupon { get; set; }
-
-        [JsonProperty("useCRAC", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseCrac { get; set; }
-
-        [JsonProperty("useDefaultServiceImg", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseDefaultServiceImg { get; set; }
-
-        [JsonProperty("useDefaultWorkerImg", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseDefaultWorkerImg { get; set; }
-
-        [JsonProperty("useDirectScheduleRead", NullValueHandling = NullValueHandling.Ignore)]
-        public UseDirectScheduleRead? UseDirectScheduleRead { get; set; }
-
-        [JsonProperty("useInsuranceGuaranteeLetter", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseInsuranceGuaranteeLetter { get; set; }
-
-        [JsonProperty("useInsuranceSelect", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseInsuranceSelect { get; set; }
-
-        [JsonProperty("useMedAuth", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseMedAuth { get; set; }
-
-        [JsonProperty("useMiddleName", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseMiddleName { get; set; }
-
-        [JsonProperty("useNewReserveAPI", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseNewReserveApi { get; set; }
-
-        [JsonProperty("useResourcePageLoading", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseResourcePageLoading { get; set; }
-
-        [JsonProperty("useSortByName", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseSortByName { get; set; }
-
-        [JsonProperty("warningContactDataText", NullValueHandling = NullValueHandling.Ignore)]
-        public string WarningContactDataText { get; set; }
-
-        [JsonProperty("widgetUseCRAC", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WidgetUseCrac { get; set; }
-
-        [JsonProperty("withoutWorkers", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithoutWorkers { get; set; }
-
-        [JsonProperty("worker_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
-        public string WorkerUnavailabilityText { get; set; }
-
-        [JsonProperty("workerNameReverse", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WorkerNameReverse { get; set; }
-    }
-
-    public partial class PurpleBookableDateRanges
-    {
-        [JsonProperty("enabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Enabled { get; set; }
-
-        [JsonProperty("end")]
-        public object End { get; set; }
-
-        [JsonProperty("start")]
-        public object Start { get; set; }
-    }
-
-    public partial class PurpleClientBlockingSettings
-    {
-        [JsonProperty("appointmentClientBlock", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AppointmentClientBlock { get; set; }
-
-        [JsonProperty("appointmentClientBlockDays", NullValueHandling = NullValueHandling.Ignore)]
-        public double? AppointmentClientBlockDays { get; set; }
-
-        [JsonProperty("appointmentClientBlockText", NullValueHandling = NullValueHandling.Ignore)]
-        public string AppointmentClientBlockText { get; set; }
-
-        [JsonProperty("blockIfFutureRecordExists", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? BlockIfFutureRecordExists { get; set; }
-
-        [JsonProperty("blockRepeatedRecordsCount", NullValueHandling = NullValueHandling.Ignore)]
-        public double? BlockRepeatedRecordsCount { get; set; }
-
-        [JsonProperty("blockRepeatedRecordsRange", NullValueHandling = NullValueHandling.Ignore)]
-        public double? BlockRepeatedRecordsRange { get; set; }
-
-        [JsonProperty("blockRepeatedRecordsText", NullValueHandling = NullValueHandling.Ignore)]
-        public string BlockRepeatedRecordsText { get; set; }
-    }
-
-    public partial class PurpleDiscountedPriceRounding
-    {
-        [JsonProperty("rule", NullValueHandling = NullValueHandling.Ignore)]
-        public Rule? Rule { get; set; }
-
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Value { get; set; }
-    }
-
-    public partial class PurpleSocialSharing
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("discountAmount")]
-        public double? DiscountAmount { get; set; }
-
-        [JsonProperty("discountEnabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DiscountEnabled { get; set; }
-
-        [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
-        public DiscountType? DiscountType { get; set; }
-
-        [JsonProperty("text")]
-        public string Text { get; set; }
-
-        [JsonProperty("widgetText")]
-        public string WidgetText { get; set; }
-    }
-
-    public partial class NetworkWidgetConfiguration
-    {
-        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("businesses")]
-        public List<NetworkWidgetConfigurationBusiness> Businesses { get; set; }
-
-        [JsonProperty("defaultServiceID")]
-        public string DefaultServiceId { get; set; }
-
-        [JsonProperty("showBranchSelector")]
-        public bool ShowBranchSelector { get; set; }
-
-        [JsonProperty("showDefaultService")]
-        public bool ShowDefaultService { get; set; }
-
-        [JsonProperty("showOnMap")]
-        public bool ShowOnMap { get; set; }
-
-        [JsonProperty("source")]
-        public string Source { get; set; }
-    }
-
-    public partial class NetworkWidgetConfigurationBusiness
-    {
-        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("active")]
-        public bool Active { get; set; }
-
-        [JsonProperty("internalID")]
-        public string InternalId { get; set; }
-    }
-
-    public partial class GetProfileById
-    {
-        [JsonProperty("request")]
-        public BusinessGetProfileByIdRequest Request { get; set; }
-
-        [JsonProperty("response")]
-        public BusinessGetProfileByIdResponse Response { get; set; }
-    }
-
-    public partial class BusinessGetProfileByIdRequest
-    {
-        /// <summary>
-        /// авторизационные параметры
-        /// </summary>
-        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
-        public Cred Cred { get; set; }
-
-        /// <summary>
-        /// значение числового типа для идентификации запроса на сервере
-        /// </summary>
-        [JsonProperty("id")]
-        public BackofficeIdUnion Id { get; set; }
-
-        /// <summary>
-        /// версия протокола - 2.0
-        /// </summary>
-        [JsonProperty("jsonrpc")]
-        public string Jsonrpc { get; set; }
-
-        /// <summary>
-        /// название jsonrpc метода
-        /// </summary>
-        [JsonProperty("method")]
-        public string Method { get; set; }
-
-        /// <summary>
-        /// параметры запроса
-        ///
-        /// параметры запроса business.get_profile_by_id
-        /// </summary>
-        [JsonProperty("params")]
-        public BusinessGetProfileByIdRequestParams Params { get; set; }
-    }
-
-    /// <summary>
-    /// параметры запроса business.get_profile_by_id
-    /// </summary>
-    public partial class BusinessGetProfileByIdRequestParams
-    {
-        [JsonProperty("business")]
-        public HilariousBusiness Business { get; set; }
-
-        /// <summary>
-        /// если указано true - меняет формат представления discounts
-        /// </summary>
-        [JsonProperty("desktop_discounts", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DesktopDiscounts { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает только активных работников (status == 'INACTIVE')
-        /// </summary>
-        [JsonProperty("only_active_workers", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? OnlyActiveWorkers { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает всех работников в том числе и неактивных (status ==
-        /// 'INACTIVE')
-        /// </summary>
-        [JsonProperty("show_inactive_workers", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowInactiveWorkers { get; set; }
-
-        /// <summary>
-        /// идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
-        /// </summary>
-        [JsonProperty("showcase_business_id", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeIdUnion? ShowcaseBusinessId { get; set; }
-
-        /// <summary>
-        /// если указано true - не приминяет сортировку работников
-        /// </summary>
-        [JsonProperty("skip_worker_sorting", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipWorkerSorting { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
-        /// </summary>
-        [JsonProperty("with_billing", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithBilling { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
-        /// (недоступно для роли guest)
-        /// </summary>
-        [JsonProperty("with_bop", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithBop { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает кампании скидочных купонов в поле campaigns
-        /// </summary>
-        [JsonProperty("with_campaigns", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithCampaigns { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает список скидочных акций в поле discounts
-        /// </summary>
-        [JsonProperty("with_discounts", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithDiscounts { get; set; }
-
-        /// <summary>
-        /// дата начала расписания, для которого нужно получить скидочные акции
-        /// </summary>
-        [JsonProperty("with_discounts_from", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? WithDiscountsFrom { get; set; }
-
-        /// <summary>
-        /// дата окончания расписания, для которого нужно получить скидочные акции
-        /// </summary>
-        [JsonProperty("with_discounts_to", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? WithDiscountsTo { get; set; }
-
-        /// <summary>
-        /// если указано true - возвращает информацию о других филиалах сети в поле networks
-        /// </summary>
-        [JsonProperty("with_networks", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithNetworks { get; set; }
-
-        /// <summary>
-        /// если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для
-        /// каждой таксономии (недоступно для роли guest)
-        /// </summary>
-        [JsonProperty("with_taxonomy_showcase", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? WithTaxonomyShowcase { get; set; }
-
-        /// <summary>
-        /// тип сортировки работника
-        /// </summary>
-        [JsonProperty("worker_sorting_type", NullValueHandling = NullValueHandling.Ignore)]
-        public WorkerSortingType? WorkerSortingType { get; set; }
-    }
-
-    public partial class HilariousBusiness
-    {
-        /// <summary>
-        /// идентификатор бизнеса
-        /// </summary>
-        [JsonProperty("id")]
-        public string Id { get; set; }
-    }
-
-    public partial class BusinessGetProfileByIdResponse
-    {
-        /// <summary>
-        /// значение числового типа для идентификации запроса на сервере
-        /// </summary>
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Id { get; set; }
-
-        /// <summary>
-        /// версия протокола (2.0)
-        /// </summary>
-        [JsonProperty("jsonrpc", NullValueHandling = NullValueHandling.Ignore)]
-        public string Jsonrpc { get; set; }
-
-        /// <summary>
-        /// данные, передаваемые в ответ
-        /// </summary>
-        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public BusinessGetProfileByIdResponseResult Result { get; set; }
-
-        /// <summary>
-        /// объект, содержащий информацию об ошибке
-        /// </summary>
-        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
-        public BusinessGetProfileByIdResponseError Error { get; set; }
-    }
-
-    /// <summary>
-    /// объект, содержащий информацию об ошибке
-    ///
-    /// Код ошибки авторизации
-    /// </summary>
-    public partial class BusinessGetProfileByIdResponseError
-    {
-        /// <summary>
-        /// код ошибки
-        /// </summary>
-        [JsonProperty("code")]
-        public double Code { get; set; }
-
-        /// <summary>
-        /// дополнительные данные об ошибке
-        /// </summary>
-        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
-
-        /// <summary>
-        /// текстовая информация об ошибке
-        /// </summary>
-        [JsonProperty("message")]
-        public string Message { get; set; }
-    }
-
-    /// <summary>
-    /// данные, передаваемые в ответ
-    /// </summary>
-    public partial class BusinessGetProfileByIdResponseResult
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("business")]
-        public ResultBusiness Business { get; set; }
-
-        [JsonProperty("freeSms", NullValueHandling = NullValueHandling.Ignore)]
-        public double? FreeSms { get; set; }
-
-        [JsonProperty("monthlyFreeSms", NullValueHandling = NullValueHandling.Ignore)]
-        public double? MonthlyFreeSms { get; set; }
-
-        [JsonProperty("networks", NullValueHandling = NullValueHandling.Ignore)]
-        public List<NetworkElement> Networks { get; set; }
-
-        [JsonProperty("profiles", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Dictionary<string, object>> Profiles { get; set; }
-
-        [JsonProperty("top_services", NullValueHandling = NullValueHandling.Ignore)]
-        public ResultTopServices TopServices { get; set; }
-
-        [JsonProperty("useDefaultSmsTemplate", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseDefaultSmsTemplate { get; set; }
-
-        [JsonProperty("yandexFeedType", NullValueHandling = NullValueHandling.Ignore)]
-        public YandexFeedType? YandexFeedType { get; set; }
-    }
-
-    public partial class AmbitiousBusiness
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("additionalSettings", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyAdditionalSettings AdditionalSettings { get; set; }
-
-        [JsonProperty("allowCategoryBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowCategoryBooking { get; set; }
-
-        [JsonProperty("backoffice_configuration", NullValueHandling = NullValueHandling.Ignore)]
-        public StickyBackofficeConfiguration BusinessBackofficeConfiguration { get; set; }
-
-        [JsonProperty("backofficeConfiguration", NullValueHandling = NullValueHandling.Ignore)]
-        public TentacledBackofficeConfiguration BackofficeConfiguration { get; set; }
-
-        [JsonProperty("backofficeType", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeType? BackofficeType { get; set; }
-
-        [JsonProperty("cabinets", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyCabinet> Cabinets { get; set; }
-
-        [JsonProperty("cabinetsEnabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? CabinetsEnabled { get; set; }
-
-        [JsonProperty("callback_widget_configuration", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyCallbackWidgetConfiguration CallbackWidgetConfiguration { get; set; }
-
-        [JsonProperty("consumables", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyConsumable> Consumables { get; set; }
-
-        [JsonProperty("created_on", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? CreatedOn { get; set; }
-
-        [JsonProperty("defaultFilteredWorkers", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> DefaultFilteredWorkers { get; set; }
-
-        [JsonProperty("departments", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyDepartment> Departments { get; set; }
-
-        [JsonProperty("designs", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Dictionary<string, object>> Designs { get; set; }
-
-        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
-        public string ExtraId { get; set; }
-
-        [JsonProperty("flatTaxonomyDisplay", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? FlatTaxonomyDisplay { get; set; }
-
-        [JsonProperty("general_info")]
-        public BusinessInfo GeneralInfo { get; set; }
-
-        [JsonProperty("group", NullValueHandling = NullValueHandling.Ignore)]
-        public Group? Group { get; set; }
-
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("integration_data", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, object> IntegrationData { get; set; }
-
-        [JsonProperty("mini_widget_configuration")]
-        public FluffyMiniWidgetConfiguration MiniWidgetConfiguration { get; set; }
-
-        [JsonProperty("mobileData", NullValueHandling = NullValueHandling.Ignore)]
-        public List<object> MobileData { get; set; }
-
-        [JsonProperty("notifications", NullValueHandling = NullValueHandling.Ignore)]
-        public List<object> Notifications { get; set; }
-
-        [JsonProperty("resources")]
-        public List<Resource> Resources { get; set; }
-
-        [JsonProperty("stateLevelHolidaysNotWorking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? StateLevelHolidaysNotWorking { get; set; }
-
-        [JsonProperty("taxonomies")]
-        public List<BusinessTaxonomy> Taxonomies { get; set; }
-
-        [JsonProperty("taxonomiesComplex", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyTaxonomiesComplex> TaxonomiesComplex { get; set; }
-
-        [JsonProperty("taxonomy_tree_capacity", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Dictionary<string, object>> TaxonomyTreeCapacity { get; set; }
-
-        [JsonProperty("top_services", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyTopServices TopServices { get; set; }
-
-        [JsonProperty("vertical", NullValueHandling = NullValueHandling.Ignore)]
-        public string Vertical { get; set; }
-
-        [JsonProperty("widget_configuration")]
-        public FluffyWidgetConfiguration WidgetConfiguration { get; set; }
-
-        [JsonProperty("yandexFeedType", NullValueHandling = NullValueHandling.Ignore)]
-        public string YandexFeedType { get; set; }
-    }
-
-    public partial class FluffyAdditionalSettings
-    {
-        [JsonProperty("appointmentExtensionAmount", NullValueHandling = NullValueHandling.Ignore)]
-        public double? AppointmentExtensionAmount { get; set; }
-
-        [JsonProperty("appointmentExtensionType", NullValueHandling = NullValueHandling.Ignore)]
-        public AppointmentExtensionType? AppointmentExtensionType { get; set; }
-    }
-
-    public partial class TentacledBackofficeConfiguration
-    {
-        [JsonProperty("adjacentTaxonomiesTreshold", NullValueHandling = NullValueHandling.Ignore)]
-        public double? AdjacentTaxonomiesTreshold { get; set; }
-
-        [JsonProperty("allowHideServiceForBooking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowHideServiceForBooking { get; set; }
-
-        [JsonProperty("allowHideWorkersFromSchdeule", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowHideWorkersFromSchdeule { get; set; }
-
-        [JsonProperty("allowSmsTranslit", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AllowSmsTranslit { get; set; }
-
-        [JsonProperty("appointmentFutureMoving", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AppointmentFutureMoving { get; set; }
-
-        [JsonProperty("blockNotificationForAnyAvailableAdjacentService", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? BlockNotificationForAnyAvailableAdjacentService { get; set; }
-
-        [JsonProperty("cabinetsEnabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? CabinetsEnabled { get; set; }
-
-        [JsonProperty("checkClientOverlapping", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? CheckClientOverlapping { get; set; }
-
-        [JsonProperty("customOnlinePaymentConfirmationTemplate", NullValueHandling = NullValueHandling.Ignore)]
-        public string CustomOnlinePaymentConfirmationTemplate { get; set; }
-
-        [JsonProperty("defaultGTScheduleDayView", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DefaultGtScheduleDayView { get; set; }
-
-        [JsonProperty("disableAppointmentClientInlineEditor", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DisableAppointmentClientInlineEditor { get; set; }
-
-        [JsonProperty("editAppExtraId", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EditAppExtraId { get; set; }
-
-        [JsonProperty("editTaxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EditTaxonomyChildren { get; set; }
-
-        [JsonProperty("editTaxonomyVisitType", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EditTaxonomyVisitType { get; set; }
-
-        [JsonProperty("enableBlackList", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableBlackList { get; set; }
-
-        [JsonProperty("enableCalculateShedule", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableCalculateShedule { get; set; }
-
-        [JsonProperty("enableClientCard", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableClientCard { get; set; }
-
-        [JsonProperty("enableClientLanguage", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableClientLanguage { get; set; }
-
-        [JsonProperty("enableClientMedicalCardReport", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableClientMedicalCardReport { get; set; }
-
-        [JsonProperty("enableCustomOnlinePaymentConfirmation", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableCustomOnlinePaymentConfirmation { get; set; }
-
-        [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableExtendedPhone { get; set; }
-
-        [JsonProperty("enableExtendedRecordsClientStatistics", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableExtendedRecordsClientStatistics { get; set; }
-
-        [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableMasterImportance { get; set; }
-
-        [JsonProperty("enableServiceTimeLimit", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableServiceTimeLimit { get; set; }
-
-        [JsonProperty("enableSourceChoice", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableSourceChoice { get; set; }
-
-        [JsonProperty("enableTaxonomyChildrenAgeCheck", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableTaxonomyChildrenAgeCheck { get; set; }
-
-        [JsonProperty("exportToExcelRemovedClients", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ExportToExcelRemovedClients { get; set; }
-
-        [JsonProperty("feedbackCustomerPortalMessage", NullValueHandling = NullValueHandling.Ignore)]
-        public string FeedbackCustomerPortalMessage { get; set; }
-
-        [JsonProperty("feedbackCustomerPortalThankYouMessage", NullValueHandling = NullValueHandling.Ignore)]
-        public string FeedbackCustomerPortalThankYouMessage { get; set; }
-
-        [JsonProperty("feedbackCustomerPortalTitle", NullValueHandling = NullValueHandling.Ignore)]
-        public string FeedbackCustomerPortalTitle { get; set; }
-
-        [JsonProperty("feedBackMinRating", NullValueHandling = NullValueHandling.Ignore)]
-        public FeedBackMinRating? FeedBackMinRating { get; set; }
-
-        [JsonProperty("finId", NullValueHandling = NullValueHandling.Ignore)]
-        public string FinId { get; set; }
-
-        [JsonProperty("finName", NullValueHandling = NullValueHandling.Ignore)]
-        public string FinName { get; set; }
-
-        [JsonProperty("hideCustomerPortalFooter", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HideCustomerPortalFooter { get; set; }
-
-        [JsonProperty("highlightedResource", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? HighlightedResource { get; set; }
-
-        [JsonProperty("manualExceptionSupport", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ManualExceptionSupport { get; set; }
-
-        [JsonProperty("noInternetAlert", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? NoInternetAlert { get; set; }
-
-        [JsonProperty("pastTimeEdit", NullValueHandling = NullValueHandling.Ignore)]
-        public double? PastTimeEdit { get; set; }
-
-        [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyPaymentProvider? PaymentProvider { get; set; }
-
-        [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ReadonlyResourceSchedule { get; set; }
-
-        [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
-        public ResourceTimetableType? ResourceTimetableType { get; set; }
-
-        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
-        public double? RevisionVersion { get; set; }
-
-        [JsonProperty("schduleWeekViewIsDefault", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SchduleWeekViewIsDefault { get; set; }
-
-        [JsonProperty("scheduleDefaultWorkersLimit", NullValueHandling = NullValueHandling.Ignore)]
-        public double? ScheduleDefaultWorkersLimit { get; set; }
-
-        [JsonProperty("schedulerWeekViewType", NullValueHandling = NullValueHandling.Ignore)]
-        public SchedulerWeekViewType? SchedulerWeekViewType { get; set; }
-
-        [JsonProperty("scheduleWorkerHours", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ScheduleWorkerHours { get; set; }
-
-        [JsonProperty("showAdditionalFields", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowAdditionalFields { get; set; }
-
-        [JsonProperty("showAddress", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowAddress { get; set; }
-
-        [JsonProperty("showBirthDate", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowBirthDate { get; set; }
-
-        [JsonProperty("showClientAppear", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientAppear { get; set; }
-
-        [JsonProperty("showClientAppearOnSchedule", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientAppearOnSchedule { get; set; }
-
-        [JsonProperty("showClientBirthdayFilter", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientBirthdayFilter { get; set; }
-
-        [JsonProperty("showClientContractNumber", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientContractNumber { get; set; }
-
-        [JsonProperty("showClientImage", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientImage { get; set; }
-
-        [JsonProperty("showClientPayment", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowClientPayment { get; set; }
-
-        [JsonProperty("showDefaulterBlockscreen", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDefaulterBlockscreen { get; set; }
-
-        [JsonProperty("showDeliveryStatus", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDeliveryStatus { get; set; }
-
-        [JsonProperty("showDepartmentFilter", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDepartmentFilter { get; set; }
-
-        [JsonProperty("showDepartments", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDepartments { get; set; }
-
-        [JsonProperty("showDepartmentsConfiguration", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowDepartmentsConfiguration { get; set; }
-
-        [JsonProperty("showEmail", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowEmail { get; set; }
-
-        [JsonProperty("showExtraClientInfo", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowExtraClientInfo { get; set; }
-
-        [JsonProperty("showFax", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowFax { get; set; }
-
-        [JsonProperty("showFiredWorkerAppointmentAlert", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowFiredWorkerAppointmentAlert { get; set; }
-
-        [JsonProperty("showFirstAvailableSlot", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowFirstAvailableSlot { get; set; }
-
-        [JsonProperty("showGapWindow", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowGapWindow { get; set; }
-
-        [JsonProperty("showGender", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowGender { get; set; }
-
-        [JsonProperty("showGenderInRecords", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowGenderInRecords { get; set; }
-
-        [JsonProperty("showGeneratableReportsScreen", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowGeneratableReportsScreen { get; set; }
-
-        [JsonProperty("showHouseNumber", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowHouseNumber { get; set; }
-
-        [JsonProperty("showIsraelCity", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowIsraelCity { get; set; }
-
-        [JsonProperty("showKupatHolim", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowKupatHolim { get; set; }
-
-        [JsonProperty("showLeadsScreen", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowLeadsScreen { get; set; }
-
-        [JsonProperty("showManualChanges", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowManualChanges { get; set; }
-
-        [JsonProperty("showPassportId", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowPassportId { get; set; }
-
-        [JsonProperty("showRooms", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowRooms { get; set; }
-
-        [JsonProperty("showSeasonTickets", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowSeasonTickets { get; set; }
-
-        [JsonProperty("showTaxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowTaxonomyChildren { get; set; }
-
-        [JsonProperty("showTaxonomyLocalization", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowTaxonomyLocalization { get; set; }
-
-        [JsonProperty("showTaxonomyVisitType", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowTaxonomyVisitType { get; set; }
-
-        [JsonProperty("showTestRecord", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowTestRecord { get; set; }
-
-        [JsonProperty("showUTM", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowUtm { get; set; }
-
-        [JsonProperty("showWidgetColorTheme", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowWidgetColorTheme { get; set; }
-
-        [JsonProperty("showWorkerDescriptionInEvent", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowWorkerDescriptionInEvent { get; set; }
-
-        [JsonProperty("showWorkerExtraId", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowWorkerExtraId { get; set; }
-
-        [JsonProperty("showWorkerStatus", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowWorkerStatus { get; set; }
-
-        [JsonProperty("skipAppointmentPriceUpdate", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipAppointmentPriceUpdate { get; set; }
-
-        [JsonProperty("skipCancelIfClientNotAppear", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipCancelIfClientNotAppear { get; set; }
-
-        [JsonProperty("skipServiceFiltering", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipServiceFiltering { get; set; }
-
-        [JsonProperty("splitFullNameXlsExport", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SplitFullNameXlsExport { get; set; }
-
-        [JsonProperty("stateLevelHolidays")]
-        public List<Dictionary<string, object>> StateLevelHolidays { get; set; }
-
-        [JsonProperty("stateLevelHolidaysNotWorking", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? StateLevelHolidaysNotWorking { get; set; }
-
-        [JsonProperty("taxonomyChildrenMaxAge", NullValueHandling = NullValueHandling.Ignore)]
-        public double? TaxonomyChildrenMaxAge { get; set; }
-
-        [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseAdditionalDurations { get; set; }
-
-        [JsonProperty("useAdjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseAdjacentTaxonomies { get; set; }
-
-        [JsonProperty("useAdjacentTaxonomiesSlotSplitting", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseAdjacentTaxonomiesSlotSplitting { get; set; }
-
-        [JsonProperty("useGtAppMethod", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UseGtAppMethod { get; set; }
-
-        [JsonProperty("workWeekEnd", NullValueHandling = NullValueHandling.Ignore)]
-        public double? WorkWeekEnd { get; set; }
-
-        [JsonProperty("workWeekStart", NullValueHandling = NullValueHandling.Ignore)]
-        public double? WorkWeekStart { get; set; }
-    }
-
-    public partial class StickyBackofficeConfiguration
-    {
-        [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EnableMasterImportance { get; set; }
-
-        [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
-        public ResourceTimetableType? ResourceTimetableType { get; set; }
-    }
-
-    public partial class FluffyCabinet
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
-    }
-
-    public partial class FluffyCallbackWidgetConfiguration
-    {
-        [JsonProperty("title1", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title1 { get; set; }
-
-        [JsonProperty("title2", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title2 { get; set; }
-    }
-
-    public partial class FluffyConsumable
-    {
-        [JsonProperty("extraID")]
-        public string ExtraId { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("quantity")]
-        public double Quantity { get; set; }
-    }
-
-    public partial class FluffyDepartment
-    {
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("id_", NullValueHandling = NullValueHandling.Ignore)]
-        public double? DepartmentId { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
-
-    public partial class FluffyMiniWidgetConfiguration
-    {
-        [JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FieldElement> Fields { get; set; }
-
-        [JsonProperty("title1", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title1 { get; set; }
-
-        [JsonProperty("title2", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title2 { get; set; }
-    }
-
-    public partial class ResourceResource
+    public partial class ResourceClass
     {
         /// <summary>
         /// информация из внешней информационной системы как есть (при интеграции)
@@ -4745,19 +3637,19 @@ namespace GBookingCoreV2
         public double Level { get; set; }
     }
 
-    public partial class BusinessTaxonomy
+    public partial class PurpleBusinessTaxonomy
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
 
         [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AdditionalDuration> AdditionalDurations { get; set; }
+        public List<PurpleAdditionalDuration> AdditionalDurations { get; set; }
 
         [JsonProperty("additionalPrices", NullValueHandling = NullValueHandling.Ignore)]
-        public List<BusinessTaxonomyPrice> AdditionalPrices { get; set; }
+        public List<PurpleBusinessTaxonomyPrice> AdditionalPrices { get; set; }
 
         [JsonProperty("additionalProducts", NullValueHandling = NullValueHandling.Ignore)]
-        public List<BusinessTaxonomyProduct> AdditionalProducts { get; set; }
+        public List<PurpleBusinessTaxonomyProduct> AdditionalProducts { get; set; }
 
         [JsonProperty("additionalTaxonomyExtraId", NullValueHandling = NullValueHandling.Ignore)]
         public List<Dictionary<string, object>> AdditionalTaxonomyExtraId { get; set; }
@@ -4766,7 +3658,7 @@ namespace GBookingCoreV2
         public bool? AdjacentSameTimeStart { get; set; }
 
         [JsonProperty("adjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AdjacentTaxonomy> AdjacentTaxonomies { get; set; }
+        public List<PurpleAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
 
         [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Alias { get; set; }
@@ -4811,7 +3703,7 @@ namespace GBookingCoreV2
         public string ConfirmationSmsAlert { get; set; }
 
         [JsonProperty("dateLimits", NullValueHandling = NullValueHandling.Ignore)]
-        public List<DateLimit> DateLimits { get; set; }
+        public List<PurpleDateLimit> DateLimits { get; set; }
 
         [JsonProperty("dateLimitType", NullValueHandling = NullValueHandling.Ignore)]
         public DateLimitType? DateLimitType { get; set; }
@@ -4880,7 +3772,7 @@ namespace GBookingCoreV2
         public double? Popularity { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public TaxonomyPrice Price { get; set; }
+        public PurplePrice Price { get; set; }
 
         [JsonProperty("priceLink", NullValueHandling = NullValueHandling.Ignore)]
         public string PriceLink { get; set; }
@@ -4895,10 +3787,10 @@ namespace GBookingCoreV2
         public List<string> Rooms { get; set; }
 
         [JsonProperty("showcaseItems", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShowcaseItem> ShowcaseItems { get; set; }
+        public List<PurpleShowcaseItem> ShowcaseItems { get; set; }
 
         [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<TaxonomyShowcase> Showcases { get; set; }
+        public List<PurpleTaxonomyShowcase> Showcases { get; set; }
 
         /// <summary>
         /// Идентификатор услуги в витрине
@@ -4937,7 +3829,7 @@ namespace GBookingCoreV2
         public string VisitType { get; set; }
     }
 
-    public partial class AdditionalDuration
+    public partial class PurpleAdditionalDuration
     {
         [JsonProperty("duration")]
         public double? Duration { get; set; }
@@ -4946,7 +3838,7 @@ namespace GBookingCoreV2
         public double? Level { get; set; }
     }
 
-    public partial class BusinessTaxonomyPrice
+    public partial class PurpleBusinessTaxonomyPrice
     {
         /// <summary>
         /// Значение цены
@@ -4979,7 +3871,7 @@ namespace GBookingCoreV2
         public AdditionalPriceType? Type { get; set; }
     }
 
-    public partial class BusinessTaxonomyProduct
+    public partial class PurpleBusinessTaxonomyProduct
     {
         /// <summary>
         /// Дополнительный ID товара
@@ -5000,7 +3892,7 @@ namespace GBookingCoreV2
         public bool BusinessTaxonomyProductRequired { get; set; }
     }
 
-    public partial class AdjacentTaxonomy
+    public partial class PurpleAdjacentTaxonomy
     {
         [JsonProperty("isAnyAvailable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsAnyAvailable { get; set; }
@@ -5015,7 +3907,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class DateLimit
+    public partial class PurpleDateLimit
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -5057,7 +3949,7 @@ namespace GBookingCoreV2
         public TimeFrame Time { get; set; }
     }
 
-    public partial class TaxonomyPrice
+    public partial class PurplePrice
     {
         /// <summary>
         /// Значение цены
@@ -5084,13 +3976,13 @@ namespace GBookingCoreV2
         public AdditionalPriceType Type { get; set; }
     }
 
-    public partial class ShowcaseItem
+    public partial class PurpleShowcaseItem
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
         [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShowcaseItemAdditionalDuration> AdditionalDurations { get; set; }
+        public List<FluffyAdditionalDuration> AdditionalDurations { get; set; }
 
         [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BusinessId { get; set; }
@@ -5105,7 +3997,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class ShowcaseItemAdditionalDuration
+    public partial class FluffyAdditionalDuration
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -5120,7 +4012,1535 @@ namespace GBookingCoreV2
         public double? Level { get; set; }
     }
 
-    public partial class TaxonomyShowcase
+    public partial class PurpleTaxonomyShowcase
+    {
+        [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BaseBusinessId { get; set; }
+
+        [JsonProperty("isBaseNode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsBaseNode { get; set; }
+
+        [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string OriginBusinessId { get; set; }
+
+        [JsonProperty("showcaseItemID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShowcaseItemId { get; set; }
+    }
+
+    public partial class PurpleTaxonomiesComplex
+    {
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Taxonomies { get; set; }
+    }
+
+    public partial class PurpleTopServices
+    {
+        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Services { get; set; }
+
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public string Status { get; set; }
+    }
+
+    public partial class PurpleWidgetConfiguration
+    {
+        [JsonProperty("additionalName", NullValueHandling = NullValueHandling.Ignore)]
+        public string AdditionalName { get; set; }
+
+        [JsonProperty("alignmentTaxonomySlots", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AlignmentTaxonomySlots { get; set; }
+
+        [JsonProperty("allowAutoSelect", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowAutoSelect { get; set; }
+
+        [JsonProperty("allowBookVisitor", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowBookVisitor { get; set; }
+
+        [JsonProperty("allowSkipTimeCheck", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowSkipTimeCheck { get; set; }
+
+        [JsonProperty("appointment_confirmation_text", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppointmentConfirmationText { get; set; }
+
+        [JsonProperty("appointment_confirmation_title", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppointmentConfirmationTitle { get; set; }
+
+        [JsonProperty("askClientBirthday", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AskClientBirthday { get; set; }
+
+        [JsonProperty("askClientGender", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AskClientGender { get; set; }
+
+        [JsonProperty("bookableDateRanges", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleBookableDateRanges BookableDateRanges { get; set; }
+
+        [JsonProperty("bookableMonthsCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? BookableMonthsCount { get; set; }
+
+        [JsonProperty("calendarMode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CalendarMode { get; set; }
+
+        [JsonProperty("calendarModeHideTime", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CalendarModeHideTime { get; set; }
+
+        [JsonProperty("clientBlockingSettings", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleClientBlockingSettings ClientBlockingSettings { get; set; }
+
+        [JsonProperty("clientCommentTitle", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientCommentTitle { get; set; }
+
+        [JsonProperty("cracServer", NullValueHandling = NullValueHandling.Ignore)]
+        public CracServer? CracServer { get; set; }
+
+        [JsonProperty("cracSlotSize", NullValueHandling = NullValueHandling.Ignore)]
+        public double? CracSlotSize { get; set; }
+
+        [JsonProperty("crunchv2", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Crunchv2 { get; set; }
+
+        [JsonProperty("dayOffLabel", NullValueHandling = NullValueHandling.Ignore)]
+        public string DayOffLabel { get; set; }
+
+        [JsonProperty("daysForward", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DaysForward { get; set; }
+
+        [JsonProperty("dayUnavailableLabel", NullValueHandling = NullValueHandling.Ignore)]
+        public string DayUnavailableLabel { get; set; }
+
+        [JsonProperty("defaultServiceImgUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string DefaultServiceImgUrl { get; set; }
+
+        [JsonProperty("defaultWorkerImgUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string DefaultWorkerImgUrl { get; set; }
+
+        [JsonProperty("denySameTimeRecords", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DenySameTimeRecords { get; set; }
+
+        [JsonProperty("disabledTaxonomiesText", NullValueHandling = NullValueHandling.Ignore)]
+        public string DisabledTaxonomiesText { get; set; }
+
+        [JsonProperty("disableMobileWidget", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisableMobileWidget { get; set; }
+
+        [JsonProperty("disableWidget", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisableWidget { get; set; }
+
+        [JsonProperty("disableWidgetMessage", NullValueHandling = NullValueHandling.Ignore)]
+        public string DisableWidgetMessage { get; set; }
+
+        [JsonProperty("discountedPriceRounding", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleDiscountedPriceRounding DiscountedPriceRounding { get; set; }
+
+        [JsonProperty("displaySlotSize", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DisplaySlotSize { get; set; }
+
+        [JsonProperty("dontRequireEmail", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DontRequireEmail { get; set; }
+
+        [JsonProperty("emailIsMandatory", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EmailIsMandatory { get; set; }
+
+        [JsonProperty("enableOverrideFooter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableOverrideFooter { get; set; }
+
+        [JsonProperty("enableWarningContactData", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableWarningContactData { get; set; }
+
+        [JsonProperty("extraVisitors", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ExtraVisitors { get; set; }
+
+        [JsonProperty("filterNonInsuranceSchedule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? FilterNonInsuranceSchedule { get; set; }
+
+        [JsonProperty("hideAnyWorkerBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideAnyWorkerBooking { get; set; }
+
+        [JsonProperty("hideCallButton", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideCallButton { get; set; }
+
+        [JsonProperty("hideEmptyDays", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideEmptyDays { get; set; }
+
+        [JsonProperty("hideGBookingLogo", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideGBookingLogo { get; set; }
+
+        [JsonProperty("hideGraySlots", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideGraySlots { get; set; }
+
+        [JsonProperty("hideNewAppointmentButton", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideNewAppointmentButton { get; set; }
+
+        [JsonProperty("hidePrices", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HidePrices { get; set; }
+
+        [JsonProperty("hideSocialNetworksAuthentication", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideSocialNetworksAuthentication { get; set; }
+
+        [JsonProperty("insuranceClientSupportPhone", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Phone> InsuranceClientSupportPhone { get; set; }
+
+        [JsonProperty("maxServiceBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public double? MaxServiceBooking { get; set; }
+
+        [JsonProperty("maxTimeslotBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public double? MaxTimeslotBooking { get; set; }
+
+        [JsonProperty("middleNameSupport", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MiddleNameSupport { get; set; }
+
+        [JsonProperty("mostFreeEnable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MostFreeEnable { get; set; }
+
+        [JsonProperty("multiServiceBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MultiServiceBooking { get; set; }
+
+        [JsonProperty("multiTimeslotBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MultiTimeslotBooking { get; set; }
+
+        [JsonProperty("multiTimeslotBookingAllDays", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MultiTimeslotBookingAllDays { get; set; }
+
+        [JsonProperty("newWidgetTheme", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> NewWidgetTheme { get; set; }
+
+        [JsonProperty("noDefaultImages", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? NoDefaultImages { get; set; }
+
+        [JsonProperty("overrideFooter", NullValueHandling = NullValueHandling.Ignore)]
+        public string OverrideFooter { get; set; }
+
+        [JsonProperty("payment", NullValueHandling = NullValueHandling.Ignore)]
+        public Payment? Payment { get; set; }
+
+        [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public PurplePaymentProvider? PaymentProvider { get; set; }
+
+        [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? RequireAgreement { get; set; }
+
+        [JsonProperty("requireAgreementLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string RequireAgreementLink { get; set; }
+
+        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
+        public double? RevisionVersion { get; set; }
+
+        [JsonProperty("shortLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShortLink { get; set; }
+
+        [JsonProperty("showAllWorkers", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowAllWorkers { get; set; }
+
+        [JsonProperty("showClientAddress", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientAddress { get; set; }
+
+        [JsonProperty("showClientComment", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientComment { get; set; }
+
+        [JsonProperty("showDisabledTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDisabledTaxonomies { get; set; }
+
+        [JsonProperty("showDrinkQuestion", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDrinkQuestion { get; set; }
+
+        [JsonProperty("showMap", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowMap { get; set; }
+
+        [JsonProperty("showStartText", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowStartText { get; set; }
+
+        [JsonProperty("showSurnameFirst", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowSurnameFirst { get; set; }
+
+        [JsonProperty("showTalkQuestion", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTalkQuestion { get; set; }
+
+        [JsonProperty("showTaxonomyConfirmationAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTaxonomyConfirmationAlert { get; set; }
+
+        [JsonProperty("skipAuthentication", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipAuthentication { get; set; }
+
+        [JsonProperty("skipDaysForward", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipDaysForward { get; set; }
+
+        [JsonProperty("skipMobileMap", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipMobileMap { get; set; }
+
+        [JsonProperty("skipServiceDurationAlignment", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipServiceDurationAlignment { get; set; }
+
+        [JsonProperty("skipServiceSelection", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipServiceSelection { get; set; }
+
+        [JsonProperty("skipTimeSelection", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipTimeSelection { get; set; }
+
+        [JsonProperty("skipTimeSelectionServiceIDs", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SkipTimeSelectionServiceIDs { get; set; }
+
+        [JsonProperty("skipWorkerSelectedServiceIDs", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> SkipWorkerSelectedServiceIDs { get; set; }
+
+        [JsonProperty("skipWorkerServicesSelection", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipWorkerServicesSelection { get; set; }
+
+        [JsonProperty("socialNetworkImage", NullValueHandling = NullValueHandling.Ignore)]
+        public string SocialNetworkImage { get; set; }
+
+        [JsonProperty("socialSharing", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleSocialSharing SocialSharing { get; set; }
+
+        [JsonProperty("sortByMostFree", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SortByMostFree { get; set; }
+
+        [JsonProperty("sortWorkersByWorkload", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SortWorkersByWorkload { get; set; }
+
+        [JsonProperty("splitInsuranceClient", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SplitInsuranceClient { get; set; }
+
+        [JsonProperty("splitName", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SplitName { get; set; }
+
+        [JsonProperty("startTextButton", NullValueHandling = NullValueHandling.Ignore)]
+        public string StartTextButton { get; set; }
+
+        [JsonProperty("startTextMessage", NullValueHandling = NullValueHandling.Ignore)]
+        public string StartTextMessage { get; set; }
+
+        [JsonProperty("tentativeTTL", NullValueHandling = NullValueHandling.Ignore)]
+        public double? TentativeTtl { get; set; }
+
+        [JsonProperty("theme", NullValueHandling = NullValueHandling.Ignore)]
+        public string Theme { get; set; }
+
+        [JsonProperty("useAppointmentReminder", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseAppointmentReminder { get; set; }
+
+        [JsonProperty("useBusinessScheduleForUnavailableLabel", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseBusinessScheduleForUnavailableLabel { get; set; }
+
+        [JsonProperty("useClustersMap", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseClustersMap { get; set; }
+
+        [JsonProperty("useCoupon", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseCoupon { get; set; }
+
+        [JsonProperty("useCRAC", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseCrac { get; set; }
+
+        [JsonProperty("useDefaultServiceImg", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseDefaultServiceImg { get; set; }
+
+        [JsonProperty("useDefaultWorkerImg", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseDefaultWorkerImg { get; set; }
+
+        [JsonProperty("useDirectScheduleRead", NullValueHandling = NullValueHandling.Ignore)]
+        public UseDirectScheduleRead? UseDirectScheduleRead { get; set; }
+
+        [JsonProperty("useInsuranceGuaranteeLetter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseInsuranceGuaranteeLetter { get; set; }
+
+        [JsonProperty("useInsuranceSelect", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseInsuranceSelect { get; set; }
+
+        [JsonProperty("useMedAuth", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseMedAuth { get; set; }
+
+        [JsonProperty("useMiddleName", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseMiddleName { get; set; }
+
+        [JsonProperty("useNewReserveAPI", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseNewReserveApi { get; set; }
+
+        [JsonProperty("useResourcePageLoading", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseResourcePageLoading { get; set; }
+
+        [JsonProperty("useSortByName", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseSortByName { get; set; }
+
+        [JsonProperty("warningContactDataText", NullValueHandling = NullValueHandling.Ignore)]
+        public string WarningContactDataText { get; set; }
+
+        [JsonProperty("widgetUseCRAC", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WidgetUseCrac { get; set; }
+
+        [JsonProperty("withoutWorkers", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithoutWorkers { get; set; }
+
+        [JsonProperty("worker_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
+        public string WorkerUnavailabilityText { get; set; }
+
+        [JsonProperty("workerNameReverse", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WorkerNameReverse { get; set; }
+    }
+
+    public partial class PurpleBookableDateRanges
+    {
+        [JsonProperty("enabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Enabled { get; set; }
+
+        [JsonProperty("end")]
+        public object End { get; set; }
+
+        [JsonProperty("start")]
+        public object Start { get; set; }
+    }
+
+    public partial class PurpleClientBlockingSettings
+    {
+        [JsonProperty("appointmentClientBlock", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AppointmentClientBlock { get; set; }
+
+        [JsonProperty("appointmentClientBlockDays", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AppointmentClientBlockDays { get; set; }
+
+        [JsonProperty("appointmentClientBlockText", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppointmentClientBlockText { get; set; }
+
+        [JsonProperty("blockIfFutureRecordExists", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? BlockIfFutureRecordExists { get; set; }
+
+        [JsonProperty("blockRepeatedRecordsCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? BlockRepeatedRecordsCount { get; set; }
+
+        [JsonProperty("blockRepeatedRecordsRange", NullValueHandling = NullValueHandling.Ignore)]
+        public double? BlockRepeatedRecordsRange { get; set; }
+
+        [JsonProperty("blockRepeatedRecordsText", NullValueHandling = NullValueHandling.Ignore)]
+        public string BlockRepeatedRecordsText { get; set; }
+    }
+
+    public partial class PurpleDiscountedPriceRounding
+    {
+        [JsonProperty("rule", NullValueHandling = NullValueHandling.Ignore)]
+        public Rule? Rule { get; set; }
+
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Value { get; set; }
+    }
+
+    public partial class PurpleSocialSharing
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("discountAmount")]
+        public double? DiscountAmount { get; set; }
+
+        [JsonProperty("discountEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DiscountEnabled { get; set; }
+
+        [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscountType? DiscountType { get; set; }
+
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("widgetText")]
+        public string WidgetText { get; set; }
+    }
+
+    public partial class NetworkWidgetConfiguration
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("businesses")]
+        public List<BusinessElement> Businesses { get; set; }
+
+        [JsonProperty("defaultServiceID")]
+        public string DefaultServiceId { get; set; }
+
+        [JsonProperty("showBranchSelector")]
+        public bool ShowBranchSelector { get; set; }
+
+        [JsonProperty("showDefaultService")]
+        public bool ShowDefaultService { get; set; }
+
+        [JsonProperty("showOnMap")]
+        public bool ShowOnMap { get; set; }
+
+        [JsonProperty("source")]
+        public string Source { get; set; }
+    }
+
+    public partial class BusinessElement
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("active")]
+        public bool Active { get; set; }
+
+        [JsonProperty("internalID")]
+        public string InternalId { get; set; }
+    }
+
+    public partial class GetProfileById
+    {
+        [JsonProperty("request")]
+        public BusinessGetProfileByIdRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public BusinessGetProfileByIdResponse Response { get; set; }
+    }
+
+    public partial class BusinessGetProfileByIdRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        ///
+        /// параметры запроса business.get_profile_by_id
+        /// </summary>
+        [JsonProperty("params")]
+        public BusinessGetProfileByIdRequestParams Params { get; set; }
+    }
+
+    /// <summary>
+    /// параметры запроса business.get_profile_by_id
+    /// </summary>
+    public partial class BusinessGetProfileByIdRequestParams
+    {
+        [JsonProperty("business")]
+        public IndecentBusiness Business { get; set; }
+
+        /// <summary>
+        /// если указано true - меняет формат представления discounts
+        /// </summary>
+        [JsonProperty("desktop_discounts", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DesktopDiscounts { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает только активных работников (status == 'INACTIVE')
+        /// </summary>
+        [JsonProperty("only_active_workers", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? OnlyActiveWorkers { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает всех работников в том числе и неактивных (status ==
+        /// 'INACTIVE')
+        /// </summary>
+        [JsonProperty("show_inactive_workers", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowInactiveWorkers { get; set; }
+
+        /// <summary>
+        /// идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
+        /// </summary>
+        [JsonProperty("showcase_business_id", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeIdUnion? ShowcaseBusinessId { get; set; }
+
+        /// <summary>
+        /// если указано true - не приминяет сортировку работников
+        /// </summary>
+        [JsonProperty("skip_worker_sorting", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipWorkerSorting { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
+        /// </summary>
+        [JsonProperty("with_billing", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithBilling { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
+        /// (недоступно для роли guest)
+        /// </summary>
+        [JsonProperty("with_bop", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithBop { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает кампании скидочных купонов в поле campaigns
+        /// </summary>
+        [JsonProperty("with_campaigns", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithCampaigns { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает список скидочных акций в поле discounts
+        /// </summary>
+        [JsonProperty("with_discounts", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithDiscounts { get; set; }
+
+        /// <summary>
+        /// дата начала расписания, для которого нужно получить скидочные акции
+        /// </summary>
+        [JsonProperty("with_discounts_from", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? WithDiscountsFrom { get; set; }
+
+        /// <summary>
+        /// дата окончания расписания, для которого нужно получить скидочные акции
+        /// </summary>
+        [JsonProperty("with_discounts_to", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? WithDiscountsTo { get; set; }
+
+        /// <summary>
+        /// если указано true - возвращает информацию о других филиалах сети в поле networks
+        /// </summary>
+        [JsonProperty("with_networks", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithNetworks { get; set; }
+
+        /// <summary>
+        /// если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для
+        /// каждой таксономии (недоступно для роли guest)
+        /// </summary>
+        [JsonProperty("with_taxonomy_showcase", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WithTaxonomyShowcase { get; set; }
+
+        /// <summary>
+        /// тип сортировки работника
+        /// </summary>
+        [JsonProperty("worker_sorting_type", NullValueHandling = NullValueHandling.Ignore)]
+        public WorkerSortingType? WorkerSortingType { get; set; }
+    }
+
+    public partial class IndecentBusiness
+    {
+        /// <summary>
+        /// идентификатор бизнеса
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class BusinessGetProfileByIdResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc", NullValueHandling = NullValueHandling.Ignore)]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// данные, передаваемые в ответ
+        /// </summary>
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public BusinessGetProfileByIdResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public BusinessGetProfileByIdResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class BusinessGetProfileByIdResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// данные, передаваемые в ответ
+    /// </summary>
+    public partial class BusinessGetProfileByIdResponseResult
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("business")]
+        public ResultBusiness Business { get; set; }
+
+        [JsonProperty("freeSms", NullValueHandling = NullValueHandling.Ignore)]
+        public double? FreeSms { get; set; }
+
+        [JsonProperty("monthlyFreeSms", NullValueHandling = NullValueHandling.Ignore)]
+        public double? MonthlyFreeSms { get; set; }
+
+        [JsonProperty("networks", NullValueHandling = NullValueHandling.Ignore)]
+        public List<NetworkElement> Networks { get; set; }
+
+        [JsonProperty("profiles", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> Profiles { get; set; }
+
+        [JsonProperty("top_services", NullValueHandling = NullValueHandling.Ignore)]
+        public ResultTopServices TopServices { get; set; }
+
+        [JsonProperty("useDefaultSmsTemplate", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseDefaultSmsTemplate { get; set; }
+
+        [JsonProperty("yandexFeedType", NullValueHandling = NullValueHandling.Ignore)]
+        public YandexFeedType? YandexFeedType { get; set; }
+    }
+
+    public partial class HilariousBusiness
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("additionalSettings", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyAdditionalSettings AdditionalSettings { get; set; }
+
+        [JsonProperty("allowCategoryBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowCategoryBooking { get; set; }
+
+        [JsonProperty("backoffice_configuration", NullValueHandling = NullValueHandling.Ignore)]
+        public StickyBackofficeConfiguration BusinessBackofficeConfiguration { get; set; }
+
+        [JsonProperty("backofficeConfiguration", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledBackofficeConfiguration BackofficeConfiguration { get; set; }
+
+        [JsonProperty("backofficeType", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeType? BackofficeType { get; set; }
+
+        [JsonProperty("cabinets", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyCabinet> Cabinets { get; set; }
+
+        [JsonProperty("cabinetsEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CabinetsEnabled { get; set; }
+
+        [JsonProperty("callback_widget_configuration", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyCallbackWidgetConfiguration CallbackWidgetConfiguration { get; set; }
+
+        [JsonProperty("consumables", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyConsumable> Consumables { get; set; }
+
+        [JsonProperty("created_on", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? CreatedOn { get; set; }
+
+        [JsonProperty("defaultFilteredWorkers", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> DefaultFilteredWorkers { get; set; }
+
+        [JsonProperty("departments", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyDepartment> Departments { get; set; }
+
+        [JsonProperty("designs", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> Designs { get; set; }
+
+        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("flatTaxonomyDisplay", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? FlatTaxonomyDisplay { get; set; }
+
+        [JsonProperty("general_info")]
+        public BusinessInfo GeneralInfo { get; set; }
+
+        [JsonProperty("group", NullValueHandling = NullValueHandling.Ignore)]
+        public Group? Group { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("integration_data", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> IntegrationData { get; set; }
+
+        [JsonProperty("mini_widget_configuration")]
+        public FluffyMiniWidgetConfiguration MiniWidgetConfiguration { get; set; }
+
+        [JsonProperty("mobileData", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> MobileData { get; set; }
+
+        [JsonProperty("notifications", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Notifications { get; set; }
+
+        [JsonProperty("resources")]
+        public List<Resource> Resources { get; set; }
+
+        [JsonProperty("stateLevelHolidaysNotWorking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? StateLevelHolidaysNotWorking { get; set; }
+
+        [JsonProperty("taxonomies")]
+        public List<FluffyBusinessTaxonomy> Taxonomies { get; set; }
+
+        [JsonProperty("taxonomiesComplex", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyTaxonomiesComplex> TaxonomiesComplex { get; set; }
+
+        [JsonProperty("taxonomy_tree_capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> TaxonomyTreeCapacity { get; set; }
+
+        [JsonProperty("top_services", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyTopServices TopServices { get; set; }
+
+        [JsonProperty("vertical", NullValueHandling = NullValueHandling.Ignore)]
+        public string Vertical { get; set; }
+
+        [JsonProperty("widget_configuration")]
+        public FluffyWidgetConfiguration WidgetConfiguration { get; set; }
+
+        [JsonProperty("yandexFeedType", NullValueHandling = NullValueHandling.Ignore)]
+        public string YandexFeedType { get; set; }
+    }
+
+    public partial class FluffyAdditionalSettings
+    {
+        [JsonProperty("appointmentExtensionAmount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AppointmentExtensionAmount { get; set; }
+
+        [JsonProperty("appointmentExtensionType", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentExtensionType? AppointmentExtensionType { get; set; }
+    }
+
+    public partial class TentacledBackofficeConfiguration
+    {
+        [JsonProperty("adjacentTaxonomiesTreshold", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AdjacentTaxonomiesTreshold { get; set; }
+
+        [JsonProperty("allowHideServiceForBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowHideServiceForBooking { get; set; }
+
+        [JsonProperty("allowHideWorkersFromSchdeule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowHideWorkersFromSchdeule { get; set; }
+
+        [JsonProperty("allowSmsTranslit", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowSmsTranslit { get; set; }
+
+        [JsonProperty("appointmentFutureMoving", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AppointmentFutureMoving { get; set; }
+
+        [JsonProperty("blockNotificationForAnyAvailableAdjacentService", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? BlockNotificationForAnyAvailableAdjacentService { get; set; }
+
+        [JsonProperty("cabinetsEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CabinetsEnabled { get; set; }
+
+        [JsonProperty("checkClientOverlapping", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CheckClientOverlapping { get; set; }
+
+        [JsonProperty("customOnlinePaymentConfirmationTemplate", NullValueHandling = NullValueHandling.Ignore)]
+        public string CustomOnlinePaymentConfirmationTemplate { get; set; }
+
+        [JsonProperty("defaultGTScheduleDayView", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DefaultGtScheduleDayView { get; set; }
+
+        [JsonProperty("disableAppointmentClientInlineEditor", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisableAppointmentClientInlineEditor { get; set; }
+
+        [JsonProperty("editAppExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EditAppExtraId { get; set; }
+
+        [JsonProperty("editTaxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EditTaxonomyChildren { get; set; }
+
+        [JsonProperty("editTaxonomyVisitType", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EditTaxonomyVisitType { get; set; }
+
+        [JsonProperty("enableBlackList", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableBlackList { get; set; }
+
+        [JsonProperty("enableCalculateShedule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableCalculateShedule { get; set; }
+
+        [JsonProperty("enableClientCard", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableClientCard { get; set; }
+
+        [JsonProperty("enableClientLanguage", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableClientLanguage { get; set; }
+
+        [JsonProperty("enableClientMedicalCardReport", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableClientMedicalCardReport { get; set; }
+
+        [JsonProperty("enableCustomOnlinePaymentConfirmation", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableCustomOnlinePaymentConfirmation { get; set; }
+
+        [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableExtendedPhone { get; set; }
+
+        [JsonProperty("enableExtendedRecordsClientStatistics", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableExtendedRecordsClientStatistics { get; set; }
+
+        [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableMasterImportance { get; set; }
+
+        [JsonProperty("enableServiceTimeLimit", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableServiceTimeLimit { get; set; }
+
+        [JsonProperty("enableSourceChoice", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableSourceChoice { get; set; }
+
+        [JsonProperty("enableTaxonomyChildrenAgeCheck", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableTaxonomyChildrenAgeCheck { get; set; }
+
+        [JsonProperty("exportToExcelRemovedClients", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ExportToExcelRemovedClients { get; set; }
+
+        [JsonProperty("feedbackCustomerPortalMessage", NullValueHandling = NullValueHandling.Ignore)]
+        public string FeedbackCustomerPortalMessage { get; set; }
+
+        [JsonProperty("feedbackCustomerPortalThankYouMessage", NullValueHandling = NullValueHandling.Ignore)]
+        public string FeedbackCustomerPortalThankYouMessage { get; set; }
+
+        [JsonProperty("feedbackCustomerPortalTitle", NullValueHandling = NullValueHandling.Ignore)]
+        public string FeedbackCustomerPortalTitle { get; set; }
+
+        [JsonProperty("feedBackMinRating", NullValueHandling = NullValueHandling.Ignore)]
+        public FeedBackMinRating? FeedBackMinRating { get; set; }
+
+        [JsonProperty("finId", NullValueHandling = NullValueHandling.Ignore)]
+        public string FinId { get; set; }
+
+        [JsonProperty("finName", NullValueHandling = NullValueHandling.Ignore)]
+        public string FinName { get; set; }
+
+        [JsonProperty("hideCustomerPortalFooter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HideCustomerPortalFooter { get; set; }
+
+        [JsonProperty("highlightedResource", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? HighlightedResource { get; set; }
+
+        [JsonProperty("manualExceptionSupport", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ManualExceptionSupport { get; set; }
+
+        [JsonProperty("noInternetAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? NoInternetAlert { get; set; }
+
+        [JsonProperty("pastTimeEdit", NullValueHandling = NullValueHandling.Ignore)]
+        public double? PastTimeEdit { get; set; }
+
+        [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyPaymentProvider? PaymentProvider { get; set; }
+
+        [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ReadonlyResourceSchedule { get; set; }
+
+        [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceTimetableType? ResourceTimetableType { get; set; }
+
+        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
+        public double? RevisionVersion { get; set; }
+
+        [JsonProperty("schduleWeekViewIsDefault", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SchduleWeekViewIsDefault { get; set; }
+
+        [JsonProperty("scheduleDefaultWorkersLimit", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ScheduleDefaultWorkersLimit { get; set; }
+
+        [JsonProperty("scheduleDefaultWorkersLimitDay")]
+        public double? ScheduleDefaultWorkersLimitDay { get; set; }
+
+        [JsonProperty("scheduleDefaultWorkersLimitWeek")]
+        public double? ScheduleDefaultWorkersLimitWeek { get; set; }
+
+        [JsonProperty("schedulerWeekViewType", NullValueHandling = NullValueHandling.Ignore)]
+        public SchedulerWeekViewType? SchedulerWeekViewType { get; set; }
+
+        [JsonProperty("scheduleWorkerHours", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ScheduleWorkerHours { get; set; }
+
+        [JsonProperty("showAdditionalFields", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowAdditionalFields { get; set; }
+
+        [JsonProperty("showAddress", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowAddress { get; set; }
+
+        [JsonProperty("showBirthDate", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowBirthDate { get; set; }
+
+        [JsonProperty("showClientAppear", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientAppear { get; set; }
+
+        [JsonProperty("showClientAppearOnSchedule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientAppearOnSchedule { get; set; }
+
+        [JsonProperty("showClientBirthdayFilter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientBirthdayFilter { get; set; }
+
+        [JsonProperty("showClientContractNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientContractNumber { get; set; }
+
+        [JsonProperty("showClientImage", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientImage { get; set; }
+
+        [JsonProperty("showClientPayment", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientPayment { get; set; }
+
+        [JsonProperty("showDefaulterBlockscreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDefaulterBlockscreen { get; set; }
+
+        [JsonProperty("showDeliveryStatus", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDeliveryStatus { get; set; }
+
+        [JsonProperty("showDepartmentFilter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDepartmentFilter { get; set; }
+
+        [JsonProperty("showDepartments", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDepartments { get; set; }
+
+        [JsonProperty("showDepartmentsConfiguration", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowDepartmentsConfiguration { get; set; }
+
+        [JsonProperty("showEmail", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowEmail { get; set; }
+
+        [JsonProperty("showExtraClientInfo", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowExtraClientInfo { get; set; }
+
+        [JsonProperty("showFax", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowFax { get; set; }
+
+        [JsonProperty("showFiredWorkerAppointmentAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowFiredWorkerAppointmentAlert { get; set; }
+
+        [JsonProperty("showFirstAvailableSlot", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowFirstAvailableSlot { get; set; }
+
+        [JsonProperty("showGapWindow", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowGapWindow { get; set; }
+
+        [JsonProperty("showGender", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowGender { get; set; }
+
+        [JsonProperty("showGenderInRecords", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowGenderInRecords { get; set; }
+
+        [JsonProperty("showGeneratableReportsScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowGeneratableReportsScreen { get; set; }
+
+        [JsonProperty("showHouseNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowHouseNumber { get; set; }
+
+        [JsonProperty("showIsraelCity", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowIsraelCity { get; set; }
+
+        [JsonProperty("showKupatHolim", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowKupatHolim { get; set; }
+
+        [JsonProperty("showLeadsScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowLeadsScreen { get; set; }
+
+        [JsonProperty("showManualChanges", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowManualChanges { get; set; }
+
+        [JsonProperty("showPassportId", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowPassportId { get; set; }
+
+        [JsonProperty("showRooms", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowRooms { get; set; }
+
+        [JsonProperty("showSeasonTickets", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowSeasonTickets { get; set; }
+
+        [JsonProperty("showTaxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTaxonomyChildren { get; set; }
+
+        [JsonProperty("showTaxonomyLocalization", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTaxonomyLocalization { get; set; }
+
+        [JsonProperty("showTaxonomyVisitType", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTaxonomyVisitType { get; set; }
+
+        [JsonProperty("showTestRecord", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTestRecord { get; set; }
+
+        [JsonProperty("showUTM", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowUtm { get; set; }
+
+        [JsonProperty("showWidgetColorTheme", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowWidgetColorTheme { get; set; }
+
+        [JsonProperty("showWorkerDescriptionInEvent", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowWorkerDescriptionInEvent { get; set; }
+
+        [JsonProperty("showWorkerExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowWorkerExtraId { get; set; }
+
+        [JsonProperty("showWorkerStatus", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowWorkerStatus { get; set; }
+
+        [JsonProperty("skipAppointmentPriceUpdate", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipAppointmentPriceUpdate { get; set; }
+
+        [JsonProperty("skipCancelIfClientNotAppear", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipCancelIfClientNotAppear { get; set; }
+
+        [JsonProperty("skipServiceFiltering", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipServiceFiltering { get; set; }
+
+        [JsonProperty("splitFullNameXlsExport", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SplitFullNameXlsExport { get; set; }
+
+        [JsonProperty("stateLevelHolidays")]
+        public List<Dictionary<string, object>> StateLevelHolidays { get; set; }
+
+        [JsonProperty("stateLevelHolidaysNotWorking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? StateLevelHolidaysNotWorking { get; set; }
+
+        [JsonProperty("taxonomyChildrenMaxAge", NullValueHandling = NullValueHandling.Ignore)]
+        public double? TaxonomyChildrenMaxAge { get; set; }
+
+        [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseAdditionalDurations { get; set; }
+
+        [JsonProperty("useAdjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseAdjacentTaxonomies { get; set; }
+
+        [JsonProperty("useAdjacentTaxonomiesSlotSplitting", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseAdjacentTaxonomiesSlotSplitting { get; set; }
+
+        [JsonProperty("useGtAppMethod", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseGtAppMethod { get; set; }
+
+        [JsonProperty("workWeekEnd", NullValueHandling = NullValueHandling.Ignore)]
+        public double? WorkWeekEnd { get; set; }
+
+        [JsonProperty("workWeekStart", NullValueHandling = NullValueHandling.Ignore)]
+        public double? WorkWeekStart { get; set; }
+    }
+
+    public partial class StickyBackofficeConfiguration
+    {
+        [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableMasterImportance { get; set; }
+
+        [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceTimetableType? ResourceTimetableType { get; set; }
+    }
+
+    public partial class FluffyCabinet
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    }
+
+    public partial class FluffyCallbackWidgetConfiguration
+    {
+        [JsonProperty("title1", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title1 { get; set; }
+
+        [JsonProperty("title2", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title2 { get; set; }
+    }
+
+    public partial class FluffyConsumable
+    {
+        [JsonProperty("extraID")]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("quantity")]
+        public double Quantity { get; set; }
+    }
+
+    public partial class FluffyDepartment
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("id_", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DepartmentId { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public partial class FluffyMiniWidgetConfiguration
+    {
+        [JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FieldElement> Fields { get; set; }
+
+        [JsonProperty("title1", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title1 { get; set; }
+
+        [JsonProperty("title2", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title2 { get; set; }
+    }
+
+    public partial class FluffyBusinessTaxonomy
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
+        public List<TentacledAdditionalDuration> AdditionalDurations { get; set; }
+
+        [JsonProperty("additionalPrices", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyBusinessTaxonomyPrice> AdditionalPrices { get; set; }
+
+        [JsonProperty("additionalProducts", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyBusinessTaxonomyProduct> AdditionalProducts { get; set; }
+
+        [JsonProperty("additionalTaxonomyExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> AdditionalTaxonomyExtraId { get; set; }
+
+        [JsonProperty("adjacentSameTimeStart", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AdjacentSameTimeStart { get; set; }
+
+        [JsonProperty("adjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
+
+        [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> Alias { get; set; }
+
+        [JsonProperty("allowBookingInBO", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowBookingInBo { get; set; }
+
+        [JsonProperty("allowNextBookingCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AllowNextBookingCount { get; set; }
+
+        [JsonProperty("allowNextBookingInDays", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AllowNextBookingInDays { get; set; }
+
+        [JsonProperty("allowNextBookingInDaysText", NullValueHandling = NullValueHandling.Ignore)]
+        public string AllowNextBookingInDaysText { get; set; }
+
+        [JsonProperty("cabinets", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Cabinets { get; set; }
+
+        [JsonProperty("cabinetsEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CabinetsEnabled { get; set; }
+
+        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Capacity { get; set; }
+
+        [JsonProperty("capacity_decrease", NullValueHandling = NullValueHandling.Ignore)]
+        public double? CapacityDecrease { get; set; }
+
+        [JsonProperty("chargeUnitsStep", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ChargeUnitsStep { get; set; }
+
+        [JsonProperty("childrenTaxonomyTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ChildrenTaxonomyType> ChildrenTaxonomyTypes { get; set; }
+
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public string Color { get; set; }
+
+        [JsonProperty("confirmationAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationAlert { get; set; }
+
+        [JsonProperty("confirmationSmsAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationSmsAlert { get; set; }
+
+        [JsonProperty("dateLimits", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyDateLimit> DateLimits { get; set; }
+
+        [JsonProperty("dateLimitType", NullValueHandling = NullValueHandling.Ignore)]
+        public DateLimitType? DateLimitType { get; set; }
+
+        [JsonProperty("designs", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Designs { get; set; }
+
+        [JsonProperty("discounts")]
+        public Discount? Discounts { get; set; }
+
+        [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisplayInWidget { get; set; }
+
+        [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Duration { get; set; }
+
+        [JsonProperty("exceptions", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Exceptions { get; set; }
+
+        [JsonProperty("extraDescription", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraDescription { get; set; }
+
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("extraLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraLink { get; set; }
+
+        [JsonProperty("forPay", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ForPay { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("images", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Images { get; set; }
+
+        [JsonProperty("isOther", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsOther { get; set; }
+
+        [JsonProperty("lastModified", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? LastModified { get; set; }
+
+        [JsonProperty("leaves", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Leaves { get; set; }
+
+        [JsonProperty("manualChanges", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ManualChanges { get; set; }
+
+        [JsonProperty("newTaxonomy", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? NewTaxonomy { get; set; }
+
+        [JsonProperty("onlineMode", NullValueHandling = NullValueHandling.Ignore)]
+        public OnlineMode? OnlineMode { get; set; }
+
+        [JsonProperty("onlyAfterTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> OnlyAfterTaxonomies { get; set; }
+
+        [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Order { get; set; }
+
+        [JsonProperty("parallelTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ParallelTaxonomies { get; set; }
+
+        [JsonProperty("popularity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Popularity { get; set; }
+
+        [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyPrice Price { get; set; }
+
+        [JsonProperty("priceLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string PriceLink { get; set; }
+
+        /// <summary>
+        /// Список видов приема услуги
+        /// </summary>
+        [JsonProperty("receptionTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReceptionTypes { get; set; }
+
+        [JsonProperty("rooms", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Rooms { get; set; }
+
+        [JsonProperty("showcaseItems", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyShowcaseItem> ShowcaseItems { get; set; }
+
+        [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyTaxonomyShowcase> Showcases { get; set; }
+
+        /// <summary>
+        /// Идентификатор услуги в витрине
+        /// </summary>
+        [JsonProperty("showcaseTaxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShowcaseTaxonomyId { get; set; }
+
+        /// <summary>
+        /// Внешний идентификатор таксономии
+        /// </summary>
+        [JsonProperty("siteId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SiteId { get; set; }
+
+        [JsonProperty("specialCabinet", NullValueHandling = NullValueHandling.Ignore)]
+        public string SpecialCabinet { get; set; }
+
+        [JsonProperty("taxonomyAppExtraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyAppExtraId { get; set; }
+
+        [JsonProperty("taxonomyCategoryExtraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyCategoryExtraId { get; set; }
+
+        [JsonProperty("taxonomyParentID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyParentId { get; set; }
+
+        [JsonProperty("taxonomyType", NullValueHandling = NullValueHandling.Ignore)]
+        public TaxonomyType? TaxonomyType { get; set; }
+
+        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
+        public Timetable Timetable { get; set; }
+
+        [JsonProperty("useConfirmationSmsAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseConfirmationSmsAlert { get; set; }
+
+        [JsonProperty("visitType", NullValueHandling = NullValueHandling.Ignore)]
+        public string VisitType { get; set; }
+    }
+
+    public partial class TentacledAdditionalDuration
+    {
+        [JsonProperty("duration")]
+        public double? Duration { get; set; }
+
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Level { get; set; }
+    }
+
+    public partial class FluffyBusinessTaxonomyPrice
+    {
+        /// <summary>
+        /// Значение цены
+        /// </summary>
+        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
+        public string Amount { get; set; }
+
+        /// <summary>
+        /// Аббревиатура валюты
+        /// </summary>
+        [JsonProperty("currency")]
+        public CurrencyList Currency { get; set; }
+
+        /// <summary>
+        /// "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+        /// </summary>
+        [JsonProperty("resourceLevel")]
+        public double ResourceLevel { get; set; }
+
+        /// <summary>
+        /// Значение цены, с учётом промо акций
+        /// </summary>
+        [JsonProperty("stockAmount")]
+        public string StockAmount { get; set; }
+
+        /// <summary>
+        /// Тип цены
+        /// </summary>
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public AdditionalPriceType? Type { get; set; }
+    }
+
+    public partial class FluffyBusinessTaxonomyProduct
+    {
+        /// <summary>
+        /// Дополнительный ID товара
+        /// </summary>
+        [JsonProperty("extraID")]
+        public string ExtraId { get; set; }
+
+        /// <summary>
+        /// ID товара
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Является ли обязательным при выполнении данной услуги
+        /// </summary>
+        [JsonProperty("required")]
+        public bool BusinessTaxonomyProductRequired { get; set; }
+    }
+
+    public partial class FluffyAdjacentTaxonomy
+    {
+        [JsonProperty("isAnyAvailable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsAnyAvailable { get; set; }
+
+        [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Order { get; set; }
+
+        [JsonProperty("slotDuration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? SlotDuration { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
+    }
+
+    public partial class FluffyDateLimit
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("dateLimitFrom", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? DateLimitFrom { get; set; }
+
+        [JsonProperty("dateLimitTo", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? DateLimitTo { get; set; }
+    }
+
+    public partial class FluffyPrice
+    {
+        /// <summary>
+        /// Значение цены
+        /// </summary>
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
+
+        /// <summary>
+        /// Аббревиатура валюты (например, RUB - рубль)
+        /// </summary>
+        [JsonProperty("currency")]
+        public CurrencyList Currency { get; set; }
+
+        /// <summary>
+        /// Значение цены, с учётом промо акций
+        /// </summary>
+        [JsonProperty("stockAmount")]
+        public string StockAmount { get; set; }
+
+        /// <summary>
+        /// Тип цены
+        /// </summary>
+        [JsonProperty("type")]
+        public AdditionalPriceType Type { get; set; }
+    }
+
+    public partial class FluffyShowcaseItem
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
+        public List<StickyAdditionalDuration> AdditionalDurations { get; set; }
+
+        [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BusinessId { get; set; }
+
+        /// <summary>
+        /// Список видов приема услуги
+        /// </summary>
+        [JsonProperty("receptionTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReceptionTypes { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
+    }
+
+    public partial class StickyAdditionalDuration
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Duration { get; set; }
+
+        /// <summary>
+        /// поддержка различной длительности услуг в зависимости от работника
+        /// </summary>
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Level { get; set; }
+    }
+
+    public partial class FluffyTaxonomyShowcase
     {
         [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BaseBusinessId { get; set; }
@@ -5726,13 +6146,13 @@ namespace GBookingCoreV2
     public partial class ClientAddClientRequestParams
     {
         [JsonProperty("business")]
-        public CunningBusiness Business { get; set; }
+        public AmbitiousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
 
         [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleProfile Profile { get; set; }
+        public ParamsProfile Profile { get; set; }
 
         [JsonProperty("skipEmailCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SkipEmailCheck { get; set; }
@@ -5741,7 +6161,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class AmbitiousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -5795,7 +6215,7 @@ namespace GBookingCoreV2
         public OrderWeight? TaxiParkMemberCount { get; set; }
     }
 
-    public partial class PurpleProfile
+    public partial class ParamsProfile
     {
         /// <summary>
         /// идентификатор профиля пользователя
@@ -5859,7 +6279,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public MagentaBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -5868,16 +6288,16 @@ namespace GBookingCoreV2
         public List<object> Documents { get; set; }
 
         [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyProfile Profile { get; set; }
+        public PurpleProfile Profile { get; set; }
     }
 
-    public partial class MagentaBusiness
+    public partial class CunningBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
     }
 
-    public partial class FluffyProfile
+    public partial class PurpleProfile
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -5931,13 +6351,10 @@ namespace GBookingCoreV2
     public partial class ClientFindOrCreateClientRequestParams
     {
         [JsonProperty("business")]
-        public FriskyBusiness Business { get; set; }
+        public MagentaBusiness Business { get; set; }
 
-        [JsonProperty("client")]
-        public ClientClass Client { get; set; }
-
-        [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-        public TentacledProfile Profile { get; set; }
+        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyNetwork Network { get; set; }
 
         [JsonProperty("skipEmailCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SkipEmailCheck { get; set; }
@@ -5946,7 +6363,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class FriskyBusiness
+    public partial class MagentaBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -5955,13 +6372,13 @@ namespace GBookingCoreV2
         public BackofficeIdUnion Id { get; set; }
     }
 
-    public partial class TentacledProfile
+    public partial class FluffyNetwork
     {
         /// <summary>
-        /// идентификатор профиля пользователя
+        /// идентификатор нетворка
         /// </summary>
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public BackofficeIdUnion Id { get; set; }
     }
 
     public partial class ClientFindOfCreateClientResponse
@@ -6019,7 +6436,7 @@ namespace GBookingCoreV2
     public partial class ClientFindOfCreateClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public MischievousBusiness Business { get; set; }
+        public FriskyBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -6028,16 +6445,16 @@ namespace GBookingCoreV2
         public List<object> Documents { get; set; }
 
         [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-        public StickyProfile Profile { get; set; }
+        public FluffyProfile Profile { get; set; }
     }
 
-    public partial class MischievousBusiness
+    public partial class FriskyBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
     }
 
-    public partial class StickyProfile
+    public partial class FluffyProfile
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6109,22 +6526,22 @@ namespace GBookingCoreV2
     public partial class CracCracDistributedResourcesFreeByDateRequestParam
     {
         [JsonProperty("business")]
-        public BraggadociousBusiness Business { get; set; }
+        public MischievousBusiness Business { get; set; }
 
         [JsonProperty("resources")]
         public List<string> Resources { get; set; }
 
         [JsonProperty("taxonomy")]
-        public PurpleTaxonomy Taxonomy { get; set; }
+        public TentacledTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class BraggadociousBusiness
+    public partial class MischievousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
     }
 
-    public partial class PurpleTaxonomy
+    public partial class TentacledTaxonomy
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6252,10 +6669,10 @@ namespace GBookingCoreV2
         public List<string> Resources { get; set; }
 
         [JsonProperty("taxonomy")]
-        public FluffyTaxonomy Taxonomy { get; set; }
+        public StickyTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class FluffyTaxonomy
+    public partial class StickyTaxonomy
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6377,7 +6794,7 @@ namespace GBookingCoreV2
     public partial class CracCracResourcesFreeByDateV2RequestParam
     {
         [JsonProperty("business")]
-        public Business1 Business { get; set; }
+        public BraggadociousBusiness Business { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -6389,16 +6806,16 @@ namespace GBookingCoreV2
         public List<string> Resources { get; set; }
 
         [JsonProperty("taxonomy")]
-        public TentacledTaxonomy Taxonomy { get; set; }
+        public IndigoTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class Business1
+    public partial class BraggadociousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
     }
 
-    public partial class TentacledTaxonomy
+    public partial class IndigoTaxonomy
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6523,13 +6940,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracDistributedResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public Business2 Business { get; set; }
+        public Business1 Business { get; set; }
 
         [JsonProperty("filters")]
         public PurpleFilters Filters { get; set; }
     }
 
-    public partial class Business2
+    public partial class Business1
     {
         [JsonProperty("general_info")]
         public PurpleGeneralInfo GeneralInfo { get; set; }
@@ -6717,13 +7134,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public Business3 Business { get; set; }
+        public Business2 Business { get; set; }
 
         [JsonProperty("filters")]
         public FluffyFilters Filters { get; set; }
     }
 
-    public partial class Business3
+    public partial class Business2
     {
         [JsonProperty("general_info")]
         public FluffyGeneralInfo GeneralInfo { get; set; }
@@ -6902,13 +7319,13 @@ namespace GBookingCoreV2
     public partial class CracSlotsGetCracResourcesAndRoomsRequestParams
     {
         [JsonProperty("business")]
-        public Business4 Business { get; set; }
+        public Business3 Business { get; set; }
 
         [JsonProperty("filters")]
         public TentacledFilters Filters { get; set; }
     }
 
-    public partial class Business4
+    public partial class Business3
     {
         [JsonProperty("general_info")]
         public TentacledGeneralInfo GeneralInfo { get; set; }
@@ -7110,23 +7527,6 @@ namespace GBookingCoreV2
 
     public enum FieldElement { Email, Name, Surname };
 
-    public enum CracServer { Crac, CracProd3 };
-
-    public enum Rule { Custom, NearestInteger, TwoDecimals };
-
-    public enum Payment { Optional, Required, Without };
-
-    public enum DiscountType { Percent };
-
-    public enum UseDirectScheduleRead { All, Authenticated, Guest, None };
-
-    /// <summary>
-    /// тип сортировки работника
-    /// </summary>
-    public enum WorkerSortingType { MostFree, None, Workload };
-
-    public enum FluffyPaymentProvider { Cloudpayments, DeltaProcessing, Disable, YandexMoney };
-
     /// <summary>
     /// month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
     /// (понедельник считается нечётным)
@@ -7157,6 +7557,23 @@ namespace GBookingCoreV2
 
     public enum TaxonomyType { Category, Service, Subcategory };
 
+    public enum CracServer { Crac, CracProd3 };
+
+    public enum Rule { Custom, NearestInteger, TwoDecimals };
+
+    public enum Payment { Optional, Required, Without };
+
+    public enum DiscountType { Percent };
+
+    public enum UseDirectScheduleRead { All, Authenticated, Guest, None };
+
+    /// <summary>
+    /// тип сортировки работника
+    /// </summary>
+    public enum WorkerSortingType { MostFree, None, Workload };
+
+    public enum FluffyPaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney };
+
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
 
     public partial struct ErrorResponse
@@ -7185,6 +7602,8 @@ namespace GBookingCoreV2
     /// идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
     ///
     /// идентификатор бизнеса
+    ///
+    /// идентификатор нетворка
     /// </summary>
     public partial struct BackofficeIdUnion
     {
@@ -7351,24 +7770,6 @@ namespace GBookingCoreV2
         public static implicit operator TimeFrameDate(double Double) => new TimeFrameDate { Double = Double };
     }
 
-    public partial struct BusinessBusiness
-    {
-        public List<object> AnythingArray;
-        public bool? Bool;
-        public double? Double;
-        public IndecentBusiness IndecentBusiness;
-        public long? Integer;
-        public string String;
-
-        public static implicit operator BusinessBusiness(List<object> AnythingArray) => new BusinessBusiness { AnythingArray = AnythingArray };
-        public static implicit operator BusinessBusiness(bool Bool) => new BusinessBusiness { Bool = Bool };
-        public static implicit operator BusinessBusiness(double Double) => new BusinessBusiness { Double = Double };
-        public static implicit operator BusinessBusiness(IndecentBusiness IndecentBusiness) => new BusinessBusiness { IndecentBusiness = IndecentBusiness };
-        public static implicit operator BusinessBusiness(long Integer) => new BusinessBusiness { Integer = Integer };
-        public static implicit operator BusinessBusiness(string String) => new BusinessBusiness { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && IndecentBusiness == null && Double == null && Integer == null && String == null;
-    }
-
     /// <summary>
     /// вес работника, в зависимости от указанного способа сортировки
     /// </summary>
@@ -7391,16 +7792,16 @@ namespace GBookingCoreV2
         public bool? Bool;
         public double? Double;
         public long? Integer;
-        public ResourceResource ResourceResource;
+        public ResourceClass ResourceClass;
         public string String;
 
         public static implicit operator Resource(List<object> AnythingArray) => new Resource { AnythingArray = AnythingArray };
         public static implicit operator Resource(bool Bool) => new Resource { Bool = Bool };
         public static implicit operator Resource(double Double) => new Resource { Double = Double };
         public static implicit operator Resource(long Integer) => new Resource { Integer = Integer };
-        public static implicit operator Resource(ResourceResource ResourceResource) => new Resource { ResourceResource = ResourceResource };
+        public static implicit operator Resource(ResourceClass ResourceClass) => new Resource { ResourceClass = ResourceClass };
         public static implicit operator Resource(string String) => new Resource { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && ResourceResource == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && ResourceClass == null && Double == null && Integer == null && String == null;
     }
 
     /// <summary>
@@ -7424,22 +7825,40 @@ namespace GBookingCoreV2
         public bool IsNull => AnythingArray == null && Bool == null && DiscountClass == null && Double == null && Integer == null && String == null;
     }
 
-    public partial struct ResultBusiness
+    public partial struct BusinessBusiness
     {
-        public AmbitiousBusiness AmbitiousBusiness;
         public List<object> AnythingArray;
         public bool? Bool;
         public double? Double;
+        public IndigoBusiness IndigoBusiness;
         public long? Integer;
         public string String;
 
-        public static implicit operator ResultBusiness(AmbitiousBusiness AmbitiousBusiness) => new ResultBusiness { AmbitiousBusiness = AmbitiousBusiness };
+        public static implicit operator BusinessBusiness(List<object> AnythingArray) => new BusinessBusiness { AnythingArray = AnythingArray };
+        public static implicit operator BusinessBusiness(bool Bool) => new BusinessBusiness { Bool = Bool };
+        public static implicit operator BusinessBusiness(double Double) => new BusinessBusiness { Double = Double };
+        public static implicit operator BusinessBusiness(IndigoBusiness IndigoBusiness) => new BusinessBusiness { IndigoBusiness = IndigoBusiness };
+        public static implicit operator BusinessBusiness(long Integer) => new BusinessBusiness { Integer = Integer };
+        public static implicit operator BusinessBusiness(string String) => new BusinessBusiness { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && IndigoBusiness == null && Double == null && Integer == null && String == null;
+    }
+
+    public partial struct ResultBusiness
+    {
+        public List<object> AnythingArray;
+        public bool? Bool;
+        public double? Double;
+        public HilariousBusiness HilariousBusiness;
+        public long? Integer;
+        public string String;
+
         public static implicit operator ResultBusiness(List<object> AnythingArray) => new ResultBusiness { AnythingArray = AnythingArray };
         public static implicit operator ResultBusiness(bool Bool) => new ResultBusiness { Bool = Bool };
         public static implicit operator ResultBusiness(double Double) => new ResultBusiness { Double = Double };
+        public static implicit operator ResultBusiness(HilariousBusiness HilariousBusiness) => new ResultBusiness { HilariousBusiness = HilariousBusiness };
         public static implicit operator ResultBusiness(long Integer) => new ResultBusiness { Integer = Integer };
         public static implicit operator ResultBusiness(string String) => new ResultBusiness { String = String };
-        public bool IsNull => AnythingArray == null && Bool == null && AmbitiousBusiness == null && Double == null && Integer == null && String == null;
+        public bool IsNull => AnythingArray == null && Bool == null && HilariousBusiness == null && Double == null && Integer == null && String == null;
     }
 
     public partial struct Address
@@ -7536,14 +7955,6 @@ namespace GBookingCoreV2
                 VerticalTranslationConverter.Singleton,
                 GroupConverter.Singleton,
                 FieldElementConverter.Singleton,
-                CracServerConverter.Singleton,
-                RuleConverter.Singleton,
-                PaymentConverter.Singleton,
-                DiscountTypeConverter.Singleton,
-                UseDirectScheduleReadConverter.Singleton,
-                WorkerSortingTypeConverter.Singleton,
-                ResultBusinessConverter.Singleton,
-                FluffyPaymentProviderConverter.Singleton,
                 ResourceConverter.Singleton,
                 StartPeriodConverter.Singleton,
                 OrderWeightConverter.Singleton,
@@ -7557,6 +7968,14 @@ namespace GBookingCoreV2
                 RepeatsConverter.Singleton,
                 OnlineModeConverter.Singleton,
                 TaxonomyTypeConverter.Singleton,
+                CracServerConverter.Singleton,
+                RuleConverter.Singleton,
+                PaymentConverter.Singleton,
+                DiscountTypeConverter.Singleton,
+                UseDirectScheduleReadConverter.Singleton,
+                WorkerSortingTypeConverter.Singleton,
+                ResultBusinessConverter.Singleton,
+                FluffyPaymentProviderConverter.Singleton,
                 AddressConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
                 BirthdayConverter.Singleton,
@@ -8769,8 +9188,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new BusinessBusiness { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<IndecentBusiness>(reader);
-                    return new BusinessBusiness { IndecentBusiness = objectValue };
+                    var objectValue = serializer.Deserialize<IndigoBusiness>(reader);
+                    return new BusinessBusiness { IndigoBusiness = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new BusinessBusiness { AnythingArray = arrayValue };
@@ -8811,9 +9230,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.IndecentBusiness != null)
+            if (value.IndigoBusiness != null)
             {
-                serializer.Serialize(writer, value.IndecentBusiness);
+                serializer.Serialize(writer, value.IndigoBusiness);
                 return;
             }
             throw new Exception("Cannot marshal type BusinessBusiness");
@@ -9956,398 +10375,6 @@ namespace GBookingCoreV2
         public static readonly FieldElementConverter Singleton = new FieldElementConverter();
     }
 
-    internal class CracServerConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(CracServer) || t == typeof(CracServer?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "CRAC":
-                    return CracServer.Crac;
-                case "CRAC_PROD3":
-                    return CracServer.CracProd3;
-            }
-            throw new Exception("Cannot unmarshal type CracServer");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (CracServer)untypedValue;
-            switch (value)
-            {
-                case CracServer.Crac:
-                    serializer.Serialize(writer, "CRAC");
-                    return;
-                case CracServer.CracProd3:
-                    serializer.Serialize(writer, "CRAC_PROD3");
-                    return;
-            }
-            throw new Exception("Cannot marshal type CracServer");
-        }
-
-        public static readonly CracServerConverter Singleton = new CracServerConverter();
-    }
-
-    internal class RuleConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Rule) || t == typeof(Rule?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "CUSTOM":
-                    return Rule.Custom;
-                case "NEAREST_INTEGER":
-                    return Rule.NearestInteger;
-                case "TWO_DECIMALS":
-                    return Rule.TwoDecimals;
-            }
-            throw new Exception("Cannot unmarshal type Rule");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Rule)untypedValue;
-            switch (value)
-            {
-                case Rule.Custom:
-                    serializer.Serialize(writer, "CUSTOM");
-                    return;
-                case Rule.NearestInteger:
-                    serializer.Serialize(writer, "NEAREST_INTEGER");
-                    return;
-                case Rule.TwoDecimals:
-                    serializer.Serialize(writer, "TWO_DECIMALS");
-                    return;
-            }
-            throw new Exception("Cannot marshal type Rule");
-        }
-
-        public static readonly RuleConverter Singleton = new RuleConverter();
-    }
-
-    internal class PaymentConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Payment) || t == typeof(Payment?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "OPTIONAL":
-                    return Payment.Optional;
-                case "REQUIRED":
-                    return Payment.Required;
-                case "WITHOUT":
-                    return Payment.Without;
-            }
-            throw new Exception("Cannot unmarshal type Payment");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Payment)untypedValue;
-            switch (value)
-            {
-                case Payment.Optional:
-                    serializer.Serialize(writer, "OPTIONAL");
-                    return;
-                case Payment.Required:
-                    serializer.Serialize(writer, "REQUIRED");
-                    return;
-                case Payment.Without:
-                    serializer.Serialize(writer, "WITHOUT");
-                    return;
-            }
-            throw new Exception("Cannot marshal type Payment");
-        }
-
-        public static readonly PaymentConverter Singleton = new PaymentConverter();
-    }
-
-    internal class DiscountTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(DiscountType) || t == typeof(DiscountType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "PERCENT")
-            {
-                return DiscountType.Percent;
-            }
-            throw new Exception("Cannot unmarshal type DiscountType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (DiscountType)untypedValue;
-            if (value == DiscountType.Percent)
-            {
-                serializer.Serialize(writer, "PERCENT");
-                return;
-            }
-            throw new Exception("Cannot marshal type DiscountType");
-        }
-
-        public static readonly DiscountTypeConverter Singleton = new DiscountTypeConverter();
-    }
-
-    internal class UseDirectScheduleReadConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(UseDirectScheduleRead) || t == typeof(UseDirectScheduleRead?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "ALL":
-                    return UseDirectScheduleRead.All;
-                case "AUTHENTICATED":
-                    return UseDirectScheduleRead.Authenticated;
-                case "GUEST":
-                    return UseDirectScheduleRead.Guest;
-                case "NONE":
-                    return UseDirectScheduleRead.None;
-            }
-            throw new Exception("Cannot unmarshal type UseDirectScheduleRead");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (UseDirectScheduleRead)untypedValue;
-            switch (value)
-            {
-                case UseDirectScheduleRead.All:
-                    serializer.Serialize(writer, "ALL");
-                    return;
-                case UseDirectScheduleRead.Authenticated:
-                    serializer.Serialize(writer, "AUTHENTICATED");
-                    return;
-                case UseDirectScheduleRead.Guest:
-                    serializer.Serialize(writer, "GUEST");
-                    return;
-                case UseDirectScheduleRead.None:
-                    serializer.Serialize(writer, "NONE");
-                    return;
-            }
-            throw new Exception("Cannot marshal type UseDirectScheduleRead");
-        }
-
-        public static readonly UseDirectScheduleReadConverter Singleton = new UseDirectScheduleReadConverter();
-    }
-
-    internal class WorkerSortingTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(WorkerSortingType) || t == typeof(WorkerSortingType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "most_free":
-                    return WorkerSortingType.MostFree;
-                case "none":
-                    return WorkerSortingType.None;
-                case "workload":
-                    return WorkerSortingType.Workload;
-            }
-            throw new Exception("Cannot unmarshal type WorkerSortingType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (WorkerSortingType)untypedValue;
-            switch (value)
-            {
-                case WorkerSortingType.MostFree:
-                    serializer.Serialize(writer, "most_free");
-                    return;
-                case WorkerSortingType.None:
-                    serializer.Serialize(writer, "none");
-                    return;
-                case WorkerSortingType.Workload:
-                    serializer.Serialize(writer, "workload");
-                    return;
-            }
-            throw new Exception("Cannot marshal type WorkerSortingType");
-        }
-
-        public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
-    }
-
-    internal class ResultBusinessConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ResultBusiness) || t == typeof(ResultBusiness?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            switch (reader.TokenType)
-            {
-                case JsonToken.Null:
-                    return new ResultBusiness { };
-                case JsonToken.Integer:
-                    var integerValue = serializer.Deserialize<long>(reader);
-                    return new ResultBusiness { Integer = integerValue };
-                case JsonToken.Float:
-                    var doubleValue = serializer.Deserialize<double>(reader);
-                    return new ResultBusiness { Double = doubleValue };
-                case JsonToken.Boolean:
-                    var boolValue = serializer.Deserialize<bool>(reader);
-                    return new ResultBusiness { Bool = boolValue };
-                case JsonToken.String:
-                case JsonToken.Date:
-                    var stringValue = serializer.Deserialize<string>(reader);
-                    return new ResultBusiness { String = stringValue };
-                case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<AmbitiousBusiness>(reader);
-                    return new ResultBusiness { AmbitiousBusiness = objectValue };
-                case JsonToken.StartArray:
-                    var arrayValue = serializer.Deserialize<List<object>>(reader);
-                    return new ResultBusiness { AnythingArray = arrayValue };
-            }
-            throw new Exception("Cannot unmarshal type ResultBusiness");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            var value = (ResultBusiness)untypedValue;
-            if (value.IsNull)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            if (value.Integer != null)
-            {
-                serializer.Serialize(writer, value.Integer.Value);
-                return;
-            }
-            if (value.Double != null)
-            {
-                serializer.Serialize(writer, value.Double.Value);
-                return;
-            }
-            if (value.Bool != null)
-            {
-                serializer.Serialize(writer, value.Bool.Value);
-                return;
-            }
-            if (value.String != null)
-            {
-                serializer.Serialize(writer, value.String);
-                return;
-            }
-            if (value.AnythingArray != null)
-            {
-                serializer.Serialize(writer, value.AnythingArray);
-                return;
-            }
-            if (value.AmbitiousBusiness != null)
-            {
-                serializer.Serialize(writer, value.AmbitiousBusiness);
-                return;
-            }
-            throw new Exception("Cannot marshal type ResultBusiness");
-        }
-
-        public static readonly ResultBusinessConverter Singleton = new ResultBusinessConverter();
-    }
-
-    internal class FluffyPaymentProviderConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(FluffyPaymentProvider) || t == typeof(FluffyPaymentProvider?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "DISABLE":
-                    return FluffyPaymentProvider.Disable;
-                case "cloudpayments":
-                    return FluffyPaymentProvider.Cloudpayments;
-                case "deltaProcessing":
-                    return FluffyPaymentProvider.DeltaProcessing;
-                case "yandexMoney":
-                    return FluffyPaymentProvider.YandexMoney;
-            }
-            throw new Exception("Cannot unmarshal type FluffyPaymentProvider");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (FluffyPaymentProvider)untypedValue;
-            switch (value)
-            {
-                case FluffyPaymentProvider.Disable:
-                    serializer.Serialize(writer, "DISABLE");
-                    return;
-                case FluffyPaymentProvider.Cloudpayments:
-                    serializer.Serialize(writer, "cloudpayments");
-                    return;
-                case FluffyPaymentProvider.DeltaProcessing:
-                    serializer.Serialize(writer, "deltaProcessing");
-                    return;
-                case FluffyPaymentProvider.YandexMoney:
-                    serializer.Serialize(writer, "yandexMoney");
-                    return;
-            }
-            throw new Exception("Cannot marshal type FluffyPaymentProvider");
-        }
-
-        public static readonly FluffyPaymentProviderConverter Singleton = new FluffyPaymentProviderConverter();
-    }
-
     internal class ResourceConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Resource) || t == typeof(Resource?);
@@ -10372,8 +10399,8 @@ namespace GBookingCoreV2
                     var stringValue = serializer.Deserialize<string>(reader);
                     return new Resource { String = stringValue };
                 case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<ResourceResource>(reader);
-                    return new Resource { ResourceResource = objectValue };
+                    var objectValue = serializer.Deserialize<ResourceClass>(reader);
+                    return new Resource { ResourceClass = objectValue };
                 case JsonToken.StartArray:
                     var arrayValue = serializer.Deserialize<List<object>>(reader);
                     return new Resource { AnythingArray = arrayValue };
@@ -10414,9 +10441,9 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingArray);
                 return;
             }
-            if (value.ResourceResource != null)
+            if (value.ResourceClass != null)
             {
-                serializer.Serialize(writer, value.ResourceResource);
+                serializer.Serialize(writer, value.ResourceClass);
                 return;
             }
             throw new Exception("Cannot marshal type Resource");
@@ -11026,6 +11053,403 @@ namespace GBookingCoreV2
         }
 
         public static readonly TaxonomyTypeConverter Singleton = new TaxonomyTypeConverter();
+    }
+
+    internal class CracServerConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(CracServer) || t == typeof(CracServer?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "CRAC":
+                    return CracServer.Crac;
+                case "CRAC_PROD3":
+                    return CracServer.CracProd3;
+            }
+            throw new Exception("Cannot unmarshal type CracServer");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (CracServer)untypedValue;
+            switch (value)
+            {
+                case CracServer.Crac:
+                    serializer.Serialize(writer, "CRAC");
+                    return;
+                case CracServer.CracProd3:
+                    serializer.Serialize(writer, "CRAC_PROD3");
+                    return;
+            }
+            throw new Exception("Cannot marshal type CracServer");
+        }
+
+        public static readonly CracServerConverter Singleton = new CracServerConverter();
+    }
+
+    internal class RuleConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Rule) || t == typeof(Rule?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "CUSTOM":
+                    return Rule.Custom;
+                case "NEAREST_INTEGER":
+                    return Rule.NearestInteger;
+                case "TWO_DECIMALS":
+                    return Rule.TwoDecimals;
+            }
+            throw new Exception("Cannot unmarshal type Rule");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Rule)untypedValue;
+            switch (value)
+            {
+                case Rule.Custom:
+                    serializer.Serialize(writer, "CUSTOM");
+                    return;
+                case Rule.NearestInteger:
+                    serializer.Serialize(writer, "NEAREST_INTEGER");
+                    return;
+                case Rule.TwoDecimals:
+                    serializer.Serialize(writer, "TWO_DECIMALS");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Rule");
+        }
+
+        public static readonly RuleConverter Singleton = new RuleConverter();
+    }
+
+    internal class PaymentConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Payment) || t == typeof(Payment?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "OPTIONAL":
+                    return Payment.Optional;
+                case "REQUIRED":
+                    return Payment.Required;
+                case "WITHOUT":
+                    return Payment.Without;
+            }
+            throw new Exception("Cannot unmarshal type Payment");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Payment)untypedValue;
+            switch (value)
+            {
+                case Payment.Optional:
+                    serializer.Serialize(writer, "OPTIONAL");
+                    return;
+                case Payment.Required:
+                    serializer.Serialize(writer, "REQUIRED");
+                    return;
+                case Payment.Without:
+                    serializer.Serialize(writer, "WITHOUT");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Payment");
+        }
+
+        public static readonly PaymentConverter Singleton = new PaymentConverter();
+    }
+
+    internal class DiscountTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(DiscountType) || t == typeof(DiscountType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            if (value == "PERCENT")
+            {
+                return DiscountType.Percent;
+            }
+            throw new Exception("Cannot unmarshal type DiscountType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (DiscountType)untypedValue;
+            if (value == DiscountType.Percent)
+            {
+                serializer.Serialize(writer, "PERCENT");
+                return;
+            }
+            throw new Exception("Cannot marshal type DiscountType");
+        }
+
+        public static readonly DiscountTypeConverter Singleton = new DiscountTypeConverter();
+    }
+
+    internal class UseDirectScheduleReadConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(UseDirectScheduleRead) || t == typeof(UseDirectScheduleRead?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "ALL":
+                    return UseDirectScheduleRead.All;
+                case "AUTHENTICATED":
+                    return UseDirectScheduleRead.Authenticated;
+                case "GUEST":
+                    return UseDirectScheduleRead.Guest;
+                case "NONE":
+                    return UseDirectScheduleRead.None;
+            }
+            throw new Exception("Cannot unmarshal type UseDirectScheduleRead");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (UseDirectScheduleRead)untypedValue;
+            switch (value)
+            {
+                case UseDirectScheduleRead.All:
+                    serializer.Serialize(writer, "ALL");
+                    return;
+                case UseDirectScheduleRead.Authenticated:
+                    serializer.Serialize(writer, "AUTHENTICATED");
+                    return;
+                case UseDirectScheduleRead.Guest:
+                    serializer.Serialize(writer, "GUEST");
+                    return;
+                case UseDirectScheduleRead.None:
+                    serializer.Serialize(writer, "NONE");
+                    return;
+            }
+            throw new Exception("Cannot marshal type UseDirectScheduleRead");
+        }
+
+        public static readonly UseDirectScheduleReadConverter Singleton = new UseDirectScheduleReadConverter();
+    }
+
+    internal class WorkerSortingTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(WorkerSortingType) || t == typeof(WorkerSortingType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "most_free":
+                    return WorkerSortingType.MostFree;
+                case "none":
+                    return WorkerSortingType.None;
+                case "workload":
+                    return WorkerSortingType.Workload;
+            }
+            throw new Exception("Cannot unmarshal type WorkerSortingType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (WorkerSortingType)untypedValue;
+            switch (value)
+            {
+                case WorkerSortingType.MostFree:
+                    serializer.Serialize(writer, "most_free");
+                    return;
+                case WorkerSortingType.None:
+                    serializer.Serialize(writer, "none");
+                    return;
+                case WorkerSortingType.Workload:
+                    serializer.Serialize(writer, "workload");
+                    return;
+            }
+            throw new Exception("Cannot marshal type WorkerSortingType");
+        }
+
+        public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
+    }
+
+    internal class ResultBusinessConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ResultBusiness) || t == typeof(ResultBusiness?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new ResultBusiness { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new ResultBusiness { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new ResultBusiness { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new ResultBusiness { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new ResultBusiness { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<HilariousBusiness>(reader);
+                    return new ResultBusiness { HilariousBusiness = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new ResultBusiness { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type ResultBusiness");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (ResultBusiness)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.HilariousBusiness != null)
+            {
+                serializer.Serialize(writer, value.HilariousBusiness);
+                return;
+            }
+            throw new Exception("Cannot marshal type ResultBusiness");
+        }
+
+        public static readonly ResultBusinessConverter Singleton = new ResultBusinessConverter();
+    }
+
+    internal class FluffyPaymentProviderConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(FluffyPaymentProvider) || t == typeof(FluffyPaymentProvider?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "DISABLE":
+                    return FluffyPaymentProvider.Disable;
+                case "cloudpayments":
+                    return FluffyPaymentProvider.Cloudpayments;
+                case "deltaProcessing":
+                    return FluffyPaymentProvider.DeltaProcessing;
+                case "pelecard":
+                    return FluffyPaymentProvider.Pelecard;
+                case "yandexMoney":
+                    return FluffyPaymentProvider.YandexMoney;
+            }
+            throw new Exception("Cannot unmarshal type FluffyPaymentProvider");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (FluffyPaymentProvider)untypedValue;
+            switch (value)
+            {
+                case FluffyPaymentProvider.Disable:
+                    serializer.Serialize(writer, "DISABLE");
+                    return;
+                case FluffyPaymentProvider.Cloudpayments:
+                    serializer.Serialize(writer, "cloudpayments");
+                    return;
+                case FluffyPaymentProvider.DeltaProcessing:
+                    serializer.Serialize(writer, "deltaProcessing");
+                    return;
+                case FluffyPaymentProvider.Pelecard:
+                    serializer.Serialize(writer, "pelecard");
+                    return;
+                case FluffyPaymentProvider.YandexMoney:
+                    serializer.Serialize(writer, "yandexMoney");
+                    return;
+            }
+            throw new Exception("Cannot marshal type FluffyPaymentProvider");
+        }
+
+        public static readonly FluffyPaymentProviderConverter Singleton = new FluffyPaymentProviderConverter();
     }
 
     internal class AddressConverter : JsonConverter

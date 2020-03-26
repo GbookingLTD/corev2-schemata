@@ -480,19 +480,23 @@ class CancelAppointmentByBusiness:
 
 class FluffyAppointment:
     id: str
+    short_id: Optional[str]
 
-    def __init__(self, id: str) -> None:
+    def __init__(self, id: str, short_id: Optional[str]) -> None:
         self.id = id
+        self.short_id = short_id
 
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyAppointment':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return FluffyAppointment(id)
+        short_id = from_union([from_str, from_none], obj.get("shortId"))
+        return FluffyAppointment(id, short_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["id"] = from_str(self.id)
+        result["shortId"] = from_union([from_str, from_none], self.short_id)
         return result
 
 
@@ -2618,17 +2622,17 @@ class Filter:
         return result
 
 
-class ParamsNetwork:
+class PurpleNetwork:
     id: Union[float, None, str]
 
     def __init__(self, id: Union[float, None, str]) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'ParamsNetwork':
+    def from_dict(obj: Any) -> 'PurpleNetwork':
         assert isinstance(obj, dict)
         id = from_union([from_float, from_str, from_none], obj.get("id"))
-        return ParamsNetwork(id)
+        return PurpleNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2640,12 +2644,12 @@ class AppointmentGetAppointmentByFilterRequestParams:
     business: Optional[FluffyBusiness]
     extra_filters: Optional[ExtraFilters]
     filter: Optional[Filter]
-    network: Optional[ParamsNetwork]
+    network: Optional[PurpleNetwork]
     page: float
     page_size: float
     skip_business_cancelled: Optional[bool]
 
-    def __init__(self, business: Optional[FluffyBusiness], extra_filters: Optional[ExtraFilters], filter: Optional[Filter], network: Optional[ParamsNetwork], page: float, page_size: float, skip_business_cancelled: Optional[bool]) -> None:
+    def __init__(self, business: Optional[FluffyBusiness], extra_filters: Optional[ExtraFilters], filter: Optional[Filter], network: Optional[PurpleNetwork], page: float, page_size: float, skip_business_cancelled: Optional[bool]) -> None:
         self.business = business
         self.extra_filters = extra_filters
         self.filter = filter
@@ -2660,7 +2664,7 @@ class AppointmentGetAppointmentByFilterRequestParams:
         business = from_union([FluffyBusiness.from_dict, from_none], obj.get("business"))
         extra_filters = from_union([ExtraFilters.from_dict, from_none], obj.get("extraFilters"))
         filter = from_union([Filter.from_dict, from_none], obj.get("filter"))
-        network = from_union([ParamsNetwork.from_dict, from_none], obj.get("network"))
+        network = from_union([PurpleNetwork.from_dict, from_none], obj.get("network"))
         page = from_float(obj.get("page"))
         page_size = from_float(obj.get("pageSize"))
         skip_business_cancelled = from_union([from_bool, from_none], obj.get("skipBusinessCancelled"))
@@ -2671,7 +2675,7 @@ class AppointmentGetAppointmentByFilterRequestParams:
         result["business"] = from_union([lambda x: to_class(FluffyBusiness, x), from_none], self.business)
         result["extraFilters"] = from_union([lambda x: to_class(ExtraFilters, x), from_none], self.extra_filters)
         result["filter"] = from_union([lambda x: to_class(Filter, x), from_none], self.filter)
-        result["network"] = from_union([lambda x: to_class(ParamsNetwork, x), from_none], self.network)
+        result["network"] = from_union([lambda x: to_class(PurpleNetwork, x), from_none], self.network)
         result["page"] = to_float(self.page)
         result["pageSize"] = to_float(self.page_size)
         result["skipBusinessCancelled"] = from_union([from_bool, from_none], self.skip_business_cancelled)
@@ -3074,17 +3078,17 @@ class StickyBusiness:
         return result
 
 
-class ResourceClass:
+class PurpleResource:
     id: Union[List[str], str]
 
     def __init__(self, id: Union[List[str], str]) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'ResourceClass':
+    def from_dict(obj: Any) -> 'PurpleResource':
         assert isinstance(obj, dict)
         id = from_union([lambda x: from_list(from_str, x), from_str], obj.get("id"))
-        return ResourceClass(id)
+        return PurpleResource(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -3092,17 +3096,17 @@ class ResourceClass:
         return result
 
 
-class ParamsTaxonomy:
+class PurpleTaxonomy:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'ParamsTaxonomy':
+    def from_dict(obj: Any) -> 'PurpleTaxonomy':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return ParamsTaxonomy(id)
+        return PurpleTaxonomy(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -3114,11 +3118,11 @@ class AppointmentReserve:
     appointment: IndigoAppointment
     business: StickyBusiness
     origin_business_id: Optional[str]
-    resource: ResourceClass
+    resource: PurpleResource
     source: str
-    taxonomy: ParamsTaxonomy
+    taxonomy: PurpleTaxonomy
 
-    def __init__(self, appointment: IndigoAppointment, business: StickyBusiness, origin_business_id: Optional[str], resource: ResourceClass, source: str, taxonomy: ParamsTaxonomy) -> None:
+    def __init__(self, appointment: IndigoAppointment, business: StickyBusiness, origin_business_id: Optional[str], resource: PurpleResource, source: str, taxonomy: PurpleTaxonomy) -> None:
         self.appointment = appointment
         self.business = business
         self.origin_business_id = origin_business_id
@@ -3131,20 +3135,20 @@ class AppointmentReserve:
         assert isinstance(obj, dict)
         appointment = IndigoAppointment.from_dict(obj.get("appointment"))
         business = StickyBusiness.from_dict(obj.get("business"))
-        origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
-        resource = ResourceClass.from_dict(obj.get("resource"))
+        origin_business_id = from_union([from_none, from_str], obj.get("originBusinessID"))
+        resource = PurpleResource.from_dict(obj.get("resource"))
         source = from_str(obj.get("source"))
-        taxonomy = ParamsTaxonomy.from_dict(obj.get("taxonomy"))
+        taxonomy = PurpleTaxonomy.from_dict(obj.get("taxonomy"))
         return AppointmentReserve(appointment, business, origin_business_id, resource, source, taxonomy)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["appointment"] = to_class(IndigoAppointment, self.appointment)
         result["business"] = to_class(StickyBusiness, self.business)
-        result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
-        result["resource"] = to_class(ResourceClass, self.resource)
+        result["originBusinessID"] = from_union([from_none, from_str], self.origin_business_id)
+        result["resource"] = to_class(PurpleResource, self.resource)
         result["source"] = from_str(self.source)
-        result["taxonomy"] = to_class(ParamsTaxonomy, self.taxonomy)
+        result["taxonomy"] = to_class(PurpleTaxonomy, self.taxonomy)
         return result
 
 
@@ -3318,29 +3322,77 @@ class AppointmentController:
         return result
 
 
+class FluffyResource:
+    """идентификатор работника, если передано - возвращает все бизнесы нетворка где есть
+    работник с таким ключем
+    """
+    id: Optional[str]
+
+    def __init__(self, id: Optional[str]) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyResource':
+        assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("id"))
+        return FluffyResource(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_union([from_str, from_none], self.id)
+        return result
+
+
+class FluffyTaxonomy:
+    """идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой"""
+    id: Optional[str]
+
+    def __init__(self, id: Optional[str]) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyTaxonomy':
+        assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("id"))
+        return FluffyTaxonomy(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_union([from_str, from_none], self.id)
+        return result
+
+
 class BusinessGetNetworkDataRequestParams:
     """параметры запроса business.get_network_data"""
     """идентификатор сети"""
     network_id: Union[float, str]
+    resource: Optional[FluffyResource]
+    taxonomy: Optional[FluffyTaxonomy]
     """Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
     в массиве businesses
     """
     with_business_info: Optional[bool]
 
-    def __init__(self, network_id: Union[float, str], with_business_info: Optional[bool]) -> None:
+    def __init__(self, network_id: Union[float, str], resource: Optional[FluffyResource], taxonomy: Optional[FluffyTaxonomy], with_business_info: Optional[bool]) -> None:
         self.network_id = network_id
+        self.resource = resource
+        self.taxonomy = taxonomy
         self.with_business_info = with_business_info
 
     @staticmethod
     def from_dict(obj: Any) -> 'BusinessGetNetworkDataRequestParams':
         assert isinstance(obj, dict)
         network_id = from_union([from_float, from_str], obj.get("networkID"))
+        resource = from_union([FluffyResource.from_dict, from_none], obj.get("resource"))
+        taxonomy = from_union([FluffyTaxonomy.from_dict, from_none], obj.get("taxonomy"))
         with_business_info = from_union([from_bool, from_none], obj.get("with_business_info"))
-        return BusinessGetNetworkDataRequestParams(network_id, with_business_info)
+        return BusinessGetNetworkDataRequestParams(network_id, resource, taxonomy, with_business_info)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["networkID"] = from_union([to_float, from_str], self.network_id)
+        result["resource"] = from_union([lambda x: to_class(FluffyResource, x), from_none], self.resource)
+        result["taxonomy"] = from_union([lambda x: to_class(FluffyTaxonomy, x), from_none], self.taxonomy)
         result["with_business_info"] = from_union([from_bool, from_none], self.with_business_info)
         return result
 
@@ -3516,6 +3568,8 @@ class PurpleBackofficeConfiguration:
     revision_version: Optional[float]
     schdule_week_view_is_default: Optional[bool]
     schedule_default_workers_limit: Optional[float]
+    schedule_default_workers_limit_day: Optional[float]
+    schedule_default_workers_limit_week: Optional[float]
     scheduler_week_view_type: Optional[SchedulerWeekViewType]
     schedule_worker_hours: Optional[bool]
     show_additional_fields: Optional[bool]
@@ -3572,7 +3626,7 @@ class PurpleBackofficeConfiguration:
     work_week_end: Optional[float]
     work_week_start: Optional[float]
 
-    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_master_importance: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PurplePaymentProvider], readonly_resource_schedule: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
+    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_master_importance: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PurplePaymentProvider], readonly_resource_schedule: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
         self.adjacent_taxonomies_treshold = adjacent_taxonomies_treshold
         self.allow_hide_service_for_booking = allow_hide_service_for_booking
         self.allow_hide_workers_from_schdeule = allow_hide_workers_from_schdeule
@@ -3617,6 +3671,8 @@ class PurpleBackofficeConfiguration:
         self.revision_version = revision_version
         self.schdule_week_view_is_default = schdule_week_view_is_default
         self.schedule_default_workers_limit = schedule_default_workers_limit
+        self.schedule_default_workers_limit_day = schedule_default_workers_limit_day
+        self.schedule_default_workers_limit_week = schedule_default_workers_limit_week
         self.scheduler_week_view_type = scheduler_week_view_type
         self.schedule_worker_hours = schedule_worker_hours
         self.show_additional_fields = show_additional_fields
@@ -3720,6 +3776,8 @@ class PurpleBackofficeConfiguration:
         revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
         schdule_week_view_is_default = from_union([from_bool, from_none], obj.get("schduleWeekViewIsDefault"))
         schedule_default_workers_limit = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimit"))
+        schedule_default_workers_limit_day = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimitDay"))
+        schedule_default_workers_limit_week = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimitWeek"))
         scheduler_week_view_type = from_union([SchedulerWeekViewType, from_none], obj.get("schedulerWeekViewType"))
         schedule_worker_hours = from_union([from_bool, from_none], obj.get("scheduleWorkerHours"))
         show_additional_fields = from_union([from_bool, from_none], obj.get("showAdditionalFields"))
@@ -3775,7 +3833,7 @@ class PurpleBackofficeConfiguration:
         use_gt_app_method = from_union([from_bool, from_none], obj.get("useGtAppMethod"))
         work_week_end = from_union([from_float, from_none], obj.get("workWeekEnd"))
         work_week_start = from_union([from_float, from_none], obj.get("workWeekStart"))
-        return PurpleBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_master_importance, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_timetable_type, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
+        return PurpleBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_master_importance, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_timetable_type, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -3823,6 +3881,8 @@ class PurpleBackofficeConfiguration:
         result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
         result["schduleWeekViewIsDefault"] = from_union([from_bool, from_none], self.schdule_week_view_is_default)
         result["scheduleDefaultWorkersLimit"] = from_union([to_float, from_none], self.schedule_default_workers_limit)
+        result["scheduleDefaultWorkersLimitDay"] = from_union([to_float, from_none], self.schedule_default_workers_limit_day)
+        result["scheduleDefaultWorkersLimitWeek"] = from_union([to_float, from_none], self.schedule_default_workers_limit_week)
         result["schedulerWeekViewType"] = from_union([lambda x: to_enum(SchedulerWeekViewType, x), from_none], self.scheduler_week_view_type)
         result["scheduleWorkerHours"] = from_union([from_bool, from_none], self.schedule_worker_hours)
         result["showAdditionalFields"] = from_union([from_bool, from_none], self.show_additional_fields)
@@ -4841,6 +4901,1281 @@ class PurpleMiniWidgetConfiguration:
         return result
 
 
+class StartPeriod(Enum):
+    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+    (понедельник считается нечётным)
+    """
+    MONTH = "month"
+    WEEK = "week"
+
+
+class EvenOddTimetable:
+    """расписание для чётных дней"""
+    even: List[TimeFrame]
+    """расписание для нечётных дней"""
+    odd: List[TimeFrame]
+    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+    (понедельник считается нечётным)
+    """
+    start_period: StartPeriod
+
+    def __init__(self, even: List[TimeFrame], odd: List[TimeFrame], start_period: StartPeriod) -> None:
+        self.even = even
+        self.odd = odd
+        self.start_period = start_period
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'EvenOddTimetable':
+        assert isinstance(obj, dict)
+        even = from_list(TimeFrame.from_dict, obj.get("even"))
+        odd = from_list(TimeFrame.from_dict, obj.get("odd"))
+        start_period = StartPeriod(obj.get("startPeriod"))
+        return EvenOddTimetable(even, odd, start_period)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["even"] = from_list(lambda x: to_class(TimeFrame, x), self.even)
+        result["odd"] = from_list(lambda x: to_class(TimeFrame, x), self.odd)
+        result["startPeriod"] = to_enum(StartPeriod, self.start_period)
+        return result
+
+
+class ResourceLocation:
+    latitude: Optional[float]
+    longitude: Optional[float]
+    """время последнего обновления координат"""
+    time: Optional[str]
+
+    def __init__(self, latitude: Optional[float], longitude: Optional[float], time: Optional[str]) -> None:
+        self.latitude = latitude
+        self.longitude = longitude
+        self.time = time
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceLocation':
+        assert isinstance(obj, dict)
+        latitude = from_union([from_float, from_none], obj.get("latitude"))
+        longitude = from_union([from_float, from_none], obj.get("longitude"))
+        time = from_union([from_str, from_none], obj.get("time"))
+        return ResourceLocation(latitude, longitude, time)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["latitude"] = from_union([to_float, from_none], self.latitude)
+        result["longitude"] = from_union([to_float, from_none], self.longitude)
+        result["time"] = from_union([from_str, from_none], self.time)
+        return result
+
+
+class Info:
+    """(только в витрине) объект с данными бизнеса-филиала
+    
+    Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
+    """
+    accepted_currency: Optional[List[CurrencyList]]
+    additional_info: Optional[str]
+    additional_fields: Optional[List[Union[List[Any], bool, AdditionalFieldsClass, float, int, None, str]]]
+    """Адреса компании или филиала"""
+    address: Optional[List[Union[List[Any], bool, AddressClass, float, int, None, str]]]
+    align_min_booking_time: Optional[bool]
+    auto_accept_appointment: Optional[bool]
+    """если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину"""
+    business_showcase_aliases: Optional[List[BusinessShowcaseAlias]]
+    contact_name: Optional[str]
+    date_joined: Optional[datetime]
+    description: Optional[str]
+    """Список e-mail адресов компании или филиала"""
+    email: Optional[str]
+    fax: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]]
+    images: Optional[List[str]]
+    instant_messaging: Optional[List[Dict[str, Any]]]
+    """является ли данный бизнес витриной"""
+    is_showcase: Optional[bool]
+    language: Optional[LanguageList]
+    logo_url: Optional[str]
+    marketing_notifications: Optional[MarketingNotifications]
+    metro: Optional[Metro]
+    min_booking_time: Optional[float]
+    """Список телефонов бизнеса"""
+    mobile: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]]
+    """Название бизнеса"""
+    name: Optional[str]
+    network_id: Optional[float]
+    newbo_enabled_for: Optional[List[str]]
+    payment_methods: Optional[PaymentMethods]
+    """Список телефонов бизнеса"""
+    phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]]
+    phone_mask: Optional[str]
+    pricing_type: Optional[PricingType]
+    revision_version: Optional[float]
+    scheduler_tick: Optional[float]
+    """Короткое название филиала"""
+    short_name: Optional[str]
+    show_appointment_color: Optional[bool]
+    show_appointment_tooltip: Optional[bool]
+    """если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+    витрины
+    """
+    showcase_business_data: Optional[List[ShowcaseBusinessDatum]]
+    """идентификаторы витрин, в которых участвует данный бизнес"""
+    showcases: Optional[List[ShowcaseElement]]
+    show_resource_work_statistics: Optional[bool]
+    show_worker_profession: Optional[bool]
+    skip_billing: Optional[bool]
+    sms_duplicate_filter: Optional[SMSDuplicateFilter]
+    social_network: Optional[List[SocialNetworkSchema]]
+    timetable: Optional[Timetable]
+    timezone: Optional[str]
+    vertical_translation: Optional[VerticalTranslation]
+    website: Optional[str]
+
+    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[Union[List[Any], bool, AdditionalFieldsClass, float, int, None, str]]], address: Optional[List[Union[List[Any], bool, AddressClass, float, int, None, str]]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], fax: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[float], mobile: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
+        self.accepted_currency = accepted_currency
+        self.additional_info = additional_info
+        self.additional_fields = additional_fields
+        self.address = address
+        self.align_min_booking_time = align_min_booking_time
+        self.auto_accept_appointment = auto_accept_appointment
+        self.business_showcase_aliases = business_showcase_aliases
+        self.contact_name = contact_name
+        self.date_joined = date_joined
+        self.description = description
+        self.email = email
+        self.fax = fax
+        self.images = images
+        self.instant_messaging = instant_messaging
+        self.is_showcase = is_showcase
+        self.language = language
+        self.logo_url = logo_url
+        self.marketing_notifications = marketing_notifications
+        self.metro = metro
+        self.min_booking_time = min_booking_time
+        self.mobile = mobile
+        self.name = name
+        self.network_id = network_id
+        self.newbo_enabled_for = newbo_enabled_for
+        self.payment_methods = payment_methods
+        self.phone = phone
+        self.phone_mask = phone_mask
+        self.pricing_type = pricing_type
+        self.revision_version = revision_version
+        self.scheduler_tick = scheduler_tick
+        self.short_name = short_name
+        self.show_appointment_color = show_appointment_color
+        self.show_appointment_tooltip = show_appointment_tooltip
+        self.showcase_business_data = showcase_business_data
+        self.showcases = showcases
+        self.show_resource_work_statistics = show_resource_work_statistics
+        self.show_worker_profession = show_worker_profession
+        self.skip_billing = skip_billing
+        self.sms_duplicate_filter = sms_duplicate_filter
+        self.social_network = social_network
+        self.timetable = timetable
+        self.timezone = timezone
+        self.vertical_translation = vertical_translation
+        self.website = website
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Info':
+        assert isinstance(obj, dict)
+        accepted_currency = from_union([lambda x: from_list(CurrencyList, x), from_none], obj.get("accepted_currency"))
+        additional_info = from_union([from_none, from_str], obj.get("additional_info"))
+        additional_fields = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AdditionalFieldsClass.from_dict], x), x), from_none], obj.get("additionalFields"))
+        address = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AddressClass.from_dict], x), x), from_none], obj.get("address"))
+        align_min_booking_time = from_union([from_bool, from_none], obj.get("align_min_booking_time"))
+        auto_accept_appointment = from_union([from_bool, from_none], obj.get("autoAcceptAppointment"))
+        business_showcase_aliases = from_union([lambda x: from_list(BusinessShowcaseAlias.from_dict, x), from_none], obj.get("businessShowcaseAliases"))
+        contact_name = from_union([from_none, from_str], obj.get("contactName"))
+        date_joined = from_union([from_datetime, from_none], obj.get("date_joined"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        email = from_union([from_str, from_none], obj.get("email"))
+        fax = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], x), x), from_none], obj.get("fax"))
+        images = from_union([lambda x: from_list(from_str, x), from_none], obj.get("images"))
+        instant_messaging = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("instant_messaging"))
+        is_showcase = from_union([from_bool, from_none], obj.get("isShowcase"))
+        language = from_union([LanguageList, from_none], obj.get("language"))
+        logo_url = from_union([from_none, from_str], obj.get("logo_url"))
+        marketing_notifications = from_union([MarketingNotifications.from_dict, from_none], obj.get("marketingNotifications"))
+        metro = from_union([Metro.from_dict, from_none], obj.get("metro"))
+        min_booking_time = from_union([from_float, from_none], obj.get("min_booking_time"))
+        mobile = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], x), x), from_none], obj.get("mobile"))
+        name = from_union([from_str, from_none], obj.get("name"))
+        network_id = from_union([from_float, from_none], obj.get("networkID"))
+        newbo_enabled_for = from_union([lambda x: from_list(from_str, x), from_none], obj.get("newboEnabledFor"))
+        payment_methods = from_union([PaymentMethods, from_none], obj.get("paymentMethods"))
+        phone = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], x), x), from_none], obj.get("phone"))
+        phone_mask = from_union([from_none, from_str], obj.get("phone_mask"))
+        pricing_type = from_union([PricingType, from_none], obj.get("pricingType"))
+        revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
+        scheduler_tick = from_union([from_float, from_none], obj.get("schedulerTick"))
+        short_name = from_union([from_none, from_str], obj.get("shortName"))
+        show_appointment_color = from_union([from_bool, from_none], obj.get("showAppointmentColor"))
+        show_appointment_tooltip = from_union([from_bool, from_none], obj.get("showAppointmentTooltip"))
+        showcase_business_data = from_union([lambda x: from_list(ShowcaseBusinessDatum.from_dict, x), from_none], obj.get("showcaseBusinessData"))
+        showcases = from_union([lambda x: from_list(ShowcaseElement.from_dict, x), from_none], obj.get("showcases"))
+        show_resource_work_statistics = from_union([from_bool, from_none], obj.get("showResourceWorkStatistics"))
+        show_worker_profession = from_union([from_bool, from_none], obj.get("showWorkerProfession"))
+        skip_billing = from_union([from_bool, from_none], obj.get("skipBilling"))
+        sms_duplicate_filter = from_union([SMSDuplicateFilter.from_dict, from_none], obj.get("smsDuplicateFilter"))
+        social_network = from_union([lambda x: from_list(SocialNetworkSchema.from_dict, x), from_none], obj.get("social_network"))
+        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
+        timezone = from_union([from_none, from_str], obj.get("timezone"))
+        vertical_translation = from_union([VerticalTranslation, from_none], obj.get("verticalTranslation"))
+        website = from_union([from_none, from_str], obj.get("website"))
+        return Info(accepted_currency, additional_info, additional_fields, address, align_min_booking_time, auto_accept_appointment, business_showcase_aliases, contact_name, date_joined, description, email, fax, images, instant_messaging, is_showcase, language, logo_url, marketing_notifications, metro, min_booking_time, mobile, name, network_id, newbo_enabled_for, payment_methods, phone, phone_mask, pricing_type, revision_version, scheduler_tick, short_name, show_appointment_color, show_appointment_tooltip, showcase_business_data, showcases, show_resource_work_statistics, show_worker_profession, skip_billing, sms_duplicate_filter, social_network, timetable, timezone, vertical_translation, website)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["accepted_currency"] = from_union([lambda x: from_list(lambda x: to_enum(CurrencyList, x), x), from_none], self.accepted_currency)
+        result["additional_info"] = from_union([from_none, from_str], self.additional_info)
+        result["additionalFields"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AdditionalFieldsClass, x)], x), x), from_none], self.additional_fields)
+        result["address"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AddressClass, x)], x), x), from_none], self.address)
+        result["align_min_booking_time"] = from_union([from_bool, from_none], self.align_min_booking_time)
+        result["autoAcceptAppointment"] = from_union([from_bool, from_none], self.auto_accept_appointment)
+        result["businessShowcaseAliases"] = from_union([lambda x: from_list(lambda x: to_class(BusinessShowcaseAlias, x), x), from_none], self.business_showcase_aliases)
+        result["contactName"] = from_union([from_none, from_str], self.contact_name)
+        result["date_joined"] = from_union([lambda x: x.isoformat(), from_none], self.date_joined)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["fax"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], x), x), from_none], self.fax)
+        result["images"] = from_union([lambda x: from_list(from_str, x), from_none], self.images)
+        result["instant_messaging"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.instant_messaging)
+        result["isShowcase"] = from_union([from_bool, from_none], self.is_showcase)
+        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
+        result["logo_url"] = from_union([from_none, from_str], self.logo_url)
+        result["marketingNotifications"] = from_union([lambda x: to_class(MarketingNotifications, x), from_none], self.marketing_notifications)
+        result["metro"] = from_union([lambda x: to_class(Metro, x), from_none], self.metro)
+        result["min_booking_time"] = from_union([to_float, from_none], self.min_booking_time)
+        result["mobile"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], x), x), from_none], self.mobile)
+        result["name"] = from_union([from_str, from_none], self.name)
+        result["networkID"] = from_union([to_float, from_none], self.network_id)
+        result["newboEnabledFor"] = from_union([lambda x: from_list(from_str, x), from_none], self.newbo_enabled_for)
+        result["paymentMethods"] = from_union([lambda x: to_enum(PaymentMethods, x), from_none], self.payment_methods)
+        result["phone"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], x), x), from_none], self.phone)
+        result["phone_mask"] = from_union([from_none, from_str], self.phone_mask)
+        result["pricingType"] = from_union([lambda x: to_enum(PricingType, x), from_none], self.pricing_type)
+        result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
+        result["schedulerTick"] = from_union([to_float, from_none], self.scheduler_tick)
+        result["shortName"] = from_union([from_none, from_str], self.short_name)
+        result["showAppointmentColor"] = from_union([from_bool, from_none], self.show_appointment_color)
+        result["showAppointmentTooltip"] = from_union([from_bool, from_none], self.show_appointment_tooltip)
+        result["showcaseBusinessData"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseBusinessDatum, x), x), from_none], self.showcase_business_data)
+        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseElement, x), x), from_none], self.showcases)
+        result["showResourceWorkStatistics"] = from_union([from_bool, from_none], self.show_resource_work_statistics)
+        result["showWorkerProfession"] = from_union([from_bool, from_none], self.show_worker_profession)
+        result["skipBilling"] = from_union([from_bool, from_none], self.skip_billing)
+        result["smsDuplicateFilter"] = from_union([lambda x: to_class(SMSDuplicateFilter, x), from_none], self.sms_duplicate_filter)
+        result["social_network"] = from_union([lambda x: from_list(lambda x: to_class(SocialNetworkSchema, x), x), from_none], self.social_network)
+        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
+        result["timezone"] = from_union([from_none, from_str], self.timezone)
+        result["verticalTranslation"] = from_union([lambda x: to_enum(VerticalTranslation, x), from_none], self.vertical_translation)
+        result["website"] = from_union([from_none, from_str], self.website)
+        return result
+
+
+class AccessType(Enum):
+    """тип доступа работника в систему через его учётную запись"""
+    NONE = "NONE"
+    WORKER_EXTENDED = "WORKER_EXTENDED"
+    WORKER_SIMPLE = "WORKER_SIMPLE"
+
+
+class ИнформацияОПрофилеРаботника:
+    """Доступ имеют только пользователи с правами resource или admin"""
+    """тип доступа работника в систему через его учётную запись"""
+    access_type: AccessType
+    """e-mail профиля работника"""
+    email: str
+    """идентификатор профиля работника уникальный во всей системе"""
+    profile_id: str
+    """идентификатор работника"""
+    user_id: str
+
+    def __init__(self, access_type: AccessType, email: str, profile_id: str, user_id: str) -> None:
+        self.access_type = access_type
+        self.email = email
+        self.profile_id = profile_id
+        self.user_id = user_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ИнформацияОПрофилеРаботника':
+        assert isinstance(obj, dict)
+        access_type = AccessType(obj.get("accessType"))
+        email = from_str(obj.get("email"))
+        profile_id = from_str(obj.get("profileID"))
+        user_id = from_str(obj.get("userID"))
+        return ИнформацияОПрофилеРаботника(access_type, email, profile_id, user_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["accessType"] = to_enum(AccessType, self.access_type)
+        result["email"] = from_str(self.email)
+        result["profileID"] = from_str(self.profile_id)
+        result["userID"] = from_str(self.user_id)
+        return result
+
+
+class ResourceStatus(Enum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+
+class ResourceTaxonomyChildren:
+    """true - детская услуга; false - взрослая услуга"""
+    children: bool
+    """идентификатор услуги, для которой установлено свойство"""
+    taxonomy_id: str
+
+    def __init__(self, children: bool, taxonomy_id: str) -> None:
+        self.children = children
+        self.taxonomy_id = taxonomy_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceTaxonomyChildren':
+        assert isinstance(obj, dict)
+        children = from_bool(obj.get("children"))
+        taxonomy_id = from_str(obj.get("taxonomyID"))
+        return ResourceTaxonomyChildren(children, taxonomy_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["children"] = from_bool(self.children)
+        result["taxonomyID"] = from_str(self.taxonomy_id)
+        return result
+
+
+class ResourceTaxonomyLevel:
+    """идентификатор услуги, для которой установлено уровень скорости"""
+    id: str
+    """уровень скорости"""
+    level: float
+
+    def __init__(self, id: str, level: float) -> None:
+        self.id = id
+        self.level = level
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceTaxonomyLevel':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        level = from_float(obj.get("level"))
+        return ResourceTaxonomyLevel(id, level)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        result["level"] = to_float(self.level)
+        return result
+
+
+class ResourceClass:
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    additional_extra_id: Optional[List[str]]
+    """Количество записей, которые может принимать работник единовременно"""
+    capacity: float
+    """цвет колонки с работником"""
+    color: Optional[str]
+    degree: Optional[str]
+    """идентификатор отделения, к которому привязан работник"""
+    department_id: Optional[str]
+    """краткое описание работника"""
+    description: Optional[str]
+    display_in_schedule: Optional[bool]
+    """отображать ли данного работника на виджете или любом другом клиенте"""
+    display_in_widget: bool
+    """e-mail работника"""
+    email: Optional[str]
+    """включена ли отправка e-mail уведомлений для данного работника"""
+    email_enabled: Optional[bool]
+    even_odd_timetable: EvenOddTimetable
+    exceptions: Optional[List[Any]]
+    experience: Optional[datetime]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_description: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_id: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_link: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_media_id: Optional[str]
+    """url изображения работника; Если указан относительный путь, то используйте
+    http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+    WidgetConfiguration.defaultWorkerImgUrl)
+    """
+    icon_url: Optional[str]
+    """внутренний идентификатор работника; уникальный во всей системе GBooking"""
+    id: str
+    image: Optional[str]
+    last_su: Optional[datetime]
+    """уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)"""
+    level: float
+    """не используется"""
+    loaned: bool
+    """не используется"""
+    loaned_from: Optional[str]
+    """не используется"""
+    loaned_to: Optional[str]
+    location: ResourceLocation
+    manual_changes: bool
+    """отчество работника"""
+    middle_name: Optional[str]
+    """имя работника"""
+    name: str
+    """внутреннее название работника в Бекофис"""
+    nickname: Optional[str]
+    """индекс сортировки работника"""
+    order: Optional[float]
+    """вес работника, в зависимости от указанного способа сортировки"""
+    order_weight: Union[float, None, str]
+    """(только в витрине) объект с данными бизнеса-филиала"""
+    origin_general_info: Optional[Info]
+    """(только в витрине) идентификатор бизнеса-филиала, откуда был взят работник"""
+    origin_business_id: Optional[str]
+    """(только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+    работник
+    """
+    origin_taxonomies: Optional[List[str]]
+    """особый навык"""
+    perk: Optional[str]
+    phone: Union[List[Any], bool, PhoneClass, float, int, None, str]
+    """информация о профессии работника, используется в Бекофис"""
+    profession: Optional[str]
+    profile: Optional[ИнформацияОПрофилеРаботника]
+    """Рейтинг работника"""
+    rating: Optional[float]
+    readonly_taxonomies: Optional[List[str]]
+    """Версия изменений документа"""
+    revision_version: float
+    schedule_is_empty: Optional[bool]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    site_id: Optional[str]
+    """включена ли отправка смс уведомлений для данного работника"""
+    sms_enabled: Optional[bool]
+    status: Optional[ResourceStatus]
+    """фамилия и отчество работника"""
+    surname: str
+    """массив идентификаторов услуг, которые выполняет работник"""
+    taxonomies: List[str]
+    """массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+    оба или не указаны вовсе для услуги)
+    """
+    taxonomy_children: List[ResourceTaxonomyChildren]
+    """массив уровня скорости выполнения услуги (см так же Resource level)"""
+    taxonomy_levels: List[ResourceTaxonomyLevel]
+    timetable: Timetable
+    user_data: Optional[Dict[str, Any]]
+    """рабочее место, которое занимает работник"""
+    work_place: Optional[str]
+
+    def __init__(self, additional_extra_id: Optional[List[str]], capacity: float, color: Optional[str], degree: Optional[str], department_id: Optional[str], description: Optional[str], display_in_schedule: Optional[bool], display_in_widget: bool, email: Optional[str], email_enabled: Optional[bool], even_odd_timetable: EvenOddTimetable, exceptions: Optional[List[Any]], experience: Optional[datetime], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], extra_media_id: Optional[str], icon_url: Optional[str], id: str, image: Optional[str], last_su: Optional[datetime], level: float, loaned: bool, loaned_from: Optional[str], loaned_to: Optional[str], location: ResourceLocation, manual_changes: bool, middle_name: Optional[str], name: str, nickname: Optional[str], order: Optional[float], order_weight: Union[float, None, str], origin_general_info: Optional[Info], origin_business_id: Optional[str], origin_taxonomies: Optional[List[str]], perk: Optional[str], phone: Union[List[Any], bool, PhoneClass, float, int, None, str], profession: Optional[str], profile: Optional[ИнформацияОПрофилеРаботника], rating: Optional[float], readonly_taxonomies: Optional[List[str]], revision_version: float, schedule_is_empty: Optional[bool], site_id: Optional[str], sms_enabled: Optional[bool], status: Optional[ResourceStatus], surname: str, taxonomies: List[str], taxonomy_children: List[ResourceTaxonomyChildren], taxonomy_levels: List[ResourceTaxonomyLevel], timetable: Timetable, user_data: Optional[Dict[str, Any]], work_place: Optional[str]) -> None:
+        self.additional_extra_id = additional_extra_id
+        self.capacity = capacity
+        self.color = color
+        self.degree = degree
+        self.department_id = department_id
+        self.description = description
+        self.display_in_schedule = display_in_schedule
+        self.display_in_widget = display_in_widget
+        self.email = email
+        self.email_enabled = email_enabled
+        self.even_odd_timetable = even_odd_timetable
+        self.exceptions = exceptions
+        self.experience = experience
+        self.extra_description = extra_description
+        self.extra_id = extra_id
+        self.extra_link = extra_link
+        self.extra_media_id = extra_media_id
+        self.icon_url = icon_url
+        self.id = id
+        self.image = image
+        self.last_su = last_su
+        self.level = level
+        self.loaned = loaned
+        self.loaned_from = loaned_from
+        self.loaned_to = loaned_to
+        self.location = location
+        self.manual_changes = manual_changes
+        self.middle_name = middle_name
+        self.name = name
+        self.nickname = nickname
+        self.order = order
+        self.order_weight = order_weight
+        self.origin_general_info = origin_general_info
+        self.origin_business_id = origin_business_id
+        self.origin_taxonomies = origin_taxonomies
+        self.perk = perk
+        self.phone = phone
+        self.profession = profession
+        self.profile = profile
+        self.rating = rating
+        self.readonly_taxonomies = readonly_taxonomies
+        self.revision_version = revision_version
+        self.schedule_is_empty = schedule_is_empty
+        self.site_id = site_id
+        self.sms_enabled = sms_enabled
+        self.status = status
+        self.surname = surname
+        self.taxonomies = taxonomies
+        self.taxonomy_children = taxonomy_children
+        self.taxonomy_levels = taxonomy_levels
+        self.timetable = timetable
+        self.user_data = user_data
+        self.work_place = work_place
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceClass':
+        assert isinstance(obj, dict)
+        additional_extra_id = from_union([lambda x: from_list(from_str, x), from_none], obj.get("additionalExtraId"))
+        capacity = from_float(obj.get("capacity"))
+        color = from_union([from_str, from_none], obj.get("color"))
+        degree = from_union([from_str, from_none], obj.get("degree"))
+        department_id = from_union([from_str, from_none], obj.get("departmentId"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        display_in_schedule = from_union([from_bool, from_none], obj.get("displayInSchedule"))
+        display_in_widget = from_bool(obj.get("displayInWidget"))
+        email = from_union([from_str, from_none], obj.get("email"))
+        email_enabled = from_union([from_bool, from_none], obj.get("emailEnabled"))
+        even_odd_timetable = EvenOddTimetable.from_dict(obj.get("evenOddTimetable"))
+        exceptions = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("exceptions"))
+        experience = from_union([from_datetime, from_none], obj.get("experience"))
+        extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
+        extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        extra_link = from_union([from_str, from_none], obj.get("extraLink"))
+        extra_media_id = from_union([from_str, from_none], obj.get("extraMediaId"))
+        icon_url = from_union([from_none, from_str], obj.get("icon_url"))
+        id = from_str(obj.get("id"))
+        image = from_union([from_str, from_none], obj.get("image"))
+        last_su = from_union([from_datetime, from_none], obj.get("lastSU"))
+        level = from_float(obj.get("level"))
+        loaned = from_bool(obj.get("loaned"))
+        loaned_from = from_union([from_str, from_none], obj.get("loanedFrom"))
+        loaned_to = from_union([from_str, from_none], obj.get("loanedTo"))
+        location = ResourceLocation.from_dict(obj.get("location"))
+        manual_changes = from_bool(obj.get("manualChanges"))
+        middle_name = from_union([from_str, from_none], obj.get("middleName"))
+        name = from_str(obj.get("name"))
+        nickname = from_union([from_str, from_none], obj.get("nickname"))
+        order = from_union([from_float, from_none], obj.get("order"))
+        order_weight = from_union([from_float, from_str, from_none], obj.get("orderWeight"))
+        origin_general_info = from_union([Info.from_dict, from_none], obj.get("origin_general_info"))
+        origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
+        origin_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("originTaxonomies"))
+        perk = from_union([from_str, from_none], obj.get("perk"))
+        phone = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], obj.get("phone"))
+        profession = from_union([from_str, from_none], obj.get("profession"))
+        profile = from_union([ИнформацияОПрофилеРаботника.from_dict, from_none], obj.get("profile"))
+        rating = from_union([from_float, from_none], obj.get("rating"))
+        readonly_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("readonlyTaxonomies"))
+        revision_version = from_float(obj.get("revisionVersion"))
+        schedule_is_empty = from_union([from_bool, from_none], obj.get("scheduleIsEmpty"))
+        site_id = from_union([from_str, from_none], obj.get("siteId"))
+        sms_enabled = from_union([from_bool, from_none], obj.get("smsEnabled"))
+        status = from_union([ResourceStatus, from_none], obj.get("status"))
+        surname = from_str(obj.get("surname"))
+        taxonomies = from_list(from_str, obj.get("taxonomies"))
+        taxonomy_children = from_list(ResourceTaxonomyChildren.from_dict, obj.get("taxonomyChildren"))
+        taxonomy_levels = from_list(ResourceTaxonomyLevel.from_dict, obj.get("taxonomyLevels"))
+        timetable = Timetable.from_dict(obj.get("timetable"))
+        user_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("userData"))
+        work_place = from_union([from_str, from_none], obj.get("workPlace"))
+        return ResourceClass(additional_extra_id, capacity, color, degree, department_id, description, display_in_schedule, display_in_widget, email, email_enabled, even_odd_timetable, exceptions, experience, extra_description, extra_id, extra_link, extra_media_id, icon_url, id, image, last_su, level, loaned, loaned_from, loaned_to, location, manual_changes, middle_name, name, nickname, order, order_weight, origin_general_info, origin_business_id, origin_taxonomies, perk, phone, profession, profile, rating, readonly_taxonomies, revision_version, schedule_is_empty, site_id, sms_enabled, status, surname, taxonomies, taxonomy_children, taxonomy_levels, timetable, user_data, work_place)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["additionalExtraId"] = from_union([lambda x: from_list(from_str, x), from_none], self.additional_extra_id)
+        result["capacity"] = to_float(self.capacity)
+        result["color"] = from_union([from_str, from_none], self.color)
+        result["degree"] = from_union([from_str, from_none], self.degree)
+        result["departmentId"] = from_union([from_str, from_none], self.department_id)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["displayInSchedule"] = from_union([from_bool, from_none], self.display_in_schedule)
+        result["displayInWidget"] = from_bool(self.display_in_widget)
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["emailEnabled"] = from_union([from_bool, from_none], self.email_enabled)
+        result["evenOddTimetable"] = to_class(EvenOddTimetable, self.even_odd_timetable)
+        result["exceptions"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.exceptions)
+        result["experience"] = from_union([lambda x: x.isoformat(), from_none], self.experience)
+        result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
+        result["extraId"] = from_union([from_str, from_none], self.extra_id)
+        result["extraLink"] = from_union([from_str, from_none], self.extra_link)
+        result["extraMediaId"] = from_union([from_str, from_none], self.extra_media_id)
+        result["icon_url"] = from_union([from_none, from_str], self.icon_url)
+        result["id"] = from_str(self.id)
+        result["image"] = from_union([from_str, from_none], self.image)
+        result["lastSU"] = from_union([lambda x: x.isoformat(), from_none], self.last_su)
+        result["level"] = to_float(self.level)
+        result["loaned"] = from_bool(self.loaned)
+        result["loanedFrom"] = from_union([from_str, from_none], self.loaned_from)
+        result["loanedTo"] = from_union([from_str, from_none], self.loaned_to)
+        result["location"] = to_class(ResourceLocation, self.location)
+        result["manualChanges"] = from_bool(self.manual_changes)
+        result["middleName"] = from_union([from_str, from_none], self.middle_name)
+        result["name"] = from_str(self.name)
+        result["nickname"] = from_union([from_str, from_none], self.nickname)
+        result["order"] = from_union([to_float, from_none], self.order)
+        result["orderWeight"] = from_union([to_float, from_str, from_none], self.order_weight)
+        result["origin_general_info"] = from_union([lambda x: to_class(Info, x), from_none], self.origin_general_info)
+        result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
+        result["originTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.origin_taxonomies)
+        result["perk"] = from_union([from_str, from_none], self.perk)
+        result["phone"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], self.phone)
+        result["profession"] = from_union([from_str, from_none], self.profession)
+        result["profile"] = from_union([lambda x: to_class(ИнформацияОПрофилеРаботника, x), from_none], self.profile)
+        result["rating"] = from_union([to_float, from_none], self.rating)
+        result["readonlyTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.readonly_taxonomies)
+        result["revisionVersion"] = to_float(self.revision_version)
+        result["scheduleIsEmpty"] = from_union([from_bool, from_none], self.schedule_is_empty)
+        result["siteId"] = from_union([from_str, from_none], self.site_id)
+        result["smsEnabled"] = from_union([from_bool, from_none], self.sms_enabled)
+        result["status"] = from_union([lambda x: to_enum(ResourceStatus, x), from_none], self.status)
+        result["surname"] = from_str(self.surname)
+        result["taxonomies"] = from_list(from_str, self.taxonomies)
+        result["taxonomyChildren"] = from_list(lambda x: to_class(ResourceTaxonomyChildren, x), self.taxonomy_children)
+        result["taxonomyLevels"] = from_list(lambda x: to_class(ResourceTaxonomyLevel, x), self.taxonomy_levels)
+        result["timetable"] = to_class(Timetable, self.timetable)
+        result["userData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.user_data)
+        result["workPlace"] = from_union([from_str, from_none], self.work_place)
+        return result
+
+
+class PurpleAdditionalDuration:
+    duration: Optional[float]
+    level: Optional[float]
+
+    def __init__(self, duration: Optional[float], level: Optional[float]) -> None:
+        self.duration = duration
+        self.level = level
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleAdditionalDuration':
+        assert isinstance(obj, dict)
+        duration = from_union([from_float, from_none], obj.get("duration"))
+        level = from_union([from_float, from_none], obj.get("level"))
+        return PurpleAdditionalDuration(duration, level)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["duration"] = from_union([to_float, from_none], self.duration)
+        result["level"] = from_union([to_float, from_none], self.level)
+        return result
+
+
+class AdditionalPriceType(Enum):
+    """Тип цены"""
+    AVERAGE = "average"
+    BEGIN_WITH = "begin_with"
+    EQUAL = "equal"
+
+
+class PurpleBusinessTaxonomyPrice:
+    """Значение цены"""
+    amount: Optional[str]
+    """Аббревиатура валюты"""
+    currency: CurrencyList
+    """"Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)"""
+    resource_level: float
+    """Значение цены, с учётом промо акций"""
+    stock_amount: Optional[str]
+    """Тип цены"""
+    type: Optional[AdditionalPriceType]
+
+    def __init__(self, amount: Optional[str], currency: CurrencyList, resource_level: float, stock_amount: Optional[str], type: Optional[AdditionalPriceType]) -> None:
+        self.amount = amount
+        self.currency = currency
+        self.resource_level = resource_level
+        self.stock_amount = stock_amount
+        self.type = type
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleBusinessTaxonomyPrice':
+        assert isinstance(obj, dict)
+        amount = from_union([from_str, from_none], obj.get("amount"))
+        currency = CurrencyList(obj.get("currency"))
+        resource_level = from_float(obj.get("resourceLevel"))
+        stock_amount = from_union([from_none, from_str], obj.get("stockAmount"))
+        type = from_union([AdditionalPriceType, from_none], obj.get("type"))
+        return PurpleBusinessTaxonomyPrice(amount, currency, resource_level, stock_amount, type)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["amount"] = from_union([from_str, from_none], self.amount)
+        result["currency"] = to_enum(CurrencyList, self.currency)
+        result["resourceLevel"] = to_float(self.resource_level)
+        result["stockAmount"] = from_union([from_none, from_str], self.stock_amount)
+        result["type"] = from_union([lambda x: to_enum(AdditionalPriceType, x), from_none], self.type)
+        return result
+
+
+class PurpleBusinessTaxonomyProduct:
+    """Дополнительный ID товара"""
+    extra_id: str
+    """ID товара"""
+    id: str
+    """Является ли обязательным при выполнении данной услуги"""
+    required: bool
+
+    def __init__(self, extra_id: str, id: str, required: bool) -> None:
+        self.extra_id = extra_id
+        self.id = id
+        self.required = required
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleBusinessTaxonomyProduct':
+        assert isinstance(obj, dict)
+        extra_id = from_str(obj.get("extraID"))
+        id = from_str(obj.get("id"))
+        required = from_bool(obj.get("required"))
+        return PurpleBusinessTaxonomyProduct(extra_id, id, required)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["extraID"] = from_str(self.extra_id)
+        result["id"] = from_str(self.id)
+        result["required"] = from_bool(self.required)
+        return result
+
+
+class PurpleAdjacentTaxonomy:
+    is_any_available: Optional[bool]
+    order: Optional[float]
+    slot_duration: Optional[float]
+    taxonomy_id: Optional[str]
+
+    def __init__(self, is_any_available: Optional[bool], order: Optional[float], slot_duration: Optional[float], taxonomy_id: Optional[str]) -> None:
+        self.is_any_available = is_any_available
+        self.order = order
+        self.slot_duration = slot_duration
+        self.taxonomy_id = taxonomy_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleAdjacentTaxonomy':
+        assert isinstance(obj, dict)
+        is_any_available = from_union([from_bool, from_none], obj.get("isAnyAvailable"))
+        order = from_union([from_float, from_none], obj.get("order"))
+        slot_duration = from_union([from_float, from_none], obj.get("slotDuration"))
+        taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
+        return PurpleAdjacentTaxonomy(is_any_available, order, slot_duration, taxonomy_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["isAnyAvailable"] = from_union([from_bool, from_none], self.is_any_available)
+        result["order"] = from_union([to_float, from_none], self.order)
+        result["slotDuration"] = from_union([to_float, from_none], self.slot_duration)
+        result["taxonomyID"] = from_union([from_str, from_none], self.taxonomy_id)
+        return result
+
+
+class ChildrenTaxonomyType(Enum):
+    CHILD = "child"
+    NONE = "none"
+    PARENT = "parent"
+
+
+class DateLimitType(Enum):
+    ALL_DATES = "all_dates"
+    FROM_DATE = "from_date"
+    RANGE_DATES = "range_dates"
+    TO_DATE = "to_date"
+
+
+class PurpleDateLimit:
+    id: Optional[str]
+    date_limit_from: Optional[datetime]
+    date_limit_to: Optional[datetime]
+
+    def __init__(self, id: Optional[str], date_limit_from: Optional[datetime], date_limit_to: Optional[datetime]) -> None:
+        self.id = id
+        self.date_limit_from = date_limit_from
+        self.date_limit_to = date_limit_to
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleDateLimit':
+        assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("_id"))
+        date_limit_from = from_union([from_datetime, from_none], obj.get("dateLimitFrom"))
+        date_limit_to = from_union([from_datetime, from_none], obj.get("dateLimitTo"))
+        return PurpleDateLimit(id, date_limit_from, date_limit_to)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["_id"] = from_union([from_str, from_none], self.id)
+        result["dateLimitFrom"] = from_union([lambda x: x.isoformat(), from_none], self.date_limit_from)
+        result["dateLimitTo"] = from_union([lambda x: x.isoformat(), from_none], self.date_limit_to)
+        return result
+
+
+class DaysOfWeek(Enum):
+    FRI = "fri"
+    MON = "mon"
+    SAT = "sat"
+    SUN = "sun"
+    THU = "thu"
+    TUE = "tue"
+    WED = "wed"
+
+
+class Repeats(Enum):
+    DAILY = "daily"
+    NONE = "none"
+    WEEKLY = "weekly"
+
+
+class Slots:
+    time: Optional[TimeFrame]
+
+    def __init__(self, time: Optional[TimeFrame]) -> None:
+        self.time = time
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Slots':
+        assert isinstance(obj, dict)
+        time = from_union([TimeFrame.from_dict, from_none], obj.get("time"))
+        return Slots(time)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["time"] = from_union([lambda x: to_class(TimeFrame, x), from_none], self.time)
+        return result
+
+
+class DiscountClass:
+    active: Optional[bool]
+    days_of_week: Optional[DaysOfWeek]
+    repeats: Optional[Repeats]
+    slots: Optional[Slots]
+    start: Optional[datetime]
+    unlim_weekly_repeat: Optional[bool]
+    weekly_repeat: Optional[float]
+
+    def __init__(self, active: Optional[bool], days_of_week: Optional[DaysOfWeek], repeats: Optional[Repeats], slots: Optional[Slots], start: Optional[datetime], unlim_weekly_repeat: Optional[bool], weekly_repeat: Optional[float]) -> None:
+        self.active = active
+        self.days_of_week = days_of_week
+        self.repeats = repeats
+        self.slots = slots
+        self.start = start
+        self.unlim_weekly_repeat = unlim_weekly_repeat
+        self.weekly_repeat = weekly_repeat
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'DiscountClass':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        days_of_week = from_union([DaysOfWeek, from_none], obj.get("daysOfWeek"))
+        repeats = from_union([Repeats, from_none], obj.get("repeats"))
+        slots = from_union([Slots.from_dict, from_none], obj.get("slots"))
+        start = from_union([from_datetime, from_none], obj.get("start"))
+        unlim_weekly_repeat = from_union([from_bool, from_none], obj.get("unlimWeeklyRepeat"))
+        weekly_repeat = from_union([from_float, from_none], obj.get("weeklyRepeat"))
+        return DiscountClass(active, days_of_week, repeats, slots, start, unlim_weekly_repeat, weekly_repeat)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        result["daysOfWeek"] = from_union([lambda x: to_enum(DaysOfWeek, x), from_none], self.days_of_week)
+        result["repeats"] = from_union([lambda x: to_enum(Repeats, x), from_none], self.repeats)
+        result["slots"] = from_union([lambda x: to_class(Slots, x), from_none], self.slots)
+        result["start"] = from_union([lambda x: x.isoformat(), from_none], self.start)
+        result["unlimWeeklyRepeat"] = from_union([from_bool, from_none], self.unlim_weekly_repeat)
+        result["weeklyRepeat"] = from_union([to_float, from_none], self.weekly_repeat)
+        return result
+
+
+class OnlineMode(Enum):
+    ONCALL_ONLINE = "ONCALL_ONLINE"
+    PLAN_CLINIC = "PLAN_CLINIC"
+    PLAN_CLINIC_ONLINE = "PLAN_CLINIC_ONLINE"
+    PLAN_ONLINE = "PLAN_ONLINE"
+
+
+class PurplePrice:
+    """Значение цены"""
+    amount: str
+    """Аббревиатура валюты (например, RUB - рубль)"""
+    currency: CurrencyList
+    """Значение цены, с учётом промо акций"""
+    stock_amount: Optional[str]
+    """Тип цены"""
+    type: AdditionalPriceType
+
+    def __init__(self, amount: str, currency: CurrencyList, stock_amount: Optional[str], type: AdditionalPriceType) -> None:
+        self.amount = amount
+        self.currency = currency
+        self.stock_amount = stock_amount
+        self.type = type
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurplePrice':
+        assert isinstance(obj, dict)
+        amount = from_str(obj.get("amount"))
+        currency = CurrencyList(obj.get("currency"))
+        stock_amount = from_union([from_none, from_str], obj.get("stockAmount"))
+        type = AdditionalPriceType(obj.get("type"))
+        return PurplePrice(amount, currency, stock_amount, type)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["amount"] = from_str(self.amount)
+        result["currency"] = to_enum(CurrencyList, self.currency)
+        result["stockAmount"] = from_union([from_none, from_str], self.stock_amount)
+        result["type"] = to_enum(AdditionalPriceType, self.type)
+        return result
+
+
+class FluffyAdditionalDuration:
+    id: Optional[str]
+    duration: Optional[float]
+    """поддержка различной длительности услуг в зависимости от работника"""
+    level: Optional[float]
+
+    def __init__(self, id: Optional[str], duration: Optional[float], level: Optional[float]) -> None:
+        self.id = id
+        self.duration = duration
+        self.level = level
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyAdditionalDuration':
+        assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("_id"))
+        duration = from_union([from_float, from_none], obj.get("duration"))
+        level = from_union([from_float, from_none], obj.get("level"))
+        return FluffyAdditionalDuration(id, duration, level)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["_id"] = from_union([from_str, from_none], self.id)
+        result["duration"] = from_union([to_float, from_none], self.duration)
+        result["level"] = from_union([to_float, from_none], self.level)
+        return result
+
+
+class PurpleShowcaseItem:
+    id: Optional[str]
+    additional_durations: Optional[List[FluffyAdditionalDuration]]
+    business_id: Optional[str]
+    """Список видов приема услуги"""
+    reception_types: Optional[List[str]]
+    taxonomy_id: Optional[str]
+
+    def __init__(self, id: Optional[str], additional_durations: Optional[List[FluffyAdditionalDuration]], business_id: Optional[str], reception_types: Optional[List[str]], taxonomy_id: Optional[str]) -> None:
+        self.id = id
+        self.additional_durations = additional_durations
+        self.business_id = business_id
+        self.reception_types = reception_types
+        self.taxonomy_id = taxonomy_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleShowcaseItem':
+        assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("_id"))
+        additional_durations = from_union([lambda x: from_list(FluffyAdditionalDuration.from_dict, x), from_none], obj.get("additionalDurations"))
+        business_id = from_union([from_str, from_none], obj.get("businessID"))
+        reception_types = from_union([lambda x: from_list(from_str, x), from_none], obj.get("receptionTypes"))
+        taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
+        return PurpleShowcaseItem(id, additional_durations, business_id, reception_types, taxonomy_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["_id"] = from_union([from_str, from_none], self.id)
+        result["additionalDurations"] = from_union([lambda x: from_list(lambda x: to_class(FluffyAdditionalDuration, x), x), from_none], self.additional_durations)
+        result["businessID"] = from_union([from_str, from_none], self.business_id)
+        result["receptionTypes"] = from_union([lambda x: from_list(from_str, x), from_none], self.reception_types)
+        result["taxonomyID"] = from_union([from_str, from_none], self.taxonomy_id)
+        return result
+
+
+class PurpleTaxonomyShowcase:
+    base_business_id: Optional[str]
+    is_base_node: Optional[bool]
+    origin_business_id: Optional[str]
+    showcase_item_id: Optional[str]
+
+    def __init__(self, base_business_id: Optional[str], is_base_node: Optional[bool], origin_business_id: Optional[str], showcase_item_id: Optional[str]) -> None:
+        self.base_business_id = base_business_id
+        self.is_base_node = is_base_node
+        self.origin_business_id = origin_business_id
+        self.showcase_item_id = showcase_item_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleTaxonomyShowcase':
+        assert isinstance(obj, dict)
+        base_business_id = from_union([from_str, from_none], obj.get("baseBusinessID"))
+        is_base_node = from_union([from_bool, from_none], obj.get("isBaseNode"))
+        origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
+        showcase_item_id = from_union([from_str, from_none], obj.get("showcaseItemID"))
+        return PurpleTaxonomyShowcase(base_business_id, is_base_node, origin_business_id, showcase_item_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["baseBusinessID"] = from_union([from_str, from_none], self.base_business_id)
+        result["isBaseNode"] = from_union([from_bool, from_none], self.is_base_node)
+        result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
+        result["showcaseItemID"] = from_union([from_str, from_none], self.showcase_item_id)
+        return result
+
+
+class TaxonomyType(Enum):
+    CATEGORY = "CATEGORY"
+    SERVICE = "SERVICE"
+    SUBCATEGORY = "SUBCATEGORY"
+
+
+class PurpleBusinessTaxonomy:
+    active: Optional[bool]
+    additional_durations: Optional[List[PurpleAdditionalDuration]]
+    additional_prices: Optional[List[PurpleBusinessTaxonomyPrice]]
+    additional_products: Optional[List[PurpleBusinessTaxonomyProduct]]
+    additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]]
+    adjacent_same_time_start: Optional[bool]
+    adjacent_taxonomies: Optional[List[PurpleAdjacentTaxonomy]]
+    alias: Optional[Dict[str, Any]]
+    allow_booking_in_bo: Optional[bool]
+    allow_next_booking_count: Optional[float]
+    allow_next_booking_in_days: Optional[float]
+    allow_next_booking_in_days_text: Optional[str]
+    cabinets: Optional[List[str]]
+    cabinets_enabled: Optional[bool]
+    capacity: Optional[float]
+    capacity_decrease: Optional[float]
+    charge_units_step: Optional[float]
+    children_taxonomy_types: Optional[List[ChildrenTaxonomyType]]
+    color: Optional[str]
+    confirmation_alert: Optional[str]
+    confirmation_sms_alert: Optional[str]
+    date_limits: Optional[List[PurpleDateLimit]]
+    date_limit_type: Optional[DateLimitType]
+    designs: Optional[List[str]]
+    discounts: Union[List[Any], bool, DiscountClass, float, int, None, str]
+    display_in_widget: Optional[bool]
+    duration: Optional[float]
+    exceptions: Optional[List[Any]]
+    extra_description: Optional[str]
+    extra_id: Optional[str]
+    extra_link: Optional[str]
+    for_pay: Optional[bool]
+    id: Optional[str]
+    images: Optional[List[str]]
+    is_other: Optional[bool]
+    last_modified: Optional[datetime]
+    leaves: Optional[List[str]]
+    manual_changes: Optional[bool]
+    new_taxonomy: Optional[bool]
+    online_mode: Optional[OnlineMode]
+    only_after_taxonomies: Optional[List[str]]
+    order: Optional[float]
+    parallel_taxonomies: Optional[List[str]]
+    popularity: Optional[float]
+    price: Optional[PurplePrice]
+    price_link: Optional[str]
+    """Список видов приема услуги"""
+    reception_types: Optional[List[str]]
+    rooms: Optional[List[str]]
+    showcase_items: Optional[List[PurpleShowcaseItem]]
+    showcases: Optional[List[PurpleTaxonomyShowcase]]
+    """Идентификатор услуги в витрине"""
+    showcase_taxonomy_id: Optional[str]
+    """Внешний идентификатор таксономии"""
+    site_id: Optional[str]
+    special_cabinet: Optional[str]
+    taxonomy_app_extra_id: Optional[str]
+    taxonomy_category_extra_id: Optional[str]
+    taxonomy_parent_id: Optional[str]
+    taxonomy_type: Optional[TaxonomyType]
+    timetable: Optional[Timetable]
+    use_confirmation_sms_alert: Optional[bool]
+    visit_type: Optional[str]
+
+    def __init__(self, active: Optional[bool], additional_durations: Optional[List[PurpleAdditionalDuration]], additional_prices: Optional[List[PurpleBusinessTaxonomyPrice]], additional_products: Optional[List[PurpleBusinessTaxonomyProduct]], additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]], adjacent_same_time_start: Optional[bool], adjacent_taxonomies: Optional[List[PurpleAdjacentTaxonomy]], alias: Optional[Dict[str, Any]], allow_booking_in_bo: Optional[bool], allow_next_booking_count: Optional[float], allow_next_booking_in_days: Optional[float], allow_next_booking_in_days_text: Optional[str], cabinets: Optional[List[str]], cabinets_enabled: Optional[bool], capacity: Optional[float], capacity_decrease: Optional[float], charge_units_step: Optional[float], children_taxonomy_types: Optional[List[ChildrenTaxonomyType]], color: Optional[str], confirmation_alert: Optional[str], confirmation_sms_alert: Optional[str], date_limits: Optional[List[PurpleDateLimit]], date_limit_type: Optional[DateLimitType], designs: Optional[List[str]], discounts: Union[List[Any], bool, DiscountClass, float, int, None, str], display_in_widget: Optional[bool], duration: Optional[float], exceptions: Optional[List[Any]], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], for_pay: Optional[bool], id: Optional[str], images: Optional[List[str]], is_other: Optional[bool], last_modified: Optional[datetime], leaves: Optional[List[str]], manual_changes: Optional[bool], new_taxonomy: Optional[bool], online_mode: Optional[OnlineMode], only_after_taxonomies: Optional[List[str]], order: Optional[float], parallel_taxonomies: Optional[List[str]], popularity: Optional[float], price: Optional[PurplePrice], price_link: Optional[str], reception_types: Optional[List[str]], rooms: Optional[List[str]], showcase_items: Optional[List[PurpleShowcaseItem]], showcases: Optional[List[PurpleTaxonomyShowcase]], showcase_taxonomy_id: Optional[str], site_id: Optional[str], special_cabinet: Optional[str], taxonomy_app_extra_id: Optional[str], taxonomy_category_extra_id: Optional[str], taxonomy_parent_id: Optional[str], taxonomy_type: Optional[TaxonomyType], timetable: Optional[Timetable], use_confirmation_sms_alert: Optional[bool], visit_type: Optional[str]) -> None:
+        self.active = active
+        self.additional_durations = additional_durations
+        self.additional_prices = additional_prices
+        self.additional_products = additional_products
+        self.additional_taxonomy_extra_id = additional_taxonomy_extra_id
+        self.adjacent_same_time_start = adjacent_same_time_start
+        self.adjacent_taxonomies = adjacent_taxonomies
+        self.alias = alias
+        self.allow_booking_in_bo = allow_booking_in_bo
+        self.allow_next_booking_count = allow_next_booking_count
+        self.allow_next_booking_in_days = allow_next_booking_in_days
+        self.allow_next_booking_in_days_text = allow_next_booking_in_days_text
+        self.cabinets = cabinets
+        self.cabinets_enabled = cabinets_enabled
+        self.capacity = capacity
+        self.capacity_decrease = capacity_decrease
+        self.charge_units_step = charge_units_step
+        self.children_taxonomy_types = children_taxonomy_types
+        self.color = color
+        self.confirmation_alert = confirmation_alert
+        self.confirmation_sms_alert = confirmation_sms_alert
+        self.date_limits = date_limits
+        self.date_limit_type = date_limit_type
+        self.designs = designs
+        self.discounts = discounts
+        self.display_in_widget = display_in_widget
+        self.duration = duration
+        self.exceptions = exceptions
+        self.extra_description = extra_description
+        self.extra_id = extra_id
+        self.extra_link = extra_link
+        self.for_pay = for_pay
+        self.id = id
+        self.images = images
+        self.is_other = is_other
+        self.last_modified = last_modified
+        self.leaves = leaves
+        self.manual_changes = manual_changes
+        self.new_taxonomy = new_taxonomy
+        self.online_mode = online_mode
+        self.only_after_taxonomies = only_after_taxonomies
+        self.order = order
+        self.parallel_taxonomies = parallel_taxonomies
+        self.popularity = popularity
+        self.price = price
+        self.price_link = price_link
+        self.reception_types = reception_types
+        self.rooms = rooms
+        self.showcase_items = showcase_items
+        self.showcases = showcases
+        self.showcase_taxonomy_id = showcase_taxonomy_id
+        self.site_id = site_id
+        self.special_cabinet = special_cabinet
+        self.taxonomy_app_extra_id = taxonomy_app_extra_id
+        self.taxonomy_category_extra_id = taxonomy_category_extra_id
+        self.taxonomy_parent_id = taxonomy_parent_id
+        self.taxonomy_type = taxonomy_type
+        self.timetable = timetable
+        self.use_confirmation_sms_alert = use_confirmation_sms_alert
+        self.visit_type = visit_type
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleBusinessTaxonomy':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        additional_durations = from_union([lambda x: from_list(PurpleAdditionalDuration.from_dict, x), from_none], obj.get("additionalDurations"))
+        additional_prices = from_union([lambda x: from_list(PurpleBusinessTaxonomyPrice.from_dict, x), from_none], obj.get("additionalPrices"))
+        additional_products = from_union([lambda x: from_list(PurpleBusinessTaxonomyProduct.from_dict, x), from_none], obj.get("additionalProducts"))
+        additional_taxonomy_extra_id = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("additionalTaxonomyExtraId"))
+        adjacent_same_time_start = from_union([from_bool, from_none], obj.get("adjacentSameTimeStart"))
+        adjacent_taxonomies = from_union([lambda x: from_list(PurpleAdjacentTaxonomy.from_dict, x), from_none], obj.get("adjacentTaxonomies"))
+        alias = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("alias"))
+        allow_booking_in_bo = from_union([from_bool, from_none], obj.get("allowBookingInBO"))
+        allow_next_booking_count = from_union([from_float, from_none], obj.get("allowNextBookingCount"))
+        allow_next_booking_in_days = from_union([from_float, from_none], obj.get("allowNextBookingInDays"))
+        allow_next_booking_in_days_text = from_union([from_str, from_none], obj.get("allowNextBookingInDaysText"))
+        cabinets = from_union([lambda x: from_list(from_str, x), from_none], obj.get("cabinets"))
+        cabinets_enabled = from_union([from_bool, from_none], obj.get("cabinetsEnabled"))
+        capacity = from_union([from_float, from_none], obj.get("capacity"))
+        capacity_decrease = from_union([from_float, from_none], obj.get("capacity_decrease"))
+        charge_units_step = from_union([from_float, from_none], obj.get("chargeUnitsStep"))
+        children_taxonomy_types = from_union([lambda x: from_list(ChildrenTaxonomyType, x), from_none], obj.get("childrenTaxonomyTypes"))
+        color = from_union([from_str, from_none], obj.get("color"))
+        confirmation_alert = from_union([from_str, from_none], obj.get("confirmationAlert"))
+        confirmation_sms_alert = from_union([from_str, from_none], obj.get("confirmationSmsAlert"))
+        date_limits = from_union([lambda x: from_list(PurpleDateLimit.from_dict, x), from_none], obj.get("dateLimits"))
+        date_limit_type = from_union([DateLimitType, from_none], obj.get("dateLimitType"))
+        designs = from_union([lambda x: from_list(from_str, x), from_none], obj.get("designs"))
+        discounts = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), DiscountClass.from_dict], obj.get("discounts"))
+        display_in_widget = from_union([from_bool, from_none], obj.get("displayInWidget"))
+        duration = from_union([from_float, from_none], obj.get("duration"))
+        exceptions = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("exceptions"))
+        extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
+        extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        extra_link = from_union([from_str, from_none], obj.get("extraLink"))
+        for_pay = from_union([from_bool, from_none], obj.get("forPay"))
+        id = from_union([from_str, from_none], obj.get("id"))
+        images = from_union([lambda x: from_list(from_str, x), from_none], obj.get("images"))
+        is_other = from_union([from_bool, from_none], obj.get("isOther"))
+        last_modified = from_union([from_datetime, from_none], obj.get("lastModified"))
+        leaves = from_union([lambda x: from_list(from_str, x), from_none], obj.get("leaves"))
+        manual_changes = from_union([from_bool, from_none], obj.get("manualChanges"))
+        new_taxonomy = from_union([from_bool, from_none], obj.get("newTaxonomy"))
+        online_mode = from_union([OnlineMode, from_none], obj.get("onlineMode"))
+        only_after_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("onlyAfterTaxonomies"))
+        order = from_union([from_float, from_none], obj.get("order"))
+        parallel_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("parallelTaxonomies"))
+        popularity = from_union([from_float, from_none], obj.get("popularity"))
+        price = from_union([PurplePrice.from_dict, from_none], obj.get("price"))
+        price_link = from_union([from_str, from_none], obj.get("priceLink"))
+        reception_types = from_union([lambda x: from_list(from_str, x), from_none], obj.get("receptionTypes"))
+        rooms = from_union([lambda x: from_list(from_str, x), from_none], obj.get("rooms"))
+        showcase_items = from_union([lambda x: from_list(PurpleShowcaseItem.from_dict, x), from_none], obj.get("showcaseItems"))
+        showcases = from_union([lambda x: from_list(PurpleTaxonomyShowcase.from_dict, x), from_none], obj.get("showcases"))
+        showcase_taxonomy_id = from_union([from_str, from_none], obj.get("showcaseTaxonomyID"))
+        site_id = from_union([from_str, from_none], obj.get("siteId"))
+        special_cabinet = from_union([from_str, from_none], obj.get("specialCabinet"))
+        taxonomy_app_extra_id = from_union([from_str, from_none], obj.get("taxonomyAppExtraID"))
+        taxonomy_category_extra_id = from_union([from_str, from_none], obj.get("taxonomyCategoryExtraID"))
+        taxonomy_parent_id = from_union([from_str, from_none], obj.get("taxonomyParentID"))
+        taxonomy_type = from_union([TaxonomyType, from_none], obj.get("taxonomyType"))
+        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
+        use_confirmation_sms_alert = from_union([from_bool, from_none], obj.get("useConfirmationSmsAlert"))
+        visit_type = from_union([from_str, from_none], obj.get("visitType"))
+        return PurpleBusinessTaxonomy(active, additional_durations, additional_prices, additional_products, additional_taxonomy_extra_id, adjacent_same_time_start, adjacent_taxonomies, alias, allow_booking_in_bo, allow_next_booking_count, allow_next_booking_in_days, allow_next_booking_in_days_text, cabinets, cabinets_enabled, capacity, capacity_decrease, charge_units_step, children_taxonomy_types, color, confirmation_alert, confirmation_sms_alert, date_limits, date_limit_type, designs, discounts, display_in_widget, duration, exceptions, extra_description, extra_id, extra_link, for_pay, id, images, is_other, last_modified, leaves, manual_changes, new_taxonomy, online_mode, only_after_taxonomies, order, parallel_taxonomies, popularity, price, price_link, reception_types, rooms, showcase_items, showcases, showcase_taxonomy_id, site_id, special_cabinet, taxonomy_app_extra_id, taxonomy_category_extra_id, taxonomy_parent_id, taxonomy_type, timetable, use_confirmation_sms_alert, visit_type)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        result["additionalDurations"] = from_union([lambda x: from_list(lambda x: to_class(PurpleAdditionalDuration, x), x), from_none], self.additional_durations)
+        result["additionalPrices"] = from_union([lambda x: from_list(lambda x: to_class(PurpleBusinessTaxonomyPrice, x), x), from_none], self.additional_prices)
+        result["additionalProducts"] = from_union([lambda x: from_list(lambda x: to_class(PurpleBusinessTaxonomyProduct, x), x), from_none], self.additional_products)
+        result["additionalTaxonomyExtraId"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.additional_taxonomy_extra_id)
+        result["adjacentSameTimeStart"] = from_union([from_bool, from_none], self.adjacent_same_time_start)
+        result["adjacentTaxonomies"] = from_union([lambda x: from_list(lambda x: to_class(PurpleAdjacentTaxonomy, x), x), from_none], self.adjacent_taxonomies)
+        result["alias"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.alias)
+        result["allowBookingInBO"] = from_union([from_bool, from_none], self.allow_booking_in_bo)
+        result["allowNextBookingCount"] = from_union([to_float, from_none], self.allow_next_booking_count)
+        result["allowNextBookingInDays"] = from_union([to_float, from_none], self.allow_next_booking_in_days)
+        result["allowNextBookingInDaysText"] = from_union([from_str, from_none], self.allow_next_booking_in_days_text)
+        result["cabinets"] = from_union([lambda x: from_list(from_str, x), from_none], self.cabinets)
+        result["cabinetsEnabled"] = from_union([from_bool, from_none], self.cabinets_enabled)
+        result["capacity"] = from_union([to_float, from_none], self.capacity)
+        result["capacity_decrease"] = from_union([to_float, from_none], self.capacity_decrease)
+        result["chargeUnitsStep"] = from_union([to_float, from_none], self.charge_units_step)
+        result["childrenTaxonomyTypes"] = from_union([lambda x: from_list(lambda x: to_enum(ChildrenTaxonomyType, x), x), from_none], self.children_taxonomy_types)
+        result["color"] = from_union([from_str, from_none], self.color)
+        result["confirmationAlert"] = from_union([from_str, from_none], self.confirmation_alert)
+        result["confirmationSmsAlert"] = from_union([from_str, from_none], self.confirmation_sms_alert)
+        result["dateLimits"] = from_union([lambda x: from_list(lambda x: to_class(PurpleDateLimit, x), x), from_none], self.date_limits)
+        result["dateLimitType"] = from_union([lambda x: to_enum(DateLimitType, x), from_none], self.date_limit_type)
+        result["designs"] = from_union([lambda x: from_list(from_str, x), from_none], self.designs)
+        result["discounts"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(DiscountClass, x)], self.discounts)
+        result["displayInWidget"] = from_union([from_bool, from_none], self.display_in_widget)
+        result["duration"] = from_union([to_float, from_none], self.duration)
+        result["exceptions"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.exceptions)
+        result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
+        result["extraId"] = from_union([from_str, from_none], self.extra_id)
+        result["extraLink"] = from_union([from_str, from_none], self.extra_link)
+        result["forPay"] = from_union([from_bool, from_none], self.for_pay)
+        result["id"] = from_union([from_str, from_none], self.id)
+        result["images"] = from_union([lambda x: from_list(from_str, x), from_none], self.images)
+        result["isOther"] = from_union([from_bool, from_none], self.is_other)
+        result["lastModified"] = from_union([lambda x: x.isoformat(), from_none], self.last_modified)
+        result["leaves"] = from_union([lambda x: from_list(from_str, x), from_none], self.leaves)
+        result["manualChanges"] = from_union([from_bool, from_none], self.manual_changes)
+        result["newTaxonomy"] = from_union([from_bool, from_none], self.new_taxonomy)
+        result["onlineMode"] = from_union([lambda x: to_enum(OnlineMode, x), from_none], self.online_mode)
+        result["onlyAfterTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.only_after_taxonomies)
+        result["order"] = from_union([to_float, from_none], self.order)
+        result["parallelTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.parallel_taxonomies)
+        result["popularity"] = from_union([to_float, from_none], self.popularity)
+        result["price"] = from_union([lambda x: to_class(PurplePrice, x), from_none], self.price)
+        result["priceLink"] = from_union([from_str, from_none], self.price_link)
+        result["receptionTypes"] = from_union([lambda x: from_list(from_str, x), from_none], self.reception_types)
+        result["rooms"] = from_union([lambda x: from_list(from_str, x), from_none], self.rooms)
+        result["showcaseItems"] = from_union([lambda x: from_list(lambda x: to_class(PurpleShowcaseItem, x), x), from_none], self.showcase_items)
+        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(PurpleTaxonomyShowcase, x), x), from_none], self.showcases)
+        result["showcaseTaxonomyID"] = from_union([from_str, from_none], self.showcase_taxonomy_id)
+        result["siteId"] = from_union([from_str, from_none], self.site_id)
+        result["specialCabinet"] = from_union([from_str, from_none], self.special_cabinet)
+        result["taxonomyAppExtraID"] = from_union([from_str, from_none], self.taxonomy_app_extra_id)
+        result["taxonomyCategoryExtraID"] = from_union([from_str, from_none], self.taxonomy_category_extra_id)
+        result["taxonomyParentID"] = from_union([from_str, from_none], self.taxonomy_parent_id)
+        result["taxonomyType"] = from_union([lambda x: to_enum(TaxonomyType, x), from_none], self.taxonomy_type)
+        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
+        result["useConfirmationSmsAlert"] = from_union([from_bool, from_none], self.use_confirmation_sms_alert)
+        result["visitType"] = from_union([from_str, from_none], self.visit_type)
+        return result
+
+
 class PurpleTaxonomiesComplex:
     name: Optional[str]
     taxonomies: Optional[List[str]]
@@ -5495,8 +6830,16 @@ class PurpleWidgetConfiguration:
         return result
 
 
-class IndecentBusiness:
+class IndigoBusiness:
     active: Optional[bool]
+    """колличество активных рабоников, возвращается при вызове через get_network_data при
+    передаче ключа работника или услуги
+    """
+    active_resource_count: Optional[float]
+    """колличество активных услуг, возвращается при вызове через get_network_data при передаче
+    ключа работника или услуги
+    """
+    active_taxonomy_count: Optional[float]
     additional_settings: Optional[PurpleAdditionalSettings]
     allow_category_booking: Optional[bool]
     business_backoffice_configuration: Optional[FluffyBackofficeConfiguration]
@@ -5519,7 +6862,9 @@ class IndecentBusiness:
     mini_widget_configuration: PurpleMiniWidgetConfiguration
     mobile_data: Optional[List[Any]]
     notifications: Optional[List[Any]]
+    resources: Optional[List[Union[List[Any], bool, ResourceClass, float, int, None, str]]]
     state_level_holidays_not_working: Optional[bool]
+    taxonomies: Optional[List[PurpleBusinessTaxonomy]]
     taxonomies_complex: Optional[List[PurpleTaxonomiesComplex]]
     taxonomy_tree_capacity: Optional[List[Dict[str, Any]]]
     top_services: Optional[PurpleTopServices]
@@ -5527,8 +6872,10 @@ class IndecentBusiness:
     widget_configuration: PurpleWidgetConfiguration
     yandex_feed_type: Optional[str]
 
-    def __init__(self, active: Optional[bool], additional_settings: Optional[PurpleAdditionalSettings], allow_category_booking: Optional[bool], business_backoffice_configuration: Optional[FluffyBackofficeConfiguration], backoffice_configuration: Optional[PurpleBackofficeConfiguration], backoffice_type: Optional[BackofficeType], cabinets: Optional[List[PurpleCabinet]], cabinets_enabled: Optional[bool], callback_widget_configuration: Optional[PurpleCallbackWidgetConfiguration], consumables: Optional[List[PurpleConsumable]], created_on: Optional[datetime], default_filtered_workers: Optional[List[str]], departments: Optional[List[PurpleDepartment]], designs: Optional[List[Dict[str, Any]]], extra_id: Optional[str], flat_taxonomy_display: Optional[bool], general_info: BusinessInfo, group: Optional[Group], id: Optional[str], integration_data: Optional[Dict[str, Any]], mini_widget_configuration: PurpleMiniWidgetConfiguration, mobile_data: Optional[List[Any]], notifications: Optional[List[Any]], state_level_holidays_not_working: Optional[bool], taxonomies_complex: Optional[List[PurpleTaxonomiesComplex]], taxonomy_tree_capacity: Optional[List[Dict[str, Any]]], top_services: Optional[PurpleTopServices], vertical: Optional[str], widget_configuration: PurpleWidgetConfiguration, yandex_feed_type: Optional[str]) -> None:
+    def __init__(self, active: Optional[bool], active_resource_count: Optional[float], active_taxonomy_count: Optional[float], additional_settings: Optional[PurpleAdditionalSettings], allow_category_booking: Optional[bool], business_backoffice_configuration: Optional[FluffyBackofficeConfiguration], backoffice_configuration: Optional[PurpleBackofficeConfiguration], backoffice_type: Optional[BackofficeType], cabinets: Optional[List[PurpleCabinet]], cabinets_enabled: Optional[bool], callback_widget_configuration: Optional[PurpleCallbackWidgetConfiguration], consumables: Optional[List[PurpleConsumable]], created_on: Optional[datetime], default_filtered_workers: Optional[List[str]], departments: Optional[List[PurpleDepartment]], designs: Optional[List[Dict[str, Any]]], extra_id: Optional[str], flat_taxonomy_display: Optional[bool], general_info: BusinessInfo, group: Optional[Group], id: Optional[str], integration_data: Optional[Dict[str, Any]], mini_widget_configuration: PurpleMiniWidgetConfiguration, mobile_data: Optional[List[Any]], notifications: Optional[List[Any]], resources: Optional[List[Union[List[Any], bool, ResourceClass, float, int, None, str]]], state_level_holidays_not_working: Optional[bool], taxonomies: Optional[List[PurpleBusinessTaxonomy]], taxonomies_complex: Optional[List[PurpleTaxonomiesComplex]], taxonomy_tree_capacity: Optional[List[Dict[str, Any]]], top_services: Optional[PurpleTopServices], vertical: Optional[str], widget_configuration: PurpleWidgetConfiguration, yandex_feed_type: Optional[str]) -> None:
         self.active = active
+        self.active_resource_count = active_resource_count
+        self.active_taxonomy_count = active_taxonomy_count
         self.additional_settings = additional_settings
         self.allow_category_booking = allow_category_booking
         self.business_backoffice_configuration = business_backoffice_configuration
@@ -5551,7 +6898,9 @@ class IndecentBusiness:
         self.mini_widget_configuration = mini_widget_configuration
         self.mobile_data = mobile_data
         self.notifications = notifications
+        self.resources = resources
         self.state_level_holidays_not_working = state_level_holidays_not_working
+        self.taxonomies = taxonomies
         self.taxonomies_complex = taxonomies_complex
         self.taxonomy_tree_capacity = taxonomy_tree_capacity
         self.top_services = top_services
@@ -5560,9 +6909,11 @@ class IndecentBusiness:
         self.yandex_feed_type = yandex_feed_type
 
     @staticmethod
-    def from_dict(obj: Any) -> 'IndecentBusiness':
+    def from_dict(obj: Any) -> 'IndigoBusiness':
         assert isinstance(obj, dict)
         active = from_union([from_bool, from_none], obj.get("active"))
+        active_resource_count = from_union([from_float, from_none], obj.get("activeResourceCount"))
+        active_taxonomy_count = from_union([from_float, from_none], obj.get("activeTaxonomyCount"))
         additional_settings = from_union([PurpleAdditionalSettings.from_dict, from_none], obj.get("additionalSettings"))
         allow_category_booking = from_union([from_bool, from_none], obj.get("allowCategoryBooking"))
         business_backoffice_configuration = from_union([FluffyBackofficeConfiguration.from_dict, from_none], obj.get("backoffice_configuration"))
@@ -5585,18 +6936,22 @@ class IndecentBusiness:
         mini_widget_configuration = PurpleMiniWidgetConfiguration.from_dict(obj.get("mini_widget_configuration"))
         mobile_data = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("mobileData"))
         notifications = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("notifications"))
+        resources = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), ResourceClass.from_dict], x), x), from_none], obj.get("resources"))
         state_level_holidays_not_working = from_union([from_bool, from_none], obj.get("stateLevelHolidaysNotWorking"))
+        taxonomies = from_union([lambda x: from_list(PurpleBusinessTaxonomy.from_dict, x), from_none], obj.get("taxonomies"))
         taxonomies_complex = from_union([lambda x: from_list(PurpleTaxonomiesComplex.from_dict, x), from_none], obj.get("taxonomiesComplex"))
         taxonomy_tree_capacity = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("taxonomy_tree_capacity"))
         top_services = from_union([PurpleTopServices.from_dict, from_none], obj.get("top_services"))
         vertical = from_union([from_str, from_none], obj.get("vertical"))
         widget_configuration = PurpleWidgetConfiguration.from_dict(obj.get("widget_configuration"))
         yandex_feed_type = from_union([from_str, from_none], obj.get("yandexFeedType"))
-        return IndecentBusiness(active, additional_settings, allow_category_booking, business_backoffice_configuration, backoffice_configuration, backoffice_type, cabinets, cabinets_enabled, callback_widget_configuration, consumables, created_on, default_filtered_workers, departments, designs, extra_id, flat_taxonomy_display, general_info, group, id, integration_data, mini_widget_configuration, mobile_data, notifications, state_level_holidays_not_working, taxonomies_complex, taxonomy_tree_capacity, top_services, vertical, widget_configuration, yandex_feed_type)
+        return IndigoBusiness(active, active_resource_count, active_taxonomy_count, additional_settings, allow_category_booking, business_backoffice_configuration, backoffice_configuration, backoffice_type, cabinets, cabinets_enabled, callback_widget_configuration, consumables, created_on, default_filtered_workers, departments, designs, extra_id, flat_taxonomy_display, general_info, group, id, integration_data, mini_widget_configuration, mobile_data, notifications, resources, state_level_holidays_not_working, taxonomies, taxonomies_complex, taxonomy_tree_capacity, top_services, vertical, widget_configuration, yandex_feed_type)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["active"] = from_union([from_bool, from_none], self.active)
+        result["activeResourceCount"] = from_union([to_float, from_none], self.active_resource_count)
+        result["activeTaxonomyCount"] = from_union([to_float, from_none], self.active_taxonomy_count)
         result["additionalSettings"] = from_union([lambda x: to_class(PurpleAdditionalSettings, x), from_none], self.additional_settings)
         result["allowCategoryBooking"] = from_union([from_bool, from_none], self.allow_category_booking)
         result["backoffice_configuration"] = from_union([lambda x: to_class(FluffyBackofficeConfiguration, x), from_none], self.business_backoffice_configuration)
@@ -5619,7 +6974,9 @@ class IndecentBusiness:
         result["mini_widget_configuration"] = to_class(PurpleMiniWidgetConfiguration, self.mini_widget_configuration)
         result["mobileData"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.mobile_data)
         result["notifications"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.notifications)
+        result["resources"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(ResourceClass, x)], x), x), from_none], self.resources)
         result["stateLevelHolidaysNotWorking"] = from_union([from_bool, from_none], self.state_level_holidays_not_working)
+        result["taxonomies"] = from_union([lambda x: from_list(lambda x: to_class(PurpleBusinessTaxonomy, x), x), from_none], self.taxonomies)
         result["taxonomiesComplex"] = from_union([lambda x: from_list(lambda x: to_class(PurpleTaxonomiesComplex, x), x), from_none], self.taxonomies_complex)
         result["taxonomy_tree_capacity"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.taxonomy_tree_capacity)
         result["top_services"] = from_union([lambda x: to_class(PurpleTopServices, x), from_none], self.top_services)
@@ -5629,16 +6986,16 @@ class IndecentBusiness:
         return result
 
 
-class IndigoBusiness:
+class BusinessRefInNetwork:
     """указатель на бизнес в сети"""
     id: Optional[str]
     business_id: str
-    info: Union[List[Any], bool, IndecentBusiness, float, int, None, str]
+    info: Union[List[Any], bool, IndigoBusiness, float, int, None, str]
     is_map_business: bool
     order: Optional[float]
     virtual_taxonomies: Optional[List[str]]
 
-    def __init__(self, id: Optional[str], business_id: str, info: Union[List[Any], bool, IndecentBusiness, float, int, None, str], is_map_business: bool, order: Optional[float], virtual_taxonomies: Optional[List[str]]) -> None:
+    def __init__(self, id: Optional[str], business_id: str, info: Union[List[Any], bool, IndigoBusiness, float, int, None, str], is_map_business: bool, order: Optional[float], virtual_taxonomies: Optional[List[str]]) -> None:
         self.id = id
         self.business_id = business_id
         self.info = info
@@ -5647,28 +7004,28 @@ class IndigoBusiness:
         self.virtual_taxonomies = virtual_taxonomies
 
     @staticmethod
-    def from_dict(obj: Any) -> 'IndigoBusiness':
+    def from_dict(obj: Any) -> 'BusinessRefInNetwork':
         assert isinstance(obj, dict)
         id = from_union([from_str, from_none], obj.get("_id"))
         business_id = from_str(obj.get("businessID"))
-        info = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), IndecentBusiness.from_dict], obj.get("info"))
+        info = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), IndigoBusiness.from_dict], obj.get("info"))
         is_map_business = from_bool(obj.get("isMapBusiness"))
         order = from_union([from_float, from_none], obj.get("order"))
         virtual_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("virtualTaxonomies"))
-        return IndigoBusiness(id, business_id, info, is_map_business, order, virtual_taxonomies)
+        return BusinessRefInNetwork(id, business_id, info, is_map_business, order, virtual_taxonomies)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["_id"] = from_union([from_str, from_none], self.id)
         result["businessID"] = from_str(self.business_id)
-        result["info"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(IndecentBusiness, x)], self.info)
+        result["info"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(IndigoBusiness, x)], self.info)
         result["isMapBusiness"] = from_bool(self.is_map_business)
         result["order"] = from_union([to_float, from_none], self.order)
         result["virtualTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.virtual_taxonomies)
         return result
 
 
-class NetworkWidgetConfigurationBusiness:
+class BusinessElement:
     id: Optional[str]
     active: bool
     internal_id: str
@@ -5679,12 +7036,12 @@ class NetworkWidgetConfigurationBusiness:
         self.internal_id = internal_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'NetworkWidgetConfigurationBusiness':
+    def from_dict(obj: Any) -> 'BusinessElement':
         assert isinstance(obj, dict)
         id = from_union([from_str, from_none], obj.get("_id"))
         active = from_bool(obj.get("active"))
         internal_id = from_str(obj.get("internalID"))
-        return NetworkWidgetConfigurationBusiness(id, active, internal_id)
+        return BusinessElement(id, active, internal_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -5696,14 +7053,14 @@ class NetworkWidgetConfigurationBusiness:
 
 class NetworkWidgetConfiguration:
     id: Optional[str]
-    businesses: List[NetworkWidgetConfigurationBusiness]
+    businesses: List[BusinessElement]
     default_service_id: Optional[str]
     show_branch_selector: bool
     show_default_service: bool
     show_on_map: bool
     source: str
 
-    def __init__(self, id: Optional[str], businesses: List[NetworkWidgetConfigurationBusiness], default_service_id: Optional[str], show_branch_selector: bool, show_default_service: bool, show_on_map: bool, source: str) -> None:
+    def __init__(self, id: Optional[str], businesses: List[BusinessElement], default_service_id: Optional[str], show_branch_selector: bool, show_default_service: bool, show_on_map: bool, source: str) -> None:
         self.id = id
         self.businesses = businesses
         self.default_service_id = default_service_id
@@ -5716,7 +7073,7 @@ class NetworkWidgetConfiguration:
     def from_dict(obj: Any) -> 'NetworkWidgetConfiguration':
         assert isinstance(obj, dict)
         id = from_union([from_str, from_none], obj.get("_id"))
-        businesses = from_list(NetworkWidgetConfigurationBusiness.from_dict, obj.get("businesses"))
+        businesses = from_list(BusinessElement.from_dict, obj.get("businesses"))
         default_service_id = from_union([from_none, from_str], obj.get("defaultServiceID"))
         show_branch_selector = from_bool(obj.get("showBranchSelector"))
         show_default_service = from_bool(obj.get("showDefaultService"))
@@ -5727,7 +7084,7 @@ class NetworkWidgetConfiguration:
     def to_dict(self) -> dict:
         result: dict = {}
         result["_id"] = from_union([from_str, from_none], self.id)
-        result["businesses"] = from_list(lambda x: to_class(NetworkWidgetConfigurationBusiness, x), self.businesses)
+        result["businesses"] = from_list(lambda x: to_class(BusinessElement, x), self.businesses)
         result["defaultServiceID"] = from_union([from_none, from_str], self.default_service_id)
         result["showBranchSelector"] = from_bool(self.show_branch_selector)
         result["showDefaultService"] = from_bool(self.show_default_service)
@@ -5738,7 +7095,7 @@ class NetworkWidgetConfiguration:
 
 class BusinessGetNetworkDataResponseResult:
     business_configuration: Dict[str, Any]
-    businesses: List[IndigoBusiness]
+    businesses: List[BusinessRefInNetwork]
     client_vip_phones: List[str]
     grant_groups: List[Dict[str, Any]]
     network_id: str
@@ -5747,7 +7104,7 @@ class BusinessGetNetworkDataResponseResult:
     """настройки показа сети в зависимости от источника, на котором размещено приложение"""
     network_widget_configuration: List[NetworkWidgetConfiguration]
 
-    def __init__(self, business_configuration: Dict[str, Any], businesses: List[IndigoBusiness], client_vip_phones: List[str], grant_groups: List[Dict[str, Any]], network_id: str, network_info: Dict[str, Any], network_name: Optional[str], network_widget_configuration: List[NetworkWidgetConfiguration]) -> None:
+    def __init__(self, business_configuration: Dict[str, Any], businesses: List[BusinessRefInNetwork], client_vip_phones: List[str], grant_groups: List[Dict[str, Any]], network_id: str, network_info: Dict[str, Any], network_name: Optional[str], network_widget_configuration: List[NetworkWidgetConfiguration]) -> None:
         self.business_configuration = business_configuration
         self.businesses = businesses
         self.client_vip_phones = client_vip_phones
@@ -5761,7 +7118,7 @@ class BusinessGetNetworkDataResponseResult:
     def from_dict(obj: Any) -> 'BusinessGetNetworkDataResponseResult':
         assert isinstance(obj, dict)
         business_configuration = from_dict(lambda x: x, obj.get("businessConfiguration"))
-        businesses = from_list(IndigoBusiness.from_dict, obj.get("businesses"))
+        businesses = from_list(BusinessRefInNetwork.from_dict, obj.get("businesses"))
         client_vip_phones = from_list(from_str, obj.get("clientVIPPhones"))
         grant_groups = from_list(lambda x: from_dict(lambda x: x, x), obj.get("grantGroups"))
         network_id = from_str(obj.get("networkID"))
@@ -5773,7 +7130,7 @@ class BusinessGetNetworkDataResponseResult:
     def to_dict(self) -> dict:
         result: dict = {}
         result["businessConfiguration"] = from_dict(lambda x: x, self.business_configuration)
-        result["businesses"] = from_list(lambda x: to_class(IndigoBusiness, x), self.businesses)
+        result["businesses"] = from_list(lambda x: to_class(BusinessRefInNetwork, x), self.businesses)
         result["clientVIPPhones"] = from_list(from_str, self.client_vip_phones)
         result["grantGroups"] = from_list(lambda x: from_dict(lambda x: x, x), self.grant_groups)
         result["networkID"] = from_str(self.network_id)
@@ -5839,7 +7196,7 @@ class GetNetworkData:
         return result
 
 
-class HilariousBusiness:
+class IndecentBusiness:
     """идентификатор бизнеса"""
     id: str
 
@@ -5847,10 +7204,10 @@ class HilariousBusiness:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'HilariousBusiness':
+    def from_dict(obj: Any) -> 'IndecentBusiness':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return HilariousBusiness(id)
+        return IndecentBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -5867,7 +7224,7 @@ class WorkerSortingType(Enum):
 
 class BusinessGetProfileByIDRequestParams:
     """параметры запроса business.get_profile_by_id"""
-    business: HilariousBusiness
+    business: IndecentBusiness
     """если указано true - меняет формат представления discounts"""
     desktop_discounts: Optional[bool]
     """если указано true - возвращает только активных работников (status == 'INACTIVE')"""
@@ -5903,7 +7260,7 @@ class BusinessGetProfileByIDRequestParams:
     """тип сортировки работника"""
     worker_sorting_type: Optional[WorkerSortingType]
 
-    def __init__(self, business: HilariousBusiness, desktop_discounts: Optional[bool], only_active_workers: Optional[bool], show_inactive_workers: Optional[bool], showcase_business_id: Union[float, None, str], skip_worker_sorting: Optional[bool], with_billing: Optional[bool], with_bop: Optional[bool], with_campaigns: Optional[bool], with_discounts: Optional[bool], with_discounts_from: Optional[datetime], with_discounts_to: Optional[datetime], with_networks: Optional[bool], with_taxonomy_showcase: Optional[bool], worker_sorting_type: Optional[WorkerSortingType]) -> None:
+    def __init__(self, business: IndecentBusiness, desktop_discounts: Optional[bool], only_active_workers: Optional[bool], show_inactive_workers: Optional[bool], showcase_business_id: Union[float, None, str], skip_worker_sorting: Optional[bool], with_billing: Optional[bool], with_bop: Optional[bool], with_campaigns: Optional[bool], with_discounts: Optional[bool], with_discounts_from: Optional[datetime], with_discounts_to: Optional[datetime], with_networks: Optional[bool], with_taxonomy_showcase: Optional[bool], worker_sorting_type: Optional[WorkerSortingType]) -> None:
         self.business = business
         self.desktop_discounts = desktop_discounts
         self.only_active_workers = only_active_workers
@@ -5923,7 +7280,7 @@ class BusinessGetProfileByIDRequestParams:
     @staticmethod
     def from_dict(obj: Any) -> 'BusinessGetProfileByIDRequestParams':
         assert isinstance(obj, dict)
-        business = HilariousBusiness.from_dict(obj.get("business"))
+        business = IndecentBusiness.from_dict(obj.get("business"))
         desktop_discounts = from_union([from_bool, from_none], obj.get("desktop_discounts"))
         only_active_workers = from_union([from_bool, from_none], obj.get("only_active_workers"))
         show_inactive_workers = from_union([from_bool, from_none], obj.get("show_inactive_workers"))
@@ -5942,7 +7299,7 @@ class BusinessGetProfileByIDRequestParams:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(HilariousBusiness, self.business)
+        result["business"] = to_class(IndecentBusiness, self.business)
         result["desktop_discounts"] = from_union([from_bool, from_none], self.desktop_discounts)
         result["only_active_workers"] = from_union([from_bool, from_none], self.only_active_workers)
         result["show_inactive_workers"] = from_union([from_bool, from_none], self.show_inactive_workers)
@@ -6061,6 +7418,7 @@ class FluffyPaymentProvider(Enum):
     CLOUDPAYMENTS = "cloudpayments"
     DELTA_PROCESSING = "deltaProcessing"
     DISABLE = "DISABLE"
+    PELECARD = "pelecard"
     YANDEX_MONEY = "yandexMoney"
 
 
@@ -6109,6 +7467,8 @@ class TentacledBackofficeConfiguration:
     revision_version: Optional[float]
     schdule_week_view_is_default: Optional[bool]
     schedule_default_workers_limit: Optional[float]
+    schedule_default_workers_limit_day: Optional[float]
+    schedule_default_workers_limit_week: Optional[float]
     scheduler_week_view_type: Optional[SchedulerWeekViewType]
     schedule_worker_hours: Optional[bool]
     show_additional_fields: Optional[bool]
@@ -6165,7 +7525,7 @@ class TentacledBackofficeConfiguration:
     work_week_end: Optional[float]
     work_week_start: Optional[float]
 
-    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_master_importance: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[FluffyPaymentProvider], readonly_resource_schedule: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
+    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_master_importance: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[FluffyPaymentProvider], readonly_resource_schedule: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
         self.adjacent_taxonomies_treshold = adjacent_taxonomies_treshold
         self.allow_hide_service_for_booking = allow_hide_service_for_booking
         self.allow_hide_workers_from_schdeule = allow_hide_workers_from_schdeule
@@ -6210,6 +7570,8 @@ class TentacledBackofficeConfiguration:
         self.revision_version = revision_version
         self.schdule_week_view_is_default = schdule_week_view_is_default
         self.schedule_default_workers_limit = schedule_default_workers_limit
+        self.schedule_default_workers_limit_day = schedule_default_workers_limit_day
+        self.schedule_default_workers_limit_week = schedule_default_workers_limit_week
         self.scheduler_week_view_type = scheduler_week_view_type
         self.schedule_worker_hours = schedule_worker_hours
         self.show_additional_fields = show_additional_fields
@@ -6313,6 +7675,8 @@ class TentacledBackofficeConfiguration:
         revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
         schdule_week_view_is_default = from_union([from_bool, from_none], obj.get("schduleWeekViewIsDefault"))
         schedule_default_workers_limit = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimit"))
+        schedule_default_workers_limit_day = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimitDay"))
+        schedule_default_workers_limit_week = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimitWeek"))
         scheduler_week_view_type = from_union([SchedulerWeekViewType, from_none], obj.get("schedulerWeekViewType"))
         schedule_worker_hours = from_union([from_bool, from_none], obj.get("scheduleWorkerHours"))
         show_additional_fields = from_union([from_bool, from_none], obj.get("showAdditionalFields"))
@@ -6368,7 +7732,7 @@ class TentacledBackofficeConfiguration:
         use_gt_app_method = from_union([from_bool, from_none], obj.get("useGtAppMethod"))
         work_week_end = from_union([from_float, from_none], obj.get("workWeekEnd"))
         work_week_start = from_union([from_float, from_none], obj.get("workWeekStart"))
-        return TentacledBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_master_importance, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_timetable_type, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
+        return TentacledBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_master_importance, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_timetable_type, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -6416,6 +7780,8 @@ class TentacledBackofficeConfiguration:
         result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
         result["schduleWeekViewIsDefault"] = from_union([from_bool, from_none], self.schdule_week_view_is_default)
         result["scheduleDefaultWorkersLimit"] = from_union([to_float, from_none], self.schedule_default_workers_limit)
+        result["scheduleDefaultWorkersLimitDay"] = from_union([to_float, from_none], self.schedule_default_workers_limit_day)
+        result["scheduleDefaultWorkersLimitWeek"] = from_union([to_float, from_none], self.schedule_default_workers_limit_week)
         result["schedulerWeekViewType"] = from_union([lambda x: to_enum(SchedulerWeekViewType, x), from_none], self.scheduler_week_view_type)
         result["scheduleWorkerHours"] = from_union([from_bool, from_none], self.schedule_worker_hours)
         result["showAdditionalFields"] = from_union([from_bool, from_none], self.show_additional_fields)
@@ -6622,644 +7988,7 @@ class FluffyMiniWidgetConfiguration:
         return result
 
 
-class StartPeriod(Enum):
-    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-    (понедельник считается нечётным)
-    """
-    MONTH = "month"
-    WEEK = "week"
-
-
-class EvenOddTimetable:
-    """расписание для чётных дней"""
-    even: List[TimeFrame]
-    """расписание для нечётных дней"""
-    odd: List[TimeFrame]
-    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-    (понедельник считается нечётным)
-    """
-    start_period: StartPeriod
-
-    def __init__(self, even: List[TimeFrame], odd: List[TimeFrame], start_period: StartPeriod) -> None:
-        self.even = even
-        self.odd = odd
-        self.start_period = start_period
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'EvenOddTimetable':
-        assert isinstance(obj, dict)
-        even = from_list(TimeFrame.from_dict, obj.get("even"))
-        odd = from_list(TimeFrame.from_dict, obj.get("odd"))
-        start_period = StartPeriod(obj.get("startPeriod"))
-        return EvenOddTimetable(even, odd, start_period)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["even"] = from_list(lambda x: to_class(TimeFrame, x), self.even)
-        result["odd"] = from_list(lambda x: to_class(TimeFrame, x), self.odd)
-        result["startPeriod"] = to_enum(StartPeriod, self.start_period)
-        return result
-
-
-class ResourceLocation:
-    latitude: Optional[float]
-    longitude: Optional[float]
-    """время последнего обновления координат"""
-    time: Optional[str]
-
-    def __init__(self, latitude: Optional[float], longitude: Optional[float], time: Optional[str]) -> None:
-        self.latitude = latitude
-        self.longitude = longitude
-        self.time = time
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceLocation':
-        assert isinstance(obj, dict)
-        latitude = from_union([from_float, from_none], obj.get("latitude"))
-        longitude = from_union([from_float, from_none], obj.get("longitude"))
-        time = from_union([from_str, from_none], obj.get("time"))
-        return ResourceLocation(latitude, longitude, time)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["latitude"] = from_union([to_float, from_none], self.latitude)
-        result["longitude"] = from_union([to_float, from_none], self.longitude)
-        result["time"] = from_union([from_str, from_none], self.time)
-        return result
-
-
-class Info:
-    """(только в витрине) объект с данными бизнеса-филиала
-    
-    Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
-    """
-    accepted_currency: Optional[List[CurrencyList]]
-    additional_info: Optional[str]
-    additional_fields: Optional[List[Union[List[Any], bool, AdditionalFieldsClass, float, int, None, str]]]
-    """Адреса компании или филиала"""
-    address: Optional[List[Union[List[Any], bool, AddressClass, float, int, None, str]]]
-    align_min_booking_time: Optional[bool]
-    auto_accept_appointment: Optional[bool]
-    """если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину"""
-    business_showcase_aliases: Optional[List[BusinessShowcaseAlias]]
-    contact_name: Optional[str]
-    date_joined: Optional[datetime]
-    description: Optional[str]
-    """Список e-mail адресов компании или филиала"""
-    email: Optional[str]
-    fax: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]]
-    images: Optional[List[str]]
-    instant_messaging: Optional[List[Dict[str, Any]]]
-    """является ли данный бизнес витриной"""
-    is_showcase: Optional[bool]
-    language: Optional[LanguageList]
-    logo_url: Optional[str]
-    marketing_notifications: Optional[MarketingNotifications]
-    metro: Optional[Metro]
-    min_booking_time: Optional[float]
-    """Список телефонов бизнеса"""
-    mobile: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]]
-    """Название бизнеса"""
-    name: Optional[str]
-    network_id: Optional[float]
-    newbo_enabled_for: Optional[List[str]]
-    payment_methods: Optional[PaymentMethods]
-    """Список телефонов бизнеса"""
-    phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]]
-    phone_mask: Optional[str]
-    pricing_type: Optional[PricingType]
-    revision_version: Optional[float]
-    scheduler_tick: Optional[float]
-    """Короткое название филиала"""
-    short_name: Optional[str]
-    show_appointment_color: Optional[bool]
-    show_appointment_tooltip: Optional[bool]
-    """если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
-    витрины
-    """
-    showcase_business_data: Optional[List[ShowcaseBusinessDatum]]
-    """идентификаторы витрин, в которых участвует данный бизнес"""
-    showcases: Optional[List[ShowcaseElement]]
-    show_resource_work_statistics: Optional[bool]
-    show_worker_profession: Optional[bool]
-    skip_billing: Optional[bool]
-    sms_duplicate_filter: Optional[SMSDuplicateFilter]
-    social_network: Optional[List[SocialNetworkSchema]]
-    timetable: Optional[Timetable]
-    timezone: Optional[str]
-    vertical_translation: Optional[VerticalTranslation]
-    website: Optional[str]
-
-    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[Union[List[Any], bool, AdditionalFieldsClass, float, int, None, str]]], address: Optional[List[Union[List[Any], bool, AddressClass, float, int, None, str]]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], fax: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[float], mobile: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[Union[List[Any], bool, PhoneClass, float, int, None, str]]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
-        self.accepted_currency = accepted_currency
-        self.additional_info = additional_info
-        self.additional_fields = additional_fields
-        self.address = address
-        self.align_min_booking_time = align_min_booking_time
-        self.auto_accept_appointment = auto_accept_appointment
-        self.business_showcase_aliases = business_showcase_aliases
-        self.contact_name = contact_name
-        self.date_joined = date_joined
-        self.description = description
-        self.email = email
-        self.fax = fax
-        self.images = images
-        self.instant_messaging = instant_messaging
-        self.is_showcase = is_showcase
-        self.language = language
-        self.logo_url = logo_url
-        self.marketing_notifications = marketing_notifications
-        self.metro = metro
-        self.min_booking_time = min_booking_time
-        self.mobile = mobile
-        self.name = name
-        self.network_id = network_id
-        self.newbo_enabled_for = newbo_enabled_for
-        self.payment_methods = payment_methods
-        self.phone = phone
-        self.phone_mask = phone_mask
-        self.pricing_type = pricing_type
-        self.revision_version = revision_version
-        self.scheduler_tick = scheduler_tick
-        self.short_name = short_name
-        self.show_appointment_color = show_appointment_color
-        self.show_appointment_tooltip = show_appointment_tooltip
-        self.showcase_business_data = showcase_business_data
-        self.showcases = showcases
-        self.show_resource_work_statistics = show_resource_work_statistics
-        self.show_worker_profession = show_worker_profession
-        self.skip_billing = skip_billing
-        self.sms_duplicate_filter = sms_duplicate_filter
-        self.social_network = social_network
-        self.timetable = timetable
-        self.timezone = timezone
-        self.vertical_translation = vertical_translation
-        self.website = website
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'Info':
-        assert isinstance(obj, dict)
-        accepted_currency = from_union([lambda x: from_list(CurrencyList, x), from_none], obj.get("accepted_currency"))
-        additional_info = from_union([from_none, from_str], obj.get("additional_info"))
-        additional_fields = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AdditionalFieldsClass.from_dict], x), x), from_none], obj.get("additionalFields"))
-        address = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AddressClass.from_dict], x), x), from_none], obj.get("address"))
-        align_min_booking_time = from_union([from_bool, from_none], obj.get("align_min_booking_time"))
-        auto_accept_appointment = from_union([from_bool, from_none], obj.get("autoAcceptAppointment"))
-        business_showcase_aliases = from_union([lambda x: from_list(BusinessShowcaseAlias.from_dict, x), from_none], obj.get("businessShowcaseAliases"))
-        contact_name = from_union([from_none, from_str], obj.get("contactName"))
-        date_joined = from_union([from_datetime, from_none], obj.get("date_joined"))
-        description = from_union([from_str, from_none], obj.get("description"))
-        email = from_union([from_str, from_none], obj.get("email"))
-        fax = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], x), x), from_none], obj.get("fax"))
-        images = from_union([lambda x: from_list(from_str, x), from_none], obj.get("images"))
-        instant_messaging = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("instant_messaging"))
-        is_showcase = from_union([from_bool, from_none], obj.get("isShowcase"))
-        language = from_union([LanguageList, from_none], obj.get("language"))
-        logo_url = from_union([from_none, from_str], obj.get("logo_url"))
-        marketing_notifications = from_union([MarketingNotifications.from_dict, from_none], obj.get("marketingNotifications"))
-        metro = from_union([Metro.from_dict, from_none], obj.get("metro"))
-        min_booking_time = from_union([from_float, from_none], obj.get("min_booking_time"))
-        mobile = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], x), x), from_none], obj.get("mobile"))
-        name = from_union([from_str, from_none], obj.get("name"))
-        network_id = from_union([from_float, from_none], obj.get("networkID"))
-        newbo_enabled_for = from_union([lambda x: from_list(from_str, x), from_none], obj.get("newboEnabledFor"))
-        payment_methods = from_union([PaymentMethods, from_none], obj.get("paymentMethods"))
-        phone = from_union([lambda x: from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], x), x), from_none], obj.get("phone"))
-        phone_mask = from_union([from_none, from_str], obj.get("phone_mask"))
-        pricing_type = from_union([PricingType, from_none], obj.get("pricingType"))
-        revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
-        scheduler_tick = from_union([from_float, from_none], obj.get("schedulerTick"))
-        short_name = from_union([from_none, from_str], obj.get("shortName"))
-        show_appointment_color = from_union([from_bool, from_none], obj.get("showAppointmentColor"))
-        show_appointment_tooltip = from_union([from_bool, from_none], obj.get("showAppointmentTooltip"))
-        showcase_business_data = from_union([lambda x: from_list(ShowcaseBusinessDatum.from_dict, x), from_none], obj.get("showcaseBusinessData"))
-        showcases = from_union([lambda x: from_list(ShowcaseElement.from_dict, x), from_none], obj.get("showcases"))
-        show_resource_work_statistics = from_union([from_bool, from_none], obj.get("showResourceWorkStatistics"))
-        show_worker_profession = from_union([from_bool, from_none], obj.get("showWorkerProfession"))
-        skip_billing = from_union([from_bool, from_none], obj.get("skipBilling"))
-        sms_duplicate_filter = from_union([SMSDuplicateFilter.from_dict, from_none], obj.get("smsDuplicateFilter"))
-        social_network = from_union([lambda x: from_list(SocialNetworkSchema.from_dict, x), from_none], obj.get("social_network"))
-        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
-        timezone = from_union([from_none, from_str], obj.get("timezone"))
-        vertical_translation = from_union([VerticalTranslation, from_none], obj.get("verticalTranslation"))
-        website = from_union([from_none, from_str], obj.get("website"))
-        return Info(accepted_currency, additional_info, additional_fields, address, align_min_booking_time, auto_accept_appointment, business_showcase_aliases, contact_name, date_joined, description, email, fax, images, instant_messaging, is_showcase, language, logo_url, marketing_notifications, metro, min_booking_time, mobile, name, network_id, newbo_enabled_for, payment_methods, phone, phone_mask, pricing_type, revision_version, scheduler_tick, short_name, show_appointment_color, show_appointment_tooltip, showcase_business_data, showcases, show_resource_work_statistics, show_worker_profession, skip_billing, sms_duplicate_filter, social_network, timetable, timezone, vertical_translation, website)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["accepted_currency"] = from_union([lambda x: from_list(lambda x: to_enum(CurrencyList, x), x), from_none], self.accepted_currency)
-        result["additional_info"] = from_union([from_none, from_str], self.additional_info)
-        result["additionalFields"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AdditionalFieldsClass, x)], x), x), from_none], self.additional_fields)
-        result["address"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AddressClass, x)], x), x), from_none], self.address)
-        result["align_min_booking_time"] = from_union([from_bool, from_none], self.align_min_booking_time)
-        result["autoAcceptAppointment"] = from_union([from_bool, from_none], self.auto_accept_appointment)
-        result["businessShowcaseAliases"] = from_union([lambda x: from_list(lambda x: to_class(BusinessShowcaseAlias, x), x), from_none], self.business_showcase_aliases)
-        result["contactName"] = from_union([from_none, from_str], self.contact_name)
-        result["date_joined"] = from_union([lambda x: x.isoformat(), from_none], self.date_joined)
-        result["description"] = from_union([from_str, from_none], self.description)
-        result["email"] = from_union([from_str, from_none], self.email)
-        result["fax"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], x), x), from_none], self.fax)
-        result["images"] = from_union([lambda x: from_list(from_str, x), from_none], self.images)
-        result["instant_messaging"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.instant_messaging)
-        result["isShowcase"] = from_union([from_bool, from_none], self.is_showcase)
-        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
-        result["logo_url"] = from_union([from_none, from_str], self.logo_url)
-        result["marketingNotifications"] = from_union([lambda x: to_class(MarketingNotifications, x), from_none], self.marketing_notifications)
-        result["metro"] = from_union([lambda x: to_class(Metro, x), from_none], self.metro)
-        result["min_booking_time"] = from_union([to_float, from_none], self.min_booking_time)
-        result["mobile"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], x), x), from_none], self.mobile)
-        result["name"] = from_union([from_str, from_none], self.name)
-        result["networkID"] = from_union([to_float, from_none], self.network_id)
-        result["newboEnabledFor"] = from_union([lambda x: from_list(from_str, x), from_none], self.newbo_enabled_for)
-        result["paymentMethods"] = from_union([lambda x: to_enum(PaymentMethods, x), from_none], self.payment_methods)
-        result["phone"] = from_union([lambda x: from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], x), x), from_none], self.phone)
-        result["phone_mask"] = from_union([from_none, from_str], self.phone_mask)
-        result["pricingType"] = from_union([lambda x: to_enum(PricingType, x), from_none], self.pricing_type)
-        result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
-        result["schedulerTick"] = from_union([to_float, from_none], self.scheduler_tick)
-        result["shortName"] = from_union([from_none, from_str], self.short_name)
-        result["showAppointmentColor"] = from_union([from_bool, from_none], self.show_appointment_color)
-        result["showAppointmentTooltip"] = from_union([from_bool, from_none], self.show_appointment_tooltip)
-        result["showcaseBusinessData"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseBusinessDatum, x), x), from_none], self.showcase_business_data)
-        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseElement, x), x), from_none], self.showcases)
-        result["showResourceWorkStatistics"] = from_union([from_bool, from_none], self.show_resource_work_statistics)
-        result["showWorkerProfession"] = from_union([from_bool, from_none], self.show_worker_profession)
-        result["skipBilling"] = from_union([from_bool, from_none], self.skip_billing)
-        result["smsDuplicateFilter"] = from_union([lambda x: to_class(SMSDuplicateFilter, x), from_none], self.sms_duplicate_filter)
-        result["social_network"] = from_union([lambda x: from_list(lambda x: to_class(SocialNetworkSchema, x), x), from_none], self.social_network)
-        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
-        result["timezone"] = from_union([from_none, from_str], self.timezone)
-        result["verticalTranslation"] = from_union([lambda x: to_enum(VerticalTranslation, x), from_none], self.vertical_translation)
-        result["website"] = from_union([from_none, from_str], self.website)
-        return result
-
-
-class AccessType(Enum):
-    """тип доступа работника в систему через его учётную запись"""
-    NONE = "NONE"
-    WORKER_EXTENDED = "WORKER_EXTENDED"
-    WORKER_SIMPLE = "WORKER_SIMPLE"
-
-
-class ИнформацияОПрофилеРаботника:
-    """Доступ имеют только пользователи с правами resource или admin"""
-    """тип доступа работника в систему через его учётную запись"""
-    access_type: AccessType
-    """e-mail профиля работника"""
-    email: str
-    """идентификатор профиля работника уникальный во всей системе"""
-    profile_id: str
-    """идентификатор работника"""
-    user_id: str
-
-    def __init__(self, access_type: AccessType, email: str, profile_id: str, user_id: str) -> None:
-        self.access_type = access_type
-        self.email = email
-        self.profile_id = profile_id
-        self.user_id = user_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ИнформацияОПрофилеРаботника':
-        assert isinstance(obj, dict)
-        access_type = AccessType(obj.get("accessType"))
-        email = from_str(obj.get("email"))
-        profile_id = from_str(obj.get("profileID"))
-        user_id = from_str(obj.get("userID"))
-        return ИнформацияОПрофилеРаботника(access_type, email, profile_id, user_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["accessType"] = to_enum(AccessType, self.access_type)
-        result["email"] = from_str(self.email)
-        result["profileID"] = from_str(self.profile_id)
-        result["userID"] = from_str(self.user_id)
-        return result
-
-
-class ResourceStatus(Enum):
-    ACTIVE = "ACTIVE"
-    INACTIVE = "INACTIVE"
-
-
-class ResourceTaxonomyChildren:
-    """true - детская услуга; false - взрослая услуга"""
-    children: bool
-    """идентификатор услуги, для которой установлено свойство"""
-    taxonomy_id: str
-
-    def __init__(self, children: bool, taxonomy_id: str) -> None:
-        self.children = children
-        self.taxonomy_id = taxonomy_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceTaxonomyChildren':
-        assert isinstance(obj, dict)
-        children = from_bool(obj.get("children"))
-        taxonomy_id = from_str(obj.get("taxonomyID"))
-        return ResourceTaxonomyChildren(children, taxonomy_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["children"] = from_bool(self.children)
-        result["taxonomyID"] = from_str(self.taxonomy_id)
-        return result
-
-
-class ResourceTaxonomyLevel:
-    """идентификатор услуги, для которой установлено уровень скорости"""
-    id: str
-    """уровень скорости"""
-    level: float
-
-    def __init__(self, id: str, level: float) -> None:
-        self.id = id
-        self.level = level
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceTaxonomyLevel':
-        assert isinstance(obj, dict)
-        id = from_str(obj.get("id"))
-        level = from_float(obj.get("level"))
-        return ResourceTaxonomyLevel(id, level)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = from_str(self.id)
-        result["level"] = to_float(self.level)
-        return result
-
-
-class ResourceResource:
-    """информация из внешней информационной системы как есть (при интеграции)"""
-    additional_extra_id: Optional[List[str]]
-    """Количество записей, которые может принимать работник единовременно"""
-    capacity: float
-    """цвет колонки с работником"""
-    color: Optional[str]
-    degree: Optional[str]
-    """идентификатор отделения, к которому привязан работник"""
-    department_id: Optional[str]
-    """краткое описание работника"""
-    description: Optional[str]
-    display_in_schedule: Optional[bool]
-    """отображать ли данного работника на виджете или любом другом клиенте"""
-    display_in_widget: bool
-    """e-mail работника"""
-    email: Optional[str]
-    """включена ли отправка e-mail уведомлений для данного работника"""
-    email_enabled: Optional[bool]
-    even_odd_timetable: EvenOddTimetable
-    exceptions: Optional[List[Any]]
-    experience: Optional[datetime]
-    """информация из внешней информационной системы как есть (при интеграции)"""
-    extra_description: Optional[str]
-    """информация из внешней информационной системы как есть (при интеграции)"""
-    extra_id: Optional[str]
-    """информация из внешней информационной системы как есть (при интеграции)"""
-    extra_link: Optional[str]
-    """информация из внешней информационной системы как есть (при интеграции)"""
-    extra_media_id: Optional[str]
-    """url изображения работника; Если указан относительный путь, то используйте
-    http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
-    WidgetConfiguration.defaultWorkerImgUrl)
-    """
-    icon_url: Optional[str]
-    """внутренний идентификатор работника; уникальный во всей системе GBooking"""
-    id: str
-    image: Optional[str]
-    last_su: Optional[datetime]
-    """уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)"""
-    level: float
-    """не используется"""
-    loaned: bool
-    """не используется"""
-    loaned_from: Optional[str]
-    """не используется"""
-    loaned_to: Optional[str]
-    location: ResourceLocation
-    manual_changes: bool
-    """отчество работника"""
-    middle_name: Optional[str]
-    """имя работника"""
-    name: str
-    """внутреннее название работника в Бекофис"""
-    nickname: Optional[str]
-    """индекс сортировки работника"""
-    order: Optional[float]
-    """вес работника, в зависимости от указанного способа сортировки"""
-    order_weight: Union[float, None, str]
-    """(только в витрине) объект с данными бизнеса-филиала"""
-    origin_general_info: Optional[Info]
-    """(только в витрине) идентификатор бизнеса-филиала, откуда был взят работник"""
-    origin_business_id: Optional[str]
-    """(только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
-    работник
-    """
-    origin_taxonomies: Optional[List[str]]
-    """особый навык"""
-    perk: Optional[str]
-    phone: Union[List[Any], bool, PhoneClass, float, int, None, str]
-    """информация о профессии работника, используется в Бекофис"""
-    profession: Optional[str]
-    profile: Optional[ИнформацияОПрофилеРаботника]
-    """Рейтинг работника"""
-    rating: Optional[float]
-    readonly_taxonomies: Optional[List[str]]
-    """Версия изменений документа"""
-    revision_version: float
-    schedule_is_empty: Optional[bool]
-    """информация из внешней информационной системы как есть (при интеграции)"""
-    site_id: Optional[str]
-    """включена ли отправка смс уведомлений для данного работника"""
-    sms_enabled: Optional[bool]
-    status: Optional[ResourceStatus]
-    """фамилия и отчество работника"""
-    surname: str
-    """массив идентификаторов услуг, которые выполняет работник"""
-    taxonomies: List[str]
-    """массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
-    оба или не указаны вовсе для услуги)
-    """
-    taxonomy_children: List[ResourceTaxonomyChildren]
-    """массив уровня скорости выполнения услуги (см так же Resource level)"""
-    taxonomy_levels: List[ResourceTaxonomyLevel]
-    timetable: Timetable
-    user_data: Optional[Dict[str, Any]]
-    """рабочее место, которое занимает работник"""
-    work_place: Optional[str]
-
-    def __init__(self, additional_extra_id: Optional[List[str]], capacity: float, color: Optional[str], degree: Optional[str], department_id: Optional[str], description: Optional[str], display_in_schedule: Optional[bool], display_in_widget: bool, email: Optional[str], email_enabled: Optional[bool], even_odd_timetable: EvenOddTimetable, exceptions: Optional[List[Any]], experience: Optional[datetime], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], extra_media_id: Optional[str], icon_url: Optional[str], id: str, image: Optional[str], last_su: Optional[datetime], level: float, loaned: bool, loaned_from: Optional[str], loaned_to: Optional[str], location: ResourceLocation, manual_changes: bool, middle_name: Optional[str], name: str, nickname: Optional[str], order: Optional[float], order_weight: Union[float, None, str], origin_general_info: Optional[Info], origin_business_id: Optional[str], origin_taxonomies: Optional[List[str]], perk: Optional[str], phone: Union[List[Any], bool, PhoneClass, float, int, None, str], profession: Optional[str], profile: Optional[ИнформацияОПрофилеРаботника], rating: Optional[float], readonly_taxonomies: Optional[List[str]], revision_version: float, schedule_is_empty: Optional[bool], site_id: Optional[str], sms_enabled: Optional[bool], status: Optional[ResourceStatus], surname: str, taxonomies: List[str], taxonomy_children: List[ResourceTaxonomyChildren], taxonomy_levels: List[ResourceTaxonomyLevel], timetable: Timetable, user_data: Optional[Dict[str, Any]], work_place: Optional[str]) -> None:
-        self.additional_extra_id = additional_extra_id
-        self.capacity = capacity
-        self.color = color
-        self.degree = degree
-        self.department_id = department_id
-        self.description = description
-        self.display_in_schedule = display_in_schedule
-        self.display_in_widget = display_in_widget
-        self.email = email
-        self.email_enabled = email_enabled
-        self.even_odd_timetable = even_odd_timetable
-        self.exceptions = exceptions
-        self.experience = experience
-        self.extra_description = extra_description
-        self.extra_id = extra_id
-        self.extra_link = extra_link
-        self.extra_media_id = extra_media_id
-        self.icon_url = icon_url
-        self.id = id
-        self.image = image
-        self.last_su = last_su
-        self.level = level
-        self.loaned = loaned
-        self.loaned_from = loaned_from
-        self.loaned_to = loaned_to
-        self.location = location
-        self.manual_changes = manual_changes
-        self.middle_name = middle_name
-        self.name = name
-        self.nickname = nickname
-        self.order = order
-        self.order_weight = order_weight
-        self.origin_general_info = origin_general_info
-        self.origin_business_id = origin_business_id
-        self.origin_taxonomies = origin_taxonomies
-        self.perk = perk
-        self.phone = phone
-        self.profession = profession
-        self.profile = profile
-        self.rating = rating
-        self.readonly_taxonomies = readonly_taxonomies
-        self.revision_version = revision_version
-        self.schedule_is_empty = schedule_is_empty
-        self.site_id = site_id
-        self.sms_enabled = sms_enabled
-        self.status = status
-        self.surname = surname
-        self.taxonomies = taxonomies
-        self.taxonomy_children = taxonomy_children
-        self.taxonomy_levels = taxonomy_levels
-        self.timetable = timetable
-        self.user_data = user_data
-        self.work_place = work_place
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceResource':
-        assert isinstance(obj, dict)
-        additional_extra_id = from_union([lambda x: from_list(from_str, x), from_none], obj.get("additionalExtraId"))
-        capacity = from_float(obj.get("capacity"))
-        color = from_union([from_str, from_none], obj.get("color"))
-        degree = from_union([from_str, from_none], obj.get("degree"))
-        department_id = from_union([from_str, from_none], obj.get("departmentId"))
-        description = from_union([from_str, from_none], obj.get("description"))
-        display_in_schedule = from_union([from_bool, from_none], obj.get("displayInSchedule"))
-        display_in_widget = from_bool(obj.get("displayInWidget"))
-        email = from_union([from_str, from_none], obj.get("email"))
-        email_enabled = from_union([from_bool, from_none], obj.get("emailEnabled"))
-        even_odd_timetable = EvenOddTimetable.from_dict(obj.get("evenOddTimetable"))
-        exceptions = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("exceptions"))
-        experience = from_union([from_datetime, from_none], obj.get("experience"))
-        extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
-        extra_id = from_union([from_str, from_none], obj.get("extraId"))
-        extra_link = from_union([from_str, from_none], obj.get("extraLink"))
-        extra_media_id = from_union([from_str, from_none], obj.get("extraMediaId"))
-        icon_url = from_union([from_none, from_str], obj.get("icon_url"))
-        id = from_str(obj.get("id"))
-        image = from_union([from_str, from_none], obj.get("image"))
-        last_su = from_union([from_datetime, from_none], obj.get("lastSU"))
-        level = from_float(obj.get("level"))
-        loaned = from_bool(obj.get("loaned"))
-        loaned_from = from_union([from_str, from_none], obj.get("loanedFrom"))
-        loaned_to = from_union([from_str, from_none], obj.get("loanedTo"))
-        location = ResourceLocation.from_dict(obj.get("location"))
-        manual_changes = from_bool(obj.get("manualChanges"))
-        middle_name = from_union([from_str, from_none], obj.get("middleName"))
-        name = from_str(obj.get("name"))
-        nickname = from_union([from_str, from_none], obj.get("nickname"))
-        order = from_union([from_float, from_none], obj.get("order"))
-        order_weight = from_union([from_float, from_str, from_none], obj.get("orderWeight"))
-        origin_general_info = from_union([Info.from_dict, from_none], obj.get("origin_general_info"))
-        origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
-        origin_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("originTaxonomies"))
-        perk = from_union([from_str, from_none], obj.get("perk"))
-        phone = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], obj.get("phone"))
-        profession = from_union([from_str, from_none], obj.get("profession"))
-        profile = from_union([ИнформацияОПрофилеРаботника.from_dict, from_none], obj.get("profile"))
-        rating = from_union([from_float, from_none], obj.get("rating"))
-        readonly_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("readonlyTaxonomies"))
-        revision_version = from_float(obj.get("revisionVersion"))
-        schedule_is_empty = from_union([from_bool, from_none], obj.get("scheduleIsEmpty"))
-        site_id = from_union([from_str, from_none], obj.get("siteId"))
-        sms_enabled = from_union([from_bool, from_none], obj.get("smsEnabled"))
-        status = from_union([ResourceStatus, from_none], obj.get("status"))
-        surname = from_str(obj.get("surname"))
-        taxonomies = from_list(from_str, obj.get("taxonomies"))
-        taxonomy_children = from_list(ResourceTaxonomyChildren.from_dict, obj.get("taxonomyChildren"))
-        taxonomy_levels = from_list(ResourceTaxonomyLevel.from_dict, obj.get("taxonomyLevels"))
-        timetable = Timetable.from_dict(obj.get("timetable"))
-        user_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("userData"))
-        work_place = from_union([from_str, from_none], obj.get("workPlace"))
-        return ResourceResource(additional_extra_id, capacity, color, degree, department_id, description, display_in_schedule, display_in_widget, email, email_enabled, even_odd_timetable, exceptions, experience, extra_description, extra_id, extra_link, extra_media_id, icon_url, id, image, last_su, level, loaned, loaned_from, loaned_to, location, manual_changes, middle_name, name, nickname, order, order_weight, origin_general_info, origin_business_id, origin_taxonomies, perk, phone, profession, profile, rating, readonly_taxonomies, revision_version, schedule_is_empty, site_id, sms_enabled, status, surname, taxonomies, taxonomy_children, taxonomy_levels, timetable, user_data, work_place)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["additionalExtraId"] = from_union([lambda x: from_list(from_str, x), from_none], self.additional_extra_id)
-        result["capacity"] = to_float(self.capacity)
-        result["color"] = from_union([from_str, from_none], self.color)
-        result["degree"] = from_union([from_str, from_none], self.degree)
-        result["departmentId"] = from_union([from_str, from_none], self.department_id)
-        result["description"] = from_union([from_str, from_none], self.description)
-        result["displayInSchedule"] = from_union([from_bool, from_none], self.display_in_schedule)
-        result["displayInWidget"] = from_bool(self.display_in_widget)
-        result["email"] = from_union([from_str, from_none], self.email)
-        result["emailEnabled"] = from_union([from_bool, from_none], self.email_enabled)
-        result["evenOddTimetable"] = to_class(EvenOddTimetable, self.even_odd_timetable)
-        result["exceptions"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.exceptions)
-        result["experience"] = from_union([lambda x: x.isoformat(), from_none], self.experience)
-        result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
-        result["extraId"] = from_union([from_str, from_none], self.extra_id)
-        result["extraLink"] = from_union([from_str, from_none], self.extra_link)
-        result["extraMediaId"] = from_union([from_str, from_none], self.extra_media_id)
-        result["icon_url"] = from_union([from_none, from_str], self.icon_url)
-        result["id"] = from_str(self.id)
-        result["image"] = from_union([from_str, from_none], self.image)
-        result["lastSU"] = from_union([lambda x: x.isoformat(), from_none], self.last_su)
-        result["level"] = to_float(self.level)
-        result["loaned"] = from_bool(self.loaned)
-        result["loanedFrom"] = from_union([from_str, from_none], self.loaned_from)
-        result["loanedTo"] = from_union([from_str, from_none], self.loaned_to)
-        result["location"] = to_class(ResourceLocation, self.location)
-        result["manualChanges"] = from_bool(self.manual_changes)
-        result["middleName"] = from_union([from_str, from_none], self.middle_name)
-        result["name"] = from_str(self.name)
-        result["nickname"] = from_union([from_str, from_none], self.nickname)
-        result["order"] = from_union([to_float, from_none], self.order)
-        result["orderWeight"] = from_union([to_float, from_str, from_none], self.order_weight)
-        result["origin_general_info"] = from_union([lambda x: to_class(Info, x), from_none], self.origin_general_info)
-        result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
-        result["originTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.origin_taxonomies)
-        result["perk"] = from_union([from_str, from_none], self.perk)
-        result["phone"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], self.phone)
-        result["profession"] = from_union([from_str, from_none], self.profession)
-        result["profile"] = from_union([lambda x: to_class(ИнформацияОПрофилеРаботника, x), from_none], self.profile)
-        result["rating"] = from_union([to_float, from_none], self.rating)
-        result["readonlyTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.readonly_taxonomies)
-        result["revisionVersion"] = to_float(self.revision_version)
-        result["scheduleIsEmpty"] = from_union([from_bool, from_none], self.schedule_is_empty)
-        result["siteId"] = from_union([from_str, from_none], self.site_id)
-        result["smsEnabled"] = from_union([from_bool, from_none], self.sms_enabled)
-        result["status"] = from_union([lambda x: to_enum(ResourceStatus, x), from_none], self.status)
-        result["surname"] = from_str(self.surname)
-        result["taxonomies"] = from_list(from_str, self.taxonomies)
-        result["taxonomyChildren"] = from_list(lambda x: to_class(ResourceTaxonomyChildren, x), self.taxonomy_children)
-        result["taxonomyLevels"] = from_list(lambda x: to_class(ResourceTaxonomyLevel, x), self.taxonomy_levels)
-        result["timetable"] = to_class(Timetable, self.timetable)
-        result["userData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.user_data)
-        result["workPlace"] = from_union([from_str, from_none], self.work_place)
-        return result
-
-
-class AdditionalDuration:
+class TentacledAdditionalDuration:
     duration: Optional[float]
     level: Optional[float]
 
@@ -7268,11 +7997,11 @@ class AdditionalDuration:
         self.level = level
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AdditionalDuration':
+    def from_dict(obj: Any) -> 'TentacledAdditionalDuration':
         assert isinstance(obj, dict)
         duration = from_union([from_float, from_none], obj.get("duration"))
         level = from_union([from_float, from_none], obj.get("level"))
-        return AdditionalDuration(duration, level)
+        return TentacledAdditionalDuration(duration, level)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7281,14 +8010,7 @@ class AdditionalDuration:
         return result
 
 
-class AdditionalPriceType(Enum):
-    """Тип цены"""
-    AVERAGE = "average"
-    BEGIN_WITH = "begin_with"
-    EQUAL = "equal"
-
-
-class BusinessTaxonomyPrice:
+class FluffyBusinessTaxonomyPrice:
     """Значение цены"""
     amount: Optional[str]
     """Аббревиатура валюты"""
@@ -7308,14 +8030,14 @@ class BusinessTaxonomyPrice:
         self.type = type
 
     @staticmethod
-    def from_dict(obj: Any) -> 'BusinessTaxonomyPrice':
+    def from_dict(obj: Any) -> 'FluffyBusinessTaxonomyPrice':
         assert isinstance(obj, dict)
         amount = from_union([from_str, from_none], obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
         resource_level = from_float(obj.get("resourceLevel"))
         stock_amount = from_union([from_none, from_str], obj.get("stockAmount"))
         type = from_union([AdditionalPriceType, from_none], obj.get("type"))
-        return BusinessTaxonomyPrice(amount, currency, resource_level, stock_amount, type)
+        return FluffyBusinessTaxonomyPrice(amount, currency, resource_level, stock_amount, type)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7327,7 +8049,7 @@ class BusinessTaxonomyPrice:
         return result
 
 
-class BusinessTaxonomyProduct:
+class FluffyBusinessTaxonomyProduct:
     """Дополнительный ID товара"""
     extra_id: str
     """ID товара"""
@@ -7341,12 +8063,12 @@ class BusinessTaxonomyProduct:
         self.required = required
 
     @staticmethod
-    def from_dict(obj: Any) -> 'BusinessTaxonomyProduct':
+    def from_dict(obj: Any) -> 'FluffyBusinessTaxonomyProduct':
         assert isinstance(obj, dict)
         extra_id = from_str(obj.get("extraID"))
         id = from_str(obj.get("id"))
         required = from_bool(obj.get("required"))
-        return BusinessTaxonomyProduct(extra_id, id, required)
+        return FluffyBusinessTaxonomyProduct(extra_id, id, required)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7356,7 +8078,7 @@ class BusinessTaxonomyProduct:
         return result
 
 
-class AdjacentTaxonomy:
+class FluffyAdjacentTaxonomy:
     is_any_available: Optional[bool]
     order: Optional[float]
     slot_duration: Optional[float]
@@ -7369,13 +8091,13 @@ class AdjacentTaxonomy:
         self.taxonomy_id = taxonomy_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AdjacentTaxonomy':
+    def from_dict(obj: Any) -> 'FluffyAdjacentTaxonomy':
         assert isinstance(obj, dict)
         is_any_available = from_union([from_bool, from_none], obj.get("isAnyAvailable"))
         order = from_union([from_float, from_none], obj.get("order"))
         slot_duration = from_union([from_float, from_none], obj.get("slotDuration"))
         taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
-        return AdjacentTaxonomy(is_any_available, order, slot_duration, taxonomy_id)
+        return FluffyAdjacentTaxonomy(is_any_available, order, slot_duration, taxonomy_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7386,20 +8108,7 @@ class AdjacentTaxonomy:
         return result
 
 
-class ChildrenTaxonomyType(Enum):
-    CHILD = "child"
-    NONE = "none"
-    PARENT = "parent"
-
-
-class DateLimitType(Enum):
-    ALL_DATES = "all_dates"
-    FROM_DATE = "from_date"
-    RANGE_DATES = "range_dates"
-    TO_DATE = "to_date"
-
-
-class DateLimit:
+class FluffyDateLimit:
     id: Optional[str]
     date_limit_from: Optional[datetime]
     date_limit_to: Optional[datetime]
@@ -7410,12 +8119,12 @@ class DateLimit:
         self.date_limit_to = date_limit_to
 
     @staticmethod
-    def from_dict(obj: Any) -> 'DateLimit':
+    def from_dict(obj: Any) -> 'FluffyDateLimit':
         assert isinstance(obj, dict)
         id = from_union([from_str, from_none], obj.get("_id"))
         date_limit_from = from_union([from_datetime, from_none], obj.get("dateLimitFrom"))
         date_limit_to = from_union([from_datetime, from_none], obj.get("dateLimitTo"))
-        return DateLimit(id, date_limit_from, date_limit_to)
+        return FluffyDateLimit(id, date_limit_from, date_limit_to)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7425,90 +8134,7 @@ class DateLimit:
         return result
 
 
-class DaysOfWeek(Enum):
-    FRI = "fri"
-    MON = "mon"
-    SAT = "sat"
-    SUN = "sun"
-    THU = "thu"
-    TUE = "tue"
-    WED = "wed"
-
-
-class Repeats(Enum):
-    DAILY = "daily"
-    NONE = "none"
-    WEEKLY = "weekly"
-
-
-class Slots:
-    time: Optional[TimeFrame]
-
-    def __init__(self, time: Optional[TimeFrame]) -> None:
-        self.time = time
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'Slots':
-        assert isinstance(obj, dict)
-        time = from_union([TimeFrame.from_dict, from_none], obj.get("time"))
-        return Slots(time)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["time"] = from_union([lambda x: to_class(TimeFrame, x), from_none], self.time)
-        return result
-
-
-class DiscountClass:
-    active: Optional[bool]
-    days_of_week: Optional[DaysOfWeek]
-    repeats: Optional[Repeats]
-    slots: Optional[Slots]
-    start: Optional[datetime]
-    unlim_weekly_repeat: Optional[bool]
-    weekly_repeat: Optional[float]
-
-    def __init__(self, active: Optional[bool], days_of_week: Optional[DaysOfWeek], repeats: Optional[Repeats], slots: Optional[Slots], start: Optional[datetime], unlim_weekly_repeat: Optional[bool], weekly_repeat: Optional[float]) -> None:
-        self.active = active
-        self.days_of_week = days_of_week
-        self.repeats = repeats
-        self.slots = slots
-        self.start = start
-        self.unlim_weekly_repeat = unlim_weekly_repeat
-        self.weekly_repeat = weekly_repeat
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'DiscountClass':
-        assert isinstance(obj, dict)
-        active = from_union([from_bool, from_none], obj.get("active"))
-        days_of_week = from_union([DaysOfWeek, from_none], obj.get("daysOfWeek"))
-        repeats = from_union([Repeats, from_none], obj.get("repeats"))
-        slots = from_union([Slots.from_dict, from_none], obj.get("slots"))
-        start = from_union([from_datetime, from_none], obj.get("start"))
-        unlim_weekly_repeat = from_union([from_bool, from_none], obj.get("unlimWeeklyRepeat"))
-        weekly_repeat = from_union([from_float, from_none], obj.get("weeklyRepeat"))
-        return DiscountClass(active, days_of_week, repeats, slots, start, unlim_weekly_repeat, weekly_repeat)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["active"] = from_union([from_bool, from_none], self.active)
-        result["daysOfWeek"] = from_union([lambda x: to_enum(DaysOfWeek, x), from_none], self.days_of_week)
-        result["repeats"] = from_union([lambda x: to_enum(Repeats, x), from_none], self.repeats)
-        result["slots"] = from_union([lambda x: to_class(Slots, x), from_none], self.slots)
-        result["start"] = from_union([lambda x: x.isoformat(), from_none], self.start)
-        result["unlimWeeklyRepeat"] = from_union([from_bool, from_none], self.unlim_weekly_repeat)
-        result["weeklyRepeat"] = from_union([to_float, from_none], self.weekly_repeat)
-        return result
-
-
-class OnlineMode(Enum):
-    ONCALL_ONLINE = "ONCALL_ONLINE"
-    PLAN_CLINIC = "PLAN_CLINIC"
-    PLAN_CLINIC_ONLINE = "PLAN_CLINIC_ONLINE"
-    PLAN_ONLINE = "PLAN_ONLINE"
-
-
-class TaxonomyPrice:
+class FluffyPrice:
     """Значение цены"""
     amount: str
     """Аббревиатура валюты (например, RUB - рубль)"""
@@ -7525,13 +8151,13 @@ class TaxonomyPrice:
         self.type = type
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TaxonomyPrice':
+    def from_dict(obj: Any) -> 'FluffyPrice':
         assert isinstance(obj, dict)
         amount = from_str(obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
         stock_amount = from_union([from_none, from_str], obj.get("stockAmount"))
         type = AdditionalPriceType(obj.get("type"))
-        return TaxonomyPrice(amount, currency, stock_amount, type)
+        return FluffyPrice(amount, currency, stock_amount, type)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7542,7 +8168,7 @@ class TaxonomyPrice:
         return result
 
 
-class ShowcaseItemAdditionalDuration:
+class StickyAdditionalDuration:
     id: Optional[str]
     duration: Optional[float]
     """поддержка различной длительности услуг в зависимости от работника"""
@@ -7554,12 +8180,12 @@ class ShowcaseItemAdditionalDuration:
         self.level = level
 
     @staticmethod
-    def from_dict(obj: Any) -> 'ShowcaseItemAdditionalDuration':
+    def from_dict(obj: Any) -> 'StickyAdditionalDuration':
         assert isinstance(obj, dict)
         id = from_union([from_str, from_none], obj.get("_id"))
         duration = from_union([from_float, from_none], obj.get("duration"))
         level = from_union([from_float, from_none], obj.get("level"))
-        return ShowcaseItemAdditionalDuration(id, duration, level)
+        return StickyAdditionalDuration(id, duration, level)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7569,15 +8195,15 @@ class ShowcaseItemAdditionalDuration:
         return result
 
 
-class ShowcaseItem:
+class FluffyShowcaseItem:
     id: Optional[str]
-    additional_durations: Optional[List[ShowcaseItemAdditionalDuration]]
+    additional_durations: Optional[List[StickyAdditionalDuration]]
     business_id: Optional[str]
     """Список видов приема услуги"""
     reception_types: Optional[List[str]]
     taxonomy_id: Optional[str]
 
-    def __init__(self, id: Optional[str], additional_durations: Optional[List[ShowcaseItemAdditionalDuration]], business_id: Optional[str], reception_types: Optional[List[str]], taxonomy_id: Optional[str]) -> None:
+    def __init__(self, id: Optional[str], additional_durations: Optional[List[StickyAdditionalDuration]], business_id: Optional[str], reception_types: Optional[List[str]], taxonomy_id: Optional[str]) -> None:
         self.id = id
         self.additional_durations = additional_durations
         self.business_id = business_id
@@ -7585,26 +8211,26 @@ class ShowcaseItem:
         self.taxonomy_id = taxonomy_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'ShowcaseItem':
+    def from_dict(obj: Any) -> 'FluffyShowcaseItem':
         assert isinstance(obj, dict)
         id = from_union([from_str, from_none], obj.get("_id"))
-        additional_durations = from_union([lambda x: from_list(ShowcaseItemAdditionalDuration.from_dict, x), from_none], obj.get("additionalDurations"))
+        additional_durations = from_union([lambda x: from_list(StickyAdditionalDuration.from_dict, x), from_none], obj.get("additionalDurations"))
         business_id = from_union([from_str, from_none], obj.get("businessID"))
         reception_types = from_union([lambda x: from_list(from_str, x), from_none], obj.get("receptionTypes"))
         taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
-        return ShowcaseItem(id, additional_durations, business_id, reception_types, taxonomy_id)
+        return FluffyShowcaseItem(id, additional_durations, business_id, reception_types, taxonomy_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["_id"] = from_union([from_str, from_none], self.id)
-        result["additionalDurations"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseItemAdditionalDuration, x), x), from_none], self.additional_durations)
+        result["additionalDurations"] = from_union([lambda x: from_list(lambda x: to_class(StickyAdditionalDuration, x), x), from_none], self.additional_durations)
         result["businessID"] = from_union([from_str, from_none], self.business_id)
         result["receptionTypes"] = from_union([lambda x: from_list(from_str, x), from_none], self.reception_types)
         result["taxonomyID"] = from_union([from_str, from_none], self.taxonomy_id)
         return result
 
 
-class TaxonomyShowcase:
+class FluffyTaxonomyShowcase:
     base_business_id: Optional[str]
     is_base_node: Optional[bool]
     origin_business_id: Optional[str]
@@ -7617,13 +8243,13 @@ class TaxonomyShowcase:
         self.showcase_item_id = showcase_item_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TaxonomyShowcase':
+    def from_dict(obj: Any) -> 'FluffyTaxonomyShowcase':
         assert isinstance(obj, dict)
         base_business_id = from_union([from_str, from_none], obj.get("baseBusinessID"))
         is_base_node = from_union([from_bool, from_none], obj.get("isBaseNode"))
         origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
         showcase_item_id = from_union([from_str, from_none], obj.get("showcaseItemID"))
-        return TaxonomyShowcase(base_business_id, is_base_node, origin_business_id, showcase_item_id)
+        return FluffyTaxonomyShowcase(base_business_id, is_base_node, origin_business_id, showcase_item_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7634,20 +8260,14 @@ class TaxonomyShowcase:
         return result
 
 
-class TaxonomyType(Enum):
-    CATEGORY = "CATEGORY"
-    SERVICE = "SERVICE"
-    SUBCATEGORY = "SUBCATEGORY"
-
-
-class BusinessTaxonomy:
+class FluffyBusinessTaxonomy:
     active: Optional[bool]
-    additional_durations: Optional[List[AdditionalDuration]]
-    additional_prices: Optional[List[BusinessTaxonomyPrice]]
-    additional_products: Optional[List[BusinessTaxonomyProduct]]
+    additional_durations: Optional[List[TentacledAdditionalDuration]]
+    additional_prices: Optional[List[FluffyBusinessTaxonomyPrice]]
+    additional_products: Optional[List[FluffyBusinessTaxonomyProduct]]
     additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]]
     adjacent_same_time_start: Optional[bool]
-    adjacent_taxonomies: Optional[List[AdjacentTaxonomy]]
+    adjacent_taxonomies: Optional[List[FluffyAdjacentTaxonomy]]
     alias: Optional[Dict[str, Any]]
     allow_booking_in_bo: Optional[bool]
     allow_next_booking_count: Optional[float]
@@ -7662,7 +8282,7 @@ class BusinessTaxonomy:
     color: Optional[str]
     confirmation_alert: Optional[str]
     confirmation_sms_alert: Optional[str]
-    date_limits: Optional[List[DateLimit]]
+    date_limits: Optional[List[FluffyDateLimit]]
     date_limit_type: Optional[DateLimitType]
     designs: Optional[List[str]]
     discounts: Union[List[Any], bool, DiscountClass, float, int, None, str]
@@ -7685,13 +8305,13 @@ class BusinessTaxonomy:
     order: Optional[float]
     parallel_taxonomies: Optional[List[str]]
     popularity: Optional[float]
-    price: Optional[TaxonomyPrice]
+    price: Optional[FluffyPrice]
     price_link: Optional[str]
     """Список видов приема услуги"""
     reception_types: Optional[List[str]]
     rooms: Optional[List[str]]
-    showcase_items: Optional[List[ShowcaseItem]]
-    showcases: Optional[List[TaxonomyShowcase]]
+    showcase_items: Optional[List[FluffyShowcaseItem]]
+    showcases: Optional[List[FluffyTaxonomyShowcase]]
     """Идентификатор услуги в витрине"""
     showcase_taxonomy_id: Optional[str]
     """Внешний идентификатор таксономии"""
@@ -7705,7 +8325,7 @@ class BusinessTaxonomy:
     use_confirmation_sms_alert: Optional[bool]
     visit_type: Optional[str]
 
-    def __init__(self, active: Optional[bool], additional_durations: Optional[List[AdditionalDuration]], additional_prices: Optional[List[BusinessTaxonomyPrice]], additional_products: Optional[List[BusinessTaxonomyProduct]], additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]], adjacent_same_time_start: Optional[bool], adjacent_taxonomies: Optional[List[AdjacentTaxonomy]], alias: Optional[Dict[str, Any]], allow_booking_in_bo: Optional[bool], allow_next_booking_count: Optional[float], allow_next_booking_in_days: Optional[float], allow_next_booking_in_days_text: Optional[str], cabinets: Optional[List[str]], cabinets_enabled: Optional[bool], capacity: Optional[float], capacity_decrease: Optional[float], charge_units_step: Optional[float], children_taxonomy_types: Optional[List[ChildrenTaxonomyType]], color: Optional[str], confirmation_alert: Optional[str], confirmation_sms_alert: Optional[str], date_limits: Optional[List[DateLimit]], date_limit_type: Optional[DateLimitType], designs: Optional[List[str]], discounts: Union[List[Any], bool, DiscountClass, float, int, None, str], display_in_widget: Optional[bool], duration: Optional[float], exceptions: Optional[List[Any]], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], for_pay: Optional[bool], id: Optional[str], images: Optional[List[str]], is_other: Optional[bool], last_modified: Optional[datetime], leaves: Optional[List[str]], manual_changes: Optional[bool], new_taxonomy: Optional[bool], online_mode: Optional[OnlineMode], only_after_taxonomies: Optional[List[str]], order: Optional[float], parallel_taxonomies: Optional[List[str]], popularity: Optional[float], price: Optional[TaxonomyPrice], price_link: Optional[str], reception_types: Optional[List[str]], rooms: Optional[List[str]], showcase_items: Optional[List[ShowcaseItem]], showcases: Optional[List[TaxonomyShowcase]], showcase_taxonomy_id: Optional[str], site_id: Optional[str], special_cabinet: Optional[str], taxonomy_app_extra_id: Optional[str], taxonomy_category_extra_id: Optional[str], taxonomy_parent_id: Optional[str], taxonomy_type: Optional[TaxonomyType], timetable: Optional[Timetable], use_confirmation_sms_alert: Optional[bool], visit_type: Optional[str]) -> None:
+    def __init__(self, active: Optional[bool], additional_durations: Optional[List[TentacledAdditionalDuration]], additional_prices: Optional[List[FluffyBusinessTaxonomyPrice]], additional_products: Optional[List[FluffyBusinessTaxonomyProduct]], additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]], adjacent_same_time_start: Optional[bool], adjacent_taxonomies: Optional[List[FluffyAdjacentTaxonomy]], alias: Optional[Dict[str, Any]], allow_booking_in_bo: Optional[bool], allow_next_booking_count: Optional[float], allow_next_booking_in_days: Optional[float], allow_next_booking_in_days_text: Optional[str], cabinets: Optional[List[str]], cabinets_enabled: Optional[bool], capacity: Optional[float], capacity_decrease: Optional[float], charge_units_step: Optional[float], children_taxonomy_types: Optional[List[ChildrenTaxonomyType]], color: Optional[str], confirmation_alert: Optional[str], confirmation_sms_alert: Optional[str], date_limits: Optional[List[FluffyDateLimit]], date_limit_type: Optional[DateLimitType], designs: Optional[List[str]], discounts: Union[List[Any], bool, DiscountClass, float, int, None, str], display_in_widget: Optional[bool], duration: Optional[float], exceptions: Optional[List[Any]], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], for_pay: Optional[bool], id: Optional[str], images: Optional[List[str]], is_other: Optional[bool], last_modified: Optional[datetime], leaves: Optional[List[str]], manual_changes: Optional[bool], new_taxonomy: Optional[bool], online_mode: Optional[OnlineMode], only_after_taxonomies: Optional[List[str]], order: Optional[float], parallel_taxonomies: Optional[List[str]], popularity: Optional[float], price: Optional[FluffyPrice], price_link: Optional[str], reception_types: Optional[List[str]], rooms: Optional[List[str]], showcase_items: Optional[List[FluffyShowcaseItem]], showcases: Optional[List[FluffyTaxonomyShowcase]], showcase_taxonomy_id: Optional[str], site_id: Optional[str], special_cabinet: Optional[str], taxonomy_app_extra_id: Optional[str], taxonomy_category_extra_id: Optional[str], taxonomy_parent_id: Optional[str], taxonomy_type: Optional[TaxonomyType], timetable: Optional[Timetable], use_confirmation_sms_alert: Optional[bool], visit_type: Optional[str]) -> None:
         self.active = active
         self.additional_durations = additional_durations
         self.additional_prices = additional_prices
@@ -7768,15 +8388,15 @@ class BusinessTaxonomy:
         self.visit_type = visit_type
 
     @staticmethod
-    def from_dict(obj: Any) -> 'BusinessTaxonomy':
+    def from_dict(obj: Any) -> 'FluffyBusinessTaxonomy':
         assert isinstance(obj, dict)
         active = from_union([from_bool, from_none], obj.get("active"))
-        additional_durations = from_union([lambda x: from_list(AdditionalDuration.from_dict, x), from_none], obj.get("additionalDurations"))
-        additional_prices = from_union([lambda x: from_list(BusinessTaxonomyPrice.from_dict, x), from_none], obj.get("additionalPrices"))
-        additional_products = from_union([lambda x: from_list(BusinessTaxonomyProduct.from_dict, x), from_none], obj.get("additionalProducts"))
+        additional_durations = from_union([lambda x: from_list(TentacledAdditionalDuration.from_dict, x), from_none], obj.get("additionalDurations"))
+        additional_prices = from_union([lambda x: from_list(FluffyBusinessTaxonomyPrice.from_dict, x), from_none], obj.get("additionalPrices"))
+        additional_products = from_union([lambda x: from_list(FluffyBusinessTaxonomyProduct.from_dict, x), from_none], obj.get("additionalProducts"))
         additional_taxonomy_extra_id = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("additionalTaxonomyExtraId"))
         adjacent_same_time_start = from_union([from_bool, from_none], obj.get("adjacentSameTimeStart"))
-        adjacent_taxonomies = from_union([lambda x: from_list(AdjacentTaxonomy.from_dict, x), from_none], obj.get("adjacentTaxonomies"))
+        adjacent_taxonomies = from_union([lambda x: from_list(FluffyAdjacentTaxonomy.from_dict, x), from_none], obj.get("adjacentTaxonomies"))
         alias = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("alias"))
         allow_booking_in_bo = from_union([from_bool, from_none], obj.get("allowBookingInBO"))
         allow_next_booking_count = from_union([from_float, from_none], obj.get("allowNextBookingCount"))
@@ -7791,7 +8411,7 @@ class BusinessTaxonomy:
         color = from_union([from_str, from_none], obj.get("color"))
         confirmation_alert = from_union([from_str, from_none], obj.get("confirmationAlert"))
         confirmation_sms_alert = from_union([from_str, from_none], obj.get("confirmationSmsAlert"))
-        date_limits = from_union([lambda x: from_list(DateLimit.from_dict, x), from_none], obj.get("dateLimits"))
+        date_limits = from_union([lambda x: from_list(FluffyDateLimit.from_dict, x), from_none], obj.get("dateLimits"))
         date_limit_type = from_union([DateLimitType, from_none], obj.get("dateLimitType"))
         designs = from_union([lambda x: from_list(from_str, x), from_none], obj.get("designs"))
         discounts = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), DiscountClass.from_dict], obj.get("discounts"))
@@ -7814,12 +8434,12 @@ class BusinessTaxonomy:
         order = from_union([from_float, from_none], obj.get("order"))
         parallel_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("parallelTaxonomies"))
         popularity = from_union([from_float, from_none], obj.get("popularity"))
-        price = from_union([TaxonomyPrice.from_dict, from_none], obj.get("price"))
+        price = from_union([FluffyPrice.from_dict, from_none], obj.get("price"))
         price_link = from_union([from_str, from_none], obj.get("priceLink"))
         reception_types = from_union([lambda x: from_list(from_str, x), from_none], obj.get("receptionTypes"))
         rooms = from_union([lambda x: from_list(from_str, x), from_none], obj.get("rooms"))
-        showcase_items = from_union([lambda x: from_list(ShowcaseItem.from_dict, x), from_none], obj.get("showcaseItems"))
-        showcases = from_union([lambda x: from_list(TaxonomyShowcase.from_dict, x), from_none], obj.get("showcases"))
+        showcase_items = from_union([lambda x: from_list(FluffyShowcaseItem.from_dict, x), from_none], obj.get("showcaseItems"))
+        showcases = from_union([lambda x: from_list(FluffyTaxonomyShowcase.from_dict, x), from_none], obj.get("showcases"))
         showcase_taxonomy_id = from_union([from_str, from_none], obj.get("showcaseTaxonomyID"))
         site_id = from_union([from_str, from_none], obj.get("siteId"))
         special_cabinet = from_union([from_str, from_none], obj.get("specialCabinet"))
@@ -7830,17 +8450,17 @@ class BusinessTaxonomy:
         timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
         use_confirmation_sms_alert = from_union([from_bool, from_none], obj.get("useConfirmationSmsAlert"))
         visit_type = from_union([from_str, from_none], obj.get("visitType"))
-        return BusinessTaxonomy(active, additional_durations, additional_prices, additional_products, additional_taxonomy_extra_id, adjacent_same_time_start, adjacent_taxonomies, alias, allow_booking_in_bo, allow_next_booking_count, allow_next_booking_in_days, allow_next_booking_in_days_text, cabinets, cabinets_enabled, capacity, capacity_decrease, charge_units_step, children_taxonomy_types, color, confirmation_alert, confirmation_sms_alert, date_limits, date_limit_type, designs, discounts, display_in_widget, duration, exceptions, extra_description, extra_id, extra_link, for_pay, id, images, is_other, last_modified, leaves, manual_changes, new_taxonomy, online_mode, only_after_taxonomies, order, parallel_taxonomies, popularity, price, price_link, reception_types, rooms, showcase_items, showcases, showcase_taxonomy_id, site_id, special_cabinet, taxonomy_app_extra_id, taxonomy_category_extra_id, taxonomy_parent_id, taxonomy_type, timetable, use_confirmation_sms_alert, visit_type)
+        return FluffyBusinessTaxonomy(active, additional_durations, additional_prices, additional_products, additional_taxonomy_extra_id, adjacent_same_time_start, adjacent_taxonomies, alias, allow_booking_in_bo, allow_next_booking_count, allow_next_booking_in_days, allow_next_booking_in_days_text, cabinets, cabinets_enabled, capacity, capacity_decrease, charge_units_step, children_taxonomy_types, color, confirmation_alert, confirmation_sms_alert, date_limits, date_limit_type, designs, discounts, display_in_widget, duration, exceptions, extra_description, extra_id, extra_link, for_pay, id, images, is_other, last_modified, leaves, manual_changes, new_taxonomy, online_mode, only_after_taxonomies, order, parallel_taxonomies, popularity, price, price_link, reception_types, rooms, showcase_items, showcases, showcase_taxonomy_id, site_id, special_cabinet, taxonomy_app_extra_id, taxonomy_category_extra_id, taxonomy_parent_id, taxonomy_type, timetable, use_confirmation_sms_alert, visit_type)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["active"] = from_union([from_bool, from_none], self.active)
-        result["additionalDurations"] = from_union([lambda x: from_list(lambda x: to_class(AdditionalDuration, x), x), from_none], self.additional_durations)
-        result["additionalPrices"] = from_union([lambda x: from_list(lambda x: to_class(BusinessTaxonomyPrice, x), x), from_none], self.additional_prices)
-        result["additionalProducts"] = from_union([lambda x: from_list(lambda x: to_class(BusinessTaxonomyProduct, x), x), from_none], self.additional_products)
+        result["additionalDurations"] = from_union([lambda x: from_list(lambda x: to_class(TentacledAdditionalDuration, x), x), from_none], self.additional_durations)
+        result["additionalPrices"] = from_union([lambda x: from_list(lambda x: to_class(FluffyBusinessTaxonomyPrice, x), x), from_none], self.additional_prices)
+        result["additionalProducts"] = from_union([lambda x: from_list(lambda x: to_class(FluffyBusinessTaxonomyProduct, x), x), from_none], self.additional_products)
         result["additionalTaxonomyExtraId"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.additional_taxonomy_extra_id)
         result["adjacentSameTimeStart"] = from_union([from_bool, from_none], self.adjacent_same_time_start)
-        result["adjacentTaxonomies"] = from_union([lambda x: from_list(lambda x: to_class(AdjacentTaxonomy, x), x), from_none], self.adjacent_taxonomies)
+        result["adjacentTaxonomies"] = from_union([lambda x: from_list(lambda x: to_class(FluffyAdjacentTaxonomy, x), x), from_none], self.adjacent_taxonomies)
         result["alias"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.alias)
         result["allowBookingInBO"] = from_union([from_bool, from_none], self.allow_booking_in_bo)
         result["allowNextBookingCount"] = from_union([to_float, from_none], self.allow_next_booking_count)
@@ -7855,7 +8475,7 @@ class BusinessTaxonomy:
         result["color"] = from_union([from_str, from_none], self.color)
         result["confirmationAlert"] = from_union([from_str, from_none], self.confirmation_alert)
         result["confirmationSmsAlert"] = from_union([from_str, from_none], self.confirmation_sms_alert)
-        result["dateLimits"] = from_union([lambda x: from_list(lambda x: to_class(DateLimit, x), x), from_none], self.date_limits)
+        result["dateLimits"] = from_union([lambda x: from_list(lambda x: to_class(FluffyDateLimit, x), x), from_none], self.date_limits)
         result["dateLimitType"] = from_union([lambda x: to_enum(DateLimitType, x), from_none], self.date_limit_type)
         result["designs"] = from_union([lambda x: from_list(from_str, x), from_none], self.designs)
         result["discounts"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(DiscountClass, x)], self.discounts)
@@ -7878,12 +8498,12 @@ class BusinessTaxonomy:
         result["order"] = from_union([to_float, from_none], self.order)
         result["parallelTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.parallel_taxonomies)
         result["popularity"] = from_union([to_float, from_none], self.popularity)
-        result["price"] = from_union([lambda x: to_class(TaxonomyPrice, x), from_none], self.price)
+        result["price"] = from_union([lambda x: to_class(FluffyPrice, x), from_none], self.price)
         result["priceLink"] = from_union([from_str, from_none], self.price_link)
         result["receptionTypes"] = from_union([lambda x: from_list(from_str, x), from_none], self.reception_types)
         result["rooms"] = from_union([lambda x: from_list(from_str, x), from_none], self.rooms)
-        result["showcaseItems"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseItem, x), x), from_none], self.showcase_items)
-        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(TaxonomyShowcase, x), x), from_none], self.showcases)
+        result["showcaseItems"] = from_union([lambda x: from_list(lambda x: to_class(FluffyShowcaseItem, x), x), from_none], self.showcase_items)
+        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(FluffyTaxonomyShowcase, x), x), from_none], self.showcases)
         result["showcaseTaxonomyID"] = from_union([from_str, from_none], self.showcase_taxonomy_id)
         result["siteId"] = from_union([from_str, from_none], self.site_id)
         result["specialCabinet"] = from_union([from_str, from_none], self.special_cabinet)
@@ -8523,7 +9143,7 @@ class FluffyWidgetConfiguration:
         return result
 
 
-class AmbitiousBusiness:
+class HilariousBusiness:
     active: Optional[bool]
     additional_settings: Optional[FluffyAdditionalSettings]
     allow_category_booking: Optional[bool]
@@ -8547,9 +9167,9 @@ class AmbitiousBusiness:
     mini_widget_configuration: FluffyMiniWidgetConfiguration
     mobile_data: Optional[List[Any]]
     notifications: Optional[List[Any]]
-    resources: List[Union[List[Any], bool, ResourceResource, float, int, None, str]]
+    resources: List[Union[List[Any], bool, ResourceClass, float, int, None, str]]
     state_level_holidays_not_working: Optional[bool]
-    taxonomies: List[BusinessTaxonomy]
+    taxonomies: List[FluffyBusinessTaxonomy]
     taxonomies_complex: Optional[List[FluffyTaxonomiesComplex]]
     taxonomy_tree_capacity: Optional[List[Dict[str, Any]]]
     top_services: Optional[FluffyTopServices]
@@ -8557,7 +9177,7 @@ class AmbitiousBusiness:
     widget_configuration: FluffyWidgetConfiguration
     yandex_feed_type: Optional[str]
 
-    def __init__(self, active: Optional[bool], additional_settings: Optional[FluffyAdditionalSettings], allow_category_booking: Optional[bool], business_backoffice_configuration: Optional[StickyBackofficeConfiguration], backoffice_configuration: Optional[TentacledBackofficeConfiguration], backoffice_type: Optional[BackofficeType], cabinets: Optional[List[FluffyCabinet]], cabinets_enabled: Optional[bool], callback_widget_configuration: Optional[FluffyCallbackWidgetConfiguration], consumables: Optional[List[FluffyConsumable]], created_on: Optional[datetime], default_filtered_workers: Optional[List[str]], departments: Optional[List[FluffyDepartment]], designs: Optional[List[Dict[str, Any]]], extra_id: Optional[str], flat_taxonomy_display: Optional[bool], general_info: BusinessInfo, group: Optional[Group], id: Optional[str], integration_data: Optional[Dict[str, Any]], mini_widget_configuration: FluffyMiniWidgetConfiguration, mobile_data: Optional[List[Any]], notifications: Optional[List[Any]], resources: List[Union[List[Any], bool, ResourceResource, float, int, None, str]], state_level_holidays_not_working: Optional[bool], taxonomies: List[BusinessTaxonomy], taxonomies_complex: Optional[List[FluffyTaxonomiesComplex]], taxonomy_tree_capacity: Optional[List[Dict[str, Any]]], top_services: Optional[FluffyTopServices], vertical: Optional[str], widget_configuration: FluffyWidgetConfiguration, yandex_feed_type: Optional[str]) -> None:
+    def __init__(self, active: Optional[bool], additional_settings: Optional[FluffyAdditionalSettings], allow_category_booking: Optional[bool], business_backoffice_configuration: Optional[StickyBackofficeConfiguration], backoffice_configuration: Optional[TentacledBackofficeConfiguration], backoffice_type: Optional[BackofficeType], cabinets: Optional[List[FluffyCabinet]], cabinets_enabled: Optional[bool], callback_widget_configuration: Optional[FluffyCallbackWidgetConfiguration], consumables: Optional[List[FluffyConsumable]], created_on: Optional[datetime], default_filtered_workers: Optional[List[str]], departments: Optional[List[FluffyDepartment]], designs: Optional[List[Dict[str, Any]]], extra_id: Optional[str], flat_taxonomy_display: Optional[bool], general_info: BusinessInfo, group: Optional[Group], id: Optional[str], integration_data: Optional[Dict[str, Any]], mini_widget_configuration: FluffyMiniWidgetConfiguration, mobile_data: Optional[List[Any]], notifications: Optional[List[Any]], resources: List[Union[List[Any], bool, ResourceClass, float, int, None, str]], state_level_holidays_not_working: Optional[bool], taxonomies: List[FluffyBusinessTaxonomy], taxonomies_complex: Optional[List[FluffyTaxonomiesComplex]], taxonomy_tree_capacity: Optional[List[Dict[str, Any]]], top_services: Optional[FluffyTopServices], vertical: Optional[str], widget_configuration: FluffyWidgetConfiguration, yandex_feed_type: Optional[str]) -> None:
         self.active = active
         self.additional_settings = additional_settings
         self.allow_category_booking = allow_category_booking
@@ -8592,7 +9212,7 @@ class AmbitiousBusiness:
         self.yandex_feed_type = yandex_feed_type
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AmbitiousBusiness':
+    def from_dict(obj: Any) -> 'HilariousBusiness':
         assert isinstance(obj, dict)
         active = from_union([from_bool, from_none], obj.get("active"))
         additional_settings = from_union([FluffyAdditionalSettings.from_dict, from_none], obj.get("additionalSettings"))
@@ -8617,16 +9237,16 @@ class AmbitiousBusiness:
         mini_widget_configuration = FluffyMiniWidgetConfiguration.from_dict(obj.get("mini_widget_configuration"))
         mobile_data = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("mobileData"))
         notifications = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("notifications"))
-        resources = from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), ResourceResource.from_dict], x), obj.get("resources"))
+        resources = from_list(lambda x: from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), ResourceClass.from_dict], x), obj.get("resources"))
         state_level_holidays_not_working = from_union([from_bool, from_none], obj.get("stateLevelHolidaysNotWorking"))
-        taxonomies = from_list(BusinessTaxonomy.from_dict, obj.get("taxonomies"))
+        taxonomies = from_list(FluffyBusinessTaxonomy.from_dict, obj.get("taxonomies"))
         taxonomies_complex = from_union([lambda x: from_list(FluffyTaxonomiesComplex.from_dict, x), from_none], obj.get("taxonomiesComplex"))
         taxonomy_tree_capacity = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("taxonomy_tree_capacity"))
         top_services = from_union([FluffyTopServices.from_dict, from_none], obj.get("top_services"))
         vertical = from_union([from_str, from_none], obj.get("vertical"))
         widget_configuration = FluffyWidgetConfiguration.from_dict(obj.get("widget_configuration"))
         yandex_feed_type = from_union([from_str, from_none], obj.get("yandexFeedType"))
-        return AmbitiousBusiness(active, additional_settings, allow_category_booking, business_backoffice_configuration, backoffice_configuration, backoffice_type, cabinets, cabinets_enabled, callback_widget_configuration, consumables, created_on, default_filtered_workers, departments, designs, extra_id, flat_taxonomy_display, general_info, group, id, integration_data, mini_widget_configuration, mobile_data, notifications, resources, state_level_holidays_not_working, taxonomies, taxonomies_complex, taxonomy_tree_capacity, top_services, vertical, widget_configuration, yandex_feed_type)
+        return HilariousBusiness(active, additional_settings, allow_category_booking, business_backoffice_configuration, backoffice_configuration, backoffice_type, cabinets, cabinets_enabled, callback_widget_configuration, consumables, created_on, default_filtered_workers, departments, designs, extra_id, flat_taxonomy_display, general_info, group, id, integration_data, mini_widget_configuration, mobile_data, notifications, resources, state_level_holidays_not_working, taxonomies, taxonomies_complex, taxonomy_tree_capacity, top_services, vertical, widget_configuration, yandex_feed_type)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -8653,9 +9273,9 @@ class AmbitiousBusiness:
         result["mini_widget_configuration"] = to_class(FluffyMiniWidgetConfiguration, self.mini_widget_configuration)
         result["mobileData"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.mobile_data)
         result["notifications"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.notifications)
-        result["resources"] = from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(ResourceResource, x)], x), self.resources)
+        result["resources"] = from_list(lambda x: from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(ResourceClass, x)], x), self.resources)
         result["stateLevelHolidaysNotWorking"] = from_union([from_bool, from_none], self.state_level_holidays_not_working)
-        result["taxonomies"] = from_list(lambda x: to_class(BusinessTaxonomy, x), self.taxonomies)
+        result["taxonomies"] = from_list(lambda x: to_class(FluffyBusinessTaxonomy, x), self.taxonomies)
         result["taxonomiesComplex"] = from_union([lambda x: from_list(lambda x: to_class(FluffyTaxonomiesComplex, x), x), from_none], self.taxonomies_complex)
         result["taxonomy_tree_capacity"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.taxonomy_tree_capacity)
         result["top_services"] = from_union([lambda x: to_class(FluffyTopServices, x), from_none], self.top_services)
@@ -8871,7 +9491,7 @@ class YandexFeedType(Enum):
 class BusinessGetProfileByIDResponseResult:
     """данные, передаваемые в ответ"""
     active: Optional[bool]
-    business: Union[List[Any], bool, AmbitiousBusiness, float, int, None, str]
+    business: Union[List[Any], bool, HilariousBusiness, float, int, None, str]
     free_sms: Optional[float]
     monthly_free_sms: Optional[float]
     networks: Optional[List[NetworkElement]]
@@ -8880,7 +9500,7 @@ class BusinessGetProfileByIDResponseResult:
     use_default_sms_template: Optional[bool]
     yandex_feed_type: Optional[YandexFeedType]
 
-    def __init__(self, active: Optional[bool], business: Union[List[Any], bool, AmbitiousBusiness, float, int, None, str], free_sms: Optional[float], monthly_free_sms: Optional[float], networks: Optional[List[NetworkElement]], profiles: Optional[List[Dict[str, Any]]], top_services: Optional[ResultTopServices], use_default_sms_template: Optional[bool], yandex_feed_type: Optional[YandexFeedType]) -> None:
+    def __init__(self, active: Optional[bool], business: Union[List[Any], bool, HilariousBusiness, float, int, None, str], free_sms: Optional[float], monthly_free_sms: Optional[float], networks: Optional[List[NetworkElement]], profiles: Optional[List[Dict[str, Any]]], top_services: Optional[ResultTopServices], use_default_sms_template: Optional[bool], yandex_feed_type: Optional[YandexFeedType]) -> None:
         self.active = active
         self.business = business
         self.free_sms = free_sms
@@ -8895,7 +9515,7 @@ class BusinessGetProfileByIDResponseResult:
     def from_dict(obj: Any) -> 'BusinessGetProfileByIDResponseResult':
         assert isinstance(obj, dict)
         active = from_union([from_bool, from_none], obj.get("active"))
-        business = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AmbitiousBusiness.from_dict], obj.get("business"))
+        business = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), HilariousBusiness.from_dict], obj.get("business"))
         free_sms = from_union([from_float, from_none], obj.get("freeSms"))
         monthly_free_sms = from_union([from_float, from_none], obj.get("monthlyFreeSms"))
         networks = from_union([lambda x: from_list(NetworkElement.from_dict, x), from_none], obj.get("networks"))
@@ -8908,7 +9528,7 @@ class BusinessGetProfileByIDResponseResult:
     def to_dict(self) -> dict:
         result: dict = {}
         result["active"] = from_union([from_bool, from_none], self.active)
-        result["business"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AmbitiousBusiness, x)], self.business)
+        result["business"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(HilariousBusiness, x)], self.business)
         result["freeSms"] = from_union([to_float, from_none], self.free_sms)
         result["monthlyFreeSms"] = from_union([to_float, from_none], self.monthly_free_sms)
         result["networks"] = from_union([lambda x: from_list(lambda x: to_class(NetworkElement, x), x), from_none], self.networks)
@@ -8997,7 +9617,7 @@ class BusinessController:
         return result
 
 
-class CunningBusiness:
+class AmbitiousBusiness:
     """идентификатор бизнеса"""
     id: Union[float, str]
 
@@ -9005,10 +9625,10 @@ class CunningBusiness:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'CunningBusiness':
+    def from_dict(obj: Any) -> 'AmbitiousBusiness':
         assert isinstance(obj, dict)
         id = from_union([from_float, from_str], obj.get("id"))
-        return CunningBusiness(id)
+        return AmbitiousBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9083,7 +9703,7 @@ class ClientClass:
         return result
 
 
-class PurpleProfile:
+class ParamsProfile:
     """идентификатор профиля пользователя"""
     id: str
 
@@ -9091,10 +9711,10 @@ class PurpleProfile:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'PurpleProfile':
+    def from_dict(obj: Any) -> 'ParamsProfile':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return PurpleProfile(id)
+        return ParamsProfile(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9104,13 +9724,13 @@ class PurpleProfile:
 
 class ClientAddClientRequestParams:
     """параметры запроса"""
-    business: CunningBusiness
+    business: AmbitiousBusiness
     client: ClientClass
-    profile: Optional[PurpleProfile]
+    profile: Optional[ParamsProfile]
     skip_email_check: Optional[bool]
     skip_profile_update: Optional[bool]
 
-    def __init__(self, business: CunningBusiness, client: ClientClass, profile: Optional[PurpleProfile], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
+    def __init__(self, business: AmbitiousBusiness, client: ClientClass, profile: Optional[ParamsProfile], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
         self.business = business
         self.client = client
         self.profile = profile
@@ -9120,18 +9740,18 @@ class ClientAddClientRequestParams:
     @staticmethod
     def from_dict(obj: Any) -> 'ClientAddClientRequestParams':
         assert isinstance(obj, dict)
-        business = CunningBusiness.from_dict(obj.get("business"))
+        business = AmbitiousBusiness.from_dict(obj.get("business"))
         client = ClientClass.from_dict(obj.get("client"))
-        profile = from_union([PurpleProfile.from_dict, from_none], obj.get("profile"))
+        profile = from_union([ParamsProfile.from_dict, from_none], obj.get("profile"))
         skip_email_check = from_union([from_bool, from_none], obj.get("skipEmailCheck"))
         skip_profile_update = from_union([from_bool, from_none], obj.get("skipProfileUpdate"))
         return ClientAddClientRequestParams(business, client, profile, skip_email_check, skip_profile_update)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(CunningBusiness, self.business)
+        result["business"] = to_class(AmbitiousBusiness, self.business)
         result["client"] = to_class(ClientClass, self.client)
-        result["profile"] = from_union([lambda x: to_class(PurpleProfile, x), from_none], self.profile)
+        result["profile"] = from_union([lambda x: to_class(ParamsProfile, x), from_none], self.profile)
         result["skipEmailCheck"] = from_union([from_bool, from_none], self.skip_email_check)
         result["skipProfileUpdate"] = from_union([from_bool, from_none], self.skip_profile_update)
         return result
@@ -9212,17 +9832,17 @@ class ClientAddClientResponseError:
         return result
 
 
-class MagentaBusiness:
+class CunningBusiness:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'MagentaBusiness':
+    def from_dict(obj: Any) -> 'CunningBusiness':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return MagentaBusiness(id)
+        return CunningBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9230,17 +9850,17 @@ class MagentaBusiness:
         return result
 
 
-class FluffyProfile:
+class PurpleProfile:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'FluffyProfile':
+    def from_dict(obj: Any) -> 'PurpleProfile':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return FluffyProfile(id)
+        return PurpleProfile(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9249,12 +9869,12 @@ class FluffyProfile:
 
 
 class ClientAddClientResponseResult:
-    business: Optional[MagentaBusiness]
+    business: Optional[CunningBusiness]
     client: ClientClass
     documents: Optional[List[Any]]
-    profile: Optional[FluffyProfile]
+    profile: Optional[PurpleProfile]
 
-    def __init__(self, business: Optional[MagentaBusiness], client: ClientClass, documents: Optional[List[Any]], profile: Optional[FluffyProfile]) -> None:
+    def __init__(self, business: Optional[CunningBusiness], client: ClientClass, documents: Optional[List[Any]], profile: Optional[PurpleProfile]) -> None:
         self.business = business
         self.client = client
         self.documents = documents
@@ -9263,18 +9883,18 @@ class ClientAddClientResponseResult:
     @staticmethod
     def from_dict(obj: Any) -> 'ClientAddClientResponseResult':
         assert isinstance(obj, dict)
-        business = from_union([MagentaBusiness.from_dict, from_none], obj.get("business"))
+        business = from_union([CunningBusiness.from_dict, from_none], obj.get("business"))
         client = ClientClass.from_dict(obj.get("client"))
         documents = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("documents"))
-        profile = from_union([FluffyProfile.from_dict, from_none], obj.get("profile"))
+        profile = from_union([PurpleProfile.from_dict, from_none], obj.get("profile"))
         return ClientAddClientResponseResult(business, client, documents, profile)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = from_union([lambda x: to_class(MagentaBusiness, x), from_none], self.business)
+        result["business"] = from_union([lambda x: to_class(CunningBusiness, x), from_none], self.business)
         result["client"] = to_class(ClientClass, self.client)
         result["documents"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.documents)
-        result["profile"] = from_union([lambda x: to_class(FluffyProfile, x), from_none], self.profile)
+        result["profile"] = from_union([lambda x: to_class(PurpleProfile, x), from_none], self.profile)
         return result
 
 
@@ -9333,7 +9953,7 @@ class AddClient:
         return result
 
 
-class FriskyBusiness:
+class MagentaBusiness:
     """идентификатор бизнеса"""
     id: Union[float, str]
 
@@ -9341,10 +9961,10 @@ class FriskyBusiness:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'FriskyBusiness':
+    def from_dict(obj: Any) -> 'MagentaBusiness':
         assert isinstance(obj, dict)
         id = from_union([from_float, from_str], obj.get("id"))
-        return FriskyBusiness(id)
+        return MagentaBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9352,55 +9972,51 @@ class FriskyBusiness:
         return result
 
 
-class TentacledProfile:
-    """идентификатор профиля пользователя"""
-    id: str
+class FluffyNetwork:
+    """идентификатор нетворка"""
+    id: Union[float, str]
 
-    def __init__(self, id: str) -> None:
+    def __init__(self, id: Union[float, str]) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TentacledProfile':
+    def from_dict(obj: Any) -> 'FluffyNetwork':
         assert isinstance(obj, dict)
-        id = from_str(obj.get("id"))
-        return TentacledProfile(id)
+        id = from_union([from_float, from_str], obj.get("id"))
+        return FluffyNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_str(self.id)
+        result["id"] = from_union([to_float, from_str], self.id)
         return result
 
 
 class ClientFindOrCreateClientRequestParams:
     """параметры запроса"""
-    business: FriskyBusiness
-    client: ClientClass
-    profile: Optional[TentacledProfile]
+    business: MagentaBusiness
+    network: Optional[FluffyNetwork]
     skip_email_check: Optional[bool]
     skip_profile_update: Optional[bool]
 
-    def __init__(self, business: FriskyBusiness, client: ClientClass, profile: Optional[TentacledProfile], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
+    def __init__(self, business: MagentaBusiness, network: Optional[FluffyNetwork], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
         self.business = business
-        self.client = client
-        self.profile = profile
+        self.network = network
         self.skip_email_check = skip_email_check
         self.skip_profile_update = skip_profile_update
 
     @staticmethod
     def from_dict(obj: Any) -> 'ClientFindOrCreateClientRequestParams':
         assert isinstance(obj, dict)
-        business = FriskyBusiness.from_dict(obj.get("business"))
-        client = ClientClass.from_dict(obj.get("client"))
-        profile = from_union([TentacledProfile.from_dict, from_none], obj.get("profile"))
+        business = MagentaBusiness.from_dict(obj.get("business"))
+        network = from_union([FluffyNetwork.from_dict, from_none], obj.get("network"))
         skip_email_check = from_union([from_bool, from_none], obj.get("skipEmailCheck"))
         skip_profile_update = from_union([from_bool, from_none], obj.get("skipProfileUpdate"))
-        return ClientFindOrCreateClientRequestParams(business, client, profile, skip_email_check, skip_profile_update)
+        return ClientFindOrCreateClientRequestParams(business, network, skip_email_check, skip_profile_update)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(FriskyBusiness, self.business)
-        result["client"] = to_class(ClientClass, self.client)
-        result["profile"] = from_union([lambda x: to_class(TentacledProfile, x), from_none], self.profile)
+        result["business"] = to_class(MagentaBusiness, self.business)
+        result["network"] = from_union([lambda x: to_class(FluffyNetwork, x), from_none], self.network)
         result["skipEmailCheck"] = from_union([from_bool, from_none], self.skip_email_check)
         result["skipProfileUpdate"] = from_union([from_bool, from_none], self.skip_profile_update)
         return result
@@ -9481,17 +10097,17 @@ class ClientFindOfCreateClientResponseError:
         return result
 
 
-class MischievousBusiness:
+class FriskyBusiness:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'MischievousBusiness':
+    def from_dict(obj: Any) -> 'FriskyBusiness':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return MischievousBusiness(id)
+        return FriskyBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9499,17 +10115,17 @@ class MischievousBusiness:
         return result
 
 
-class StickyProfile:
+class FluffyProfile:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'StickyProfile':
+    def from_dict(obj: Any) -> 'FluffyProfile':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return StickyProfile(id)
+        return FluffyProfile(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9518,12 +10134,12 @@ class StickyProfile:
 
 
 class ClientFindOfCreateClientResponseResult:
-    business: Optional[MischievousBusiness]
+    business: Optional[FriskyBusiness]
     client: ClientClass
     documents: Optional[List[Any]]
-    profile: Optional[StickyProfile]
+    profile: Optional[FluffyProfile]
 
-    def __init__(self, business: Optional[MischievousBusiness], client: ClientClass, documents: Optional[List[Any]], profile: Optional[StickyProfile]) -> None:
+    def __init__(self, business: Optional[FriskyBusiness], client: ClientClass, documents: Optional[List[Any]], profile: Optional[FluffyProfile]) -> None:
         self.business = business
         self.client = client
         self.documents = documents
@@ -9532,18 +10148,18 @@ class ClientFindOfCreateClientResponseResult:
     @staticmethod
     def from_dict(obj: Any) -> 'ClientFindOfCreateClientResponseResult':
         assert isinstance(obj, dict)
-        business = from_union([MischievousBusiness.from_dict, from_none], obj.get("business"))
+        business = from_union([FriskyBusiness.from_dict, from_none], obj.get("business"))
         client = ClientClass.from_dict(obj.get("client"))
         documents = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("documents"))
-        profile = from_union([StickyProfile.from_dict, from_none], obj.get("profile"))
+        profile = from_union([FluffyProfile.from_dict, from_none], obj.get("profile"))
         return ClientFindOfCreateClientResponseResult(business, client, documents, profile)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = from_union([lambda x: to_class(MischievousBusiness, x), from_none], self.business)
+        result["business"] = from_union([lambda x: to_class(FriskyBusiness, x), from_none], self.business)
         result["client"] = to_class(ClientClass, self.client)
         result["documents"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.documents)
-        result["profile"] = from_union([lambda x: to_class(StickyProfile, x), from_none], self.profile)
+        result["profile"] = from_union([lambda x: to_class(FluffyProfile, x), from_none], self.profile)
         return result
 
 
@@ -9624,17 +10240,17 @@ class ClientController:
         return result
 
 
-class BraggadociousBusiness:
+class MischievousBusiness:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'BraggadociousBusiness':
+    def from_dict(obj: Any) -> 'MischievousBusiness':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return BraggadociousBusiness(id)
+        return MischievousBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9642,17 +10258,17 @@ class BraggadociousBusiness:
         return result
 
 
-class PurpleTaxonomy:
+class TentacledTaxonomy:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'PurpleTaxonomy':
+    def from_dict(obj: Any) -> 'TentacledTaxonomy':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return PurpleTaxonomy(id)
+        return TentacledTaxonomy(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9661,11 +10277,11 @@ class PurpleTaxonomy:
 
 
 class CracCRACDistributedResourcesFreeByDateRequestParam:
-    business: BraggadociousBusiness
+    business: MischievousBusiness
     resources: List[str]
-    taxonomy: PurpleTaxonomy
+    taxonomy: TentacledTaxonomy
 
-    def __init__(self, business: BraggadociousBusiness, resources: List[str], taxonomy: PurpleTaxonomy) -> None:
+    def __init__(self, business: MischievousBusiness, resources: List[str], taxonomy: TentacledTaxonomy) -> None:
         self.business = business
         self.resources = resources
         self.taxonomy = taxonomy
@@ -9673,16 +10289,16 @@ class CracCRACDistributedResourcesFreeByDateRequestParam:
     @staticmethod
     def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateRequestParam':
         assert isinstance(obj, dict)
-        business = BraggadociousBusiness.from_dict(obj.get("business"))
+        business = MischievousBusiness.from_dict(obj.get("business"))
         resources = from_list(from_str, obj.get("resources"))
-        taxonomy = PurpleTaxonomy.from_dict(obj.get("taxonomy"))
+        taxonomy = TentacledTaxonomy.from_dict(obj.get("taxonomy"))
         return CracCRACDistributedResourcesFreeByDateRequestParam(business, resources, taxonomy)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(BraggadociousBusiness, self.business)
+        result["business"] = to_class(MischievousBusiness, self.business)
         result["resources"] = from_list(from_str, self.resources)
-        result["taxonomy"] = to_class(PurpleTaxonomy, self.taxonomy)
+        result["taxonomy"] = to_class(TentacledTaxonomy, self.taxonomy)
         return result
 
 
@@ -9861,17 +10477,17 @@ class CRACDistributedResourcesFreeByDate:
         return result
 
 
-class FluffyTaxonomy:
+class StickyTaxonomy:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'FluffyTaxonomy':
+    def from_dict(obj: Any) -> 'StickyTaxonomy':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return FluffyTaxonomy(id)
+        return StickyTaxonomy(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9882,9 +10498,9 @@ class FluffyTaxonomy:
 class CracCRACResourcesFreeByDateRequestParam:
     duration: float
     resources: List[str]
-    taxonomy: FluffyTaxonomy
+    taxonomy: StickyTaxonomy
 
-    def __init__(self, duration: float, resources: List[str], taxonomy: FluffyTaxonomy) -> None:
+    def __init__(self, duration: float, resources: List[str], taxonomy: StickyTaxonomy) -> None:
         self.duration = duration
         self.resources = resources
         self.taxonomy = taxonomy
@@ -9894,14 +10510,14 @@ class CracCRACResourcesFreeByDateRequestParam:
         assert isinstance(obj, dict)
         duration = from_float(obj.get("duration"))
         resources = from_list(from_str, obj.get("resources"))
-        taxonomy = FluffyTaxonomy.from_dict(obj.get("taxonomy"))
+        taxonomy = StickyTaxonomy.from_dict(obj.get("taxonomy"))
         return CracCRACResourcesFreeByDateRequestParam(duration, resources, taxonomy)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["duration"] = to_float(self.duration)
         result["resources"] = from_list(from_str, self.resources)
-        result["taxonomy"] = to_class(FluffyTaxonomy, self.taxonomy)
+        result["taxonomy"] = to_class(StickyTaxonomy, self.taxonomy)
         return result
 
 
@@ -10080,17 +10696,17 @@ class CRACResourcesFreeByDate:
         return result
 
 
-class Business1:
+class BraggadociousBusiness:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Business1':
+    def from_dict(obj: Any) -> 'BraggadociousBusiness':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return Business1(id)
+        return BraggadociousBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -10098,17 +10714,17 @@ class Business1:
         return result
 
 
-class TentacledTaxonomy:
+class IndigoTaxonomy:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TentacledTaxonomy':
+    def from_dict(obj: Any) -> 'IndigoTaxonomy':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return TentacledTaxonomy(id)
+        return IndigoTaxonomy(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -10117,13 +10733,13 @@ class TentacledTaxonomy:
 
 
 class CracCRACResourcesFreeByDateV2RequestParam:
-    business: Business1
+    business: BraggadociousBusiness
     duration: float
     durations: List[float]
     resources: List[str]
-    taxonomy: TentacledTaxonomy
+    taxonomy: IndigoTaxonomy
 
-    def __init__(self, business: Business1, duration: float, durations: List[float], resources: List[str], taxonomy: TentacledTaxonomy) -> None:
+    def __init__(self, business: BraggadociousBusiness, duration: float, durations: List[float], resources: List[str], taxonomy: IndigoTaxonomy) -> None:
         self.business = business
         self.duration = duration
         self.durations = durations
@@ -10133,20 +10749,20 @@ class CracCRACResourcesFreeByDateV2RequestParam:
     @staticmethod
     def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2RequestParam':
         assert isinstance(obj, dict)
-        business = Business1.from_dict(obj.get("business"))
+        business = BraggadociousBusiness.from_dict(obj.get("business"))
         duration = from_float(obj.get("duration"))
         durations = from_list(from_float, obj.get("durations"))
         resources = from_list(from_str, obj.get("resources"))
-        taxonomy = TentacledTaxonomy.from_dict(obj.get("taxonomy"))
+        taxonomy = IndigoTaxonomy.from_dict(obj.get("taxonomy"))
         return CracCRACResourcesFreeByDateV2RequestParam(business, duration, durations, resources, taxonomy)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(Business1, self.business)
+        result["business"] = to_class(BraggadociousBusiness, self.business)
         result["duration"] = to_float(self.duration)
         result["durations"] = from_list(to_float, self.durations)
         result["resources"] = from_list(from_str, self.resources)
-        result["taxonomy"] = to_class(TentacledTaxonomy, self.taxonomy)
+        result["taxonomy"] = to_class(IndigoTaxonomy, self.taxonomy)
         return result
 
 
@@ -10365,7 +10981,7 @@ class TentacledWidgetConfiguration:
         return result
 
 
-class Business2:
+class Business1:
     general_info: PurpleGeneralInfo
     id: str
     widget_configuration: TentacledWidgetConfiguration
@@ -10376,12 +10992,12 @@ class Business2:
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Business2':
+    def from_dict(obj: Any) -> 'Business1':
         assert isinstance(obj, dict)
         general_info = PurpleGeneralInfo.from_dict(obj.get("general_info"))
         id = from_str(obj.get("id"))
         widget_configuration = TentacledWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return Business2(general_info, id, widget_configuration)
+        return Business1(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -10487,23 +11103,23 @@ class PurpleFilters:
 
 class CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: Business2
+    business: Business1
     filters: PurpleFilters
 
-    def __init__(self, business: Business2, filters: PurpleFilters) -> None:
+    def __init__(self, business: Business1, filters: PurpleFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = Business2.from_dict(obj.get("business"))
+        business = Business1.from_dict(obj.get("business"))
         filters = PurpleFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(Business2, self.business)
+        result["business"] = to_class(Business1, self.business)
         result["filters"] = to_class(PurpleFilters, self.filters)
         return result
 
@@ -10719,7 +11335,7 @@ class StickyWidgetConfiguration:
         return result
 
 
-class Business3:
+class Business2:
     general_info: FluffyGeneralInfo
     id: str
     widget_configuration: StickyWidgetConfiguration
@@ -10730,12 +11346,12 @@ class Business3:
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Business3':
+    def from_dict(obj: Any) -> 'Business2':
         assert isinstance(obj, dict)
         general_info = FluffyGeneralInfo.from_dict(obj.get("general_info"))
         id = from_str(obj.get("id"))
         widget_configuration = StickyWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return Business3(general_info, id, widget_configuration)
+        return Business2(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -10822,23 +11438,23 @@ class FluffyFilters:
 
 class CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: Business3
+    business: Business2
     filters: FluffyFilters
 
-    def __init__(self, business: Business3, filters: FluffyFilters) -> None:
+    def __init__(self, business: Business2, filters: FluffyFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = Business3.from_dict(obj.get("business"))
+        business = Business2.from_dict(obj.get("business"))
         filters = FluffyFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(Business3, self.business)
+        result["business"] = to_class(Business2, self.business)
         result["filters"] = to_class(FluffyFilters, self.filters)
         return result
 
@@ -11054,7 +11670,7 @@ class IndigoWidgetConfiguration:
         return result
 
 
-class Business4:
+class Business3:
     general_info: TentacledGeneralInfo
     id: str
     widget_configuration: IndigoWidgetConfiguration
@@ -11065,12 +11681,12 @@ class Business4:
         self.widget_configuration = widget_configuration
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Business4':
+    def from_dict(obj: Any) -> 'Business3':
         assert isinstance(obj, dict)
         general_info = TentacledGeneralInfo.from_dict(obj.get("general_info"))
         id = from_str(obj.get("id"))
         widget_configuration = IndigoWidgetConfiguration.from_dict(obj.get("widget_configuration"))
-        return Business4(general_info, id, widget_configuration)
+        return Business3(general_info, id, widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -11157,23 +11773,23 @@ class TentacledFilters:
 
 class CracSlotsGetCRACResourcesAndRoomsRequestParams:
     """параметры запроса"""
-    business: Business4
+    business: Business3
     filters: TentacledFilters
 
-    def __init__(self, business: Business4, filters: TentacledFilters) -> None:
+    def __init__(self, business: Business3, filters: TentacledFilters) -> None:
         self.business = business
         self.filters = filters
 
     @staticmethod
     def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsRequestParams':
         assert isinstance(obj, dict)
-        business = Business4.from_dict(obj.get("business"))
+        business = Business3.from_dict(obj.get("business"))
         filters = TentacledFilters.from_dict(obj.get("filters"))
         return CracSlotsGetCRACResourcesAndRoomsRequestParams(business, filters)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(Business4, self.business)
+        result["business"] = to_class(Business3, self.business)
         result["filters"] = to_class(TentacledFilters, self.filters)
         return result
 
@@ -11419,10 +12035,10 @@ class Controllers:
 
 class Models:
     appointment: Union[List[Any], bool, AppointmentSchema, float, int, None, str]
-    business: Union[List[Any], bool, AmbitiousBusiness, float, int, None, str]
+    business: Union[List[Any], bool, HilariousBusiness, float, int, None, str]
     client: ClientClass
 
-    def __init__(self, appointment: Union[List[Any], bool, AppointmentSchema, float, int, None, str], business: Union[List[Any], bool, AmbitiousBusiness, float, int, None, str], client: ClientClass) -> None:
+    def __init__(self, appointment: Union[List[Any], bool, AppointmentSchema, float, int, None, str], business: Union[List[Any], bool, HilariousBusiness, float, int, None, str], client: ClientClass) -> None:
         self.appointment = appointment
         self.business = business
         self.client = client
@@ -11431,14 +12047,14 @@ class Models:
     def from_dict(obj: Any) -> 'Models':
         assert isinstance(obj, dict)
         appointment = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AppointmentSchema.from_dict], obj.get("Appointment"))
-        business = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), AmbitiousBusiness.from_dict], obj.get("Business"))
+        business = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), HilariousBusiness.from_dict], obj.get("Business"))
         client = ClientClass.from_dict(obj.get("Client"))
         return Models(appointment, business, client)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["Appointment"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AppointmentSchema, x)], self.appointment)
-        result["Business"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(AmbitiousBusiness, x)], self.business)
+        result["Business"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(HilariousBusiness, x)], self.business)
         result["Client"] = to_class(ClientClass, self.client)
         return result
 

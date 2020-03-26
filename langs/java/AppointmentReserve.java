@@ -7,9 +7,9 @@ public class AppointmentReserve {
     private IndigoAppointment appointment;
     private StickyBusiness business;
     private String originBusinessID;
-    private ResourceClass resource;
+    private PurpleResource resource;
     private String source;
-    private ParamsTaxonomy taxonomy;
+    private PurpleTaxonomy taxonomy;
 
     @JsonProperty("appointment")
     public IndigoAppointment getAppointment() { return appointment; }
@@ -27,9 +27,9 @@ public class AppointmentReserve {
     public void setOriginBusinessID(String value) { this.originBusinessID = value; }
 
     @JsonProperty("resource")
-    public ResourceClass getResource() { return resource; }
+    public PurpleResource getResource() { return resource; }
     @JsonProperty("resource")
-    public void setResource(ResourceClass value) { this.resource = value; }
+    public void setResource(PurpleResource value) { this.resource = value; }
 
     @JsonProperty("source")
     public String getSource() { return source; }
@@ -37,7 +37,7 @@ public class AppointmentReserve {
     public void setSource(String value) { this.source = value; }
 
     @JsonProperty("taxonomy")
-    public ParamsTaxonomy getTaxonomy() { return taxonomy; }
+    public PurpleTaxonomy getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
-    public void setTaxonomy(ParamsTaxonomy value) { this.taxonomy = value; }
+    public void setTaxonomy(PurpleTaxonomy value) { this.taxonomy = value; }
 }

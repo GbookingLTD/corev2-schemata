@@ -33,6 +33,7 @@ schemas-json/controllers/client/update_client.request.schema.json
 | ---------- | ------ | ------------ |
 | `business` | object | **Required** |
 | `client`   |        | **Required** |
+| `network`  | object | Optional     |
 
 #### business
 
@@ -80,6 +81,42 @@ Unknown type `string,number`.
 ##### client Type
 
 - []() – `../../models/client.schema.json`
+
+#### network
+
+`network`
+
+- is optional
+- type: `object`
+
+##### network Type
+
+`object` with following properties:
+
+| Property | Type          | Required |
+| -------- | ------------- | -------- |
+| `id`     | string,number | Optional |
+
+#### id
+
+идентификатор нетворка
+
+`id`
+
+- is optional
+- type: multiple
+
+##### id Type
+
+Unknown type `string,number`.
+
+```json
+{
+  "type": ["string", "number"],
+  "description": "идентификатор нетворка",
+  "simpletype": "multiple"
+}
+```
 
 **All** of the following _requirements_ need to be fulfilled.
 

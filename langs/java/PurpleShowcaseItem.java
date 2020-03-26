@@ -3,9 +3,9 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class ShowcaseItem {
+public class PurpleShowcaseItem {
     private String id;
-    private List<ShowcaseItemAdditionalDuration> additionalDurations;
+    private List<FluffyAdditionalDuration> additionalDurations;
     private String businessID;
     private List<String> receptionTypes;
     private String taxonomyID;
@@ -16,9 +16,9 @@ public class ShowcaseItem {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("additionalDurations")
-    public List<ShowcaseItemAdditionalDuration> getAdditionalDurations() { return additionalDurations; }
+    public List<FluffyAdditionalDuration> getAdditionalDurations() { return additionalDurations; }
     @JsonProperty("additionalDurations")
-    public void setAdditionalDurations(List<ShowcaseItemAdditionalDuration> value) { this.additionalDurations = value; }
+    public void setAdditionalDurations(List<FluffyAdditionalDuration> value) { this.additionalDurations = value; }
 
     @JsonProperty("businessID")
     public String getBusinessID() { return businessID; }

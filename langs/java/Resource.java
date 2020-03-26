@@ -18,7 +18,7 @@ public class Resource {
     public Boolean boolValue;
     public String stringValue;
     public List<Object> anythingArrayValue;
-    public ResourceResource resourceResourceValue;
+    public ResourceClass resourceClassValue;
 
     static class Deserializer extends JsonDeserializer<Resource> {
         @Override
@@ -44,7 +44,7 @@ public class Resource {
                 value.anythingArrayValue = jsonParser.readValueAs(new TypeReference<List<Object>>() {});
                 break;
             case START_OBJECT:
-                value.resourceResourceValue = jsonParser.readValueAs(ResourceResource.class);
+                value.resourceClassValue = jsonParser.readValueAs(ResourceClass.class);
                 break;
             default: throw new IOException("Cannot deserialize Resource");
             }
@@ -75,8 +75,8 @@ public class Resource {
                 jsonGenerator.writeObject(obj.anythingArrayValue);
                 return;
             }
-            if (obj.resourceResourceValue != null) {
-                jsonGenerator.writeObject(obj.resourceResourceValue);
+            if (obj.resourceClassValue != null) {
+                jsonGenerator.writeObject(obj.resourceClassValue);
                 return;
             }
             jsonGenerator.writeNull();

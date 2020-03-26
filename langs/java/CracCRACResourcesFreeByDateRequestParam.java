@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 public class CracCRACResourcesFreeByDateRequestParam {
     private double duration;
     private List<String> resources;
-    private FluffyTaxonomy taxonomy;
+    private StickyTaxonomy taxonomy;
 
     @JsonProperty("duration")
     public double getDuration() { return duration; }
@@ -19,7 +19,7 @@ public class CracCRACResourcesFreeByDateRequestParam {
     public void setResources(List<String> value) { this.resources = value; }
 
     @JsonProperty("taxonomy")
-    public FluffyTaxonomy getTaxonomy() { return taxonomy; }
+    public StickyTaxonomy getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
-    public void setTaxonomy(FluffyTaxonomy value) { this.taxonomy = value; }
+    public void setTaxonomy(StickyTaxonomy value) { this.taxonomy = value; }
 }

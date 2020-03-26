@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class DateLimit {
+public class FluffyDateLimit {
     private String id;
     private String dateLimitFrom;
     private String dateLimitTo;

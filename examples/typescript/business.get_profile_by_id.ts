@@ -1,10 +1,10 @@
-import * as GBookingCoreV2API from '../../langs/typescript/GBookingCoreV2';
+import * as GBookingCoreV2 from '../../langs/typescript/GBookingCoreV2';
 
 const fetch = require('node-fetch');
 
 let jsonRpcCounter = 1;
 
-let params: GBookingCoreV2API.BusinessGetProfileByIdRequestParams = {
+let params: GBookingCoreV2.BusinessGetProfileByIdRequestParams = {
     business: {
         id: "4000000003543"
     }
@@ -16,7 +16,7 @@ let params: GBookingCoreV2API.BusinessGetProfileByIdRequestParams = {
 // В случае общей логики запроса/обработчика ответа уместно использовать общий интерфейс.
 // В случае логики, связанной с конкретным запросом уместно использовать интерфейс этого запроса/ответа.
 
-let req: GBookingCoreV2API.RequestClass = {
+let req: GBookingCoreV2.RequestClass = {
     jsonrpc: "2.0",
     id: jsonRpcCounter++,
     method: "business.get_profile_by_id",
@@ -28,19 +28,19 @@ fetch(process.env.ENDPOINT, {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: GBookingCoreV2API.Convert.businessGetProfileByIdRequestToJson(req as GBookingCoreV2API.BusinessGetProfileByIdRequest)
+    body: GBookingCoreV2.Convert.businessGetProfileByIdRequestToJson(req as GBookingCoreV2.BusinessGetProfileByIdRequest)
 })
     .then(res => res.text())
     .then(json => {
         // console.info("json %s", json);
-        return GBookingCoreV2API.Convert.toBusinessGetProfileByIdResponse(json)
+        return GBookingCoreV2.Convert.toBusinessGetProfileByIdResponse(json)
     })
-    .then((res: GBookingCoreV2API.BusinessGetProfileByIdResponse) => {
+    .then((res: GBookingCoreV2.BusinessGetProfileByIdResponse) => {
         if (res.error) {
             console.error("error #%s %s", res.error.code, res.error.message);
             return;
         }
 
-        const business = res.result.business as GBookingCoreV2API.StickyBusiness;
+        const business = res.result.business as GBookingCoreV2.StickyBusiness;
         console.info("business %d %s", business.id, business.general_info.name);
     });

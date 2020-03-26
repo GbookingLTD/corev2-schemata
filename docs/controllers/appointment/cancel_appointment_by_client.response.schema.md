@@ -58,6 +58,12 @@ The value of this property **must** be equal to one of the [known values below](
 | -------- | ------------------------------------------------------ |
 | `-10000` | UNKNOWN_ERROR - Unknown error occurred                 |
 | `-10200` | BUSINESS_RETRIEVE_FAILED - Failed to retrieve business |
+| `-14308` | APPOINTMENT_MIS_CONFIRM_FAILED                         |
+| `-14309` | APPOINTMENT_MIS_RESERVE_FAILED                         |
+| `-14310` | APPOINTMENT_MIS_CONFIRM_CLEINT_DUPLICATE_RECORD_ERROR  |
+| `-14311` | APPOINTMENT_MIS_CONFIRM_CLEINT_NOT_FOUND               |
+| `-14312` | APPOINTMENT_MIS_UPDATE_FATAL_ERROR                     |
+| `-14313` | APPOINTMENT_MIS_UPDATE_FAIL                            |
 
 ## id
 

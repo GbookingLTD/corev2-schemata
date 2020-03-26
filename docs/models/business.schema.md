@@ -167,6 +167,8 @@ schemas-json/models/business.schema.json
 | [rooms](#rooms)                                                                                     | `string[]` | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [schduleWeekViewIsDefault](#schduleweekviewisdefault)                                               | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [scheduleDefaultWorkersLimit](#scheduledefaultworkerslimit)                                         | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleDefaultWorkersLimitDay](#scheduledefaultworkerslimitday)                                   | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleDefaultWorkersLimitWeek](#scheduledefaultworkerslimitweek)                                 | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [scheduleWorkerHours](#scheduleworkerhours)                                                         | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [schedulerWeekViewType](#schedulerweekviewtype)                                                     | `enum`     | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [shortLink](#shortlink)                                                                             | `string`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
@@ -2423,6 +2425,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `yandexMoney`     |             |
 | `deltaProcessing` |             |
 | `cloudpayments`   |             |
+| `pelecard`        |             |
 | `DISABLE`         |             |
 
 ## popularity
@@ -2629,6 +2632,30 @@ All items must be of the type: `string`
 ### scheduleDefaultWorkersLimit Type
 
 `number`
+
+## scheduleDefaultWorkersLimitDay
+
+`scheduleDefaultWorkersLimitDay`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### scheduleDefaultWorkersLimitDay Type
+
+`number`, nullable
+
+## scheduleDefaultWorkersLimitWeek
+
+`scheduleDefaultWorkersLimitWeek`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### scheduleDefaultWorkersLimitWeek Type
+
+`number`, nullable
 
 ## scheduleWorkerHours
 
@@ -4510,107 +4537,109 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property                                          | Type       | Required | Default     |
-| ------------------------------------------------- | ---------- | -------- | ----------- |
-| `adjacentTaxonomiesTreshold`                      | number     | Optional | `0`         |
-| `allowHideServiceForBooking`                      | boolean    | Optional | `false`     |
-| `allowHideWorkersFromSchdeule`                    | boolean    | Optional | `false`     |
-| `allowSmsTranslit`                                | boolean    | Optional | `false`     |
-| `appointmentFutureMoving`                         | boolean    | Optional | `false`     |
-| `blockNotificationForAnyAvailableAdjacentService` | boolean    | Optional | `false`     |
-| `cabinetsEnabled`                                 | boolean    | Optional | `false`     |
-| `checkClientOverlapping`                          | boolean    | Optional | `false`     |
-| `customOnlinePaymentConfirmationTemplate`         | string     | Optional | `false`     |
-| `defaultGTScheduleDayView`                        | boolean    | Optional | `false`     |
-| `disableAppointmentClientInlineEditor`            | boolean    | Optional | `false`     |
-| `editAppExtraId`                                  | boolean    | Optional | `false`     |
-| `editTaxonomyChildren`                            | boolean    | Optional | `false`     |
-| `editTaxonomyVisitType`                           | boolean    | Optional | `false`     |
-| `enableBlackList`                                 | boolean    | Optional | `false`     |
-| `enableCalculateShedule`                          | boolean    | Optional | `false`     |
-| `enableClientCard`                                | boolean    | Optional | `false`     |
-| `enableClientLanguage`                            | boolean    | Optional | `false`     |
-| `enableClientMedicalCardReport`                   | boolean    | Optional | `false`     |
-| `enableCustomOnlinePaymentConfirmation`           | boolean    | Optional | `false`     |
-| `enableExtendedPhone`                             | boolean    | Optional | `false`     |
-| `enableExtendedRecordsClientStatistics`           | boolean    | Optional | `false`     |
-| `enableMasterImportance`                          | boolean    | Optional | `false`     |
-| `enableServiceTimeLimit`                          | boolean    | Optional | `false`     |
-| `enableSourceChoice`                              | boolean    | Optional | `true`      |
-| `enableTaxonomyChildrenAgeCheck`                  | boolean    | Optional | `false`     |
-| `exportToExcelRemovedClients`                     | boolean    | Optional | `false`     |
-| `feedBackMinRating`                               | string     | Optional | `1`         |
-| `feedbackCustomerPortalMessage`                   | string     | Optional |             |
-| `feedbackCustomerPortalThankYouMessage`           | string     | Optional |             |
-| `feedbackCustomerPortalTitle`                     | string     | Optional |             |
-| `finId`                                           | string     | Optional |             |
-| `finName`                                         | string     | Optional |             |
-| `hideCustomerPortalFooter`                        | boolean    | Optional | `false`     |
-| `highlightedResource`                             | boolean    | Optional | `false`     |
-| `manualExceptionSupport`                          | boolean    | Optional | `false`     |
-| `noInternetAlert`                                 | boolean    | Optional | `false`     |
-| `pastTimeEdit`                                    | number     | Optional | `1`         |
-| `paymentProvider`                                 | string     | Optional |             |
-| `readonlyResourceSchedule`                        | boolean    | Optional | `false`     |
-| `resourceTimetableType`                           | string     | Optional | `"DEFAULT"` |
-| `revisionVersion`                                 | number     | Optional |             |
-| `schduleWeekViewIsDefault`                        | boolean    | Optional | `false`     |
-| `scheduleDefaultWorkersLimit`                     | number     | Optional | `25`        |
-| `scheduleWorkerHours`                             | boolean    | Optional | `false`     |
-| `schedulerWeekViewType`                           | string     | Optional | `"week"`    |
-| `showAdditionalFields`                            | boolean    | Optional | `false`     |
-| `showAddress`                                     | boolean    | Optional | `false`     |
-| `showBirthDate`                                   | boolean    | Optional | `false`     |
-| `showClientAppear`                                | boolean    | Optional | `false`     |
-| `showClientAppearOnSchedule`                      | boolean    | Optional | `false`     |
-| `showClientBirthdayFilter`                        | boolean    | Optional | `false`     |
-| `showClientContractNumber`                        | boolean    | Optional | `false`     |
-| `showClientImage`                                 | boolean    | Optional | `false`     |
-| `showClientPayment`                               | boolean    | Optional | `false`     |
-| `showDefaulterBlockscreen`                        | boolean    | Optional | `false`     |
-| `showDeliveryStatus`                              | boolean    | Optional | `false`     |
-| `showDepartmentFilter`                            | boolean    | Optional | `false`     |
-| `showDepartments`                                 | boolean    | Optional | `false`     |
-| `showDepartmentsConfiguration`                    | boolean    | Optional | `false`     |
-| `showEmail`                                       | boolean    | Optional | `false`     |
-| `showExtraClientInfo`                             | boolean    | Optional | `false`     |
-| `showFax`                                         | boolean    | Optional | `false`     |
-| `showFiredWorkerAppointmentAlert`                 | boolean    | Optional | `false`     |
-| `showFirstAvailableSlot`                          | boolean    | Optional | `false`     |
-| `showGapWindow`                                   | boolean    | Optional | `false`     |
-| `showGender`                                      | boolean    | Optional | `false`     |
-| `showGenderInRecords`                             | boolean    | Optional | `false`     |
-| `showGeneratableReportsScreen`                    | boolean    | Optional | `false`     |
-| `showHouseNumber`                                 | boolean    | Optional | `false`     |
-| `showIsraelCity`                                  | boolean    | Optional | `false`     |
-| `showKupatHolim`                                  | boolean    | Optional | `false`     |
-| `showLeadsScreen`                                 | boolean    | Optional | `false`     |
-| `showManualChanges`                               | boolean    | Optional | `false`     |
-| `showPassportId`                                  | boolean    | Optional | `false`     |
-| `showRooms`                                       | boolean    | Optional | `false`     |
-| `showSeasonTickets`                               | boolean    | Optional | `false`     |
-| `showTaxonomyChildren`                            | boolean    | Optional | `false`     |
-| `showTaxonomyLocalization`                        | boolean    | Optional | `false`     |
-| `showTaxonomyVisitType`                           | boolean    | Optional | `false`     |
-| `showTestRecord`                                  | boolean    | Optional | `false`     |
-| `showUTM`                                         | boolean    | Optional | `false`     |
-| `showWidgetColorTheme`                            | boolean    | Optional | `false`     |
-| `showWorkerDescriptionInEvent`                    | boolean    | Optional | `false`     |
-| `showWorkerExtraId`                               | boolean    | Optional | `false`     |
-| `showWorkerStatus`                                | boolean    | Optional | `false`     |
-| `skipAppointmentPriceUpdate`                      | boolean    | Optional | `false`     |
-| `skipCancelIfClientNotAppear`                     | boolean    | Optional | `false`     |
-| `skipServiceFiltering`                            | boolean    | Optional | `false`     |
-| `splitFullNameXlsExport`                          | boolean    | Optional | `false`     |
-| `stateLevelHolidays`                              | array,null | Optional |             |
-| `stateLevelHolidaysNotWorking`                    | boolean    | Optional | `false`     |
-| `taxonomyChildrenMaxAge`                          | number     | Optional |             |
-| `useAdditionalDurations`                          | boolean    | Optional | `false`     |
-| `useAdjacentTaxonomies`                           | boolean    | Optional | `false`     |
-| `useAdjacentTaxonomiesSlotSplitting`              | boolean    | Optional | `false`     |
-| `useGtAppMethod`                                  | boolean    | Optional | `false`     |
-| `workWeekEnd`                                     | number     | Optional | `6`         |
-| `workWeekStart`                                   | number     | Optional | `0`         |
+| Property                                          | Type        | Required | Default     |
+| ------------------------------------------------- | ----------- | -------- | ----------- |
+| `adjacentTaxonomiesTreshold`                      | number      | Optional | `0`         |
+| `allowHideServiceForBooking`                      | boolean     | Optional | `false`     |
+| `allowHideWorkersFromSchdeule`                    | boolean     | Optional | `false`     |
+| `allowSmsTranslit`                                | boolean     | Optional | `false`     |
+| `appointmentFutureMoving`                         | boolean     | Optional | `false`     |
+| `blockNotificationForAnyAvailableAdjacentService` | boolean     | Optional | `false`     |
+| `cabinetsEnabled`                                 | boolean     | Optional | `false`     |
+| `checkClientOverlapping`                          | boolean     | Optional | `false`     |
+| `customOnlinePaymentConfirmationTemplate`         | string      | Optional | `false`     |
+| `defaultGTScheduleDayView`                        | boolean     | Optional | `false`     |
+| `disableAppointmentClientInlineEditor`            | boolean     | Optional | `false`     |
+| `editAppExtraId`                                  | boolean     | Optional | `false`     |
+| `editTaxonomyChildren`                            | boolean     | Optional | `false`     |
+| `editTaxonomyVisitType`                           | boolean     | Optional | `false`     |
+| `enableBlackList`                                 | boolean     | Optional | `false`     |
+| `enableCalculateShedule`                          | boolean     | Optional | `false`     |
+| `enableClientCard`                                | boolean     | Optional | `false`     |
+| `enableClientLanguage`                            | boolean     | Optional | `false`     |
+| `enableClientMedicalCardReport`                   | boolean     | Optional | `false`     |
+| `enableCustomOnlinePaymentConfirmation`           | boolean     | Optional | `false`     |
+| `enableExtendedPhone`                             | boolean     | Optional | `false`     |
+| `enableExtendedRecordsClientStatistics`           | boolean     | Optional | `false`     |
+| `enableMasterImportance`                          | boolean     | Optional | `false`     |
+| `enableServiceTimeLimit`                          | boolean     | Optional | `false`     |
+| `enableSourceChoice`                              | boolean     | Optional | `true`      |
+| `enableTaxonomyChildrenAgeCheck`                  | boolean     | Optional | `false`     |
+| `exportToExcelRemovedClients`                     | boolean     | Optional | `false`     |
+| `feedBackMinRating`                               | string      | Optional | `1`         |
+| `feedbackCustomerPortalMessage`                   | string      | Optional |             |
+| `feedbackCustomerPortalThankYouMessage`           | string      | Optional |             |
+| `feedbackCustomerPortalTitle`                     | string      | Optional |             |
+| `finId`                                           | string      | Optional |             |
+| `finName`                                         | string      | Optional |             |
+| `hideCustomerPortalFooter`                        | boolean     | Optional | `false`     |
+| `highlightedResource`                             | boolean     | Optional | `false`     |
+| `manualExceptionSupport`                          | boolean     | Optional | `false`     |
+| `noInternetAlert`                                 | boolean     | Optional | `false`     |
+| `pastTimeEdit`                                    | number      | Optional | `1`         |
+| `paymentProvider`                                 | string      | Optional |             |
+| `readonlyResourceSchedule`                        | boolean     | Optional | `false`     |
+| `resourceTimetableType`                           | string      | Optional | `"DEFAULT"` |
+| `revisionVersion`                                 | number      | Optional |             |
+| `schduleWeekViewIsDefault`                        | boolean     | Optional | `false`     |
+| `scheduleDefaultWorkersLimit`                     | number      | Optional | `25`        |
+| `scheduleDefaultWorkersLimitDay`                  | number,null | Optional |             |
+| `scheduleDefaultWorkersLimitWeek`                 | number,null | Optional |             |
+| `scheduleWorkerHours`                             | boolean     | Optional | `false`     |
+| `schedulerWeekViewType`                           | string      | Optional | `"week"`    |
+| `showAdditionalFields`                            | boolean     | Optional | `false`     |
+| `showAddress`                                     | boolean     | Optional | `false`     |
+| `showBirthDate`                                   | boolean     | Optional | `false`     |
+| `showClientAppear`                                | boolean     | Optional | `false`     |
+| `showClientAppearOnSchedule`                      | boolean     | Optional | `false`     |
+| `showClientBirthdayFilter`                        | boolean     | Optional | `false`     |
+| `showClientContractNumber`                        | boolean     | Optional | `false`     |
+| `showClientImage`                                 | boolean     | Optional | `false`     |
+| `showClientPayment`                               | boolean     | Optional | `false`     |
+| `showDefaulterBlockscreen`                        | boolean     | Optional | `false`     |
+| `showDeliveryStatus`                              | boolean     | Optional | `false`     |
+| `showDepartmentFilter`                            | boolean     | Optional | `false`     |
+| `showDepartments`                                 | boolean     | Optional | `false`     |
+| `showDepartmentsConfiguration`                    | boolean     | Optional | `false`     |
+| `showEmail`                                       | boolean     | Optional | `false`     |
+| `showExtraClientInfo`                             | boolean     | Optional | `false`     |
+| `showFax`                                         | boolean     | Optional | `false`     |
+| `showFiredWorkerAppointmentAlert`                 | boolean     | Optional | `false`     |
+| `showFirstAvailableSlot`                          | boolean     | Optional | `false`     |
+| `showGapWindow`                                   | boolean     | Optional | `false`     |
+| `showGender`                                      | boolean     | Optional | `false`     |
+| `showGenderInRecords`                             | boolean     | Optional | `false`     |
+| `showGeneratableReportsScreen`                    | boolean     | Optional | `false`     |
+| `showHouseNumber`                                 | boolean     | Optional | `false`     |
+| `showIsraelCity`                                  | boolean     | Optional | `false`     |
+| `showKupatHolim`                                  | boolean     | Optional | `false`     |
+| `showLeadsScreen`                                 | boolean     | Optional | `false`     |
+| `showManualChanges`                               | boolean     | Optional | `false`     |
+| `showPassportId`                                  | boolean     | Optional | `false`     |
+| `showRooms`                                       | boolean     | Optional | `false`     |
+| `showSeasonTickets`                               | boolean     | Optional | `false`     |
+| `showTaxonomyChildren`                            | boolean     | Optional | `false`     |
+| `showTaxonomyLocalization`                        | boolean     | Optional | `false`     |
+| `showTaxonomyVisitType`                           | boolean     | Optional | `false`     |
+| `showTestRecord`                                  | boolean     | Optional | `false`     |
+| `showUTM`                                         | boolean     | Optional | `false`     |
+| `showWidgetColorTheme`                            | boolean     | Optional | `false`     |
+| `showWorkerDescriptionInEvent`                    | boolean     | Optional | `false`     |
+| `showWorkerExtraId`                               | boolean     | Optional | `false`     |
+| `showWorkerStatus`                                | boolean     | Optional | `false`     |
+| `skipAppointmentPriceUpdate`                      | boolean     | Optional | `false`     |
+| `skipCancelIfClientNotAppear`                     | boolean     | Optional | `false`     |
+| `skipServiceFiltering`                            | boolean     | Optional | `false`     |
+| `splitFullNameXlsExport`                          | boolean     | Optional | `false`     |
+| `stateLevelHolidays`                              | array,null  | Optional |             |
+| `stateLevelHolidaysNotWorking`                    | boolean     | Optional | `false`     |
+| `taxonomyChildrenMaxAge`                          | number      | Optional |             |
+| `useAdditionalDurations`                          | boolean     | Optional | `false`     |
+| `useAdjacentTaxonomies`                           | boolean     | Optional | `false`     |
+| `useAdjacentTaxonomiesSlotSplitting`              | boolean     | Optional | `false`     |
+| `useGtAppMethod`                                  | boolean     | Optional | `false`     |
+| `workWeekEnd`                                     | number      | Optional | `6`         |
+| `workWeekStart`                                   | number      | Optional | `0`         |
 
 #### adjacentTaxonomiesTreshold
 
@@ -5087,6 +5116,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `yandexMoney`     |             |
 | `deltaProcessing` |             |
 | `cloudpayments`   |             |
+| `pelecard`        |             |
 | `DISABLE`         |             |
 
 #### readonlyResourceSchedule
@@ -5152,6 +5182,28 @@ The value of this property **must** be equal to one of the [known values below](
 ##### scheduleDefaultWorkersLimit Type
 
 `number`
+
+#### scheduleDefaultWorkersLimitDay
+
+`scheduleDefaultWorkersLimitDay`
+
+- is optional
+- type: `number`
+
+##### scheduleDefaultWorkersLimitDay Type
+
+`number`, nullable
+
+#### scheduleDefaultWorkersLimitWeek
+
+`scheduleDefaultWorkersLimitWeek`
+
+- is optional
+- type: `number`
+
+##### scheduleDefaultWorkersLimitWeek Type
+
+`number`, nullable
 
 #### scheduleWorkerHours
 
@@ -7356,6 +7408,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `yandexMoney`     |             |
 | `deltaProcessing` |             |
 | `cloudpayments`   |             |
+| `pelecard`        |             |
 | `DISABLE`         |             |
 
 #### requireAgreement

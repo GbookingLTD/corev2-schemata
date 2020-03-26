@@ -20,6 +20,9 @@
                     "properties": {
                         "id": {
                             "type": "string"
+                        },
+                        "shortId": {
+                            "type": "string"
                         }
                     }
                 },

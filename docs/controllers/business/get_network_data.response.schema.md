@@ -10,12 +10,42 @@ schemas-json/controllers/business/get_network_data.response.schema.json
 
 # business.get_network_data.response Definitions
 
-| Property            | Type     | Group                                                                                                  |
-| ------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
-| [error](#error)     | complex  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/ErrorCodes`      |
-| [id](#id)           | `number` | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse` |
-| [jsonrpc](#jsonrpc) | `const`  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse` |
-| [result](#result)   | `object` | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse` |
+| Property                                | Type       | Group                                                                                                       |
+| --------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
+| [\_id](#_id)                            | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+| [businessID](#businessid)               | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+| [error](#error)                         | complex    | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/ErrorCodes`           |
+| [id](#id)                               | `number`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`      |
+| [info](#info)                           | reference  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+| [isMapBusiness](#ismapbusiness)         | `boolean`  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+| [jsonrpc](#jsonrpc)                     | `const`    | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`      |
+| [order](#order)                         | `number`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+| [result](#result)                       | `object`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`      |
+| [virtualTaxonomies](#virtualtaxonomies) | `string[]` | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+
+## \_id
+
+`_id`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### \_id Type
+
+`string`
+
+## businessID
+
+`businessID`
+
+- is **required**
+- type: `string`
+- defined in this schema
+
+### businessID Type
+
+`string`
 
 ## error
 
@@ -73,6 +103,31 @@ The value of this property **must** be equal to one of the [known values below](
 
 `number`
 
+## info
+
+`info`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### info Type
+
+- []() – `../../models/businessData.schema.json`
+
+## isMapBusiness
+
+`isMapBusiness`
+
+- is **required**
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### isMapBusiness Type
+
+`boolean`
+
 ## jsonrpc
 
 версия протокола (2.0)
@@ -88,6 +143,18 @@ The value of this property **must** be equal to:
 ```json
 "2.0"
 ```
+
+## order
+
+`order`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### order Type
+
+`number`
 
 ## result
 
@@ -134,93 +201,15 @@ The value of this property **must** be equal to:
 `businesses`
 
 - is **required**
-- type: `object[]`
+- type: reference
 
 ##### businesses Type
 
-Array type: `object[]`
+Array type: reference
 
-All items must be of the type: `object` with following properties:
+All items must be of the type:
 
-| Property            | Type    | Required     | Default |
-| ------------------- | ------- | ------------ | ------- |
-| `_id`               | string  | Optional     |         |
-| `businessID`        | string  | **Required** |         |
-| `info`              |         | Optional     |         |
-| `isMapBusiness`     | boolean | **Required** | `false` |
-| `order`             | number  | Optional     |         |
-| `virtualTaxonomies` | array   | Optional     |         |
-
-#### \_id
-
-`_id`
-
-- is optional
-- type: `string`
-
-##### \_id Type
-
-`string`
-
-#### businessID
-
-`businessID`
-
-- is **required**
-- type: `string`
-
-##### businessID Type
-
-`string`
-
-#### info
-
-`info`
-
-- is optional
-- type: reference
-
-##### info Type
-
-- []() – `../../models/businessData.schema.json`
-
-#### isMapBusiness
-
-`isMapBusiness`
-
-- is **required**
-- type: `boolean`
-- default: `false`
-
-##### isMapBusiness Type
-
-`boolean`
-
-#### order
-
-`order`
-
-- is optional
-- type: `number`
-
-##### order Type
-
-`number`
-
-#### virtualTaxonomies
-
-`virtualTaxonomies`
-
-- is optional
-- type: `string[]`
-
-##### virtualTaxonomies Type
-
-Array type: `string[]`
-
-All items must be of the type: `string`
-
-указатель на бизнес в сети
+- []() – `#/definitions/BusinessRefInNetwork`
 
 #### clientVIPPhones
 
@@ -431,6 +420,20 @@ All items must be of the type: `object` with following properties:
 ##### source Type
 
 `string`
+
+## virtualTaxonomies
+
+`virtualTaxonomies`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### virtualTaxonomies Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 **One** of the following _conditions_ need to be fulfilled.
 

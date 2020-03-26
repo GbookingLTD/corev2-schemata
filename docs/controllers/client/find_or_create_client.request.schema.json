@@ -15,8 +15,7 @@
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
-                        "business",
-                        "client"
+                        "business"
                     ],
                     "properties": {
                         "business": {
@@ -35,21 +34,21 @@
                                 }
                             }
                         },
-                        "profile": {
+                        "network": {
                             "type": "object",
+                            "additionalProperties": false,
                             "required": [
                                 "id"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                                 "id": {
-                                    "type": "string",
-                                    "description": "идентификатор профиля пользователя"
+                                    "type": [
+                                        "string",
+                                        "number"
+                                    ],
+                                    "description": "идентификатор нетворка"
                                 }
                             }
-                        },
-                        "client": {
-                            "$ref": "../../models/client.schema.json"
                         },
                         "skipEmailCheck": {
                             "type": "boolean",

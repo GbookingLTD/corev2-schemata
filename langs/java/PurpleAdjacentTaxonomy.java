@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AdjacentTaxonomy {
+public class PurpleAdjacentTaxonomy {
     private Boolean isAnyAvailable;
     private Double order;
     private Double slotDuration;

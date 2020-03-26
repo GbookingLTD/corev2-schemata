@@ -7,26 +7,20 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса
  */
 public class ClientFindOrCreateClientRequestParams {
-    private FriskyBusiness business;
-    private ClientClass client;
-    private TentacledProfile profile;
+    private MagentaBusiness business;
+    private FluffyNetwork network;
     private Boolean skipEmailCheck;
     private Boolean skipProfileUpdate;
 
     @JsonProperty("business")
-    public FriskyBusiness getBusiness() { return business; }
+    public MagentaBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(FriskyBusiness value) { this.business = value; }
+    public void setBusiness(MagentaBusiness value) { this.business = value; }
 
-    @JsonProperty("client")
-    public ClientClass getClient() { return client; }
-    @JsonProperty("client")
-    public void setClient(ClientClass value) { this.client = value; }
-
-    @JsonProperty("profile")
-    public TentacledProfile getProfile() { return profile; }
-    @JsonProperty("profile")
-    public void setProfile(TentacledProfile value) { this.profile = value; }
+    @JsonProperty("network")
+    public FluffyNetwork getNetwork() { return network; }
+    @JsonProperty("network")
+    public void setNetwork(FluffyNetwork value) { this.network = value; }
 
     @JsonProperty("skipEmailCheck")
     public Boolean getSkipEmailCheck() { return skipEmailCheck; }

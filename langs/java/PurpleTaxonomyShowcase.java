@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class TaxonomyShowcase {
+public class PurpleTaxonomyShowcase {
     private String baseBusinessID;
     private Boolean isBaseNode;
     private String originBusinessID;

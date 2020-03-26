@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class BusinessTaxonomyProduct {
+public class FluffyBusinessTaxonomyProduct {
     private String extraID;
     private String id;
     private boolean required;

@@ -112,6 +112,8 @@ export interface Cred {
  * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
  *
  * идентификатор бизнеса
+ *
+ * идентификатор нетворка
  */
 export type BackofficeIdUnion = number | string;
 
@@ -271,7 +273,8 @@ export interface AppointmentCancelAppointmentByClientRequestParams {
 }
 
 export interface FluffyAppointment {
-    id: string;
+    id:       string;
+    shortId?: string;
 }
 
 export interface FluffyClient {
@@ -580,7 +583,7 @@ export enum ComplaintStatus {
 export interface ExtraField {
     fieldID:   string;
     fieldName: string;
-    value:     Value;
+    value?:    Value;
 }
 
 export type Value = number | { [key: string]: any } | null | string;
@@ -936,7 +939,7 @@ export interface AppointmentGetAppointmentByFilterRequestParams {
     business?:              FluffyBusiness;
     extraFilters?:          ExtraFilters;
     filter?:                Filter;
-    network?:               NetworkClass;
+    network?:               PurpleNetwork;
     page:                   number;
     pageSize:               number;
     skipBusinessCancelled?: boolean;
@@ -979,7 +982,7 @@ export interface FilterCreated {
     start: Date;
 }
 
-export interface NetworkClass {
+export interface PurpleNetwork {
     id?: BackofficeIdUnion;
 }
 
@@ -1144,10 +1147,10 @@ export interface AppointmentReserveAppointmentRequest {
 export interface AppointmentReserve {
     appointment:       AppointmentObject;
     business:          StickyBusiness;
-    originBusinessID?: string;
+    originBusinessID?: null | string;
     resource:          ResourceClass;
     source:            string;
-    taxonomy:          ParamsTaxonomy;
+    taxonomy:          ParamsTaxonomyClass;
 }
 
 export interface AppointmentObject {
@@ -1164,7 +1167,7 @@ export interface ResourceClass {
 
 export type ResourceId = string[] | string;
 
-export interface ParamsTaxonomy {
+export interface ParamsTaxonomyClass {
     id: string;
 }
 
@@ -1250,11 +1253,28 @@ export interface BusinessGetNetworkDataRequestParams {
      * идентификатор сети
      */
     networkID: BackofficeIdUnion;
+    resource?: ResourceObject;
+    taxonomy?: TaxonomyObject;
     /**
      * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
      * в массиве businesses
      */
     with_business_info?: boolean;
+}
+
+export interface ResourceObject {
+    /**
+     * идентификатор работника, если передано - возвращает все бизнесы нетворка где есть
+     * работник с таким ключем
+     */
+    id?: string;
+}
+
+export interface TaxonomyObject {
+    /**
+     * идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой
+     */
+    id?: string;
 }
 
 export interface BusinessGetNetworkDataResponse {
@@ -1298,7 +1318,7 @@ export interface BusinessGetNetworkDataResponseError {
 
 export interface BusinessGetNetworkDataResponseResult {
     businessConfiguration: { [key: string]: any };
-    businesses:            IndigoBusiness[];
+    businesses:            BusinessRefInNetwork[];
     clientVIPPhones:       string[];
     grantGroups:           { [key: string]: any }[];
     networkID:             string;
@@ -1313,7 +1333,7 @@ export interface BusinessGetNetworkDataResponseResult {
 /**
  * указатель на бизнес в сети
  */
-export interface IndigoBusiness {
+export interface BusinessRefInNetwork {
     _id?:               string;
     businessID:         string;
     info?:              BusinessBusiness;
@@ -1322,10 +1342,20 @@ export interface IndigoBusiness {
     virtualTaxonomies?: string[];
 }
 
-export type BusinessBusiness = any[] | boolean | IndecentBusiness | number | number | null | string;
+export type BusinessBusiness = any[] | boolean | IndigoBusiness | number | number | null | string;
 
-export interface IndecentBusiness {
-    active?:                        boolean;
+export interface IndigoBusiness {
+    active?: boolean;
+    /**
+     * колличество активных рабоников, возвращается при вызове через get_network_data при
+     * передаче ключа работника или услуги
+     */
+    activeResourceCount?: number;
+    /**
+     * колличество активных услуг, возвращается при вызове через get_network_data при передаче
+     * ключа работника или услуги
+     */
+    activeTaxonomyCount?:           number;
     additionalSettings?:            PurpleAdditionalSettings;
     allowCategoryBooking?:          boolean;
     backoffice_configuration?:      FluffyBackofficeConfiguration;
@@ -1348,7 +1378,9 @@ export interface IndecentBusiness {
     mini_widget_configuration:      PurpleMiniWidgetConfiguration;
     mobileData?:                    any[];
     notifications?:                 any[];
+    resources?:                     Resource[];
     stateLevelHolidaysNotWorking?:  boolean;
+    taxonomies?:                    PurpleBusinessTaxonomy[];
     taxonomiesComplex?:             PurpleTaxonomiesComplex[];
     taxonomy_tree_capacity?:        { [key: string]: any }[];
     top_services?:                  PurpleTopServices;
@@ -1412,6 +1444,8 @@ export interface PurpleBackofficeConfiguration {
     revisionVersion?:                                 number;
     schduleWeekViewIsDefault?:                        boolean;
     scheduleDefaultWorkersLimit?:                     number;
+    scheduleDefaultWorkersLimitDay?:                  number | null;
+    scheduleDefaultWorkersLimitWeek?:                 number | null;
     schedulerWeekViewType?:                           SchedulerWeekViewType;
     scheduleWorkerHours?:                             boolean;
     showAdditionalFields?:                            boolean;
@@ -1865,554 +1899,6 @@ export enum FieldElement {
     Surname = "surname",
 }
 
-export interface PurpleTaxonomiesComplex {
-    name?:       string;
-    taxonomies?: string[];
-}
-
-export interface PurpleTopServices {
-    services?: any[];
-    status?:   string;
-}
-
-export interface PurpleWidgetConfiguration {
-    additionalName?:                         string;
-    alignmentTaxonomySlots?:                 boolean;
-    allowAutoSelect?:                        boolean;
-    allowBookVisitor?:                       boolean;
-    allowSkipTimeCheck?:                     boolean;
-    appointment_confirmation_text?:          string;
-    appointment_confirmation_title?:         string;
-    askClientBirthday?:                      boolean;
-    askClientGender?:                        boolean;
-    bookableDateRanges?:                     PurpleBookableDateRanges;
-    bookableMonthsCount?:                    number;
-    calendarMode?:                           boolean;
-    calendarModeHideTime?:                   boolean;
-    clientBlockingSettings?:                 PurpleClientBlockingSettings;
-    clientCommentTitle?:                     string;
-    cracServer?:                             CracServer;
-    cracSlotSize?:                           number;
-    crunchv2?:                               boolean;
-    dayOffLabel?:                            string;
-    daysForward?:                            number;
-    dayUnavailableLabel?:                    string;
-    defaultServiceImgUrl?:                   string;
-    defaultWorkerImgUrl?:                    string;
-    denySameTimeRecords?:                    boolean;
-    disabledTaxonomiesText?:                 string;
-    disableMobileWidget?:                    boolean;
-    disableWidget?:                          boolean;
-    disableWidgetMessage?:                   string;
-    discountedPriceRounding?:                PurpleDiscountedPriceRounding;
-    displaySlotSize?:                        number;
-    dontRequireEmail?:                       boolean;
-    emailIsMandatory?:                       boolean;
-    enableOverrideFooter?:                   boolean;
-    enableWarningContactData?:               boolean;
-    extraVisitors?:                          boolean;
-    filterNonInsuranceSchedule?:             boolean;
-    hideAnyWorkerBooking?:                   boolean;
-    hideCallButton?:                         boolean;
-    hideEmptyDays?:                          boolean;
-    hideGBookingLogo?:                       boolean;
-    hideGraySlots?:                          boolean;
-    hideNewAppointmentButton?:               boolean;
-    hidePrices?:                             boolean;
-    hideSocialNetworksAuthentication?:       boolean;
-    insuranceClientSupportPhone?:            Phone[];
-    maxServiceBooking?:                      number;
-    maxTimeslotBooking?:                     number;
-    middleNameSupport?:                      boolean;
-    mostFreeEnable?:                         boolean;
-    multiServiceBooking?:                    boolean;
-    multiTimeslotBooking?:                   boolean;
-    multiTimeslotBookingAllDays?:            boolean;
-    newWidgetTheme?:                         { [key: string]: any };
-    noDefaultImages?:                        boolean;
-    overrideFooter?:                         string;
-    payment?:                                Payment;
-    paymentProvider?:                        PurplePaymentProvider;
-    requireAgreement?:                       boolean;
-    requireAgreementLink?:                   string;
-    revisionVersion?:                        number;
-    shortLink?:                              string;
-    showAllWorkers?:                         boolean;
-    showClientAddress?:                      boolean;
-    showClientComment?:                      boolean;
-    showDisabledTaxonomies?:                 boolean;
-    showDrinkQuestion?:                      boolean;
-    showMap?:                                boolean;
-    showStartText?:                          boolean;
-    showSurnameFirst?:                       boolean;
-    showTalkQuestion?:                       boolean;
-    showTaxonomyConfirmationAlert?:          boolean;
-    skipAuthentication?:                     boolean;
-    skipDaysForward?:                        boolean;
-    skipMobileMap?:                          boolean;
-    skipServiceDurationAlignment?:           boolean;
-    skipServiceSelection?:                   boolean;
-    skipTimeSelection?:                      boolean;
-    skipTimeSelectionServiceIDs?:            string[];
-    skipWorkerSelectedServiceIDs?:           string[];
-    skipWorkerServicesSelection?:            boolean;
-    socialNetworkImage?:                     string;
-    socialSharing?:                          PurpleSocialSharing;
-    sortByMostFree?:                         boolean;
-    sortWorkersByWorkload?:                  boolean;
-    splitInsuranceClient?:                   boolean;
-    splitName?:                              boolean;
-    startTextButton?:                        string;
-    startTextMessage?:                       string;
-    tentativeTTL?:                           number;
-    theme?:                                  string;
-    useAppointmentReminder?:                 boolean;
-    useBusinessScheduleForUnavailableLabel?: boolean;
-    useClustersMap?:                         boolean;
-    useCoupon?:                              boolean;
-    useCRAC?:                                boolean;
-    useDefaultServiceImg?:                   boolean;
-    useDefaultWorkerImg?:                    boolean;
-    useDirectScheduleRead?:                  UseDirectScheduleRead;
-    useInsuranceGuaranteeLetter?:            boolean;
-    useInsuranceSelect?:                     boolean;
-    useMedAuth?:                             boolean;
-    useMiddleName?:                          boolean;
-    useNewReserveAPI?:                       boolean;
-    useResourcePageLoading?:                 boolean;
-    useSortByName?:                          boolean;
-    warningContactDataText?:                 string;
-    widgetUseCRAC?:                          boolean;
-    withoutWorkers?:                         boolean;
-    worker_unavailability_text?:             string;
-    workerNameReverse?:                      boolean;
-}
-
-export interface PurpleBookableDateRanges {
-    enabled?: boolean;
-    end?:     any;
-    start?:   any;
-}
-
-export interface PurpleClientBlockingSettings {
-    appointmentClientBlock?:     boolean;
-    appointmentClientBlockDays?: number;
-    appointmentClientBlockText?: string;
-    blockIfFutureRecordExists?:  boolean;
-    blockRepeatedRecordsCount?:  number;
-    blockRepeatedRecordsRange?:  number;
-    blockRepeatedRecordsText?:   string;
-}
-
-export enum CracServer {
-    Crac = "CRAC",
-    CracProd3 = "CRAC_PROD3",
-}
-
-export interface PurpleDiscountedPriceRounding {
-    rule?:  Rule;
-    value?: number;
-}
-
-export enum Rule {
-    Custom = "CUSTOM",
-    NearestInteger = "NEAREST_INTEGER",
-    TwoDecimals = "TWO_DECIMALS",
-}
-
-export enum Payment {
-    Optional = "OPTIONAL",
-    Required = "REQUIRED",
-    Without = "WITHOUT",
-}
-
-export interface PurpleSocialSharing {
-    active?:          boolean;
-    discountAmount?:  number | null;
-    discountEnabled?: boolean;
-    discountType?:    DiscountType;
-    text?:            null | string;
-    widgetText?:      null | string;
-}
-
-export enum DiscountType {
-    Percent = "PERCENT",
-}
-
-export enum UseDirectScheduleRead {
-    All = "ALL",
-    Authenticated = "AUTHENTICATED",
-    Guest = "GUEST",
-    None = "NONE",
-}
-
-export interface NetworkWidgetConfiguration {
-    _id?:               string;
-    businesses:         NetworkWidgetConfigurationBusiness[];
-    defaultServiceID:   null | string;
-    showBranchSelector: boolean;
-    showDefaultService: boolean;
-    showOnMap:          boolean;
-    source:             string;
-}
-
-export interface NetworkWidgetConfigurationBusiness {
-    _id?:       string;
-    active:     boolean;
-    internalID: string;
-}
-
-export interface GetProfileById {
-    request:  BusinessGetProfileByIdRequest;
-    response: BusinessGetProfileByIdResponse;
-}
-
-export interface BusinessGetProfileByIdRequest {
-    /**
-     * авторизационные параметры
-     */
-    cred?: Cred;
-    /**
-     * значение числового типа для идентификации запроса на сервере
-     */
-    id: BackofficeIdUnion;
-    /**
-     * версия протокола - 2.0
-     */
-    jsonrpc: string;
-    /**
-     * название jsonrpc метода
-     */
-    method: string;
-    /**
-     * параметры запроса
-     *
-     * параметры запроса business.get_profile_by_id
-     */
-    params: BusinessGetProfileByIdRequestParams;
-}
-
-/**
- * параметры запроса business.get_profile_by_id
- */
-export interface BusinessGetProfileByIdRequestParams {
-    business: HilariousBusiness;
-    /**
-     * если указано true - меняет формат представления discounts
-     */
-    desktop_discounts?: boolean;
-    /**
-     * если указано true - возвращает только активных работников (status == 'INACTIVE')
-     */
-    only_active_workers?: boolean;
-    /**
-     * если указано true - возвращает всех работников в том числе и неактивных (status ==
-     * 'INACTIVE')
-     */
-    show_inactive_workers?: boolean;
-    /**
-     * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
-     */
-    showcase_business_id?: BackofficeIdUnion;
-    /**
-     * если указано true - не приминяет сортировку работников
-     */
-    skip_worker_sorting?: boolean;
-    /**
-     * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
-     */
-    with_billing?: boolean;
-    /**
-     * если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
-     * (недоступно для роли guest)
-     */
-    with_bop?: boolean;
-    /**
-     * если указано true - возвращает кампании скидочных купонов в поле campaigns
-     */
-    with_campaigns?: boolean;
-    /**
-     * если указано true - возвращает список скидочных акций в поле discounts
-     */
-    with_discounts?: boolean;
-    /**
-     * дата начала расписания, для которого нужно получить скидочные акции
-     */
-    with_discounts_from?: Date;
-    /**
-     * дата окончания расписания, для которого нужно получить скидочные акции
-     */
-    with_discounts_to?: Date;
-    /**
-     * если указано true - возвращает информацию о других филиалах сети в поле networks
-     */
-    with_networks?: boolean;
-    /**
-     * если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для
-     * каждой таксономии (недоступно для роли guest)
-     */
-    with_taxonomy_showcase?: boolean;
-    /**
-     * тип сортировки работника
-     */
-    worker_sorting_type?: WorkerSortingType;
-}
-
-export interface HilariousBusiness {
-    /**
-     * идентификатор бизнеса
-     */
-    id: string;
-}
-
-/**
- * тип сортировки работника
- */
-export enum WorkerSortingType {
-    MostFree = "most_free",
-    None = "none",
-    Workload = "workload",
-}
-
-export interface BusinessGetProfileByIdResponse {
-    /**
-     * значение числового типа для идентификации запроса на сервере
-     */
-    id?: number;
-    /**
-     * версия протокола (2.0)
-     */
-    jsonrpc?: string;
-    /**
-     * данные, передаваемые в ответ
-     */
-    result?: BusinessGetProfileByIdResponseResult;
-    /**
-     * объект, содержащий информацию об ошибке
-     */
-    error?: BusinessGetProfileByIdResponseError;
-}
-
-/**
- * объект, содержащий информацию об ошибке
- *
- * Код ошибки авторизации
- */
-export interface BusinessGetProfileByIdResponseError {
-    /**
-     * код ошибки
-     */
-    code: number;
-    /**
-     * дополнительные данные об ошибке
-     */
-    data?: string;
-    /**
-     * текстовая информация об ошибке
-     */
-    message: string;
-}
-
-/**
- * данные, передаваемые в ответ
- */
-export interface BusinessGetProfileByIdResponseResult {
-    active?:                boolean;
-    business:               ResultBusiness;
-    freeSms?:               number;
-    monthlyFreeSms?:        number;
-    networks?:              NetworkElement[];
-    profiles?:              { [key: string]: any }[];
-    top_services?:          ResultTopServices;
-    useDefaultSmsTemplate?: boolean;
-    yandexFeedType?:        YandexFeedType;
-}
-
-export type ResultBusiness = any[] | boolean | AmbitiousBusiness | number | number | null | string;
-
-export interface AmbitiousBusiness {
-    active?:                        boolean;
-    additionalSettings?:            FluffyAdditionalSettings;
-    allowCategoryBooking?:          boolean;
-    backoffice_configuration?:      StickyBackofficeConfiguration;
-    backofficeConfiguration?:       TentacledBackofficeConfiguration;
-    backofficeType?:                BackofficeType;
-    cabinets?:                      FluffyCabinet[];
-    cabinetsEnabled?:               boolean;
-    callback_widget_configuration?: FluffyCallbackWidgetConfiguration;
-    consumables?:                   FluffyConsumable[];
-    created_on?:                    Date;
-    defaultFilteredWorkers?:        string[];
-    departments?:                   FluffyDepartment[];
-    designs?:                       { [key: string]: any }[];
-    extraID?:                       string;
-    flatTaxonomyDisplay?:           boolean;
-    general_info:                   BusinessInfo;
-    group?:                         Group;
-    id?:                            string;
-    integration_data?:              { [key: string]: any };
-    mini_widget_configuration:      FluffyMiniWidgetConfiguration;
-    mobileData?:                    any[];
-    notifications?:                 any[];
-    resources:                      Resource[];
-    stateLevelHolidaysNotWorking?:  boolean;
-    taxonomies:                     BusinessTaxonomy[];
-    taxonomiesComplex?:             FluffyTaxonomiesComplex[];
-    taxonomy_tree_capacity?:        { [key: string]: any }[];
-    top_services?:                  FluffyTopServices;
-    vertical?:                      string;
-    widget_configuration:           FluffyWidgetConfiguration;
-    yandexFeedType?:                string;
-}
-
-export interface FluffyAdditionalSettings {
-    appointmentExtensionAmount?: number;
-    appointmentExtensionType?:   AppointmentExtensionType;
-}
-
-export interface TentacledBackofficeConfiguration {
-    adjacentTaxonomiesTreshold?:                      number;
-    allowHideServiceForBooking?:                      boolean;
-    allowHideWorkersFromSchdeule?:                    boolean;
-    allowSmsTranslit?:                                boolean;
-    appointmentFutureMoving?:                         boolean;
-    blockNotificationForAnyAvailableAdjacentService?: boolean;
-    cabinetsEnabled?:                                 boolean;
-    checkClientOverlapping?:                          boolean;
-    customOnlinePaymentConfirmationTemplate?:         string;
-    defaultGTScheduleDayView?:                        boolean;
-    disableAppointmentClientInlineEditor?:            boolean;
-    editAppExtraId?:                                  boolean;
-    editTaxonomyChildren?:                            boolean;
-    editTaxonomyVisitType?:                           boolean;
-    enableBlackList?:                                 boolean;
-    enableCalculateShedule?:                          boolean;
-    enableClientCard?:                                boolean;
-    enableClientLanguage?:                            boolean;
-    enableClientMedicalCardReport?:                   boolean;
-    enableCustomOnlinePaymentConfirmation?:           boolean;
-    enableExtendedPhone?:                             boolean;
-    enableExtendedRecordsClientStatistics?:           boolean;
-    enableMasterImportance?:                          boolean;
-    enableServiceTimeLimit?:                          boolean;
-    enableSourceChoice?:                              boolean;
-    enableTaxonomyChildrenAgeCheck?:                  boolean;
-    exportToExcelRemovedClients?:                     boolean;
-    feedbackCustomerPortalMessage?:                   string;
-    feedbackCustomerPortalThankYouMessage?:           string;
-    feedbackCustomerPortalTitle?:                     string;
-    feedBackMinRating?:                               FeedBackMinRating;
-    finId?:                                           string;
-    finName?:                                         string;
-    hideCustomerPortalFooter?:                        boolean;
-    highlightedResource?:                             boolean;
-    manualExceptionSupport?:                          boolean;
-    noInternetAlert?:                                 boolean;
-    pastTimeEdit?:                                    number;
-    paymentProvider?:                                 FluffyPaymentProvider;
-    readonlyResourceSchedule?:                        boolean;
-    resourceTimetableType?:                           ResourceTimetableType;
-    revisionVersion?:                                 number;
-    schduleWeekViewIsDefault?:                        boolean;
-    scheduleDefaultWorkersLimit?:                     number;
-    schedulerWeekViewType?:                           SchedulerWeekViewType;
-    scheduleWorkerHours?:                             boolean;
-    showAdditionalFields?:                            boolean;
-    showAddress?:                                     boolean;
-    showBirthDate?:                                   boolean;
-    showClientAppear?:                                boolean;
-    showClientAppearOnSchedule?:                      boolean;
-    showClientBirthdayFilter?:                        boolean;
-    showClientContractNumber?:                        boolean;
-    showClientImage?:                                 boolean;
-    showClientPayment?:                               boolean;
-    showDefaulterBlockscreen?:                        boolean;
-    showDeliveryStatus?:                              boolean;
-    showDepartmentFilter?:                            boolean;
-    showDepartments?:                                 boolean;
-    showDepartmentsConfiguration?:                    boolean;
-    showEmail?:                                       boolean;
-    showExtraClientInfo?:                             boolean;
-    showFax?:                                         boolean;
-    showFiredWorkerAppointmentAlert?:                 boolean;
-    showFirstAvailableSlot?:                          boolean;
-    showGapWindow?:                                   boolean;
-    showGender?:                                      boolean;
-    showGenderInRecords?:                             boolean;
-    showGeneratableReportsScreen?:                    boolean;
-    showHouseNumber?:                                 boolean;
-    showIsraelCity?:                                  boolean;
-    showKupatHolim?:                                  boolean;
-    showLeadsScreen?:                                 boolean;
-    showManualChanges?:                               boolean;
-    showPassportId?:                                  boolean;
-    showRooms?:                                       boolean;
-    showSeasonTickets?:                               boolean;
-    showTaxonomyChildren?:                            boolean;
-    showTaxonomyLocalization?:                        boolean;
-    showTaxonomyVisitType?:                           boolean;
-    showTestRecord?:                                  boolean;
-    showUTM?:                                         boolean;
-    showWidgetColorTheme?:                            boolean;
-    showWorkerDescriptionInEvent?:                    boolean;
-    showWorkerExtraId?:                               boolean;
-    showWorkerStatus?:                                boolean;
-    skipAppointmentPriceUpdate?:                      boolean;
-    skipCancelIfClientNotAppear?:                     boolean;
-    skipServiceFiltering?:                            boolean;
-    splitFullNameXlsExport?:                          boolean;
-    stateLevelHolidays?:                              { [key: string]: any }[] | null;
-    stateLevelHolidaysNotWorking?:                    boolean;
-    taxonomyChildrenMaxAge?:                          number;
-    useAdditionalDurations?:                          boolean;
-    useAdjacentTaxonomies?:                           boolean;
-    useAdjacentTaxonomiesSlotSplitting?:              boolean;
-    useGtAppMethod?:                                  boolean;
-    workWeekEnd?:                                     number;
-    workWeekStart?:                                   number;
-}
-
-export enum FluffyPaymentProvider {
-    Cloudpayments = "cloudpayments",
-    DeltaProcessing = "deltaProcessing",
-    Disable = "DISABLE",
-    YandexMoney = "yandexMoney",
-}
-
-export interface StickyBackofficeConfiguration {
-    enableMasterImportance?: boolean;
-    resourceTimetableType?:  ResourceTimetableType;
-}
-
-export interface FluffyCabinet {
-    active?: boolean;
-    id?:     string;
-    name?:   string;
-}
-
-export interface FluffyCallbackWidgetConfiguration {
-    title1?: string;
-    title2?: string;
-}
-
-export interface FluffyConsumable {
-    extraID:  string;
-    name:     string;
-    quantity: number;
-}
-
-export interface FluffyDepartment {
-    id:   string;
-    id_?: number;
-    name: string;
-}
-
-export interface FluffyMiniWidgetConfiguration {
-    fields?: FieldElement[];
-    title1?: string;
-    title2?: string;
-}
-
 /**
  * Данные о работнике бизнеса
  */
@@ -2769,14 +2255,14 @@ export interface ResourceTaxonomyLevel {
     level: number;
 }
 
-export interface BusinessTaxonomy {
+export interface PurpleBusinessTaxonomy {
     active?:                     boolean;
-    additionalDurations?:        AdditionalDuration[];
-    additionalPrices?:           BusinessTaxonomyPrice[];
-    additionalProducts?:         BusinessTaxonomyProduct[];
+    additionalDurations?:        PurpleAdditionalDuration[];
+    additionalPrices?:           PurpleBusinessTaxonomyPrice[];
+    additionalProducts?:         PurpleBusinessTaxonomyProduct[];
     additionalTaxonomyExtraId?:  { [key: string]: any }[];
     adjacentSameTimeStart?:      boolean;
-    adjacentTaxonomies?:         AdjacentTaxonomy[];
+    adjacentTaxonomies?:         PurpleAdjacentTaxonomy[];
     alias?:                      { [key: string]: any };
     allowBookingInBO?:           boolean;
     allowNextBookingCount?:      number;
@@ -2791,7 +2277,7 @@ export interface BusinessTaxonomy {
     color?:                      string;
     confirmationAlert?:          string;
     confirmationSmsAlert?:       string;
-    dateLimits?:                 DateLimit[];
+    dateLimits?:                 PurpleDateLimit[];
     dateLimitType?:              DateLimitType;
     designs?:                    string[];
     discounts?:                  Discount;
@@ -2814,15 +2300,15 @@ export interface BusinessTaxonomy {
     order?:                      number;
     parallelTaxonomies?:         string[];
     popularity?:                 number;
-    price?:                      TaxonomyPrice;
+    price?:                      PurplePrice;
     priceLink?:                  string;
     /**
      * Список видов приема услуги
      */
     receptionTypes?: string[];
     rooms?:          string[];
-    showcaseItems?:  ShowcaseItem[];
-    showcases?:      TaxonomyShowcase[];
+    showcaseItems?:  PurpleShowcaseItem[];
+    showcases?:      PurpleTaxonomyShowcase[];
     /**
      * Идентификатор услуги в витрине
      */
@@ -2841,12 +2327,12 @@ export interface BusinessTaxonomy {
     visitType?:               string;
 }
 
-export interface AdditionalDuration {
+export interface PurpleAdditionalDuration {
     duration?: number | null;
     level?:    number;
 }
 
-export interface BusinessTaxonomyPrice {
+export interface PurpleBusinessTaxonomyPrice {
     /**
      * Значение цены
      */
@@ -2878,7 +2364,7 @@ export enum AdditionalPriceType {
     Equal = "equal",
 }
 
-export interface BusinessTaxonomyProduct {
+export interface PurpleBusinessTaxonomyProduct {
     /**
      * Дополнительный ID товара
      */
@@ -2893,7 +2379,7 @@ export interface BusinessTaxonomyProduct {
     required: boolean;
 }
 
-export interface AdjacentTaxonomy {
+export interface PurpleAdjacentTaxonomy {
     isAnyAvailable?: boolean;
     order?:          number;
     slotDuration?:   number;
@@ -2913,7 +2399,7 @@ export enum DateLimitType {
     ToDate = "to_date",
 }
 
-export interface DateLimit {
+export interface PurpleDateLimit {
     _id?:           string;
     dateLimitFrom?: Date;
     dateLimitTo?:   Date;
@@ -2961,7 +2447,7 @@ export enum OnlineMode {
     PlanOnline = "PLAN_ONLINE",
 }
 
-export interface TaxonomyPrice {
+export interface PurplePrice {
     /**
      * Значение цены
      */
@@ -2980,9 +2466,9 @@ export interface TaxonomyPrice {
     type: AdditionalPriceType;
 }
 
-export interface ShowcaseItem {
+export interface PurpleShowcaseItem {
     _id?:                 string;
-    additionalDurations?: ShowcaseItemAdditionalDuration[];
+    additionalDurations?: FluffyAdditionalDuration[];
     businessID?:          string;
     /**
      * Список видов приема услуги
@@ -2991,7 +2477,7 @@ export interface ShowcaseItem {
     taxonomyID?:     string;
 }
 
-export interface ShowcaseItemAdditionalDuration {
+export interface FluffyAdditionalDuration {
     _id?:      string;
     duration?: number;
     /**
@@ -3000,7 +2486,7 @@ export interface ShowcaseItemAdditionalDuration {
     level?: number;
 }
 
-export interface TaxonomyShowcase {
+export interface PurpleTaxonomyShowcase {
     baseBusinessID?:   string;
     isBaseNode?:       boolean;
     originBusinessID?: string;
@@ -3011,6 +2497,731 @@ export enum TaxonomyType {
     Category = "CATEGORY",
     Service = "SERVICE",
     Subcategory = "SUBCATEGORY",
+}
+
+export interface PurpleTaxonomiesComplex {
+    name?:       string;
+    taxonomies?: string[];
+}
+
+export interface PurpleTopServices {
+    services?: any[];
+    status?:   string;
+}
+
+export interface PurpleWidgetConfiguration {
+    additionalName?:                         string;
+    alignmentTaxonomySlots?:                 boolean;
+    allowAutoSelect?:                        boolean;
+    allowBookVisitor?:                       boolean;
+    allowSkipTimeCheck?:                     boolean;
+    appointment_confirmation_text?:          string;
+    appointment_confirmation_title?:         string;
+    askClientBirthday?:                      boolean;
+    askClientGender?:                        boolean;
+    bookableDateRanges?:                     PurpleBookableDateRanges;
+    bookableMonthsCount?:                    number;
+    calendarMode?:                           boolean;
+    calendarModeHideTime?:                   boolean;
+    clientBlockingSettings?:                 PurpleClientBlockingSettings;
+    clientCommentTitle?:                     string;
+    cracServer?:                             CracServer;
+    cracSlotSize?:                           number;
+    crunchv2?:                               boolean;
+    dayOffLabel?:                            string;
+    daysForward?:                            number;
+    dayUnavailableLabel?:                    string;
+    defaultServiceImgUrl?:                   string;
+    defaultWorkerImgUrl?:                    string;
+    denySameTimeRecords?:                    boolean;
+    disabledTaxonomiesText?:                 string;
+    disableMobileWidget?:                    boolean;
+    disableWidget?:                          boolean;
+    disableWidgetMessage?:                   string;
+    discountedPriceRounding?:                PurpleDiscountedPriceRounding;
+    displaySlotSize?:                        number;
+    dontRequireEmail?:                       boolean;
+    emailIsMandatory?:                       boolean;
+    enableOverrideFooter?:                   boolean;
+    enableWarningContactData?:               boolean;
+    extraVisitors?:                          boolean;
+    filterNonInsuranceSchedule?:             boolean;
+    hideAnyWorkerBooking?:                   boolean;
+    hideCallButton?:                         boolean;
+    hideEmptyDays?:                          boolean;
+    hideGBookingLogo?:                       boolean;
+    hideGraySlots?:                          boolean;
+    hideNewAppointmentButton?:               boolean;
+    hidePrices?:                             boolean;
+    hideSocialNetworksAuthentication?:       boolean;
+    insuranceClientSupportPhone?:            Phone[];
+    maxServiceBooking?:                      number;
+    maxTimeslotBooking?:                     number;
+    middleNameSupport?:                      boolean;
+    mostFreeEnable?:                         boolean;
+    multiServiceBooking?:                    boolean;
+    multiTimeslotBooking?:                   boolean;
+    multiTimeslotBookingAllDays?:            boolean;
+    newWidgetTheme?:                         { [key: string]: any };
+    noDefaultImages?:                        boolean;
+    overrideFooter?:                         string;
+    payment?:                                Payment;
+    paymentProvider?:                        PurplePaymentProvider;
+    requireAgreement?:                       boolean;
+    requireAgreementLink?:                   string;
+    revisionVersion?:                        number;
+    shortLink?:                              string;
+    showAllWorkers?:                         boolean;
+    showClientAddress?:                      boolean;
+    showClientComment?:                      boolean;
+    showDisabledTaxonomies?:                 boolean;
+    showDrinkQuestion?:                      boolean;
+    showMap?:                                boolean;
+    showStartText?:                          boolean;
+    showSurnameFirst?:                       boolean;
+    showTalkQuestion?:                       boolean;
+    showTaxonomyConfirmationAlert?:          boolean;
+    skipAuthentication?:                     boolean;
+    skipDaysForward?:                        boolean;
+    skipMobileMap?:                          boolean;
+    skipServiceDurationAlignment?:           boolean;
+    skipServiceSelection?:                   boolean;
+    skipTimeSelection?:                      boolean;
+    skipTimeSelectionServiceIDs?:            string[];
+    skipWorkerSelectedServiceIDs?:           string[];
+    skipWorkerServicesSelection?:            boolean;
+    socialNetworkImage?:                     string;
+    socialSharing?:                          PurpleSocialSharing;
+    sortByMostFree?:                         boolean;
+    sortWorkersByWorkload?:                  boolean;
+    splitInsuranceClient?:                   boolean;
+    splitName?:                              boolean;
+    startTextButton?:                        string;
+    startTextMessage?:                       string;
+    tentativeTTL?:                           number;
+    theme?:                                  string;
+    useAppointmentReminder?:                 boolean;
+    useBusinessScheduleForUnavailableLabel?: boolean;
+    useClustersMap?:                         boolean;
+    useCoupon?:                              boolean;
+    useCRAC?:                                boolean;
+    useDefaultServiceImg?:                   boolean;
+    useDefaultWorkerImg?:                    boolean;
+    useDirectScheduleRead?:                  UseDirectScheduleRead;
+    useInsuranceGuaranteeLetter?:            boolean;
+    useInsuranceSelect?:                     boolean;
+    useMedAuth?:                             boolean;
+    useMiddleName?:                          boolean;
+    useNewReserveAPI?:                       boolean;
+    useResourcePageLoading?:                 boolean;
+    useSortByName?:                          boolean;
+    warningContactDataText?:                 string;
+    widgetUseCRAC?:                          boolean;
+    withoutWorkers?:                         boolean;
+    worker_unavailability_text?:             string;
+    workerNameReverse?:                      boolean;
+}
+
+export interface PurpleBookableDateRanges {
+    enabled?: boolean;
+    end?:     any;
+    start?:   any;
+}
+
+export interface PurpleClientBlockingSettings {
+    appointmentClientBlock?:     boolean;
+    appointmentClientBlockDays?: number;
+    appointmentClientBlockText?: string;
+    blockIfFutureRecordExists?:  boolean;
+    blockRepeatedRecordsCount?:  number;
+    blockRepeatedRecordsRange?:  number;
+    blockRepeatedRecordsText?:   string;
+}
+
+export enum CracServer {
+    Crac = "CRAC",
+    CracProd3 = "CRAC_PROD3",
+}
+
+export interface PurpleDiscountedPriceRounding {
+    rule?:  Rule;
+    value?: number;
+}
+
+export enum Rule {
+    Custom = "CUSTOM",
+    NearestInteger = "NEAREST_INTEGER",
+    TwoDecimals = "TWO_DECIMALS",
+}
+
+export enum Payment {
+    Optional = "OPTIONAL",
+    Required = "REQUIRED",
+    Without = "WITHOUT",
+}
+
+export interface PurpleSocialSharing {
+    active?:          boolean;
+    discountAmount?:  number | null;
+    discountEnabled?: boolean;
+    discountType?:    DiscountType;
+    text?:            null | string;
+    widgetText?:      null | string;
+}
+
+export enum DiscountType {
+    Percent = "PERCENT",
+}
+
+export enum UseDirectScheduleRead {
+    All = "ALL",
+    Authenticated = "AUTHENTICATED",
+    Guest = "GUEST",
+    None = "NONE",
+}
+
+export interface NetworkWidgetConfiguration {
+    _id?:               string;
+    businesses:         BusinessElement[];
+    defaultServiceID:   null | string;
+    showBranchSelector: boolean;
+    showDefaultService: boolean;
+    showOnMap:          boolean;
+    source:             string;
+}
+
+export interface BusinessElement {
+    _id?:       string;
+    active:     boolean;
+    internalID: string;
+}
+
+export interface GetProfileById {
+    request:  BusinessGetProfileByIdRequest;
+    response: BusinessGetProfileByIdResponse;
+}
+
+export interface BusinessGetProfileByIdRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     *
+     * параметры запроса business.get_profile_by_id
+     */
+    params: BusinessGetProfileByIdRequestParams;
+}
+
+/**
+ * параметры запроса business.get_profile_by_id
+ */
+export interface BusinessGetProfileByIdRequestParams {
+    business: IndecentBusiness;
+    /**
+     * если указано true - меняет формат представления discounts
+     */
+    desktop_discounts?: boolean;
+    /**
+     * если указано true - возвращает только активных работников (status == 'INACTIVE')
+     */
+    only_active_workers?: boolean;
+    /**
+     * если указано true - возвращает всех работников в том числе и неактивных (status ==
+     * 'INACTIVE')
+     */
+    show_inactive_workers?: boolean;
+    /**
+     * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
+     */
+    showcase_business_id?: BackofficeIdUnion;
+    /**
+     * если указано true - не приминяет сортировку работников
+     */
+    skip_worker_sorting?: boolean;
+    /**
+     * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
+     */
+    with_billing?: boolean;
+    /**
+     * если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
+     * (недоступно для роли guest)
+     */
+    with_bop?: boolean;
+    /**
+     * если указано true - возвращает кампании скидочных купонов в поле campaigns
+     */
+    with_campaigns?: boolean;
+    /**
+     * если указано true - возвращает список скидочных акций в поле discounts
+     */
+    with_discounts?: boolean;
+    /**
+     * дата начала расписания, для которого нужно получить скидочные акции
+     */
+    with_discounts_from?: Date;
+    /**
+     * дата окончания расписания, для которого нужно получить скидочные акции
+     */
+    with_discounts_to?: Date;
+    /**
+     * если указано true - возвращает информацию о других филиалах сети в поле networks
+     */
+    with_networks?: boolean;
+    /**
+     * если указано true - заполняет идентификаторы таксономий витрины showcaseTaxonomyID для
+     * каждой таксономии (недоступно для роли guest)
+     */
+    with_taxonomy_showcase?: boolean;
+    /**
+     * тип сортировки работника
+     */
+    worker_sorting_type?: WorkerSortingType;
+}
+
+export interface IndecentBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: string;
+}
+
+/**
+ * тип сортировки работника
+ */
+export enum WorkerSortingType {
+    MostFree = "most_free",
+    None = "none",
+    Workload = "workload",
+}
+
+export interface BusinessGetProfileByIdResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id?: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: BusinessGetProfileByIdResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: BusinessGetProfileByIdResponseError;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface BusinessGetProfileByIdResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+/**
+ * данные, передаваемые в ответ
+ */
+export interface BusinessGetProfileByIdResponseResult {
+    active?:                boolean;
+    business:               ResultBusiness;
+    freeSms?:               number;
+    monthlyFreeSms?:        number;
+    networks?:              NetworkElement[];
+    profiles?:              { [key: string]: any }[];
+    top_services?:          ResultTopServices;
+    useDefaultSmsTemplate?: boolean;
+    yandexFeedType?:        YandexFeedType;
+}
+
+export type ResultBusiness = any[] | boolean | HilariousBusiness | number | number | null | string;
+
+export interface HilariousBusiness {
+    active?:                        boolean;
+    additionalSettings?:            FluffyAdditionalSettings;
+    allowCategoryBooking?:          boolean;
+    backoffice_configuration?:      StickyBackofficeConfiguration;
+    backofficeConfiguration?:       TentacledBackofficeConfiguration;
+    backofficeType?:                BackofficeType;
+    cabinets?:                      FluffyCabinet[];
+    cabinetsEnabled?:               boolean;
+    callback_widget_configuration?: FluffyCallbackWidgetConfiguration;
+    consumables?:                   FluffyConsumable[];
+    created_on?:                    Date;
+    defaultFilteredWorkers?:        string[];
+    departments?:                   FluffyDepartment[];
+    designs?:                       { [key: string]: any }[];
+    extraID?:                       string;
+    flatTaxonomyDisplay?:           boolean;
+    general_info:                   BusinessInfo;
+    group?:                         Group;
+    id?:                            string;
+    integration_data?:              { [key: string]: any };
+    mini_widget_configuration:      FluffyMiniWidgetConfiguration;
+    mobileData?:                    any[];
+    notifications?:                 any[];
+    resources:                      Resource[];
+    stateLevelHolidaysNotWorking?:  boolean;
+    taxonomies:                     FluffyBusinessTaxonomy[];
+    taxonomiesComplex?:             FluffyTaxonomiesComplex[];
+    taxonomy_tree_capacity?:        { [key: string]: any }[];
+    top_services?:                  FluffyTopServices;
+    vertical?:                      string;
+    widget_configuration:           FluffyWidgetConfiguration;
+    yandexFeedType?:                string;
+}
+
+export interface FluffyAdditionalSettings {
+    appointmentExtensionAmount?: number;
+    appointmentExtensionType?:   AppointmentExtensionType;
+}
+
+export interface TentacledBackofficeConfiguration {
+    adjacentTaxonomiesTreshold?:                      number;
+    allowHideServiceForBooking?:                      boolean;
+    allowHideWorkersFromSchdeule?:                    boolean;
+    allowSmsTranslit?:                                boolean;
+    appointmentFutureMoving?:                         boolean;
+    blockNotificationForAnyAvailableAdjacentService?: boolean;
+    cabinetsEnabled?:                                 boolean;
+    checkClientOverlapping?:                          boolean;
+    customOnlinePaymentConfirmationTemplate?:         string;
+    defaultGTScheduleDayView?:                        boolean;
+    disableAppointmentClientInlineEditor?:            boolean;
+    editAppExtraId?:                                  boolean;
+    editTaxonomyChildren?:                            boolean;
+    editTaxonomyVisitType?:                           boolean;
+    enableBlackList?:                                 boolean;
+    enableCalculateShedule?:                          boolean;
+    enableClientCard?:                                boolean;
+    enableClientLanguage?:                            boolean;
+    enableClientMedicalCardReport?:                   boolean;
+    enableCustomOnlinePaymentConfirmation?:           boolean;
+    enableExtendedPhone?:                             boolean;
+    enableExtendedRecordsClientStatistics?:           boolean;
+    enableMasterImportance?:                          boolean;
+    enableServiceTimeLimit?:                          boolean;
+    enableSourceChoice?:                              boolean;
+    enableTaxonomyChildrenAgeCheck?:                  boolean;
+    exportToExcelRemovedClients?:                     boolean;
+    feedbackCustomerPortalMessage?:                   string;
+    feedbackCustomerPortalThankYouMessage?:           string;
+    feedbackCustomerPortalTitle?:                     string;
+    feedBackMinRating?:                               FeedBackMinRating;
+    finId?:                                           string;
+    finName?:                                         string;
+    hideCustomerPortalFooter?:                        boolean;
+    highlightedResource?:                             boolean;
+    manualExceptionSupport?:                          boolean;
+    noInternetAlert?:                                 boolean;
+    pastTimeEdit?:                                    number;
+    paymentProvider?:                                 FluffyPaymentProvider;
+    readonlyResourceSchedule?:                        boolean;
+    resourceTimetableType?:                           ResourceTimetableType;
+    revisionVersion?:                                 number;
+    schduleWeekViewIsDefault?:                        boolean;
+    scheduleDefaultWorkersLimit?:                     number;
+    scheduleDefaultWorkersLimitDay?:                  number | null;
+    scheduleDefaultWorkersLimitWeek?:                 number | null;
+    schedulerWeekViewType?:                           SchedulerWeekViewType;
+    scheduleWorkerHours?:                             boolean;
+    showAdditionalFields?:                            boolean;
+    showAddress?:                                     boolean;
+    showBirthDate?:                                   boolean;
+    showClientAppear?:                                boolean;
+    showClientAppearOnSchedule?:                      boolean;
+    showClientBirthdayFilter?:                        boolean;
+    showClientContractNumber?:                        boolean;
+    showClientImage?:                                 boolean;
+    showClientPayment?:                               boolean;
+    showDefaulterBlockscreen?:                        boolean;
+    showDeliveryStatus?:                              boolean;
+    showDepartmentFilter?:                            boolean;
+    showDepartments?:                                 boolean;
+    showDepartmentsConfiguration?:                    boolean;
+    showEmail?:                                       boolean;
+    showExtraClientInfo?:                             boolean;
+    showFax?:                                         boolean;
+    showFiredWorkerAppointmentAlert?:                 boolean;
+    showFirstAvailableSlot?:                          boolean;
+    showGapWindow?:                                   boolean;
+    showGender?:                                      boolean;
+    showGenderInRecords?:                             boolean;
+    showGeneratableReportsScreen?:                    boolean;
+    showHouseNumber?:                                 boolean;
+    showIsraelCity?:                                  boolean;
+    showKupatHolim?:                                  boolean;
+    showLeadsScreen?:                                 boolean;
+    showManualChanges?:                               boolean;
+    showPassportId?:                                  boolean;
+    showRooms?:                                       boolean;
+    showSeasonTickets?:                               boolean;
+    showTaxonomyChildren?:                            boolean;
+    showTaxonomyLocalization?:                        boolean;
+    showTaxonomyVisitType?:                           boolean;
+    showTestRecord?:                                  boolean;
+    showUTM?:                                         boolean;
+    showWidgetColorTheme?:                            boolean;
+    showWorkerDescriptionInEvent?:                    boolean;
+    showWorkerExtraId?:                               boolean;
+    showWorkerStatus?:                                boolean;
+    skipAppointmentPriceUpdate?:                      boolean;
+    skipCancelIfClientNotAppear?:                     boolean;
+    skipServiceFiltering?:                            boolean;
+    splitFullNameXlsExport?:                          boolean;
+    stateLevelHolidays?:                              { [key: string]: any }[] | null;
+    stateLevelHolidaysNotWorking?:                    boolean;
+    taxonomyChildrenMaxAge?:                          number;
+    useAdditionalDurations?:                          boolean;
+    useAdjacentTaxonomies?:                           boolean;
+    useAdjacentTaxonomiesSlotSplitting?:              boolean;
+    useGtAppMethod?:                                  boolean;
+    workWeekEnd?:                                     number;
+    workWeekStart?:                                   number;
+}
+
+export enum FluffyPaymentProvider {
+    Cloudpayments = "cloudpayments",
+    DeltaProcessing = "deltaProcessing",
+    Disable = "DISABLE",
+    Pelecard = "pelecard",
+    YandexMoney = "yandexMoney",
+}
+
+export interface StickyBackofficeConfiguration {
+    enableMasterImportance?: boolean;
+    resourceTimetableType?:  ResourceTimetableType;
+}
+
+export interface FluffyCabinet {
+    active?: boolean;
+    id?:     string;
+    name?:   string;
+}
+
+export interface FluffyCallbackWidgetConfiguration {
+    title1?: string;
+    title2?: string;
+}
+
+export interface FluffyConsumable {
+    extraID:  string;
+    name:     string;
+    quantity: number;
+}
+
+export interface FluffyDepartment {
+    id:   string;
+    id_?: number;
+    name: string;
+}
+
+export interface FluffyMiniWidgetConfiguration {
+    fields?: FieldElement[];
+    title1?: string;
+    title2?: string;
+}
+
+export interface FluffyBusinessTaxonomy {
+    active?:                     boolean;
+    additionalDurations?:        TentacledAdditionalDuration[];
+    additionalPrices?:           FluffyBusinessTaxonomyPrice[];
+    additionalProducts?:         FluffyBusinessTaxonomyProduct[];
+    additionalTaxonomyExtraId?:  { [key: string]: any }[];
+    adjacentSameTimeStart?:      boolean;
+    adjacentTaxonomies?:         FluffyAdjacentTaxonomy[];
+    alias?:                      { [key: string]: any };
+    allowBookingInBO?:           boolean;
+    allowNextBookingCount?:      number;
+    allowNextBookingInDays?:     number;
+    allowNextBookingInDaysText?: string;
+    cabinets?:                   string[];
+    cabinetsEnabled?:            boolean;
+    capacity?:                   number;
+    capacity_decrease?:          number;
+    chargeUnitsStep?:            number;
+    childrenTaxonomyTypes?:      ChildrenTaxonomyType[];
+    color?:                      string;
+    confirmationAlert?:          string;
+    confirmationSmsAlert?:       string;
+    dateLimits?:                 FluffyDateLimit[];
+    dateLimitType?:              DateLimitType;
+    designs?:                    string[];
+    discounts?:                  Discount;
+    displayInWidget?:            boolean;
+    duration?:                   number;
+    exceptions?:                 any[];
+    extraDescription?:           string;
+    extraId?:                    string;
+    extraLink?:                  string;
+    forPay?:                     boolean;
+    id?:                         string;
+    images?:                     string[];
+    isOther?:                    boolean;
+    lastModified?:               Date;
+    leaves?:                     string[];
+    manualChanges?:              boolean;
+    newTaxonomy?:                boolean;
+    onlineMode?:                 OnlineMode;
+    onlyAfterTaxonomies?:        string[];
+    order?:                      number;
+    parallelTaxonomies?:         string[];
+    popularity?:                 number;
+    price?:                      FluffyPrice;
+    priceLink?:                  string;
+    /**
+     * Список видов приема услуги
+     */
+    receptionTypes?: string[];
+    rooms?:          string[];
+    showcaseItems?:  FluffyShowcaseItem[];
+    showcases?:      FluffyTaxonomyShowcase[];
+    /**
+     * Идентификатор услуги в витрине
+     */
+    showcaseTaxonomyID?: string;
+    /**
+     * Внешний идентификатор таксономии
+     */
+    siteId?:                  string;
+    specialCabinet?:          string;
+    taxonomyAppExtraID?:      string;
+    taxonomyCategoryExtraID?: string;
+    taxonomyParentID?:        string;
+    taxonomyType?:            TaxonomyType;
+    timetable?:               Timetable;
+    useConfirmationSmsAlert?: boolean;
+    visitType?:               string;
+}
+
+export interface TentacledAdditionalDuration {
+    duration?: number | null;
+    level?:    number;
+}
+
+export interface FluffyBusinessTaxonomyPrice {
+    /**
+     * Значение цены
+     */
+    amount?: string;
+    /**
+     * Аббревиатура валюты
+     */
+    currency: CurrencyList;
+    /**
+     * "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+     */
+    resourceLevel: number;
+    /**
+     * Значение цены, с учётом промо акций
+     */
+    stockAmount: null | string;
+    /**
+     * Тип цены
+     */
+    type?: AdditionalPriceType;
+}
+
+export interface FluffyBusinessTaxonomyProduct {
+    /**
+     * Дополнительный ID товара
+     */
+    extraID: string;
+    /**
+     * ID товара
+     */
+    id: string;
+    /**
+     * Является ли обязательным при выполнении данной услуги
+     */
+    required: boolean;
+}
+
+export interface FluffyAdjacentTaxonomy {
+    isAnyAvailable?: boolean;
+    order?:          number;
+    slotDuration?:   number;
+    taxonomyID?:     string;
+}
+
+export interface FluffyDateLimit {
+    _id?:           string;
+    dateLimitFrom?: Date;
+    dateLimitTo?:   Date;
+}
+
+export interface FluffyPrice {
+    /**
+     * Значение цены
+     */
+    amount: string;
+    /**
+     * Аббревиатура валюты (например, RUB - рубль)
+     */
+    currency: CurrencyList;
+    /**
+     * Значение цены, с учётом промо акций
+     */
+    stockAmount: null | string;
+    /**
+     * Тип цены
+     */
+    type: AdditionalPriceType;
+}
+
+export interface FluffyShowcaseItem {
+    _id?:                 string;
+    additionalDurations?: StickyAdditionalDuration[];
+    businessID?:          string;
+    /**
+     * Список видов приема услуги
+     */
+    receptionTypes?: string[];
+    taxonomyID?:     string;
+}
+
+export interface StickyAdditionalDuration {
+    _id?:      string;
+    duration?: number;
+    /**
+     * поддержка различной длительности услуг в зависимости от работника
+     */
+    level?: number;
+}
+
+export interface FluffyTaxonomyShowcase {
+    baseBusinessID?:   string;
+    isBaseNode?:       boolean;
+    originBusinessID?: string;
+    showcaseItemID?:   string;
 }
 
 export interface FluffyTaxonomiesComplex {
@@ -3259,14 +3470,14 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business:           CunningBusiness;
+    business:           AmbitiousBusiness;
     client:             ClientObject;
-    profile?:           PurpleProfile;
+    profile?:           ParamsProfile;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
 }
 
-export interface CunningBusiness {
+export interface AmbitiousBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3296,7 +3507,7 @@ export type Birthday = { [key: string]: any } | string;
 
 export type FromSms = boolean | string;
 
-export interface PurpleProfile {
+export interface ParamsProfile {
     /**
      * идентификатор профиля пользователя
      */
@@ -3342,17 +3553,17 @@ export interface ClientAddClientResponseError {
 }
 
 export interface ClientAddClientResponseResult {
-    business?:  MagentaBusiness;
+    business?:  CunningBusiness;
     client:     ClientObject;
     documents?: any[];
-    profile?:   FluffyProfile;
+    profile?:   PurpleProfile;
 }
 
-export interface MagentaBusiness {
+export interface CunningBusiness {
     id: string;
 }
 
-export interface FluffyProfile {
+export interface PurpleProfile {
     id: string;
 }
 
@@ -3388,25 +3599,24 @@ export interface ClientFindOrCreateClientRequest {
  * параметры запроса
  */
 export interface ClientFindOrCreateClientRequestParams {
-    business:           FriskyBusiness;
-    client:             ClientObject;
-    profile?:           TentacledProfile;
+    business:           MagentaBusiness;
+    network?:           FluffyNetwork;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
 }
 
-export interface FriskyBusiness {
+export interface MagentaBusiness {
     /**
      * идентификатор бизнеса
      */
     id: BackofficeIdUnion;
 }
 
-export interface TentacledProfile {
+export interface FluffyNetwork {
     /**
-     * идентификатор профиля пользователя
+     * идентификатор нетворка
      */
-    id: string;
+    id: BackofficeIdUnion;
 }
 
 export interface ClientFindOfCreateClientResponse {
@@ -3448,17 +3658,17 @@ export interface ClientFindOfCreateClientResponseError {
 }
 
 export interface ClientFindOfCreateClientResponseResult {
-    business?:  MischievousBusiness;
+    business?:  FriskyBusiness;
     client:     ClientObject;
     documents?: any[];
-    profile?:   StickyProfile;
+    profile?:   FluffyProfile;
 }
 
-export interface MischievousBusiness {
+export interface FriskyBusiness {
     id: string;
 }
 
-export interface StickyProfile {
+export interface FluffyProfile {
     id: string;
 }
 
@@ -3500,12 +3710,12 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
 }
 
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business:  BraggadociousBusiness;
+    business:  MischievousBusiness;
     resources: string[];
     taxonomy:  PurpleTaxonomy;
 }
 
-export interface BraggadociousBusiness {
+export interface MischievousBusiness {
     id: string;
 }
 
@@ -3674,14 +3884,14 @@ export interface CracCracResourcesFreeByDateV2Request {
 }
 
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business:  Business1;
+    business:  BraggadociousBusiness;
     duration:  number;
     durations: number[];
     resources: string[];
     taxonomy:  TentacledTaxonomy;
 }
 
-export interface Business1 {
+export interface BraggadociousBusiness {
     id: string;
 }
 
@@ -3768,11 +3978,11 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
-    business: Business2;
+    business: Business1;
     filters:  PurpleFilters;
 }
 
-export interface Business2 {
+export interface Business1 {
     general_info:         PurpleGeneralInfo;
     id:                   string;
     widget_configuration: TentacledWidgetConfiguration;
@@ -3892,11 +4102,11 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-    business: Business3;
+    business: Business2;
     filters:  FluffyFilters;
 }
 
-export interface Business3 {
+export interface Business2 {
     general_info:         FluffyGeneralInfo;
     id:                   string;
     widget_configuration: StickyWidgetConfiguration;
@@ -4009,11 +4219,11 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
-    business: Business4;
+    business: Business3;
     filters:  TentacledFilters;
 }
 
-export interface Business4 {
+export interface Business3 {
     general_info:         TentacledGeneralInfo;
     id:                   string;
     widget_configuration: IndigoWidgetConfiguration;
@@ -4109,2198 +4319,6 @@ export class Convert {
 
     public static gBookingCoreV2ToJson(value: GBookingCoreV2): string {
         return JSON.stringify(uncast(value, r("GBookingCoreV2")), null, 2);
-    }
-
-    public static toCommon(json: string): Common {
-        return cast(JSON.parse(json), r("Common"));
-    }
-
-    public static commonToJson(value: Common): string {
-        return JSON.stringify(uncast(value, r("Common")), null, 2);
-    }
-
-    public static toAuthErrorCodesObject(json: string): AuthErrorCodesObject {
-        return cast(JSON.parse(json), r("AuthErrorCodesObject"));
-    }
-
-    public static authErrorCodesObjectToJson(value: AuthErrorCodesObject): string {
-        return JSON.stringify(uncast(value, r("AuthErrorCodesObject")), null, 2);
-    }
-
-    public static toErrorResponseClass(json: string): ErrorResponseClass {
-        return cast(JSON.parse(json), r("ErrorResponseClass"));
-    }
-
-    public static errorResponseClassToJson(value: ErrorResponseClass): string {
-        return JSON.stringify(uncast(value, r("ErrorResponseClass")), null, 2);
-    }
-
-    public static toError(json: string): Error {
-        return cast(JSON.parse(json), r("Error"));
-    }
-
-    public static errorToJson(value: Error): string {
-        return JSON.stringify(uncast(value, r("Error")), null, 2);
-    }
-
-    public static toRequestClass(json: string): RequestClass {
-        return cast(JSON.parse(json), r("RequestClass"));
-    }
-
-    public static requestClassToJson(value: RequestClass): string {
-        return JSON.stringify(uncast(value, r("RequestClass")), null, 2);
-    }
-
-    public static toCred(json: string): Cred {
-        return cast(JSON.parse(json), r("Cred"));
-    }
-
-    public static credToJson(value: Cred): string {
-        return JSON.stringify(uncast(value, r("Cred")), null, 2);
-    }
-
-    public static toSuccessResponseClass(json: string): SuccessResponseClass {
-        return cast(JSON.parse(json), r("SuccessResponseClass"));
-    }
-
-    public static successResponseClassToJson(value: SuccessResponseClass): string {
-        return JSON.stringify(uncast(value, r("SuccessResponseClass")), null, 2);
-    }
-
-    public static toControllers(json: string): Controllers {
-        return cast(JSON.parse(json), r("Controllers"));
-    }
-
-    public static controllersToJson(value: Controllers): string {
-        return JSON.stringify(uncast(value, r("Controllers")), null, 2);
-    }
-
-    public static toAppointmentController(json: string): AppointmentController {
-        return cast(JSON.parse(json), r("AppointmentController"));
-    }
-
-    public static appointmentControllerToJson(value: AppointmentController): string {
-        return JSON.stringify(uncast(value, r("AppointmentController")), null, 2);
-    }
-
-    public static toCancelAppointmentByBusiness(json: string): CancelAppointmentByBusiness {
-        return cast(JSON.parse(json), r("CancelAppointmentByBusiness"));
-    }
-
-    public static cancelAppointmentByBusinessToJson(value: CancelAppointmentByBusiness): string {
-        return JSON.stringify(uncast(value, r("CancelAppointmentByBusiness")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByBusinessRequest(json: string): AppointmentCancelAppointmentByBusinessRequest {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessRequest"));
-    }
-
-    public static appointmentCancelAppointmentByBusinessRequestToJson(value: AppointmentCancelAppointmentByBusinessRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessRequest")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByBusinessRequestParams(json: string): AppointmentCancelAppointmentByBusinessRequestParams {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessRequestParams"));
-    }
-
-    public static appointmentCancelAppointmentByBusinessRequestParamsToJson(value: AppointmentCancelAppointmentByBusinessRequestParams): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessRequestParams")), null, 2);
-    }
-
-    public static toPurpleAppointment(json: string): PurpleAppointment {
-        return cast(JSON.parse(json), r("PurpleAppointment"));
-    }
-
-    public static purpleAppointmentToJson(value: PurpleAppointment): string {
-        return JSON.stringify(uncast(value, r("PurpleAppointment")), null, 2);
-    }
-
-    public static toPurpleClient(json: string): PurpleClient {
-        return cast(JSON.parse(json), r("PurpleClient"));
-    }
-
-    public static purpleClientToJson(value: PurpleClient): string {
-        return JSON.stringify(uncast(value, r("PurpleClient")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByBusinessResponse(json: string): AppointmentCancelAppointmentByBusinessResponse {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessResponse"));
-    }
-
-    public static appointmentCancelAppointmentByBusinessResponseToJson(value: AppointmentCancelAppointmentByBusinessResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessResponse")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByBusinessResponseError(json: string): AppointmentCancelAppointmentByBusinessResponseError {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByBusinessResponseError"));
-    }
-
-    public static appointmentCancelAppointmentByBusinessResponseErrorToJson(value: AppointmentCancelAppointmentByBusinessResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByBusinessResponseError")), null, 2);
-    }
-
-    public static toCancelAppointmentByClient(json: string): CancelAppointmentByClient {
-        return cast(JSON.parse(json), r("CancelAppointmentByClient"));
-    }
-
-    public static cancelAppointmentByClientToJson(value: CancelAppointmentByClient): string {
-        return JSON.stringify(uncast(value, r("CancelAppointmentByClient")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByClientRequest(json: string): AppointmentCancelAppointmentByClientRequest {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientRequest"));
-    }
-
-    public static appointmentCancelAppointmentByClientRequestToJson(value: AppointmentCancelAppointmentByClientRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientRequest")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByClientRequestParams(json: string): AppointmentCancelAppointmentByClientRequestParams {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientRequestParams"));
-    }
-
-    public static appointmentCancelAppointmentByClientRequestParamsToJson(value: AppointmentCancelAppointmentByClientRequestParams): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientRequestParams")), null, 2);
-    }
-
-    public static toFluffyAppointment(json: string): FluffyAppointment {
-        return cast(JSON.parse(json), r("FluffyAppointment"));
-    }
-
-    public static fluffyAppointmentToJson(value: FluffyAppointment): string {
-        return JSON.stringify(uncast(value, r("FluffyAppointment")), null, 2);
-    }
-
-    public static toFluffyClient(json: string): FluffyClient {
-        return cast(JSON.parse(json), r("FluffyClient"));
-    }
-
-    public static fluffyClientToJson(value: FluffyClient): string {
-        return JSON.stringify(uncast(value, r("FluffyClient")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByClientResponse(json: string): AppointmentCancelAppointmentByClientResponse {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientResponse"));
-    }
-
-    public static appointmentCancelAppointmentByClientResponseToJson(value: AppointmentCancelAppointmentByClientResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientResponse")), null, 2);
-    }
-
-    public static toAppointmentCancelAppointmentByClientResponseError(json: string): AppointmentCancelAppointmentByClientResponseError {
-        return cast(JSON.parse(json), r("AppointmentCancelAppointmentByClientResponseError"));
-    }
-
-    public static appointmentCancelAppointmentByClientResponseErrorToJson(value: AppointmentCancelAppointmentByClientResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentCancelAppointmentByClientResponseError")), null, 2);
-    }
-
-    public static toClientConfirmAppointment(json: string): ClientConfirmAppointment {
-        return cast(JSON.parse(json), r("ClientConfirmAppointment"));
-    }
-
-    public static clientConfirmAppointmentToJson(value: ClientConfirmAppointment): string {
-        return JSON.stringify(uncast(value, r("ClientConfirmAppointment")), null, 2);
-    }
-
-    public static toAppointmentClientConfirmAppointmentRequest(json: string): AppointmentClientConfirmAppointmentRequest {
-        return cast(JSON.parse(json), r("AppointmentClientConfirmAppointmentRequest"));
-    }
-
-    public static appointmentClientConfirmAppointmentRequestToJson(value: AppointmentClientConfirmAppointmentRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientConfirmAppointmentRequest")), null, 2);
-    }
-
-    public static toConfirmAppointment(json: string): ConfirmAppointment {
-        return cast(JSON.parse(json), r("ConfirmAppointment"));
-    }
-
-    public static confirmAppointmentToJson(value: ConfirmAppointment): string {
-        return JSON.stringify(uncast(value, r("ConfirmAppointment")), null, 2);
-    }
-
-    public static toTentacledAppointment(json: string): TentacledAppointment {
-        return cast(JSON.parse(json), r("TentacledAppointment"));
-    }
-
-    public static tentacledAppointmentToJson(value: TentacledAppointment): string {
-        return JSON.stringify(uncast(value, r("TentacledAppointment")), null, 2);
-    }
-
-    public static toTentacledClient(json: string): TentacledClient {
-        return cast(JSON.parse(json), r("TentacledClient"));
-    }
-
-    public static tentacledClientToJson(value: TentacledClient): string {
-        return JSON.stringify(uncast(value, r("TentacledClient")), null, 2);
-    }
-
-    public static toAppointmentClientConfirmAppointmentResponse(json: string): AppointmentClientConfirmAppointmentResponse {
-        return cast(JSON.parse(json), r("AppointmentClientConfirmAppointmentResponse"));
-    }
-
-    public static appointmentClientConfirmAppointmentResponseToJson(value: AppointmentClientConfirmAppointmentResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientConfirmAppointmentResponse")), null, 2);
-    }
-
-    public static toAppointmentClientConfirmAppointmentResponseError(json: string): AppointmentClientConfirmAppointmentResponseError {
-        return cast(JSON.parse(json), r("AppointmentClientConfirmAppointmentResponseError"));
-    }
-
-    public static appointmentClientConfirmAppointmentResponseErrorToJson(value: AppointmentClientConfirmAppointmentResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientConfirmAppointmentResponseError")), null, 2);
-    }
-
-    public static toAppointmentSchema(json: string): AppointmentSchema {
-        return cast(JSON.parse(json), r("AppointmentSchema"));
-    }
-
-    public static appointmentSchemaToJson(value: AppointmentSchema): string {
-        return JSON.stringify(uncast(value, r("AppointmentSchema")), null, 2);
-    }
-
-    public static toAdditionalClientAppear(json: string): AdditionalClientAppear {
-        return cast(JSON.parse(json), r("AdditionalClientAppear"));
-    }
-
-    public static additionalClientAppearToJson(value: AdditionalClientAppear): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientAppear")), null, 2);
-    }
-
-    public static toAdditionalClientPayment(json: string): AdditionalClientPayment {
-        return cast(JSON.parse(json), r("AdditionalClientPayment"));
-    }
-
-    public static additionalClientPaymentToJson(value: AdditionalClientPayment): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientPayment")), null, 2);
-    }
-
-    public static toAdditionalClientSource(json: string): AdditionalClientSource {
-        return cast(JSON.parse(json), r("AdditionalClientSource"));
-    }
-
-    public static additionalClientSourceToJson(value: AdditionalClientSource): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientSource")), null, 2);
-    }
-
-    public static toAdditionalClientStatus(json: string): AdditionalClientStatus {
-        return cast(JSON.parse(json), r("AdditionalClientStatus"));
-    }
-
-    public static additionalClientStatusToJson(value: AdditionalClientStatus): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientStatus")), null, 2);
-    }
-
-    public static toAdditionalClientUtm(json: string): AdditionalClientUtm {
-        return cast(JSON.parse(json), r("AdditionalClientUtm"));
-    }
-
-    public static additionalClientUtmToJson(value: AdditionalClientUtm): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientUtm")), null, 2);
-    }
-
-    public static toAdditionalClientElement(json: string): AdditionalClientElement {
-        return cast(JSON.parse(json), r("AdditionalClientElement"));
-    }
-
-    public static additionalClientElementToJson(value: AdditionalClientElement): string {
-        return JSON.stringify(uncast(value, r("AdditionalClientElement")), null, 2);
-    }
-
-    public static toAppointmentClientFeedback(json: string): AppointmentClientFeedback {
-        return cast(JSON.parse(json), r("AppointmentClientFeedback"));
-    }
-
-    public static appointmentClientFeedbackToJson(value: AppointmentClientFeedback): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientFeedback")), null, 2);
-    }
-
-    public static toExtraField(json: string): ExtraField {
-        return cast(JSON.parse(json), r("ExtraField"));
-    }
-
-    public static extraFieldToJson(value: ExtraField): string {
-        return JSON.stringify(uncast(value, r("ExtraField")), null, 2);
-    }
-
-    public static toIncomingPhoneElement(json: string): IncomingPhoneElement {
-        return cast(JSON.parse(json), r("IncomingPhoneElement"));
-    }
-
-    public static incomingPhoneElementToJson(value: IncomingPhoneElement): string {
-        return JSON.stringify(uncast(value, r("IncomingPhoneElement")), null, 2);
-    }
-
-    public static toIsraelCity(json: string): IsraelCity {
-        return cast(JSON.parse(json), r("IsraelCity"));
-    }
-
-    public static israelCityToJson(value: IsraelCity): string {
-        return JSON.stringify(uncast(value, r("IsraelCity")), null, 2);
-    }
-
-    public static toKupatHolim(json: string): KupatHolim {
-        return cast(JSON.parse(json), r("KupatHolim"));
-    }
-
-    public static kupatHolimToJson(value: KupatHolim): string {
-        return JSON.stringify(uncast(value, r("KupatHolim")), null, 2);
-    }
-
-    public static toAdditionalField(json: string): AdditionalField {
-        return cast(JSON.parse(json), r("AdditionalField"));
-    }
-
-    public static additionalFieldToJson(value: AdditionalField): string {
-        return JSON.stringify(uncast(value, r("AdditionalField")), null, 2);
-    }
-
-    public static toAdditionalProduct(json: string): AdditionalProduct {
-        return cast(JSON.parse(json), r("AdditionalProduct"));
-    }
-
-    public static additionalProductToJson(value: AdditionalProduct): string {
-        return JSON.stringify(uncast(value, r("AdditionalProduct")), null, 2);
-    }
-
-    public static toAppointmentTaxonomy(json: string): AppointmentTaxonomy {
-        return cast(JSON.parse(json), r("AppointmentTaxonomy"));
-    }
-
-    public static appointmentTaxonomyToJson(value: AppointmentTaxonomy): string {
-        return JSON.stringify(uncast(value, r("AppointmentTaxonomy")), null, 2);
-    }
-
-    public static toAppointmentInfo(json: string): AppointmentInfo {
-        return cast(JSON.parse(json), r("AppointmentInfo"));
-    }
-
-    public static appointmentInfoToJson(value: AppointmentInfo): string {
-        return JSON.stringify(uncast(value, r("AppointmentInfo")), null, 2);
-    }
-
-    public static toIntegrationData(json: string): IntegrationData {
-        return cast(JSON.parse(json), r("IntegrationData"));
-    }
-
-    public static integrationDataToJson(value: IntegrationData): string {
-        return JSON.stringify(uncast(value, r("IntegrationData")), null, 2);
-    }
-
-    public static toPrice(json: string): Price {
-        return cast(JSON.parse(json), r("Price"));
-    }
-
-    public static priceToJson(value: Price): string {
-        return JSON.stringify(uncast(value, r("Price")), null, 2);
-    }
-
-    public static toAdditionalTaxonomyDiscount(json: string): AdditionalTaxonomyDiscount {
-        return cast(JSON.parse(json), r("AdditionalTaxonomyDiscount"));
-    }
-
-    public static additionalTaxonomyDiscountToJson(value: AdditionalTaxonomyDiscount): string {
-        return JSON.stringify(uncast(value, r("AdditionalTaxonomyDiscount")), null, 2);
-    }
-
-    public static toAppointmentBusiness(json: string): AppointmentBusiness {
-        return cast(JSON.parse(json), r("AppointmentBusiness"));
-    }
-
-    public static appointmentBusinessToJson(value: AppointmentBusiness): string {
-        return JSON.stringify(uncast(value, r("AppointmentBusiness")), null, 2);
-    }
-
-    public static toCabinet(json: string): Cabinet {
-        return cast(JSON.parse(json), r("Cabinet"));
-    }
-
-    public static cabinetToJson(value: Cabinet): string {
-        return JSON.stringify(uncast(value, r("Cabinet")), null, 2);
-    }
-
-    public static toPurpleAppointmentClient(json: string): PurpleAppointmentClient {
-        return cast(JSON.parse(json), r("PurpleAppointmentClient"));
-    }
-
-    public static purpleAppointmentClientToJson(value: PurpleAppointmentClient): string {
-        return JSON.stringify(uncast(value, r("PurpleAppointmentClient")), null, 2);
-    }
-
-    public static toAppointmentClientVisitor(json: string): AppointmentClientVisitor {
-        return cast(JSON.parse(json), r("AppointmentClientVisitor"));
-    }
-
-    public static appointmentClientVisitorToJson(value: AppointmentClientVisitor): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientVisitor")), null, 2);
-    }
-
-    public static toLocation(json: string): Location {
-        return cast(JSON.parse(json), r("Location"));
-    }
-
-    public static locationToJson(value: Location): string {
-        return JSON.stringify(uncast(value, r("Location")), null, 2);
-    }
-
-    public static toOrder(json: string): Order {
-        return cast(JSON.parse(json), r("Order"));
-    }
-
-    public static orderToJson(value: Order): string {
-        return JSON.stringify(uncast(value, r("Order")), null, 2);
-    }
-
-    public static toReminder(json: string): Reminder {
-        return cast(JSON.parse(json), r("Reminder"));
-    }
-
-    public static reminderToJson(value: Reminder): string {
-        return JSON.stringify(uncast(value, r("Reminder")), null, 2);
-    }
-
-    public static toRemovedClientsDatum(json: string): RemovedClientsDatum {
-        return cast(JSON.parse(json), r("RemovedClientsDatum"));
-    }
-
-    public static removedClientsDatumToJson(value: RemovedClientsDatum): string {
-        return JSON.stringify(uncast(value, r("RemovedClientsDatum")), null, 2);
-    }
-
-    public static toAppointmentResource(json: string): AppointmentResource {
-        return cast(JSON.parse(json), r("AppointmentResource"));
-    }
-
-    public static appointmentResourceToJson(value: AppointmentResource): string {
-        return JSON.stringify(uncast(value, r("AppointmentResource")), null, 2);
-    }
-
-    public static toReview(json: string): Review {
-        return cast(JSON.parse(json), r("Review"));
-    }
-
-    public static reviewToJson(value: Review): string {
-        return JSON.stringify(uncast(value, r("Review")), null, 2);
-    }
-
-    public static toBusinessClass(json: string): BusinessClass {
-        return cast(JSON.parse(json), r("BusinessClass"));
-    }
-
-    public static businessClassToJson(value: BusinessClass): string {
-        return JSON.stringify(uncast(value, r("BusinessClass")), null, 2);
-    }
-
-    public static toRoom(json: string): Room {
-        return cast(JSON.parse(json), r("Room"));
-    }
-
-    public static roomToJson(value: Room): string {
-        return JSON.stringify(uncast(value, r("Room")), null, 2);
-    }
-
-    public static toAppointmentShowcase(json: string): AppointmentShowcase {
-        return cast(JSON.parse(json), r("AppointmentShowcase"));
-    }
-
-    public static appointmentShowcaseToJson(value: AppointmentShowcase): string {
-        return JSON.stringify(uncast(value, r("AppointmentShowcase")), null, 2);
-    }
-
-    public static toClientRemoveEmptyAppointment(json: string): ClientRemoveEmptyAppointment {
-        return cast(JSON.parse(json), r("ClientRemoveEmptyAppointment"));
-    }
-
-    public static clientRemoveEmptyAppointmentToJson(value: ClientRemoveEmptyAppointment): string {
-        return JSON.stringify(uncast(value, r("ClientRemoveEmptyAppointment")), null, 2);
-    }
-
-    public static toAppointmentClientRemoveEmptyAppointmentRequest(json: string): AppointmentClientRemoveEmptyAppointmentRequest {
-        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentRequest"));
-    }
-
-    public static appointmentClientRemoveEmptyAppointmentRequestToJson(value: AppointmentClientRemoveEmptyAppointmentRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentRequest")), null, 2);
-    }
-
-    public static toRemoveEmptyAppointment(json: string): RemoveEmptyAppointment {
-        return cast(JSON.parse(json), r("RemoveEmptyAppointment"));
-    }
-
-    public static removeEmptyAppointmentToJson(value: RemoveEmptyAppointment): string {
-        return JSON.stringify(uncast(value, r("RemoveEmptyAppointment")), null, 2);
-    }
-
-    public static toStickyAppointment(json: string): StickyAppointment {
-        return cast(JSON.parse(json), r("StickyAppointment"));
-    }
-
-    public static stickyAppointmentToJson(value: StickyAppointment): string {
-        return JSON.stringify(uncast(value, r("StickyAppointment")), null, 2);
-    }
-
-    public static toPurpleBusiness(json: string): PurpleBusiness {
-        return cast(JSON.parse(json), r("PurpleBusiness"));
-    }
-
-    public static purpleBusinessToJson(value: PurpleBusiness): string {
-        return JSON.stringify(uncast(value, r("PurpleBusiness")), null, 2);
-    }
-
-    public static toAppointmentClientRemoveEmptyAppointmentResponse(json: string): AppointmentClientRemoveEmptyAppointmentResponse {
-        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentResponse"));
-    }
-
-    public static appointmentClientRemoveEmptyAppointmentResponseToJson(value: AppointmentClientRemoveEmptyAppointmentResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponse")), null, 2);
-    }
-
-    public static toAppointmentClientRemoveEmptyAppointmentResponseError(json: string): AppointmentClientRemoveEmptyAppointmentResponseError {
-        return cast(JSON.parse(json), r("AppointmentClientRemoveEmptyAppointmentResponseError"));
-    }
-
-    public static appointmentClientRemoveEmptyAppointmentResponseErrorToJson(value: AppointmentClientRemoveEmptyAppointmentResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentClientRemoveEmptyAppointmentResponseError")), null, 2);
-    }
-
-    public static toGetAppointmentByFilter(json: string): GetAppointmentByFilter {
-        return cast(JSON.parse(json), r("GetAppointmentByFilter"));
-    }
-
-    public static getAppointmentByFilterToJson(value: GetAppointmentByFilter): string {
-        return JSON.stringify(uncast(value, r("GetAppointmentByFilter")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByFilterRequest(json: string): AppointmentGetAppointmentByFilterRequest {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterRequest"));
-    }
-
-    public static appointmentGetAppointmentByFilterRequestToJson(value: AppointmentGetAppointmentByFilterRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterRequest")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByFilterRequestParams(json: string): AppointmentGetAppointmentByFilterRequestParams {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterRequestParams"));
-    }
-
-    public static appointmentGetAppointmentByFilterRequestParamsToJson(value: AppointmentGetAppointmentByFilterRequestParams): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterRequestParams")), null, 2);
-    }
-
-    public static toFluffyBusiness(json: string): FluffyBusiness {
-        return cast(JSON.parse(json), r("FluffyBusiness"));
-    }
-
-    public static fluffyBusinessToJson(value: FluffyBusiness): string {
-        return JSON.stringify(uncast(value, r("FluffyBusiness")), null, 2);
-    }
-
-    public static toExtraFilters(json: string): ExtraFilters {
-        return cast(JSON.parse(json), r("ExtraFilters"));
-    }
-
-    public static extraFiltersToJson(value: ExtraFilters): string {
-        return JSON.stringify(uncast(value, r("ExtraFilters")), null, 2);
-    }
-
-    public static toSort(json: string): Sort {
-        return cast(JSON.parse(json), r("Sort"));
-    }
-
-    public static sortToJson(value: Sort): string {
-        return JSON.stringify(uncast(value, r("Sort")), null, 2);
-    }
-
-    public static toFilter(json: string): Filter {
-        return cast(JSON.parse(json), r("Filter"));
-    }
-
-    public static filterToJson(value: Filter): string {
-        return JSON.stringify(uncast(value, r("Filter")), null, 2);
-    }
-
-    public static toFilterCreated(json: string): FilterCreated {
-        return cast(JSON.parse(json), r("FilterCreated"));
-    }
-
-    public static filterCreatedToJson(value: FilterCreated): string {
-        return JSON.stringify(uncast(value, r("FilterCreated")), null, 2);
-    }
-
-    public static toNetworkClass(json: string): NetworkClass {
-        return cast(JSON.parse(json), r("NetworkClass"));
-    }
-
-    public static networkClassToJson(value: NetworkClass): string {
-        return JSON.stringify(uncast(value, r("NetworkClass")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByFilterResponse(json: string): AppointmentGetAppointmentByFilterResponse {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterResponse"));
-    }
-
-    public static appointmentGetAppointmentByFilterResponseToJson(value: AppointmentGetAppointmentByFilterResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterResponse")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByFilterResponseError(json: string): AppointmentGetAppointmentByFilterResponseError {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterResponseError"));
-    }
-
-    public static appointmentGetAppointmentByFilterResponseErrorToJson(value: AppointmentGetAppointmentByFilterResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterResponseError")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByFilterResponseResult(json: string): AppointmentGetAppointmentByFilterResponseResult {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByFilterResponseResult"));
-    }
-
-    public static appointmentGetAppointmentByFilterResponseResultToJson(value: AppointmentGetAppointmentByFilterResponseResult): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByFilterResponseResult")), null, 2);
-    }
-
-    public static toGetAppointmentByShowcase(json: string): GetAppointmentByShowcase {
-        return cast(JSON.parse(json), r("GetAppointmentByShowcase"));
-    }
-
-    public static getAppointmentByShowcaseToJson(value: GetAppointmentByShowcase): string {
-        return JSON.stringify(uncast(value, r("GetAppointmentByShowcase")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByShowcaseRequest(json: string): AppointmentGetAppointmentByShowcaseRequest {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByShowcaseRequest"));
-    }
-
-    public static appointmentGetAppointmentByShowcaseRequestToJson(value: AppointmentGetAppointmentByShowcaseRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByShowcaseRequest")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByShowcaseRequestParams(json: string): AppointmentGetAppointmentByShowcaseRequestParams {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByShowcaseRequestParams"));
-    }
-
-    public static appointmentGetAppointmentByShowcaseRequestParamsToJson(value: AppointmentGetAppointmentByShowcaseRequestParams): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByShowcaseRequestParams")), null, 2);
-    }
-
-    public static toTentacledBusiness(json: string): TentacledBusiness {
-        return cast(JSON.parse(json), r("TentacledBusiness"));
-    }
-
-    public static tentacledBusinessToJson(value: TentacledBusiness): string {
-        return JSON.stringify(uncast(value, r("TentacledBusiness")), null, 2);
-    }
-
-    public static toParamsCreated(json: string): ParamsCreated {
-        return cast(JSON.parse(json), r("ParamsCreated"));
-    }
-
-    public static paramsCreatedToJson(value: ParamsCreated): string {
-        return JSON.stringify(uncast(value, r("ParamsCreated")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByShowcaseResponse(json: string): AppointmentGetAppointmentByShowcaseResponse {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByShowcaseResponse"));
-    }
-
-    public static appointmentGetAppointmentByShowcaseResponseToJson(value: AppointmentGetAppointmentByShowcaseResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByShowcaseResponse")), null, 2);
-    }
-
-    public static toAppointmentGetAppointmentByShowcaseResponseError(json: string): AppointmentGetAppointmentByShowcaseResponseError {
-        return cast(JSON.parse(json), r("AppointmentGetAppointmentByShowcaseResponseError"));
-    }
-
-    public static appointmentGetAppointmentByShowcaseResponseErrorToJson(value: AppointmentGetAppointmentByShowcaseResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentGetAppointmentByShowcaseResponseError")), null, 2);
-    }
-
-    public static toReserveAppointment(json: string): ReserveAppointment {
-        return cast(JSON.parse(json), r("ReserveAppointment"));
-    }
-
-    public static reserveAppointmentToJson(value: ReserveAppointment): string {
-        return JSON.stringify(uncast(value, r("ReserveAppointment")), null, 2);
-    }
-
-    public static toAppointmentReserveAppointmentRequest(json: string): AppointmentReserveAppointmentRequest {
-        return cast(JSON.parse(json), r("AppointmentReserveAppointmentRequest"));
-    }
-
-    public static appointmentReserveAppointmentRequestToJson(value: AppointmentReserveAppointmentRequest): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentRequest")), null, 2);
-    }
-
-    public static toAppointmentReserve(json: string): AppointmentReserve {
-        return cast(JSON.parse(json), r("AppointmentReserve"));
-    }
-
-    public static appointmentReserveToJson(value: AppointmentReserve): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserve")), null, 2);
-    }
-
-    public static toAppointmentObject(json: string): AppointmentObject {
-        return cast(JSON.parse(json), r("AppointmentObject"));
-    }
-
-    public static appointmentObjectToJson(value: AppointmentObject): string {
-        return JSON.stringify(uncast(value, r("AppointmentObject")), null, 2);
-    }
-
-    public static toStickyBusiness(json: string): StickyBusiness {
-        return cast(JSON.parse(json), r("StickyBusiness"));
-    }
-
-    public static stickyBusinessToJson(value: StickyBusiness): string {
-        return JSON.stringify(uncast(value, r("StickyBusiness")), null, 2);
-    }
-
-    public static toResourceClass(json: string): ResourceClass {
-        return cast(JSON.parse(json), r("ResourceClass"));
-    }
-
-    public static resourceClassToJson(value: ResourceClass): string {
-        return JSON.stringify(uncast(value, r("ResourceClass")), null, 2);
-    }
-
-    public static toParamsTaxonomy(json: string): ParamsTaxonomy {
-        return cast(JSON.parse(json), r("ParamsTaxonomy"));
-    }
-
-    public static paramsTaxonomyToJson(value: ParamsTaxonomy): string {
-        return JSON.stringify(uncast(value, r("ParamsTaxonomy")), null, 2);
-    }
-
-    public static toAppointmentReserveAppointmentResponse(json: string): AppointmentReserveAppointmentResponse {
-        return cast(JSON.parse(json), r("AppointmentReserveAppointmentResponse"));
-    }
-
-    public static appointmentReserveAppointmentResponseToJson(value: AppointmentReserveAppointmentResponse): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentResponse")), null, 2);
-    }
-
-    public static toAppointmentReserveAppointmentResponseError(json: string): AppointmentReserveAppointmentResponseError {
-        return cast(JSON.parse(json), r("AppointmentReserveAppointmentResponseError"));
-    }
-
-    public static appointmentReserveAppointmentResponseErrorToJson(value: AppointmentReserveAppointmentResponseError): string {
-        return JSON.stringify(uncast(value, r("AppointmentReserveAppointmentResponseError")), null, 2);
-    }
-
-    public static toBusinessController(json: string): BusinessController {
-        return cast(JSON.parse(json), r("BusinessController"));
-    }
-
-    public static businessControllerToJson(value: BusinessController): string {
-        return JSON.stringify(uncast(value, r("BusinessController")), null, 2);
-    }
-
-    public static toGetNetworkData(json: string): GetNetworkData {
-        return cast(JSON.parse(json), r("GetNetworkData"));
-    }
-
-    public static getNetworkDataToJson(value: GetNetworkData): string {
-        return JSON.stringify(uncast(value, r("GetNetworkData")), null, 2);
-    }
-
-    public static toBusinessGetNetworkDataRequest(json: string): BusinessGetNetworkDataRequest {
-        return cast(JSON.parse(json), r("BusinessGetNetworkDataRequest"));
-    }
-
-    public static businessGetNetworkDataRequestToJson(value: BusinessGetNetworkDataRequest): string {
-        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataRequest")), null, 2);
-    }
-
-    public static toBusinessGetNetworkDataRequestParams(json: string): BusinessGetNetworkDataRequestParams {
-        return cast(JSON.parse(json), r("BusinessGetNetworkDataRequestParams"));
-    }
-
-    public static businessGetNetworkDataRequestParamsToJson(value: BusinessGetNetworkDataRequestParams): string {
-        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataRequestParams")), null, 2);
-    }
-
-    public static toBusinessGetNetworkDataResponse(json: string): BusinessGetNetworkDataResponse {
-        return cast(JSON.parse(json), r("BusinessGetNetworkDataResponse"));
-    }
-
-    public static businessGetNetworkDataResponseToJson(value: BusinessGetNetworkDataResponse): string {
-        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponse")), null, 2);
-    }
-
-    public static toBusinessGetNetworkDataResponseError(json: string): BusinessGetNetworkDataResponseError {
-        return cast(JSON.parse(json), r("BusinessGetNetworkDataResponseError"));
-    }
-
-    public static businessGetNetworkDataResponseErrorToJson(value: BusinessGetNetworkDataResponseError): string {
-        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponseError")), null, 2);
-    }
-
-    public static toBusinessGetNetworkDataResponseResult(json: string): BusinessGetNetworkDataResponseResult {
-        return cast(JSON.parse(json), r("BusinessGetNetworkDataResponseResult"));
-    }
-
-    public static businessGetNetworkDataResponseResultToJson(value: BusinessGetNetworkDataResponseResult): string {
-        return JSON.stringify(uncast(value, r("BusinessGetNetworkDataResponseResult")), null, 2);
-    }
-
-    public static toIndigoBusiness(json: string): IndigoBusiness {
-        return cast(JSON.parse(json), r("IndigoBusiness"));
-    }
-
-    public static indigoBusinessToJson(value: IndigoBusiness): string {
-        return JSON.stringify(uncast(value, r("IndigoBusiness")), null, 2);
-    }
-
-    public static toIndecentBusiness(json: string): IndecentBusiness {
-        return cast(JSON.parse(json), r("IndecentBusiness"));
-    }
-
-    public static indecentBusinessToJson(value: IndecentBusiness): string {
-        return JSON.stringify(uncast(value, r("IndecentBusiness")), null, 2);
-    }
-
-    public static toPurpleAdditionalSettings(json: string): PurpleAdditionalSettings {
-        return cast(JSON.parse(json), r("PurpleAdditionalSettings"));
-    }
-
-    public static purpleAdditionalSettingsToJson(value: PurpleAdditionalSettings): string {
-        return JSON.stringify(uncast(value, r("PurpleAdditionalSettings")), null, 2);
-    }
-
-    public static toPurpleBackofficeConfiguration(json: string): PurpleBackofficeConfiguration {
-        return cast(JSON.parse(json), r("PurpleBackofficeConfiguration"));
-    }
-
-    public static purpleBackofficeConfigurationToJson(value: PurpleBackofficeConfiguration): string {
-        return JSON.stringify(uncast(value, r("PurpleBackofficeConfiguration")), null, 2);
-    }
-
-    public static toFluffyBackofficeConfiguration(json: string): FluffyBackofficeConfiguration {
-        return cast(JSON.parse(json), r("FluffyBackofficeConfiguration"));
-    }
-
-    public static fluffyBackofficeConfigurationToJson(value: FluffyBackofficeConfiguration): string {
-        return JSON.stringify(uncast(value, r("FluffyBackofficeConfiguration")), null, 2);
-    }
-
-    public static toPurpleCabinet(json: string): PurpleCabinet {
-        return cast(JSON.parse(json), r("PurpleCabinet"));
-    }
-
-    public static purpleCabinetToJson(value: PurpleCabinet): string {
-        return JSON.stringify(uncast(value, r("PurpleCabinet")), null, 2);
-    }
-
-    public static toPurpleCallbackWidgetConfiguration(json: string): PurpleCallbackWidgetConfiguration {
-        return cast(JSON.parse(json), r("PurpleCallbackWidgetConfiguration"));
-    }
-
-    public static purpleCallbackWidgetConfigurationToJson(value: PurpleCallbackWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("PurpleCallbackWidgetConfiguration")), null, 2);
-    }
-
-    public static toPurpleConsumable(json: string): PurpleConsumable {
-        return cast(JSON.parse(json), r("PurpleConsumable"));
-    }
-
-    public static purpleConsumableToJson(value: PurpleConsumable): string {
-        return JSON.stringify(uncast(value, r("PurpleConsumable")), null, 2);
-    }
-
-    public static toPurpleDepartment(json: string): PurpleDepartment {
-        return cast(JSON.parse(json), r("PurpleDepartment"));
-    }
-
-    public static purpleDepartmentToJson(value: PurpleDepartment): string {
-        return JSON.stringify(uncast(value, r("PurpleDepartment")), null, 2);
-    }
-
-    public static toBusinessInfo(json: string): BusinessInfo {
-        return cast(JSON.parse(json), r("BusinessInfo"));
-    }
-
-    public static businessInfoToJson(value: BusinessInfo): string {
-        return JSON.stringify(uncast(value, r("BusinessInfo")), null, 2);
-    }
-
-    public static toAdditionalFieldsObject(json: string): AdditionalFieldsObject {
-        return cast(JSON.parse(json), r("AdditionalFieldsObject"));
-    }
-
-    public static additionalFieldsObjectToJson(value: AdditionalFieldsObject): string {
-        return JSON.stringify(uncast(value, r("AdditionalFieldsObject")), null, 2);
-    }
-
-    public static toAddressClass(json: string): AddressClass {
-        return cast(JSON.parse(json), r("AddressClass"));
-    }
-
-    public static addressClassToJson(value: AddressClass): string {
-        return JSON.stringify(uncast(value, r("AddressClass")), null, 2);
-    }
-
-    public static toPurpleMetroStation(json: string): PurpleMetroStation {
-        return cast(JSON.parse(json), r("PurpleMetroStation"));
-    }
-
-    public static purpleMetroStationToJson(value: PurpleMetroStation): string {
-        return JSON.stringify(uncast(value, r("PurpleMetroStation")), null, 2);
-    }
-
-    public static toBusinessShowcaseAlias(json: string): BusinessShowcaseAlias {
-        return cast(JSON.parse(json), r("BusinessShowcaseAlias"));
-    }
-
-    public static businessShowcaseAliasToJson(value: BusinessShowcaseAlias): string {
-        return JSON.stringify(uncast(value, r("BusinessShowcaseAlias")), null, 2);
-    }
-
-    public static toPhoneClass(json: string): PhoneClass {
-        return cast(JSON.parse(json), r("PhoneClass"));
-    }
-
-    public static phoneClassToJson(value: PhoneClass): string {
-        return JSON.stringify(uncast(value, r("PhoneClass")), null, 2);
-    }
-
-    public static toMarketingNotifications(json: string): MarketingNotifications {
-        return cast(JSON.parse(json), r("MarketingNotifications"));
-    }
-
-    public static marketingNotificationsToJson(value: MarketingNotifications): string {
-        return JSON.stringify(uncast(value, r("MarketingNotifications")), null, 2);
-    }
-
-    public static toMetro(json: string): Metro {
-        return cast(JSON.parse(json), r("Metro"));
-    }
-
-    public static metroToJson(value: Metro): string {
-        return JSON.stringify(uncast(value, r("Metro")), null, 2);
-    }
-
-    public static toShowcaseBusinessDatum(json: string): ShowcaseBusinessDatum {
-        return cast(JSON.parse(json), r("ShowcaseBusinessDatum"));
-    }
-
-    public static showcaseBusinessDatumToJson(value: ShowcaseBusinessDatum): string {
-        return JSON.stringify(uncast(value, r("ShowcaseBusinessDatum")), null, 2);
-    }
-
-    public static toShowcaseElement(json: string): ShowcaseElement {
-        return cast(JSON.parse(json), r("ShowcaseElement"));
-    }
-
-    public static showcaseElementToJson(value: ShowcaseElement): string {
-        return JSON.stringify(uncast(value, r("ShowcaseElement")), null, 2);
-    }
-
-    public static toSmsDuplicateFilter(json: string): SmsDuplicateFilter {
-        return cast(JSON.parse(json), r("SmsDuplicateFilter"));
-    }
-
-    public static smsDuplicateFilterToJson(value: SmsDuplicateFilter): string {
-        return JSON.stringify(uncast(value, r("SmsDuplicateFilter")), null, 2);
-    }
-
-    public static toSocialNetworkSchema(json: string): SocialNetworkSchema {
-        return cast(JSON.parse(json), r("SocialNetworkSchema"));
-    }
-
-    public static socialNetworkSchemaToJson(value: SocialNetworkSchema): string {
-        return JSON.stringify(uncast(value, r("SocialNetworkSchema")), null, 2);
-    }
-
-    public static toTimetable(json: string): Timetable {
-        return cast(JSON.parse(json), r("Timetable"));
-    }
-
-    public static timetableToJson(value: Timetable): string {
-        return JSON.stringify(uncast(value, r("Timetable")), null, 2);
-    }
-
-    public static toWeek(json: string): Week {
-        return cast(JSON.parse(json), r("Week"));
-    }
-
-    public static weekToJson(value: Week): string {
-        return JSON.stringify(uncast(value, r("Week")), null, 2);
-    }
-
-    public static toTimeFrame(json: string): TimeFrame {
-        return cast(JSON.parse(json), r("TimeFrame"));
-    }
-
-    public static timeFrameToJson(value: TimeFrame): string {
-        return JSON.stringify(uncast(value, r("TimeFrame")), null, 2);
-    }
-
-    public static toPurpleMiniWidgetConfiguration(json: string): PurpleMiniWidgetConfiguration {
-        return cast(JSON.parse(json), r("PurpleMiniWidgetConfiguration"));
-    }
-
-    public static purpleMiniWidgetConfigurationToJson(value: PurpleMiniWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("PurpleMiniWidgetConfiguration")), null, 2);
-    }
-
-    public static toPurpleTaxonomiesComplex(json: string): PurpleTaxonomiesComplex {
-        return cast(JSON.parse(json), r("PurpleTaxonomiesComplex"));
-    }
-
-    public static purpleTaxonomiesComplexToJson(value: PurpleTaxonomiesComplex): string {
-        return JSON.stringify(uncast(value, r("PurpleTaxonomiesComplex")), null, 2);
-    }
-
-    public static toPurpleTopServices(json: string): PurpleTopServices {
-        return cast(JSON.parse(json), r("PurpleTopServices"));
-    }
-
-    public static purpleTopServicesToJson(value: PurpleTopServices): string {
-        return JSON.stringify(uncast(value, r("PurpleTopServices")), null, 2);
-    }
-
-    public static toPurpleWidgetConfiguration(json: string): PurpleWidgetConfiguration {
-        return cast(JSON.parse(json), r("PurpleWidgetConfiguration"));
-    }
-
-    public static purpleWidgetConfigurationToJson(value: PurpleWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("PurpleWidgetConfiguration")), null, 2);
-    }
-
-    public static toPurpleBookableDateRanges(json: string): PurpleBookableDateRanges {
-        return cast(JSON.parse(json), r("PurpleBookableDateRanges"));
-    }
-
-    public static purpleBookableDateRangesToJson(value: PurpleBookableDateRanges): string {
-        return JSON.stringify(uncast(value, r("PurpleBookableDateRanges")), null, 2);
-    }
-
-    public static toPurpleClientBlockingSettings(json: string): PurpleClientBlockingSettings {
-        return cast(JSON.parse(json), r("PurpleClientBlockingSettings"));
-    }
-
-    public static purpleClientBlockingSettingsToJson(value: PurpleClientBlockingSettings): string {
-        return JSON.stringify(uncast(value, r("PurpleClientBlockingSettings")), null, 2);
-    }
-
-    public static toPurpleDiscountedPriceRounding(json: string): PurpleDiscountedPriceRounding {
-        return cast(JSON.parse(json), r("PurpleDiscountedPriceRounding"));
-    }
-
-    public static purpleDiscountedPriceRoundingToJson(value: PurpleDiscountedPriceRounding): string {
-        return JSON.stringify(uncast(value, r("PurpleDiscountedPriceRounding")), null, 2);
-    }
-
-    public static toPurpleSocialSharing(json: string): PurpleSocialSharing {
-        return cast(JSON.parse(json), r("PurpleSocialSharing"));
-    }
-
-    public static purpleSocialSharingToJson(value: PurpleSocialSharing): string {
-        return JSON.stringify(uncast(value, r("PurpleSocialSharing")), null, 2);
-    }
-
-    public static toNetworkWidgetConfiguration(json: string): NetworkWidgetConfiguration {
-        return cast(JSON.parse(json), r("NetworkWidgetConfiguration"));
-    }
-
-    public static networkWidgetConfigurationToJson(value: NetworkWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("NetworkWidgetConfiguration")), null, 2);
-    }
-
-    public static toNetworkWidgetConfigurationBusiness(json: string): NetworkWidgetConfigurationBusiness {
-        return cast(JSON.parse(json), r("NetworkWidgetConfigurationBusiness"));
-    }
-
-    public static networkWidgetConfigurationBusinessToJson(value: NetworkWidgetConfigurationBusiness): string {
-        return JSON.stringify(uncast(value, r("NetworkWidgetConfigurationBusiness")), null, 2);
-    }
-
-    public static toGetProfileById(json: string): GetProfileById {
-        return cast(JSON.parse(json), r("GetProfileById"));
-    }
-
-    public static getProfileByIdToJson(value: GetProfileById): string {
-        return JSON.stringify(uncast(value, r("GetProfileById")), null, 2);
-    }
-
-    public static toBusinessGetProfileByIdRequest(json: string): BusinessGetProfileByIdRequest {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdRequest"));
-    }
-
-    public static businessGetProfileByIdRequestToJson(value: BusinessGetProfileByIdRequest): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequest")), null, 2);
-    }
-
-    public static toBusinessGetProfileByIdRequestParams(json: string): BusinessGetProfileByIdRequestParams {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdRequestParams"));
-    }
-
-    public static businessGetProfileByIdRequestParamsToJson(value: BusinessGetProfileByIdRequestParams): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdRequestParams")), null, 2);
-    }
-
-    public static toHilariousBusiness(json: string): HilariousBusiness {
-        return cast(JSON.parse(json), r("HilariousBusiness"));
-    }
-
-    public static hilariousBusinessToJson(value: HilariousBusiness): string {
-        return JSON.stringify(uncast(value, r("HilariousBusiness")), null, 2);
-    }
-
-    public static toBusinessGetProfileByIdResponse(json: string): BusinessGetProfileByIdResponse {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponse"));
-    }
-
-    public static businessGetProfileByIdResponseToJson(value: BusinessGetProfileByIdResponse): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponse")), null, 2);
-    }
-
-    public static toBusinessGetProfileByIdResponseError(json: string): BusinessGetProfileByIdResponseError {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponseError"));
-    }
-
-    public static businessGetProfileByIdResponseErrorToJson(value: BusinessGetProfileByIdResponseError): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseError")), null, 2);
-    }
-
-    public static toBusinessGetProfileByIdResponseResult(json: string): BusinessGetProfileByIdResponseResult {
-        return cast(JSON.parse(json), r("BusinessGetProfileByIdResponseResult"));
-    }
-
-    public static businessGetProfileByIdResponseResultToJson(value: BusinessGetProfileByIdResponseResult): string {
-        return JSON.stringify(uncast(value, r("BusinessGetProfileByIdResponseResult")), null, 2);
-    }
-
-    public static toAmbitiousBusiness(json: string): AmbitiousBusiness {
-        return cast(JSON.parse(json), r("AmbitiousBusiness"));
-    }
-
-    public static ambitiousBusinessToJson(value: AmbitiousBusiness): string {
-        return JSON.stringify(uncast(value, r("AmbitiousBusiness")), null, 2);
-    }
-
-    public static toFluffyAdditionalSettings(json: string): FluffyAdditionalSettings {
-        return cast(JSON.parse(json), r("FluffyAdditionalSettings"));
-    }
-
-    public static fluffyAdditionalSettingsToJson(value: FluffyAdditionalSettings): string {
-        return JSON.stringify(uncast(value, r("FluffyAdditionalSettings")), null, 2);
-    }
-
-    public static toTentacledBackofficeConfiguration(json: string): TentacledBackofficeConfiguration {
-        return cast(JSON.parse(json), r("TentacledBackofficeConfiguration"));
-    }
-
-    public static tentacledBackofficeConfigurationToJson(value: TentacledBackofficeConfiguration): string {
-        return JSON.stringify(uncast(value, r("TentacledBackofficeConfiguration")), null, 2);
-    }
-
-    public static toStickyBackofficeConfiguration(json: string): StickyBackofficeConfiguration {
-        return cast(JSON.parse(json), r("StickyBackofficeConfiguration"));
-    }
-
-    public static stickyBackofficeConfigurationToJson(value: StickyBackofficeConfiguration): string {
-        return JSON.stringify(uncast(value, r("StickyBackofficeConfiguration")), null, 2);
-    }
-
-    public static toFluffyCabinet(json: string): FluffyCabinet {
-        return cast(JSON.parse(json), r("FluffyCabinet"));
-    }
-
-    public static fluffyCabinetToJson(value: FluffyCabinet): string {
-        return JSON.stringify(uncast(value, r("FluffyCabinet")), null, 2);
-    }
-
-    public static toFluffyCallbackWidgetConfiguration(json: string): FluffyCallbackWidgetConfiguration {
-        return cast(JSON.parse(json), r("FluffyCallbackWidgetConfiguration"));
-    }
-
-    public static fluffyCallbackWidgetConfigurationToJson(value: FluffyCallbackWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("FluffyCallbackWidgetConfiguration")), null, 2);
-    }
-
-    public static toFluffyConsumable(json: string): FluffyConsumable {
-        return cast(JSON.parse(json), r("FluffyConsumable"));
-    }
-
-    public static fluffyConsumableToJson(value: FluffyConsumable): string {
-        return JSON.stringify(uncast(value, r("FluffyConsumable")), null, 2);
-    }
-
-    public static toFluffyDepartment(json: string): FluffyDepartment {
-        return cast(JSON.parse(json), r("FluffyDepartment"));
-    }
-
-    public static fluffyDepartmentToJson(value: FluffyDepartment): string {
-        return JSON.stringify(uncast(value, r("FluffyDepartment")), null, 2);
-    }
-
-    public static toFluffyMiniWidgetConfiguration(json: string): FluffyMiniWidgetConfiguration {
-        return cast(JSON.parse(json), r("FluffyMiniWidgetConfiguration"));
-    }
-
-    public static fluffyMiniWidgetConfigurationToJson(value: FluffyMiniWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("FluffyMiniWidgetConfiguration")), null, 2);
-    }
-
-    public static toResourceResource(json: string): ResourceResource {
-        return cast(JSON.parse(json), r("ResourceResource"));
-    }
-
-    public static resourceResourceToJson(value: ResourceResource): string {
-        return JSON.stringify(uncast(value, r("ResourceResource")), null, 2);
-    }
-
-    public static toEvenOddTimetable(json: string): EvenOddTimetable {
-        return cast(JSON.parse(json), r("EvenOddTimetable"));
-    }
-
-    public static evenOddTimetableToJson(value: EvenOddTimetable): string {
-        return JSON.stringify(uncast(value, r("EvenOddTimetable")), null, 2);
-    }
-
-    public static toResourceLocation(json: string): ResourceLocation {
-        return cast(JSON.parse(json), r("ResourceLocation"));
-    }
-
-    public static resourceLocationToJson(value: ResourceLocation): string {
-        return JSON.stringify(uncast(value, r("ResourceLocation")), null, 2);
-    }
-
-    public static toInfo(json: string): Info {
-        return cast(JSON.parse(json), r("Info"));
-    }
-
-    public static infoToJson(value: Info): string {
-        return JSON.stringify(uncast(value, r("Info")), null, 2);
-    }
-
-    public static toИнформацияОПрофилеРаботника(json: string): ИнформацияОПрофилеРаботника {
-        return cast(JSON.parse(json), r("ИнформацияОПрофилеРаботника"));
-    }
-
-    public static информацияОПрофилеРаботникаToJson(value: ИнформацияОПрофилеРаботника): string {
-        return JSON.stringify(uncast(value, r("ИнформацияОПрофилеРаботника")), null, 2);
-    }
-
-    public static toResourceTaxonomyChildren(json: string): ResourceTaxonomyChildren {
-        return cast(JSON.parse(json), r("ResourceTaxonomyChildren"));
-    }
-
-    public static resourceTaxonomyChildrenToJson(value: ResourceTaxonomyChildren): string {
-        return JSON.stringify(uncast(value, r("ResourceTaxonomyChildren")), null, 2);
-    }
-
-    public static toResourceTaxonomyLevel(json: string): ResourceTaxonomyLevel {
-        return cast(JSON.parse(json), r("ResourceTaxonomyLevel"));
-    }
-
-    public static resourceTaxonomyLevelToJson(value: ResourceTaxonomyLevel): string {
-        return JSON.stringify(uncast(value, r("ResourceTaxonomyLevel")), null, 2);
-    }
-
-    public static toBusinessTaxonomy(json: string): BusinessTaxonomy {
-        return cast(JSON.parse(json), r("BusinessTaxonomy"));
-    }
-
-    public static businessTaxonomyToJson(value: BusinessTaxonomy): string {
-        return JSON.stringify(uncast(value, r("BusinessTaxonomy")), null, 2);
-    }
-
-    public static toAdditionalDuration(json: string): AdditionalDuration {
-        return cast(JSON.parse(json), r("AdditionalDuration"));
-    }
-
-    public static additionalDurationToJson(value: AdditionalDuration): string {
-        return JSON.stringify(uncast(value, r("AdditionalDuration")), null, 2);
-    }
-
-    public static toBusinessTaxonomyPrice(json: string): BusinessTaxonomyPrice {
-        return cast(JSON.parse(json), r("BusinessTaxonomyPrice"));
-    }
-
-    public static businessTaxonomyPriceToJson(value: BusinessTaxonomyPrice): string {
-        return JSON.stringify(uncast(value, r("BusinessTaxonomyPrice")), null, 2);
-    }
-
-    public static toBusinessTaxonomyProduct(json: string): BusinessTaxonomyProduct {
-        return cast(JSON.parse(json), r("BusinessTaxonomyProduct"));
-    }
-
-    public static businessTaxonomyProductToJson(value: BusinessTaxonomyProduct): string {
-        return JSON.stringify(uncast(value, r("BusinessTaxonomyProduct")), null, 2);
-    }
-
-    public static toAdjacentTaxonomy(json: string): AdjacentTaxonomy {
-        return cast(JSON.parse(json), r("AdjacentTaxonomy"));
-    }
-
-    public static adjacentTaxonomyToJson(value: AdjacentTaxonomy): string {
-        return JSON.stringify(uncast(value, r("AdjacentTaxonomy")), null, 2);
-    }
-
-    public static toDateLimit(json: string): DateLimit {
-        return cast(JSON.parse(json), r("DateLimit"));
-    }
-
-    public static dateLimitToJson(value: DateLimit): string {
-        return JSON.stringify(uncast(value, r("DateLimit")), null, 2);
-    }
-
-    public static toDiscountClass(json: string): DiscountClass {
-        return cast(JSON.parse(json), r("DiscountClass"));
-    }
-
-    public static discountClassToJson(value: DiscountClass): string {
-        return JSON.stringify(uncast(value, r("DiscountClass")), null, 2);
-    }
-
-    public static toSlots(json: string): Slots {
-        return cast(JSON.parse(json), r("Slots"));
-    }
-
-    public static slotsToJson(value: Slots): string {
-        return JSON.stringify(uncast(value, r("Slots")), null, 2);
-    }
-
-    public static toTaxonomyPrice(json: string): TaxonomyPrice {
-        return cast(JSON.parse(json), r("TaxonomyPrice"));
-    }
-
-    public static taxonomyPriceToJson(value: TaxonomyPrice): string {
-        return JSON.stringify(uncast(value, r("TaxonomyPrice")), null, 2);
-    }
-
-    public static toShowcaseItem(json: string): ShowcaseItem {
-        return cast(JSON.parse(json), r("ShowcaseItem"));
-    }
-
-    public static showcaseItemToJson(value: ShowcaseItem): string {
-        return JSON.stringify(uncast(value, r("ShowcaseItem")), null, 2);
-    }
-
-    public static toShowcaseItemAdditionalDuration(json: string): ShowcaseItemAdditionalDuration {
-        return cast(JSON.parse(json), r("ShowcaseItemAdditionalDuration"));
-    }
-
-    public static showcaseItemAdditionalDurationToJson(value: ShowcaseItemAdditionalDuration): string {
-        return JSON.stringify(uncast(value, r("ShowcaseItemAdditionalDuration")), null, 2);
-    }
-
-    public static toTaxonomyShowcase(json: string): TaxonomyShowcase {
-        return cast(JSON.parse(json), r("TaxonomyShowcase"));
-    }
-
-    public static taxonomyShowcaseToJson(value: TaxonomyShowcase): string {
-        return JSON.stringify(uncast(value, r("TaxonomyShowcase")), null, 2);
-    }
-
-    public static toFluffyTaxonomiesComplex(json: string): FluffyTaxonomiesComplex {
-        return cast(JSON.parse(json), r("FluffyTaxonomiesComplex"));
-    }
-
-    public static fluffyTaxonomiesComplexToJson(value: FluffyTaxonomiesComplex): string {
-        return JSON.stringify(uncast(value, r("FluffyTaxonomiesComplex")), null, 2);
-    }
-
-    public static toFluffyTopServices(json: string): FluffyTopServices {
-        return cast(JSON.parse(json), r("FluffyTopServices"));
-    }
-
-    public static fluffyTopServicesToJson(value: FluffyTopServices): string {
-        return JSON.stringify(uncast(value, r("FluffyTopServices")), null, 2);
-    }
-
-    public static toFluffyWidgetConfiguration(json: string): FluffyWidgetConfiguration {
-        return cast(JSON.parse(json), r("FluffyWidgetConfiguration"));
-    }
-
-    public static fluffyWidgetConfigurationToJson(value: FluffyWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("FluffyWidgetConfiguration")), null, 2);
-    }
-
-    public static toFluffyBookableDateRanges(json: string): FluffyBookableDateRanges {
-        return cast(JSON.parse(json), r("FluffyBookableDateRanges"));
-    }
-
-    public static fluffyBookableDateRangesToJson(value: FluffyBookableDateRanges): string {
-        return JSON.stringify(uncast(value, r("FluffyBookableDateRanges")), null, 2);
-    }
-
-    public static toFluffyClientBlockingSettings(json: string): FluffyClientBlockingSettings {
-        return cast(JSON.parse(json), r("FluffyClientBlockingSettings"));
-    }
-
-    public static fluffyClientBlockingSettingsToJson(value: FluffyClientBlockingSettings): string {
-        return JSON.stringify(uncast(value, r("FluffyClientBlockingSettings")), null, 2);
-    }
-
-    public static toFluffyDiscountedPriceRounding(json: string): FluffyDiscountedPriceRounding {
-        return cast(JSON.parse(json), r("FluffyDiscountedPriceRounding"));
-    }
-
-    public static fluffyDiscountedPriceRoundingToJson(value: FluffyDiscountedPriceRounding): string {
-        return JSON.stringify(uncast(value, r("FluffyDiscountedPriceRounding")), null, 2);
-    }
-
-    public static toFluffySocialSharing(json: string): FluffySocialSharing {
-        return cast(JSON.parse(json), r("FluffySocialSharing"));
-    }
-
-    public static fluffySocialSharingToJson(value: FluffySocialSharing): string {
-        return JSON.stringify(uncast(value, r("FluffySocialSharing")), null, 2);
-    }
-
-    public static toNetworkElement(json: string): NetworkElement {
-        return cast(JSON.parse(json), r("NetworkElement"));
-    }
-
-    public static networkElementToJson(value: NetworkElement): string {
-        return JSON.stringify(uncast(value, r("NetworkElement")), null, 2);
-    }
-
-    public static toAddressCamelCaseSchema(json: string): AddressCamelCaseSchema {
-        return cast(JSON.parse(json), r("AddressCamelCaseSchema"));
-    }
-
-    public static addressCamelCaseSchemaToJson(value: AddressCamelCaseSchema): string {
-        return JSON.stringify(uncast(value, r("AddressCamelCaseSchema")), null, 2);
-    }
-
-    public static toFluffyMetroStation(json: string): FluffyMetroStation {
-        return cast(JSON.parse(json), r("FluffyMetroStation"));
-    }
-
-    public static fluffyMetroStationToJson(value: FluffyMetroStation): string {
-        return JSON.stringify(uncast(value, r("FluffyMetroStation")), null, 2);
-    }
-
-    public static toResultTopServices(json: string): ResultTopServices {
-        return cast(JSON.parse(json), r("ResultTopServices"));
-    }
-
-    public static resultTopServicesToJson(value: ResultTopServices): string {
-        return JSON.stringify(uncast(value, r("ResultTopServices")), null, 2);
-    }
-
-    public static toClientController(json: string): ClientController {
-        return cast(JSON.parse(json), r("ClientController"));
-    }
-
-    public static clientControllerToJson(value: ClientController): string {
-        return JSON.stringify(uncast(value, r("ClientController")), null, 2);
-    }
-
-    public static toAddClient(json: string): AddClient {
-        return cast(JSON.parse(json), r("AddClient"));
-    }
-
-    public static addClientToJson(value: AddClient): string {
-        return JSON.stringify(uncast(value, r("AddClient")), null, 2);
-    }
-
-    public static toClientAddClientRequest(json: string): ClientAddClientRequest {
-        return cast(JSON.parse(json), r("ClientAddClientRequest"));
-    }
-
-    public static clientAddClientRequestToJson(value: ClientAddClientRequest): string {
-        return JSON.stringify(uncast(value, r("ClientAddClientRequest")), null, 2);
-    }
-
-    public static toClientAddClientRequestParams(json: string): ClientAddClientRequestParams {
-        return cast(JSON.parse(json), r("ClientAddClientRequestParams"));
-    }
-
-    public static clientAddClientRequestParamsToJson(value: ClientAddClientRequestParams): string {
-        return JSON.stringify(uncast(value, r("ClientAddClientRequestParams")), null, 2);
-    }
-
-    public static toCunningBusiness(json: string): CunningBusiness {
-        return cast(JSON.parse(json), r("CunningBusiness"));
-    }
-
-    public static cunningBusinessToJson(value: CunningBusiness): string {
-        return JSON.stringify(uncast(value, r("CunningBusiness")), null, 2);
-    }
-
-    public static toClientObject(json: string): ClientObject {
-        return cast(JSON.parse(json), r("ClientObject"));
-    }
-
-    public static clientObjectToJson(value: ClientObject): string {
-        return JSON.stringify(uncast(value, r("ClientObject")), null, 2);
-    }
-
-    public static toPurpleProfile(json: string): PurpleProfile {
-        return cast(JSON.parse(json), r("PurpleProfile"));
-    }
-
-    public static purpleProfileToJson(value: PurpleProfile): string {
-        return JSON.stringify(uncast(value, r("PurpleProfile")), null, 2);
-    }
-
-    public static toClientAddClientResponse(json: string): ClientAddClientResponse {
-        return cast(JSON.parse(json), r("ClientAddClientResponse"));
-    }
-
-    public static clientAddClientResponseToJson(value: ClientAddClientResponse): string {
-        return JSON.stringify(uncast(value, r("ClientAddClientResponse")), null, 2);
-    }
-
-    public static toClientAddClientResponseError(json: string): ClientAddClientResponseError {
-        return cast(JSON.parse(json), r("ClientAddClientResponseError"));
-    }
-
-    public static clientAddClientResponseErrorToJson(value: ClientAddClientResponseError): string {
-        return JSON.stringify(uncast(value, r("ClientAddClientResponseError")), null, 2);
-    }
-
-    public static toClientAddClientResponseResult(json: string): ClientAddClientResponseResult {
-        return cast(JSON.parse(json), r("ClientAddClientResponseResult"));
-    }
-
-    public static clientAddClientResponseResultToJson(value: ClientAddClientResponseResult): string {
-        return JSON.stringify(uncast(value, r("ClientAddClientResponseResult")), null, 2);
-    }
-
-    public static toMagentaBusiness(json: string): MagentaBusiness {
-        return cast(JSON.parse(json), r("MagentaBusiness"));
-    }
-
-    public static magentaBusinessToJson(value: MagentaBusiness): string {
-        return JSON.stringify(uncast(value, r("MagentaBusiness")), null, 2);
-    }
-
-    public static toFluffyProfile(json: string): FluffyProfile {
-        return cast(JSON.parse(json), r("FluffyProfile"));
-    }
-
-    public static fluffyProfileToJson(value: FluffyProfile): string {
-        return JSON.stringify(uncast(value, r("FluffyProfile")), null, 2);
-    }
-
-    public static toFindOrCreateClient(json: string): FindOrCreateClient {
-        return cast(JSON.parse(json), r("FindOrCreateClient"));
-    }
-
-    public static findOrCreateClientToJson(value: FindOrCreateClient): string {
-        return JSON.stringify(uncast(value, r("FindOrCreateClient")), null, 2);
-    }
-
-    public static toClientFindOrCreateClientRequest(json: string): ClientFindOrCreateClientRequest {
-        return cast(JSON.parse(json), r("ClientFindOrCreateClientRequest"));
-    }
-
-    public static clientFindOrCreateClientRequestToJson(value: ClientFindOrCreateClientRequest): string {
-        return JSON.stringify(uncast(value, r("ClientFindOrCreateClientRequest")), null, 2);
-    }
-
-    public static toClientFindOrCreateClientRequestParams(json: string): ClientFindOrCreateClientRequestParams {
-        return cast(JSON.parse(json), r("ClientFindOrCreateClientRequestParams"));
-    }
-
-    public static clientFindOrCreateClientRequestParamsToJson(value: ClientFindOrCreateClientRequestParams): string {
-        return JSON.stringify(uncast(value, r("ClientFindOrCreateClientRequestParams")), null, 2);
-    }
-
-    public static toFriskyBusiness(json: string): FriskyBusiness {
-        return cast(JSON.parse(json), r("FriskyBusiness"));
-    }
-
-    public static friskyBusinessToJson(value: FriskyBusiness): string {
-        return JSON.stringify(uncast(value, r("FriskyBusiness")), null, 2);
-    }
-
-    public static toTentacledProfile(json: string): TentacledProfile {
-        return cast(JSON.parse(json), r("TentacledProfile"));
-    }
-
-    public static tentacledProfileToJson(value: TentacledProfile): string {
-        return JSON.stringify(uncast(value, r("TentacledProfile")), null, 2);
-    }
-
-    public static toClientFindOfCreateClientResponse(json: string): ClientFindOfCreateClientResponse {
-        return cast(JSON.parse(json), r("ClientFindOfCreateClientResponse"));
-    }
-
-    public static clientFindOfCreateClientResponseToJson(value: ClientFindOfCreateClientResponse): string {
-        return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponse")), null, 2);
-    }
-
-    public static toClientFindOfCreateClientResponseError(json: string): ClientFindOfCreateClientResponseError {
-        return cast(JSON.parse(json), r("ClientFindOfCreateClientResponseError"));
-    }
-
-    public static clientFindOfCreateClientResponseErrorToJson(value: ClientFindOfCreateClientResponseError): string {
-        return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponseError")), null, 2);
-    }
-
-    public static toClientFindOfCreateClientResponseResult(json: string): ClientFindOfCreateClientResponseResult {
-        return cast(JSON.parse(json), r("ClientFindOfCreateClientResponseResult"));
-    }
-
-    public static clientFindOfCreateClientResponseResultToJson(value: ClientFindOfCreateClientResponseResult): string {
-        return JSON.stringify(uncast(value, r("ClientFindOfCreateClientResponseResult")), null, 2);
-    }
-
-    public static toMischievousBusiness(json: string): MischievousBusiness {
-        return cast(JSON.parse(json), r("MischievousBusiness"));
-    }
-
-    public static mischievousBusinessToJson(value: MischievousBusiness): string {
-        return JSON.stringify(uncast(value, r("MischievousBusiness")), null, 2);
-    }
-
-    public static toStickyProfile(json: string): StickyProfile {
-        return cast(JSON.parse(json), r("StickyProfile"));
-    }
-
-    public static stickyProfileToJson(value: StickyProfile): string {
-        return JSON.stringify(uncast(value, r("StickyProfile")), null, 2);
-    }
-
-    public static toCracSlotsController(json: string): CracSlotsController {
-        return cast(JSON.parse(json), r("CracSlotsController"));
-    }
-
-    public static cracSlotsControllerToJson(value: CracSlotsController): string {
-        return JSON.stringify(uncast(value, r("CracSlotsController")), null, 2);
-    }
-
-    public static toCracDistributedResourcesFreeByDate(json: string): CracDistributedResourcesFreeByDate {
-        return cast(JSON.parse(json), r("CracDistributedResourcesFreeByDate"));
-    }
-
-    public static cracDistributedResourcesFreeByDateToJson(value: CracDistributedResourcesFreeByDate): string {
-        return JSON.stringify(uncast(value, r("CracDistributedResourcesFreeByDate")), null, 2);
-    }
-
-    public static toCracCracDistributedResourcesFreeByDateRequest(json: string): CracCracDistributedResourcesFreeByDateRequest {
-        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateRequest"));
-    }
-
-    public static cracCracDistributedResourcesFreeByDateRequestToJson(value: CracCracDistributedResourcesFreeByDateRequest): string {
-        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateRequest")), null, 2);
-    }
-
-    public static toCracCracDistributedResourcesFreeByDateRequestParam(json: string): CracCracDistributedResourcesFreeByDateRequestParam {
-        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateRequestParam"));
-    }
-
-    public static cracCracDistributedResourcesFreeByDateRequestParamToJson(value: CracCracDistributedResourcesFreeByDateRequestParam): string {
-        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateRequestParam")), null, 2);
-    }
-
-    public static toBraggadociousBusiness(json: string): BraggadociousBusiness {
-        return cast(JSON.parse(json), r("BraggadociousBusiness"));
-    }
-
-    public static braggadociousBusinessToJson(value: BraggadociousBusiness): string {
-        return JSON.stringify(uncast(value, r("BraggadociousBusiness")), null, 2);
-    }
-
-    public static toPurpleTaxonomy(json: string): PurpleTaxonomy {
-        return cast(JSON.parse(json), r("PurpleTaxonomy"));
-    }
-
-    public static purpleTaxonomyToJson(value: PurpleTaxonomy): string {
-        return JSON.stringify(uncast(value, r("PurpleTaxonomy")), null, 2);
-    }
-
-    public static toCracCracDistributedResourcesFreeByDateResponse(json: string): CracCracDistributedResourcesFreeByDateResponse {
-        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateResponse"));
-    }
-
-    public static cracCracDistributedResourcesFreeByDateResponseToJson(value: CracCracDistributedResourcesFreeByDateResponse): string {
-        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateResponse")), null, 2);
-    }
-
-    public static toCracCracDistributedResourcesFreeByDateResponseError(json: string): CracCracDistributedResourcesFreeByDateResponseError {
-        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateResponseError"));
-    }
-
-    public static cracCracDistributedResourcesFreeByDateResponseErrorToJson(value: CracCracDistributedResourcesFreeByDateResponseError): string {
-        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateResponseError")), null, 2);
-    }
-
-    public static toCracCracDistributedResourcesFreeByDateResponseResult(json: string): CracCracDistributedResourcesFreeByDateResponseResult {
-        return cast(JSON.parse(json), r("CracCracDistributedResourcesFreeByDateResponseResult"));
-    }
-
-    public static cracCracDistributedResourcesFreeByDateResponseResultToJson(value: CracCracDistributedResourcesFreeByDateResponseResult): string {
-        return JSON.stringify(uncast(value, r("CracCracDistributedResourcesFreeByDateResponseResult")), null, 2);
-    }
-
-    public static toPurpleFree(json: string): PurpleFree {
-        return cast(JSON.parse(json), r("PurpleFree"));
-    }
-
-    public static purpleFreeToJson(value: PurpleFree): string {
-        return JSON.stringify(uncast(value, r("PurpleFree")), null, 2);
-    }
-
-    public static toCracResourcesFreeByDate(json: string): CracResourcesFreeByDate {
-        return cast(JSON.parse(json), r("CracResourcesFreeByDate"));
-    }
-
-    public static cracResourcesFreeByDateToJson(value: CracResourcesFreeByDate): string {
-        return JSON.stringify(uncast(value, r("CracResourcesFreeByDate")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateRequest(json: string): CracCracResourcesFreeByDateRequest {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateRequest"));
-    }
-
-    public static cracCracResourcesFreeByDateRequestToJson(value: CracCracResourcesFreeByDateRequest): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateRequest")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateRequestParam(json: string): CracCracResourcesFreeByDateRequestParam {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateRequestParam"));
-    }
-
-    public static cracCracResourcesFreeByDateRequestParamToJson(value: CracCracResourcesFreeByDateRequestParam): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateRequestParam")), null, 2);
-    }
-
-    public static toFluffyTaxonomy(json: string): FluffyTaxonomy {
-        return cast(JSON.parse(json), r("FluffyTaxonomy"));
-    }
-
-    public static fluffyTaxonomyToJson(value: FluffyTaxonomy): string {
-        return JSON.stringify(uncast(value, r("FluffyTaxonomy")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateResponse(json: string): CracCracResourcesFreeByDateResponse {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateResponse"));
-    }
-
-    public static cracCracResourcesFreeByDateResponseToJson(value: CracCracResourcesFreeByDateResponse): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateResponse")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateResponseError(json: string): CracCracResourcesFreeByDateResponseError {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateResponseError"));
-    }
-
-    public static cracCracResourcesFreeByDateResponseErrorToJson(value: CracCracResourcesFreeByDateResponseError): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateResponseError")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateResponseResult(json: string): CracCracResourcesFreeByDateResponseResult {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateResponseResult"));
-    }
-
-    public static cracCracResourcesFreeByDateResponseResultToJson(value: CracCracResourcesFreeByDateResponseResult): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateResponseResult")), null, 2);
-    }
-
-    public static toFluffyFree(json: string): FluffyFree {
-        return cast(JSON.parse(json), r("FluffyFree"));
-    }
-
-    public static fluffyFreeToJson(value: FluffyFree): string {
-        return JSON.stringify(uncast(value, r("FluffyFree")), null, 2);
-    }
-
-    public static toCracResourcesFreeByDateV2(json: string): CracResourcesFreeByDateV2 {
-        return cast(JSON.parse(json), r("CracResourcesFreeByDateV2"));
-    }
-
-    public static cracResourcesFreeByDateV2ToJson(value: CracResourcesFreeByDateV2): string {
-        return JSON.stringify(uncast(value, r("CracResourcesFreeByDateV2")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateV2Request(json: string): CracCracResourcesFreeByDateV2Request {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2Request"));
-    }
-
-    public static cracCracResourcesFreeByDateV2RequestToJson(value: CracCracResourcesFreeByDateV2Request): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2Request")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateV2RequestParam(json: string): CracCracResourcesFreeByDateV2RequestParam {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2RequestParam"));
-    }
-
-    public static cracCracResourcesFreeByDateV2RequestParamToJson(value: CracCracResourcesFreeByDateV2RequestParam): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2RequestParam")), null, 2);
-    }
-
-    public static toBusiness1(json: string): Business1 {
-        return cast(JSON.parse(json), r("Business1"));
-    }
-
-    public static business1ToJson(value: Business1): string {
-        return JSON.stringify(uncast(value, r("Business1")), null, 2);
-    }
-
-    public static toTentacledTaxonomy(json: string): TentacledTaxonomy {
-        return cast(JSON.parse(json), r("TentacledTaxonomy"));
-    }
-
-    public static tentacledTaxonomyToJson(value: TentacledTaxonomy): string {
-        return JSON.stringify(uncast(value, r("TentacledTaxonomy")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateV2Response(json: string): CracCracResourcesFreeByDateV2Response {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2Response"));
-    }
-
-    public static cracCracResourcesFreeByDateV2ResponseToJson(value: CracCracResourcesFreeByDateV2Response): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2Response")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateV2ResponseError(json: string): CracCracResourcesFreeByDateV2ResponseError {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2ResponseError"));
-    }
-
-    public static cracCracResourcesFreeByDateV2ResponseErrorToJson(value: CracCracResourcesFreeByDateV2ResponseError): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2ResponseError")), null, 2);
-    }
-
-    public static toCracCracResourcesFreeByDateV2ResponseResult(json: string): CracCracResourcesFreeByDateV2ResponseResult {
-        return cast(JSON.parse(json), r("CracCracResourcesFreeByDateV2ResponseResult"));
-    }
-
-    public static cracCracResourcesFreeByDateV2ResponseResultToJson(value: CracCracResourcesFreeByDateV2ResponseResult): string {
-        return JSON.stringify(uncast(value, r("CracCracResourcesFreeByDateV2ResponseResult")), null, 2);
-    }
-
-    public static toTentacledFree(json: string): TentacledFree {
-        return cast(JSON.parse(json), r("TentacledFree"));
-    }
-
-    public static tentacledFreeToJson(value: TentacledFree): string {
-        return JSON.stringify(uncast(value, r("TentacledFree")), null, 2);
-    }
-
-    public static toGetCracDistributedResourcesAndRooms(json: string): GetCracDistributedResourcesAndRooms {
-        return cast(JSON.parse(json), r("GetCracDistributedResourcesAndRooms"));
-    }
-
-    public static getCracDistributedResourcesAndRoomsToJson(value: GetCracDistributedResourcesAndRooms): string {
-        return JSON.stringify(uncast(value, r("GetCracDistributedResourcesAndRooms")), null, 2);
-    }
-
-    public static toCracSlotsGetCracDistributedResourcesAndRoomsRequest(json: string): CracSlotsGetCracDistributedResourcesAndRoomsRequest {
-        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsRequest"));
-    }
-
-    public static cracSlotsGetCracDistributedResourcesAndRoomsRequestToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsRequest): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequest")), null, 2);
-    }
-
-    public static toCracSlotsGetCracDistributedResourcesAndRoomsRequestParams(json: string): CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
-        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams"));
-    }
-
-    public static cracSlotsGetCracDistributedResourcesAndRoomsRequestParamsToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsRequestParams): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams")), null, 2);
-    }
-
-    public static toBusiness2(json: string): Business2 {
-        return cast(JSON.parse(json), r("Business2"));
-    }
-
-    public static business2ToJson(value: Business2): string {
-        return JSON.stringify(uncast(value, r("Business2")), null, 2);
-    }
-
-    public static toPurpleGeneralInfo(json: string): PurpleGeneralInfo {
-        return cast(JSON.parse(json), r("PurpleGeneralInfo"));
-    }
-
-    public static purpleGeneralInfoToJson(value: PurpleGeneralInfo): string {
-        return JSON.stringify(uncast(value, r("PurpleGeneralInfo")), null, 2);
-    }
-
-    public static toTentacledWidgetConfiguration(json: string): TentacledWidgetConfiguration {
-        return cast(JSON.parse(json), r("TentacledWidgetConfiguration"));
-    }
-
-    public static tentacledWidgetConfigurationToJson(value: TentacledWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("TentacledWidgetConfiguration")), null, 2);
-    }
-
-    public static toPurpleFilters(json: string): PurpleFilters {
-        return cast(JSON.parse(json), r("PurpleFilters"));
-    }
-
-    public static purpleFiltersToJson(value: PurpleFilters): string {
-        return JSON.stringify(uncast(value, r("PurpleFilters")), null, 2);
-    }
-
-    public static toPurpleDate(json: string): PurpleDate {
-        return cast(JSON.parse(json), r("PurpleDate"));
-    }
-
-    public static purpleDateToJson(value: PurpleDate): string {
-        return JSON.stringify(uncast(value, r("PurpleDate")), null, 2);
-    }
-
-    public static toPurpleResourceFilter(json: string): PurpleResourceFilter {
-        return cast(JSON.parse(json), r("PurpleResourceFilter"));
-    }
-
-    public static purpleResourceFilterToJson(value: PurpleResourceFilter): string {
-        return JSON.stringify(uncast(value, r("PurpleResourceFilter")), null, 2);
-    }
-
-    public static toResourceBusiness(json: string): ResourceBusiness {
-        return cast(JSON.parse(json), r("ResourceBusiness"));
-    }
-
-    public static resourceBusinessToJson(value: ResourceBusiness): string {
-        return JSON.stringify(uncast(value, r("ResourceBusiness")), null, 2);
-    }
-
-    public static toCracSlotsGetCracDistributedResourcesAndRoomsResponse(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponse {
-        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsResponse"));
-    }
-
-    public static cracSlotsGetCracDistributedResourcesAndRoomsResponseToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsResponse): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsResponse")), null, 2);
-    }
-
-    public static toCracSlotsGetCracDistributedResourcesAndRoomsResponseError(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponseError {
-        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsResponseError"));
-    }
-
-    public static cracSlotsGetCracDistributedResourcesAndRoomsResponseErrorToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsResponseError): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsResponseError")), null, 2);
-    }
-
-    public static toCracSlotsGetCracDistributedResourcesAndRoomsResponseResult(json: string): CracSlotsGetCracDistributedResourcesAndRoomsResponseResult {
-        return cast(JSON.parse(json), r("CracSlotsGetCracDistributedResourcesAndRoomsResponseResult"));
-    }
-
-    public static cracSlotsGetCracDistributedResourcesAndRoomsResponseResultToJson(value: CracSlotsGetCracDistributedResourcesAndRoomsResponseResult): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracDistributedResourcesAndRoomsResponseResult")), null, 2);
-    }
-
-    public static toPurpleSlot(json: string): PurpleSlot {
-        return cast(JSON.parse(json), r("PurpleSlot"));
-    }
-
-    public static purpleSlotToJson(value: PurpleSlot): string {
-        return JSON.stringify(uncast(value, r("PurpleSlot")), null, 2);
-    }
-
-    public static toGetCracInsuranceResourcesAndRooms(json: string): GetCracInsuranceResourcesAndRooms {
-        return cast(JSON.parse(json), r("GetCracInsuranceResourcesAndRooms"));
-    }
-
-    public static getCracInsuranceResourcesAndRoomsToJson(value: GetCracInsuranceResourcesAndRooms): string {
-        return JSON.stringify(uncast(value, r("GetCracInsuranceResourcesAndRooms")), null, 2);
-    }
-
-    public static toCracSlotsGetCracInsuranceResourcesAndRoomsRequest(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
-        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsRequest"));
-    }
-
-    public static cracSlotsGetCracInsuranceResourcesAndRoomsRequestToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsRequest): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequest")), null, 2);
-    }
-
-    public static toCracSlotsGetCracInsuranceResourcesAndRoomsRequestParams(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams"));
-    }
-
-    public static cracSlotsGetCracInsuranceResourcesAndRoomsRequestParamsToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams")), null, 2);
-    }
-
-    public static toBusiness3(json: string): Business3 {
-        return cast(JSON.parse(json), r("Business3"));
-    }
-
-    public static business3ToJson(value: Business3): string {
-        return JSON.stringify(uncast(value, r("Business3")), null, 2);
-    }
-
-    public static toFluffyGeneralInfo(json: string): FluffyGeneralInfo {
-        return cast(JSON.parse(json), r("FluffyGeneralInfo"));
-    }
-
-    public static fluffyGeneralInfoToJson(value: FluffyGeneralInfo): string {
-        return JSON.stringify(uncast(value, r("FluffyGeneralInfo")), null, 2);
-    }
-
-    public static toStickyWidgetConfiguration(json: string): StickyWidgetConfiguration {
-        return cast(JSON.parse(json), r("StickyWidgetConfiguration"));
-    }
-
-    public static stickyWidgetConfigurationToJson(value: StickyWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("StickyWidgetConfiguration")), null, 2);
-    }
-
-    public static toFluffyFilters(json: string): FluffyFilters {
-        return cast(JSON.parse(json), r("FluffyFilters"));
-    }
-
-    public static fluffyFiltersToJson(value: FluffyFilters): string {
-        return JSON.stringify(uncast(value, r("FluffyFilters")), null, 2);
-    }
-
-    public static toFluffyDate(json: string): FluffyDate {
-        return cast(JSON.parse(json), r("FluffyDate"));
-    }
-
-    public static fluffyDateToJson(value: FluffyDate): string {
-        return JSON.stringify(uncast(value, r("FluffyDate")), null, 2);
-    }
-
-    public static toFluffyResourceFilter(json: string): FluffyResourceFilter {
-        return cast(JSON.parse(json), r("FluffyResourceFilter"));
-    }
-
-    public static fluffyResourceFilterToJson(value: FluffyResourceFilter): string {
-        return JSON.stringify(uncast(value, r("FluffyResourceFilter")), null, 2);
-    }
-
-    public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponse(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponse {
-        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsResponse"));
-    }
-
-    public static cracSlotsGetCracInsuranceResourcesAndRoomsResponseToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsResponse): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponse")), null, 2);
-    }
-
-    public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponseError(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponseError {
-        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseError"));
-    }
-
-    public static cracSlotsGetCracInsuranceResourcesAndRoomsResponseErrorToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsResponseError): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseError")), null, 2);
-    }
-
-    public static toCracSlotsGetCracInsuranceResourcesAndRoomsResponseResult(json: string): CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult {
-        return cast(JSON.parse(json), r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult"));
-    }
-
-    public static cracSlotsGetCracInsuranceResourcesAndRoomsResponseResultToJson(value: CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult")), null, 2);
-    }
-
-    public static toFluffySlot(json: string): FluffySlot {
-        return cast(JSON.parse(json), r("FluffySlot"));
-    }
-
-    public static fluffySlotToJson(value: FluffySlot): string {
-        return JSON.stringify(uncast(value, r("FluffySlot")), null, 2);
-    }
-
-    public static toGetCracResourcesAndRooms(json: string): GetCracResourcesAndRooms {
-        return cast(JSON.parse(json), r("GetCracResourcesAndRooms"));
-    }
-
-    public static getCracResourcesAndRoomsToJson(value: GetCracResourcesAndRooms): string {
-        return JSON.stringify(uncast(value, r("GetCracResourcesAndRooms")), null, 2);
-    }
-
-    public static toCracSlotsGetCracResourcesAndRoomsRequest(json: string): CracSlotsGetCracResourcesAndRoomsRequest {
-        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsRequest"));
-    }
-
-    public static cracSlotsGetCracResourcesAndRoomsRequestToJson(value: CracSlotsGetCracResourcesAndRoomsRequest): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequest")), null, 2);
-    }
-
-    public static toCracSlotsGetCracResourcesAndRoomsRequestParams(json: string): CracSlotsGetCracResourcesAndRoomsRequestParams {
-        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsRequestParams"));
-    }
-
-    public static cracSlotsGetCracResourcesAndRoomsRequestParamsToJson(value: CracSlotsGetCracResourcesAndRoomsRequestParams): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsRequestParams")), null, 2);
-    }
-
-    public static toBusiness4(json: string): Business4 {
-        return cast(JSON.parse(json), r("Business4"));
-    }
-
-    public static business4ToJson(value: Business4): string {
-        return JSON.stringify(uncast(value, r("Business4")), null, 2);
-    }
-
-    public static toTentacledGeneralInfo(json: string): TentacledGeneralInfo {
-        return cast(JSON.parse(json), r("TentacledGeneralInfo"));
-    }
-
-    public static tentacledGeneralInfoToJson(value: TentacledGeneralInfo): string {
-        return JSON.stringify(uncast(value, r("TentacledGeneralInfo")), null, 2);
-    }
-
-    public static toIndigoWidgetConfiguration(json: string): IndigoWidgetConfiguration {
-        return cast(JSON.parse(json), r("IndigoWidgetConfiguration"));
-    }
-
-    public static indigoWidgetConfigurationToJson(value: IndigoWidgetConfiguration): string {
-        return JSON.stringify(uncast(value, r("IndigoWidgetConfiguration")), null, 2);
-    }
-
-    public static toTentacledFilters(json: string): TentacledFilters {
-        return cast(JSON.parse(json), r("TentacledFilters"));
-    }
-
-    public static tentacledFiltersToJson(value: TentacledFilters): string {
-        return JSON.stringify(uncast(value, r("TentacledFilters")), null, 2);
-    }
-
-    public static toTentacledDate(json: string): TentacledDate {
-        return cast(JSON.parse(json), r("TentacledDate"));
-    }
-
-    public static tentacledDateToJson(value: TentacledDate): string {
-        return JSON.stringify(uncast(value, r("TentacledDate")), null, 2);
-    }
-
-    public static toTentacledResourceFilter(json: string): TentacledResourceFilter {
-        return cast(JSON.parse(json), r("TentacledResourceFilter"));
-    }
-
-    public static tentacledResourceFilterToJson(value: TentacledResourceFilter): string {
-        return JSON.stringify(uncast(value, r("TentacledResourceFilter")), null, 2);
-    }
-
-    public static toCracSlotsGetCracResourcesAndRoomsResponse(json: string): CracSlotsGetCracResourcesAndRoomsResponse {
-        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsResponse"));
-    }
-
-    public static cracSlotsGetCracResourcesAndRoomsResponseToJson(value: CracSlotsGetCracResourcesAndRoomsResponse): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsResponse")), null, 2);
-    }
-
-    public static toCracSlotsGetCracResourcesAndRoomsResponseError(json: string): CracSlotsGetCracResourcesAndRoomsResponseError {
-        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsResponseError"));
-    }
-
-    public static cracSlotsGetCracResourcesAndRoomsResponseErrorToJson(value: CracSlotsGetCracResourcesAndRoomsResponseError): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsResponseError")), null, 2);
-    }
-
-    public static toCracSlotsGetCracResourcesAndRoomsResponseResult(json: string): CracSlotsGetCracResourcesAndRoomsResponseResult {
-        return cast(JSON.parse(json), r("CracSlotsGetCracResourcesAndRoomsResponseResult"));
-    }
-
-    public static cracSlotsGetCracResourcesAndRoomsResponseResultToJson(value: CracSlotsGetCracResourcesAndRoomsResponseResult): string {
-        return JSON.stringify(uncast(value, r("CracSlotsGetCracResourcesAndRoomsResponseResult")), null, 2);
-    }
-
-    public static toTentacledSlot(json: string): TentacledSlot {
-        return cast(JSON.parse(json), r("TentacledSlot"));
-    }
-
-    public static tentacledSlotToJson(value: TentacledSlot): string {
-        return JSON.stringify(uncast(value, r("TentacledSlot")), null, 2);
-    }
-
-    public static toModels(json: string): Models {
-        return cast(JSON.parse(json), r("Models"));
-    }
-
-    public static modelsToJson(value: Models): string {
-        return JSON.stringify(uncast(value, r("Models")), null, 2);
     }
 }
 
@@ -6541,6 +4559,7 @@ const typeMap: any = {
     ], "any"),
     "FluffyAppointment": o([
         { json: "id", js: "id", typ: "" },
+        { json: "shortId", js: "shortId", typ: u(undefined, "") },
     ], false),
     "FluffyClient": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
@@ -6720,7 +4739,7 @@ const typeMap: any = {
     "ExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
-        { json: "value", js: "value", typ: u(3.14, m("any"), null, "") },
+        { json: "value", js: "value", typ: u(undefined, u(3.14, m("any"), null, "")) },
     ], false),
     "IncomingPhoneElement": o([
         { json: "area_code", js: "area_code", typ: "" },
@@ -6926,7 +4945,7 @@ const typeMap: any = {
         { json: "business", js: "business", typ: u(undefined, r("FluffyBusiness")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("ExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("Filter")) },
-        { json: "network", js: "network", typ: u(undefined, r("NetworkClass")) },
+        { json: "network", js: "network", typ: u(undefined, r("PurpleNetwork")) },
         { json: "page", js: "page", typ: 3.14 },
         { json: "pageSize", js: "pageSize", typ: 3.14 },
         { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
@@ -6953,7 +4972,7 @@ const typeMap: any = {
         { json: "end", js: "end", typ: Date },
         { json: "start", js: "start", typ: Date },
     ], false),
-    "NetworkClass": o([
+    "PurpleNetwork": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
     "AppointmentGetAppointmentByFilterResponse": o([
@@ -7023,10 +5042,10 @@ const typeMap: any = {
     "AppointmentReserve": o([
         { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
         { json: "business", js: "business", typ: r("StickyBusiness") },
-        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, u(null, "")) },
         { json: "resource", js: "resource", typ: r("ResourceClass") },
         { json: "source", js: "source", typ: "" },
-        { json: "taxonomy", js: "taxonomy", typ: r("ParamsTaxonomy") },
+        { json: "taxonomy", js: "taxonomy", typ: r("ParamsTaxonomyClass") },
     ], "any"),
     "AppointmentObject": o([
         { json: "start", js: "start", typ: "" },
@@ -7037,7 +5056,7 @@ const typeMap: any = {
     "ResourceClass": o([
         { json: "id", js: "id", typ: u(a(""), "") },
     ], false),
-    "ParamsTaxonomy": o([
+    "ParamsTaxonomyClass": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "AppointmentReserveAppointmentResponse": o([
@@ -7068,8 +5087,16 @@ const typeMap: any = {
     ], false),
     "BusinessGetNetworkDataRequestParams": o([
         { json: "networkID", js: "networkID", typ: u(3.14, "") },
+        { json: "resource", js: "resource", typ: u(undefined, r("ResourceObject")) },
+        { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("TaxonomyObject")) },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
+    "ResourceObject": o([
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
+    "TaxonomyObject": o([
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "BusinessGetNetworkDataResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
@@ -7083,7 +5110,7 @@ const typeMap: any = {
     ], "any"),
     "BusinessGetNetworkDataResponseResult": o([
         { json: "businessConfiguration", js: "businessConfiguration", typ: m("any") },
-        { json: "businesses", js: "businesses", typ: a(r("IndigoBusiness")) },
+        { json: "businesses", js: "businesses", typ: a(r("BusinessRefInNetwork")) },
         { json: "clientVIPPhones", js: "clientVIPPhones", typ: a("") },
         { json: "grantGroups", js: "grantGroups", typ: a(m("any")) },
         { json: "networkID", js: "networkID", typ: "" },
@@ -7091,16 +5118,18 @@ const typeMap: any = {
         { json: "networkName", js: "networkName", typ: u(undefined, "") },
         { json: "networkWidgetConfiguration", js: "networkWidgetConfiguration", typ: a(r("NetworkWidgetConfiguration")) },
     ], false),
-    "IndigoBusiness": o([
+    "BusinessRefInNetwork": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "businessID", js: "businessID", typ: "" },
-        { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("IndecentBusiness"), 3.14, 0, null, "")) },
+        { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("IndigoBusiness"), 3.14, 0, null, "")) },
         { json: "isMapBusiness", js: "isMapBusiness", typ: true },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "virtualTaxonomies", js: "virtualTaxonomies", typ: u(undefined, a("")) },
     ], false),
-    "IndecentBusiness": o([
+    "IndigoBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "activeResourceCount", js: "activeResourceCount", typ: u(undefined, 3.14) },
+        { json: "activeTaxonomyCount", js: "activeTaxonomyCount", typ: u(undefined, 3.14) },
         { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("PurpleAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
         { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("FluffyBackofficeConfiguration")) },
@@ -7123,7 +5152,9 @@ const typeMap: any = {
         { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("PurpleMiniWidgetConfiguration") },
         { json: "mobileData", js: "mobileData", typ: u(undefined, a("any")) },
         { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
+        { json: "resources", js: "resources", typ: u(undefined, a(u(a("any"), true, r("ResourceResource"), 3.14, 0, null, ""))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a(r("PurpleBusinessTaxonomy"))) },
         { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("PurpleTaxonomiesComplex"))) },
         { json: "taxonomy_tree_capacity", js: "taxonomy_tree_capacity", typ: u(undefined, a(m("any"))) },
         { json: "top_services", js: "top_services", typ: u(undefined, r("PurpleTopServices")) },
@@ -7180,6 +5211,8 @@ const typeMap: any = {
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
         { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
         { json: "scheduleDefaultWorkersLimit", js: "scheduleDefaultWorkersLimit", typ: u(undefined, 3.14) },
+        { json: "scheduleDefaultWorkersLimitDay", js: "scheduleDefaultWorkersLimitDay", typ: u(undefined, u(3.14, null)) },
+        { json: "scheduleDefaultWorkersLimitWeek", js: "scheduleDefaultWorkersLimitWeek", typ: u(undefined, u(3.14, null)) },
         { json: "schedulerWeekViewType", js: "schedulerWeekViewType", typ: u(undefined, r("SchedulerWeekViewType")) },
         { json: "scheduleWorkerHours", js: "scheduleWorkerHours", typ: u(undefined, true) },
         { json: "showAdditionalFields", js: "showAdditionalFields", typ: u(undefined, true) },
@@ -7414,6 +5447,256 @@ const typeMap: any = {
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
+    "ResourceResource": o([
+        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
+        { json: "capacity", js: "capacity", typ: 3.14 },
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "displayInWidget", js: "displayInWidget", typ: true },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
+        { json: "evenOddTimetable", js: "evenOddTimetable", typ: r("EvenOddTimetable") },
+        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
+        { json: "experience", js: "experience", typ: u(undefined, Date) },
+        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
+        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
+        { json: "id", js: "id", typ: "" },
+        { json: "image", js: "image", typ: u(undefined, "") },
+        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
+        { json: "level", js: "level", typ: 3.14 },
+        { json: "loaned", js: "loaned", typ: true },
+        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
+        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
+        { json: "location", js: "location", typ: r("ResourceLocation") },
+        { json: "manualChanges", js: "manualChanges", typ: true },
+        { json: "middleName", js: "middleName", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: "" },
+        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
+        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
+        { json: "perk", js: "perk", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(a("any"), true, r("PhoneClass"), 3.14, 0, null, "") },
+        { json: "profession", js: "profession", typ: u(undefined, "") },
+        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
+        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
+        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: 3.14 },
+        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "siteId", js: "siteId", typ: u(undefined, "") },
+        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
+        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
+        { json: "surname", js: "surname", typ: "" },
+        { json: "taxonomies", js: "taxonomies", typ: a("") },
+        { json: "taxonomyChildren", js: "taxonomyChildren", typ: a(r("ResourceTaxonomyChildren")) },
+        { json: "taxonomyLevels", js: "taxonomyLevels", typ: a(r("ResourceTaxonomyLevel")) },
+        { json: "timetable", js: "timetable", typ: r("Timetable") },
+        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
+        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
+    ], false),
+    "EvenOddTimetable": o([
+        { json: "even", js: "even", typ: a(r("TimeFrame")) },
+        { json: "odd", js: "odd", typ: a(r("TimeFrame")) },
+        { json: "startPeriod", js: "startPeriod", typ: r("StartPeriod") },
+    ], "any"),
+    "ResourceLocation": o([
+        { json: "latitude", js: "latitude", typ: u(undefined, 3.14) },
+        { json: "longitude", js: "longitude", typ: u(undefined, 3.14) },
+        { json: "time", js: "time", typ: u(undefined, "") },
+    ], "any"),
+    "Info": o([
+        { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
+        { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
+        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(u(a("any"), true, 3.14, 0, null, r("AdditionalFieldsObject"), ""))) },
+        { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
+        { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
+        { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
+        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
+        { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "fax", js: "fax", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "images", js: "images", typ: u(undefined, a("")) },
+        { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
+        { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
+        { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
+        { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "mobile", js: "mobile", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
+        { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
+        { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
+        { json: "phone", js: "phone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
+        { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
+        { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
+        { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
+        { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
+        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
+        { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
+        { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
+        { json: "skipBilling", js: "skipBilling", typ: u(undefined, true) },
+        { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
+        { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
+        { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
+    ], false),
+    "ИнформацияОПрофилеРаботника": o([
+        { json: "accessType", js: "accessType", typ: r("AccessType") },
+        { json: "email", js: "email", typ: "" },
+        { json: "profileID", js: "profileID", typ: "" },
+        { json: "userID", js: "userID", typ: "" },
+    ], "any"),
+    "ResourceTaxonomyChildren": o([
+        { json: "children", js: "children", typ: true },
+        { json: "taxonomyID", js: "taxonomyID", typ: "" },
+    ], "any"),
+    "ResourceTaxonomyLevel": o([
+        { json: "id", js: "id", typ: "" },
+        { json: "level", js: "level", typ: 3.14 },
+    ], "any"),
+    "PurpleBusinessTaxonomy": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
+        { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("PurpleBusinessTaxonomyPrice"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("PurpleBusinessTaxonomyProduct"))) },
+        { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
+        { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("PurpleAdjacentTaxonomy"))) },
+        { json: "alias", js: "alias", typ: u(undefined, m("any")) },
+        { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
+        { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
+        { json: "allowNextBookingInDays", js: "allowNextBookingInDays", typ: u(undefined, 3.14) },
+        { json: "allowNextBookingInDaysText", js: "allowNextBookingInDaysText", typ: u(undefined, "") },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a("")) },
+        { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "capacity_decrease", js: "capacity_decrease", typ: u(undefined, 3.14) },
+        { json: "chargeUnitsStep", js: "chargeUnitsStep", typ: u(undefined, 3.14) },
+        { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
+        { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
+        { json: "designs", js: "designs", typ: u(undefined, a("")) },
+        { json: "discounts", js: "discounts", typ: u(undefined, u(a("any"), true, r("DiscountClass"), 3.14, 0, null, "")) },
+        { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
+        { json: "duration", js: "duration", typ: u(undefined, 3.14) },
+        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
+        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
+        { json: "forPay", js: "forPay", typ: u(undefined, true) },
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "images", js: "images", typ: u(undefined, a("")) },
+        { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
+        { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
+        { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
+        { json: "newTaxonomy", js: "newTaxonomy", typ: u(undefined, true) },
+        { json: "onlineMode", js: "onlineMode", typ: u(undefined, r("OnlineMode")) },
+        { json: "onlyAfterTaxonomies", js: "onlyAfterTaxonomies", typ: u(undefined, a("")) },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
+        { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
+        { json: "price", js: "price", typ: u(undefined, r("PurplePrice")) },
+        { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("PurpleShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("PurpleTaxonomyShowcase"))) },
+        { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
+        { json: "siteId", js: "siteId", typ: u(undefined, "") },
+        { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
+        { json: "taxonomyAppExtraID", js: "taxonomyAppExtraID", typ: u(undefined, "") },
+        { json: "taxonomyCategoryExtraID", js: "taxonomyCategoryExtraID", typ: u(undefined, "") },
+        { json: "taxonomyParentID", js: "taxonomyParentID", typ: u(undefined, "") },
+        { json: "taxonomyType", js: "taxonomyType", typ: u(undefined, r("TaxonomyType")) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
+        { json: "visitType", js: "visitType", typ: u(undefined, "") },
+    ], false),
+    "PurpleAdditionalDuration": o([
+        { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+    ], false),
+    "PurpleBusinessTaxonomyPrice": o([
+        { json: "amount", js: "amount", typ: u(undefined, "") },
+        { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "resourceLevel", js: "resourceLevel", typ: 3.14 },
+        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
+        { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
+    ], false),
+    "PurpleBusinessTaxonomyProduct": o([
+        { json: "extraID", js: "extraID", typ: "" },
+        { json: "id", js: "id", typ: "" },
+        { json: "required", js: "required", typ: true },
+    ], false),
+    "PurpleAdjacentTaxonomy": o([
+        { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], false),
+    "PurpleDateLimit": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
+        { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
+    ], false),
+    "DiscountClass": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
+        { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
+        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
+        { json: "start", js: "start", typ: u(undefined, Date) },
+        { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
+        { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
+    ], false),
+    "Slots": o([
+        { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
+    ], "any"),
+    "PurplePrice": o([
+        { json: "amount", js: "amount", typ: "" },
+        { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
+        { json: "type", js: "type", typ: r("AdditionalPriceType") },
+    ], false),
+    "PurpleShowcaseItem": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("FluffyAdditionalDuration"))) },
+        { json: "businessID", js: "businessID", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], false),
+    "FluffyAdditionalDuration": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "duration", js: "duration", typ: u(undefined, 3.14) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+    ], false),
+    "PurpleTaxonomyShowcase": o([
+        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
+        { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "showcaseItemID", js: "showcaseItemID", typ: u(undefined, "") },
+    ], false),
     "PurpleTaxonomiesComplex": o([
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
@@ -7562,14 +5845,14 @@ const typeMap: any = {
     ], "any"),
     "NetworkWidgetConfiguration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "businesses", js: "businesses", typ: a(r("NetworkWidgetConfigurationBusiness")) },
+        { json: "businesses", js: "businesses", typ: a(r("BusinessElement")) },
         { json: "defaultServiceID", js: "defaultServiceID", typ: u(null, "") },
         { json: "showBranchSelector", js: "showBranchSelector", typ: true },
         { json: "showDefaultService", js: "showDefaultService", typ: true },
         { json: "showOnMap", js: "showOnMap", typ: true },
         { json: "source", js: "source", typ: "" },
     ], false),
-    "NetworkWidgetConfigurationBusiness": o([
+    "BusinessElement": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "active", js: "active", typ: true },
         { json: "internalID", js: "internalID", typ: "" },
@@ -7586,7 +5869,7 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "business", js: "business", typ: r("IndecentBusiness") },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -7602,7 +5885,7 @@ const typeMap: any = {
         { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
         { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
     ], false),
-    "HilariousBusiness": o([
+    "IndecentBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "BusinessGetProfileByIdResponse": o([
@@ -7618,7 +5901,7 @@ const typeMap: any = {
     ], "any"),
     "BusinessGetProfileByIdResponseResult": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "business", js: "business", typ: u(a("any"), true, r("AmbitiousBusiness"), 3.14, 0, null, "") },
+        { json: "business", js: "business", typ: u(a("any"), true, r("HilariousBusiness"), 3.14, 0, null, "") },
         { json: "freeSms", js: "freeSms", typ: u(undefined, 3.14) },
         { json: "monthlyFreeSms", js: "monthlyFreeSms", typ: u(undefined, 3.14) },
         { json: "networks", js: "networks", typ: u(undefined, a(r("NetworkElement"))) },
@@ -7627,7 +5910,7 @@ const typeMap: any = {
         { json: "useDefaultSmsTemplate", js: "useDefaultSmsTemplate", typ: u(undefined, true) },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, r("YandexFeedType")) },
     ], "any"),
-    "AmbitiousBusiness": o([
+    "HilariousBusiness": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("FluffyAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
@@ -7653,7 +5936,7 @@ const typeMap: any = {
         { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
         { json: "resources", js: "resources", typ: a(u(a("any"), true, r("ResourceResource"), 3.14, 0, null, "")) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
-        { json: "taxonomies", js: "taxonomies", typ: a(r("BusinessTaxonomy")) },
+        { json: "taxonomies", js: "taxonomies", typ: a(r("FluffyBusinessTaxonomy")) },
         { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("FluffyTaxonomiesComplex"))) },
         { json: "taxonomy_tree_capacity", js: "taxonomy_tree_capacity", typ: u(undefined, a(m("any"))) },
         { json: "top_services", js: "top_services", typ: u(undefined, r("FluffyTopServices")) },
@@ -7710,6 +5993,8 @@ const typeMap: any = {
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
         { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
         { json: "scheduleDefaultWorkersLimit", js: "scheduleDefaultWorkersLimit", typ: u(undefined, 3.14) },
+        { json: "scheduleDefaultWorkersLimitDay", js: "scheduleDefaultWorkersLimitDay", typ: u(undefined, u(3.14, null)) },
+        { json: "scheduleDefaultWorkersLimitWeek", js: "scheduleDefaultWorkersLimitWeek", typ: u(undefined, u(3.14, null)) },
         { json: "schedulerWeekViewType", js: "schedulerWeekViewType", typ: u(undefined, r("SchedulerWeekViewType")) },
         { json: "scheduleWorkerHours", js: "scheduleWorkerHours", typ: u(undefined, true) },
         { json: "showAdditionalFields", js: "showAdditionalFields", typ: u(undefined, true) },
@@ -7794,139 +6079,14 @@ const typeMap: any = {
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
-    "ResourceResource": o([
-        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
-        { json: "capacity", js: "capacity", typ: 3.14 },
-        { json: "color", js: "color", typ: u(undefined, "") },
-        { json: "degree", js: "degree", typ: u(undefined, "") },
-        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
-        { json: "displayInWidget", js: "displayInWidget", typ: true },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
-        { json: "evenOddTimetable", js: "evenOddTimetable", typ: r("EvenOddTimetable") },
-        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
-        { json: "experience", js: "experience", typ: u(undefined, Date) },
-        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
-        { json: "extraId", js: "extraId", typ: u(undefined, "") },
-        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
-        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
-        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
-        { json: "id", js: "id", typ: "" },
-        { json: "image", js: "image", typ: u(undefined, "") },
-        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
-        { json: "level", js: "level", typ: 3.14 },
-        { json: "loaned", js: "loaned", typ: true },
-        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
-        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
-        { json: "location", js: "location", typ: r("ResourceLocation") },
-        { json: "manualChanges", js: "manualChanges", typ: true },
-        { json: "middleName", js: "middleName", typ: u(undefined, "") },
-        { json: "name", js: "name", typ: "" },
-        { json: "nickname", js: "nickname", typ: u(undefined, "") },
-        { json: "order", js: "order", typ: u(undefined, 3.14) },
-        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
-        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
-        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
-        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
-        { json: "perk", js: "perk", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(a("any"), true, r("PhoneClass"), 3.14, 0, null, "") },
-        { json: "profession", js: "profession", typ: u(undefined, "") },
-        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
-        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
-        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
-        { json: "revisionVersion", js: "revisionVersion", typ: 3.14 },
-        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
-        { json: "siteId", js: "siteId", typ: u(undefined, "") },
-        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
-        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
-        { json: "surname", js: "surname", typ: "" },
-        { json: "taxonomies", js: "taxonomies", typ: a("") },
-        { json: "taxonomyChildren", js: "taxonomyChildren", typ: a(r("ResourceTaxonomyChildren")) },
-        { json: "taxonomyLevels", js: "taxonomyLevels", typ: a(r("ResourceTaxonomyLevel")) },
-        { json: "timetable", js: "timetable", typ: r("Timetable") },
-        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
-        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
-    ], false),
-    "EvenOddTimetable": o([
-        { json: "even", js: "even", typ: a(r("TimeFrame")) },
-        { json: "odd", js: "odd", typ: a(r("TimeFrame")) },
-        { json: "startPeriod", js: "startPeriod", typ: r("StartPeriod") },
-    ], "any"),
-    "ResourceLocation": o([
-        { json: "latitude", js: "latitude", typ: u(undefined, 3.14) },
-        { json: "longitude", js: "longitude", typ: u(undefined, 3.14) },
-        { json: "time", js: "time", typ: u(undefined, "") },
-    ], "any"),
-    "Info": o([
-        { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
-        { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
-        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(u(a("any"), true, 3.14, 0, null, r("AdditionalFieldsObject"), ""))) },
-        { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
-        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
-        { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
-        { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
-        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
-        { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "fax", js: "fax", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
-        { json: "images", js: "images", typ: u(undefined, a("")) },
-        { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
-        { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
-        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
-        { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
-        { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
-        { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
-        { json: "mobile", js: "mobile", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
-        { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
-        { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
-        { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
-        { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
-        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
-        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
-        { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
-        { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
-        { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
-        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
-        { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
-        { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
-        { json: "skipBilling", js: "skipBilling", typ: u(undefined, true) },
-        { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
-        { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
-        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
-        { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
-        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
-    ], false),
-    "ИнформацияОПрофилеРаботника": o([
-        { json: "accessType", js: "accessType", typ: r("AccessType") },
-        { json: "email", js: "email", typ: "" },
-        { json: "profileID", js: "profileID", typ: "" },
-        { json: "userID", js: "userID", typ: "" },
-    ], "any"),
-    "ResourceTaxonomyChildren": o([
-        { json: "children", js: "children", typ: true },
-        { json: "taxonomyID", js: "taxonomyID", typ: "" },
-    ], "any"),
-    "ResourceTaxonomyLevel": o([
-        { json: "id", js: "id", typ: "" },
-        { json: "level", js: "level", typ: 3.14 },
-    ], "any"),
-    "BusinessTaxonomy": o([
+    "FluffyBusinessTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("AdditionalDuration"))) },
-        { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("BusinessTaxonomyPrice"))) },
-        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("BusinessTaxonomyProduct"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("TentacledAdditionalDuration"))) },
+        { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("FluffyBusinessTaxonomyPrice"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("FluffyBusinessTaxonomyProduct"))) },
         { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
         { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
-        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("AdjacentTaxonomy"))) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("FluffyAdjacentTaxonomy"))) },
         { json: "alias", js: "alias", typ: u(undefined, m("any")) },
         { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
         { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
@@ -7941,7 +6101,7 @@ const typeMap: any = {
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
-        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("DateLimit"))) },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
         { json: "discounts", js: "discounts", typ: u(undefined, u(a("any"), true, r("DiscountClass"), 3.14, 0, null, "")) },
@@ -7964,12 +6124,12 @@ const typeMap: any = {
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
         { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("TaxonomyPrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("FluffyPrice")) },
         { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
-        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("ShowcaseItem"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("TaxonomyShowcase"))) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("FluffyShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("FluffyTaxonomyShowcase"))) },
         { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
         { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
@@ -7981,64 +6141,52 @@ const typeMap: any = {
         { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
         { json: "visitType", js: "visitType", typ: u(undefined, "") },
     ], false),
-    "AdditionalDuration": o([
+    "TentacledAdditionalDuration": o([
         { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
-    "BusinessTaxonomyPrice": o([
+    "FluffyBusinessTaxonomyPrice": o([
         { json: "amount", js: "amount", typ: u(undefined, "") },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "resourceLevel", js: "resourceLevel", typ: 3.14 },
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
     ], false),
-    "BusinessTaxonomyProduct": o([
+    "FluffyBusinessTaxonomyProduct": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "id", js: "id", typ: "" },
         { json: "required", js: "required", typ: true },
     ], false),
-    "AdjacentTaxonomy": o([
+    "FluffyAdjacentTaxonomy": o([
         { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "DateLimit": o([
+    "FluffyDateLimit": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
-    "DiscountClass": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
-        { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
-        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
-        { json: "start", js: "start", typ: u(undefined, Date) },
-        { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
-        { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
-    ], false),
-    "Slots": o([
-        { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
-    ], "any"),
-    "TaxonomyPrice": o([
+    "FluffyPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
-    "ShowcaseItem": o([
+    "FluffyShowcaseItem": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("ShowcaseItemAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("StickyAdditionalDuration"))) },
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "ShowcaseItemAdditionalDuration": o([
+    "StickyAdditionalDuration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
-    "TaxonomyShowcase": o([
+    "FluffyTaxonomyShowcase": o([
         { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
         { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
@@ -8249,13 +6397,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
         { json: "client", js: "client", typ: r("ClientObject") },
-        { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
+        { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "CunningBusiness": o([
+    "AmbitiousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientObject": o([
@@ -8273,7 +6421,7 @@ const typeMap: any = {
         { json: "taxiPark", js: "taxiPark", typ: u(undefined, u(null, "")) },
         { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, u(3.14, null, "")) },
     ], "any"),
-    "PurpleProfile": o([
+    "ParamsProfile": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ClientAddClientResponse": o([
@@ -8288,15 +6436,15 @@ const typeMap: any = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("MagentaBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("CunningBusiness")) },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
-        { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
+        { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
     ], "any"),
-    "MagentaBusiness": o([
+    "CunningBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "FluffyProfile": o([
+    "PurpleProfile": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "FindOrCreateClient": o([
@@ -8311,17 +6459,16 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("FriskyBusiness") },
-        { json: "client", js: "client", typ: r("ClientObject") },
-        { json: "profile", js: "profile", typ: u(undefined, r("TentacledProfile")) },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "network", js: "network", typ: u(undefined, r("FluffyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "FriskyBusiness": o([
+    "MagentaBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
-    "TentacledProfile": o([
-        { json: "id", js: "id", typ: "" },
+    "FluffyNetwork": o([
+        { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientFindOfCreateClientResponse": o([
         { json: "result", js: "result", typ: u(undefined, r("ClientFindOfCreateClientResponseResult")) },
@@ -8335,15 +6482,15 @@ const typeMap: any = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("MischievousBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("FriskyBusiness")) },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
-        { json: "profile", js: "profile", typ: u(undefined, r("StickyProfile")) },
+        { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
-    "MischievousBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "StickyProfile": o([
+    "FluffyProfile": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "CracSlotsController": o([
@@ -8366,11 +6513,11 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("MischievousBusiness") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "BraggadociousBusiness": o([
+    "MischievousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -8447,13 +6594,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("Business1") },
+        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "Business1": o([
+    "BraggadociousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([
@@ -8491,10 +6638,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business2") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "filters", js: "filters", typ: r("PurpleFilters") },
     ], false),
-    "Business2": o([
+    "Business1": o([
         { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
@@ -8554,10 +6701,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business3") },
+        { json: "business", js: "business", typ: r("Business2") },
         { json: "filters", js: "filters", typ: r("FluffyFilters") },
     ], false),
-    "Business3": o([
+    "Business2": o([
         { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
@@ -8614,10 +6761,10 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business4") },
+        { json: "business", js: "business", typ: r("Business3") },
         { json: "filters", js: "filters", typ: r("TentacledFilters") },
     ], false),
-    "Business4": o([
+    "Business3": o([
         { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
         { json: "id", js: "id", typ: "" },
         { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },
@@ -8664,7 +6811,7 @@ const typeMap: any = {
     ], false),
     "Models": o([
         { json: "Appointment", js: "Appointment", typ: u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "") },
-        { json: "Business", js: "Business", typ: u(a("any"), true, r("AmbitiousBusiness"), 3.14, 0, null, "") },
+        { json: "Business", js: "Business", typ: u(a("any"), true, r("HilariousBusiness"), 3.14, 0, null, "") },
         { json: "Client", js: "Client", typ: r("ClientObject") },
     ], false),
     "AppointmentClientAppear": [
@@ -8866,40 +7013,6 @@ const typeMap: any = {
         "name",
         "surname",
     ],
-    "CracServer": [
-        "CRAC",
-        "CRAC_PROD3",
-    ],
-    "Rule": [
-        "CUSTOM",
-        "NEAREST_INTEGER",
-        "TWO_DECIMALS",
-    ],
-    "Payment": [
-        "OPTIONAL",
-        "REQUIRED",
-        "WITHOUT",
-    ],
-    "DiscountType": [
-        "PERCENT",
-    ],
-    "UseDirectScheduleRead": [
-        "ALL",
-        "AUTHENTICATED",
-        "GUEST",
-        "NONE",
-    ],
-    "WorkerSortingType": [
-        "most_free",
-        "none",
-        "workload",
-    ],
-    "FluffyPaymentProvider": [
-        "cloudpayments",
-        "deltaProcessing",
-        "DISABLE",
-        "yandexMoney",
-    ],
     "StartPeriod": [
         "month",
         "week",
@@ -8953,6 +7066,41 @@ const typeMap: any = {
         "CATEGORY",
         "SERVICE",
         "SUBCATEGORY",
+    ],
+    "CracServer": [
+        "CRAC",
+        "CRAC_PROD3",
+    ],
+    "Rule": [
+        "CUSTOM",
+        "NEAREST_INTEGER",
+        "TWO_DECIMALS",
+    ],
+    "Payment": [
+        "OPTIONAL",
+        "REQUIRED",
+        "WITHOUT",
+    ],
+    "DiscountType": [
+        "PERCENT",
+    ],
+    "UseDirectScheduleRead": [
+        "ALL",
+        "AUTHENTICATED",
+        "GUEST",
+        "NONE",
+    ],
+    "WorkerSortingType": [
+        "most_free",
+        "none",
+        "workload",
+    ],
+    "FluffyPaymentProvider": [
+        "cloudpayments",
+        "deltaProcessing",
+        "DISABLE",
+        "pelecard",
+        "yandexMoney",
     ],
     "YandexFeedType": [
         "dynamic",

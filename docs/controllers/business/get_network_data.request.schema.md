@@ -32,6 +32,8 @@ schemas-json/controllers/business/business.get_network_data.request.schema.json
 | Property             | Type          | Required     | Default |
 | -------------------- | ------------- | ------------ | ------- |
 | `networkID`          | number,string | **Required** |         |
+| `resource`           | object        | Optional     |         |
+| `taxonomy`           | object        | Optional     |         |
 | `with_business_info` | boolean       | Optional     | `false` |
 
 #### networkID
@@ -54,6 +56,62 @@ Unknown type `number,string`.
   "simpletype": "multiple"
 }
 ```
+
+#### resource
+
+`resource`
+
+- is optional
+- type: `object`
+
+##### resource Type
+
+`object` with following properties:
+
+| Property | Type   | Required |
+| -------- | ------ | -------- |
+| `id`     | string | Optional |
+
+#### id
+
+идентификатор работника, если передано - возвращает все бизнесы нетворка где есть работник с таким ключем
+
+`id`
+
+- is optional
+- type: `string`
+
+##### id Type
+
+`string`
+
+#### taxonomy
+
+`taxonomy`
+
+- is optional
+- type: `object`
+
+##### taxonomy Type
+
+`object` with following properties:
+
+| Property | Type   | Required |
+| -------- | ------ | -------- |
+| `id`     | string | Optional |
+
+#### id
+
+идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой
+
+`id`
+
+- is optional
+- type: `string`
+
+##### id Type
+
+`string`
 
 #### with_business_info
 

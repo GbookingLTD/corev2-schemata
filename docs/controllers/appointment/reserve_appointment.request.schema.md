@@ -83,7 +83,7 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 ### originBusinessID Type
 
-`string`
+`string`, nullable
 
 ## resource
 
@@ -180,14 +180,14 @@ All items must be of the type: `string`
 
 `object` with following properties:
 
-| Property           | Type   | Required     |
-| ------------------ | ------ | ------------ |
-| `appointment`      | object | **Required** |
-| `business`         | object | **Required** |
-| `originBusinessID` | string | Optional     |
-| `resource`         | object | **Required** |
-| `source`           | string | **Required** |
-| `taxonomy`         | object | **Required** |
+| Property           | Type        | Required     |
+| ------------------ | ----------- | ------------ |
+| `appointment`      | object      | **Required** |
+| `business`         | object      | **Required** |
+| `originBusinessID` | string,null | Optional     |
+| `resource`         | object      | **Required** |
+| `source`           | string      | **Required** |
+| `taxonomy`         | object      | **Required** |
 
 #### appointment
 
@@ -250,7 +250,7 @@ All items must be of the type: `string`
 
 ##### originBusinessID Type
 
-`string`
+`string`, nullable
 
 #### resource
 

@@ -15,7 +15,10 @@
             ],
             "properties": {
                 "originBusinessID": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "appointment": {
                     "type": "object",

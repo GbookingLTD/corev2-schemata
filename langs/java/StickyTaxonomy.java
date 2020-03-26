@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class ParamsTaxonomy {
+public class StickyTaxonomy {
     private String id;
 
     @JsonProperty("id")

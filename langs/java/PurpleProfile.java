@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.*;
 public class PurpleProfile {
     private String id;
 
-    /**
-     * идентификатор профиля пользователя
-     */
     @JsonProperty("id")
     public String getID() { return id; }
     @JsonProperty("id")

@@ -48,6 +48,8 @@ public class PurpleBackofficeConfiguration {
     private Double revisionVersion;
     private Boolean schduleWeekViewIsDefault;
     private Double scheduleDefaultWorkersLimit;
+    private Double scheduleDefaultWorkersLimitDay;
+    private Double scheduleDefaultWorkersLimitWeek;
     private SchedulerWeekViewType schedulerWeekViewType;
     private Boolean scheduleWorkerHours;
     private Boolean showAdditionalFields;
@@ -323,6 +325,16 @@ public class PurpleBackofficeConfiguration {
     public Double getScheduleDefaultWorkersLimit() { return scheduleDefaultWorkersLimit; }
     @JsonProperty("scheduleDefaultWorkersLimit")
     public void setScheduleDefaultWorkersLimit(Double value) { this.scheduleDefaultWorkersLimit = value; }
+
+    @JsonProperty("scheduleDefaultWorkersLimitDay")
+    public Double getScheduleDefaultWorkersLimitDay() { return scheduleDefaultWorkersLimitDay; }
+    @JsonProperty("scheduleDefaultWorkersLimitDay")
+    public void setScheduleDefaultWorkersLimitDay(Double value) { this.scheduleDefaultWorkersLimitDay = value; }
+
+    @JsonProperty("scheduleDefaultWorkersLimitWeek")
+    public Double getScheduleDefaultWorkersLimitWeek() { return scheduleDefaultWorkersLimitWeek; }
+    @JsonProperty("scheduleDefaultWorkersLimitWeek")
+    public void setScheduleDefaultWorkersLimitWeek(Double value) { this.scheduleDefaultWorkersLimitWeek = value; }
 
     @JsonProperty("schedulerWeekViewType")
     public SchedulerWeekViewType getSchedulerWeekViewType() { return schedulerWeekViewType; }

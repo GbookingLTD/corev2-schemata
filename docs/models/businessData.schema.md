@@ -10,222 +10,300 @@ schemas-json/models/businessData.schema.json
 
 # Business Definitions
 
-| Property                                                                                            | Type       | Group                                                                               |
-| --------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------- |
-| [additionalName](#additionalname)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [adjacentTaxonomiesTreshold](#adjacenttaxonomiestreshold)                                           | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [alignmentTaxonomySlots](#alignmenttaxonomyslots)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [allowAutoSelect](#allowautoselect)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [allowBookVisitor](#allowbookvisitor)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [allowHideServiceForBooking](#allowhideserviceforbooking)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [allowHideWorkersFromSchdeule](#allowhideworkersfromschdeule)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [allowSkipTimeCheck](#allowskiptimecheck)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [allowSmsTranslit](#allowsmstranslit)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [appointmentFutureMoving](#appointmentfuturemoving)                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [appointment_confirmation_text](#appointment_confirmation_text)                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [appointment_confirmation_title](#appointment_confirmation_title)                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [askClientBirthday](#askclientbirthday)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [askClientGender](#askclientgender)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [baseBusinessID](#basebusinessid)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`        |
-| [blockNotificationForAnyAvailableAdjacentService](#blocknotificationforanyavailableadjacentservice) | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [bookableDateRanges](#bookabledateranges)                                                           | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [bookableMonthsCount](#bookablemonthscount)                                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [calendarMode](#calendarmode)                                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [calendarModeHideTime](#calendarmodehidetime)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [checkClientOverlapping](#checkclientoverlapping)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [clientBlockingSettings](#clientblockingsettings)                                                   | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [clientCommentTitle](#clientcommenttitle)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [cracServer](#cracserver)                                                                           | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [cracSlotSize](#cracslotsize)                                                                       | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [crunchv2](#crunchv2)                                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [customOnlinePaymentConfirmationTemplate](#customonlinepaymentconfirmationtemplate)                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [dayOffLabel](#dayofflabel)                                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [dayUnavailableLabel](#dayunavailablelabel)                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [daysForward](#daysforward)                                                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [defaultGTScheduleDayView](#defaultgtscheduledayview)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [defaultServiceImgUrl](#defaultserviceimgurl)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [defaultWorkerImgUrl](#defaultworkerimgurl)                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [denySameTimeRecords](#denysametimerecords)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [disableAppointmentClientInlineEditor](#disableappointmentclientinlineeditor)                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [disableMobileWidget](#disablemobilewidget)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [disableWidget](#disablewidget)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [disableWidgetMessage](#disablewidgetmessage)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [disabledTaxonomiesText](#disabledtaxonomiestext)                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [discountedPriceRounding](#discountedpricerounding)                                                 | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [displaySlotSize](#displayslotsize)                                                                 | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [dontRequireEmail](#dontrequireemail)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [duration](#duration)                                                                               | `number`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalDuration`      |
-| [editAppExtraId](#editappextraid)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [editTaxonomyChildren](#edittaxonomychildren)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [editTaxonomyVisitType](#edittaxonomyvisittype)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [emailIsMandatory](#emailismandatory)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [enableBlackList](#enableblacklist)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableCalculateShedule](#enablecalculateshedule)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableClientCard](#enableclientcard)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableClientLanguage](#enableclientlanguage)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableClientMedicalCardReport](#enableclientmedicalcardreport)                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableCustomOnlinePaymentConfirmation](#enablecustomonlinepaymentconfirmation)                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableExtendedPhone](#enableextendedphone)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableExtendedRecordsClientStatistics](#enableextendedrecordsclientstatistics)                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableMasterImportance](#enablemasterimportance)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableOverrideFooter](#enableoverridefooter)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [enableServiceTimeLimit](#enableservicetimelimit)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableSourceChoice](#enablesourcechoice)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableTaxonomyChildrenAgeCheck](#enabletaxonomychildrenagecheck)                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [enableWarningContactData](#enablewarningcontactdata)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [exportToExcelRemovedClients](#exporttoexcelremovedclients)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [extraVisitors](#extravisitors)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [feedBackMinRating](#feedbackminrating)                                                             | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [feedbackCustomerPortalMessage](#feedbackcustomerportalmessage)                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [feedbackCustomerPortalThankYouMessage](#feedbackcustomerportalthankyoumessage)                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [feedbackCustomerPortalTitle](#feedbackcustomerportaltitle)                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [filterNonInsuranceSchedule](#filternoninsuranceschedule)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [finId](#finid)                                                                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [finName](#finname)                                                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [hideAnyWorkerBooking](#hideanyworkerbooking)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hideCallButton](#hidecallbutton)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hideCustomerPortalFooter](#hidecustomerportalfooter)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [hideEmptyDays](#hideemptydays)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hideGBookingLogo](#hidegbookinglogo)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hideGraySlots](#hidegrayslots)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hideNewAppointmentButton](#hidenewappointmentbutton)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hidePrices](#hideprices)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [hideSocialNetworksAuthentication](#hidesocialnetworksauthentication)                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [highlightedResource](#highlightedresource)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [id\_](#id_)                                                                                        | `number`   | `schemas-json/models/businessData.schema.json#/definitions/Department`              |
-| [insuranceClientSupportPhone](#insuranceclientsupportphone)                                         | reference  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [isBaseNode](#isbasenode)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`        |
-| [level](#level)                                                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalDuration`      |
-| [manualExceptionSupport](#manualexceptionsupport)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [maxServiceBooking](#maxservicebooking)                                                             | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [maxTimeslotBooking](#maxtimeslotbooking)                                                           | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [middleNameSupport](#middlenamesupport)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [mostFreeEnable](#mostfreeenable)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [multiServiceBooking](#multiservicebooking)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [multiTimeslotBooking](#multitimeslotbooking)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [multiTimeslotBookingAllDays](#multitimeslotbookingalldays)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [name](#name)                                                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/Consumable`              |
-| [newWidgetTheme](#newwidgettheme)                                                                   | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [noDefaultImages](#nodefaultimages)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [noInternetAlert](#nointernetalert)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [originBusinessID](#originbusinessid)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`        |
-| [overrideFooter](#overridefooter)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [pastTimeEdit](#pasttimeedit)                                                                       | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [payment](#payment)                                                                                 | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [paymentProvider](#paymentprovider)                                                                 | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [quantity](#quantity)                                                                               | `number`   | `schemas-json/models/businessData.schema.json#/definitions/Consumable`              |
-| [readonlyResourceSchedule](#readonlyresourceschedule)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [requireAgreement](#requireagreement)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [requireAgreementLink](#requireagreementlink)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [resourceTimetableType](#resourcetimetabletype)                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [revisionVersion](#revisionversion)                                                                 | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [schduleWeekViewIsDefault](#schduleweekviewisdefault)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [scheduleDefaultWorkersLimit](#scheduledefaultworkerslimit)                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [scheduleWorkerHours](#scheduleworkerhours)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [schedulerWeekViewType](#schedulerweekviewtype)                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [shortLink](#shortlink)                                                                             | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showAdditionalFields](#showadditionalfields)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showAddress](#showaddress)                                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showAllWorkers](#showallworkers)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showBirthDate](#showbirthdate)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showClientAddress](#showclientaddress)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showClientAppear](#showclientappear)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showClientAppearOnSchedule](#showclientappearonschedule)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showClientBirthdayFilter](#showclientbirthdayfilter)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showClientComment](#showclientcomment)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showClientContractNumber](#showclientcontractnumber)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showClientImage](#showclientimage)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showClientPayment](#showclientpayment)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showDefaulterBlockscreen](#showdefaulterblockscreen)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showDeliveryStatus](#showdeliverystatus)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showDepartmentFilter](#showdepartmentfilter)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showDepartments](#showdepartments)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showDepartmentsConfiguration](#showdepartmentsconfiguration)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showDisabledTaxonomies](#showdisabledtaxonomies)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showDrinkQuestion](#showdrinkquestion)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showEmail](#showemail)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showExtraClientInfo](#showextraclientinfo)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showFax](#showfax)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showFiredWorkerAppointmentAlert](#showfiredworkerappointmentalert)                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showFirstAvailableSlot](#showfirstavailableslot)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showGapWindow](#showgapwindow)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showGender](#showgender)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showGenderInRecords](#showgenderinrecords)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showGeneratableReportsScreen](#showgeneratablereportsscreen)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showHouseNumber](#showhousenumber)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showIsraelCity](#showisraelcity)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showKupatHolim](#showkupatholim)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showLeadsScreen](#showleadsscreen)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showManualChanges](#showmanualchanges)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showMap](#showmap)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showPassportId](#showpassportid)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showRooms](#showrooms)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showSeasonTickets](#showseasontickets)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showStartText](#showstarttext)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showSurnameFirst](#showsurnamefirst)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showTalkQuestion](#showtalkquestion)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showTaxonomyChildren](#showtaxonomychildren)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showTaxonomyConfirmationAlert](#showtaxonomyconfirmationalert)                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [showTaxonomyLocalization](#showtaxonomylocalization)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showTaxonomyVisitType](#showtaxonomyvisittype)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showTestRecord](#showtestrecord)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showUTM](#showutm)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showWidgetColorTheme](#showwidgetcolortheme)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showWorkerDescriptionInEvent](#showworkerdescriptioninevent)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showWorkerExtraId](#showworkerextraid)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showWorkerStatus](#showworkerstatus)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [showcaseItemID](#showcaseitemid)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`        |
-| [skipAppointmentPriceUpdate](#skipappointmentpriceupdate)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [skipAuthentication](#skipauthentication)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipCancelIfClientNotAppear](#skipcancelifclientnotappear)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [skipDaysForward](#skipdaysforward)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipMobileMap](#skipmobilemap)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipServiceDurationAlignment](#skipservicedurationalignment)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipServiceFiltering](#skipservicefiltering)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [skipServiceSelection](#skipserviceselection)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipTimeSelection](#skiptimeselection)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipTimeSelectionServiceIDs](#skiptimeselectionserviceids)                                         | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipWorkerSelectedServiceIDs](#skipworkerselectedserviceids)                                       | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [skipWorkerServicesSelection](#skipworkerservicesselection)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [socialNetworkImage](#socialnetworkimage)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [socialSharing](#socialsharing)                                                                     | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [sortByMostFree](#sortbymostfree)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [sortWorkersByWorkload](#sortworkersbyworkload)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [splitFullNameXlsExport](#splitfullnamexlsexport)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [splitInsuranceClient](#splitinsuranceclient)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [splitName](#splitname)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [startTextButton](#starttextbutton)                                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [startTextMessage](#starttextmessage)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [stateLevelHolidays](#statelevelholidays)                                                           | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [taxonomyChildrenMaxAge](#taxonomychildrenmaxage)                                                   | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [tentativeTTL](#tentativettl)                                                                       | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [theme](#theme)                                                                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useAdditionalDurations](#useadditionaldurations)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [useAdjacentTaxonomies](#useadjacenttaxonomies)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [useAdjacentTaxonomiesSlotSplitting](#useadjacenttaxonomiesslotsplitting)                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [useAppointmentReminder](#useappointmentreminder)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useBusinessScheduleForUnavailableLabel](#usebusinessscheduleforunavailablelabel)                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useCRAC](#usecrac)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useClustersMap](#useclustersmap)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useCoupon](#usecoupon)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useDefaultServiceImg](#usedefaultserviceimg)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useDefaultWorkerImg](#usedefaultworkerimg)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useDirectScheduleRead](#usedirectscheduleread)                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useGtAppMethod](#usegtappmethod)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [useInsuranceGuaranteeLetter](#useinsuranceguaranteeletter)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useInsuranceSelect](#useinsuranceselect)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useMedAuth](#usemedauth)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useMiddleName](#usemiddlename)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useNewReserveAPI](#usenewreserveapi)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useResourcePageLoading](#useresourcepageloading)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [useSortByName](#usesortbyname)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [warningContactDataText](#warningcontactdatatext)                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [widgetUseCRAC](#widgetusecrac)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [withoutWorkers](#withoutworkers)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [workWeekEnd](#workweekend)                                                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [workWeekStart](#workweekstart)                                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration` |
-| [workerNameReverse](#workernamereverse)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
-| [worker_unavailability_text](#worker_unavailability_text)                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`     |
+| Property                                                                                            | Type       | Group                                                                                         |
+| --------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| [additionalDurations](#additionaldurations)                                                         | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [additionalName](#additionalname)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [additionalPrices](#additionalprices)                                                               | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [additionalProducts](#additionalproducts)                                                           | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [additionalTaxonomyExtraId](#additionaltaxonomyextraid)                                             | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [adjacentSameTimeStart](#adjacentsametimestart)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [adjacentTaxonomies](#adjacenttaxonomies)                                                           | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [adjacentTaxonomiesTreshold](#adjacenttaxonomiestreshold)                                           | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [alias](#alias)                                                                                     | `object`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [alignmentTaxonomySlots](#alignmenttaxonomyslots)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [allowAutoSelect](#allowautoselect)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [allowBookVisitor](#allowbookvisitor)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [allowBookingInBO](#allowbookinginbo)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowHideServiceForBooking](#allowhideserviceforbooking)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [allowHideWorkersFromSchdeule](#allowhideworkersfromschdeule)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [allowNextBookingCount](#allownextbookingcount)                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowNextBookingInDays](#allownextbookingindays)                                                   | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowNextBookingInDaysText](#allownextbookingindaystext)                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [allowSkipTimeCheck](#allowskiptimecheck)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [allowSmsTranslit](#allowsmstranslit)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [amount](#amount)                                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [appointmentFutureMoving](#appointmentfuturemoving)                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [appointment_confirmation_text](#appointment_confirmation_text)                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [appointment_confirmation_title](#appointment_confirmation_title)                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [askClientBirthday](#askclientbirthday)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [askClientGender](#askclientgender)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [baseBusinessID](#basebusinessid)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`                  |
+| [blockNotificationForAnyAvailableAdjacentService](#blocknotificationforanyavailableadjacentservice) | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [bookableDateRanges](#bookabledateranges)                                                           | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [bookableMonthsCount](#bookablemonthscount)                                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [calendarMode](#calendarmode)                                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [calendarModeHideTime](#calendarmodehidetime)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [capacity](#capacity)                                                                               | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [capacity_decrease](#capacity_decrease)                                                             | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [chargeUnitsStep](#chargeunitsstep)                                                                 | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [checkClientOverlapping](#checkclientoverlapping)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [childrenTaxonomyTypes](#childrentaxonomytypes)                                                     | `enum[]`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [clientBlockingSettings](#clientblockingsettings)                                                   | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [clientCommentTitle](#clientcommenttitle)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [color](#color)                                                                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [confirmationAlert](#confirmationalert)                                                             | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [confirmationSmsAlert](#confirmationsmsalert)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [cracServer](#cracserver)                                                                           | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [cracSlotSize](#cracslotsize)                                                                       | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [crunchv2](#crunchv2)                                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [currency](#currency)                                                                               | reference  | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [customOnlinePaymentConfirmationTemplate](#customonlinepaymentconfirmationtemplate)                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [dateLimitType](#datelimittype)                                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [dateLimits](#datelimits)                                                                           | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [dayOffLabel](#dayofflabel)                                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [dayUnavailableLabel](#dayunavailablelabel)                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [daysForward](#daysforward)                                                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [defaultGTScheduleDayView](#defaultgtscheduledayview)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [defaultServiceImgUrl](#defaultserviceimgurl)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [defaultWorkerImgUrl](#defaultworkerimgurl)                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [denySameTimeRecords](#denysametimerecords)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [disableAppointmentClientInlineEditor](#disableappointmentclientinlineeditor)                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [disableMobileWidget](#disablemobilewidget)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [disableWidget](#disablewidget)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [disableWidgetMessage](#disablewidgetmessage)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [disabledTaxonomiesText](#disabledtaxonomiestext)                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [discountedPriceRounding](#discountedpricerounding)                                                 | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [discounts](#discounts)                                                                             | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [displayInWidget](#displayinwidget)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [displaySlotSize](#displayslotsize)                                                                 | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [dontRequireEmail](#dontrequireemail)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [duration](#duration)                                                                               | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [editAppExtraId](#editappextraid)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [editTaxonomyChildren](#edittaxonomychildren)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [editTaxonomyVisitType](#edittaxonomyvisittype)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [emailIsMandatory](#emailismandatory)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [enableBlackList](#enableblacklist)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableCalculateShedule](#enablecalculateshedule)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableClientCard](#enableclientcard)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableClientLanguage](#enableclientlanguage)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableClientMedicalCardReport](#enableclientmedicalcardreport)                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableCustomOnlinePaymentConfirmation](#enablecustomonlinepaymentconfirmation)                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableExtendedPhone](#enableextendedphone)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableExtendedRecordsClientStatistics](#enableextendedrecordsclientstatistics)                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableMasterImportance](#enablemasterimportance)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableOverrideFooter](#enableoverridefooter)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [enableServiceTimeLimit](#enableservicetimelimit)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableSourceChoice](#enablesourcechoice)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableTaxonomyChildrenAgeCheck](#enabletaxonomychildrenagecheck)                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [enableWarningContactData](#enablewarningcontactdata)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [exceptions](#exceptions)                                                                           | `array`    | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [exportToExcelRemovedClients](#exporttoexcelremovedclients)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [extraDescription](#extradescription)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraId](#extraid)                                                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraLink](#extralink)                                                                             | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [extraVisitors](#extravisitors)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [feedBackMinRating](#feedbackminrating)                                                             | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [feedbackCustomerPortalMessage](#feedbackcustomerportalmessage)                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [feedbackCustomerPortalThankYouMessage](#feedbackcustomerportalthankyoumessage)                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [feedbackCustomerPortalTitle](#feedbackcustomerportaltitle)                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [filterNonInsuranceSchedule](#filternoninsuranceschedule)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [finId](#finid)                                                                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [finName](#finname)                                                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [forPay](#forpay)                                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [hideAnyWorkerBooking](#hideanyworkerbooking)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hideCallButton](#hidecallbutton)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hideCustomerPortalFooter](#hidecustomerportalfooter)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [hideEmptyDays](#hideemptydays)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hideGBookingLogo](#hidegbookinglogo)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hideGraySlots](#hidegrayslots)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hideNewAppointmentButton](#hidenewappointmentbutton)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hidePrices](#hideprices)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [hideSocialNetworksAuthentication](#hidesocialnetworksauthentication)                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [highlightedResource](#highlightedresource)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [id\_](#id_)                                                                                        | `number`   | `schemas-json/models/businessData.schema.json#/definitions/Department`                        |
+| [images](#images)                                                                                   | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [insuranceClientSupportPhone](#insuranceclientsupportphone)                                         | reference  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [isBaseNode](#isbasenode)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`                  |
+| [isOther](#isother)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [lastModified](#lastmodified)                                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [leaves](#leaves)                                                                                   | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [level](#level)                                                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalDuration`                |
+| [manualChanges](#manualchanges)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [manualExceptionSupport](#manualexceptionsupport)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [maxServiceBooking](#maxservicebooking)                                                             | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [maxTimeslotBooking](#maxtimeslotbooking)                                                           | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [middleNameSupport](#middlenamesupport)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [mostFreeEnable](#mostfreeenable)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [multiServiceBooking](#multiservicebooking)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [multiTimeslotBooking](#multitimeslotbooking)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [multiTimeslotBookingAllDays](#multitimeslotbookingalldays)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [name](#name)                                                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/Consumable`                        |
+| [newTaxonomy](#newtaxonomy)                                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [newWidgetTheme](#newwidgettheme)                                                                   | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [noDefaultImages](#nodefaultimages)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [noInternetAlert](#nointernetalert)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [onlineMode](#onlinemode)                                                                           | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [onlyAfterTaxonomies](#onlyaftertaxonomies)                                                         | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [order](#order)                                                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [originBusinessID](#originbusinessid)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`                  |
+| [overrideFooter](#overridefooter)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [parallelTaxonomies](#paralleltaxonomies)                                                           | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [pastTimeEdit](#pasttimeedit)                                                                       | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [payment](#payment)                                                                                 | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [paymentProvider](#paymentprovider)                                                                 | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [popularity](#popularity)                                                                           | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [price](#price)                                                                                     | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [priceLink](#pricelink)                                                                             | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [quantity](#quantity)                                                                               | `number`   | `schemas-json/models/businessData.schema.json#/definitions/Consumable`                        |
+| [readonlyResourceSchedule](#readonlyresourceschedule)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [receptionTypes](#receptiontypes)                                                                   | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [requireAgreement](#requireagreement)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [requireAgreementLink](#requireagreementlink)                                                       | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [required](#required)                                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyProduct` |
+| [resourceLevel](#resourcelevel)                                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [resourceTimetableType](#resourcetimetabletype)                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [revisionVersion](#revisionversion)                                                                 | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [rooms](#rooms)                                                                                     | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [schduleWeekViewIsDefault](#schduleweekviewisdefault)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleDefaultWorkersLimit](#scheduledefaultworkerslimit)                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleDefaultWorkersLimitDay](#scheduledefaultworkerslimitday)                                   | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleDefaultWorkersLimitWeek](#scheduledefaultworkerslimitweek)                                 | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleWorkerHours](#scheduleworkerhours)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [schedulerWeekViewType](#schedulerweekviewtype)                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [shortLink](#shortlink)                                                                             | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showAdditionalFields](#showadditionalfields)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showAddress](#showaddress)                                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showAllWorkers](#showallworkers)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showBirthDate](#showbirthdate)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientAddress](#showclientaddress)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showClientAppear](#showclientappear)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientAppearOnSchedule](#showclientappearonschedule)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientBirthdayFilter](#showclientbirthdayfilter)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientComment](#showclientcomment)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showClientContractNumber](#showclientcontractnumber)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientImage](#showclientimage)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showClientPayment](#showclientpayment)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDefaulterBlockscreen](#showdefaulterblockscreen)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDeliveryStatus](#showdeliverystatus)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDepartmentFilter](#showdepartmentfilter)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDepartments](#showdepartments)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDepartmentsConfiguration](#showdepartmentsconfiguration)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showDisabledTaxonomies](#showdisabledtaxonomies)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showDrinkQuestion](#showdrinkquestion)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showEmail](#showemail)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showExtraClientInfo](#showextraclientinfo)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showFax](#showfax)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showFiredWorkerAppointmentAlert](#showfiredworkerappointmentalert)                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showFirstAvailableSlot](#showfirstavailableslot)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGapWindow](#showgapwindow)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGender](#showgender)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGenderInRecords](#showgenderinrecords)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showGeneratableReportsScreen](#showgeneratablereportsscreen)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showHouseNumber](#showhousenumber)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showIsraelCity](#showisraelcity)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showKupatHolim](#showkupatholim)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showLeadsScreen](#showleadsscreen)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showManualChanges](#showmanualchanges)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showMap](#showmap)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showPassportId](#showpassportid)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showRooms](#showrooms)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showSeasonTickets](#showseasontickets)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showStartText](#showstarttext)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showSurnameFirst](#showsurnamefirst)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showTalkQuestion](#showtalkquestion)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showTaxonomyChildren](#showtaxonomychildren)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTaxonomyConfirmationAlert](#showtaxonomyconfirmationalert)                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [showTaxonomyLocalization](#showtaxonomylocalization)                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTaxonomyVisitType](#showtaxonomyvisittype)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTestRecord](#showtestrecord)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showUTM](#showutm)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWidgetColorTheme](#showwidgetcolortheme)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWorkerDescriptionInEvent](#showworkerdescriptioninevent)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWorkerExtraId](#showworkerextraid)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showWorkerStatus](#showworkerstatus)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [showcaseItemID](#showcaseitemid)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/TaxonomyShowcase`                  |
+| [showcaseItems](#showcaseitems)                                                                     | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [showcaseTaxonomyID](#showcasetaxonomyid)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [showcases](#showcases)                                                                             | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [siteId](#siteid)                                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [skipAppointmentPriceUpdate](#skipappointmentpriceupdate)                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [skipAuthentication](#skipauthentication)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipCancelIfClientNotAppear](#skipcancelifclientnotappear)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [skipDaysForward](#skipdaysforward)                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipMobileMap](#skipmobilemap)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipServiceDurationAlignment](#skipservicedurationalignment)                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipServiceFiltering](#skipservicefiltering)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [skipServiceSelection](#skipserviceselection)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipTimeSelection](#skiptimeselection)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipTimeSelectionServiceIDs](#skiptimeselectionserviceids)                                         | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipWorkerSelectedServiceIDs](#skipworkerselectedserviceids)                                       | `string[]` | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [skipWorkerServicesSelection](#skipworkerservicesselection)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [socialNetworkImage](#socialnetworkimage)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [socialSharing](#socialsharing)                                                                     | `object`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [sortByMostFree](#sortbymostfree)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [sortWorkersByWorkload](#sortworkersbyworkload)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [specialCabinet](#specialcabinet)                                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [splitFullNameXlsExport](#splitfullnamexlsexport)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [splitInsuranceClient](#splitinsuranceclient)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [splitName](#splitname)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [startTextButton](#starttextbutton)                                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [startTextMessage](#starttextmessage)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [stateLevelHolidays](#statelevelholidays)                                                           | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [stockAmount](#stockamount)                                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [taxonomyAppExtraID](#taxonomyappextraid)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [taxonomyCategoryExtraID](#taxonomycategoryextraid)                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [taxonomyChildrenMaxAge](#taxonomychildrenmaxage)                                                   | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [taxonomyParentID](#taxonomyparentid)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [taxonomyType](#taxonomytype)                                                                       | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [tentativeTTL](#tentativettl)                                                                       | `number`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [theme](#theme)                                                                                     | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [timetable](#timetable)                                                                             | reference  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [type](#type)                                                                                       | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [useAdditionalDurations](#useadditionaldurations)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [useAdjacentTaxonomies](#useadjacenttaxonomies)                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [useAdjacentTaxonomiesSlotSplitting](#useadjacenttaxonomiesslotsplitting)                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [useAppointmentReminder](#useappointmentreminder)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useBusinessScheduleForUnavailableLabel](#usebusinessscheduleforunavailablelabel)                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useCRAC](#usecrac)                                                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useClustersMap](#useclustersmap)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useConfirmationSmsAlert](#useconfirmationsmsalert)                                                 | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [useCoupon](#usecoupon)                                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useDefaultServiceImg](#usedefaultserviceimg)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useDefaultWorkerImg](#usedefaultworkerimg)                                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useDirectScheduleRead](#usedirectscheduleread)                                                     | `enum`     | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useGtAppMethod](#usegtappmethod)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [useInsuranceGuaranteeLetter](#useinsuranceguaranteeletter)                                         | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useInsuranceSelect](#useinsuranceselect)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useMedAuth](#usemedauth)                                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useMiddleName](#usemiddlename)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useNewReserveAPI](#usenewreserveapi)                                                               | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useResourcePageLoading](#useresourcepageloading)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [useSortByName](#usesortbyname)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [visitType](#visittype)                                                                             | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
+| [warningContactDataText](#warningcontactdatatext)                                                   | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [widgetUseCRAC](#widgetusecrac)                                                                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [withoutWorkers](#withoutworkers)                                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [workWeekEnd](#workweekend)                                                                         | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [workWeekStart](#workweekstart)                                                                     | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
+| [workerNameReverse](#workernamereverse)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [worker_unavailability_text](#worker_unavailability_text)                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+
+## additionalDurations
+
+`additionalDurations`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### additionalDurations Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/AdditionalDuration`
 
 ## additionalName
 
@@ -236,6 +314,135 @@ schemas-json/models/businessData.schema.json
 - defined in this schema
 
 ### additionalName Type
+
+`string`
+
+## additionalPrices
+
+`additionalPrices`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### additionalPrices Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/AdditionalBusinessTaxonomyPrice`
+
+## additionalProducts
+
+`additionalProducts`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### additionalProducts Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/AdditionalBusinessTaxonomyProduct`
+
+## additionalTaxonomyExtraId
+
+`additionalTaxonomyExtraId`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### additionalTaxonomyExtraId Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
+
+## adjacentSameTimeStart
+
+`adjacentSameTimeStart`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### adjacentSameTimeStart Type
+
+`boolean`
+
+## adjacentTaxonomies
+
+`adjacentTaxonomies`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### adjacentTaxonomies Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property         | Type    | Required | Default |
+| ---------------- | ------- | -------- | ------- |
+| `isAnyAvailable` | boolean | Optional | `false` |
+| `order`          | number  | Optional |         |
+| `slotDuration`   | number  | Optional | `20`    |
+| `taxonomyID`     | string  | Optional |         |
+
+#### isAnyAvailable
+
+`isAnyAvailable`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### isAnyAvailable Type
+
+`boolean`
+
+#### order
+
+`order`
+
+- is optional
+- type: `number`
+
+##### order Type
+
+`number`
+
+#### slotDuration
+
+`slotDuration`
+
+- is optional
+- type: `number`
+- default: `20`
+
+##### slotDuration Type
+
+`number`
+
+#### taxonomyID
+
+`taxonomyID`
+
+- is optional
+- type: `string`
+
+##### taxonomyID Type
 
 `string`
 
@@ -251,6 +458,22 @@ schemas-json/models/businessData.schema.json
 ### adjacentTaxonomiesTreshold Type
 
 `number`
+
+## alias
+
+`alias`
+
+- is optional
+- type: `object`
+- defined in this schema
+
+### alias Type
+
+`object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
 
 ## alignmentTaxonomySlots
 
@@ -291,6 +514,19 @@ schemas-json/models/businessData.schema.json
 
 `boolean`
 
+## allowBookingInBO
+
+`allowBookingInBO`
+
+- is optional
+- type: `boolean`
+- default: `true`
+- defined in this schema
+
+### allowBookingInBO Type
+
+`boolean`
+
 ## allowHideServiceForBooking
 
 `allowHideServiceForBooking`
@@ -317,6 +553,44 @@ schemas-json/models/businessData.schema.json
 
 `boolean`
 
+## allowNextBookingCount
+
+`allowNextBookingCount`
+
+- is optional
+- type: `number`
+- default: `1`
+- defined in this schema
+
+### allowNextBookingCount Type
+
+`number`
+
+## allowNextBookingInDays
+
+`allowNextBookingInDays`
+
+- is optional
+- type: `number`
+- default: `0`
+- defined in this schema
+
+### allowNextBookingInDays Type
+
+`number`
+
+## allowNextBookingInDaysText
+
+`allowNextBookingInDaysText`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### allowNextBookingInDaysText Type
+
+`string`
+
 ## allowSkipTimeCheck
 
 `allowSkipTimeCheck`
@@ -342,6 +616,21 @@ schemas-json/models/businessData.schema.json
 ### allowSmsTranslit Type
 
 `boolean`
+
+## amount
+
+Значение цены
+
+`amount`
+
+- is **required**
+- type: `string`
+- default: `"0"`
+- defined in this schema
+
+### amount Type
+
+`string`
 
 ## appointmentFutureMoving
 
@@ -538,6 +827,43 @@ schemas-json/models/businessData.schema.json
 
 `boolean`
 
+## capacity
+
+`capacity`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### capacity Type
+
+`number`
+
+## capacity_decrease
+
+`capacity_decrease`
+
+- is optional
+- type: `number`
+- default: `1`
+- defined in this schema
+
+### capacity_decrease Type
+
+`number`
+
+## chargeUnitsStep
+
+`chargeUnitsStep`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### chargeUnitsStep Type
+
+`number`
+
 ## checkClientOverlapping
 
 `checkClientOverlapping`
@@ -550,6 +876,20 @@ schemas-json/models/businessData.schema.json
 ### checkClientOverlapping Type
 
 `boolean`
+
+## childrenTaxonomyTypes
+
+`childrenTaxonomyTypes`
+
+- is optional
+- type: `enum[]`
+- defined in this schema
+
+### childrenTaxonomyTypes Type
+
+Array type: `enum[]`
+
+All items must be of the type: `string`
 
 ## clientBlockingSettings
 
@@ -667,6 +1007,42 @@ schemas-json/models/businessData.schema.json
 
 `string`
 
+## color
+
+`color`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### color Type
+
+`string`
+
+## confirmationAlert
+
+`confirmationAlert`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### confirmationAlert Type
+
+`string`
+
+## confirmationSmsAlert
+
+`confirmationSmsAlert`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### confirmationSmsAlert Type
+
+`string`
+
 ## cracServer
 
 `cracServer`
@@ -715,6 +1091,20 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## currency
+
+Аббревиатура валюты
+
+`currency`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### currency Type
+
+- []() – `./partials/currency.schema.json#/definitions/CurrencyList`
+
 ## customOnlinePaymentConfirmationTemplate
 
 `customOnlinePaymentConfirmationTemplate`
@@ -727,6 +1117,83 @@ The value of this property **must** be equal to one of the [known values below](
 ### customOnlinePaymentConfirmationTemplate Type
 
 `string`
+
+## dateLimitType
+
+`dateLimitType`
+
+- is optional
+- type: `enum`
+- default: `"all_dates"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#datelimittype-known-values).
+
+### dateLimitType Known Values
+
+| Value         | Description |
+| ------------- | ----------- |
+| `all_dates`   |             |
+| `from_date`   |             |
+| `to_date`     |             |
+| `range_dates` |             |
+
+## dateLimits
+
+`dateLimits`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### dateLimits Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property        | Type   | Required |
+| --------------- | ------ | -------- |
+| `_id`           | string | Optional |
+| `dateLimitFrom` | string | Optional |
+| `dateLimitTo`   | string | Optional |
+
+#### \_id
+
+`_id`
+
+- is optional
+- type: `string`
+
+##### \_id Type
+
+`string`
+
+#### dateLimitFrom
+
+`dateLimitFrom`
+
+- is optional
+- type: `string`
+
+##### dateLimitFrom Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
+#### dateLimitTo
+
+`dateLimitTo`
+
+- is optional
+- type: `string`
+
+##### dateLimitTo Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
 ## dayOffLabel
 
@@ -925,6 +1392,30 @@ The value of this property **must** be equal to one of the [known values below](
 
 `number`
 
+## discounts
+
+`discounts`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### discounts Type
+
+- []() – `./discount.schema.json`
+
+## displayInWidget
+
+`displayInWidget`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### displayInWidget Type
+
+`boolean`
+
 ## displaySlotSize
 
 `displaySlotSize`
@@ -960,7 +1451,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### duration Type
 
-`number`, nullable
+`number`
 
 ## editAppExtraId
 
@@ -1196,6 +1687,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## exceptions
+
+`exceptions`
+
+- is optional
+- type: `array`
+- defined in this schema
+
+### exceptions Type
+
+Array type: `array`
+
 ## exportToExcelRemovedClients
 
 `exportToExcelRemovedClients`
@@ -1208,6 +1711,42 @@ The value of this property **must** be equal to one of the [known values below](
 ### exportToExcelRemovedClients Type
 
 `boolean`
+
+## extraDescription
+
+`extraDescription`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### extraDescription Type
+
+`string`
+
+## extraId
+
+`extraId`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### extraId Type
+
+`string`
+
+## extraLink
+
+`extraLink`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### extraLink Type
+
+`string`
 
 ## extraVisitors
 
@@ -1315,6 +1854,19 @@ The value of this property **must** be equal to one of the [known values below](
 ### finName Type
 
 `string`
+
+## forPay
+
+`forPay`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### forPay Type
+
+`boolean`
 
 ## hideAnyWorkerBooking
 
@@ -1458,6 +2010,20 @@ The value of this property **must** be equal to one of the [known values below](
 
 `number`
 
+## images
+
+`images`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### images Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
+
 ## insuranceClientSupportPhone
 
 `insuranceClientSupportPhone`
@@ -1486,6 +2052,46 @@ All items must be of the type:
 
 `boolean`
 
+## isOther
+
+`isOther`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### isOther Type
+
+`boolean`
+
+## lastModified
+
+`lastModified`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### lastModified Type
+
+`string`
+
+- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
+
+## leaves
+
+`leaves`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### leaves Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
+
 ## level
 
 `level`
@@ -1497,6 +2103,18 @@ All items must be of the type:
 ### level Type
 
 `number`
+
+## manualChanges
+
+`manualChanges`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### manualChanges Type
+
+`boolean`
 
 ## manualExceptionSupport
 
@@ -1613,6 +2231,19 @@ All items must be of the type:
 
 `string`
 
+## newTaxonomy
+
+`newTaxonomy`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### newTaxonomy Type
+
+`boolean`
+
 ## newWidgetTheme
 
 `newWidgetTheme`
@@ -1655,6 +2286,56 @@ All items must be of the type:
 
 `boolean`
 
+## onlineMode
+
+`onlineMode`
+
+- is optional
+- type: `enum`
+- default: `"PLAN_CLINIC"`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#onlinemode-known-values).
+
+### onlineMode Known Values
+
+| Value                | Description     |
+| -------------------- | --------------- |
+| `0`                  | [object Object] |
+| `1`                  | [object Object] |
+| `2`                  | [object Object] |
+| `3`                  | [object Object] |
+| `PLAN_CLINIC`        |                 |
+| `PLAN_CLINIC_ONLINE` |                 |
+| `ONCALL_ONLINE`      |                 |
+| `PLAN_ONLINE`        |                 |
+
+## onlyAfterTaxonomies
+
+`onlyAfterTaxonomies`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### onlyAfterTaxonomies Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
+
+## order
+
+`order`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### order Type
+
+`number`
+
 ## originBusinessID
 
 `originBusinessID`
@@ -1679,6 +2360,20 @@ All items must be of the type:
 ### overrideFooter Type
 
 `string`
+
+## parallelTaxonomies
+
+`parallelTaxonomies`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### parallelTaxonomies Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 ## pastTimeEdit
 
@@ -1731,6 +2426,46 @@ The value of this property **must** be equal to one of the [known values below](
 | `deltaProcessing` |             |
 | `DISABLE`         |             |
 
+## popularity
+
+`popularity`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### popularity Type
+
+`number`
+
+## price
+
+`price`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### price Type
+
+`object` with following properties:
+
+| Property | Type | Required |
+| -------- | ---- | -------- |
+
+
+## priceLink
+
+`priceLink`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### priceLink Type
+
+`string`
+
 ## quantity
 
 `quantity`
@@ -1755,6 +2490,22 @@ The value of this property **must** be equal to one of the [known values below](
 ### readonlyResourceSchedule Type
 
 `boolean`
+
+## receptionTypes
+
+Список видов приема услуги
+
+`receptionTypes`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### receptionTypes Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
 
 ## requireAgreement
 
@@ -1781,6 +2532,34 @@ The value of this property **must** be equal to one of the [known values below](
 ### requireAgreementLink Type
 
 `string`
+
+## required
+
+Является ли обязательным при выполнении данной услуги
+
+`required`
+
+- is **required**
+- type: `boolean`
+- defined in this schema
+
+### required Type
+
+`boolean`
+
+## resourceLevel
+
+"Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+
+`resourceLevel`
+
+- is **required**
+- type: `number`
+- defined in this schema
+
+### resourceLevel Type
+
+`number`
 
 ## resourceTimetableType
 
@@ -1812,6 +2591,20 @@ The value of this property **must** be equal to one of the [known values below](
 
 `number`
 
+## rooms
+
+`rooms`
+
+- is optional
+- type: `string[]`
+- defined in this schema
+
+### rooms Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
+
 ## schduleWeekViewIsDefault
 
 `schduleWeekViewIsDefault`
@@ -1837,6 +2630,30 @@ The value of this property **must** be equal to one of the [known values below](
 ### scheduleDefaultWorkersLimit Type
 
 `number`
+
+## scheduleDefaultWorkersLimitDay
+
+`scheduleDefaultWorkersLimitDay`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### scheduleDefaultWorkersLimitDay Type
+
+`number`, nullable
+
+## scheduleDefaultWorkersLimitWeek
+
+`scheduleDefaultWorkersLimitWeek`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### scheduleDefaultWorkersLimitWeek Type
+
+`number`, nullable
 
 ## scheduleWorkerHours
 
@@ -2543,6 +3360,175 @@ The value of this property **must** be equal to one of the [known values below](
 
 `string`
 
+## showcaseItems
+
+`showcaseItems`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### showcaseItems Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property              | Type   | Required |
+| --------------------- | ------ | -------- |
+| `_id`                 | string | Optional |
+| `additionalDurations` | array  | Optional |
+| `businessID`          | string | Optional |
+| `receptionTypes`      | array  | Optional |
+| `taxonomyID`          | string | Optional |
+
+#### \_id
+
+`_id`
+
+- is optional
+- type: `string`
+
+##### \_id Type
+
+`string`
+
+#### additionalDurations
+
+`additionalDurations`
+
+- is optional
+- type: `object[]`
+
+##### additionalDurations Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property   | Type   | Required | Default |
+| ---------- | ------ | -------- | ------- |
+| `_id`      | string | Optional |         |
+| `duration` | number | Optional | `0`     |
+| `level`    | number | Optional |         |
+
+#### \_id
+
+`_id`
+
+- is optional
+- type: `string`
+
+##### \_id Type
+
+`string`
+
+#### duration
+
+`duration`
+
+- is optional
+- type: `number`
+- default: `0`
+
+##### duration Type
+
+`number`
+
+#### level
+
+поддержка различной длительности услуг в зависимости от работника
+
+`level`
+
+- is optional
+- type: `number`
+
+##### level Type
+
+`number`
+
+#### businessID
+
+`businessID`
+
+- is optional
+- type: `string`
+
+##### businessID Type
+
+`string`
+
+#### receptionTypes
+
+Список видов приема услуги
+
+`receptionTypes`
+
+- is optional
+- type: `string[]`
+
+##### receptionTypes Type
+
+Array type: `string[]`
+
+All items must be of the type: `string`
+
+#### taxonomyID
+
+`taxonomyID`
+
+- is optional
+- type: `string`
+
+##### taxonomyID Type
+
+`string`
+
+## showcaseTaxonomyID
+
+Идентификатор услуги в витрине
+
+`showcaseTaxonomyID`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### showcaseTaxonomyID Type
+
+`string`
+
+## showcases
+
+`showcases`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### showcases Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/TaxonomyShowcase`
+
+## siteId
+
+Внешний идентификатор таксономии
+
+`siteId`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### siteId Type
+
+`string`
+
 ## skipAppointmentPriceUpdate
 
 `skipAppointmentPriceUpdate`
@@ -2832,6 +3818,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## specialCabinet
+
+`specialCabinet`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### specialCabinet Type
+
+`string`
+
 ## splitFullNameXlsExport
 
 `splitFullNameXlsExport`
@@ -2913,6 +3911,45 @@ All items must be of the type: `object` with following properties:
 | -------- | ---- | -------- |
 
 
+## stockAmount
+
+Значение цены, с учётом промо акций
+
+`stockAmount`
+
+- is **required**
+- type: `string`
+- default: `"0"`
+- defined in this schema
+
+### stockAmount Type
+
+`string`, nullable
+
+## taxonomyAppExtraID
+
+`taxonomyAppExtraID`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### taxonomyAppExtraID Type
+
+`string`
+
+## taxonomyCategoryExtraID
+
+`taxonomyCategoryExtraID`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### taxonomyCategoryExtraID Type
+
+`string`
+
 ## taxonomyChildrenMaxAge
 
 `taxonomyChildrenMaxAge`
@@ -2924,6 +3961,30 @@ All items must be of the type: `object` with following properties:
 ### taxonomyChildrenMaxAge Type
 
 `number`
+
+## taxonomyParentID
+
+`taxonomyParentID`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### taxonomyParentID Type
+
+`string`
+
+## taxonomyType
+
+`taxonomyType`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### taxonomyType Type
+
+- []() – `./partials/taxonomyType.schema.json#/definitions/TaxonomyType`
 
 ## tentativeTTL
 
@@ -2949,6 +4010,41 @@ All items must be of the type: `object` with following properties:
 ### theme Type
 
 `string`
+
+## timetable
+
+`timetable`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### timetable Type
+
+- []() – `./timetable.schema.json`
+
+## type
+
+Тип цены
+
+`type`
+
+- is **required**
+- type: `enum`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#type-known-values).
+
+### type Known Values
+
+| Value        | Description     |
+| ------------ | --------------- |
+| `0`          | [object Object] |
+| `1`          | [object Object] |
+| `2`          | [object Object] |
+| `equal`      |                 |
+| `begin_with` |                 |
+| `average`    |                 |
 
 ## useAdditionalDurations
 
@@ -3038,6 +4134,18 @@ All items must be of the type: `object` with following properties:
 - defined in this schema
 
 ### useClustersMap Type
+
+`boolean`
+
+## useConfirmationSmsAlert
+
+`useConfirmationSmsAlert`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### useConfirmationSmsAlert Type
 
 `boolean`
 
@@ -3204,6 +4312,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## visitType
+
+`visitType`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### visitType Type
+
+`string`
+
 ## warningContactDataText
 
 `warningContactDataText`
@@ -3299,6 +4419,8 @@ The value of this property **must** be equal to one of the [known values below](
 | Property                                                        | Type       | Required     | Nullable | Default | Defined by             |
 | --------------------------------------------------------------- | ---------- | ------------ | -------- | ------- | ---------------------- |
 | [active](#active)                                               | `boolean`  | Optional     | No       |         | Business (this schema) |
+| [activeResourceCount](#activeresourcecount)                     | `number`   | Optional     | No       |         | Business (this schema) |
+| [activeTaxonomyCount](#activetaxonomycount)                     | `number`   | Optional     | No       |         | Business (this schema) |
 | [additionalSettings](#additionalsettings)                       | `object`   | Optional     | No       |         | Business (this schema) |
 | [allowCategoryBooking](#allowcategorybooking)                   | `boolean`  | Optional     | No       |         | Business (this schema) |
 | [backofficeConfiguration](#backofficeconfiguration)             | `object`   | Optional     | No       |         | Business (this schema) |
@@ -3321,7 +4443,9 @@ The value of this property **must** be equal to one of the [known values below](
 | [mini_widget_configuration](#mini_widget_configuration)         | `object`   | **Required** | No       |         | Business (this schema) |
 | [mobileData](#mobiledata)                                       | `array`    | Optional     | No       |         | Business (this schema) |
 | [notifications](#notifications)                                 | `array`    | Optional     | No       |         | Business (this schema) |
+| [resources](#resources)                                         | reference  | Optional     | No       |         | Business (this schema) |
 | [stateLevelHolidaysNotWorking](#statelevelholidaysnotworking)   | `boolean`  | Optional     | No       | `false` | Business (this schema) |
+| [taxonomies](#taxonomies)                                       | reference  | Optional     | No       |         | Business (this schema) |
 | [taxonomiesComplex](#taxonomiescomplex)                         | `object[]` | Optional     | No       |         | Business (this schema) |
 | [taxonomy_tree_capacity](#taxonomy_tree_capacity)               | `object[]` | Optional     | No       |         | Business (this schema) |
 | [top_services](#top_services)                                   | `object`   | Optional     | No       |         | Business (this schema) |
@@ -3340,6 +4464,34 @@ The value of this property **must** be equal to one of the [known values below](
 ### active Type
 
 `boolean`
+
+## activeResourceCount
+
+колличество активных рабоников, возвращается при вызове через get_network_data при передаче ключа работника или услуги
+
+`activeResourceCount`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### activeResourceCount Type
+
+`number`
+
+## activeTaxonomyCount
+
+колличество активных услуг, возвращается при вызове через get_network_data при передаче ключа работника или услуги
+
+`activeTaxonomyCount`
+
+- is optional
+- type: `number`
+- defined in this schema
+
+### activeTaxonomyCount Type
+
+`number`
 
 ## additionalSettings
 
@@ -3413,107 +4565,109 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property                                          | Type    | Required | Default     |
-| ------------------------------------------------- | ------- | -------- | ----------- |
-| `adjacentTaxonomiesTreshold`                      | number  | Optional | `0`         |
-| `allowHideServiceForBooking`                      | boolean | Optional | `false`     |
-| `allowHideWorkersFromSchdeule`                    | boolean | Optional | `false`     |
-| `allowSmsTranslit`                                | boolean | Optional | `false`     |
-| `appointmentFutureMoving`                         | boolean | Optional | `false`     |
-| `blockNotificationForAnyAvailableAdjacentService` | boolean | Optional | `false`     |
-| `cabinetsEnabled`                                 | boolean | Optional | `false`     |
-| `checkClientOverlapping`                          | boolean | Optional | `false`     |
-| `customOnlinePaymentConfirmationTemplate`         | string  | Optional | `false`     |
-| `defaultGTScheduleDayView`                        | boolean | Optional | `false`     |
-| `disableAppointmentClientInlineEditor`            | boolean | Optional | `false`     |
-| `editAppExtraId`                                  | boolean | Optional | `false`     |
-| `editTaxonomyChildren`                            | boolean | Optional | `false`     |
-| `editTaxonomyVisitType`                           | boolean | Optional | `false`     |
-| `enableBlackList`                                 | boolean | Optional | `false`     |
-| `enableCalculateShedule`                          | boolean | Optional | `false`     |
-| `enableClientCard`                                | boolean | Optional | `false`     |
-| `enableClientLanguage`                            | boolean | Optional | `false`     |
-| `enableClientMedicalCardReport`                   | boolean | Optional | `false`     |
-| `enableCustomOnlinePaymentConfirmation`           | boolean | Optional | `false`     |
-| `enableExtendedPhone`                             | boolean | Optional | `false`     |
-| `enableExtendedRecordsClientStatistics`           | boolean | Optional | `false`     |
-| `enableMasterImportance`                          | boolean | Optional | `false`     |
-| `enableServiceTimeLimit`                          | boolean | Optional | `false`     |
-| `enableSourceChoice`                              | boolean | Optional | `true`      |
-| `enableTaxonomyChildrenAgeCheck`                  | boolean | Optional | `false`     |
-| `exportToExcelRemovedClients`                     | boolean | Optional | `false`     |
-| `feedBackMinRating`                               | string  | Optional | `1`         |
-| `feedbackCustomerPortalMessage`                   | string  | Optional |             |
-| `feedbackCustomerPortalThankYouMessage`           | string  | Optional |             |
-| `feedbackCustomerPortalTitle`                     | string  | Optional |             |
-| `finId`                                           | string  | Optional |             |
-| `finName`                                         | string  | Optional |             |
-| `hideCustomerPortalFooter`                        | boolean | Optional | `false`     |
-| `highlightedResource`                             | boolean | Optional | `false`     |
-| `manualExceptionSupport`                          | boolean | Optional | `false`     |
-| `noInternetAlert`                                 | boolean | Optional | `false`     |
-| `pastTimeEdit`                                    | number  | Optional | `1`         |
-| `paymentProvider`                                 | string  | Optional |             |
-| `readonlyResourceSchedule`                        | boolean | Optional | `false`     |
-| `resourceTimetableType`                           | string  | Optional | `"DEFAULT"` |
-| `revisionVersion`                                 | number  | Optional |             |
-| `schduleWeekViewIsDefault`                        | boolean | Optional | `false`     |
-| `scheduleDefaultWorkersLimit`                     | number  | Optional | `25`        |
-| `scheduleWorkerHours`                             | boolean | Optional | `false`     |
-| `schedulerWeekViewType`                           | string  | Optional | `"week"`    |
-| `showAdditionalFields`                            | boolean | Optional | `false`     |
-| `showAddress`                                     | boolean | Optional | `false`     |
-| `showBirthDate`                                   | boolean | Optional | `false`     |
-| `showClientAppear`                                | boolean | Optional | `false`     |
-| `showClientAppearOnSchedule`                      | boolean | Optional | `false`     |
-| `showClientBirthdayFilter`                        | boolean | Optional | `false`     |
-| `showClientContractNumber`                        | boolean | Optional | `false`     |
-| `showClientImage`                                 | boolean | Optional | `false`     |
-| `showClientPayment`                               | boolean | Optional | `false`     |
-| `showDefaulterBlockscreen`                        | boolean | Optional | `false`     |
-| `showDeliveryStatus`                              | boolean | Optional | `false`     |
-| `showDepartmentFilter`                            | boolean | Optional | `false`     |
-| `showDepartments`                                 | boolean | Optional | `false`     |
-| `showDepartmentsConfiguration`                    | boolean | Optional | `false`     |
-| `showEmail`                                       | boolean | Optional | `false`     |
-| `showExtraClientInfo`                             | boolean | Optional | `false`     |
-| `showFax`                                         | boolean | Optional | `false`     |
-| `showFiredWorkerAppointmentAlert`                 | boolean | Optional | `false`     |
-| `showFirstAvailableSlot`                          | boolean | Optional | `false`     |
-| `showGapWindow`                                   | boolean | Optional | `false`     |
-| `showGender`                                      | boolean | Optional | `false`     |
-| `showGenderInRecords`                             | boolean | Optional | `false`     |
-| `showGeneratableReportsScreen`                    | boolean | Optional | `false`     |
-| `showHouseNumber`                                 | boolean | Optional | `false`     |
-| `showIsraelCity`                                  | boolean | Optional | `false`     |
-| `showKupatHolim`                                  | boolean | Optional | `false`     |
-| `showLeadsScreen`                                 | boolean | Optional | `false`     |
-| `showManualChanges`                               | boolean | Optional | `false`     |
-| `showPassportId`                                  | boolean | Optional | `false`     |
-| `showRooms`                                       | boolean | Optional | `false`     |
-| `showSeasonTickets`                               | boolean | Optional | `false`     |
-| `showTaxonomyChildren`                            | boolean | Optional | `false`     |
-| `showTaxonomyLocalization`                        | boolean | Optional | `false`     |
-| `showTaxonomyVisitType`                           | boolean | Optional | `false`     |
-| `showTestRecord`                                  | boolean | Optional | `false`     |
-| `showUTM`                                         | boolean | Optional | `false`     |
-| `showWidgetColorTheme`                            | boolean | Optional | `false`     |
-| `showWorkerDescriptionInEvent`                    | boolean | Optional | `false`     |
-| `showWorkerExtraId`                               | boolean | Optional | `false`     |
-| `showWorkerStatus`                                | boolean | Optional | `false`     |
-| `skipAppointmentPriceUpdate`                      | boolean | Optional | `false`     |
-| `skipCancelIfClientNotAppear`                     | boolean | Optional | `false`     |
-| `skipServiceFiltering`                            | boolean | Optional | `false`     |
-| `splitFullNameXlsExport`                          | boolean | Optional | `false`     |
-| `stateLevelHolidays`                              | array   | Optional |             |
-| `stateLevelHolidaysNotWorking`                    | boolean | Optional | `false`     |
-| `taxonomyChildrenMaxAge`                          | number  | Optional |             |
-| `useAdditionalDurations`                          | boolean | Optional | `false`     |
-| `useAdjacentTaxonomies`                           | boolean | Optional | `false`     |
-| `useAdjacentTaxonomiesSlotSplitting`              | boolean | Optional | `false`     |
-| `useGtAppMethod`                                  | boolean | Optional | `false`     |
-| `workWeekEnd`                                     | number  | Optional | `6`         |
-| `workWeekStart`                                   | number  | Optional | `0`         |
+| Property                                          | Type        | Required | Default     |
+| ------------------------------------------------- | ----------- | -------- | ----------- |
+| `adjacentTaxonomiesTreshold`                      | number      | Optional | `0`         |
+| `allowHideServiceForBooking`                      | boolean     | Optional | `false`     |
+| `allowHideWorkersFromSchdeule`                    | boolean     | Optional | `false`     |
+| `allowSmsTranslit`                                | boolean     | Optional | `false`     |
+| `appointmentFutureMoving`                         | boolean     | Optional | `false`     |
+| `blockNotificationForAnyAvailableAdjacentService` | boolean     | Optional | `false`     |
+| `cabinetsEnabled`                                 | boolean     | Optional | `false`     |
+| `checkClientOverlapping`                          | boolean     | Optional | `false`     |
+| `customOnlinePaymentConfirmationTemplate`         | string      | Optional | `false`     |
+| `defaultGTScheduleDayView`                        | boolean     | Optional | `false`     |
+| `disableAppointmentClientInlineEditor`            | boolean     | Optional | `false`     |
+| `editAppExtraId`                                  | boolean     | Optional | `false`     |
+| `editTaxonomyChildren`                            | boolean     | Optional | `false`     |
+| `editTaxonomyVisitType`                           | boolean     | Optional | `false`     |
+| `enableBlackList`                                 | boolean     | Optional | `false`     |
+| `enableCalculateShedule`                          | boolean     | Optional | `false`     |
+| `enableClientCard`                                | boolean     | Optional | `false`     |
+| `enableClientLanguage`                            | boolean     | Optional | `false`     |
+| `enableClientMedicalCardReport`                   | boolean     | Optional | `false`     |
+| `enableCustomOnlinePaymentConfirmation`           | boolean     | Optional | `false`     |
+| `enableExtendedPhone`                             | boolean     | Optional | `false`     |
+| `enableExtendedRecordsClientStatistics`           | boolean     | Optional | `false`     |
+| `enableMasterImportance`                          | boolean     | Optional | `false`     |
+| `enableServiceTimeLimit`                          | boolean     | Optional | `false`     |
+| `enableSourceChoice`                              | boolean     | Optional | `true`      |
+| `enableTaxonomyChildrenAgeCheck`                  | boolean     | Optional | `false`     |
+| `exportToExcelRemovedClients`                     | boolean     | Optional | `false`     |
+| `feedBackMinRating`                               | string      | Optional | `1`         |
+| `feedbackCustomerPortalMessage`                   | string      | Optional |             |
+| `feedbackCustomerPortalThankYouMessage`           | string      | Optional |             |
+| `feedbackCustomerPortalTitle`                     | string      | Optional |             |
+| `finId`                                           | string      | Optional |             |
+| `finName`                                         | string      | Optional |             |
+| `hideCustomerPortalFooter`                        | boolean     | Optional | `false`     |
+| `highlightedResource`                             | boolean     | Optional | `false`     |
+| `manualExceptionSupport`                          | boolean     | Optional | `false`     |
+| `noInternetAlert`                                 | boolean     | Optional | `false`     |
+| `pastTimeEdit`                                    | number      | Optional | `1`         |
+| `paymentProvider`                                 | string      | Optional |             |
+| `readonlyResourceSchedule`                        | boolean     | Optional | `false`     |
+| `resourceTimetableType`                           | string      | Optional | `"DEFAULT"` |
+| `revisionVersion`                                 | number      | Optional |             |
+| `schduleWeekViewIsDefault`                        | boolean     | Optional | `false`     |
+| `scheduleDefaultWorkersLimit`                     | number      | Optional | `25`        |
+| `scheduleDefaultWorkersLimitDay`                  | number,null | Optional |             |
+| `scheduleDefaultWorkersLimitWeek`                 | number,null | Optional |             |
+| `scheduleWorkerHours`                             | boolean     | Optional | `false`     |
+| `schedulerWeekViewType`                           | string      | Optional | `"week"`    |
+| `showAdditionalFields`                            | boolean     | Optional | `false`     |
+| `showAddress`                                     | boolean     | Optional | `false`     |
+| `showBirthDate`                                   | boolean     | Optional | `false`     |
+| `showClientAppear`                                | boolean     | Optional | `false`     |
+| `showClientAppearOnSchedule`                      | boolean     | Optional | `false`     |
+| `showClientBirthdayFilter`                        | boolean     | Optional | `false`     |
+| `showClientContractNumber`                        | boolean     | Optional | `false`     |
+| `showClientImage`                                 | boolean     | Optional | `false`     |
+| `showClientPayment`                               | boolean     | Optional | `false`     |
+| `showDefaulterBlockscreen`                        | boolean     | Optional | `false`     |
+| `showDeliveryStatus`                              | boolean     | Optional | `false`     |
+| `showDepartmentFilter`                            | boolean     | Optional | `false`     |
+| `showDepartments`                                 | boolean     | Optional | `false`     |
+| `showDepartmentsConfiguration`                    | boolean     | Optional | `false`     |
+| `showEmail`                                       | boolean     | Optional | `false`     |
+| `showExtraClientInfo`                             | boolean     | Optional | `false`     |
+| `showFax`                                         | boolean     | Optional | `false`     |
+| `showFiredWorkerAppointmentAlert`                 | boolean     | Optional | `false`     |
+| `showFirstAvailableSlot`                          | boolean     | Optional | `false`     |
+| `showGapWindow`                                   | boolean     | Optional | `false`     |
+| `showGender`                                      | boolean     | Optional | `false`     |
+| `showGenderInRecords`                             | boolean     | Optional | `false`     |
+| `showGeneratableReportsScreen`                    | boolean     | Optional | `false`     |
+| `showHouseNumber`                                 | boolean     | Optional | `false`     |
+| `showIsraelCity`                                  | boolean     | Optional | `false`     |
+| `showKupatHolim`                                  | boolean     | Optional | `false`     |
+| `showLeadsScreen`                                 | boolean     | Optional | `false`     |
+| `showManualChanges`                               | boolean     | Optional | `false`     |
+| `showPassportId`                                  | boolean     | Optional | `false`     |
+| `showRooms`                                       | boolean     | Optional | `false`     |
+| `showSeasonTickets`                               | boolean     | Optional | `false`     |
+| `showTaxonomyChildren`                            | boolean     | Optional | `false`     |
+| `showTaxonomyLocalization`                        | boolean     | Optional | `false`     |
+| `showTaxonomyVisitType`                           | boolean     | Optional | `false`     |
+| `showTestRecord`                                  | boolean     | Optional | `false`     |
+| `showUTM`                                         | boolean     | Optional | `false`     |
+| `showWidgetColorTheme`                            | boolean     | Optional | `false`     |
+| `showWorkerDescriptionInEvent`                    | boolean     | Optional | `false`     |
+| `showWorkerExtraId`                               | boolean     | Optional | `false`     |
+| `showWorkerStatus`                                | boolean     | Optional | `false`     |
+| `skipAppointmentPriceUpdate`                      | boolean     | Optional | `false`     |
+| `skipCancelIfClientNotAppear`                     | boolean     | Optional | `false`     |
+| `skipServiceFiltering`                            | boolean     | Optional | `false`     |
+| `splitFullNameXlsExport`                          | boolean     | Optional | `false`     |
+| `stateLevelHolidays`                              | array       | Optional |             |
+| `stateLevelHolidaysNotWorking`                    | boolean     | Optional | `false`     |
+| `taxonomyChildrenMaxAge`                          | number      | Optional |             |
+| `useAdditionalDurations`                          | boolean     | Optional | `false`     |
+| `useAdjacentTaxonomies`                           | boolean     | Optional | `false`     |
+| `useAdjacentTaxonomiesSlotSplitting`              | boolean     | Optional | `false`     |
+| `useGtAppMethod`                                  | boolean     | Optional | `false`     |
+| `workWeekEnd`                                     | number      | Optional | `6`         |
+| `workWeekStart`                                   | number      | Optional | `0`         |
 
 #### adjacentTaxonomiesTreshold
 
@@ -4054,6 +5208,28 @@ The value of this property **must** be equal to one of the [known values below](
 ##### scheduleDefaultWorkersLimit Type
 
 `number`
+
+#### scheduleDefaultWorkersLimitDay
+
+`scheduleDefaultWorkersLimitDay`
+
+- is optional
+- type: `number`
+
+##### scheduleDefaultWorkersLimitDay Type
+
+`number`, nullable
+
+#### scheduleDefaultWorkersLimitWeek
+
+`scheduleDefaultWorkersLimitWeek`
+
+- is optional
+- type: `number`
+
+##### scheduleDefaultWorkersLimitWeek Type
+
+`number`, nullable
 
 #### scheduleWorkerHours
 
@@ -5096,6 +6272,22 @@ Array type: `array`
 
 Array type: `array`
 
+## resources
+
+`resources`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### resources Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `./resource.schema.json`
+
 ## stateLevelHolidaysNotWorking
 
 `stateLevelHolidaysNotWorking`
@@ -5108,6 +6300,22 @@ Array type: `array`
 ### stateLevelHolidaysNotWorking Type
 
 `boolean`
+
+## taxonomies
+
+`taxonomies`
+
+- is optional
+- type: reference
+- defined in this schema
+
+### taxonomies Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/BusinessTaxonomy`
 
 ## taxonomiesComplex
 

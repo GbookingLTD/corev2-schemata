@@ -27,9 +27,10 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property  | Type   | Required     |
+| --------- | ------ | ------------ |
+| `id`      | string | **Required** |
+| `shortId` | string | Optional     |
 
 #### id
 
@@ -39,6 +40,17 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 - type: `string`
 
 ##### id Type
+
+`string`
+
+#### shortId
+
+`shortId`
+
+- is optional
+- type: `string`
+
+##### shortId Type
 
 `string`
 
@@ -116,9 +128,10 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property  | Type   | Required     |
+| --------- | ------ | ------------ |
+| `id`      | string | **Required** |
+| `shortId` | string | Optional     |
 
 #### id
 
@@ -128,6 +141,17 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 - type: `string`
 
 ##### id Type
+
+`string`
+
+#### shortId
+
+`shortId`
+
+- is optional
+- type: `string`
+
+##### shortId Type
 
 `string`
 

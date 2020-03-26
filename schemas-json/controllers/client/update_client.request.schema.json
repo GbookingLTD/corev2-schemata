@@ -35,6 +35,19 @@
                                 }
                             }
                         },
+                        "network": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "id": {
+                                    "type": [
+                                        "string",
+                                        "number"
+                                    ],
+                                    "description": "идентификатор нетворка"
+                                }
+                            }
+                        },
                         "client": {
                             "$ref": "../../models/client.schema.json"
                         }

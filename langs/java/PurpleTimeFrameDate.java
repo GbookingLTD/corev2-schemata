@@ -15,6 +15,8 @@ import com.fasterxml.jackson.databind.annotation.*;
  * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
  *
  * идентификатор бизнеса
+ *
+ * идентификатор нетворка
  */
 @JsonDeserialize(using = PurpleTimeFrameDate.Deserializer.class)
 @JsonSerialize(using = PurpleTimeFrameDate.Serializer.class)

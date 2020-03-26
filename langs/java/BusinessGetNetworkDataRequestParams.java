@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class BusinessGetNetworkDataRequestParams {
     private PurpleTimeFrameDate networkID;
+    private FluffyResource resource;
+    private FluffyTaxonomy taxonomy;
     private Boolean withBusinessInfo;
 
     /**
@@ -17,6 +19,16 @@ public class BusinessGetNetworkDataRequestParams {
     public PurpleTimeFrameDate getNetworkID() { return networkID; }
     @JsonProperty("networkID")
     public void setNetworkID(PurpleTimeFrameDate value) { this.networkID = value; }
+
+    @JsonProperty("resource")
+    public FluffyResource getResource() { return resource; }
+    @JsonProperty("resource")
+    public void setResource(FluffyResource value) { this.resource = value; }
+
+    @JsonProperty("taxonomy")
+    public FluffyTaxonomy getTaxonomy() { return taxonomy; }
+    @JsonProperty("taxonomy")
+    public void setTaxonomy(FluffyTaxonomy value) { this.taxonomy = value; }
 
     /**
      * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу

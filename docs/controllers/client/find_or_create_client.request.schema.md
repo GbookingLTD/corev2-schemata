@@ -32,8 +32,7 @@ schemas-json/controllers/client/find_or_create_client.request.schema.json
 | Property            | Type    | Required     | Default |
 | ------------------- | ------- | ------------ | ------- |
 | `business`          | object  | **Required** |         |
-| `client`            |         | **Required** |         |
-| `profile`           | object  | Optional     |         |
+| `network`           | object  | Optional     |         |
 | `skipEmailCheck`    | boolean | Optional     | `false` |
 | `skipProfileUpdate` | boolean | Optional     | `false` |
 
@@ -73,44 +72,41 @@ Unknown type `string,number`.
 }
 ```
 
-#### client
+#### network
 
-`client`
-
-- is **required**
-- type: reference
-
-##### client Type
-
-- []() – `../../models/client.schema.json`
-
-#### profile
-
-`profile`
+`network`
 
 - is optional
 - type: `object`
 
-##### profile Type
+##### network Type
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
+| Property | Type          | Required     |
+| -------- | ------------- | ------------ |
+| `id`     | string,number | **Required** |
 
 #### id
 
-идентификатор профиля пользователя
+идентификатор нетворка
 
 `id`
 
 - is **required**
-- type: `string`
+- type: multiple
 
 ##### id Type
 
-`string`
+Unknown type `string,number`.
+
+```json
+{
+  "type": ["string", "number"],
+  "description": "идентификатор нетворка",
+  "simpletype": "multiple"
+}
+```
 
 #### skipEmailCheck
 

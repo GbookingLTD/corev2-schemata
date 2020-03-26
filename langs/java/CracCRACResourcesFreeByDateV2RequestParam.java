@@ -4,16 +4,16 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class CracCRACResourcesFreeByDateV2RequestParam {
-    private Business1 business;
+    private BraggadociousBusiness business;
     private double duration;
     private List<Double> durations;
     private List<String> resources;
-    private TentacledTaxonomy taxonomy;
+    private IndigoTaxonomy taxonomy;
 
     @JsonProperty("business")
-    public Business1 getBusiness() { return business; }
+    public BraggadociousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(Business1 value) { this.business = value; }
+    public void setBusiness(BraggadociousBusiness value) { this.business = value; }
 
     @JsonProperty("duration")
     public double getDuration() { return duration; }
@@ -31,7 +31,7 @@ public class CracCRACResourcesFreeByDateV2RequestParam {
     public void setResources(List<String> value) { this.resources = value; }
 
     @JsonProperty("taxonomy")
-    public TentacledTaxonomy getTaxonomy() { return taxonomy; }
+    public IndigoTaxonomy getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
-    public void setTaxonomy(TentacledTaxonomy value) { this.taxonomy = value; }
+    public void setTaxonomy(IndigoTaxonomy value) { this.taxonomy = value; }
 }
