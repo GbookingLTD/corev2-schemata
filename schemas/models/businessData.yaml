@@ -231,6 +231,10 @@ definitions:
       scheduleDefaultWorkersLimit:
         type: "number"
         default: 25
+      scheduleDefaultWorkersLimitDay:
+        type: ["number","null"]
+      scheduleDefaultWorkersLimitWeek:
+        type: ["number","null"]
       resourceTimetableType:
         type: "string"
         enum: ["DEFAULT", "EVENODD"]
