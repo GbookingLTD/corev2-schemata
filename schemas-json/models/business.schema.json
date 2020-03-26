@@ -823,10 +823,16 @@
                     "default": 25
                 },
                 "scheduleDefaultWorkersLimitDay": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "scheduleDefaultWorkersLimitWeek": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "resourceTimetableType": {
                     "type": "string",
