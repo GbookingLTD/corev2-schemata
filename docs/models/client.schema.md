@@ -14,13 +14,13 @@ schemas-json/models/client.schema.json
 
 | Property                                    | Type       | Required     | Nullable | Default                                    | Defined by    |
 | ------------------------------------------- | ---------- | ------------ | -------- | ------------------------------------------ | ------------- |
-| [birthday](#birthday)                       | multiple   | Optional     | No       |                                            | (this schema) |
+| [birthday](#birthday)                       | multiple   | Optional     | Yes      |                                            | (this schema) |
 | [creatorProfileID](#creatorprofileid)       | `string`   | Optional     | Yes      |                                            | (this schema) |
 | [creatorProfileName](#creatorprofilename)   | `string`   | Optional     | Yes      |                                            | (this schema) |
 | [driverLicense](#driverlicense)             | `string`   | Optional     | Yes      |                                            | (this schema) |
 | [email](#email)                             | `string[]` | Optional     | No       |                                            | (this schema) |
 | [fromSms](#fromsms)                         | multiple   | Optional     | No       | `false`                                    | (this schema) |
-| [middle_name](#middle_name)                 | `string`   | Optional     | No       |                                            | (this schema) |
+| [middle_name](#middle_name)                 | `string`   | Optional     | Yes      |                                            | (this schema) |
 | [name](#name)                               | `string`   | **Required** | No       |                                            | (this schema) |
 | [phone](#phone)                             | reference  | **Required** | No       |                                            | (this schema) |
 | [sex](#sex)                                 | `enum`     | Optional     | No       |                                            | (this schema) |
@@ -43,6 +43,7 @@ Either one of:
 
 - `string`
 - `object`
+- or `null`
 
 ## creatorProfileID
 
@@ -120,7 +121,7 @@ Either one of:
 
 ### middle_name Type
 
-`string`
+`string`, nullable
 
 ## name
 
@@ -160,6 +161,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 | Value           | Description |
 | --------------- | ----------- |
+| ``              |
 | `MALE`          |             |
 | `FEMALE`        |             |
 | `NOT_SPECIFIED` |             |

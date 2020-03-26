@@ -1117,6 +1117,7 @@ class KupatHolim:
 
 
 class Sex(Enum):
+    EMPTY = ""
     FEMALE = "FEMALE"
     MALE = "MALE"
     NOT_SPECIFIED = "NOT_SPECIFIED"
@@ -1125,7 +1126,7 @@ class Sex(Enum):
 class AdditionalClientElement:
     address: Optional[str]
     admin_comment: Optional[str]
-    birthday: Optional[str]
+    birthday: Union[Dict[str, Any], None, str]
     client_card_number: Optional[str]
     client_comment: Optional[str]
     creator_profile_id: Optional[str]
@@ -1157,7 +1158,7 @@ class AdditionalClientElement:
     taxi_park: Optional[str]
     taxi_park_member_count: Optional[float]
 
-    def __init__(self, address: Optional[str], admin_comment: Optional[str], birthday: Optional[str], client_card_number: Optional[str], client_comment: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_data: Optional[Dict[str, Any]], extra_id: Optional[str], extra_visitors: Optional[float], fax: Optional[str], feedback: Optional[AppointmentClientFeedback], ga_client_id: Optional[str], house_number: Optional[str], id: str, incoming_phone: Optional[List[IncomingPhoneElement]], israel_city: Optional[IsraelCity], is_vip: Optional[bool], kupat_holim: Optional[KupatHolim], language: Optional[str], middle_name: Optional[str], name: str, passport_id: Optional[str], phone: Optional[List[IncomingPhoneElement]], season_ticket_id: Optional[str], season_ticket_number: Optional[str], sex: Optional[Sex], short_id: Optional[str], surname: str, taxi_park: Optional[str], taxi_park_member_count: Optional[float]) -> None:
+    def __init__(self, address: Optional[str], admin_comment: Optional[str], birthday: Union[Dict[str, Any], None, str], client_card_number: Optional[str], client_comment: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_data: Optional[Dict[str, Any]], extra_id: Optional[str], extra_visitors: Optional[float], fax: Optional[str], feedback: Optional[AppointmentClientFeedback], ga_client_id: Optional[str], house_number: Optional[str], id: str, incoming_phone: Optional[List[IncomingPhoneElement]], israel_city: Optional[IsraelCity], is_vip: Optional[bool], kupat_holim: Optional[KupatHolim], language: Optional[str], middle_name: Optional[str], name: str, passport_id: Optional[str], phone: Optional[List[IncomingPhoneElement]], season_ticket_id: Optional[str], season_ticket_number: Optional[str], sex: Optional[Sex], short_id: Optional[str], surname: str, taxi_park: Optional[str], taxi_park_member_count: Optional[float]) -> None:
         self.address = address
         self.admin_comment = admin_comment
         self.birthday = birthday
@@ -1195,75 +1196,75 @@ class AdditionalClientElement:
     @staticmethod
     def from_dict(obj: Any) -> 'AdditionalClientElement':
         assert isinstance(obj, dict)
-        address = from_union([from_str, from_none], obj.get("address"))
-        admin_comment = from_union([from_str, from_none], obj.get("adminComment"))
-        birthday = from_union([from_str, from_none], obj.get("birthday"))
-        client_card_number = from_union([from_str, from_none], obj.get("clientCardNumber"))
-        client_comment = from_union([from_str, from_none], obj.get("clientComment"))
-        creator_profile_id = from_union([from_str, from_none], obj.get("creatorProfileID"))
-        creator_profile_name = from_union([from_str, from_none], obj.get("creatorProfileName"))
-        driver_license = from_union([from_str, from_none], obj.get("driverLicense"))
+        address = from_union([from_none, from_str], obj.get("address"))
+        admin_comment = from_union([from_none, from_str], obj.get("adminComment"))
+        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
+        client_card_number = from_union([from_none, from_str], obj.get("clientCardNumber"))
+        client_comment = from_union([from_none, from_str], obj.get("clientComment"))
+        creator_profile_id = from_union([from_none, from_str], obj.get("creatorProfileID"))
+        creator_profile_name = from_union([from_none, from_str], obj.get("creatorProfileName"))
+        driver_license = from_union([from_none, from_str], obj.get("driverLicense"))
         email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         extra_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("extraData"))
-        extra_id = from_union([from_str, from_none], obj.get("extraID"))
+        extra_id = from_union([from_none, from_str], obj.get("extraID"))
         extra_visitors = from_union([from_float, from_none], obj.get("extraVisitors"))
-        fax = from_union([from_str, from_none], obj.get("fax"))
+        fax = from_union([from_none, from_str], obj.get("fax"))
         feedback = from_union([AppointmentClientFeedback.from_dict, from_none], obj.get("feedback"))
-        ga_client_id = from_union([from_str, from_none], obj.get("GAClientID"))
-        house_number = from_union([from_str, from_none], obj.get("houseNumber"))
+        ga_client_id = from_union([from_none, from_str], obj.get("GAClientID"))
+        house_number = from_union([from_none, from_str], obj.get("houseNumber"))
         id = from_str(obj.get("id"))
         incoming_phone = from_union([lambda x: from_list(IncomingPhoneElement.from_dict, x), from_none], obj.get("incomingPhone"))
-        israel_city = from_union([IsraelCity.from_dict, from_none], obj.get("israelCity"))
+        israel_city = from_union([from_none, IsraelCity.from_dict], obj.get("israelCity"))
         is_vip = from_union([from_bool, from_none], obj.get("isVIP"))
-        kupat_holim = from_union([KupatHolim.from_dict, from_none], obj.get("kupatHolim"))
+        kupat_holim = from_union([from_none, KupatHolim.from_dict], obj.get("kupatHolim"))
         language = from_union([from_str, from_none], obj.get("language"))
-        middle_name = from_union([from_str, from_none], obj.get("middleName"))
+        middle_name = from_union([from_none, from_str], obj.get("middleName"))
         name = from_str(obj.get("name"))
-        passport_id = from_union([from_str, from_none], obj.get("passportId"))
+        passport_id = from_union([from_none, from_str], obj.get("passportId"))
         phone = from_union([lambda x: from_list(IncomingPhoneElement.from_dict, x), from_none], obj.get("phone"))
-        season_ticket_id = from_union([from_str, from_none], obj.get("seasonTicketId"))
-        season_ticket_number = from_union([from_str, from_none], obj.get("seasonTicketNumber"))
+        season_ticket_id = from_union([from_none, from_str], obj.get("seasonTicketId"))
+        season_ticket_number = from_union([from_none, from_str], obj.get("seasonTicketNumber"))
         sex = from_union([Sex, from_none], obj.get("sex"))
         short_id = from_union([from_str, from_none], obj.get("shortId"))
         surname = from_str(obj.get("surname"))
-        taxi_park = from_union([from_str, from_none], obj.get("taxiPark"))
+        taxi_park = from_union([from_none, from_str], obj.get("taxiPark"))
         taxi_park_member_count = from_union([from_float, from_none], obj.get("taxiParkMemberCount"))
         return AdditionalClientElement(address, admin_comment, birthday, client_card_number, client_comment, creator_profile_id, creator_profile_name, driver_license, email, extra_data, extra_id, extra_visitors, fax, feedback, ga_client_id, house_number, id, incoming_phone, israel_city, is_vip, kupat_holim, language, middle_name, name, passport_id, phone, season_ticket_id, season_ticket_number, sex, short_id, surname, taxi_park, taxi_park_member_count)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["address"] = from_union([from_str, from_none], self.address)
-        result["adminComment"] = from_union([from_str, from_none], self.admin_comment)
-        result["birthday"] = from_union([from_str, from_none], self.birthday)
-        result["clientCardNumber"] = from_union([from_str, from_none], self.client_card_number)
-        result["clientComment"] = from_union([from_str, from_none], self.client_comment)
-        result["creatorProfileID"] = from_union([from_str, from_none], self.creator_profile_id)
-        result["creatorProfileName"] = from_union([from_str, from_none], self.creator_profile_name)
-        result["driverLicense"] = from_union([from_str, from_none], self.driver_license)
+        result["address"] = from_union([from_none, from_str], self.address)
+        result["adminComment"] = from_union([from_none, from_str], self.admin_comment)
+        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
+        result["clientCardNumber"] = from_union([from_none, from_str], self.client_card_number)
+        result["clientComment"] = from_union([from_none, from_str], self.client_comment)
+        result["creatorProfileID"] = from_union([from_none, from_str], self.creator_profile_id)
+        result["creatorProfileName"] = from_union([from_none, from_str], self.creator_profile_name)
+        result["driverLicense"] = from_union([from_none, from_str], self.driver_license)
         result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["extraData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.extra_data)
-        result["extraID"] = from_union([from_str, from_none], self.extra_id)
+        result["extraID"] = from_union([from_none, from_str], self.extra_id)
         result["extraVisitors"] = from_union([to_float, from_none], self.extra_visitors)
-        result["fax"] = from_union([from_str, from_none], self.fax)
+        result["fax"] = from_union([from_none, from_str], self.fax)
         result["feedback"] = from_union([lambda x: to_class(AppointmentClientFeedback, x), from_none], self.feedback)
-        result["GAClientID"] = from_union([from_str, from_none], self.ga_client_id)
-        result["houseNumber"] = from_union([from_str, from_none], self.house_number)
+        result["GAClientID"] = from_union([from_none, from_str], self.ga_client_id)
+        result["houseNumber"] = from_union([from_none, from_str], self.house_number)
         result["id"] = from_str(self.id)
         result["incomingPhone"] = from_union([lambda x: from_list(lambda x: to_class(IncomingPhoneElement, x), x), from_none], self.incoming_phone)
-        result["israelCity"] = from_union([lambda x: to_class(IsraelCity, x), from_none], self.israel_city)
+        result["israelCity"] = from_union([from_none, lambda x: to_class(IsraelCity, x)], self.israel_city)
         result["isVIP"] = from_union([from_bool, from_none], self.is_vip)
-        result["kupatHolim"] = from_union([lambda x: to_class(KupatHolim, x), from_none], self.kupat_holim)
+        result["kupatHolim"] = from_union([from_none, lambda x: to_class(KupatHolim, x)], self.kupat_holim)
         result["language"] = from_union([from_str, from_none], self.language)
-        result["middleName"] = from_union([from_str, from_none], self.middle_name)
+        result["middleName"] = from_union([from_none, from_str], self.middle_name)
         result["name"] = from_str(self.name)
-        result["passportId"] = from_union([from_str, from_none], self.passport_id)
+        result["passportId"] = from_union([from_none, from_str], self.passport_id)
         result["phone"] = from_union([lambda x: from_list(lambda x: to_class(IncomingPhoneElement, x), x), from_none], self.phone)
-        result["seasonTicketId"] = from_union([from_str, from_none], self.season_ticket_id)
-        result["seasonTicketNumber"] = from_union([from_str, from_none], self.season_ticket_number)
+        result["seasonTicketId"] = from_union([from_none, from_str], self.season_ticket_id)
+        result["seasonTicketNumber"] = from_union([from_none, from_str], self.season_ticket_number)
         result["sex"] = from_union([lambda x: to_enum(Sex, x), from_none], self.sex)
         result["shortId"] = from_union([from_str, from_none], self.short_id)
         result["surname"] = from_str(self.surname)
-        result["taxiPark"] = from_union([from_str, from_none], self.taxi_park)
+        result["taxiPark"] = from_union([from_none, from_str], self.taxi_park)
         result["taxiParkMemberCount"] = from_union([to_float, from_none], self.taxi_park_member_count)
         return result
 
@@ -1365,20 +1366,20 @@ class DrinkAnswer(Enum):
 
 
 class IntegrationData:
-    extra_id: str
+    extra_id: Optional[str]
 
-    def __init__(self, extra_id: str) -> None:
+    def __init__(self, extra_id: Optional[str]) -> None:
         self.extra_id = extra_id
 
     @staticmethod
     def from_dict(obj: Any) -> 'IntegrationData':
         assert isinstance(obj, dict)
-        extra_id = from_str(obj.get("extraId"))
+        extra_id = from_union([from_none, from_str], obj.get("extraId"))
         return IntegrationData(extra_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["extraId"] = from_str(self.extra_id)
+        result["extraId"] = from_union([from_none, from_str], self.extra_id)
         return result
 
 
@@ -1597,7 +1598,7 @@ class PurpleAppointmentClient:
     """пустой объект в момент резервирования"""
     address: Optional[str]
     admin_comment: Optional[str]
-    birthday: Optional[str]
+    birthday: Union[Dict[str, Any], None, str]
     client_card_number: Optional[str]
     client_comment: Optional[str]
     creator_profile_id: Optional[str]
@@ -1629,7 +1630,7 @@ class PurpleAppointmentClient:
     taxi_park: Optional[str]
     taxi_park_member_count: Optional[float]
 
-    def __init__(self, address: Optional[str], admin_comment: Optional[str], birthday: Optional[str], client_card_number: Optional[str], client_comment: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_data: Optional[Dict[str, Any]], extra_id: Optional[str], extra_visitors: Optional[float], fax: Optional[str], feedback: Optional[AppointmentClientFeedback], ga_client_id: Optional[str], house_number: Optional[str], id: Optional[str], incoming_phone: Optional[List[IncomingPhoneElement]], israel_city: Optional[IsraelCity], is_vip: Optional[bool], kupat_holim: Optional[KupatHolim], language: Optional[str], middle_name: Optional[str], name: Optional[str], passport_id: Optional[str], phone: Optional[List[IncomingPhoneElement]], season_ticket_id: Optional[str], season_ticket_number: Optional[str], sex: Optional[Sex], short_id: Optional[str], surname: Optional[str], taxi_park: Optional[str], taxi_park_member_count: Optional[float]) -> None:
+    def __init__(self, address: Optional[str], admin_comment: Optional[str], birthday: Union[Dict[str, Any], None, str], client_card_number: Optional[str], client_comment: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_data: Optional[Dict[str, Any]], extra_id: Optional[str], extra_visitors: Optional[float], fax: Optional[str], feedback: Optional[AppointmentClientFeedback], ga_client_id: Optional[str], house_number: Optional[str], id: Optional[str], incoming_phone: Optional[List[IncomingPhoneElement]], israel_city: Optional[IsraelCity], is_vip: Optional[bool], kupat_holim: Optional[KupatHolim], language: Optional[str], middle_name: Optional[str], name: Optional[str], passport_id: Optional[str], phone: Optional[List[IncomingPhoneElement]], season_ticket_id: Optional[str], season_ticket_number: Optional[str], sex: Optional[Sex], short_id: Optional[str], surname: Optional[str], taxi_park: Optional[str], taxi_park_member_count: Optional[float]) -> None:
         self.address = address
         self.admin_comment = admin_comment
         self.birthday = birthday
@@ -1667,81 +1668,81 @@ class PurpleAppointmentClient:
     @staticmethod
     def from_dict(obj: Any) -> 'PurpleAppointmentClient':
         assert isinstance(obj, dict)
-        address = from_union([from_str, from_none], obj.get("address"))
-        admin_comment = from_union([from_str, from_none], obj.get("adminComment"))
-        birthday = from_union([from_str, from_none], obj.get("birthday"))
-        client_card_number = from_union([from_str, from_none], obj.get("clientCardNumber"))
-        client_comment = from_union([from_str, from_none], obj.get("clientComment"))
-        creator_profile_id = from_union([from_str, from_none], obj.get("creatorProfileID"))
-        creator_profile_name = from_union([from_str, from_none], obj.get("creatorProfileName"))
-        driver_license = from_union([from_str, from_none], obj.get("driverLicense"))
+        address = from_union([from_none, from_str], obj.get("address"))
+        admin_comment = from_union([from_none, from_str], obj.get("adminComment"))
+        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
+        client_card_number = from_union([from_none, from_str], obj.get("clientCardNumber"))
+        client_comment = from_union([from_none, from_str], obj.get("clientComment"))
+        creator_profile_id = from_union([from_none, from_str], obj.get("creatorProfileID"))
+        creator_profile_name = from_union([from_none, from_str], obj.get("creatorProfileName"))
+        driver_license = from_union([from_none, from_str], obj.get("driverLicense"))
         email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         extra_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("extraData"))
-        extra_id = from_union([from_str, from_none], obj.get("extraID"))
+        extra_id = from_union([from_none, from_str], obj.get("extraID"))
         extra_visitors = from_union([from_float, from_none], obj.get("extraVisitors"))
-        fax = from_union([from_str, from_none], obj.get("fax"))
+        fax = from_union([from_none, from_str], obj.get("fax"))
         feedback = from_union([AppointmentClientFeedback.from_dict, from_none], obj.get("feedback"))
-        ga_client_id = from_union([from_str, from_none], obj.get("GAClientID"))
-        house_number = from_union([from_str, from_none], obj.get("houseNumber"))
+        ga_client_id = from_union([from_none, from_str], obj.get("GAClientID"))
+        house_number = from_union([from_none, from_str], obj.get("houseNumber"))
         id = from_union([from_str, from_none], obj.get("id"))
         incoming_phone = from_union([lambda x: from_list(IncomingPhoneElement.from_dict, x), from_none], obj.get("incomingPhone"))
-        israel_city = from_union([IsraelCity.from_dict, from_none], obj.get("israelCity"))
+        israel_city = from_union([from_none, IsraelCity.from_dict], obj.get("israelCity"))
         is_vip = from_union([from_bool, from_none], obj.get("isVIP"))
-        kupat_holim = from_union([KupatHolim.from_dict, from_none], obj.get("kupatHolim"))
+        kupat_holim = from_union([from_none, KupatHolim.from_dict], obj.get("kupatHolim"))
         language = from_union([from_str, from_none], obj.get("language"))
-        middle_name = from_union([from_str, from_none], obj.get("middleName"))
+        middle_name = from_union([from_none, from_str], obj.get("middleName"))
         name = from_union([from_str, from_none], obj.get("name"))
-        passport_id = from_union([from_str, from_none], obj.get("passportId"))
+        passport_id = from_union([from_none, from_str], obj.get("passportId"))
         phone = from_union([lambda x: from_list(IncomingPhoneElement.from_dict, x), from_none], obj.get("phone"))
-        season_ticket_id = from_union([from_str, from_none], obj.get("seasonTicketId"))
-        season_ticket_number = from_union([from_str, from_none], obj.get("seasonTicketNumber"))
+        season_ticket_id = from_union([from_none, from_str], obj.get("seasonTicketId"))
+        season_ticket_number = from_union([from_none, from_str], obj.get("seasonTicketNumber"))
         sex = from_union([Sex, from_none], obj.get("sex"))
         short_id = from_union([from_str, from_none], obj.get("shortId"))
         surname = from_union([from_str, from_none], obj.get("surname"))
-        taxi_park = from_union([from_str, from_none], obj.get("taxiPark"))
+        taxi_park = from_union([from_none, from_str], obj.get("taxiPark"))
         taxi_park_member_count = from_union([from_float, from_none], obj.get("taxiParkMemberCount"))
         return PurpleAppointmentClient(address, admin_comment, birthday, client_card_number, client_comment, creator_profile_id, creator_profile_name, driver_license, email, extra_data, extra_id, extra_visitors, fax, feedback, ga_client_id, house_number, id, incoming_phone, israel_city, is_vip, kupat_holim, language, middle_name, name, passport_id, phone, season_ticket_id, season_ticket_number, sex, short_id, surname, taxi_park, taxi_park_member_count)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["address"] = from_union([from_str, from_none], self.address)
-        result["adminComment"] = from_union([from_str, from_none], self.admin_comment)
-        result["birthday"] = from_union([from_str, from_none], self.birthday)
-        result["clientCardNumber"] = from_union([from_str, from_none], self.client_card_number)
-        result["clientComment"] = from_union([from_str, from_none], self.client_comment)
-        result["creatorProfileID"] = from_union([from_str, from_none], self.creator_profile_id)
-        result["creatorProfileName"] = from_union([from_str, from_none], self.creator_profile_name)
-        result["driverLicense"] = from_union([from_str, from_none], self.driver_license)
+        result["address"] = from_union([from_none, from_str], self.address)
+        result["adminComment"] = from_union([from_none, from_str], self.admin_comment)
+        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
+        result["clientCardNumber"] = from_union([from_none, from_str], self.client_card_number)
+        result["clientComment"] = from_union([from_none, from_str], self.client_comment)
+        result["creatorProfileID"] = from_union([from_none, from_str], self.creator_profile_id)
+        result["creatorProfileName"] = from_union([from_none, from_str], self.creator_profile_name)
+        result["driverLicense"] = from_union([from_none, from_str], self.driver_license)
         result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["extraData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.extra_data)
-        result["extraID"] = from_union([from_str, from_none], self.extra_id)
+        result["extraID"] = from_union([from_none, from_str], self.extra_id)
         result["extraVisitors"] = from_union([to_float, from_none], self.extra_visitors)
-        result["fax"] = from_union([from_str, from_none], self.fax)
+        result["fax"] = from_union([from_none, from_str], self.fax)
         result["feedback"] = from_union([lambda x: to_class(AppointmentClientFeedback, x), from_none], self.feedback)
-        result["GAClientID"] = from_union([from_str, from_none], self.ga_client_id)
-        result["houseNumber"] = from_union([from_str, from_none], self.house_number)
+        result["GAClientID"] = from_union([from_none, from_str], self.ga_client_id)
+        result["houseNumber"] = from_union([from_none, from_str], self.house_number)
         result["id"] = from_union([from_str, from_none], self.id)
         result["incomingPhone"] = from_union([lambda x: from_list(lambda x: to_class(IncomingPhoneElement, x), x), from_none], self.incoming_phone)
-        result["israelCity"] = from_union([lambda x: to_class(IsraelCity, x), from_none], self.israel_city)
+        result["israelCity"] = from_union([from_none, lambda x: to_class(IsraelCity, x)], self.israel_city)
         result["isVIP"] = from_union([from_bool, from_none], self.is_vip)
-        result["kupatHolim"] = from_union([lambda x: to_class(KupatHolim, x), from_none], self.kupat_holim)
+        result["kupatHolim"] = from_union([from_none, lambda x: to_class(KupatHolim, x)], self.kupat_holim)
         result["language"] = from_union([from_str, from_none], self.language)
-        result["middleName"] = from_union([from_str, from_none], self.middle_name)
+        result["middleName"] = from_union([from_none, from_str], self.middle_name)
         result["name"] = from_union([from_str, from_none], self.name)
-        result["passportId"] = from_union([from_str, from_none], self.passport_id)
+        result["passportId"] = from_union([from_none, from_str], self.passport_id)
         result["phone"] = from_union([lambda x: from_list(lambda x: to_class(IncomingPhoneElement, x), x), from_none], self.phone)
-        result["seasonTicketId"] = from_union([from_str, from_none], self.season_ticket_id)
-        result["seasonTicketNumber"] = from_union([from_str, from_none], self.season_ticket_number)
+        result["seasonTicketId"] = from_union([from_none, from_str], self.season_ticket_id)
+        result["seasonTicketNumber"] = from_union([from_none, from_str], self.season_ticket_number)
         result["sex"] = from_union([lambda x: to_enum(Sex, x), from_none], self.sex)
         result["shortId"] = from_union([from_str, from_none], self.short_id)
         result["surname"] = from_union([from_str, from_none], self.surname)
-        result["taxiPark"] = from_union([from_str, from_none], self.taxi_park)
+        result["taxiPark"] = from_union([from_none, from_str], self.taxi_park)
         result["taxiParkMemberCount"] = from_union([to_float, from_none], self.taxi_park_member_count)
         return result
 
 
 class AppointmentClientVisitor:
-    birthday: Optional[str]
+    birthday: Union[Dict[str, Any], None, str]
     email: Optional[List[str]]
     extra_visitors: Optional[float]
     name: Optional[str]
@@ -1750,7 +1751,7 @@ class AppointmentClientVisitor:
     phone: Optional[List[IncomingPhoneElement]]
     sex: Optional[Sex]
 
-    def __init__(self, birthday: Optional[str], email: Optional[List[str]], extra_visitors: Optional[float], name: Optional[str], parent_client_id: Optional[str], parent_profile_id: Optional[str], phone: Optional[List[IncomingPhoneElement]], sex: Optional[Sex]) -> None:
+    def __init__(self, birthday: Union[Dict[str, Any], None, str], email: Optional[List[str]], extra_visitors: Optional[float], name: Optional[str], parent_client_id: Optional[str], parent_profile_id: Optional[str], phone: Optional[List[IncomingPhoneElement]], sex: Optional[Sex]) -> None:
         self.birthday = birthday
         self.email = email
         self.extra_visitors = extra_visitors
@@ -1763,7 +1764,7 @@ class AppointmentClientVisitor:
     @staticmethod
     def from_dict(obj: Any) -> 'AppointmentClientVisitor':
         assert isinstance(obj, dict)
-        birthday = from_union([from_str, from_none], obj.get("birthday"))
+        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
         email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         extra_visitors = from_union([from_float, from_none], obj.get("extraVisitors"))
         name = from_union([from_str, from_none], obj.get("name"))
@@ -1775,7 +1776,7 @@ class AppointmentClientVisitor:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["birthday"] = from_union([from_str, from_none], self.birthday)
+        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
         result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["extraVisitors"] = from_union([to_float, from_none], self.extra_visitors)
         result["name"] = from_union([from_str, from_none], self.name)
@@ -1913,7 +1914,7 @@ class AppointmentResource:
     @staticmethod
     def from_dict(obj: Any) -> 'AppointmentResource':
         assert isinstance(obj, dict)
-        extra_id = from_union([from_str, from_none], obj.get("extraID"))
+        extra_id = from_union([from_none, from_str], obj.get("extraID"))
         id = from_str(obj.get("id"))
         middle_name = from_union([from_str, from_none], obj.get("middleName"))
         name = from_str(obj.get("name"))
@@ -1922,7 +1923,7 @@ class AppointmentResource:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["extraID"] = from_union([from_str, from_none], self.extra_id)
+        result["extraID"] = from_union([from_none, from_str], self.extra_id)
         result["id"] = from_str(self.id)
         result["middleName"] = from_union([from_str, from_none], self.middle_name)
         result["name"] = from_str(self.name)
@@ -9670,13 +9671,13 @@ class ClientClass:
     @staticmethod
     def from_dict(obj: Any) -> 'ClientClass':
         assert isinstance(obj, dict)
-        birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
+        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
         creator_profile_id = from_union([from_none, from_str], obj.get("creatorProfileID"))
         creator_profile_name = from_union([from_none, from_str], obj.get("creatorProfileName"))
         driver_license = from_union([from_none, from_str], obj.get("driverLicense"))
         email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         from_sms = from_union([from_bool, from_str, from_none], obj.get("fromSms"))
-        middle_name = from_union([from_str, from_none], obj.get("middle_name"))
+        middle_name = from_union([from_none, from_str], obj.get("middle_name"))
         name = from_str(obj.get("name"))
         phone = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), PhoneClass.from_dict], obj.get("phone"))
         sex = from_union([Sex, from_none], obj.get("sex"))
@@ -9687,13 +9688,13 @@ class ClientClass:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
+        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
         result["creatorProfileID"] = from_union([from_none, from_str], self.creator_profile_id)
         result["creatorProfileName"] = from_union([from_none, from_str], self.creator_profile_name)
         result["driverLicense"] = from_union([from_none, from_str], self.driver_license)
         result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["fromSms"] = from_union([from_bool, from_str, from_none], self.from_sms)
-        result["middle_name"] = from_union([from_str, from_none], self.middle_name)
+        result["middle_name"] = from_union([from_none, from_str], self.middle_name)
         result["name"] = from_str(self.name)
         result["phone"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(PhoneClass, x)], self.phone)
         result["sex"] = from_union([lambda x: to_enum(Sex, x), from_none], self.sex)
@@ -9994,12 +9995,14 @@ class FluffyNetwork:
 class ClientFindOrCreateClientRequestParams:
     """параметры запроса"""
     business: MagentaBusiness
+    client: Optional[ClientClass]
     network: Optional[FluffyNetwork]
     skip_email_check: Optional[bool]
     skip_profile_update: Optional[bool]
 
-    def __init__(self, business: MagentaBusiness, network: Optional[FluffyNetwork], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
+    def __init__(self, business: MagentaBusiness, client: Optional[ClientClass], network: Optional[FluffyNetwork], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
         self.business = business
+        self.client = client
         self.network = network
         self.skip_email_check = skip_email_check
         self.skip_profile_update = skip_profile_update
@@ -10008,14 +10011,16 @@ class ClientFindOrCreateClientRequestParams:
     def from_dict(obj: Any) -> 'ClientFindOrCreateClientRequestParams':
         assert isinstance(obj, dict)
         business = MagentaBusiness.from_dict(obj.get("business"))
+        client = from_union([ClientClass.from_dict, from_none], obj.get("client"))
         network = from_union([FluffyNetwork.from_dict, from_none], obj.get("network"))
         skip_email_check = from_union([from_bool, from_none], obj.get("skipEmailCheck"))
         skip_profile_update = from_union([from_bool, from_none], obj.get("skipProfileUpdate"))
-        return ClientFindOrCreateClientRequestParams(business, network, skip_email_check, skip_profile_update)
+        return ClientFindOrCreateClientRequestParams(business, client, network, skip_email_check, skip_profile_update)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["business"] = to_class(MagentaBusiness, self.business)
+        result["client"] = from_union([lambda x: to_class(ClientClass, x), from_none], self.client)
         result["network"] = from_union([lambda x: to_class(FluffyNetwork, x), from_none], self.network)
         result["skipEmailCheck"] = from_union([from_bool, from_none], self.skip_email_check)
         result["skipProfileUpdate"] = from_union([from_bool, from_none], self.skip_profile_update)

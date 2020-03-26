@@ -526,40 +526,42 @@ export interface AdditionalClientUtm {
 }
 
 export interface AdditionalClientElement {
-    address?:             string;
-    adminComment?:        string;
-    birthday?:            string;
-    clientCardNumber?:    string;
-    clientComment?:       string;
-    creatorProfileID?:    string;
-    creatorProfileName?:  string;
-    driverLicense?:       string;
+    address?:             null | string;
+    adminComment?:        null | string;
+    birthday?:            Birthday;
+    clientCardNumber?:    null | string;
+    clientComment?:       null | string;
+    creatorProfileID?:    null | string;
+    creatorProfileName?:  null | string;
+    driverLicense?:       null | string;
     email?:               string[];
     extraData?:           { [key: string]: any };
-    extraID?:             string;
+    extraID?:             null | string;
     extraVisitors?:       number;
-    fax?:                 string;
+    fax?:                 null | string;
     feedback?:            AppointmentClientFeedback;
-    GAClientID?:          string;
-    houseNumber?:         string;
+    GAClientID?:          null | string;
+    houseNumber?:         null | string;
     id:                   string;
     incomingPhone?:       IncomingPhoneElement[];
-    israelCity?:          IsraelCity;
+    israelCity?:          IsraelCity | null;
     isVIP?:               boolean;
-    kupatHolim?:          KupatHolim;
+    kupatHolim?:          KupatHolim | null;
     language?:            string;
-    middleName?:          string;
+    middleName?:          null | string;
     name:                 string;
-    passportId?:          string;
+    passportId?:          null | string;
     phone?:               IncomingPhoneElement[];
-    seasonTicketId?:      string;
-    seasonTicketNumber?:  string;
+    seasonTicketId?:      null | string;
+    seasonTicketNumber?:  null | string;
     sex?:                 Sex;
     shortId?:             string;
     surname:              string;
-    taxiPark?:            string;
-    taxiParkMemberCount?: number;
+    taxiPark?:            null | string;
+    taxiParkMemberCount?: number | null;
 }
+
+export type Birthday = { [key: string]: any } | null | string;
 
 export interface AppointmentClientFeedback {
     complaintActionText?: string;
@@ -605,6 +607,7 @@ export interface KupatHolim {
 }
 
 export enum Sex {
+    Empty = "",
     Female = "FEMALE",
     Male = "MALE",
     NotSpecified = "NOT_SPECIFIED",
@@ -662,7 +665,7 @@ export enum DrinkAnswer {
 }
 
 export interface IntegrationData {
-    extraId: string;
+    extraId: null | string;
 }
 
 export interface Price {
@@ -672,7 +675,7 @@ export interface Price {
     discount?:                  number;
     discountProvider?:          DiscountProvider;
     discountType?:              string;
-    originalAmount?:            number;
+    originalAmount?:            number | null;
 }
 
 export interface AdditionalTaxonomyDiscount {
@@ -724,43 +727,43 @@ export interface Cabinet {
  * пустой объект в момент резервирования
  */
 export interface PurpleAppointmentClient {
-    address?:             string;
-    adminComment?:        string;
-    birthday?:            string;
-    clientCardNumber?:    string;
-    clientComment?:       string;
-    creatorProfileID?:    string;
-    creatorProfileName?:  string;
-    driverLicense?:       string;
+    address?:             null | string;
+    adminComment?:        null | string;
+    birthday?:            Birthday;
+    clientCardNumber?:    null | string;
+    clientComment?:       null | string;
+    creatorProfileID?:    null | string;
+    creatorProfileName?:  null | string;
+    driverLicense?:       null | string;
     email?:               string[];
     extraData?:           { [key: string]: any };
-    extraID?:             string;
+    extraID?:             null | string;
     extraVisitors?:       number;
-    fax?:                 string;
+    fax?:                 null | string;
     feedback?:            AppointmentClientFeedback;
-    GAClientID?:          string;
-    houseNumber?:         string;
+    GAClientID?:          null | string;
+    houseNumber?:         null | string;
     id?:                  string;
     incomingPhone?:       IncomingPhoneElement[];
-    israelCity?:          IsraelCity;
+    israelCity?:          IsraelCity | null;
     isVIP?:               boolean;
-    kupatHolim?:          KupatHolim;
+    kupatHolim?:          KupatHolim | null;
     language?:            string;
-    middleName?:          string;
+    middleName?:          null | string;
     name?:                string;
-    passportId?:          string;
+    passportId?:          null | string;
     phone?:               IncomingPhoneElement[];
-    seasonTicketId?:      string;
-    seasonTicketNumber?:  string;
+    seasonTicketId?:      null | string;
+    seasonTicketNumber?:  null | string;
     sex?:                 Sex;
     shortId?:             string;
     surname?:             string;
-    taxiPark?:            string;
-    taxiParkMemberCount?: number;
+    taxiPark?:            null | string;
+    taxiParkMemberCount?: number | null;
 }
 
 export interface AppointmentClientVisitor {
-    birthday?:        string;
+    birthday?:        Birthday;
     email?:           string[];
     extraVisitors?:   number;
     name?:            string;
@@ -801,7 +804,7 @@ export interface RemovedClientsDatum {
 }
 
 export interface AppointmentResource {
-    extraID?:    string;
+    extraID?:    null | string;
     id:          string;
     middleName?: string;
     name:        string;
@@ -3494,7 +3497,7 @@ export interface ClientObject {
     driverLicense?:       null | string;
     email?:               string[];
     fromSms?:             FromSms;
-    middle_name?:         string;
+    middle_name?:         null | string;
     name:                 string;
     phone:                Phone;
     sex?:                 Sex;
@@ -3502,8 +3505,6 @@ export interface ClientObject {
     taxiPark?:            null | string;
     taxiParkMemberCount?: OrderWeight;
 }
-
-export type Birthday = { [key: string]: any } | string;
 
 export type FromSms = boolean | string;
 
@@ -3600,6 +3601,7 @@ export interface ClientFindOrCreateClientRequest {
  */
 export interface ClientFindOrCreateClientRequestParams {
     business:           MagentaBusiness;
+    client?:            ClientObject;
     network?:           FluffyNetwork;
     skipEmailCheck?:    boolean;
     skipProfileUpdate?: boolean;
@@ -4693,39 +4695,39 @@ const typeMap: any = {
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
     ], false),
     "AdditionalClientElement": o([
-        { json: "address", js: "address", typ: u(undefined, "") },
-        { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
-        { json: "birthday", js: "birthday", typ: u(undefined, "") },
-        { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, "") },
-        { json: "clientComment", js: "clientComment", typ: u(undefined, "") },
-        { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, "") },
-        { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, "") },
-        { json: "driverLicense", js: "driverLicense", typ: u(undefined, "") },
+        { json: "address", js: "address", typ: u(undefined, u(null, "")) },
+        { json: "adminComment", js: "adminComment", typ: u(undefined, u(null, "")) },
+        { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
+        { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, u(null, "")) },
+        { json: "clientComment", js: "clientComment", typ: u(undefined, u(null, "")) },
+        { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
+        { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
+        { json: "driverLicense", js: "driverLicense", typ: u(undefined, u(null, "")) },
         { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraData", js: "extraData", typ: u(undefined, m("any")) },
-        { json: "extraID", js: "extraID", typ: u(undefined, "") },
+        { json: "extraID", js: "extraID", typ: u(undefined, u(null, "")) },
         { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, 3.14) },
-        { json: "fax", js: "fax", typ: u(undefined, "") },
+        { json: "fax", js: "fax", typ: u(undefined, u(null, "")) },
         { json: "feedback", js: "feedback", typ: u(undefined, r("AppointmentClientFeedback")) },
-        { json: "GAClientID", js: "GAClientID", typ: u(undefined, "") },
-        { json: "houseNumber", js: "houseNumber", typ: u(undefined, "") },
+        { json: "GAClientID", js: "GAClientID", typ: u(undefined, u(null, "")) },
+        { json: "houseNumber", js: "houseNumber", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: "" },
         { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
-        { json: "israelCity", js: "israelCity", typ: u(undefined, r("IsraelCity")) },
+        { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCity"), null)) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
-        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, r("KupatHolim")) },
+        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolim"), null)) },
         { json: "language", js: "language", typ: u(undefined, "") },
-        { json: "middleName", js: "middleName", typ: u(undefined, "") },
+        { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: "" },
-        { json: "passportId", js: "passportId", typ: u(undefined, "") },
+        { json: "passportId", js: "passportId", typ: u(undefined, u(null, "")) },
         { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
-        { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, "") },
-        { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, "") },
+        { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, u(null, "")) },
+        { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, u(null, "")) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
         { json: "shortId", js: "shortId", typ: u(undefined, "") },
         { json: "surname", js: "surname", typ: "" },
-        { json: "taxiPark", js: "taxiPark", typ: u(undefined, "") },
-        { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, 3.14) },
+        { json: "taxiPark", js: "taxiPark", typ: u(undefined, u(null, "")) },
+        { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, u(3.14, null)) },
     ], false),
     "AppointmentClientFeedback": o([
         { json: "complaintActionText", js: "complaintActionText", typ: u(undefined, "") },
@@ -4788,7 +4790,7 @@ const typeMap: any = {
         { json: "updated", js: "updated", typ: Date },
     ], false),
     "IntegrationData": o([
-        { json: "extraId", js: "extraId", typ: "" },
+        { json: "extraId", js: "extraId", typ: u(null, "") },
     ], false),
     "Price": o([
         { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: a(r("AdditionalTaxonomyDiscount")) },
@@ -4797,7 +4799,7 @@ const typeMap: any = {
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
         { json: "discountProvider", js: "discountProvider", typ: u(undefined, r("DiscountProvider")) },
         { json: "discountType", js: "discountType", typ: u(undefined, "") },
-        { json: "originalAmount", js: "originalAmount", typ: u(undefined, 3.14) },
+        { json: "originalAmount", js: "originalAmount", typ: u(undefined, u(3.14, null)) },
     ], false),
     "AdditionalTaxonomyDiscount": o([
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
@@ -4812,42 +4814,42 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(undefined, "") },
     ], false),
     "PurpleAppointmentClient": o([
-        { json: "address", js: "address", typ: u(undefined, "") },
-        { json: "adminComment", js: "adminComment", typ: u(undefined, "") },
-        { json: "birthday", js: "birthday", typ: u(undefined, "") },
-        { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, "") },
-        { json: "clientComment", js: "clientComment", typ: u(undefined, "") },
-        { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, "") },
-        { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, "") },
-        { json: "driverLicense", js: "driverLicense", typ: u(undefined, "") },
+        { json: "address", js: "address", typ: u(undefined, u(null, "")) },
+        { json: "adminComment", js: "adminComment", typ: u(undefined, u(null, "")) },
+        { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
+        { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, u(null, "")) },
+        { json: "clientComment", js: "clientComment", typ: u(undefined, u(null, "")) },
+        { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
+        { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
+        { json: "driverLicense", js: "driverLicense", typ: u(undefined, u(null, "")) },
         { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraData", js: "extraData", typ: u(undefined, m("any")) },
-        { json: "extraID", js: "extraID", typ: u(undefined, "") },
+        { json: "extraID", js: "extraID", typ: u(undefined, u(null, "")) },
         { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, 3.14) },
-        { json: "fax", js: "fax", typ: u(undefined, "") },
+        { json: "fax", js: "fax", typ: u(undefined, u(null, "")) },
         { json: "feedback", js: "feedback", typ: u(undefined, r("AppointmentClientFeedback")) },
-        { json: "GAClientID", js: "GAClientID", typ: u(undefined, "") },
-        { json: "houseNumber", js: "houseNumber", typ: u(undefined, "") },
+        { json: "GAClientID", js: "GAClientID", typ: u(undefined, u(null, "")) },
+        { json: "houseNumber", js: "houseNumber", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
-        { json: "israelCity", js: "israelCity", typ: u(undefined, r("IsraelCity")) },
+        { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCity"), null)) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
-        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, r("KupatHolim")) },
+        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolim"), null)) },
         { json: "language", js: "language", typ: u(undefined, "") },
-        { json: "middleName", js: "middleName", typ: u(undefined, "") },
+        { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "passportId", js: "passportId", typ: u(undefined, "") },
+        { json: "passportId", js: "passportId", typ: u(undefined, u(null, "")) },
         { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
-        { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, "") },
-        { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, "") },
+        { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, u(null, "")) },
+        { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, u(null, "")) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
         { json: "shortId", js: "shortId", typ: u(undefined, "") },
         { json: "surname", js: "surname", typ: u(undefined, "") },
-        { json: "taxiPark", js: "taxiPark", typ: u(undefined, "") },
-        { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, 3.14) },
+        { json: "taxiPark", js: "taxiPark", typ: u(undefined, u(null, "")) },
+        { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, u(3.14, null)) },
     ], false),
     "AppointmentClientVisitor": o([
-        { json: "birthday", js: "birthday", typ: u(undefined, "") },
+        { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
         { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraVisitors", js: "extraVisitors", typ: u(undefined, 3.14) },
         { json: "name", js: "name", typ: u(undefined, "") },
@@ -4855,7 +4857,7 @@ const typeMap: any = {
         { json: "parentProfileID", js: "parentProfileID", typ: u(undefined, "") },
         { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
-    ], false),
+    ], "any"),
     "Location": o([
         { json: "latitude", js: "latitude", typ: 3.14 },
         { json: "longitude", js: "longitude", typ: 3.14 },
@@ -4877,7 +4879,7 @@ const typeMap: any = {
         { json: "status", js: "status", typ: u(undefined, r("AppointmentStatus")) },
     ], false),
     "AppointmentResource": o([
-        { json: "extraID", js: "extraID", typ: u(undefined, "") },
+        { json: "extraID", js: "extraID", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: "" },
         { json: "middleName", js: "middleName", typ: u(undefined, "") },
         { json: "name", js: "name", typ: "" },
@@ -6407,13 +6409,13 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientObject": o([
-        { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), "")) },
+        { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
         { json: "driverLicense", js: "driverLicense", typ: u(undefined, u(null, "")) },
         { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "fromSms", js: "fromSms", typ: u(undefined, u(true, "")) },
-        { json: "middle_name", js: "middle_name", typ: u(undefined, "") },
+        { json: "middle_name", js: "middle_name", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: "" },
         { json: "phone", js: "phone", typ: u(a("any"), true, r("PhoneClass"), 3.14, 0, null, "") },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
@@ -6460,6 +6462,7 @@ const typeMap: any = {
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
         { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "client", js: "client", typ: u(undefined, r("ClientObject")) },
         { json: "network", js: "network", typ: u(undefined, r("FluffyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
@@ -6849,6 +6852,7 @@ const typeMap: any = {
         "NOT_ENTERED",
     ],
     "Sex": [
+        "",
         "FEMALE",
         "MALE",
         "NOT_SPECIFIED",

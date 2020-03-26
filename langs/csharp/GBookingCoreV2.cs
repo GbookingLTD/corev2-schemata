@@ -806,28 +806,28 @@ namespace GBookingCoreV2
 
     public partial class AdditionalClientElement
     {
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("address")]
         public string Address { get; set; }
 
-        [JsonProperty("adminComment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("adminComment")]
         public string AdminComment { get; set; }
 
-        [JsonProperty("birthday", NullValueHandling = NullValueHandling.Ignore)]
-        public string Birthday { get; set; }
+        [JsonProperty("birthday")]
+        public Birthday? Birthday { get; set; }
 
-        [JsonProperty("clientCardNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("clientCardNumber")]
         public string ClientCardNumber { get; set; }
 
-        [JsonProperty("clientComment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("clientComment")]
         public string ClientComment { get; set; }
 
-        [JsonProperty("creatorProfileID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("creatorProfileID")]
         public string CreatorProfileId { get; set; }
 
-        [JsonProperty("creatorProfileName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("creatorProfileName")]
         public string CreatorProfileName { get; set; }
 
-        [JsonProperty("driverLicense", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("driverLicense")]
         public string DriverLicense { get; set; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
@@ -836,22 +836,22 @@ namespace GBookingCoreV2
         [JsonProperty("extraData", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> ExtraData { get; set; }
 
-        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("extraID")]
         public string ExtraId { get; set; }
 
         [JsonProperty("extraVisitors", NullValueHandling = NullValueHandling.Ignore)]
         public double? ExtraVisitors { get; set; }
 
-        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("fax")]
         public string Fax { get; set; }
 
         [JsonProperty("feedback", NullValueHandling = NullValueHandling.Ignore)]
         public AppointmentClientFeedback Feedback { get; set; }
 
-        [JsonProperty("GAClientID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("GAClientID")]
         public string GaClientId { get; set; }
 
-        [JsonProperty("houseNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("houseNumber")]
         public string HouseNumber { get; set; }
 
         [JsonProperty("id")]
@@ -860,34 +860,34 @@ namespace GBookingCoreV2
         [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
         public List<IncomingPhoneElement> IncomingPhone { get; set; }
 
-        [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("israelCity")]
         public IsraelCity IsraelCity { get; set; }
 
         [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsVip { get; set; }
 
-        [JsonProperty("kupatHolim", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("kupatHolim")]
         public KupatHolim KupatHolim { get; set; }
 
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; }
 
-        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("middleName")]
         public string MiddleName { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("passportId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("passportId")]
         public string PassportId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
         public List<IncomingPhoneElement> Phone { get; set; }
 
-        [JsonProperty("seasonTicketId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("seasonTicketId")]
         public string SeasonTicketId { get; set; }
 
-        [JsonProperty("seasonTicketNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("seasonTicketNumber")]
         public string SeasonTicketNumber { get; set; }
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
@@ -899,10 +899,10 @@ namespace GBookingCoreV2
         [JsonProperty("surname")]
         public string Surname { get; set; }
 
-        [JsonProperty("taxiPark", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("taxiPark")]
         public string TaxiPark { get; set; }
 
-        [JsonProperty("taxiParkMemberCount", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("taxiParkMemberCount")]
         public double? TaxiParkMemberCount { get; set; }
     }
 
@@ -1085,7 +1085,7 @@ namespace GBookingCoreV2
         [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
         public string DiscountType { get; set; }
 
-        [JsonProperty("originalAmount", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("originalAmount")]
         public double? OriginalAmount { get; set; }
     }
 
@@ -1121,28 +1121,28 @@ namespace GBookingCoreV2
     /// </summary>
     public partial class PurpleAppointmentClient
     {
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("address")]
         public string Address { get; set; }
 
-        [JsonProperty("adminComment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("adminComment")]
         public string AdminComment { get; set; }
 
-        [JsonProperty("birthday", NullValueHandling = NullValueHandling.Ignore)]
-        public string Birthday { get; set; }
+        [JsonProperty("birthday")]
+        public Birthday? Birthday { get; set; }
 
-        [JsonProperty("clientCardNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("clientCardNumber")]
         public string ClientCardNumber { get; set; }
 
-        [JsonProperty("clientComment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("clientComment")]
         public string ClientComment { get; set; }
 
-        [JsonProperty("creatorProfileID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("creatorProfileID")]
         public string CreatorProfileId { get; set; }
 
-        [JsonProperty("creatorProfileName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("creatorProfileName")]
         public string CreatorProfileName { get; set; }
 
-        [JsonProperty("driverLicense", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("driverLicense")]
         public string DriverLicense { get; set; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
@@ -1151,22 +1151,22 @@ namespace GBookingCoreV2
         [JsonProperty("extraData", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> ExtraData { get; set; }
 
-        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("extraID")]
         public string ExtraId { get; set; }
 
         [JsonProperty("extraVisitors", NullValueHandling = NullValueHandling.Ignore)]
         public double? ExtraVisitors { get; set; }
 
-        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("fax")]
         public string Fax { get; set; }
 
         [JsonProperty("feedback", NullValueHandling = NullValueHandling.Ignore)]
         public AppointmentClientFeedback Feedback { get; set; }
 
-        [JsonProperty("GAClientID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("GAClientID")]
         public string GaClientId { get; set; }
 
-        [JsonProperty("houseNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("houseNumber")]
         public string HouseNumber { get; set; }
 
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
@@ -1175,34 +1175,34 @@ namespace GBookingCoreV2
         [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
         public List<IncomingPhoneElement> IncomingPhone { get; set; }
 
-        [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("israelCity")]
         public IsraelCity IsraelCity { get; set; }
 
         [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsVip { get; set; }
 
-        [JsonProperty("kupatHolim", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("kupatHolim")]
         public KupatHolim KupatHolim { get; set; }
 
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; }
 
-        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("middleName")]
         public string MiddleName { get; set; }
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
 
-        [JsonProperty("passportId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("passportId")]
         public string PassportId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
         public List<IncomingPhoneElement> Phone { get; set; }
 
-        [JsonProperty("seasonTicketId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("seasonTicketId")]
         public string SeasonTicketId { get; set; }
 
-        [JsonProperty("seasonTicketNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("seasonTicketNumber")]
         public string SeasonTicketNumber { get; set; }
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
@@ -1214,17 +1214,17 @@ namespace GBookingCoreV2
         [JsonProperty("surname", NullValueHandling = NullValueHandling.Ignore)]
         public string Surname { get; set; }
 
-        [JsonProperty("taxiPark", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("taxiPark")]
         public string TaxiPark { get; set; }
 
-        [JsonProperty("taxiParkMemberCount", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("taxiParkMemberCount")]
         public double? TaxiParkMemberCount { get; set; }
     }
 
     public partial class AppointmentClientVisitor
     {
-        [JsonProperty("birthday", NullValueHandling = NullValueHandling.Ignore)]
-        public string Birthday { get; set; }
+        [JsonProperty("birthday")]
+        public Birthday? Birthday { get; set; }
 
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> Email { get; set; }
@@ -1298,7 +1298,7 @@ namespace GBookingCoreV2
 
     public partial class AppointmentResource
     {
-        [JsonProperty("extraID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("extraID")]
         public string ExtraId { get; set; }
 
         [JsonProperty("id")]
@@ -6175,7 +6175,7 @@ namespace GBookingCoreV2
     /// </summary>
     public partial class ClientClass
     {
-        [JsonProperty("birthday", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("birthday")]
         public Birthday? Birthday { get; set; }
 
         [JsonProperty("creatorProfileID")]
@@ -6193,7 +6193,7 @@ namespace GBookingCoreV2
         [JsonProperty("fromSms", NullValueHandling = NullValueHandling.Ignore)]
         public FromSms? FromSms { get; set; }
 
-        [JsonProperty("middle_name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("middle_name")]
         public string MiddleName { get; set; }
 
         [JsonProperty("name")]
@@ -6352,6 +6352,9 @@ namespace GBookingCoreV2
     {
         [JsonProperty("business")]
         public MagentaBusiness Business { get; set; }
+
+        [JsonProperty("client", NullValueHandling = NullValueHandling.Ignore)]
+        public ClientClass Client { get; set; }
 
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
         public FluffyNetwork Network { get; set; }
@@ -7476,7 +7479,7 @@ namespace GBookingCoreV2
 
     public enum ComplaintStatus { Checking, Closed, Entered, Invalid, Investigation, NotEntered };
 
-    public enum Sex { Female, Male, NotSpecified };
+    public enum Sex { Empty, Female, Male, NotSpecified };
 
     public enum AdditionalFieldType { Bool, Coupon, File, Radio, String };
 
@@ -7663,6 +7666,16 @@ namespace GBookingCoreV2
         public static implicit operator SuccessResponse(string String) => new SuccessResponse { String = String };
         public static implicit operator SuccessResponse(SuccessResponseClass SuccessResponseClass) => new SuccessResponse { SuccessResponseClass = SuccessResponseClass };
         public bool IsNull => AnythingArray == null && Bool == null && SuccessResponseClass == null && Double == null && Integer == null && String == null;
+    }
+
+    public partial struct Birthday
+    {
+        public Dictionary<string, object> AnythingMap;
+        public string String;
+
+        public static implicit operator Birthday(Dictionary<string, object> AnythingMap) => new Birthday { AnythingMap = AnythingMap };
+        public static implicit operator Birthday(string String) => new Birthday { String = String };
+        public bool IsNull => AnythingMap == null && String == null;
     }
 
     public partial struct Value
@@ -7879,15 +7892,6 @@ namespace GBookingCoreV2
         public bool IsNull => AnythingArray == null && Bool == null && AddressCamelCaseSchema == null && Double == null && Integer == null && String == null;
     }
 
-    public partial struct Birthday
-    {
-        public Dictionary<string, object> AnythingMap;
-        public string String;
-
-        public static implicit operator Birthday(Dictionary<string, object> AnythingMap) => new Birthday { AnythingMap = AnythingMap };
-        public static implicit operator Birthday(string String) => new Birthday { String = String };
-    }
-
     public partial struct FromSms
     {
         public bool? Bool;
@@ -7924,6 +7928,7 @@ namespace GBookingCoreV2
                 AppointmentClientAppearConverter.Singleton,
                 AppointmentClientPaymentConverter.Singleton,
                 AppointmentStatusConverter.Singleton,
+                BirthdayConverter.Singleton,
                 ComplaintStatusConverter.Singleton,
                 ValueConverter.Singleton,
                 SexConverter.Singleton,
@@ -7978,7 +7983,6 @@ namespace GBookingCoreV2
                 FluffyPaymentProviderConverter.Singleton,
                 AddressConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
-                BirthdayConverter.Singleton,
                 FromSmsConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
@@ -8562,6 +8566,51 @@ namespace GBookingCoreV2
         public static readonly AppointmentStatusConverter Singleton = new AppointmentStatusConverter();
     }
 
+    internal class BirthdayConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Birthday) || t == typeof(Birthday?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new Birthday { };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new Birthday { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
+                    return new Birthday { AnythingMap = objectValue };
+            }
+            throw new Exception("Cannot unmarshal type Birthday");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (Birthday)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingMap != null)
+            {
+                serializer.Serialize(writer, value.AnythingMap);
+                return;
+            }
+            throw new Exception("Cannot marshal type Birthday");
+        }
+
+        public static readonly BirthdayConverter Singleton = new BirthdayConverter();
+    }
+
     internal class ComplaintStatusConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(ComplaintStatus) || t == typeof(ComplaintStatus?);
@@ -8687,6 +8736,8 @@ namespace GBookingCoreV2
             var value = serializer.Deserialize<string>(reader);
             switch (value)
             {
+                case "":
+                    return Sex.Empty;
                 case "FEMALE":
                     return Sex.Female;
                 case "MALE":
@@ -8707,6 +8758,9 @@ namespace GBookingCoreV2
             var value = (Sex)untypedValue;
             switch (value)
             {
+                case Sex.Empty:
+                    serializer.Serialize(writer, "");
+                    return;
                 case Sex.Female:
                     serializer.Serialize(writer, "FEMALE");
                     return;
@@ -11578,44 +11632,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly YandexFeedTypeConverter Singleton = new YandexFeedTypeConverter();
-    }
-
-    internal class BirthdayConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Birthday) || t == typeof(Birthday?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            switch (reader.TokenType)
-            {
-                case JsonToken.String:
-                case JsonToken.Date:
-                    var stringValue = serializer.Deserialize<string>(reader);
-                    return new Birthday { String = stringValue };
-                case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
-                    return new Birthday { AnythingMap = objectValue };
-            }
-            throw new Exception("Cannot unmarshal type Birthday");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            var value = (Birthday)untypedValue;
-            if (value.String != null)
-            {
-                serializer.Serialize(writer, value.String);
-                return;
-            }
-            if (value.AnythingMap != null)
-            {
-                serializer.Serialize(writer, value.AnythingMap);
-                return;
-            }
-            throw new Exception("Cannot marshal type Birthday");
-        }
-
-        public static readonly BirthdayConverter Singleton = new BirthdayConverter();
     }
 
     internal class FromSmsConverter : JsonConverter

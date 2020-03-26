@@ -4,7 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentClientVisitor {
-    private String birthday;
+    private Birthday birthday;
     private List<String> email;
     private Double extraVisitors;
     private String name;
@@ -14,9 +14,9 @@ public class AppointmentClientVisitor {
     private Sex sex;
 
     @JsonProperty("birthday")
-    public String getBirthday() { return birthday; }
+    public Birthday getBirthday() { return birthday; }
     @JsonProperty("birthday")
-    public void setBirthday(String value) { this.birthday = value; }
+    public void setBirthday(Birthday value) { this.birthday = value; }
 
     @JsonProperty("email")
     public List<String> getEmail() { return email; }

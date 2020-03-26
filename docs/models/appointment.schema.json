@@ -43,7 +43,10 @@
                     "type": "string"
                 },
                 "extraID": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             }
         },
@@ -252,14 +255,21 @@
                     "type": "string"
                 },
                 "middleName": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "extraID": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "sex": {
                     "type": "string",
                     "enum": [
+                        "",
                         "MALE",
                         "FEMALE",
                         "NOT_SPECIFIED"
@@ -272,25 +282,47 @@
                     }
                 },
                 "passportId": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "clientCardNumber": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "fax": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "birthday": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "object",
+                        "null"
+                    ]
                 },
                 "address": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "houseNumber": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "israelCity": {
                     "oneOf": [
+                        {
+                            "type": "null"
+                        },
                         {
                             "type": "object",
                             "additionalProperties": false,
@@ -317,6 +349,9 @@
                 },
                 "kupatHolim": {
                     "oneOf": [
+                        {
+                            "type": "null"
+                        },
                         {
                             "type": "object",
                             "additionalProperties": false,
@@ -345,37 +380,67 @@
                     "type": "boolean"
                 },
                 "clientComment": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "adminComment": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "seasonTicketId": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "seasonTicketNumber": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "creatorProfileID": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "creatorProfileName": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "driverLicense": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "taxiPark": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "taxiParkMemberCount": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "language": {
                     "type": "string"
                 },
                 "GAClientID": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "extraVisitors": {
                     "type": "number"
@@ -416,7 +481,10 @@
                     "type": "number"
                 },
                 "originalAmount": {
-                    "type": "number"
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "discount": {
                     "type": "number"
@@ -552,7 +620,10 @@
                     ],
                     "properties": {
                         "extraId": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         }
                     }
                 }
@@ -560,7 +631,7 @@
         },
         "AppointmentClientVisitor": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "parentClientID": {
                     "type": "string"
@@ -571,6 +642,7 @@
                 "sex": {
                     "type": "string",
                     "enum": [
+                        "",
                         "MALE",
                         "FEMALE",
                         "NOT_SPECIFIED"
@@ -595,7 +667,11 @@
                     "type": "string"
                 },
                 "birthday": {
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "object",
+                        "null"
+                    ]
                 }
             }
         }

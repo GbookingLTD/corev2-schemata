@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class ClientFindOrCreateClientRequestParams {
     private MagentaBusiness business;
+    private ClientClass client;
     private FluffyNetwork network;
     private Boolean skipEmailCheck;
     private Boolean skipProfileUpdate;
@@ -16,6 +17,11 @@ public class ClientFindOrCreateClientRequestParams {
     public MagentaBusiness getBusiness() { return business; }
     @JsonProperty("business")
     public void setBusiness(MagentaBusiness value) { this.business = value; }
+
+    @JsonProperty("client")
+    public ClientClass getClient() { return client; }
+    @JsonProperty("client")
+    public void setClient(ClientClass value) { this.client = value; }
 
     @JsonProperty("network")
     public FluffyNetwork getNetwork() { return network; }

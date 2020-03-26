@@ -20,7 +20,7 @@ schemas-json/models/appointment.schema.json
 | [areaCode](#areacode)                                     | `string`   | `schemas-json/models/appointment.schema.json#/definitions/CamelPhone`                |
 | [area_code](#area_code)                                   | `string`   | `schemas-json/models/appointment.schema.json#/definitions/Phone`                     |
 | [backofficeID](#backofficeid)                             | multiple   | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
-| [birthday](#birthday)                                     | `string`   | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientVisitor`  |
+| [birthday](#birthday)                                     | multiple   | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClientVisitor`  |
 | [blockSMS](#blocksms)                                     | `boolean`  | `schemas-json/models/appointment.schema.json#/definitions/AppointmentInfo`           |
 | [clientCardNumber](#clientcardnumber)                     | `string`   | `schemas-json/models/appointment.schema.json#/definitions/AppointmentClient`         |
 | [comment](#comment)                                       | `string`   | `schemas-json/models/appointment.schema.json#/definitions/Review`                    |
@@ -97,7 +97,7 @@ schemas-json/models/appointment.schema.json
 
 ### GAClientID Type
 
-`string`
+`string`, nullable
 
 ## additionalTaxonomyDiscount
 
@@ -181,7 +181,7 @@ The value of this property **must** be equal to one of the
 
 ### adminComment Type
 
-`string`
+`string`, nullable
 
 ## alias
 
@@ -252,12 +252,16 @@ Either one of:
 `birthday`
 
 - is optional
-- type: `string`
+- type: multiple
 - defined in this schema
 
 ### birthday Type
 
-`string`
+Either one of:
+
+- `string`
+- `object`
+- or `null`
 
 ## blockSMS
 
@@ -281,7 +285,7 @@ Either one of:
 
 ### clientCardNumber Type
 
-`string`
+`string`, nullable
 
 ## comment
 
@@ -388,7 +392,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### creatorProfileID Type
 
-`string`
+`string`, nullable
 
 ## creatorProfileName
 
@@ -400,7 +404,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### creatorProfileName Type
 
-`string`
+`string`, nullable
 
 ## currency
 
@@ -485,7 +489,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### driverLicense Type
 
-`string`
+`string`, nullable
 
 ## duration
 
@@ -539,7 +543,7 @@ All items must be of the type: `string`
 
 ### extraID Type
 
-`string`
+`string`, nullable
 
 ## extraId
 
@@ -575,7 +579,7 @@ All items must be of the type: `string`
 
 ### fax Type
 
-`string`
+`string`, nullable
 
 ## feedback
 
@@ -635,7 +639,7 @@ All items must be of the type: `string`
 
 ### houseNumber Type
 
-`string`
+`string`, nullable
 
 ## id
 
@@ -689,9 +693,9 @@ All items must be of the type:
 
 `object` with following properties:
 
-| Property  | Type   | Required     |
-| --------- | ------ | ------------ |
-| `extraId` | string | **Required** |
+| Property  | Type        | Required     |
+| --------- | ----------- | ------------ |
+| `extraId` | string,null | **Required** |
 
 #### extraId
 
@@ -702,7 +706,7 @@ All items must be of the type:
 
 ##### extraId Type
 
-`string`
+`string`, nullable
 
 ## isVIP
 
@@ -730,13 +734,15 @@ All items must be of the type:
 
 #### Condition 1
 
+#### Condition 2
+
 `object` with following properties:
 
 | Property | Type | Required |
 | -------- | ---- | -------- |
 
 
-#### Condition 2
+#### Condition 3
 
 `object` with following properties:
 
@@ -781,13 +787,15 @@ All items must be of the type:
 
 #### Condition 1
 
+#### Condition 2
+
 `object` with following properties:
 
 | Property | Type | Required |
 | -------- | ---- | -------- |
 
 
-#### Condition 2
+#### Condition 3
 
 `object` with following properties:
 
@@ -840,7 +848,7 @@ All items must be of the type:
 
 ### middleName Type
 
-`string`
+`string`, nullable
 
 ## name
 
@@ -876,7 +884,7 @@ All items must be of the type:
 
 ### originalAmount Type
 
-`number`
+`number`, nullable
 
 ## originalMessage
 
@@ -924,7 +932,7 @@ All items must be of the type:
 
 ### passportId Type
 
-`string`
+`string`, nullable
 
 ## phone
 
@@ -1000,7 +1008,7 @@ All items must be of the type:
 
 ### seasonTicketId Type
 
-`string`
+`string`, nullable
 
 ## seasonTicketNumber
 
@@ -1012,7 +1020,7 @@ All items must be of the type:
 
 ### seasonTicketNumber Type
 
-`string`
+`string`, nullable
 
 ## sex
 
@@ -1028,6 +1036,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 | Value           | Description |
 | --------------- | ----------- |
+| ``              |
 | `MALE`          |             |
 | `FEMALE`        |             |
 | `NOT_SPECIFIED` |             |
@@ -1123,7 +1132,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### taxiPark Type
 
-`string`
+`string`, nullable
 
 ## taxiParkMemberCount
 
@@ -1135,7 +1144,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ### taxiParkMemberCount Type
 
-`number`
+`number`, nullable
 
 ## testRecord
 
@@ -1790,9 +1799,9 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property  | Type   | Required     |
-| --------- | ------ | ------------ |
-| `extraId` | string | **Required** |
+| Property  | Type        | Required     |
+| --------- | ----------- | ------------ |
+| `extraId` | string,null | **Required** |
 
 #### extraId
 
@@ -1803,7 +1812,7 @@ The value of this property **must** be equal to one of the [known values below](
 
 ##### extraId Type
 
-`string`
+`string`, nullable
 
 #### price
 
@@ -2561,13 +2570,13 @@ All items must be of the type: `object` with following properties:
 
 `object` with following properties:
 
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `extraID`    | string | Optional     |
-| `id`         | string | **Required** |
-| `middleName` | string | Optional     |
-| `name`       | string | **Required** |
-| `surname`    | string | **Required** |
+| Property     | Type        | Required     |
+| ------------ | ----------- | ------------ |
+| `extraID`    | string,null | Optional     |
+| `id`         | string      | **Required** |
+| `middleName` | string      | Optional     |
+| `name`       | string      | **Required** |
+| `surname`    | string      | **Required** |
 
 #### extraID
 
@@ -2578,7 +2587,7 @@ All items must be of the type: `object` with following properties:
 
 ##### extraID Type
 
-`string`
+`string`, nullable
 
 #### id
 

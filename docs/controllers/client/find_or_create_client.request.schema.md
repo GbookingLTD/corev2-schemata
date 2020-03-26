@@ -32,6 +32,7 @@ schemas-json/controllers/client/find_or_create_client.request.schema.json
 | Property            | Type    | Required     | Default |
 | ------------------- | ------- | ------------ | ------- |
 | `business`          | object  | **Required** |         |
+| `client`            |         | Optional     |         |
 | `network`           | object  | Optional     |         |
 | `skipEmailCheck`    | boolean | Optional     | `false` |
 | `skipProfileUpdate` | boolean | Optional     | `false` |
@@ -71,6 +72,17 @@ Unknown type `string,number`.
   "simpletype": "multiple"
 }
 ```
+
+#### client
+
+`client`
+
+- is optional
+- type: reference
+
+##### client Type
+
+- []() – `../../models/client.schema.json`
 
 #### network
 

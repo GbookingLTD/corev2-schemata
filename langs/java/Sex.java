@@ -5,11 +5,12 @@ import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
 public enum Sex {
-    FEMALE, MALE, NOT_SPECIFIED;
+    EMPTY, FEMALE, MALE, NOT_SPECIFIED;
 
     @JsonValue
     public String toValue() {
         switch (this) {
+        case EMPTY: return "";
         case FEMALE: return "FEMALE";
         case MALE: return "MALE";
         case NOT_SPECIFIED: return "NOT_SPECIFIED";
@@ -19,6 +20,7 @@ public enum Sex {
 
     @JsonCreator
     public static Sex forValue(String value) throws IOException {
+        if (value.equals("")) return EMPTY;
         if (value.equals("FEMALE")) return FEMALE;
         if (value.equals("MALE")) return MALE;
         if (value.equals("NOT_SPECIFIED")) return NOT_SPECIFIED;

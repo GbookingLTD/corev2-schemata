@@ -483,42 +483,45 @@ export interface AdditionalClientUtm {
     };
 }
 export interface AdditionalClientElement {
-    address?: string;
-    adminComment?: string;
-    birthday?: string;
-    clientCardNumber?: string;
-    clientComment?: string;
-    creatorProfileID?: string;
-    creatorProfileName?: string;
-    driverLicense?: string;
+    address?: null | string;
+    adminComment?: null | string;
+    birthday?: Birthday;
+    clientCardNumber?: null | string;
+    clientComment?: null | string;
+    creatorProfileID?: null | string;
+    creatorProfileName?: null | string;
+    driverLicense?: null | string;
     email?: string[];
     extraData?: {
         [key: string]: any;
     };
-    extraID?: string;
+    extraID?: null | string;
     extraVisitors?: number;
-    fax?: string;
+    fax?: null | string;
     feedback?: AppointmentClientFeedback;
-    GAClientID?: string;
-    houseNumber?: string;
+    GAClientID?: null | string;
+    houseNumber?: null | string;
     id: string;
     incomingPhone?: IncomingPhoneElement[];
-    israelCity?: IsraelCity;
+    israelCity?: IsraelCity | null;
     isVIP?: boolean;
-    kupatHolim?: KupatHolim;
+    kupatHolim?: KupatHolim | null;
     language?: string;
-    middleName?: string;
+    middleName?: null | string;
     name: string;
-    passportId?: string;
+    passportId?: null | string;
     phone?: IncomingPhoneElement[];
-    seasonTicketId?: string;
-    seasonTicketNumber?: string;
+    seasonTicketId?: null | string;
+    seasonTicketNumber?: null | string;
     sex?: Sex;
     shortId?: string;
     surname: string;
-    taxiPark?: string;
-    taxiParkMemberCount?: number;
+    taxiPark?: null | string;
+    taxiParkMemberCount?: number | null;
 }
+export declare type Birthday = {
+    [key: string]: any;
+} | null | string;
 export interface AppointmentClientFeedback {
     complaintActionText?: string;
     complaintStatus?: ComplaintStatus;
@@ -558,6 +561,7 @@ export interface KupatHolim {
     name?: string;
 }
 export declare enum Sex {
+    Empty = "",
     Female = "FEMALE",
     Male = "MALE",
     NotSpecified = "NOT_SPECIFIED"
@@ -608,7 +612,7 @@ export declare enum DrinkAnswer {
     Tea = "TEA"
 }
 export interface IntegrationData {
-    extraId: string;
+    extraId: null | string;
 }
 export interface Price {
     additionalTaxonomyDiscount: AdditionalTaxonomyDiscount[];
@@ -617,7 +621,7 @@ export interface Price {
     discount?: number;
     discountProvider?: DiscountProvider;
     discountType?: string;
-    originalAmount?: number;
+    originalAmount?: number | null;
 }
 export interface AdditionalTaxonomyDiscount {
     discount?: number;
@@ -662,44 +666,44 @@ export interface Cabinet {
  * пустой объект в момент резервирования
  */
 export interface PurpleAppointmentClient {
-    address?: string;
-    adminComment?: string;
-    birthday?: string;
-    clientCardNumber?: string;
-    clientComment?: string;
-    creatorProfileID?: string;
-    creatorProfileName?: string;
-    driverLicense?: string;
+    address?: null | string;
+    adminComment?: null | string;
+    birthday?: Birthday;
+    clientCardNumber?: null | string;
+    clientComment?: null | string;
+    creatorProfileID?: null | string;
+    creatorProfileName?: null | string;
+    driverLicense?: null | string;
     email?: string[];
     extraData?: {
         [key: string]: any;
     };
-    extraID?: string;
+    extraID?: null | string;
     extraVisitors?: number;
-    fax?: string;
+    fax?: null | string;
     feedback?: AppointmentClientFeedback;
-    GAClientID?: string;
-    houseNumber?: string;
+    GAClientID?: null | string;
+    houseNumber?: null | string;
     id?: string;
     incomingPhone?: IncomingPhoneElement[];
-    israelCity?: IsraelCity;
+    israelCity?: IsraelCity | null;
     isVIP?: boolean;
-    kupatHolim?: KupatHolim;
+    kupatHolim?: KupatHolim | null;
     language?: string;
-    middleName?: string;
+    middleName?: null | string;
     name?: string;
-    passportId?: string;
+    passportId?: null | string;
     phone?: IncomingPhoneElement[];
-    seasonTicketId?: string;
-    seasonTicketNumber?: string;
+    seasonTicketId?: null | string;
+    seasonTicketNumber?: null | string;
     sex?: Sex;
     shortId?: string;
     surname?: string;
-    taxiPark?: string;
-    taxiParkMemberCount?: number;
+    taxiPark?: null | string;
+    taxiParkMemberCount?: number | null;
 }
 export interface AppointmentClientVisitor {
-    birthday?: string;
+    birthday?: Birthday;
     email?: string[];
     extraVisitors?: number;
     name?: string;
@@ -734,7 +738,7 @@ export interface RemovedClientsDatum {
     status?: AppointmentStatus;
 }
 export interface AppointmentResource {
-    extraID?: string;
+    extraID?: null | string;
     id: string;
     middleName?: string;
     name: string;
@@ -3280,7 +3284,7 @@ export interface ClientObject {
     driverLicense?: null | string;
     email?: string[];
     fromSms?: FromSms;
-    middle_name?: string;
+    middle_name?: null | string;
     name: string;
     phone: Phone;
     sex?: Sex;
@@ -3288,9 +3292,6 @@ export interface ClientObject {
     taxiPark?: null | string;
     taxiParkMemberCount?: OrderWeight;
 }
-export declare type Birthday = {
-    [key: string]: any;
-} | string;
 export declare type FromSms = boolean | string;
 export interface ParamsProfile {
     /**
@@ -3377,6 +3378,7 @@ export interface ClientFindOrCreateClientRequest {
  */
 export interface ClientFindOrCreateClientRequestParams {
     business: MagentaBusiness;
+    client?: ClientObject;
     network?: FluffyNetwork;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;

@@ -17,12 +17,16 @@
             "type": "string"
         },
         "middle_name": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "birthday": {
             "type": [
                 "string",
-                "object"
+                "object",
+                "null"
             ]
         },
         "phone": {
@@ -44,6 +48,7 @@
         "sex": {
             "type": "string",
             "enum": [
+                "",
                 "MALE",
                 "FEMALE",
                 "NOT_SPECIFIED"

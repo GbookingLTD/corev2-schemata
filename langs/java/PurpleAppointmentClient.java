@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 public class PurpleAppointmentClient {
     private String address;
     private String adminComment;
-    private String birthday;
+    private Birthday birthday;
     private String clientCardNumber;
     private String clientComment;
     private String creatorProfileID;
@@ -52,9 +52,9 @@ public class PurpleAppointmentClient {
     public void setAdminComment(String value) { this.adminComment = value; }
 
     @JsonProperty("birthday")
-    public String getBirthday() { return birthday; }
+    public Birthday getBirthday() { return birthday; }
     @JsonProperty("birthday")
-    public void setBirthday(String value) { this.birthday = value; }
+    public void setBirthday(Birthday value) { this.birthday = value; }
 
     @JsonProperty("clientCardNumber")
     public String getClientCardNumber() { return clientCardNumber; }

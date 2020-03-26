@@ -310,39 +310,39 @@ type AdditionalClientUtm struct {
 }
 
 type AdditionalClientElement struct {
-	Address             *string                    `json:"address,omitempty"`            
-	AdminComment        *string                    `json:"adminComment,omitempty"`       
-	Birthday            *string                    `json:"birthday,omitempty"`           
-	ClientCardNumber    *string                    `json:"clientCardNumber,omitempty"`   
-	ClientComment       *string                    `json:"clientComment,omitempty"`      
-	CreatorProfileID    *string                    `json:"creatorProfileID,omitempty"`   
-	CreatorProfileName  *string                    `json:"creatorProfileName,omitempty"` 
-	DriverLicense       *string                    `json:"driverLicense,omitempty"`      
-	Email               []string                   `json:"email"`                        
-	ExtraData           map[string]interface{}     `json:"extraData,omitempty"`          
-	ExtraID             *string                    `json:"extraID,omitempty"`            
-	ExtraVisitors       *float64                   `json:"extraVisitors,omitempty"`      
-	Fax                 *string                    `json:"fax,omitempty"`                
-	Feedback            *AppointmentClientFeedback `json:"feedback,omitempty"`           
-	GAClientID          *string                    `json:"GAClientID,omitempty"`         
-	HouseNumber         *string                    `json:"houseNumber,omitempty"`        
-	ID                  string                     `json:"id"`                           
-	IncomingPhone       []IncomingPhoneElement     `json:"incomingPhone"`                
-	IsraelCity          *IsraelCity                `json:"israelCity,omitempty"`         
-	IsVIP               *bool                      `json:"isVIP,omitempty"`              
-	KupatHolim          *KupatHolim                `json:"kupatHolim,omitempty"`         
-	Language            *string                    `json:"language,omitempty"`           
-	MiddleName          *string                    `json:"middleName,omitempty"`         
-	Name                string                     `json:"name"`                         
-	PassportID          *string                    `json:"passportId,omitempty"`         
-	Phone               []IncomingPhoneElement     `json:"phone"`                        
-	SeasonTicketID      *string                    `json:"seasonTicketId,omitempty"`     
-	SeasonTicketNumber  *string                    `json:"seasonTicketNumber,omitempty"` 
-	Sex                 *Sex                       `json:"sex,omitempty"`                
-	ShortID             *string                    `json:"shortId,omitempty"`            
-	Surname             string                     `json:"surname"`                      
-	TaxiPark            *string                    `json:"taxiPark,omitempty"`           
-	TaxiParkMemberCount *float64                   `json:"taxiParkMemberCount,omitempty"`
+	Address             *string                    `json:"address"`                
+	AdminComment        *string                    `json:"adminComment"`           
+	Birthday            *Birthday                  `json:"birthday"`               
+	ClientCardNumber    *string                    `json:"clientCardNumber"`       
+	ClientComment       *string                    `json:"clientComment"`          
+	CreatorProfileID    *string                    `json:"creatorProfileID"`       
+	CreatorProfileName  *string                    `json:"creatorProfileName"`     
+	DriverLicense       *string                    `json:"driverLicense"`          
+	Email               []string                   `json:"email"`                  
+	ExtraData           map[string]interface{}     `json:"extraData,omitempty"`    
+	ExtraID             *string                    `json:"extraID"`                
+	ExtraVisitors       *float64                   `json:"extraVisitors,omitempty"`
+	Fax                 *string                    `json:"fax"`                    
+	Feedback            *AppointmentClientFeedback `json:"feedback,omitempty"`     
+	GAClientID          *string                    `json:"GAClientID"`             
+	HouseNumber         *string                    `json:"houseNumber"`            
+	ID                  string                     `json:"id"`                     
+	IncomingPhone       []IncomingPhoneElement     `json:"incomingPhone"`          
+	IsraelCity          *IsraelCity                `json:"israelCity"`             
+	IsVIP               *bool                      `json:"isVIP,omitempty"`        
+	KupatHolim          *KupatHolim                `json:"kupatHolim"`             
+	Language            *string                    `json:"language,omitempty"`     
+	MiddleName          *string                    `json:"middleName"`             
+	Name                string                     `json:"name"`                   
+	PassportID          *string                    `json:"passportId"`             
+	Phone               []IncomingPhoneElement     `json:"phone"`                  
+	SeasonTicketID      *string                    `json:"seasonTicketId"`         
+	SeasonTicketNumber  *string                    `json:"seasonTicketNumber"`     
+	Sex                 *Sex                       `json:"sex,omitempty"`          
+	ShortID             *string                    `json:"shortId,omitempty"`      
+	Surname             string                     `json:"surname"`                
+	TaxiPark            *string                    `json:"taxiPark"`               
+	TaxiParkMemberCount *float64                   `json:"taxiParkMemberCount"`    
 }
 
 type AppointmentClientFeedback struct {
@@ -415,7 +415,7 @@ type AppointmentInfo struct {
 }
 
 type IntegrationData struct {
-	ExtraID string `json:"extraId"`
+	ExtraID *string `json:"extraId"`
 }
 
 type Price struct {
@@ -425,7 +425,7 @@ type Price struct {
 	Discount                   *float64                     `json:"discount,omitempty"`        
 	DiscountProvider           *DiscountProvider            `json:"discountProvider,omitempty"`
 	DiscountType               *string                      `json:"discountType,omitempty"`    
-	OriginalAmount             *float64                     `json:"originalAmount,omitempty"`  
+	OriginalAmount             *float64                     `json:"originalAmount"`            
 }
 
 type AdditionalTaxonomyDiscount struct {
@@ -445,43 +445,43 @@ type Cabinet struct {
 
 // пустой объект в момент резервирования
 type PurpleAppointmentClient struct {
-	Address             *string                    `json:"address,omitempty"`            
-	AdminComment        *string                    `json:"adminComment,omitempty"`       
-	Birthday            *string                    `json:"birthday,omitempty"`           
-	ClientCardNumber    *string                    `json:"clientCardNumber,omitempty"`   
-	ClientComment       *string                    `json:"clientComment,omitempty"`      
-	CreatorProfileID    *string                    `json:"creatorProfileID,omitempty"`   
-	CreatorProfileName  *string                    `json:"creatorProfileName,omitempty"` 
-	DriverLicense       *string                    `json:"driverLicense,omitempty"`      
-	Email               []string                   `json:"email"`                        
-	ExtraData           map[string]interface{}     `json:"extraData,omitempty"`          
-	ExtraID             *string                    `json:"extraID,omitempty"`            
-	ExtraVisitors       *float64                   `json:"extraVisitors,omitempty"`      
-	Fax                 *string                    `json:"fax,omitempty"`                
-	Feedback            *AppointmentClientFeedback `json:"feedback,omitempty"`           
-	GAClientID          *string                    `json:"GAClientID,omitempty"`         
-	HouseNumber         *string                    `json:"houseNumber,omitempty"`        
-	ID                  *string                    `json:"id,omitempty"`                 
-	IncomingPhone       []IncomingPhoneElement     `json:"incomingPhone"`                
-	IsraelCity          *IsraelCity                `json:"israelCity,omitempty"`         
-	IsVIP               *bool                      `json:"isVIP,omitempty"`              
-	KupatHolim          *KupatHolim                `json:"kupatHolim,omitempty"`         
-	Language            *string                    `json:"language,omitempty"`           
-	MiddleName          *string                    `json:"middleName,omitempty"`         
-	Name                *string                    `json:"name,omitempty"`               
-	PassportID          *string                    `json:"passportId,omitempty"`         
-	Phone               []IncomingPhoneElement     `json:"phone"`                        
-	SeasonTicketID      *string                    `json:"seasonTicketId,omitempty"`     
-	SeasonTicketNumber  *string                    `json:"seasonTicketNumber,omitempty"` 
-	Sex                 *Sex                       `json:"sex,omitempty"`                
-	ShortID             *string                    `json:"shortId,omitempty"`            
-	Surname             *string                    `json:"surname,omitempty"`            
-	TaxiPark            *string                    `json:"taxiPark,omitempty"`           
-	TaxiParkMemberCount *float64                   `json:"taxiParkMemberCount,omitempty"`
+	Address             *string                    `json:"address"`                
+	AdminComment        *string                    `json:"adminComment"`           
+	Birthday            *Birthday                  `json:"birthday"`               
+	ClientCardNumber    *string                    `json:"clientCardNumber"`       
+	ClientComment       *string                    `json:"clientComment"`          
+	CreatorProfileID    *string                    `json:"creatorProfileID"`       
+	CreatorProfileName  *string                    `json:"creatorProfileName"`     
+	DriverLicense       *string                    `json:"driverLicense"`          
+	Email               []string                   `json:"email"`                  
+	ExtraData           map[string]interface{}     `json:"extraData,omitempty"`    
+	ExtraID             *string                    `json:"extraID"`                
+	ExtraVisitors       *float64                   `json:"extraVisitors,omitempty"`
+	Fax                 *string                    `json:"fax"`                    
+	Feedback            *AppointmentClientFeedback `json:"feedback,omitempty"`     
+	GAClientID          *string                    `json:"GAClientID"`             
+	HouseNumber         *string                    `json:"houseNumber"`            
+	ID                  *string                    `json:"id,omitempty"`           
+	IncomingPhone       []IncomingPhoneElement     `json:"incomingPhone"`          
+	IsraelCity          *IsraelCity                `json:"israelCity"`             
+	IsVIP               *bool                      `json:"isVIP,omitempty"`        
+	KupatHolim          *KupatHolim                `json:"kupatHolim"`             
+	Language            *string                    `json:"language,omitempty"`     
+	MiddleName          *string                    `json:"middleName"`             
+	Name                *string                    `json:"name,omitempty"`         
+	PassportID          *string                    `json:"passportId"`             
+	Phone               []IncomingPhoneElement     `json:"phone"`                  
+	SeasonTicketID      *string                    `json:"seasonTicketId"`         
+	SeasonTicketNumber  *string                    `json:"seasonTicketNumber"`     
+	Sex                 *Sex                       `json:"sex,omitempty"`          
+	ShortID             *string                    `json:"shortId,omitempty"`      
+	Surname             *string                    `json:"surname,omitempty"`      
+	TaxiPark            *string                    `json:"taxiPark"`               
+	TaxiParkMemberCount *float64                   `json:"taxiParkMemberCount"`    
 }
 
 type AppointmentClientVisitor struct {
-	Birthday        *string                `json:"birthday,omitempty"`       
+	Birthday        *Birthday              `json:"birthday"`                 
 	Email           []string               `json:"email"`                    
 	ExtraVisitors   *float64               `json:"extraVisitors,omitempty"`  
 	Name            *string                `json:"name,omitempty"`           
@@ -516,7 +516,7 @@ type RemovedClientsDatum struct {
 }
 
 type AppointmentResource struct {
-	ExtraID    *string `json:"extraID,omitempty"`   
+	ExtraID    *string `json:"extraID"`             
 	ID         string  `json:"id"`                  
 	MiddleName *string `json:"middleName,omitempty"`
 	Name       string  `json:"name"`                
@@ -1070,7 +1070,7 @@ type AddressClass struct {
 	AdminAreaType    *string              `json:"admin_area_type,omitempty"`    
 	Building         *string              `json:"building,omitempty"`           
 	Corps            *string              `json:"corps,omitempty"`              
-	Country          Country              `json:"country"`                      
+	Country          CountryEnum          `json:"country"`                      
 	Group            *string              `json:"group,omitempty"`              
 	HouseAdd         *string              `json:"house_add,omitempty"`          
 	Kilometer        *string              `json:"kilometer,omitempty"`          
@@ -2155,7 +2155,7 @@ type AddressCamelCaseSchema struct {
 	AdminAreaType    *string              `json:"adminAreaType,omitempty"`   
 	Building         *string              `json:"building,omitempty"`        
 	Corps            *string              `json:"corps,omitempty"`           
-	Country          Country              `json:"country"`                   
+	Country          CountryEnum          `json:"country"`                   
 	Group            *string              `json:"group,omitempty"`           
 	HouseAdd         *string              `json:"houseAdd,omitempty"`        
 	Kilometer        *string              `json:"kilometer,omitempty"`       
@@ -2221,19 +2221,19 @@ type AmbitiousBusiness struct {
 
 // Данные клиента
 type ClientClass struct {
-	Birthday            *Birthday    `json:"birthday"`             
-	CreatorProfileID    *string      `json:"creatorProfileID"`     
-	CreatorProfileName  *string      `json:"creatorProfileName"`   
-	DriverLicense       *string      `json:"driverLicense"`        
-	Email               []string     `json:"email"`                
-	FromSMS             *FromSMS     `json:"fromSms"`              
-	MiddleName          *string      `json:"middle_name,omitempty"`
-	Name                string       `json:"name"`                 
-	Phone               *Phone       `json:"phone"`                
-	Sex                 *Sex         `json:"sex,omitempty"`        
-	Surname             string       `json:"surname"`              
-	TaxiPark            *string      `json:"taxiPark"`             
-	TaxiParkMemberCount *OrderWeight `json:"taxiParkMemberCount"`  
+	Birthday            *Birthday    `json:"birthday"`           
+	CreatorProfileID    *string      `json:"creatorProfileID"`   
+	CreatorProfileName  *string      `json:"creatorProfileName"` 
+	DriverLicense       *string      `json:"driverLicense"`      
+	Email               []string     `json:"email"`              
+	FromSMS             *FromSMS     `json:"fromSms"`            
+	MiddleName          *string      `json:"middle_name"`        
+	Name                string       `json:"name"`               
+	Phone               *Phone       `json:"phone"`              
+	Sex                 *Sex         `json:"sex,omitempty"`      
+	Surname             string       `json:"surname"`            
+	TaxiPark            *string      `json:"taxiPark"`           
+	TaxiParkMemberCount *OrderWeight `json:"taxiParkMemberCount"`
 }
 
 type ParamsProfile struct {
@@ -2287,6 +2287,7 @@ type ClientFindOrCreateClientRequest struct {
 // параметры запроса
 type ClientFindOrCreateClientRequestParams struct {
 	Business          MagentaBusiness `json:"business"`                   
+	Client            *ClientClass    `json:"client,omitempty"`           
 	Network           *FluffyNetwork  `json:"network,omitempty"`          
 	SkipEmailCheck    *bool           `json:"skipEmailCheck,omitempty"`   
 	SkipProfileUpdate *bool           `json:"skipProfileUpdate,omitempty"`
@@ -2785,6 +2786,7 @@ const (
 
 type Sex string
 const (
+	Empty Sex = ""
 	Female Sex = "FEMALE"
 	Male Sex = "MALE"
 	NotSpecified Sex = "NOT_SPECIFIED"
@@ -2899,28 +2901,28 @@ const (
 	Mu BackofficeType = "MU"
 )
 
-type Country string
+type CountryEnum string
 const (
-	Am Country = "AM"
-	Blr Country = "BLR"
-	Ch Country = "CH"
-	De Country = "DE"
-	Empty Country = "_"
-	Es Country = "ES"
-	Fi Country = "FI"
-	Fr Country = "FR"
-	Ge Country = "GE"
-	Hu Country = "HU"
-	IL Country = "IL"
-	Kz Country = "KZ"
-	LV Country = "LV"
-	Li Country = "LI"
-	Lt Country = "LT"
-	Ru Country = "RU"
-	Ua Country = "UA"
-	Uk Country = "UK"
-	Us Country = "US"
-	Uz Country = "UZ"
+	Am CountryEnum = "AM"
+	Blr CountryEnum = "BLR"
+	Ch CountryEnum = "CH"
+	Country CountryEnum = "_"
+	De CountryEnum = "DE"
+	Es CountryEnum = "ES"
+	Fi CountryEnum = "FI"
+	Fr CountryEnum = "FR"
+	Ge CountryEnum = "GE"
+	Hu CountryEnum = "HU"
+	IL CountryEnum = "IL"
+	Kz CountryEnum = "KZ"
+	LV CountryEnum = "LV"
+	Li CountryEnum = "LI"
+	Lt CountryEnum = "LT"
+	Ru CountryEnum = "RU"
+	Ua CountryEnum = "UA"
+	Uk CountryEnum = "UK"
+	Us CountryEnum = "US"
+	Uz CountryEnum = "UZ"
 )
 
 type LanguageList string
@@ -3293,6 +3295,26 @@ func (x *AppointmentElement) MarshalJSON() ([]byte, error) {
 	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.AppointmentSchema != nil, x.AppointmentSchema, false, nil, false, nil, true)
 }
 
+type Birthday struct {
+	AnythingMap map[string]interface{}
+	String      *string
+}
+
+func (x *Birthday) UnmarshalJSON(data []byte) error {
+	x.AnythingMap = nil
+	object, err := unmarshalUnion(data, nil, nil, nil, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *Birthday) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, nil, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
+}
+
 type Value struct {
 	AnythingMap map[string]interface{}
 	Double      *float64
@@ -3570,26 +3592,6 @@ func (x *Address) UnmarshalJSON(data []byte) error {
 
 func (x *Address) MarshalJSON() ([]byte, error) {
 	return marshalUnion(x.Integer, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, x.AddressCamelCaseSchema != nil, x.AddressCamelCaseSchema, false, nil, false, nil, true)
-}
-
-type Birthday struct {
-	AnythingMap map[string]interface{}
-	String      *string
-}
-
-func (x *Birthday) UnmarshalJSON(data []byte) error {
-	x.AnythingMap = nil
-	object, err := unmarshalUnion(data, nil, nil, nil, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, false)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
-}
-
-func (x *Birthday) MarshalJSON() ([]byte, error) {
-	return marshalUnion(nil, nil, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, false)
 }
 
 type FromSMS struct {
