@@ -822,14 +822,11 @@
                     "type": "number",
                     "default": 25
                 },
-                "scheduleDefaultWorkersLimitView": {
-                    "type": "string",
-                    "enum": [
-                        "DAY",
-                        "WEEK",
-                        "DAY_WEEK"
-                    ],
-                    "default": "DAY_WEEK"
+                "scheduleDefaultWorkersLimitDay": {
+                    "type": "number"
+                },
+                "scheduleDefaultWorkersLimitWeek": {
+                    "type": "number"
                 },
                 "resourceTimetableType": {
                     "type": "string",
