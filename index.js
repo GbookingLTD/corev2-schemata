@@ -126,6 +126,9 @@ exports.loadMethodSchema = function(ajv, controller, method) {
     let validate = ajv.compile(jsonSchema);
     if (!validate) throw new Error('json-schema for ' + controller + '/' + method + ' can\'t be compiled');
     return controllerSchemas[controller][method] = validate;
+  }).catch(function(err) {
+    err.filePath = schemaControllersDir + '/' + controller + '/' + method + '.yaml';
+    throw err;
   });
 };
 
