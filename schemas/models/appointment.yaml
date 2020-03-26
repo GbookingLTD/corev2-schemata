@@ -28,7 +28,7 @@ definitions:
       middleName:
         type: "string"
       extraID:
-        type: "string"
+        type: ["string", "null"]
 
   CamelPhone:
     type: "object"
@@ -163,30 +163,31 @@ definitions:
       surname:
         type: "string"
       middleName:
-        type: "string"
+        type: ["string", "null"]
       extraID:
-        type: "string"
+        type: ["string", "null"]
       sex:
         type: "string"
-        enum: ['MALE','FEMALE','NOT_SPECIFIED']
+        enum: ['', 'MALE','FEMALE','NOT_SPECIFIED']
       email:
         type: "array"
         items:
           type: "string"
       passportId:
-        type: "string"
+        type: ["string", "null"]
       clientCardNumber:
-        type: "string"
+        type: ["string", "null"]
       fax:
-        type: "string"
+        type: ["string", "null"]
       birthday:
-        type: "string"
+        type: ["string", "object", "null"]
       address:
-        type: "string"
+        type: ["string", "null"]
       houseNumber:
-        type: "string"
+        type: ["string", "null"]
       israelCity:
         oneOf:
+        - type: "null"
         - type: "object"
           additionalProperties: false
           required: []
@@ -201,6 +202,7 @@ definitions:
               type: "string"
       kupatHolim:
         oneOf:
+        - type: "null"
         - type: "object"
           additionalProperties: false
           required: []
@@ -216,27 +218,27 @@ definitions:
       isVIP:
         type: "boolean"
       clientComment:
-        type: "string"
+        type: ["string", "null"]
       adminComment:
-        type: "string"
+        type: ["string", "null"]
       seasonTicketId:
-        type: "string"
+        type: ["string", "null"]
       seasonTicketNumber:
-        type: "string"
+        type: ["string", "null"]
       creatorProfileID:
-        type: "string"
+        type: ["string", "null"]
       creatorProfileName:
-        type: "string"
+        type: ["string", "null"]
       driverLicense:
-        type: "string"
+        type: ["string", "null"]
       taxiPark:
-        type: "string"
+        type: ["string", "null"]
       taxiParkMemberCount:
-        type: "number"
+        type: ["number", "null"]
       language:
         type: "string"
       GAClientID:
-        type: "string"
+        type: ["string", "null"]
       extraVisitors:
         type: "number"
       incomingPhone:
@@ -265,7 +267,7 @@ definitions:
       amount:
         type: "number"
       originalAmount:
-        type: "number"
+        type: ["number", "null"]
       discount:
         type: "number"
       discountType:
@@ -353,11 +355,11 @@ definitions:
         required: ["extraId"]
         properties:
           extraId:
-            type: "string"
+            type: ["string", "null"]
 
   AppointmentClientVisitor:           
     type: "object"
-    additionalProperties: false
+    additionalProperties: true
     properties:
       parentClientID:
         type: "string"
@@ -365,7 +367,7 @@ definitions:
         type: "string"
       sex:
         type: "string"
-        enum: ['MALE','FEMALE','NOT_SPECIFIED']
+        enum: ['','MALE','FEMALE','NOT_SPECIFIED']
       email:
         type: "array"
         items:
@@ -379,7 +381,7 @@ definitions:
       name:
         type: "string"
       birthday:
-        type: "string"
+        type: ["string", "object", "null"]
 
 required:
   - "appointment"

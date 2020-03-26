@@ -177,7 +177,7 @@ let getAppointmentByStartEnd = function (endpoint, data, cred) {
     return json;
   }).fail(function(err) {
     if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
-      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      console.info('<--! ' + pref, JSON.stringify(err.data)); //, JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
     } else {
@@ -227,7 +227,7 @@ let getAppointmentByCreated = function (endpoint, data, cred) {
     return json;
   }).fail(function(err) {
     if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
-      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      console.info('<--! ' + pref, JSON.stringify(err.data)); //, JSON.stringify(err.xtra));
       _validateRes('<--! ' + pref, err.xtra);
       return err.xtra;
     } else {
@@ -325,7 +325,7 @@ let clientConfirmAppointment = function(endpoint, appointmentId, clientId, phone
     _validateReq('---> ' + pref, rpcRequestObject('appointment.client_confirm_appointment', params, {}));
     return rpcRequest('appointment.client_confirm_appointment', params, {}, endpoint);
   }).then(function(json) {
-    console.info('<--- ' + pref + ' %j', json);
+    //console.info('<--- ' + pref + ' %j', json);
     _validateRes('<--- ' + pref, json);
     return json;
   }).fail(function(err) {
@@ -353,7 +353,7 @@ let cancelAppointmentByClient = function(endpoint, appointmentId, shortId) {
     _validateReq('---> ' + pref, rpcRequestObject('appointment.cancel_appointment_by_client', params, {}));
     return rpcRequest('appointment.cancel_appointment_by_client', params, {}, endpoint);
   }).then(function(json) {
-    console.info('<--- ' + pref + ' %j', json);
+    //console.info('<--- ' + pref + ' %j', json);
     _validateRes('<--- ' + pref, json);
     return json;
   }).fail(function(err) {

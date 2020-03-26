@@ -12,7 +12,7 @@ properties:
   middle_name:
     type: "string"
   birthday:
-    type: ["string", "object"]
+    type: ["string", "object", "null"]
   phone:
     $ref: "./phone.schema.json"
   email:
@@ -24,7 +24,7 @@ properties:
     default: false
   sex:
     type: "string"
-    enum: ["MALE", "FEMALE", "NOT_SPECIFIED"]
+    enum: ['',"MALE", "FEMALE", "NOT_SPECIFIED"]
 
   # Я.Такси
   creatorProfileID:

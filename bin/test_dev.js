@@ -15,7 +15,7 @@ const Q = require('q')
     , clientRemoveEmptyAppointment = require('./test').clientRemoveEmptyAppointment
 ;
 
-const dateTimeRangeIterator = new time.DateTimeRangeIterator(time.oneWeekLater, new time.DayMinutesIterator(
+const dateTimeRangeIterator = new time.DateTimeRangeIterator(time.twoWeeksLater, new time.DayMinutesIterator(
     13 * time.TimeMinutes.Hour,
     21 * time.TimeMinutes.Hour,
     1.5 * time.TimeMinutes.Hour
