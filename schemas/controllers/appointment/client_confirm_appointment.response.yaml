@@ -24,7 +24,6 @@ definitions:
                   - -10200
                   - -11800
                   - -14100
-                  - -14308
                   - -14500
                   - -14600
                   - -14610
@@ -46,7 +45,6 @@ definitions:
                   -10200: "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business"
                   -11800: "CLIENT_IN_BLACKLIST - Client in blacklist"
                   -14100: "APPOINTMENT_CREATE_FAILED - Failed to create appointment"
-                  -14308: "APPOINTMENT_MIS_CONFIRM_FAILED - MIS failed to confirm appointment"
                   -14500: "APPOINTMENT_DATA_MISSING - Appointment data missing"
                   -14600: "APPOINTMENT_RESOURCE_TAXONOMY_MISMATCH - Selected resource cannot supply requested service"
                   -14610: "APPOINTMENT_RESOURCE_TAXONOMY_UNAVAILABLE - Selected resource no longer provides requested service"
