@@ -9975,20 +9975,20 @@ class MagentaBusiness:
 
 class FluffyNetwork:
     """идентификатор нетворка"""
-    id: Union[float, str]
+    id: Union[float, None, str]
 
-    def __init__(self, id: Union[float, str]) -> None:
+    def __init__(self, id: Union[float, None, str]) -> None:
         self.id = id
 
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyNetwork':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str], obj.get("id"))
+        id = from_union([from_float, from_str, from_none], obj.get("id"))
         return FluffyNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str], self.id)
+        result["id"] = from_union([to_float, from_str, from_none], self.id)
         return result
 
 

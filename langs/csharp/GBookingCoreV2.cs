@@ -6380,8 +6380,8 @@ namespace GBookingCoreV2
         /// <summary>
         /// идентификатор нетворка
         /// </summary>
-        [JsonProperty("id")]
-        public BackofficeIdUnion Id { get; set; }
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeIdUnion? Id { get; set; }
     }
 
     public partial class ClientFindOfCreateClientResponse

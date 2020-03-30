@@ -2523,7 +2523,7 @@ var typeMap = {
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "FluffyNetwork": o([
-        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
     "ClientFindOfCreateClientResponse": o([
         { json: "result", js: "result", typ: u(undefined, r("ClientFindOfCreateClientResponseResult")) },

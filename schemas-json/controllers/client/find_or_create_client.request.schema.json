@@ -40,9 +40,7 @@
                         "network": {
                             "type": "object",
                             "additionalProperties": false,
-                            "required": [
-                                "id"
-                            ],
+                            "required": [],
                             "properties": {
                                 "id": {
                                     "type": [

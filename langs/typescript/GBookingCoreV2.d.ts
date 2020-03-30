@@ -3393,7 +3393,7 @@ export interface FluffyNetwork {
     /**
      * идентификатор нетворка
      */
-    id: BackofficeIdUnion;
+    id?: BackofficeIdUnion;
 }
 export interface ClientFindOfCreateClientResponse {
     result?: ClientFindOfCreateClientResponseResult;

@@ -4,13 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyNetwork {
-    private PurpleTimeFrameDate id;
+    private FluffyTimeFrameDate id;
 
     /**
      * идентификатор нетворка
      */
     @JsonProperty("id")
-    public PurpleTimeFrameDate getID() { return id; }
+    public FluffyTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleTimeFrameDate value) { this.id = value; }
+    public void setID(FluffyTimeFrameDate value) { this.id = value; }
 }

@@ -95,9 +95,9 @@ Unknown type `string,number`.
 
 `object` with following properties:
 
-| Property | Type          | Required     |
-| -------- | ------------- | ------------ |
-| `id`     | string,number | **Required** |
+| Property | Type          | Required |
+| -------- | ------------- | -------- |
+| `id`     | string,number | Optional |
 
 #### id
 
@@ -105,7 +105,7 @@ Unknown type `string,number`.
 
 `id`
 
-- is **required**
+- is optional
 - type: multiple
 
 ##### id Type
