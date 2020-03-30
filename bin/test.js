@@ -138,6 +138,34 @@ let findOrCreateClient = function (endpoint, data, cred) {
   });
 };
 
+let findOrCreateEmptyClient = function (endpoint, data, cred) {
+  var params = {
+    "business": {"id": ''+data.business.id},
+    "network": {}
+  };
+
+  let pref = 'client.find_or_create_client: ' + data.business.id + '_empty';
+
+  let _validateReq = getValidateRequest('client', 'find_or_create_client');
+  let _validateRes = getValidateResponse('client', 'find_or_create_client');
+  return Q.fcall(function() {
+    _validateReq('---> ' + pref, rpcRequestObject('client.find_or_create_client', params, {}));
+    return rpcRequest('client.find_or_create_client', params, cred, endpoint);
+  }).then(function(json) {
+    // console.info('<--- ' + pref + ' %j', json);
+    _validateRes('<--- ' + pref, json)
+    return json;
+  }).fail(function(err) {
+    if (err.code === -32700 && (err.xtra && !err.xtra.method)) {
+      console.info('<--! ' + pref, JSON.stringify(err.data), JSON.stringify(err.xtra));
+      _validateRes('<--! ' + pref, err.xtra);
+      return err.xtra;
+    } else {
+      console.error(pref + ' - fail %j', err);
+    }
+  });
+};
+
 let getAppointmentByStartEnd = function (endpoint, data, cred) {
   var params = {
     "business": {
@@ -627,6 +655,7 @@ module.exports = function(fn) {
 module.exports.getProfileByID = getProfileByID;
 module.exports.addClient = addClient;
 module.exports.findOrCreateClient = findOrCreateClient;
+module.exports.findOrCreateEmptyClient = findOrCreateEmptyClient;
 module.exports.clientConfirmAppointment = clientConfirmAppointment;
 module.exports.cancelAppointmentByClient = cancelAppointmentByClient;
 module.exports.getAppointmentByStartEnd = getAppointmentByStartEnd;

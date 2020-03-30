@@ -4,6 +4,7 @@ const Q = require('q')
     , getProfileByID = require('./test').getProfileByID
     , getNetworkData = require('./test').getNetworkData
     , getNetworkDataWithBusinessInfo = require('./test').getNetworkDataWithBusinessInfo
+    , findOrCreateEmptyClient = require('./test').findOrCreateEmptyClient
     , getAppointmentByStartEnd = require('./test').getAppointmentByStartEnd
     , getAppointmentByCreated = require('./test').getAppointmentByCreated
     , CRAC = require('./test').CRAC
@@ -51,6 +52,16 @@ require('./test')(function() {
       }, {
         token: "34ea0c4f0ff1900f7d4d6aaf3fc7a81481c9b1ce",
         user: "58518501b197d3186a0eaf86"
+      }),
+    ].forEach((p) => {requests.push(p)});
+
+  if (process.argv.length === 2 || process.argv[2] === 'client')
+    [
+      findOrCreateEmptyClient(process.env.ENDPOINT, {
+        business: { id:4000000006411 }
+      }, {
+        token: "1cb6fa911cb46fd7dc748d2e8d5a056ebf8cb051",
+        user: "58b82e122ce1ea62096cc76c"
       }),
     ].forEach((p) => {requests.push(p)});
 
