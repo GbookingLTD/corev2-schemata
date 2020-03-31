@@ -15,7 +15,7 @@ public class ClientClass {
     private FromSMS fromSMS;
     private String middleName;
     private String name;
-    private Phone phone;
+    private FaxElement phone;
     private Sex sex;
     private String surname;
     private String taxiPark;
@@ -62,9 +62,9 @@ public class ClientClass {
     public void setName(String value) { this.name = value; }
 
     @JsonProperty("phone")
-    public Phone getPhone() { return phone; }
+    public FaxElement getPhone() { return phone; }
     @JsonProperty("phone")
-    public void setPhone(Phone value) { this.phone = value; }
+    public void setPhone(FaxElement value) { this.phone = value; }
 
     @JsonProperty("sex")
     public Sex getSex() { return sex; }

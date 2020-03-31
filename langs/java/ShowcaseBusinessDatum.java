@@ -4,12 +4,12 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class ShowcaseBusinessDatum {
-    private List<AddressElement> address;
+    private List<AddressSchema> address;
     private String email;
     private String internalID;
     private LanguageList language;
     private String name;
-    private List<Phone> phone;
+    private List<FaxElement> phone;
     private List<String> receptionTypes;
     private String timezone;
 
@@ -17,9 +17,9 @@ public class ShowcaseBusinessDatum {
      * Адреса компании или филиала
      */
     @JsonProperty("address")
-    public List<AddressElement> getAddress() { return address; }
+    public List<AddressSchema> getAddress() { return address; }
     @JsonProperty("address")
-    public void setAddress(List<AddressElement> value) { this.address = value; }
+    public void setAddress(List<AddressSchema> value) { this.address = value; }
 
     /**
      * Список e-mail адресов компании или филиала
@@ -51,9 +51,9 @@ public class ShowcaseBusinessDatum {
      * Список телефонов бизнеса
      */
     @JsonProperty("phone")
-    public List<Phone> getPhone() { return phone; }
+    public List<FaxElement> getPhone() { return phone; }
     @JsonProperty("phone")
-    public void setPhone(List<Phone> value) { this.phone = value; }
+    public void setPhone(List<FaxElement> value) { this.phone = value; }
 
     /**
      * Список видов приема филиала

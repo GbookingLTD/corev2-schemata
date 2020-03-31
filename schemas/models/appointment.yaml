@@ -1,6 +1,7 @@
 $schema: "http://json-schema.org/draft-07/schema#"
 $id: "schemas-json/models/appointment.schema.json"
-
+type: "object"
+additionalProperties: false
 definitions:
   AppointmentTaxonomy:
     type: "object"
@@ -413,8 +414,6 @@ required:
   - "additionalClientUtms"
   - "additionalClientPayments"
   - "reminder"
-
-additionalProperties: false
 
 properties:
   appointment:

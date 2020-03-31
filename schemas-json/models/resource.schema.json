@@ -3,6 +3,8 @@
     "$id": "schemas-json/models/resource.schema.json",
     "title": "Resource",
     "description": "Данные о работнике бизнеса",
+    "type": "object",
+    "additionalProperties": false,
     "meta:extensible": true,
     "meta:extends": [
         "./phone.schema.json",
@@ -387,6 +389,5 @@
         "timetable",
         "evenOddTimetable",
         "location"
-    ],
-    "additionalProperties": false
+    ]
 }

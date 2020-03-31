@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 public class BusinessRefInNetwork {
     private String id;
     private String businessID;
-    private BusinessBusiness info;
+    private InfoClass info;
     private boolean isMapBusiness;
     private Double order;
     private List<String> virtualTaxonomies;
@@ -25,9 +25,9 @@ public class BusinessRefInNetwork {
     public void setBusinessID(String value) { this.businessID = value; }
 
     @JsonProperty("info")
-    public BusinessBusiness getInfo() { return info; }
+    public InfoClass getInfo() { return info; }
     @JsonProperty("info")
-    public void setInfo(BusinessBusiness value) { this.info = value; }
+    public void setInfo(InfoClass value) { this.info = value; }
 
     @JsonProperty("isMapBusiness")
     public boolean getIsMapBusiness() { return isMapBusiness; }

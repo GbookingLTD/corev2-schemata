@@ -2,6 +2,8 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "schemas-json/models/businessData.schema.json",
     "title": "Business",
+    "type": "object",
+    "additionalProperties": false,
     "meta:extensible": true,
     "meta:extends": [
         "./phone.schema.json",
@@ -236,7 +238,6 @@
         "widget_configuration",
         "mini_widget_configuration"
     ],
-    "additionalProperties": false,
     "definitions": {
         "Department": {
             "title": "Department",

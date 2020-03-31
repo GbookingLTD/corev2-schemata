@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class Models {
     private AppointmentElement appointment;
-    private ResultBusiness business;
+    private BusinessClass business;
     private ClientClass client;
 
     @JsonProperty("Appointment")
@@ -14,9 +14,9 @@ public class Models {
     public void setAppointment(AppointmentElement value) { this.appointment = value; }
 
     @JsonProperty("Business")
-    public ResultBusiness getBusiness() { return business; }
+    public BusinessClass getBusiness() { return business; }
     @JsonProperty("Business")
-    public void setBusiness(ResultBusiness value) { this.business = value; }
+    public void setBusiness(BusinessClass value) { this.business = value; }
 
     @JsonProperty("Client")
     public ClientClass getClient() { return client; }

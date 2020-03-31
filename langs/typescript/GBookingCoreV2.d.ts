@@ -365,8 +365,7 @@ export interface AppointmentClientConfirmAppointmentResponseError {
 /**
  * данные, передаваемые в ответ
  */
-export declare type AppointmentElement = any[] | boolean | AppointmentSchema | number | number | null | string;
-export interface AppointmentSchema {
+export interface AppointmentElement {
     additional_info?: {
         [key: string]: any;
     };
@@ -745,11 +744,11 @@ export interface AppointmentResource {
     surname: string;
 }
 export interface Review {
-    business: BusinessClass;
-    taxonomy: BusinessClass;
-    worker: BusinessClass;
+    business: TaxonomyClass;
+    taxonomy: TaxonomyClass;
+    worker: TaxonomyClass;
 }
-export interface BusinessClass {
+export interface TaxonomyClass {
     comment?: string;
     rate?: number;
 }
@@ -1050,7 +1049,7 @@ export interface AppointmentReserve {
     appointment: AppointmentObject;
     business: StickyBusiness;
     originBusinessID?: null | string;
-    resource: ResourceClass;
+    resource: ParamsResourceClass;
     source: string;
     taxonomy: ParamsTaxonomyClass;
 }
@@ -1060,7 +1059,7 @@ export interface AppointmentObject {
 export interface StickyBusiness {
     id: string;
 }
-export interface ResourceClass {
+export interface ParamsResourceClass {
     id: ResourceId;
 }
 export declare type ResourceId = string[] | string;
@@ -1227,13 +1226,12 @@ export interface BusinessGetNetworkDataResponseResult {
 export interface BusinessRefInNetwork {
     _id?: string;
     businessID: string;
-    info?: BusinessBusiness;
+    info?: InfoClass;
     isMapBusiness: boolean;
     order?: number;
     virtualTaxonomies?: string[];
 }
-export declare type BusinessBusiness = any[] | boolean | IndigoBusiness | number | number | null | string;
-export interface IndigoBusiness {
+export interface InfoClass {
     active?: boolean;
     /**
      * колличество активных рабоников, возвращается при вызове через get_network_data при
@@ -1245,18 +1243,18 @@ export interface IndigoBusiness {
      * ключа работника или услуги
      */
     activeTaxonomyCount?: number;
-    additionalSettings?: PurpleAdditionalSettings;
+    additionalSettings?: InfoAdditionalSettings;
     allowCategoryBooking?: boolean;
-    backoffice_configuration?: FluffyBackofficeConfiguration;
-    backofficeConfiguration?: PurpleBackofficeConfiguration;
+    backoffice_configuration?: InfoBackofficeConfigurationObject;
+    backofficeConfiguration?: InfoBackofficeConfiguration;
     backofficeType?: BackofficeType;
-    cabinets?: PurpleCabinet[];
+    cabinets?: InfoCabinet[];
     cabinetsEnabled?: boolean;
-    callback_widget_configuration?: PurpleCallbackWidgetConfiguration;
-    consumables?: PurpleConsumable[];
+    callback_widget_configuration?: InfoCallbackWidgetConfiguration;
+    consumables?: InfoConsumable[];
     created_on?: Date;
     defaultFilteredWorkers?: string[];
-    departments?: PurpleDepartment[];
+    departments?: InfoDepartment[];
     designs?: {
         [key: string]: any;
     }[];
@@ -1268,22 +1266,22 @@ export interface IndigoBusiness {
     integration_data?: {
         [key: string]: any;
     };
-    mini_widget_configuration: PurpleMiniWidgetConfiguration;
+    mini_widget_configuration: InfoMiniWidgetConfiguration;
     mobileData?: any[];
     notifications?: any[];
     resources?: Resource[];
     stateLevelHolidaysNotWorking?: boolean;
-    taxonomies?: PurpleBusinessTaxonomy[];
-    taxonomiesComplex?: PurpleTaxonomiesComplex[];
+    taxonomies?: InfoTaxonomy[];
+    taxonomiesComplex?: InfoTaxonomiesComplex[];
     taxonomy_tree_capacity?: {
         [key: string]: any;
     }[];
-    top_services?: PurpleTopServices;
+    top_services?: InfoTopServices;
     vertical?: string;
-    widget_configuration: PurpleWidgetConfiguration;
+    widget_configuration: InfoWidgetConfiguration;
     yandexFeedType?: string;
 }
-export interface PurpleAdditionalSettings {
+export interface InfoAdditionalSettings {
     appointmentExtensionAmount?: number;
     appointmentExtensionType?: AppointmentExtensionType;
 }
@@ -1291,7 +1289,7 @@ export declare enum AppointmentExtensionType {
     Minutes = "MINUTES",
     Percent = "PERCENT"
 }
-export interface PurpleBackofficeConfiguration {
+export interface InfoBackofficeConfiguration {
     adjacentTaxonomiesTreshold?: number;
     allowHideServiceForBooking?: boolean;
     allowHideWorkersFromSchdeule?: boolean;
@@ -1423,25 +1421,25 @@ export declare enum BackofficeType {
     Mb = "MB",
     Mu = "MU"
 }
-export interface FluffyBackofficeConfiguration {
+export interface InfoBackofficeConfigurationObject {
     enableMasterImportance?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
-export interface PurpleCabinet {
+export interface InfoCabinet {
     active?: boolean;
     id?: string;
     name?: string;
 }
-export interface PurpleCallbackWidgetConfiguration {
+export interface InfoCallbackWidgetConfiguration {
     title1?: string;
     title2?: string;
 }
-export interface PurpleConsumable {
+export interface InfoConsumable {
     extraID: string;
     name: string;
     quantity: number;
 }
-export interface PurpleDepartment {
+export interface InfoDepartment {
     id: string;
     id_?: number;
     name: string;
@@ -1456,7 +1454,7 @@ export interface BusinessInfo {
     /**
      * Адреса компании или филиала
      */
-    address?: AddressElement[];
+    address?: AddressSchema[];
     align_min_booking_time?: boolean | null;
     autoAcceptAppointment?: boolean;
     /**
@@ -1470,7 +1468,7 @@ export interface BusinessInfo {
      * Список e-mail адресов компании или филиала
      */
     email?: string;
-    fax?: Phone[];
+    fax?: FaxElement[];
     images?: string[];
     instant_messaging?: {
         [key: string]: any;
@@ -1487,7 +1485,7 @@ export interface BusinessInfo {
     /**
      * Список телефонов бизнеса
      */
-    mobile?: Phone[];
+    mobile?: FaxElement[];
     /**
      * Название бизнеса
      */
@@ -1498,7 +1496,7 @@ export interface BusinessInfo {
     /**
      * Список телефонов бизнеса
      */
-    phone?: Phone[];
+    phone?: FaxElement[];
     phone_mask?: null | string;
     pricingType?: PricingType;
     revisionVersion?: number;
@@ -1528,16 +1526,14 @@ export interface BusinessInfo {
     verticalTranslation?: VerticalTranslation;
     website?: null | string;
 }
-export declare type AdditionalFields = any[] | boolean | number | number | null | AdditionalFieldsObject | string;
-export interface AdditionalFieldsObject {
+export interface AdditionalFields {
     name: string;
     requiredField: boolean;
     shortName: string;
     type: AdditionalFieldType;
     value: string;
 }
-export declare type AddressElement = any[] | boolean | AddressClass | number | number | null | string;
-export interface AddressClass {
+export interface AddressSchema {
     address?: string;
     address_add?: string;
     admin_area?: string;
@@ -1595,8 +1591,7 @@ export interface PurpleMetroStation {
 export interface BusinessShowcaseAlias {
     internalID?: string;
 }
-export declare type Phone = any[] | boolean | PhoneClass | number | number | null | string;
-export interface PhoneClass {
+export interface FaxElement {
     area_code: string;
     country_code: string;
     number: string;
@@ -1643,7 +1638,7 @@ export interface ShowcaseBusinessDatum {
     /**
      * Адреса компании или филиала
      */
-    address?: AddressElement[];
+    address?: AddressSchema[];
     /**
      * Список e-mail адресов компании или филиала
      */
@@ -1657,7 +1652,7 @@ export interface ShowcaseBusinessDatum {
     /**
      * Список телефонов бизнеса
      */
-    phone?: Phone[];
+    phone?: FaxElement[];
     /**
      * Список видов приема филиала
      */
@@ -1746,7 +1741,7 @@ export declare enum Group {
     Hungarian = "HUNGARIAN",
     Latvian = "LATVIAN"
 }
-export interface PurpleMiniWidgetConfiguration {
+export interface InfoMiniWidgetConfiguration {
     fields?: FieldElement[];
     title1?: string;
     title2?: string;
@@ -1759,8 +1754,7 @@ export declare enum FieldElement {
 /**
  * Данные о работнике бизнеса
  */
-export declare type Resource = any[] | boolean | ResourceResource | number | number | null | string;
-export interface ResourceResource {
+export interface Resource {
     /**
      * информация из внешней информационной системы как есть (при интеграции)
      */
@@ -1881,7 +1875,7 @@ export interface ResourceResource {
      * особый навык
      */
     perk?: string;
-    phone: Phone;
+    phone: FaxElement;
     /**
      * информация о профессии работника, используется в Бекофис
      */
@@ -1979,7 +1973,7 @@ export interface Info {
     /**
      * Адреса компании или филиала
      */
-    address?: AddressElement[];
+    address?: AddressSchema[];
     align_min_booking_time?: boolean | null;
     autoAcceptAppointment?: boolean;
     /**
@@ -1993,7 +1987,7 @@ export interface Info {
      * Список e-mail адресов компании или филиала
      */
     email?: string;
-    fax?: Phone[];
+    fax?: FaxElement[];
     images?: string[];
     instant_messaging?: {
         [key: string]: any;
@@ -2010,7 +2004,7 @@ export interface Info {
     /**
      * Список телефонов бизнеса
      */
-    mobile?: Phone[];
+    mobile?: FaxElement[];
     /**
      * Название бизнеса
      */
@@ -2021,7 +2015,7 @@ export interface Info {
     /**
      * Список телефонов бизнеса
      */
-    phone?: Phone[];
+    phone?: FaxElement[];
     phone_mask?: null | string;
     pricingType?: PricingType;
     revisionVersion?: number;
@@ -2104,7 +2098,7 @@ export interface ResourceTaxonomyLevel {
      */
     level: number;
 }
-export interface PurpleBusinessTaxonomy {
+export interface InfoTaxonomy {
     active?: boolean;
     additionalDurations?: PurpleAdditionalDuration[];
     additionalPrices?: PurpleBusinessTaxonomyPrice[];
@@ -2252,8 +2246,7 @@ export interface PurpleDateLimit {
 /**
  * Информация о скидке
  */
-export declare type Discount = any[] | boolean | DiscountClass | number | number | null | string;
-export interface DiscountClass {
+export interface Discount {
     active?: boolean;
     daysOfWeek?: DaysOfWeek;
     repeats?: Repeats;
@@ -2332,15 +2325,15 @@ export declare enum TaxonomyType {
     Service = "SERVICE",
     Subcategory = "SUBCATEGORY"
 }
-export interface PurpleTaxonomiesComplex {
+export interface InfoTaxonomiesComplex {
     name?: string;
     taxonomies?: string[];
 }
-export interface PurpleTopServices {
+export interface InfoTopServices {
     services?: any[];
     status?: string;
 }
-export interface PurpleWidgetConfiguration {
+export interface InfoWidgetConfiguration {
     additionalName?: string;
     alignmentTaxonomySlots?: boolean;
     allowAutoSelect?: boolean;
@@ -2385,7 +2378,7 @@ export interface PurpleWidgetConfiguration {
     hideNewAppointmentButton?: boolean;
     hidePrices?: boolean;
     hideSocialNetworksAuthentication?: boolean;
-    insuranceClientSupportPhone?: Phone[];
+    insuranceClientSupportPhone?: FaxElement[];
     maxServiceBooking?: number;
     maxTimeslotBooking?: number;
     middleNameSupport?: boolean;
@@ -2549,7 +2542,7 @@ export interface BusinessGetProfileByIdRequest {
  * параметры запроса business.get_profile_by_id
  */
 export interface BusinessGetProfileByIdRequestParams {
-    business: IndecentBusiness;
+    business: IndigoBusiness;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -2610,7 +2603,7 @@ export interface BusinessGetProfileByIdRequestParams {
      */
     worker_sorting_type?: WorkerSortingType;
 }
-export interface IndecentBusiness {
+export interface IndigoBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -2666,7 +2659,7 @@ export interface BusinessGetProfileByIdResponseError {
  */
 export interface BusinessGetProfileByIdResponseResult {
     active?: boolean;
-    business: ResultBusiness;
+    business: BusinessClass;
     freeSms?: number;
     monthlyFreeSms?: number;
     networks?: NetworkElement[];
@@ -2677,21 +2670,20 @@ export interface BusinessGetProfileByIdResponseResult {
     useDefaultSmsTemplate?: boolean;
     yandexFeedType?: YandexFeedType;
 }
-export declare type ResultBusiness = any[] | boolean | HilariousBusiness | number | number | null | string;
-export interface HilariousBusiness {
+export interface BusinessClass {
     active?: boolean;
-    additionalSettings?: FluffyAdditionalSettings;
+    additionalSettings?: BusinessAdditionalSettings;
     allowCategoryBooking?: boolean;
-    backoffice_configuration?: StickyBackofficeConfiguration;
-    backofficeConfiguration?: TentacledBackofficeConfiguration;
+    backoffice_configuration?: BusinessBackofficeConfigurationObject;
+    backofficeConfiguration?: BusinessBackofficeConfiguration;
     backofficeType?: BackofficeType;
-    cabinets?: FluffyCabinet[];
+    cabinets?: BusinessCabinet[];
     cabinetsEnabled?: boolean;
-    callback_widget_configuration?: FluffyCallbackWidgetConfiguration;
-    consumables?: FluffyConsumable[];
+    callback_widget_configuration?: BusinessCallbackWidgetConfiguration;
+    consumables?: BusinessConsumable[];
     created_on?: Date;
     defaultFilteredWorkers?: string[];
-    departments?: FluffyDepartment[];
+    departments?: BusinessDepartment[];
     designs?: {
         [key: string]: any;
     }[];
@@ -2703,26 +2695,26 @@ export interface HilariousBusiness {
     integration_data?: {
         [key: string]: any;
     };
-    mini_widget_configuration: FluffyMiniWidgetConfiguration;
+    mini_widget_configuration: BusinessMiniWidgetConfiguration;
     mobileData?: any[];
     notifications?: any[];
     resources: Resource[];
     stateLevelHolidaysNotWorking?: boolean;
-    taxonomies: FluffyBusinessTaxonomy[];
-    taxonomiesComplex?: FluffyTaxonomiesComplex[];
+    taxonomies: BusinessTaxonomy[];
+    taxonomiesComplex?: BusinessTaxonomiesComplex[];
     taxonomy_tree_capacity?: {
         [key: string]: any;
     }[];
-    top_services?: FluffyTopServices;
+    top_services?: BusinessTopServices;
     vertical?: string;
-    widget_configuration: FluffyWidgetConfiguration;
+    widget_configuration: BusinessWidgetConfiguration;
     yandexFeedType?: string;
 }
-export interface FluffyAdditionalSettings {
+export interface BusinessAdditionalSettings {
     appointmentExtensionAmount?: number;
     appointmentExtensionType?: AppointmentExtensionType;
 }
-export interface TentacledBackofficeConfiguration {
+export interface BusinessBackofficeConfiguration {
     adjacentTaxonomiesTreshold?: number;
     allowHideServiceForBooking?: boolean;
     allowHideWorkersFromSchdeule?: boolean;
@@ -2834,35 +2826,35 @@ export declare enum FluffyPaymentProvider {
     Pelecard = "pelecard",
     YandexMoney = "yandexMoney"
 }
-export interface StickyBackofficeConfiguration {
+export interface BusinessBackofficeConfigurationObject {
     enableMasterImportance?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
-export interface FluffyCabinet {
+export interface BusinessCabinet {
     active?: boolean;
     id?: string;
     name?: string;
 }
-export interface FluffyCallbackWidgetConfiguration {
+export interface BusinessCallbackWidgetConfiguration {
     title1?: string;
     title2?: string;
 }
-export interface FluffyConsumable {
+export interface BusinessConsumable {
     extraID: string;
     name: string;
     quantity: number;
 }
-export interface FluffyDepartment {
+export interface BusinessDepartment {
     id: string;
     id_?: number;
     name: string;
 }
-export interface FluffyMiniWidgetConfiguration {
+export interface BusinessMiniWidgetConfiguration {
     fields?: FieldElement[];
     title1?: string;
     title2?: string;
 }
-export interface FluffyBusinessTaxonomy {
+export interface BusinessTaxonomy {
     active?: boolean;
     additionalDurations?: TentacledAdditionalDuration[];
     additionalPrices?: FluffyBusinessTaxonomyPrice[];
@@ -3030,15 +3022,15 @@ export interface FluffyTaxonomyShowcase {
     originBusinessID?: string;
     showcaseItemID?: string;
 }
-export interface FluffyTaxonomiesComplex {
+export interface BusinessTaxonomiesComplex {
     name?: string;
     taxonomies?: string[];
 }
-export interface FluffyTopServices {
+export interface BusinessTopServices {
     services?: any[];
     status?: string;
 }
-export interface FluffyWidgetConfiguration {
+export interface BusinessWidgetConfiguration {
     additionalName?: string;
     alignmentTaxonomySlots?: boolean;
     allowAutoSelect?: boolean;
@@ -3083,7 +3075,7 @@ export interface FluffyWidgetConfiguration {
     hideNewAppointmentButton?: boolean;
     hidePrices?: boolean;
     hideSocialNetworksAuthentication?: boolean;
-    insuranceClientSupportPhone?: Phone[];
+    insuranceClientSupportPhone?: FaxElement[];
     maxServiceBooking?: number;
     maxTimeslotBooking?: number;
     middleNameSupport?: boolean;
@@ -3184,8 +3176,7 @@ export interface NetworkElement {
     description: string;
     internalID: string;
 }
-export declare type Address = any[] | boolean | AddressCamelCaseSchema | number | number | null | string;
-export interface AddressCamelCaseSchema {
+export interface Address {
     address?: string;
     addressAdd?: string;
     adminArea?: string;
@@ -3262,13 +3253,13 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business: AmbitiousBusiness;
+    business: IndecentBusiness;
     client: ClientObject;
     profile?: ParamsProfile;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface AmbitiousBusiness {
+export interface IndecentBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3286,7 +3277,7 @@ export interface ClientObject {
     fromSms?: FromSms;
     middle_name?: null | string;
     name: string;
-    phone: Phone;
+    phone: FaxElement;
     sex?: Sex;
     surname: string;
     taxiPark?: null | string;
@@ -3336,12 +3327,12 @@ export interface ClientAddClientResponseError {
     message: string;
 }
 export interface ClientAddClientResponseResult {
-    business?: CunningBusiness;
+    business?: HilariousBusiness;
     client: ClientObject;
     documents?: any[];
     profile?: PurpleProfile;
 }
-export interface CunningBusiness {
+export interface HilariousBusiness {
     id: string;
 }
 export interface PurpleProfile {
@@ -3377,13 +3368,13 @@ export interface ClientFindOrCreateClientRequest {
  * параметры запроса
  */
 export interface ClientFindOrCreateClientRequestParams {
-    business: MagentaBusiness;
+    business: AmbitiousBusiness;
     client?: ClientObject;
     network?: FluffyNetwork;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface MagentaBusiness {
+export interface AmbitiousBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3432,12 +3423,12 @@ export interface ClientFindOfCreateClientResponseError {
     message: string;
 }
 export interface ClientFindOfCreateClientResponseResult {
-    business?: FriskyBusiness;
+    business?: CunningBusiness;
     client: ClientObject;
     documents?: any[];
     profile?: FluffyProfile;
 }
-export interface FriskyBusiness {
+export interface CunningBusiness {
     id: string;
 }
 export interface FluffyProfile {
@@ -3478,11 +3469,11 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
     params: CracCracDistributedResourcesFreeByDateRequestParam[];
 }
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business: MischievousBusiness;
+    business: MagentaBusiness;
     resources: string[];
     taxonomy: PurpleTaxonomy;
 }
-export interface MischievousBusiness {
+export interface MagentaBusiness {
     id: string;
 }
 export interface PurpleTaxonomy {
@@ -3635,13 +3626,13 @@ export interface CracCracResourcesFreeByDateV2Request {
     params: CracCracResourcesFreeByDateV2RequestParam[];
 }
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business: BraggadociousBusiness;
+    business: FriskyBusiness;
     duration: number;
     durations: number[];
     resources: string[];
     taxonomy: TentacledTaxonomy;
 }
-export interface BraggadociousBusiness {
+export interface FriskyBusiness {
     id: string;
 }
 export interface TentacledTaxonomy {
@@ -3720,18 +3711,18 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracDistributedResourcesAndRoomsRequestParams {
-    business: Business1;
+    business: MischievousBusiness;
     filters: PurpleFilters;
 }
-export interface Business1 {
+export interface MischievousBusiness {
     general_info: PurpleGeneralInfo;
     id: string;
-    widget_configuration: TentacledWidgetConfiguration;
+    widget_configuration: PurpleWidgetConfiguration;
 }
 export interface PurpleGeneralInfo {
     timezone: string;
 }
-export interface TentacledWidgetConfiguration {
+export interface PurpleWidgetConfiguration {
     cracServer: string;
     mostFreeEnable?: boolean;
 }
@@ -3832,18 +3823,18 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams {
-    business: Business2;
+    business: BraggadociousBusiness;
     filters: FluffyFilters;
 }
-export interface Business2 {
+export interface BraggadociousBusiness {
     general_info: FluffyGeneralInfo;
     id: string;
-    widget_configuration: StickyWidgetConfiguration;
+    widget_configuration: FluffyWidgetConfiguration;
 }
 export interface FluffyGeneralInfo {
     timezone: string;
 }
-export interface StickyWidgetConfiguration {
+export interface FluffyWidgetConfiguration {
     cracServer: string;
     mostFreeEnable?: boolean;
 }
@@ -3938,18 +3929,18 @@ export interface CracSlotsGetCracResourcesAndRoomsRequest {
  * параметры запроса
  */
 export interface CracSlotsGetCracResourcesAndRoomsRequestParams {
-    business: Business3;
+    business: Business1;
     filters: TentacledFilters;
 }
-export interface Business3 {
+export interface Business1 {
     general_info: TentacledGeneralInfo;
     id: string;
-    widget_configuration: IndigoWidgetConfiguration;
+    widget_configuration: TentacledWidgetConfiguration;
 }
 export interface TentacledGeneralInfo {
     timezone: string;
 }
-export interface IndigoWidgetConfiguration {
+export interface TentacledWidgetConfiguration {
     cracServer: string;
     mostFreeEnable?: boolean;
 }
@@ -4016,7 +4007,7 @@ export interface TentacledSlot {
 }
 export interface Models {
     Appointment: AppointmentElement;
-    Business: ResultBusiness;
+    Business: BusinessClass;
     Client: ClientObject;
 }
 export declare class Convert {

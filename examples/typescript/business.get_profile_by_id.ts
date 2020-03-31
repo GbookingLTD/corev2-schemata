@@ -1,4 +1,6 @@
 import * as GBookingCoreV2 from '../../langs/typescript/GBookingCoreV2';
+import {ResultBusiness} from "../../langs/typescript/GBookingCoreV2";
+import {HilariousBusiness} from "../../langs/typescript/GBookingCoreV2";
 
 const fetch = require('node-fetch');
 
@@ -28,12 +30,12 @@ fetch(process.env.ENDPOINT, {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: GBookingCoreV2.Convert.businessGetProfileByIdRequestToJson(req as GBookingCoreV2.BusinessGetProfileByIdRequest)
+    body: JSON.stringify(req as GBookingCoreV2.BusinessGetProfileByIdRequest)
 })
     .then(res => res.text())
     .then(json => {
         // console.info("json %s", json);
-        return GBookingCoreV2.Convert.toBusinessGetProfileByIdResponse(json)
+        return JSON.parse(json) as GBookingCoreV2.BusinessGetProfileByIdResponse
     })
     .then((res: GBookingCoreV2.BusinessGetProfileByIdResponse) => {
         if (res.error) {
@@ -41,6 +43,6 @@ fetch(process.env.ENDPOINT, {
             return;
         }
 
-        const business = res.result.business as GBookingCoreV2.StickyBusiness;
+        const business = res.result.business;
         console.info("business %d %s", business.id, business.general_info.name);
     });

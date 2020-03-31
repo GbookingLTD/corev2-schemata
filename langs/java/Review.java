@@ -4,22 +4,22 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Review {
-    private BusinessClass business;
-    private BusinessClass taxonomy;
-    private BusinessClass worker;
+    private TaxonomyClass business;
+    private TaxonomyClass taxonomy;
+    private TaxonomyClass worker;
 
     @JsonProperty("business")
-    public BusinessClass getBusiness() { return business; }
+    public TaxonomyClass getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(BusinessClass value) { this.business = value; }
+    public void setBusiness(TaxonomyClass value) { this.business = value; }
 
     @JsonProperty("taxonomy")
-    public BusinessClass getTaxonomy() { return taxonomy; }
+    public TaxonomyClass getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
-    public void setTaxonomy(BusinessClass value) { this.taxonomy = value; }
+    public void setTaxonomy(TaxonomyClass value) { this.taxonomy = value; }
 
     @JsonProperty("worker")
-    public BusinessClass getWorker() { return worker; }
+    public TaxonomyClass getWorker() { return worker; }
     @JsonProperty("worker")
-    public void setWorker(BusinessClass value) { this.worker = value; }
+    public void setWorker(TaxonomyClass value) { this.worker = value; }
 }

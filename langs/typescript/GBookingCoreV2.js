@@ -656,7 +656,7 @@ var typeMap = {
     "AppointmentClientConfirmAppointmentResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "")) },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentElement")) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentClientConfirmAppointmentResponseError")) },
     ], false),
     "AppointmentClientConfirmAppointmentResponseError": o([
@@ -664,7 +664,7 @@ var typeMap = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "AppointmentSchema": o([
+    "AppointmentElement": o([
         { json: "additional_info", js: "additional_info", typ: u(undefined, m("any")) },
         { json: "additionalClientAppears", js: "additionalClientAppears", typ: a(r("AdditionalClientAppear")) },
         { json: "additionalClientPayments", js: "additionalClientPayments", typ: a(r("AdditionalClientPayment")) },
@@ -938,11 +938,11 @@ var typeMap = {
         { json: "surname", js: "surname", typ: "" },
     ], false),
     "Review": o([
-        { json: "business", js: "business", typ: r("BusinessClass") },
-        { json: "taxonomy", js: "taxonomy", typ: r("BusinessClass") },
-        { json: "worker", js: "worker", typ: r("BusinessClass") },
+        { json: "business", js: "business", typ: r("TaxonomyClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
+        { json: "worker", js: "worker", typ: r("TaxonomyClass") },
     ], false),
-    "BusinessClass": o([
+    "TaxonomyClass": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "rate", js: "rate", typ: u(undefined, 3.14) },
     ], false),
@@ -1041,7 +1041,7 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentByFilterResponseResult": o([
-        { json: "data", js: "data", typ: a(u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "")) },
+        { json: "data", js: "data", typ: a(r("AppointmentElement")) },
         { json: "page", js: "page", typ: 3.14 },
         { json: "total", js: "total", typ: 3.14 },
         { json: "unconfirmed", js: "unconfirmed", typ: 3.14 },
@@ -1074,7 +1074,7 @@ var typeMap = {
     "AppointmentGetAppointmentByShowcaseResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, a(u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, ""))) },
+        { json: "result", js: "result", typ: u(undefined, a(r("AppointmentElement"))) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentByShowcaseResponseError")) },
     ], false),
     "AppointmentGetAppointmentByShowcaseResponseError": o([
@@ -1097,7 +1097,7 @@ var typeMap = {
         { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
         { json: "business", js: "business", typ: r("StickyBusiness") },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, u(null, "")) },
-        { json: "resource", js: "resource", typ: r("ResourceClass") },
+        { json: "resource", js: "resource", typ: r("ParamsResourceClass") },
         { json: "source", js: "source", typ: "" },
         { json: "taxonomy", js: "taxonomy", typ: r("ParamsTaxonomyClass") },
     ], "any"),
@@ -1107,7 +1107,7 @@ var typeMap = {
     "StickyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "ResourceClass": o([
+    "ParamsResourceClass": o([
         { json: "id", js: "id", typ: u(a(""), "") },
     ], false),
     "ParamsTaxonomyClass": o([
@@ -1116,7 +1116,7 @@ var typeMap = {
     "AppointmentReserveAppointmentResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "")) },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentElement")) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentReserveAppointmentResponseError")) },
     ], false),
     "AppointmentReserveAppointmentResponseError": o([
@@ -1175,27 +1175,27 @@ var typeMap = {
     "BusinessRefInNetwork": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "businessID", js: "businessID", typ: "" },
-        { json: "info", js: "info", typ: u(undefined, u(a("any"), true, r("IndigoBusiness"), 3.14, 0, null, "")) },
+        { json: "info", js: "info", typ: u(undefined, r("InfoClass")) },
         { json: "isMapBusiness", js: "isMapBusiness", typ: true },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "virtualTaxonomies", js: "virtualTaxonomies", typ: u(undefined, a("")) },
     ], false),
-    "IndigoBusiness": o([
+    "InfoClass": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "activeResourceCount", js: "activeResourceCount", typ: u(undefined, 3.14) },
         { json: "activeTaxonomyCount", js: "activeTaxonomyCount", typ: u(undefined, 3.14) },
-        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("PurpleAdditionalSettings")) },
+        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("InfoAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
-        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("FluffyBackofficeConfiguration")) },
-        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("PurpleBackofficeConfiguration")) },
+        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("InfoBackofficeConfigurationObject")) },
+        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("InfoBackofficeConfiguration")) },
         { json: "backofficeType", js: "backofficeType", typ: u(undefined, r("BackofficeType")) },
-        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("PurpleCabinet"))) },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("InfoCabinet"))) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
-        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("PurpleCallbackWidgetConfiguration")) },
-        { json: "consumables", js: "consumables", typ: u(undefined, a(r("PurpleConsumable"))) },
+        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("InfoCallbackWidgetConfiguration")) },
+        { json: "consumables", js: "consumables", typ: u(undefined, a(r("InfoConsumable"))) },
         { json: "created_on", js: "created_on", typ: u(undefined, Date) },
         { json: "defaultFilteredWorkers", js: "defaultFilteredWorkers", typ: u(undefined, a("")) },
-        { json: "departments", js: "departments", typ: u(undefined, a(r("PurpleDepartment"))) },
+        { json: "departments", js: "departments", typ: u(undefined, a(r("InfoDepartment"))) },
         { json: "designs", js: "designs", typ: u(undefined, a(m("any"))) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "flatTaxonomyDisplay", js: "flatTaxonomyDisplay", typ: u(undefined, true) },
@@ -1203,24 +1203,24 @@ var typeMap = {
         { json: "group", js: "group", typ: u(undefined, r("Group")) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "integration_data", js: "integration_data", typ: u(undefined, m("any")) },
-        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("PurpleMiniWidgetConfiguration") },
+        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("InfoMiniWidgetConfiguration") },
         { json: "mobileData", js: "mobileData", typ: u(undefined, a("any")) },
         { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
-        { json: "resources", js: "resources", typ: u(undefined, a(u(a("any"), true, r("ResourceResource"), 3.14, 0, null, ""))) },
+        { json: "resources", js: "resources", typ: u(undefined, a(r("Resource"))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
-        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a(r("PurpleBusinessTaxonomy"))) },
-        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("PurpleTaxonomiesComplex"))) },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a(r("InfoTaxonomy"))) },
+        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("InfoTaxonomiesComplex"))) },
         { json: "taxonomy_tree_capacity", js: "taxonomy_tree_capacity", typ: u(undefined, a(m("any"))) },
-        { json: "top_services", js: "top_services", typ: u(undefined, r("PurpleTopServices")) },
+        { json: "top_services", js: "top_services", typ: u(undefined, r("InfoTopServices")) },
         { json: "vertical", js: "vertical", typ: u(undefined, "") },
-        { json: "widget_configuration", js: "widget_configuration", typ: r("PurpleWidgetConfiguration") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("InfoWidgetConfiguration") },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, "") },
     ], false),
-    "PurpleAdditionalSettings": o([
+    "InfoAdditionalSettings": o([
         { json: "appointmentExtensionAmount", js: "appointmentExtensionAmount", typ: u(undefined, 3.14) },
         { json: "appointmentExtensionType", js: "appointmentExtensionType", typ: u(undefined, r("AppointmentExtensionType")) },
     ], "any"),
-    "PurpleBackofficeConfiguration": o([
+    "InfoBackofficeConfiguration": o([
         { json: "adjacentTaxonomiesTreshold", js: "adjacentTaxonomiesTreshold", typ: u(undefined, 3.14) },
         { json: "allowHideServiceForBooking", js: "allowHideServiceForBooking", typ: u(undefined, true) },
         { json: "allowHideWorkersFromSchdeule", js: "allowHideWorkersFromSchdeule", typ: u(undefined, true) },
@@ -1323,25 +1323,25 @@ var typeMap = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
-    "FluffyBackofficeConfiguration": o([
+    "InfoBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
-    "PurpleCabinet": o([
+    "InfoCabinet": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
-    "PurpleCallbackWidgetConfiguration": o([
+    "InfoCallbackWidgetConfiguration": o([
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
-    "PurpleConsumable": o([
+    "InfoConsumable": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "name", js: "name", typ: "" },
         { json: "quantity", js: "quantity", typ: 3.14 },
     ], "any"),
-    "PurpleDepartment": o([
+    "InfoDepartment": o([
         { json: "id", js: "id", typ: "" },
         { json: "id_", js: "id_", typ: u(undefined, 3.14) },
         { json: "name", js: "name", typ: "" },
@@ -1349,8 +1349,8 @@ var typeMap = {
     "BusinessInfo": o([
         { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
         { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
-        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(u(a("any"), true, 3.14, 0, null, r("AdditionalFieldsObject"), ""))) },
-        { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(r("AdditionalFields"))) },
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
         { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
         { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
         { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
@@ -1358,7 +1358,7 @@ var typeMap = {
         { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "fax", js: "fax", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
         { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
@@ -1367,12 +1367,12 @@ var typeMap = {
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
         { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
-        { json: "mobile", js: "mobile", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
         { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
         { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
         { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
         { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -1392,14 +1392,14 @@ var typeMap = {
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
         { json: "website", js: "website", typ: u(undefined, u(null, "")) },
     ], false),
-    "AdditionalFieldsObject": o([
+    "AdditionalFields": o([
         { json: "name", js: "name", typ: "" },
         { json: "requiredField", js: "requiredField", typ: true },
         { json: "shortName", js: "shortName", typ: "" },
         { json: "type", js: "type", typ: r("AdditionalFieldType") },
         { json: "value", js: "value", typ: "" },
     ], "any"),
-    "AddressClass": o([
+    "AddressSchema": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "address_add", js: "address_add", typ: u(undefined, "") },
         { json: "admin_area", js: "admin_area", typ: u(undefined, "") },
@@ -1435,7 +1435,7 @@ var typeMap = {
     "BusinessShowcaseAlias": o([
         { json: "internalID", js: "internalID", typ: u(undefined, "") },
     ], "any"),
-    "PhoneClass": o([
+    "FaxElement": o([
         { json: "area_code", js: "area_code", typ: "" },
         { json: "country_code", js: "country_code", typ: "" },
         { json: "number", js: "number", typ: "" },
@@ -1451,12 +1451,12 @@ var typeMap = {
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
     "ShowcaseBusinessDatum": o([
-        { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
         { json: "email", js: "email", typ: u(undefined, "") },
         { json: "internalID", js: "internalID", typ: u(undefined, "") },
         { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
         { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "timezone", js: "timezone", typ: u(undefined, "") },
     ], "any"),
@@ -1496,12 +1496,12 @@ var typeMap = {
         { json: "start", js: "start", typ: 3.14 },
         { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
     ], false),
-    "PurpleMiniWidgetConfiguration": o([
+    "InfoMiniWidgetConfiguration": o([
         { json: "fields", js: "fields", typ: u(undefined, a(r("FieldElement"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
-    "ResourceResource": o([
+    "Resource": o([
         { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
         { json: "capacity", js: "capacity", typ: 3.14 },
         { json: "color", js: "color", typ: u(undefined, "") },
@@ -1538,7 +1538,7 @@ var typeMap = {
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
         { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
         { json: "perk", js: "perk", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(a("any"), true, r("PhoneClass"), 3.14, 0, null, "") },
+        { json: "phone", js: "phone", typ: r("FaxElement") },
         { json: "profession", js: "profession", typ: u(undefined, "") },
         { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
         { json: "rating", js: "rating", typ: u(undefined, 3.14) },
@@ -1569,8 +1569,8 @@ var typeMap = {
     "Info": o([
         { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
         { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
-        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(u(a("any"), true, 3.14, 0, null, r("AdditionalFieldsObject"), ""))) },
-        { json: "address", js: "address", typ: u(undefined, a(u(a("any"), true, r("AddressClass"), 3.14, 0, null, ""))) },
+        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(r("AdditionalFields"))) },
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
         { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
         { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
         { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
@@ -1578,7 +1578,7 @@ var typeMap = {
         { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "fax", js: "fax", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
         { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
@@ -1587,12 +1587,12 @@ var typeMap = {
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
         { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
-        { json: "mobile", js: "mobile", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
         { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
         { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
         { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
         { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -1626,7 +1626,7 @@ var typeMap = {
         { json: "id", js: "id", typ: "" },
         { json: "level", js: "level", typ: 3.14 },
     ], "any"),
-    "PurpleBusinessTaxonomy": o([
+    "InfoTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
         { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("PurpleBusinessTaxonomyPrice"))) },
@@ -1651,7 +1651,7 @@ var typeMap = {
         { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
-        { json: "discounts", js: "discounts", typ: u(undefined, u(a("any"), true, r("DiscountClass"), 3.14, 0, null, "")) },
+        { json: "discounts", js: "discounts", typ: u(undefined, r("Discount")) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
@@ -1715,7 +1715,7 @@ var typeMap = {
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
-    "DiscountClass": o([
+    "Discount": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
         { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
@@ -1751,15 +1751,15 @@ var typeMap = {
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
         { json: "showcaseItemID", js: "showcaseItemID", typ: u(undefined, "") },
     ], false),
-    "PurpleTaxonomiesComplex": o([
+    "InfoTaxonomiesComplex": o([
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
     ], "any"),
-    "PurpleTopServices": o([
+    "InfoTopServices": o([
         { json: "services", js: "services", typ: u(undefined, a("any")) },
         { json: "status", js: "status", typ: u(undefined, "") },
     ], "any"),
-    "PurpleWidgetConfiguration": o([
+    "InfoWidgetConfiguration": o([
         { json: "additionalName", js: "additionalName", typ: u(undefined, "") },
         { json: "alignmentTaxonomySlots", js: "alignmentTaxonomySlots", typ: u(undefined, true) },
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
@@ -1804,7 +1804,7 @@ var typeMap = {
         { json: "hideNewAppointmentButton", js: "hideNewAppointmentButton", typ: u(undefined, true) },
         { json: "hidePrices", js: "hidePrices", typ: u(undefined, true) },
         { json: "hideSocialNetworksAuthentication", js: "hideSocialNetworksAuthentication", typ: u(undefined, true) },
-        { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(r("FaxElement"))) },
         { json: "maxServiceBooking", js: "maxServiceBooking", typ: u(undefined, 3.14) },
         { json: "maxTimeslotBooking", js: "maxTimeslotBooking", typ: u(undefined, 3.14) },
         { json: "middleNameSupport", js: "middleNameSupport", typ: u(undefined, true) },
@@ -1923,7 +1923,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("IndecentBusiness") },
+        { json: "business", js: "business", typ: r("IndigoBusiness") },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -1939,7 +1939,7 @@ var typeMap = {
         { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
         { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
     ], false),
-    "IndecentBusiness": o([
+    "IndigoBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "BusinessGetProfileByIdResponse": o([
@@ -1955,7 +1955,7 @@ var typeMap = {
     ], "any"),
     "BusinessGetProfileByIdResponseResult": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "business", js: "business", typ: u(a("any"), true, r("HilariousBusiness"), 3.14, 0, null, "") },
+        { json: "business", js: "business", typ: r("BusinessClass") },
         { json: "freeSms", js: "freeSms", typ: u(undefined, 3.14) },
         { json: "monthlyFreeSms", js: "monthlyFreeSms", typ: u(undefined, 3.14) },
         { json: "networks", js: "networks", typ: u(undefined, a(r("NetworkElement"))) },
@@ -1964,20 +1964,20 @@ var typeMap = {
         { json: "useDefaultSmsTemplate", js: "useDefaultSmsTemplate", typ: u(undefined, true) },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, r("YandexFeedType")) },
     ], "any"),
-    "HilariousBusiness": o([
+    "BusinessClass": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("FluffyAdditionalSettings")) },
+        { json: "additionalSettings", js: "additionalSettings", typ: u(undefined, r("BusinessAdditionalSettings")) },
         { json: "allowCategoryBooking", js: "allowCategoryBooking", typ: u(undefined, true) },
-        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("StickyBackofficeConfiguration")) },
-        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("TentacledBackofficeConfiguration")) },
+        { json: "backoffice_configuration", js: "backoffice_configuration", typ: u(undefined, r("BusinessBackofficeConfigurationObject")) },
+        { json: "backofficeConfiguration", js: "backofficeConfiguration", typ: u(undefined, r("BusinessBackofficeConfiguration")) },
         { json: "backofficeType", js: "backofficeType", typ: u(undefined, r("BackofficeType")) },
-        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("FluffyCabinet"))) },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a(r("BusinessCabinet"))) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
-        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("FluffyCallbackWidgetConfiguration")) },
-        { json: "consumables", js: "consumables", typ: u(undefined, a(r("FluffyConsumable"))) },
+        { json: "callback_widget_configuration", js: "callback_widget_configuration", typ: u(undefined, r("BusinessCallbackWidgetConfiguration")) },
+        { json: "consumables", js: "consumables", typ: u(undefined, a(r("BusinessConsumable"))) },
         { json: "created_on", js: "created_on", typ: u(undefined, Date) },
         { json: "defaultFilteredWorkers", js: "defaultFilteredWorkers", typ: u(undefined, a("")) },
-        { json: "departments", js: "departments", typ: u(undefined, a(r("FluffyDepartment"))) },
+        { json: "departments", js: "departments", typ: u(undefined, a(r("BusinessDepartment"))) },
         { json: "designs", js: "designs", typ: u(undefined, a(m("any"))) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "flatTaxonomyDisplay", js: "flatTaxonomyDisplay", typ: u(undefined, true) },
@@ -1985,24 +1985,24 @@ var typeMap = {
         { json: "group", js: "group", typ: u(undefined, r("Group")) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "integration_data", js: "integration_data", typ: u(undefined, m("any")) },
-        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("FluffyMiniWidgetConfiguration") },
+        { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("BusinessMiniWidgetConfiguration") },
         { json: "mobileData", js: "mobileData", typ: u(undefined, a("any")) },
         { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
-        { json: "resources", js: "resources", typ: a(u(a("any"), true, r("ResourceResource"), 3.14, 0, null, "")) },
+        { json: "resources", js: "resources", typ: a(r("Resource")) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
-        { json: "taxonomies", js: "taxonomies", typ: a(r("FluffyBusinessTaxonomy")) },
-        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("FluffyTaxonomiesComplex"))) },
+        { json: "taxonomies", js: "taxonomies", typ: a(r("BusinessTaxonomy")) },
+        { json: "taxonomiesComplex", js: "taxonomiesComplex", typ: u(undefined, a(r("BusinessTaxonomiesComplex"))) },
         { json: "taxonomy_tree_capacity", js: "taxonomy_tree_capacity", typ: u(undefined, a(m("any"))) },
-        { json: "top_services", js: "top_services", typ: u(undefined, r("FluffyTopServices")) },
+        { json: "top_services", js: "top_services", typ: u(undefined, r("BusinessTopServices")) },
         { json: "vertical", js: "vertical", typ: u(undefined, "") },
-        { json: "widget_configuration", js: "widget_configuration", typ: r("FluffyWidgetConfiguration") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("BusinessWidgetConfiguration") },
         { json: "yandexFeedType", js: "yandexFeedType", typ: u(undefined, "") },
     ], false),
-    "FluffyAdditionalSettings": o([
+    "BusinessAdditionalSettings": o([
         { json: "appointmentExtensionAmount", js: "appointmentExtensionAmount", typ: u(undefined, 3.14) },
         { json: "appointmentExtensionType", js: "appointmentExtensionType", typ: u(undefined, r("AppointmentExtensionType")) },
     ], "any"),
-    "TentacledBackofficeConfiguration": o([
+    "BusinessBackofficeConfiguration": o([
         { json: "adjacentTaxonomiesTreshold", js: "adjacentTaxonomiesTreshold", typ: u(undefined, 3.14) },
         { json: "allowHideServiceForBooking", js: "allowHideServiceForBooking", typ: u(undefined, true) },
         { json: "allowHideWorkersFromSchdeule", js: "allowHideWorkersFromSchdeule", typ: u(undefined, true) },
@@ -2105,35 +2105,35 @@ var typeMap = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
-    "StickyBackofficeConfiguration": o([
+    "BusinessBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
-    "FluffyCabinet": o([
+    "BusinessCabinet": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
-    "FluffyCallbackWidgetConfiguration": o([
+    "BusinessCallbackWidgetConfiguration": o([
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
-    "FluffyConsumable": o([
+    "BusinessConsumable": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "name", js: "name", typ: "" },
         { json: "quantity", js: "quantity", typ: 3.14 },
     ], "any"),
-    "FluffyDepartment": o([
+    "BusinessDepartment": o([
         { json: "id", js: "id", typ: "" },
         { json: "id_", js: "id_", typ: u(undefined, 3.14) },
         { json: "name", js: "name", typ: "" },
     ], false),
-    "FluffyMiniWidgetConfiguration": o([
+    "BusinessMiniWidgetConfiguration": o([
         { json: "fields", js: "fields", typ: u(undefined, a(r("FieldElement"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
         { json: "title2", js: "title2", typ: u(undefined, "") },
     ], "any"),
-    "FluffyBusinessTaxonomy": o([
+    "BusinessTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("TentacledAdditionalDuration"))) },
         { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("FluffyBusinessTaxonomyPrice"))) },
@@ -2158,7 +2158,7 @@ var typeMap = {
         { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
-        { json: "discounts", js: "discounts", typ: u(undefined, u(a("any"), true, r("DiscountClass"), 3.14, 0, null, "")) },
+        { json: "discounts", js: "discounts", typ: u(undefined, r("Discount")) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
@@ -2246,15 +2246,15 @@ var typeMap = {
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
         { json: "showcaseItemID", js: "showcaseItemID", typ: u(undefined, "") },
     ], false),
-    "FluffyTaxonomiesComplex": o([
+    "BusinessTaxonomiesComplex": o([
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
     ], "any"),
-    "FluffyTopServices": o([
+    "BusinessTopServices": o([
         { json: "services", js: "services", typ: u(undefined, a("any")) },
         { json: "status", js: "status", typ: u(undefined, "") },
     ], "any"),
-    "FluffyWidgetConfiguration": o([
+    "BusinessWidgetConfiguration": o([
         { json: "additionalName", js: "additionalName", typ: u(undefined, "") },
         { json: "alignmentTaxonomySlots", js: "alignmentTaxonomySlots", typ: u(undefined, true) },
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
@@ -2299,7 +2299,7 @@ var typeMap = {
         { json: "hideNewAppointmentButton", js: "hideNewAppointmentButton", typ: u(undefined, true) },
         { json: "hidePrices", js: "hidePrices", typ: u(undefined, true) },
         { json: "hideSocialNetworksAuthentication", js: "hideSocialNetworksAuthentication", typ: u(undefined, true) },
-        { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(u(a("any"), true, r("PhoneClass"), 3.14, 0, null, ""))) },
+        { json: "insuranceClientSupportPhone", js: "insuranceClientSupportPhone", typ: u(undefined, a(r("FaxElement"))) },
         { json: "maxServiceBooking", js: "maxServiceBooking", typ: u(undefined, 3.14) },
         { json: "maxTimeslotBooking", js: "maxTimeslotBooking", typ: u(undefined, 3.14) },
         { json: "middleNameSupport", js: "middleNameSupport", typ: u(undefined, true) },
@@ -2393,12 +2393,12 @@ var typeMap = {
         { json: "widgetText", js: "widgetText", typ: u(undefined, u(null, "")) },
     ], "any"),
     "NetworkElement": o([
-        { json: "address", js: "address", typ: u(undefined, u(a("any"), true, r("AddressCamelCaseSchema"), 3.14, 0, null, "")) },
+        { json: "address", js: "address", typ: u(undefined, r("Address")) },
         { json: "businessName", js: "businessName", typ: "" },
         { json: "description", js: "description", typ: "" },
         { json: "internalID", js: "internalID", typ: "" },
     ], "any"),
-    "AddressCamelCaseSchema": o([
+    "Address": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "addressAdd", js: "addressAdd", typ: u(undefined, "") },
         { json: "adminArea", js: "adminArea", typ: u(undefined, "") },
@@ -2451,13 +2451,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "business", js: "business", typ: r("IndecentBusiness") },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "AmbitiousBusiness": o([
+    "IndecentBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientObject": o([
@@ -2469,7 +2469,7 @@ var typeMap = {
         { json: "fromSms", js: "fromSms", typ: u(undefined, u(true, "")) },
         { json: "middle_name", js: "middle_name", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: "" },
-        { json: "phone", js: "phone", typ: u(a("any"), true, r("PhoneClass"), 3.14, 0, null, "") },
+        { json: "phone", js: "phone", typ: r("FaxElement") },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
         { json: "surname", js: "surname", typ: "" },
         { json: "taxiPark", js: "taxiPark", typ: u(undefined, u(null, "")) },
@@ -2490,12 +2490,12 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("CunningBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("HilariousBusiness")) },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
     ], "any"),
-    "CunningBusiness": o([
+    "HilariousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleProfile": o([
@@ -2513,13 +2513,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
         { json: "client", js: "client", typ: u(undefined, r("ClientObject")) },
         { json: "network", js: "network", typ: u(undefined, r("FluffyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "MagentaBusiness": o([
+    "AmbitiousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "FluffyNetwork": o([
@@ -2537,12 +2537,12 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("FriskyBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("CunningBusiness")) },
         { json: "client", js: "client", typ: r("ClientObject") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
-    "FriskyBusiness": o([
+    "CunningBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "FluffyProfile": o([
@@ -2568,11 +2568,11 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "MischievousBusiness": o([
+    "MagentaBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -2649,13 +2649,13 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("FriskyBusiness") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "BraggadociousBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([
@@ -2693,18 +2693,18 @@ var typeMap = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracDistributedResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business1") },
+        { json: "business", js: "business", typ: r("MischievousBusiness") },
         { json: "filters", js: "filters", typ: r("PurpleFilters") },
     ], false),
-    "Business1": o([
+    "MischievousBusiness": o([
         { json: "general_info", js: "general_info", typ: r("PurpleGeneralInfo") },
         { json: "id", js: "id", typ: "" },
-        { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("PurpleWidgetConfiguration") },
     ], false),
     "PurpleGeneralInfo": o([
         { json: "timezone", js: "timezone", typ: "" },
     ], false),
-    "TentacledWidgetConfiguration": o([
+    "PurpleWidgetConfiguration": o([
         { json: "cracServer", js: "cracServer", typ: "" },
         { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
     ], false),
@@ -2756,18 +2756,18 @@ var typeMap = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business2") },
+        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
         { json: "filters", js: "filters", typ: r("FluffyFilters") },
     ], false),
-    "Business2": o([
+    "BraggadociousBusiness": o([
         { json: "general_info", js: "general_info", typ: r("FluffyGeneralInfo") },
         { json: "id", js: "id", typ: "" },
-        { json: "widget_configuration", js: "widget_configuration", typ: r("StickyWidgetConfiguration") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("FluffyWidgetConfiguration") },
     ], false),
     "FluffyGeneralInfo": o([
         { json: "timezone", js: "timezone", typ: "" },
     ], false),
-    "StickyWidgetConfiguration": o([
+    "FluffyWidgetConfiguration": o([
         { json: "cracServer", js: "cracServer", typ: "" },
         { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
     ], false),
@@ -2816,18 +2816,18 @@ var typeMap = {
         { json: "params", js: "params", typ: r("CracSlotsGetCracResourcesAndRoomsRequestParams") },
     ], false),
     "CracSlotsGetCracResourcesAndRoomsRequestParams": o([
-        { json: "business", js: "business", typ: r("Business3") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "filters", js: "filters", typ: r("TentacledFilters") },
     ], false),
-    "Business3": o([
+    "Business1": o([
         { json: "general_info", js: "general_info", typ: r("TentacledGeneralInfo") },
         { json: "id", js: "id", typ: "" },
-        { json: "widget_configuration", js: "widget_configuration", typ: r("IndigoWidgetConfiguration") },
+        { json: "widget_configuration", js: "widget_configuration", typ: r("TentacledWidgetConfiguration") },
     ], false),
     "TentacledGeneralInfo": o([
         { json: "timezone", js: "timezone", typ: "" },
     ], false),
-    "IndigoWidgetConfiguration": o([
+    "TentacledWidgetConfiguration": o([
         { json: "cracServer", js: "cracServer", typ: "" },
         { json: "mostFreeEnable", js: "mostFreeEnable", typ: u(undefined, true) },
     ], false),
@@ -2865,8 +2865,8 @@ var typeMap = {
         { json: "rooms", js: "rooms", typ: a(m("any")) },
     ], false),
     "Models": o([
-        { json: "Appointment", js: "Appointment", typ: u(a("any"), true, r("AppointmentSchema"), 3.14, 0, null, "") },
-        { json: "Business", js: "Business", typ: u(a("any"), true, r("HilariousBusiness"), 3.14, 0, null, "") },
+        { json: "Appointment", js: "Appointment", typ: r("AppointmentElement") },
+        { json: "Business", js: "Business", typ: r("BusinessClass") },
         { json: "Client", js: "Client", typ: r("ClientObject") },
     ], false),
     "AppointmentClientAppear": [

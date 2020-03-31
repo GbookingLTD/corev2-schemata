@@ -1,5 +1,7 @@
 $schema: "http://json-schema.org/draft-07/schema#"
 $id: "schemas-json/models/addressCamelCase.schema.json"
+type: "object"
+additionalProperties: false
 definitions:
   MetroStation:
     type: "object"
@@ -70,4 +72,3 @@ properties:
   group:
     type: "string"
 required: ["country"]
-additionalProperties: false

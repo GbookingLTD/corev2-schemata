@@ -3,6 +3,8 @@
     "$id": "schemas-json/models/discount.schema.json",
     "title": "Discount",
     "description": "Информация о скидке",
+    "type": "object",
+    "additionalProperties": false,
     "properties": {
         "active": {
             "type": "boolean"
@@ -48,6 +50,5 @@
                 }
             }
         }
-    },
-    "additionalProperties": false
+    }
 }

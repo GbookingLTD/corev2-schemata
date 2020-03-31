@@ -4,14 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class Business1 {
-    private PurpleGeneralInfo generalInfo;
+    private TentacledGeneralInfo generalInfo;
     private String id;
     private TentacledWidgetConfiguration widgetConfiguration;
 
     @JsonProperty("general_info")
-    public PurpleGeneralInfo getGeneralInfo() { return generalInfo; }
+    public TentacledGeneralInfo getGeneralInfo() { return generalInfo; }
     @JsonProperty("general_info")
-    public void setGeneralInfo(PurpleGeneralInfo value) { this.generalInfo = value; }
+    public void setGeneralInfo(TentacledGeneralInfo value) { this.generalInfo = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }
