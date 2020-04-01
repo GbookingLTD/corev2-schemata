@@ -672,6 +672,9 @@ definitions:
       showTaxonomyLocalization:
         type: "boolean"
         default: false
+      showTaxonomyNameExtraId:
+        type: "boolean"
+        default: false
       highlightedResource:
         type: "boolean"
         default: false
