@@ -271,7 +271,6 @@ required:
   - "taxonomyLevels"
   - "taxonomyChildren"
   - "level"
-  - "phone"
   - "displayInWidget"
   - "manualChanges"
   - "timetable"
