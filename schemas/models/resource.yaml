@@ -203,7 +203,9 @@ properties:
     description: "особый навык"
     type: "string"
   phone:
-    $ref: "./phone.schema.json"
+    type: "array"
+    items:
+      $ref: "./phone.schema.json"
   smsEnabled:
     description: "включена ли отправка смс уведомлений для данного работника"
     type: "boolean"
