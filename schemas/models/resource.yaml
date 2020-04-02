@@ -262,6 +262,8 @@ properties:
     format: "date-time"
   degree:
     type: "string"
+  badIconResolution:
+    type: "boolean"
 required:
   - "revisionVersion"
   - "capacity"
