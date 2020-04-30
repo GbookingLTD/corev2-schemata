@@ -7,15 +7,15 @@ import com.fasterxml.jackson.annotation.*;
  * данные, передаваемые в ответ
  */
 public class AppointmentGetAppointmentByFilterResponseResult {
-    private List<AppointmentElement> data;
+    private List<Appointment> data;
     private double page;
     private double total;
     private double unconfirmed;
 
     @JsonProperty("data")
-    public List<AppointmentElement> getData() { return data; }
+    public List<Appointment> getData() { return data; }
     @JsonProperty("data")
-    public void setData(List<AppointmentElement> value) { this.data = value; }
+    public void setData(List<Appointment> value) { this.data = value; }
 
     @JsonProperty("page")
     public double getPage() { return page; }

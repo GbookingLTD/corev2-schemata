@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.*;
 public class AppointmentCancelAppointmentByClientRequestParams {
     private FluffyAppointment appointment;
     private FluffyClient client;
-    private Object business;
 
     @JsonProperty("appointment")
     public FluffyAppointment getAppointment() { return appointment; }
@@ -17,9 +16,4 @@ public class AppointmentCancelAppointmentByClientRequestParams {
     public FluffyClient getClient() { return client; }
     @JsonProperty("client")
     public void setClient(FluffyClient value) { this.client = value; }
-
-    @JsonProperty("business")
-    public Object getBusiness() { return business; }
-    @JsonProperty("business")
-    public void setBusiness(Object value) { this.business = value; }
 }

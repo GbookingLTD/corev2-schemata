@@ -3,10 +3,10 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class FluffyFilters {
+public class CracSlotsGetCRACInsuranceResourcesAndRoomsRequestFilters {
     private FluffyDate date;
     private String insuranceID;
-    private List<FluffyResourceFilter> resources;
+    private List<CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter> resources;
     private List<String> rooms;
 
     @JsonProperty("date")
@@ -20,9 +20,9 @@ public class FluffyFilters {
     public void setInsuranceID(String value) { this.insuranceID = value; }
 
     @JsonProperty("resources")
-    public List<FluffyResourceFilter> getResources() { return resources; }
+    public List<CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter> getResources() { return resources; }
     @JsonProperty("resources")
-    public void setResources(List<FluffyResourceFilter> value) { this.resources = value; }
+    public void setResources(List<CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter> value) { this.resources = value; }
 
     @JsonProperty("rooms")
     public List<String> getRooms() { return rooms; }

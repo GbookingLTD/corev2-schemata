@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class NetworkWidgetConfiguration {
     private String id;
-    private List<BusinessElement> businesses;
+    private List<NetworkConfigurationBusiness> businesses;
     private String defaultServiceID;
     private boolean showBranchSelector;
     private boolean showDefaultService;
@@ -18,9 +18,9 @@ public class NetworkWidgetConfiguration {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("businesses")
-    public List<BusinessElement> getBusinesses() { return businesses; }
+    public List<NetworkConfigurationBusiness> getBusinesses() { return businesses; }
     @JsonProperty("businesses")
-    public void setBusinesses(List<BusinessElement> value) { this.businesses = value; }
+    public void setBusinesses(List<NetworkConfigurationBusiness> value) { this.businesses = value; }
 
     @JsonProperty("defaultServiceID")
     public String getDefaultServiceID() { return defaultServiceID; }

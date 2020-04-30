@@ -4,10 +4,10 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class CracSlotsGetCRACResourcesAndRoomsResponseResult {
-    private List<TentacledSlot> slots;
+    private List<CracDaySchedule> slots;
 
     @JsonProperty("slots")
-    public List<TentacledSlot> getSlots() { return slots; }
+    public List<CracDaySchedule> getSlots() { return slots; }
     @JsonProperty("slots")
-    public void setSlots(List<TentacledSlot> value) { this.slots = value; }
+    public void setSlots(List<CracDaySchedule> value) { this.slots = value; }
 }

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 public class AppointmentGetAppointmentByShowcaseResponse {
     private double id;
     private String jsonrpc;
-    private List<AppointmentElement> result;
+    private List<Appointment> result;
     private AppointmentGetAppointmentByShowcaseResponseError error;
 
     /**
@@ -26,9 +26,9 @@ public class AppointmentGetAppointmentByShowcaseResponse {
     public void setJsonrpc(String value) { this.jsonrpc = value; }
 
     @JsonProperty("result")
-    public List<AppointmentElement> getResult() { return result; }
+    public List<Appointment> getResult() { return result; }
     @JsonProperty("result")
-    public void setResult(List<AppointmentElement> value) { this.result = value; }
+    public void setResult(List<Appointment> value) { this.result = value; }
 
     /**
      * объект, содержащий информацию об ошибке

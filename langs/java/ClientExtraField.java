@@ -3,10 +3,10 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class ExtraField {
+public class ClientExtraField {
     private String fieldID;
     private String fieldName;
-    private PurpleValue value;
+    private FluffyValue value;
 
     @JsonProperty("fieldID")
     public String getFieldID() { return fieldID; }
@@ -19,7 +19,7 @@ public class ExtraField {
     public void setFieldName(String value) { this.fieldName = value; }
 
     @JsonProperty("value")
-    public PurpleValue getValue() { return value; }
+    public FluffyValue getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(PurpleValue value) { this.value = value; }
+    public void setValue(FluffyValue value) { this.value = value; }
 }

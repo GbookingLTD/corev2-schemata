@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class FluffyResourceFilter {
+public class CracSlotsGetCRACResourcesAndRoomsRequestResourceFilter {
     private double duration;
     private String id;
 

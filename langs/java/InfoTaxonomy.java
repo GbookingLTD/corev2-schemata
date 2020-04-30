@@ -48,7 +48,7 @@ public class InfoTaxonomy {
     private Double order;
     private List<String> parallelTaxonomies;
     private Double popularity;
-    private PurplePrice price;
+    private FluffyPrice price;
     private String priceLink;
     private List<String> receptionTypes;
     private List<String> rooms;
@@ -286,9 +286,9 @@ public class InfoTaxonomy {
     public void setPopularity(Double value) { this.popularity = value; }
 
     @JsonProperty("price")
-    public PurplePrice getPrice() { return price; }
+    public FluffyPrice getPrice() { return price; }
     @JsonProperty("price")
-    public void setPrice(PurplePrice value) { this.price = value; }
+    public void setPrice(FluffyPrice value) { this.price = value; }
 
     @JsonProperty("priceLink")
     public String getPriceLink() { return priceLink; }

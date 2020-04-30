@@ -18,7 +18,7 @@ public class AddressSchema {
     private String locality;
     private String localityType;
     private String longitude;
-    private List<PurpleMetroStation> metroStations;
+    private List<FullAddressMetroStation> metroStations;
     private String number;
     private String office;
     private String possesion;
@@ -102,9 +102,9 @@ public class AddressSchema {
     public void setLongitude(String value) { this.longitude = value; }
 
     @JsonProperty("metroStations")
-    public List<PurpleMetroStation> getMetroStations() { return metroStations; }
+    public List<FullAddressMetroStation> getMetroStations() { return metroStations; }
     @JsonProperty("metroStations")
-    public void setMetroStations(List<PurpleMetroStation> value) { this.metroStations = value; }
+    public void setMetroStations(List<FullAddressMetroStation> value) { this.metroStations = value; }
 
     @JsonProperty("number")
     public String getNumber() { return number; }

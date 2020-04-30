@@ -25,9 +25,6 @@ public class AppointmentGetAppointmentByFilterResponse {
     @JsonProperty("jsonrpc")
     public void setJsonrpc(String value) { this.jsonrpc = value; }
 
-    /**
-     * данные, передаваемые в ответ
-     */
     @JsonProperty("result")
     public AppointmentGetAppointmentByFilterResponseResult getResult() { return result; }
     @JsonProperty("result")

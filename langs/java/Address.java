@@ -18,7 +18,7 @@ public class Address {
     private String locality;
     private String localityType;
     private String longitude;
-    private List<FluffyMetroStation> metroStations;
+    private List<PurpleMetroStation> metroStations;
     private String number;
     private String office;
     private String possesion;
@@ -102,9 +102,9 @@ public class Address {
     public void setLongitude(String value) { this.longitude = value; }
 
     @JsonProperty("metroStations")
-    public List<FluffyMetroStation> getMetroStations() { return metroStations; }
+    public List<PurpleMetroStation> getMetroStations() { return metroStations; }
     @JsonProperty("metroStations")
-    public void setMetroStations(List<FluffyMetroStation> value) { this.metroStations = value; }
+    public void setMetroStations(List<PurpleMetroStation> value) { this.metroStations = value; }
 
     @JsonProperty("number")
     public String getNumber() { return number; }

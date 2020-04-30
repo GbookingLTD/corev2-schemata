@@ -3,12 +3,12 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AppointmentCancelAppointmentByBusinessRequest {
+public class ClientUpdateClientRequest {
     private Cred cred;
     private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
-    private ParamsClass params;
+    private ClientUpdateClientRequestParams params;
 
     /**
      * авторизационные параметры
@@ -46,7 +46,7 @@ public class AppointmentCancelAppointmentByBusinessRequest {
      * параметры запроса
      */
     @JsonProperty("params")
-    public ParamsClass getParams() { return params; }
+    public ClientUpdateClientRequestParams getParams() { return params; }
     @JsonProperty("params")
-    public void setParams(ParamsClass value) { this.params = value; }
+    public void setParams(ClientUpdateClientRequestParams value) { this.params = value; }
 }

@@ -3,21 +3,21 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class TentacledFilters {
-    private TentacledDate date;
-    private List<TentacledResourceFilter> resources;
+public class CracSlotsGetCRACDistributedResourcesAndRoomsRequestFilters {
+    private PurpleDate date;
+    private List<CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter> resources;
     private List<String> rooms;
     private List<String> taxonomies;
 
     @JsonProperty("date")
-    public TentacledDate getDate() { return date; }
+    public PurpleDate getDate() { return date; }
     @JsonProperty("date")
-    public void setDate(TentacledDate value) { this.date = value; }
+    public void setDate(PurpleDate value) { this.date = value; }
 
     @JsonProperty("resources")
-    public List<TentacledResourceFilter> getResources() { return resources; }
+    public List<CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter> getResources() { return resources; }
     @JsonProperty("resources")
-    public void setResources(List<TentacledResourceFilter> value) { this.resources = value; }
+    public void setResources(List<CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter> value) { this.resources = value; }
 
     @JsonProperty("rooms")
     public List<String> getRooms() { return rooms; }

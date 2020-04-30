@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 public class AppointmentClientConfirmAppointmentResponse {
     private double id;
     private String jsonrpc;
-    private AppointmentElement result;
+    private Appointment result;
     private AppointmentClientConfirmAppointmentResponseError error;
 
     /**
@@ -29,9 +29,9 @@ public class AppointmentClientConfirmAppointmentResponse {
      * данные, передаваемые в ответ
      */
     @JsonProperty("result")
-    public AppointmentElement getResult() { return result; }
+    public Appointment getResult() { return result; }
     @JsonProperty("result")
-    public void setResult(AppointmentElement value) { this.result = value; }
+    public void setResult(Appointment value) { this.result = value; }
 
     /**
      * объект, содержащий информацию об ошибке

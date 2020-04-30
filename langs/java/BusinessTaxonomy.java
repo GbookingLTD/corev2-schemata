@@ -48,7 +48,7 @@ public class BusinessTaxonomy {
     private Double order;
     private List<String> parallelTaxonomies;
     private Double popularity;
-    private FluffyPrice price;
+    private TentacledPrice price;
     private String priceLink;
     private List<String> receptionTypes;
     private List<String> rooms;
@@ -286,9 +286,9 @@ public class BusinessTaxonomy {
     public void setPopularity(Double value) { this.popularity = value; }
 
     @JsonProperty("price")
-    public FluffyPrice getPrice() { return price; }
+    public TentacledPrice getPrice() { return price; }
     @JsonProperty("price")
-    public void setPrice(FluffyPrice value) { this.price = value; }
+    public void setPrice(TentacledPrice value) { this.price = value; }
 
     @JsonProperty("priceLink")
     public String getPriceLink() { return priceLink; }

@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class TentacledResourceFilter {
+public class CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter {
     private double duration;
     private String id;
 

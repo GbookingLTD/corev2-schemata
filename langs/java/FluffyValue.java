@@ -7,17 +7,18 @@ import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
-@JsonDeserialize(using = Value.Deserializer.class)
-@JsonSerialize(using = Value.Serializer.class)
-public class Value {
+@JsonDeserialize(using = FluffyValue.Deserializer.class)
+@JsonSerialize(using = FluffyValue.Serializer.class)
+public class FluffyValue {
     public Double doubleValue;
+    public Boolean boolValue;
     public String stringValue;
     public Map<String, Object> anythingMapValue;
 
-    static class Deserializer extends JsonDeserializer<Value> {
+    static class Deserializer extends JsonDeserializer<FluffyValue> {
         @Override
-        public Value deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-            Value value = new Value();
+        public FluffyValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+            FluffyValue value = new FluffyValue();
             switch (jsonParser.getCurrentToken()) {
             case VALUE_NULL:
                 break;
@@ -25,23 +26,31 @@ public class Value {
             case VALUE_NUMBER_FLOAT:
                 value.doubleValue = jsonParser.readValueAs(Double.class);
                 break;
+            case VALUE_TRUE:
+            case VALUE_FALSE:
+                value.boolValue = jsonParser.readValueAs(Boolean.class);
+                break;
             case VALUE_STRING:
                 value.stringValue = jsonParser.readValueAs(String.class);
                 break;
             case START_OBJECT:
                 value.anythingMapValue = jsonParser.readValueAs(Map.class);
                 break;
-            default: throw new IOException("Cannot deserialize Value");
+            default: throw new IOException("Cannot deserialize FluffyValue");
             }
             return value;
         }
     }
 
-    static class Serializer extends JsonSerializer<Value> {
+    static class Serializer extends JsonSerializer<FluffyValue> {
         @Override
-        public void serialize(Value obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(FluffyValue obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             if (obj.doubleValue != null) {
                 jsonGenerator.writeObject(obj.doubleValue);
+                return;
+            }
+            if (obj.boolValue != null) {
+                jsonGenerator.writeObject(obj.boolValue);
                 return;
             }
             if (obj.stringValue != null) {

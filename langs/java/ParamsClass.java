@@ -3,10 +3,9 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AppointmentCancelAppointmentByBusinessRequestParams {
+public class ParamsClass {
     private PurpleAppointment appointment;
     private PurpleClient client;
-    private Object business;
 
     @JsonProperty("appointment")
     public PurpleAppointment getAppointment() { return appointment; }
@@ -17,9 +16,4 @@ public class AppointmentCancelAppointmentByBusinessRequestParams {
     public PurpleClient getClient() { return client; }
     @JsonProperty("client")
     public void setClient(PurpleClient value) { this.client = value; }
-
-    @JsonProperty("business")
-    public Object getBusiness() { return business; }
-    @JsonProperty("business")
-    public void setBusiness(Object value) { this.business = value; }
 }

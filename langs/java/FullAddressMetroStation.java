@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class FluffyMetroStation {
+public class FullAddressMetroStation {
     private String id;
     private String description;
     private String name;

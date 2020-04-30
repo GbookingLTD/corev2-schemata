@@ -94,17 +94,16 @@ type CancelAppointmentByBusiness struct {
 }
 
 type AppointmentCancelAppointmentByBusinessRequest struct {
-	Cred    *Cred                                               `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate                                      `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                                              `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string                                              `json:"method"`        // название jsonrpc метода
-	Params  AppointmentCancelAppointmentByBusinessRequestParams `json:"params"`        // параметры запроса
+	Cred    *Cred          `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string         `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string         `json:"method"`        // название jsonrpc метода
+	Params  ParamsClass    `json:"params"`        // параметры запроса
 }
 
-type AppointmentCancelAppointmentByBusinessRequestParams struct {
-	Appointment PurpleAppointment `json:"appointment"`     
-	Client      *PurpleClient     `json:"client,omitempty"`
-	Business    interface{}       `json:"business"`        
+type ParamsClass struct {
+	Appointment PurpleAppointment `json:"appointment"`
+	Client      PurpleClient      `json:"client"`     
 }
 
 type PurpleAppointment struct {
@@ -146,9 +145,8 @@ type AppointmentCancelAppointmentByClientRequest struct {
 }
 
 type AppointmentCancelAppointmentByClientRequestParams struct {
-	Appointment FluffyAppointment `json:"appointment"`     
-	Client      *FluffyClient     `json:"client,omitempty"`
-	Business    interface{}       `json:"business"`        
+	Appointment FluffyAppointment `json:"appointment"`
+	Client      FluffyClient      `json:"client"`     
 }
 
 type FluffyAppointment struct {
@@ -208,7 +206,7 @@ type TentacledClient struct {
 type AppointmentClientConfirmAppointmentResponse struct {
 	ID      float64                                           `json:"id"`              // значение числового типа для идентификации запроса на сервере
 	Jsonrpc string                                            `json:"jsonrpc"`         // версия протокола (2.0)
-	Result  *AppointmentElement                               `json:"result,omitempty"`// данные, передаваемые в ответ
+	Result  *Appointment                                      `json:"result,omitempty"`// данные, передаваемые в ответ
 	Error   *AppointmentClientConfirmAppointmentResponseError `json:"error,omitempty"` // объект, содержащий информацию об ошибке
 }
 
@@ -222,7 +220,7 @@ type AppointmentClientConfirmAppointmentResponseError struct {
 }
 
 // данные, передаваемые в ответ
-type AppointmentElement struct {
+type Appointment struct {
 	AdditionalInfo           map[string]interface{}     `json:"additional_info,omitempty"`       
 	AdditionalClientAppears  []AdditionalClientAppear   `json:"additionalClientAppears"`         
 	AdditionalClientPayments []AdditionalClientPayment  `json:"additionalClientPayments"`        
@@ -357,9 +355,9 @@ type AppointmentClientFeedback struct {
 }
 
 type ExtraField struct {
-	FieldID   string `json:"fieldID"`  
-	FieldName string `json:"fieldName"`
-	Value     *Value `json:"value"`    
+	FieldID   string       `json:"fieldID"`  
+	FieldName string       `json:"fieldName"`
+	Value     *PurpleValue `json:"value"`    
 }
 
 type IncomingPhoneElement struct {
@@ -642,7 +640,7 @@ type PurpleNetwork struct {
 type AppointmentGetAppointmentByFilterResponse struct {
 	ID      float64                                          `json:"id"`              // значение числового типа для идентификации запроса на сервере
 	Jsonrpc string                                           `json:"jsonrpc"`         // версия протокола (2.0)
-	Result  *AppointmentGetAppointmentByFilterResponseResult `json:"result,omitempty"`// данные, передаваемые в ответ
+	Result  *AppointmentGetAppointmentByFilterResponseResult `json:"result,omitempty"`
 	Error   *AppointmentGetAppointmentByFilterResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
 }
 
@@ -657,10 +655,10 @@ type AppointmentGetAppointmentByFilterResponseError struct {
 
 // данные, передаваемые в ответ
 type AppointmentGetAppointmentByFilterResponseResult struct {
-	Data        []AppointmentElement `json:"data"`       
-	Page        float64              `json:"page"`       
-	Total       float64              `json:"total"`      
-	Unconfirmed float64              `json:"unconfirmed"`
+	Data        []Appointment `json:"data"`       
+	Page        float64       `json:"page"`       
+	Total       float64       `json:"total"`      
+	Unconfirmed float64       `json:"unconfirmed"`
 }
 
 type GetAppointmentByShowcase struct {
@@ -696,7 +694,7 @@ type ParamsCreated struct {
 type AppointmentGetAppointmentByShowcaseResponse struct {
 	ID      float64                                           `json:"id"`             // значение числового типа для идентификации запроса на сервере
 	Jsonrpc string                                            `json:"jsonrpc"`        // версия протокола (2.0)
-	Result  []AppointmentElement                              `json:"result"`         
+	Result  []Appointment                                     `json:"result"`         
 	Error   *AppointmentGetAppointmentByShowcaseResponseError `json:"error,omitempty"`// объект, содержащий информацию об ошибке
 }
 
@@ -732,7 +730,14 @@ type AppointmentReserve struct {
 }
 
 type IndigoAppointment struct {
-	Start string `json:"start"`
+	Duration *float64     `json:"duration,omitempty"`
+	Price    *PurplePrice `json:"price,omitempty"`   
+	Start    string       `json:"start"`             
+}
+
+type PurplePrice struct {
+	Amount   float64      `json:"amount"`  
+	Currency CurrencyList `json:"currency"`
 }
 
 type StickyBusiness struct {
@@ -750,7 +755,7 @@ type PurpleTaxonomy struct {
 type AppointmentReserveAppointmentResponse struct {
 	ID      float64                                     `json:"id"`              // значение числового типа для идентификации запроса на сервере
 	Jsonrpc string                                      `json:"jsonrpc"`         // версия протокола (2.0)
-	Result  *AppointmentElement                         `json:"result,omitempty"`// данные, передаваемые в ответ
+	Result  *Appointment                                `json:"result,omitempty"`// данные, передаваемые в ответ
 	Error   *AppointmentReserveAppointmentResponseError `json:"error,omitempty"` // объект, содержащий информацию об ошибке
 }
 
@@ -1066,35 +1071,35 @@ type AdditionalFields struct {
 }
 
 type AddressSchema struct {
-	Address          *string              `json:"address,omitempty"`            
-	AddressAdd       *string              `json:"address_add,omitempty"`        
-	AdminArea        *string              `json:"admin_area,omitempty"`         
-	AdminAreaType    *string              `json:"admin_area_type,omitempty"`    
-	Building         *string              `json:"building,omitempty"`           
-	Corps            *string              `json:"corps,omitempty"`              
-	Country          CountryEnum          `json:"country"`                      
-	Group            *string              `json:"group,omitempty"`              
-	HouseAdd         *string              `json:"house_add,omitempty"`          
-	Kilometer        *string              `json:"kilometer,omitempty"`          
-	Latitude         *string              `json:"latitude,omitempty"`           
-	Locality         *string              `json:"locality,omitempty"`           
-	LocalityType     *string              `json:"locality_type,omitempty"`      
-	Longitude        *string              `json:"longitude,omitempty"`          
-	MetroStations    []PurpleMetroStation `json:"metroStations"`                
-	Number           *string              `json:"number,omitempty"`             
-	Office           *string              `json:"office,omitempty"`             
-	Possesion        *string              `json:"possesion,omitempty"`          
-	Street           *string              `json:"street,omitempty"`             
-	StreetType       *string              `json:"street_type,omitempty"`        
-	SubAdminArea     *string              `json:"sub_admin_area,omitempty"`     
-	SubAdminAreaType *string              `json:"sub_admin_area_type,omitempty"`
-	SubLocality      *string              `json:"sub_locality,omitempty"`       
-	SubLocalityType  *string              `json:"sub_locality_type,omitempty"`  
-	Way              *string              `json:"way,omitempty"`                
-	ZipCode          *string              `json:"zip_code,omitempty"`           
+	Address          *string                   `json:"address,omitempty"`            
+	AddressAdd       *string                   `json:"address_add,omitempty"`        
+	AdminArea        *string                   `json:"admin_area,omitempty"`         
+	AdminAreaType    *string                   `json:"admin_area_type,omitempty"`    
+	Building         *string                   `json:"building,omitempty"`           
+	Corps            *string                   `json:"corps,omitempty"`              
+	Country          CountryEnum               `json:"country"`                      
+	Group            *string                   `json:"group,omitempty"`              
+	HouseAdd         *string                   `json:"house_add,omitempty"`          
+	Kilometer        *string                   `json:"kilometer,omitempty"`          
+	Latitude         *string                   `json:"latitude,omitempty"`           
+	Locality         *string                   `json:"locality,omitempty"`           
+	LocalityType     *string                   `json:"locality_type,omitempty"`      
+	Longitude        *string                   `json:"longitude,omitempty"`          
+	MetroStations    []FullAddressMetroStation `json:"metroStations"`                
+	Number           *string                   `json:"number,omitempty"`             
+	Office           *string                   `json:"office,omitempty"`             
+	Possesion        *string                   `json:"possesion,omitempty"`          
+	Street           *string                   `json:"street,omitempty"`             
+	StreetType       *string                   `json:"street_type,omitempty"`        
+	SubAdminArea     *string                   `json:"sub_admin_area,omitempty"`     
+	SubAdminAreaType *string                   `json:"sub_admin_area_type,omitempty"`
+	SubLocality      *string                   `json:"sub_locality,omitempty"`       
+	SubLocalityType  *string                   `json:"sub_locality_type,omitempty"`  
+	Way              *string                   `json:"way,omitempty"`                
+	ZipCode          *string                   `json:"zip_code,omitempty"`           
 }
 
-type PurpleMetroStation struct {
+type FullAddressMetroStation struct {
 	ID          *string `json:"_id,omitempty"`        
 	Description *string `json:"description,omitempty"`
 	Name        string  `json:"name"`                 
@@ -1365,7 +1370,7 @@ type InfoTaxonomy struct {
 	Order                      *float64                        `json:"order,omitempty"`                     
 	ParallelTaxonomies         []string                        `json:"parallelTaxonomies"`                  
 	Popularity                 *float64                        `json:"popularity,omitempty"`                
-	Price                      *PurplePrice                    `json:"price,omitempty"`                     
+	Price                      *FluffyPrice                    `json:"price,omitempty"`                     
 	PriceLink                  *string                         `json:"priceLink,omitempty"`                 
 	ReceptionTypes             []string                        `json:"receptionTypes"`                      // Список видов приема услуги
 	Rooms                      []string                        `json:"rooms"`                               
@@ -1430,7 +1435,7 @@ type Slots struct {
 	Time *TimeFrame `json:"time,omitempty"`
 }
 
-type PurplePrice struct {
+type FluffyPrice struct {
 	Amount      string              `json:"amount"`     // Значение цены
 	Currency    CurrencyList        `json:"currency"`   // Аббревиатура валюты (например, RUB - рубль)
 	StockAmount *string             `json:"stockAmount"`// Значение цены, с учётом промо акций
@@ -1612,16 +1617,16 @@ type PurpleSocialSharing struct {
 }
 
 type NetworkWidgetConfiguration struct {
-	ID                 *string           `json:"_id,omitempty"`     
-	Businesses         []BusinessElement `json:"businesses"`        
-	DefaultServiceID   *string           `json:"defaultServiceID"`  
-	ShowBranchSelector bool              `json:"showBranchSelector"`
-	ShowDefaultService bool              `json:"showDefaultService"`
-	ShowOnMap          bool              `json:"showOnMap"`         
-	Source             string            `json:"source"`            
+	ID                 *string                        `json:"_id,omitempty"`     
+	Businesses         []NetworkConfigurationBusiness `json:"businesses"`        
+	DefaultServiceID   *string                        `json:"defaultServiceID"`  
+	ShowBranchSelector bool                           `json:"showBranchSelector"`
+	ShowDefaultService bool                           `json:"showDefaultService"`
+	ShowOnMap          bool                           `json:"showOnMap"`         
+	Source             string                         `json:"source"`            
 }
 
-type BusinessElement struct {
+type NetworkConfigurationBusiness struct {
 	ID         *string `json:"_id,omitempty"`
 	Active     bool    `json:"active"`       
 	InternalID string  `json:"internalID"`   
@@ -1916,7 +1921,7 @@ type BusinessTaxonomy struct {
 	Order                      *float64                        `json:"order,omitempty"`                     
 	ParallelTaxonomies         []string                        `json:"parallelTaxonomies"`                  
 	Popularity                 *float64                        `json:"popularity,omitempty"`                
-	Price                      *FluffyPrice                    `json:"price,omitempty"`                     
+	Price                      *TentacledPrice                 `json:"price,omitempty"`                     
 	PriceLink                  *string                         `json:"priceLink,omitempty"`                 
 	ReceptionTypes             []string                        `json:"receptionTypes"`                      // Список видов приема услуги
 	Rooms                      []string                        `json:"rooms"`                               
@@ -1966,7 +1971,7 @@ type FluffyDateLimit struct {
 	DateLimitTo   *string `json:"dateLimitTo,omitempty"`  
 }
 
-type FluffyPrice struct {
+type TentacledPrice struct {
 	Amount      string              `json:"amount"`     // Значение цены
 	Currency    CurrencyList        `json:"currency"`   // Аббревиатура валюты (например, RUB - рубль)
 	StockAmount *string             `json:"stockAmount"`// Значение цены, с учётом промо акций
@@ -2169,7 +2174,7 @@ type Address struct {
 	Locality         *string              `json:"locality,omitempty"`        
 	LocalityType     *string              `json:"localityType,omitempty"`    
 	Longitude        *string              `json:"longitude,omitempty"`       
-	MetroStations    []FluffyMetroStation `json:"metroStations"`             
+	MetroStations    []PurpleMetroStation `json:"metroStations"`             
 	Number           *string              `json:"number,omitempty"`          
 	Office           *string              `json:"office,omitempty"`          
 	Possesion        *string              `json:"possesion,omitempty"`       
@@ -2183,7 +2188,7 @@ type Address struct {
 	ZipCode          *string              `json:"zipCode,omitempty"`         
 }
 
-type FluffyMetroStation struct {
+type PurpleMetroStation struct {
 	ID          *string `json:"_id,omitempty"`        
 	Description *string `json:"description,omitempty"`
 	Name        string  `json:"name"`                 
@@ -2195,8 +2200,9 @@ type ResultTopServices struct {
 }
 
 type ClientController struct {
-	AddClient          AddClient           `json:"add_client"`                     
-	FindOrCreateClient *FindOrCreateClient `json:"find_or_create_client,omitempty"`
+	AddClient          AddClient          `json:"add_client"`           
+	FindOrCreateClient FindOrCreateClient `json:"find_or_create_client"`
+	UpdateClient       UpdateClient       `json:"update_client"`        
 }
 
 type AddClient struct {
@@ -2227,19 +2233,105 @@ type IndecentBusiness struct {
 
 // Данные клиента
 type ClientClass struct {
-	Birthday            *Birthday    `json:"birthday"`           
-	CreatorProfileID    *string      `json:"creatorProfileID"`   
-	CreatorProfileName  *string      `json:"creatorProfileName"` 
-	DriverLicense       *string      `json:"driverLicense"`      
-	Email               []string     `json:"email"`              
-	FromSMS             *FromSMS     `json:"fromSms"`            
-	MiddleName          *string      `json:"middle_name"`        
-	Name                string       `json:"name"`               
-	Phone               FaxElement   `json:"phone"`              
-	Sex                 *Sex         `json:"sex,omitempty"`      
-	Surname             string       `json:"surname"`            
-	TaxiPark            *string      `json:"taxiPark"`           
-	TaxiParkMemberCount *OrderWeight `json:"taxiParkMemberCount"`
+	Address                    *string               `json:"address,omitempty"`                   
+	Birthday                   *Birthday             `json:"birthday"`                            
+	BlackList                  *string               `json:"blackList,omitempty"`                 
+	ChildrenClients            []ChildrenClient      `json:"childrenClients"`                     
+	ClientCardCreationDate     *string               `json:"clientCardCreationDate,omitempty"`    
+	ClientCardNumber           *string               `json:"clientCardNumber,omitempty"`          
+	ClientContractNumber       *string               `json:"clientContractNumber,omitempty"`      
+	CreatorProfileID           *string               `json:"creatorProfileID"`                    
+	CreatorProfileName         *string               `json:"creatorProfileName"`                  
+	DiscountCode               *string               `json:"discountCode,omitempty"`              
+	DriverLicense              *string               `json:"driverLicense"`                       
+	Email                      []string              `json:"email"`                               
+	ExtraFields                []ClientExtraField    `json:"extraFields"`                         
+	ExtraID                    *string               `json:"extraID,omitempty"`                   
+	FavResources               []FavResource         `json:"favResources"`                        
+	Fax                        []FaxElement          `json:"fax"`                                 
+	FromSMS                    *FromSMS              `json:"fromSms"`                             
+	FullAddress                []AddressSchema       `json:"fullAddress"`                         
+	HouseNumber                *string               `json:"houseNumber,omitempty"`               
+	IconURL                    *string               `json:"icon_url,omitempty"`                  
+	ID                         *string               `json:"id,omitempty"`                        
+	InsuranceCompany           *string               `json:"insuranceCompany,omitempty"`          
+	InsuranceNumber            *string               `json:"insuranceNumber,omitempty"`           
+	IntegrationData            *IntegrationDataClass `json:"integrationData,omitempty"`           
+	IsLazy                     *bool                 `json:"isLazy,omitempty"`                    
+	IsraelCity                 *string               `json:"israelCity,omitempty"`                
+	IsVIP                      *bool                 `json:"isVIP,omitempty"`                     
+	KupatHolim                 *string               `json:"kupatHolim,omitempty"`                
+	Language                   *LanguageList         `json:"language,omitempty"`                  
+	LazyResolvedDate           *string               `json:"lazyResolvedDate,omitempty"`          
+	Locality                   *string               `json:"locality,omitempty"`                  
+	LoyaltyInfo                *LoyaltyInfo          `json:"loyaltyInfo,omitempty"`               
+	MiddleName                 *string               `json:"middleName"`                          
+	Name                       string                `json:"name"`                                
+	PassportDate               *string               `json:"passportDate,omitempty"`              
+	PassportID                 *string               `json:"passportId,omitempty"`                
+	PassportIssued             *string               `json:"passportIssued,omitempty"`            
+	PassportSeries             *string               `json:"passportSeries,omitempty"`            
+	Phone                      []FaxElement          `json:"phone"`                               
+	ReceiveSMSAfterService     *string               `json:"receiveSmsAfterService,omitempty"`    
+	Sex                        *Sex                  `json:"sex,omitempty"`                       
+	SkipMarketingNotifications *bool                 `json:"skipMarketingNotifications,omitempty"`
+	SkipNotifications          *bool                 `json:"skipNotifications,omitempty"`         
+	Snils                      *string               `json:"snils,omitempty"`                     
+	Status                     *ResourceStatus       `json:"status,omitempty"`                    
+	Surname                    string                `json:"surname"`                             
+	TaxiPark                   *string               `json:"taxiPark"`                            
+	TaxiParkMemberCount        *OrderWeight          `json:"taxiParkMemberCount"`                 
+	TwoFAUserID                *string               `json:"twoFAUserID,omitempty"`               
+	WorkPlace                  *string               `json:"workPlace,omitempty"`                 
+}
+
+type ChildrenClient struct {
+	ClientID   string  `json:"clientID"`            
+	ExtraID    *string `json:"extraID,omitempty"`   
+	MiddleName *string `json:"middleName,omitempty"`
+	Name       *string `json:"name,omitempty"`      
+	Surname    *string `json:"surname,omitempty"`   
+}
+
+type ClientExtraField struct {
+	FieldID   string       `json:"fieldID"`  
+	FieldName string       `json:"fieldName"`
+	Value     *FluffyValue `json:"value"`    
+}
+
+type FavResource struct {
+	BusinessID float64 `json:"businessID"`
+	NetworkID  string  `json:"networkID"` 
+	ResourceID string  `json:"resourceID"`
+}
+
+type IntegrationDataClass struct {
+	TransactionID string `json:"transactionID"`
+}
+
+type LoyaltyInfo struct {
+	AnnualTurnover *float64   `json:"annualTurnover,omitempty"`
+	BonusPoints    *float64   `json:"bonusPoints,omitempty"`   
+	CardNumber     *string    `json:"cardNumber,omitempty"`    
+	Presents       []Present  `json:"presents"`                
+	Purchases      []Purchase `json:"purchases"`               
+	Status         *string    `json:"status,omitempty"`        
+}
+
+type Present struct {
+	Code    *string        `json:"code,omitempty"`   
+	ExtraID *string        `json:"extraID,omitempty"`
+	Name    *string        `json:"name,omitempty"`   
+	Status  *PresentStatus `json:"status,omitempty"` 
+}
+
+type Purchase struct {
+	Active         *bool    `json:"active,omitempty"`        
+	ExpirationDate *string  `json:"expirationDate,omitempty"`
+	Free           *bool    `json:"free,omitempty"`          
+	GoodID         *string  `json:"goodID,omitempty"`        
+	Price          *float64 `json:"price,omitempty"`         
+	TransactionID  *string  `json:"transactionID,omitempty"` 
 }
 
 type ParamsProfile struct {
@@ -2263,10 +2355,11 @@ type ClientAddClientResponseError struct {
 }
 
 type ClientAddClientResponseResult struct {
-	Business  *HilariousBusiness `json:"business,omitempty"`
-	Client    ClientClass        `json:"client"`            
-	Documents []interface{}      `json:"documents"`         
-	Profile   *PurpleProfile     `json:"profile,omitempty"` 
+	Business  HilariousBusiness `json:"business"`           
+	Client    ClientClass       `json:"client"`             
+	Documents *string           `json:"documents,omitempty"`
+	Profile   *PurpleProfile    `json:"profile,omitempty"`  
+	Source    *Source           `json:"source,omitempty"`   
 }
 
 type HilariousBusiness struct {
@@ -2338,6 +2431,55 @@ type FluffyProfile struct {
 	ID string `json:"id"`
 }
 
+type UpdateClient struct {
+	Request  ClientUpdateClientRequest  `json:"request"` 
+	Response ClientUpdateClientResponse `json:"response"`
+}
+
+type ClientUpdateClientRequest struct {
+	Cred    *Cred                           `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                  `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                          `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                          `json:"method"`        // название jsonrpc метода
+	Params  ClientUpdateClientRequestParams `json:"params"`        // параметры запроса
+}
+
+// параметры запроса
+type ClientUpdateClientRequestParams struct {
+	Business MagentaBusiness   `json:"business"`         
+	Client   ClientClass       `json:"client"`           
+	Network  *TentacledNetwork `json:"network,omitempty"`
+}
+
+type MagentaBusiness struct {
+	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
+}
+
+type TentacledNetwork struct {
+	ID *TimeFrameDate `json:"id"`// идентификатор нетворка
+}
+
+type ClientUpdateClientResponse struct {
+	Result  *ClientUpdateClientResponseResult `json:"result,omitempty"` 
+	Error   *ClientUpdateClientResponseError  `json:"error,omitempty"`  // объект, содержащий информацию об ошибке
+	ID      *float64                          `json:"id,omitempty"`     // значение числового типа для идентификации запроса на сервере
+	Jsonrpc *string                           `json:"jsonrpc,omitempty"`// версия протокола (2.0)
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type ClientUpdateClientResponseError struct {
+	Code    float64 `json:"code"`          // код ошибки; ; код ошибки создания клиента
+	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
+	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+type ClientUpdateClientResponseResult struct {
+	AddedDocument map[string]interface{} `json:"added_document,omitempty"`
+	Success       bool                   `json:"success"`                 
+}
+
 type CracSlotsController struct {
 	CRACDistributedResourcesFreeByDate  *CRACDistributedResourcesFreeByDate `json:"CRACDistributedResourcesFreeByDate,omitempty"`
 	CRACResourcesFreeByDate             *CRACResourcesFreeByDate            `json:"CRACResourcesFreeByDate,omitempty"`           
@@ -2361,12 +2503,12 @@ type CracCRACDistributedResourcesFreeByDateRequest struct {
 }
 
 type CracCRACDistributedResourcesFreeByDateRequestParam struct {
-	Business  MagentaBusiness   `json:"business"` 
+	Business  FriskyBusiness    `json:"business"` 
 	Resources []string          `json:"resources"`
 	Taxonomy  TentacledTaxonomy `json:"taxonomy"` 
 }
 
-type MagentaBusiness struct {
+type FriskyBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -2465,14 +2607,14 @@ type CracCRACResourcesFreeByDateV2Request struct {
 }
 
 type CracCRACResourcesFreeByDateV2RequestParam struct {
-	Business  FriskyBusiness `json:"business"` 
-	Duration  float64        `json:"duration"` 
-	Durations []float64      `json:"durations"`
-	Resources []string       `json:"resources"`
-	Taxonomy  IndigoTaxonomy `json:"taxonomy"` 
+	Business  MischievousBusiness `json:"business"` 
+	Duration  float64             `json:"duration"` 
+	Durations []float64           `json:"durations"`
+	Resources []string            `json:"resources"`
+	Taxonomy  IndigoTaxonomy      `json:"taxonomy"` 
 }
 
-type FriskyBusiness struct {
+type MischievousBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -2522,30 +2664,31 @@ type CracSlotsGetCRACDistributedResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACDistributedResourcesAndRoomsRequestParams struct {
-	Business MischievousBusiness `json:"business"`
-	Filters  PurpleFilters       `json:"filters"` 
+	Business CracSlotsRequestBusinessParams                             `json:"business"`
+	Filters  CracSlotsGetCRACDistributedResourcesAndRoomsRequestFilters `json:"filters"` 
 }
 
-type MischievousBusiness struct {
-	GeneralInfo         PurpleGeneralInfo         `json:"general_info"`        
+type CracSlotsRequestBusinessParams struct {
+	GeneralInfo         GeneralInfo               `json:"general_info"`        
 	ID                  string                    `json:"id"`                  
 	WidgetConfiguration PurpleWidgetConfiguration `json:"widget_configuration"`
 }
 
-type PurpleGeneralInfo struct {
+type GeneralInfo struct {
 	Timezone string `json:"timezone"`
 }
 
 type PurpleWidgetConfiguration struct {
-	CracServer     string `json:"cracServer"`              
-	MostFreeEnable *bool  `json:"mostFreeEnable,omitempty"`
+	CracServer      string   `json:"cracServer"`               
+	DisplaySlotSize *float64 `json:"displaySlotSize,omitempty"`
+	HideGraySlots   *bool    `json:"hideGraySlots,omitempty"`  
 }
 
-type PurpleFilters struct {
-	Date       PurpleDate             `json:"date"`      
-	Resources  []PurpleResourceFilter `json:"resources"` 
-	Rooms      []string               `json:"rooms"`     
-	Taxonomies []string               `json:"taxonomies"`
+type CracSlotsGetCRACDistributedResourcesAndRoomsRequestFilters struct {
+	Date       PurpleDate                                                          `json:"date"`      
+	Resources  []CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter `json:"resources"` 
+	Rooms      []string                                                            `json:"rooms"`     
+	Taxonomies []string                                                            `json:"taxonomies"`
 }
 
 type PurpleDate struct {
@@ -2553,7 +2696,7 @@ type PurpleDate struct {
 	To   string `json:"to"`  
 }
 
-type PurpleResourceFilter struct {
+type CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter struct {
 	Business ResourceBusiness `json:"business"`
 	Resource string           `json:"resource"`// идентификатор ресурса
 }
@@ -2603,30 +2746,15 @@ type CracSlotsGetCRACInsuranceResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestParams struct {
-	Business BraggadociousBusiness `json:"business"`
-	Filters  FluffyFilters         `json:"filters"` 
+	Business CracSlotsRequestBusinessParams                           `json:"business"`
+	Filters  CracSlotsGetCRACInsuranceResourcesAndRoomsRequestFilters `json:"filters"` 
 }
 
-type BraggadociousBusiness struct {
-	GeneralInfo         FluffyGeneralInfo         `json:"general_info"`        
-	ID                  string                    `json:"id"`                  
-	WidgetConfiguration FluffyWidgetConfiguration `json:"widget_configuration"`
-}
-
-type FluffyGeneralInfo struct {
-	Timezone string `json:"timezone"`
-}
-
-type FluffyWidgetConfiguration struct {
-	CracServer     string `json:"cracServer"`              
-	MostFreeEnable *bool  `json:"mostFreeEnable,omitempty"`
-}
-
-type FluffyFilters struct {
-	Date        FluffyDate             `json:"date"`       
-	InsuranceID string                 `json:"insuranceID"`
-	Resources   []FluffyResourceFilter `json:"resources"`  
-	Rooms       []string               `json:"rooms"`      
+type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestFilters struct {
+	Date        FluffyDate                                                        `json:"date"`       
+	InsuranceID string                                                            `json:"insuranceID"`
+	Resources   []CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter `json:"resources"`  
+	Rooms       []string                                                          `json:"rooms"`      
 }
 
 type FluffyDate struct {
@@ -2634,7 +2762,7 @@ type FluffyDate struct {
 	To   string `json:"to"`  
 }
 
-type FluffyResourceFilter struct {
+type CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter struct {
 	Duration float64 `json:"duration"`
 	ID       string  `json:"id"`      // идентификатор ресурса
 }
@@ -2680,30 +2808,15 @@ type CracSlotsGetCRACResourcesAndRoomsRequest struct {
 
 // параметры запроса
 type CracSlotsGetCRACResourcesAndRoomsRequestParams struct {
-	Business Business1        `json:"business"`
-	Filters  TentacledFilters `json:"filters"` 
+	Business CracSlotsRequestBusinessParams                  `json:"business"`
+	Filters  CracSlotsGetCRACResourcesAndRoomsRequestFilters `json:"filters"` 
 }
 
-type Business1 struct {
-	GeneralInfo         TentacledGeneralInfo         `json:"general_info"`        
-	ID                  string                       `json:"id"`                  
-	WidgetConfiguration TentacledWidgetConfiguration `json:"widget_configuration"`
-}
-
-type TentacledGeneralInfo struct {
-	Timezone string `json:"timezone"`
-}
-
-type TentacledWidgetConfiguration struct {
-	CracServer     string `json:"cracServer"`              
-	MostFreeEnable *bool  `json:"mostFreeEnable,omitempty"`
-}
-
-type TentacledFilters struct {
-	Date       TentacledDate             `json:"date"`      
-	Resources  []TentacledResourceFilter `json:"resources"` 
-	Rooms      []string                  `json:"rooms"`     
-	Taxonomies []string                  `json:"taxonomies"`
+type CracSlotsGetCRACResourcesAndRoomsRequestFilters struct {
+	Date       TentacledDate                                            `json:"date"`      
+	Resources  []CracSlotsGetCRACResourcesAndRoomsRequestResourceFilter `json:"resources"` 
+	Rooms      []string                                                 `json:"rooms"`     
+	Taxonomies []string                                                 `json:"taxonomies"`
 }
 
 type TentacledDate struct {
@@ -2711,7 +2824,7 @@ type TentacledDate struct {
 	To   string `json:"to"`  
 }
 
-type TentacledResourceFilter struct {
+type CracSlotsGetCRACResourcesAndRoomsRequestResourceFilter struct {
 	Duration float64 `json:"duration"`
 	ID       string  `json:"id"`      // идентификатор ресурса
 }
@@ -2733,19 +2846,31 @@ type CracSlotsGetCRACResourcesAndRoomsResponseError struct {
 }
 
 type CracSlotsGetCRACResourcesAndRoomsResponseResult struct {
-	Slots []TentacledSlot `json:"slots"`
+	Slots []CracDaySchedule `json:"slots"`
 }
 
-type TentacledSlot struct {
+type CracDaySchedule struct {
 	Date      string                   `json:"date"`     
-	Resources []interface{}            `json:"resources"`
+	Resources []SlotResource           `json:"resources"`
 	Rooms     []map[string]interface{} `json:"rooms"`    
 }
 
+type SlotResource struct {
+	CutSlots   []CracCutSlot `json:"cutSlots"`  
+	ResourceID string        `json:"resourceId"`
+}
+
+type CracCutSlot struct {
+	Available bool    `json:"available"`
+	Duration  float64 `json:"duration"` 
+	End       float64 `json:"end"`      
+	Start     float64 `json:"start"`    
+}
+
 type Models struct {
-	Appointment AppointmentElement `json:"Appointment"`
-	Business    BusinessClass      `json:"Business"`   
-	Client      ClientClass        `json:"Client"`     
+	Appointment Appointment   `json:"Appointment"`
+	Business    BusinessClass `json:"Business"`   
+	Client      ClientClass   `json:"Client"`     
 }
 
 type AppointmentClientAppear string
@@ -3141,6 +3266,20 @@ const (
 	StaticServiceOnly YandexFeedType = "static-service-only"
 )
 
+type PresentStatus string
+const (
+	Ready PresentStatus = "READY"
+	Received PresentStatus = "RECEIVED"
+)
+
+type Source string
+const (
+	Backoffice Source = "BACKOFFICE"
+	MiniWidget Source = "MINI_WIDGET"
+	MobileWidget Source = "MOBILE_WIDGET"
+	Widget Source = "WIDGET"
+)
+
 type ErrorResponse struct {
 	AnythingArray      []interface{}
 	Bool               *bool
@@ -3293,13 +3432,13 @@ func (x *Birthday) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, nil, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
-type Value struct {
+type PurpleValue struct {
 	AnythingMap map[string]interface{}
 	Double      *float64
 	String      *string
 }
 
-func (x *Value) UnmarshalJSON(data []byte) error {
+func (x *PurpleValue) UnmarshalJSON(data []byte) error {
 	x.AnythingMap = nil
 	object, err := unmarshalUnion(data, nil, &x.Double, nil, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
 	if err != nil {
@@ -3310,7 +3449,7 @@ func (x *Value) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (x *Value) MarshalJSON() ([]byte, error) {
+func (x *PurpleValue) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
@@ -3352,6 +3491,28 @@ func (x *OrderWeight) UnmarshalJSON(data []byte) error {
 
 func (x *OrderWeight) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, false, nil, false, nil, true)
+}
+
+type FluffyValue struct {
+	AnythingMap map[string]interface{}
+	Bool        *bool
+	Double      *float64
+	String      *string
+}
+
+func (x *FluffyValue) UnmarshalJSON(data []byte) error {
+	x.AnythingMap = nil
+	object, err := unmarshalUnion(data, nil, &x.Double, &x.Bool, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *FluffyValue) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, x.Double, x.Bool, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
 type FromSMS struct {

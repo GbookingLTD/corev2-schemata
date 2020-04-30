@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 /**
  * данные, передаваемые в ответ
  */
-public class AppointmentElement {
+public class Appointment {
     private Map<String, Object> additionalInfo;
     private List<AdditionalClientAppear> additionalClientAppears;
     private List<AdditionalClientPayment> additionalClientPayments;

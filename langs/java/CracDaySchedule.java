@@ -3,9 +3,9 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class TentacledSlot {
+public class CracDaySchedule {
     private String date;
-    private List<Object> resources;
+    private List<SlotResource> resources;
     private List<Map<String, Object>> rooms;
 
     @JsonProperty("date")
@@ -14,9 +14,9 @@ public class TentacledSlot {
     public void setDate(String value) { this.date = value; }
 
     @JsonProperty("resources")
-    public List<Object> getResources() { return resources; }
+    public List<SlotResource> getResources() { return resources; }
     @JsonProperty("resources")
-    public void setResources(List<Object> value) { this.resources = value; }
+    public void setResources(List<SlotResource> value) { this.resources = value; }
 
     @JsonProperty("rooms")
     public List<Map<String, Object>> getRooms() { return rooms; }
