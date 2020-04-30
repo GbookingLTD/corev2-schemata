@@ -93,6 +93,7 @@ schemas-json/models/businessData.schema.json
 | [enableExtendedRecordsClientStatistics](#enableextendedrecordsclientstatistics)                     | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
 | [enableMasterImportance](#enablemasterimportance)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
 | [enableOverrideFooter](#enableoverridefooter)                                                       | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
+| [enablePrintingReportRecordsScreen](#enableprintingreportrecordsscreen)                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
 | [enableServiceTimeLimit](#enableservicetimelimit)                                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
 | [enableSourceChoice](#enablesourcechoice)                                                           | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
 | [enableTaxonomyChildrenAgeCheck](#enabletaxonomychildrenagecheck)                                   | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
@@ -1632,6 +1633,19 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### enableOverrideFooter Type
+
+`boolean`
+
+## enablePrintingReportRecordsScreen
+
+`enablePrintingReportRecordsScreen`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### enablePrintingReportRecordsScreen Type
 
 `boolean`
 
@@ -4590,6 +4604,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `enableExtendedPhone`                             | boolean     | Optional | `false`     |
 | `enableExtendedRecordsClientStatistics`           | boolean     | Optional | `false`     |
 | `enableMasterImportance`                          | boolean     | Optional | `false`     |
+| `enablePrintingReportRecordsScreen`               | boolean     | Optional | `false`     |
 | `enableServiceTimeLimit`                          | boolean     | Optional | `false`     |
 | `enableSourceChoice`                              | boolean     | Optional | `true`      |
 | `enableTaxonomyChildrenAgeCheck`                  | boolean     | Optional | `false`     |
@@ -4942,6 +4957,18 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### enableMasterImportance Type
+
+`boolean`
+
+#### enablePrintingReportRecordsScreen
+
+`enablePrintingReportRecordsScreen`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### enablePrintingReportRecordsScreen Type
 
 `boolean`
 

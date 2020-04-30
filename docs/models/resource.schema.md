@@ -200,6 +200,7 @@ The value of this property **must** be equal to one of the [known values below](
 | Property                                    | Type       | Required     | Nullable | Default | Defined by             |
 | ------------------------------------------- | ---------- | ------------ | -------- | ------- | ---------------------- |
 | [additionalExtraId](#additionalextraid)     | `string[]` | Optional     | No       |         | Resource (this schema) |
+| [badIconResolution](#badiconresolution)     | `boolean`  | Optional     | No       |         | Resource (this schema) |
 | [capacity](#capacity)                       | `number`   | **Required** | No       |         | Resource (this schema) |
 | [color](#color)                             | `string`   | Optional     | No       |         | Resource (this schema) |
 | [degree](#degree)                           | `string`   | Optional     | No       |         | Resource (this schema) |
@@ -235,7 +236,7 @@ The value of this property **must** be equal to one of the [known values below](
 | [originTaxonomies](#origintaxonomies)       | `string[]` | Optional     | No       |         | Resource (this schema) |
 | [origin_general_info](#origin_general_info) | reference  | Optional     | No       |         | Resource (this schema) |
 | [perk](#perk)                               | `string`   | Optional     | No       |         | Resource (this schema) |
-| [phone](#phone)                             | reference  | **Required** | No       |         | Resource (this schema) |
+| [phone](#phone)                             | reference  | Optional     | No       |         | Resource (this schema) |
 | [profession](#profession)                   | `string`   | Optional     | No       |         | Resource (this schema) |
 | [profile](#profile)                         | `object`   | Optional     | No       |         | Resource (this schema) |
 | [rating](#rating)                           | `number`   | Optional     | No       |         | Resource (this schema) |
@@ -268,6 +269,18 @@ The value of this property **must** be equal to one of the [known values below](
 Array type: `string[]`
 
 All items must be of the type: `string`
+
+## badIconResolution
+
+`badIconResolution`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### badIconResolution Type
+
+`boolean`
 
 ## capacity
 
@@ -860,11 +873,15 @@ All items must be of the type: `string`
 
 `phone`
 
-- is **required**
+- is optional
 - type: reference
 - defined in this schema
 
 ### phone Type
+
+Array type: reference
+
+All items must be of the type:
 
 - []() – `./phone.schema.json`
 

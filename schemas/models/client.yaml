@@ -3,18 +3,26 @@ $id: "schemas-json/models/client.schema.json"
 type: "object"
 description: "Данные клиента"
 required: ["name", "surname", "phone"]
-additionalProperties: true
+additionalProperties: false
 properties:
+  id:
+    type: "string"
   name:
     type: "string"
   surname:
     type: "string"
-  middle_name:
+  middleName:
     type: ["string", "null"]
   birthday:
     type: ["string", "object", "null"]
   phone:
-    $ref: "./phone.schema.json"
+    type: "array"
+    items:
+      $ref: "./phone.schema.json"
+  fax:
+    type: "array"
+    items:
+      $ref: "./phone.schema.json"
   email:
     type: "array"
     items:
@@ -25,6 +33,123 @@ properties:
   sex:
     type: "string"
     enum: ['',"MALE", "FEMALE", "NOT_SPECIFIED"]
+  insuranceCompany:
+    type: "string"
+  insuranceNumber:
+    type: "string"
+  language:
+    $ref: "./partials/language.schema.json#/definitions/LanguageList"
+  snils:
+    type: "string"
+  status:
+    type: "string"
+    enum: ["ACTIVE", "INACTIVE"]
+  receiveSmsAfterService:
+    type: "string"
+  icon_url:
+    type: "string"
+  blackList:
+    type: "string"
+  passportId:
+    type: "string"
+  passportSeries:
+    type: "string"
+  passportDate:
+    type: "string"
+  passportIssued:
+    type: "string"
+  workPlace:
+    type: "string"
+  clientContractNumber:
+    type: "string"
+  clientCardNumber:
+    type: "string"
+  clientCardCreationDate:
+    type: "string"
+  discountCode:
+    type: "string"
+  locality:
+    type: "string"
+  address:
+    type: "string"
+    default: ""
+  fullAddress:
+    type: "array"
+    items:
+      $ref: "../models/address.schema.json"
+  houseNumber:
+    type: "string"
+  israelCity:
+    type: "string"
+  kupatHolim:
+    type: "string"
+  isVIP:
+    type: "boolean"
+    default: false;
+  skipNotifications:
+    type: "boolean"
+  skipMarketingNotifications:
+    type: "boolean"
+  loyaltyInfo:
+    $ref: "./partials/loyaltyInfo.schema.json"
+  extraID:
+    type: "string"
+  extraFields:
+    type: "array"
+    items:
+      type: "object"
+      required: ["fieldID", "fieldName", "value"]
+      additionalProperties: false
+      properties:
+        fieldID:
+          type: "string"
+        fieldName:
+          type: "string"
+        value:
+          type: ["null", "number", "boolean", "string", "object"]
+  favResources:
+    type: "array"
+    items:
+      type: "object"
+      required: ["businessID", "networkID", "resourceID"]
+      additionalProperties: false
+      properties:
+        businessID:
+          type: "number"
+        networkID:
+          type: "string"
+        resourceID:
+          type: "string"
+  isLazy:
+    type: "boolean"
+  lazyResolvedDate:
+    type: "string"
+  twoFAUserID:
+    type: "string"
+  childrenClients:
+    type: "array"
+    items:
+      type: "object"
+      required: ["clientID"]
+      additionalProperties: false
+      properties:
+        extraID:
+          type: "string"
+        clientID:
+          type: "string"
+        name:
+          type: "string"
+        surname:
+          type: "string"
+        middleName:
+          type: "string"
+  integrationData:
+    type: "object"
+    required: ["transactionID"]
+    additionalProperties: false
+    properties:
+      transactionID:
+        type: "string"
 
   # Я.Такси
   creatorProfileID:

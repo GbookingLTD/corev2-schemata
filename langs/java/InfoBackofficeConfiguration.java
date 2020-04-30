@@ -27,6 +27,7 @@ public class InfoBackofficeConfiguration {
     private Boolean enableExtendedPhone;
     private Boolean enableExtendedRecordsClientStatistics;
     private Boolean enableMasterImportance;
+    private Boolean enablePrintingReportRecordsScreen;
     private Boolean enableServiceTimeLimit;
     private Boolean enableSourceChoice;
     private Boolean enableTaxonomyChildrenAgeCheck;
@@ -220,6 +221,11 @@ public class InfoBackofficeConfiguration {
     public Boolean getEnableMasterImportance() { return enableMasterImportance; }
     @JsonProperty("enableMasterImportance")
     public void setEnableMasterImportance(Boolean value) { this.enableMasterImportance = value; }
+
+    @JsonProperty("enablePrintingReportRecordsScreen")
+    public Boolean getEnablePrintingReportRecordsScreen() { return enablePrintingReportRecordsScreen; }
+    @JsonProperty("enablePrintingReportRecordsScreen")
+    public void setEnablePrintingReportRecordsScreen(Boolean value) { this.enablePrintingReportRecordsScreen = value; }
 
     @JsonProperty("enableServiceTimeLimit")
     public Boolean getEnableServiceTimeLimit() { return enableServiceTimeLimit; }

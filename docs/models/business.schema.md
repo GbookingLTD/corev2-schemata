@@ -215,6 +215,7 @@ schemas-json/models/business.schema.json
 | [showTaxonomyChildren](#showtaxonomychildren)                                                       | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [showTaxonomyConfirmationAlert](#showtaxonomyconfirmationalert)                                     | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [showTaxonomyLocalization](#showtaxonomylocalization)                                               | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [showTaxonomyNameExtraId](#showtaxonomynameextraid)                                                 | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [showTaxonomyVisitType](#showtaxonomyvisittype)                                                     | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [showTestRecord](#showtestrecord)                                                                   | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [showUTM](#showutm)                                                                                 | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
@@ -1401,6 +1402,10 @@ The value of this property **must** be equal to one of the [known values below](
 - defined in this schema
 
 ### discounts Type
+
+Array type: reference
+
+All items must be of the type:
 
 - []() – `./discount.schema.json`
 
@@ -3259,6 +3264,19 @@ The value of this property **must** be equal to one of the [known values below](
 
 `boolean`
 
+## showTaxonomyNameExtraId
+
+`showTaxonomyNameExtraId`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### showTaxonomyNameExtraId Type
+
+`boolean`
+
 ## showTaxonomyVisitType
 
 `showTaxonomyVisitType`
@@ -4620,6 +4638,7 @@ The value of this property **must** be equal to one of the [known values below](
 | `showSeasonTickets`                               | boolean     | Optional | `false`     |
 | `showTaxonomyChildren`                            | boolean     | Optional | `false`     |
 | `showTaxonomyLocalization`                        | boolean     | Optional | `false`     |
+| `showTaxonomyNameExtraId`                         | boolean     | Optional | `false`     |
 | `showTaxonomyVisitType`                           | boolean     | Optional | `false`     |
 | `showTestRecord`                                  | boolean     | Optional | `false`     |
 | `showUTM`                                         | boolean     | Optional | `false`     |
@@ -5627,6 +5646,18 @@ The value of this property **must** be equal to one of the [known values below](
 - default: `false`
 
 ##### showTaxonomyLocalization Type
+
+`boolean`
+
+#### showTaxonomyNameExtraId
+
+`showTaxonomyNameExtraId`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### showTaxonomyNameExtraId Type
 
 `boolean`
 

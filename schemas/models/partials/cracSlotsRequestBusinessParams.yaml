@@ -1,0 +1,28 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/partials/cracSlotsRequestBusinessParams.schema.json"
+title: "CracSlotsRequestBusinessParams"
+type: "object"
+additionalProperties: false
+required: ["id", "widget_configuration", "general_info"]
+properties:
+  id:
+    type: "string"
+  widget_configuration:
+    type: "object"
+    additionalProperties: false
+    required: ["cracServer"]
+    properties:
+      cracServer:
+        type: "string"
+      displaySlotSize:
+        type: "number"
+      hideGraySlots:
+        type: "boolean"
+        default: false
+  general_info:
+    type: "object"
+    additionalProperties: false
+    required: ["timezone"]
+    properties:
+      timezone:
+        type: "string"

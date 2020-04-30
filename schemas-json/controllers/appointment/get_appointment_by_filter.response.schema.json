@@ -75,6 +75,35 @@
                 }
             ]
         },
+        "AppointmentGetAppointmentByFilterResponseResult": {
+            "title": "AppointmentGetAppointmentByFilterResponseResult",
+            "type": "object",
+            "description": "данные, передаваемые в ответ",
+            "additionalProperties": false,
+            "required": [
+                "page",
+                "unconfirmed",
+                "total",
+                "data"
+            ],
+            "properties": {
+                "page": {
+                    "type": "number"
+                },
+                "unconfirmed": {
+                    "type": "number"
+                },
+                "total": {
+                    "type": "number"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../../models/appointment.schema.json"
+                    }
+                }
+            }
+        },
         "SuccessResponse": {
             "type": "object",
             "additionalProperties": false,
@@ -89,32 +118,7 @@
                     "type": "number"
                 },
                 "result": {
-                    "type": "object",
-                    "description": "данные, передаваемые в ответ",
-                    "additionalProperties": false,
-                    "required": [
-                        "page",
-                        "unconfirmed",
-                        "total",
-                        "data"
-                    ],
-                    "properties": {
-                        "page": {
-                            "type": "number"
-                        },
-                        "unconfirmed": {
-                            "type": "number"
-                        },
-                        "total": {
-                            "type": "number"
-                        },
-                        "data": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "../../models/appointment.schema.json"
-                            }
-                        }
-                    }
+                    "$ref": "#/definitions/AppointmentGetAppointmentByFilterResponseResult"
                 }
             },
             "required": [

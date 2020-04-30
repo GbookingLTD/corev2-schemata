@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class Resource {
     private List<String> additionalExtraID;
+    private Boolean badIconResolution;
     private double capacity;
     private String color;
     private String degree;
@@ -43,7 +44,7 @@ public class Resource {
     private String originBusinessID;
     private List<String> originTaxonomies;
     private String perk;
-    private FaxElement phone;
+    private List<FaxElement> phone;
     private String profession;
     private ProfileClass profile;
     private Double rating;
@@ -68,6 +69,11 @@ public class Resource {
     public List<String> getAdditionalExtraID() { return additionalExtraID; }
     @JsonProperty("additionalExtraId")
     public void setAdditionalExtraID(List<String> value) { this.additionalExtraID = value; }
+
+    @JsonProperty("badIconResolution")
+    public Boolean getBadIconResolution() { return badIconResolution; }
+    @JsonProperty("badIconResolution")
+    public void setBadIconResolution(Boolean value) { this.badIconResolution = value; }
 
     /**
      * Количество записей, которые может принимать работник единовременно
@@ -326,9 +332,9 @@ public class Resource {
     public void setPerk(String value) { this.perk = value; }
 
     @JsonProperty("phone")
-    public FaxElement getPhone() { return phone; }
+    public List<FaxElement> getPhone() { return phone; }
     @JsonProperty("phone")
-    public void setPhone(FaxElement value) { this.phone = value; }
+    public void setPhone(List<FaxElement> value) { this.phone = value; }
 
     /**
      * информация о профессии работника, используется в Бекофис

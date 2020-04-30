@@ -21,6 +21,95 @@
                 }
             }
         },
+        "Business": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "widget_configuration",
+                "general_info"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "widget_configuration": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "cracServer"
+                    ],
+                    "properties": {
+                        "cracServer": {
+                            "type": "string"
+                        },
+                        "mostFreeEnable": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "general_info": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "timezone"
+                    ],
+                    "properties": {
+                        "timezone": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "Filters": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "resources",
+                "taxonomies",
+                "rooms",
+                "date"
+            ],
+            "properties": {
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ResourceFilter"
+                    }
+                },
+                "taxonomies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "rooms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "date": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "from",
+                        "to"
+                    ],
+                    "properties": {
+                        "from": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "to": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                }
+            }
+        },
         "Request": {
             "type": "object",
             "additionalProperties": true,
@@ -38,93 +127,10 @@
                     ],
                     "properties": {
                         "business": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                                "id",
-                                "widget_configuration",
-                                "general_info"
-                            ],
-                            "properties": {
-                                "id": {
-                                    "type": "string"
-                                },
-                                "widget_configuration": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": [
-                                        "cracServer"
-                                    ],
-                                    "properties": {
-                                        "cracServer": {
-                                            "type": "string"
-                                        },
-                                        "mostFreeEnable": {
-                                            "type": "boolean"
-                                        }
-                                    }
-                                },
-                                "general_info": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": [
-                                        "timezone"
-                                    ],
-                                    "properties": {
-                                        "timezone": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
+                            "$ref": "#/definitions/Business"
                         },
                         "filters": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                                "resources",
-                                "taxonomies",
-                                "rooms",
-                                "date"
-                            ],
-                            "properties": {
-                                "resources": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/ResourceFilter"
-                                    }
-                                },
-                                "taxonomies": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "rooms": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "date": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": [
-                                        "from",
-                                        "to"
-                                    ],
-                                    "properties": {
-                                        "from": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                        },
-                                        "to": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                        }
-                                    }
-                                }
-                            }
+                            "$ref": "#/definitions/Filters"
                         }
                     }
                 }

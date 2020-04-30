@@ -12,6 +12,7 @@ properties:
         $ref: "./client/add_client.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
+
   find_or_create_client:
     type: "object"
     properties:
@@ -21,6 +22,19 @@ properties:
         $ref: "./client/find_or_create_client.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
+
+  update_client:
+    type: "object"
+    properties:
+      request:
+        $ref: "./client/update_client.request.schema.json"
+      response:
+        $ref: "./client/update_client.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+
 required:
   - add_client
+  - find_or_create_client
+  - update_client
 additionalProperties: false

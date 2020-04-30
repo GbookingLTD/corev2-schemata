@@ -1,12 +1,17 @@
 "use strict";
 
 const Q = require('q')
+    , time = require('./time')
     , getProfileByID = require('./test').getProfileByID
     , getNetworkData = require('./test').getNetworkData
     , getNetworkDataWithBusinessInfo = require('./test').getNetworkDataWithBusinessInfo
     , findOrCreateEmptyClient = require('./test').findOrCreateEmptyClient
     , getAppointmentByStartEnd = require('./test').getAppointmentByStartEnd
     , getAppointmentByCreated = require('./test').getAppointmentByCreated
+    , reserveAppointment = require('./test').reserveAppointment
+    , addClient = require('./test').addClient
+    , clientConfirmAppointment = require('./test').clientConfirmAppointment
+    , cancelAppointmentByClient = require('./test').cancelAppointmentByClient
     , CRAC = require('./test').CRAC
 ;
 
@@ -21,6 +26,12 @@ const now = new Date();
 const oneWeekLater = new Date(now.getTime() + TimeMs.Week);
 const oneWeekBefore = new Date(now.getTime() - TimeMs.Week);
 const twoWeeksBefore = new Date(now.getTime() - 2 * TimeMs.Week);
+
+const dateTimeRangeIterator = new time.DateTimeRangeIterator(time.oneWeekLater, new time.DayMinutesIterator(
+    13 * time.TimeMinutes.Hour,
+    21 * time.TimeMinutes.Hour,
+    1 * time.TimeMinutes.Hour
+));
 
 // test get_profile_by_id for dev
 require('./test')(function() {
@@ -63,6 +74,49 @@ require('./test')(function() {
         token: "1cb6fa911cb46fd7dc748d2e8d5a056ebf8cb051",
         user: "58b82e122ce1ea62096cc76c"
       }),
+    ].forEach((p) => {requests.push(p)});
+
+  if (process.argv.length === 2 || process.argv[2] === 'booking')
+    [
+      reserveAppointment(process.env.ENDPOINT, "4000000006291", "9175163", "5afafb9fc28333643ea29630",
+          dateTimeRangeIterator.currentLocalString(true))
+          .then((res) => {
+            let appointmentId = undefined;
+            console.info("setup appointmentId", res.result ? res.result.appointment.id : "unknown");
+            if (res.result)
+              appointmentId = res.result.appointment.id;
+
+            if (!appointmentId)
+              throw {message: "error reservation", step: "reserve"};
+
+            return addClient(process.env.ENDPOINT, {
+              business: {id: 4000000006291},
+              email: 'test@gbooking.ru',
+              phone: ['7', '123', '1231231']
+            })
+                .then((res) => {
+                  console.info("add_client client_id=%s", res.result? res.result.client.id: "unknown");
+                  if (!res.result)
+                    throw {message: "error client creation", step: "add_client"};
+
+                  return clientConfirmAppointment(process.env.ENDPOINT, appointmentId, res.result.client.id,
+                      ['7', '123', '1231231']
+                  );
+                })
+                .then((res) => {
+                  console.info("client_confirm_appointment short_id=%s", res.result? res.result
+                      .client.shortId: "unknown");
+                  if (!res.result)
+                    throw {message: "error appointment confirmation", step: "client_confirm_appointment"};
+
+                  return cancelAppointmentByClient(process.env.ENDPOINT, appointmentId, res.result.client.shortId);
+                })
+          })
+
+          .catch((err) => {
+            console.error("booking/cancellation cycle failed %swith message", err.step ? "on step " + err.step : "",
+                err.message);
+          }),
     ].forEach((p) => {requests.push(p)});
 
   if (process.argv.length === 2 || process.argv[2] === 'business')

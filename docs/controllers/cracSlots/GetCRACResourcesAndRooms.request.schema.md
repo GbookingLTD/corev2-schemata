@@ -10,181 +10,26 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 
 # CracSlots.GetCRACResourcesAndRooms.request Definitions
 
-| Property              | Type     | Group                                                                                                          |
-| --------------------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| [duration](#duration) | `number` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
-| [id](#id)             | `string` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
-
-## duration
-
-`duration`
-
-- is **required**
-- type: `number`
-- defined in this schema
-
-### duration Type
-
-`number`
-
-## id
-
-идентификатор ресурса
-
-`id`
-
-- is **required**
-- type: `string`
-- defined in this schema
-
-### id Type
-
-`string`
-
-# CracSlots.GetCRACResourcesAndRooms.request Properties
-
-| Property          | Type     | Required     | Nullable | Defined by                                               |
-| ----------------- | -------- | ------------ | -------- | -------------------------------------------------------- |
-| [params](#params) | `object` | **Required** | No       | CracSlots.GetCRACResourcesAndRooms.request (this schema) |
-| `*`               | any      | Additional   | Yes      | this schema _allows_ additional properties               |
-
-## params
-
-параметры запроса
-
-`params`
-
-- is **required**
-- type: `object`
-- defined in this schema
-
-### params Type
-
-`object` with following properties:
-
-| Property   | Type   | Required     |
-| ---------- | ------ | ------------ |
-| `business` | object | **Required** |
-| `filters`  | object | **Required** |
-
-#### business
-
-`business`
-
-- is **required**
-- type: `object`
-
-##### business Type
-
-`object` with following properties:
-
-| Property               | Type   | Required     |
-| ---------------------- | ------ | ------------ |
-| `general_info`         | object | **Required** |
-| `id`                   | string | **Required** |
-| `widget_configuration` | object | **Required** |
-
-#### general_info
-
-`general_info`
-
-- is **required**
-- type: `object`
-
-##### general_info Type
-
-`object` with following properties:
-
-| Property   | Type   | Required     |
-| ---------- | ------ | ------------ |
-| `timezone` | string | **Required** |
-
-#### timezone
-
-`timezone`
-
-- is **required**
-- type: `string`
-
-##### timezone Type
-
-`string`
-
-#### id
-
-`id`
-
-- is **required**
-- type: `string`
-
-##### id Type
-
-`string`
-
-#### widget_configuration
-
-`widget_configuration`
-
-- is **required**
-- type: `object`
-
-##### widget_configuration Type
-
-`object` with following properties:
-
-| Property         | Type    | Required     |
-| ---------------- | ------- | ------------ |
-| `cracServer`     | string  | **Required** |
-| `mostFreeEnable` | boolean | Optional     |
-
-#### cracServer
-
-`cracServer`
-
-- is **required**
-- type: `string`
-
-##### cracServer Type
-
-`string`
-
-#### mostFreeEnable
-
-`mostFreeEnable`
-
-- is optional
-- type: `boolean`
-
-##### mostFreeEnable Type
-
-`boolean`
-
-#### filters
-
-`filters`
-
-- is **required**
-- type: `object`
-
-##### filters Type
-
-`object` with following properties:
-
-| Property     | Type   | Required     |
-| ------------ | ------ | ------------ |
-| `date`       | object | **Required** |
-| `resources`  | array  | **Required** |
-| `rooms`      | array  | **Required** |
-| `taxonomies` | array  | **Required** |
-
-#### date
+| Property                                      | Type       | Group                                                                                                          |
+| --------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------- |
+| [date](#date)                                 | `object`   | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Filters`        |
+| [duration](#duration)                         | `number`   | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/ResourceFilter` |
+| [general_info](#general_info)                 | `object`   | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Business`       |
+| [id](#id)                                     | `string`   | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Business`       |
+| [resources](#resources)                       | reference  | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Filters`        |
+| [rooms](#rooms)                               | `string[]` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Filters`        |
+| [taxonomies](#taxonomies)                     | `string[]` | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Filters`        |
+| [widget_configuration](#widget_configuration) | `object`   | `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json#/definitions/Business`       |
+
+## date
 
 `date`
 
 - is **required**
 - type: `object`
+- defined in this schema
 
-##### date Type
+### date Type
 
 `object` with following properties:
 
@@ -219,14 +64,66 @@ schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json
 
 - format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
 
-#### resources
+## duration
+
+`duration`
+
+- is **required**
+- type: `number`
+- defined in this schema
+
+### duration Type
+
+`number`
+
+## general_info
+
+`general_info`
+
+- is **required**
+- type: `object`
+- defined in this schema
+
+### general_info Type
+
+`object` with following properties:
+
+| Property   | Type   | Required     |
+| ---------- | ------ | ------------ |
+| `timezone` | string | **Required** |
+
+#### timezone
+
+`timezone`
+
+- is **required**
+- type: `string`
+
+##### timezone Type
+
+`string`
+
+## id
+
+`id`
+
+- is **required**
+- type: `string`
+- defined in this schema
+
+### id Type
+
+`string`
+
+## resources
 
 `resources`
 
 - is **required**
 - type: reference
+- defined in this schema
 
-##### resources Type
+### resources Type
 
 Array type: reference
 
@@ -234,31 +131,120 @@ All items must be of the type:
 
 - []() – `#/definitions/ResourceFilter`
 
-#### rooms
+## rooms
 
 `rooms`
 
 - is **required**
 - type: `string[]`
+- defined in this schema
 
-##### rooms Type
+### rooms Type
 
 Array type: `string[]`
 
 All items must be of the type: `string`
 
-#### taxonomies
+## taxonomies
 
 `taxonomies`
 
 - is **required**
 - type: `string[]`
+- defined in this schema
 
-##### taxonomies Type
+### taxonomies Type
 
 Array type: `string[]`
 
 All items must be of the type: `string`
+
+## widget_configuration
+
+`widget_configuration`
+
+- is **required**
+- type: `object`
+- defined in this schema
+
+### widget_configuration Type
+
+`object` with following properties:
+
+| Property         | Type    | Required     |
+| ---------------- | ------- | ------------ |
+| `cracServer`     | string  | **Required** |
+| `mostFreeEnable` | boolean | Optional     |
+
+#### cracServer
+
+`cracServer`
+
+- is **required**
+- type: `string`
+
+##### cracServer Type
+
+`string`
+
+#### mostFreeEnable
+
+`mostFreeEnable`
+
+- is optional
+- type: `boolean`
+
+##### mostFreeEnable Type
+
+`boolean`
+
+# CracSlots.GetCRACResourcesAndRooms.request Properties
+
+| Property          | Type     | Required     | Nullable | Defined by                                               |
+| ----------------- | -------- | ------------ | -------- | -------------------------------------------------------- |
+| [params](#params) | `object` | **Required** | No       | CracSlots.GetCRACResourcesAndRooms.request (this schema) |
+| `*`               | any      | Additional   | Yes      | this schema _allows_ additional properties               |
+
+## params
+
+параметры запроса
+
+`params`
+
+- is **required**
+- type: `object`
+- defined in this schema
+
+### params Type
+
+`object` with following properties:
+
+| Property   | Type | Required     |
+| ---------- | ---- | ------------ |
+| `business` |      | **Required** |
+| `filters`  |      | **Required** |
+
+#### business
+
+`business`
+
+- is **required**
+- type: reference
+
+##### business Type
+
+- []() – `#/definitions/Business`
+
+#### filters
+
+`filters`
+
+- is **required**
+- type: reference
+
+##### filters Type
+
+- []() – `#/definitions/Filters`
 
 **All** of the following _requirements_ need to be fulfilled.
 

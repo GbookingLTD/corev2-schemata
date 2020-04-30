@@ -54,6 +54,28 @@ definitions:
       - $ref: "../../common/errorResponse.schema.json"
       - $ref: "#/definitions/ErrorCodes"
 
+  AppointmentGetAppointmentByFilterResponseResult:
+    title: "AppointmentGetAppointmentByFilterResponseResult"
+    type: "object"
+    description: "данные, передаваемые в ответ"
+    additionalProperties: false
+    required:
+      - page
+      - unconfirmed
+      - total
+      - data
+    properties:
+      page:
+        type: "number"
+      unconfirmed:
+        type: "number"
+      total:
+        type: "number"
+      data:
+        type: "array"
+        items:
+          $ref: "../../models/appointment.schema.json"
+
   SuccessResponse:
     type: "object"
     additionalProperties: false
@@ -66,25 +88,8 @@ definitions:
         description: "значение числового типа для идентификации запроса на сервере"
         type: "number"
       result:
-        type: "object"
-        description: "данные, передаваемые в ответ"
-        additionalProperties: false
-        required:
-          - page
-          - unconfirmed
-          - total
-          - data
-        properties:
-          page:
-            type: "number"
-          unconfirmed:
-            type: "number"
-          total:
-            type: "number"
-          data:
-            type: "array"
-            items:
-              $ref: "../../models/appointment.schema.json"
+        $ref: "#/definitions/AppointmentGetAppointmentByFilterResponseResult"
+
     required:
       - "jsonrpc"
       - "id"

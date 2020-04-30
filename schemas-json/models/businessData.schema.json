@@ -365,6 +365,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "enablePrintingReportRecordsScreen": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "showTestRecord": {
                     "type": "boolean",
                     "default": false

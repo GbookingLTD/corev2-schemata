@@ -85,6 +85,7 @@ public class BusinessBackofficeConfiguration {
     private Boolean showSeasonTickets;
     private Boolean showTaxonomyChildren;
     private Boolean showTaxonomyLocalization;
+    private Boolean showTaxonomyNameExtraID;
     private Boolean showTaxonomyVisitType;
     private Boolean showTestRecord;
     private Boolean showUTM;
@@ -510,6 +511,11 @@ public class BusinessBackofficeConfiguration {
     public Boolean getShowTaxonomyLocalization() { return showTaxonomyLocalization; }
     @JsonProperty("showTaxonomyLocalization")
     public void setShowTaxonomyLocalization(Boolean value) { this.showTaxonomyLocalization = value; }
+
+    @JsonProperty("showTaxonomyNameExtraId")
+    public Boolean getShowTaxonomyNameExtraID() { return showTaxonomyNameExtraID; }
+    @JsonProperty("showTaxonomyNameExtraId")
+    public void setShowTaxonomyNameExtraID(Boolean value) { this.showTaxonomyNameExtraID = value; }
 
     @JsonProperty("showTaxonomyVisitType")
     public Boolean getShowTaxonomyVisitType() { return showTaxonomyVisitType; }

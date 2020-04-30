@@ -52,6 +52,7 @@
             ]
         },
         "CutSlot": {
+            "title": "CracCutSlot",
             "type": "object",
             "required": [
                 "start",
@@ -75,6 +76,49 @@
                 }
             }
         },
+        "DaySchedule": {
+            "title": "CracDaySchedule",
+            "type": "object",
+            "required": [
+                "resources",
+                "rooms",
+                "date"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "resourceId",
+                            "cutSlots"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "resourceId": {
+                                "type": "string"
+                            },
+                            "cutSlots": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/CutSlot"
+                                }
+                            }
+                        }
+                    }
+                },
+                "rooms": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "date": {
+                    "type": "string"
+                }
+            }
+        },
         "CracSlots": {
             "type": "object",
             "additionalProperties": false,
@@ -85,44 +129,7 @@
                 "slots": {
                     "type": "array",
                     "items": {
-                        "type": "object",
-                        "required": [
-                            "resources",
-                            "rooms",
-                            "date"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                            "resources": {
-                                "type": "array",
-                                "required": [
-                                    "resourceId",
-                                    "cutSlots"
-                                ],
-                                "additionalProperties": false,
-                                "properties": {
-                                    "resourceId": {
-                                        "type": "string"
-                                    },
-                                    "cutSlots": {
-                                        "type": "array",
-                                        "items": {
-                                            "$ref": "#/definitions/CutSlot"
-                                        }
-                                    }
-                                }
-                            },
-                            "rooms": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object"
-                                }
-                            },
-                            "date": {
-                                "type": "string",
-                                "format": "date-time"
-                            }
-                        }
+                        "$ref": "#/definitions/DaySchedule"
                     }
                 }
             }

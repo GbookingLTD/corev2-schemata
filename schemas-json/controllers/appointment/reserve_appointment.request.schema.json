@@ -28,6 +28,25 @@
                     "properties": {
                         "start": {
                             "type": "string"
+                        },
+                        "duration": {
+                            "type": "number"
+                        },
+                        "price": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "amount",
+                                "currency"
+                            ],
+                            "properties": {
+                                "amount": {
+                                    "type": "number"
+                                },
+                                "currency": {
+                                    "$ref": "../../models/partials/currency.schema.json#/definitions/CurrencyList"
+                                }
+                            }
                         }
                     }
                 },

@@ -4,6 +4,7 @@ title: "CracSlots.GetCRACDistributedResourcesAndRooms.request"
 type: "object"
 definitions:
   ResourceFilter:
+    title: "CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter"
     type: "object"
     additionalProperties: true
     required: ["resource", "business"]
@@ -20,6 +21,34 @@ definitions:
             description: "идентификатор бизнеса"
             type: "string"
 
+  Filters:
+    title: "CracSlotsGetCRACDistributedResourcesAndRoomsRequestFilters"
+    type: "object"
+    additionalProperties: false
+    required: ["resources", "taxonomies", "rooms", "date"]
+    properties:
+      resources:
+        type: "array"
+        items:
+          $ref: "#/definitions/ResourceFilter"
+      taxonomies:
+        type: "array"
+        items:
+          type: "string"
+      rooms:
+        type: "array"
+        items:
+          type: "string"
+      date:
+        type: "object"
+        additionalProperties: false
+        required: ["from", "to"]
+        properties:
+          from:
+            type: "string"
+          to:
+            type: "string"
+
   Request:
     type: "object"
     additionalProperties: true
@@ -32,54 +61,9 @@ definitions:
         required: ["business", "filters"]
         properties:
           business:
-            type: "object"
-            additionalProperties: false
-            required: ["id", "widget_configuration", "general_info"]
-            properties:
-              id:
-                type: "string"
-              widget_configuration:
-                type: "object"
-                additionalProperties: false
-                required: ["cracServer"]
-                properties:
-                  cracServer:
-                    type: "string"
-                  mostFreeEnable:
-                    type: "boolean"
-              general_info:
-                type: "object"
-                additionalProperties: false
-                required: ["timezone"]
-                properties:
-                  timezone:
-                    type: "string"
+            $ref: "../../models/partials/cracSlotsRequestBusinessParams.schema.json"
           filters:
-            type: "object"
-            additionalProperties: false
-            required: ["resources", "taxonomies", "rooms", "date"]
-            properties:
-              resources:
-                type: "array"
-                items:
-                  $ref: "#/definitions/ResourceFilter"
-              taxonomies:
-                type: "array"
-                items:
-                  type: "string"
-              rooms:
-                type: "array"
-                items:
-                  type: "string"
-              date:
-                type: "object"
-                additionalProperties: false
-                required: ["from", "to"]
-                properties:
-                  from:
-                    type: "string"
-                  to:
-                    type: "string"
+            $ref: "#/definitions/Filters"
 
 allOf:
   - $ref: "../../common/request.schema.json"

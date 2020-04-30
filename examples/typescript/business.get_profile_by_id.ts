@@ -1,5 +1,4 @@
 import * as GBookingCoreV2 from '../../langs/typescript/GBookingCoreV2';
-import {ResultBusiness} from "../../langs/typescript/GBookingCoreV2";
 import {HilariousBusiness} from "../../langs/typescript/GBookingCoreV2";
 
 const fetch = require('node-fetch');

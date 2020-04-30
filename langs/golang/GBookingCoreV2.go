@@ -900,6 +900,7 @@ type InfoBackofficeConfiguration struct {
 	EnableExtendedPhone                             *bool                    `json:"enableExtendedPhone,omitempty"`                            
 	EnableExtendedRecordsClientStatistics           *bool                    `json:"enableExtendedRecordsClientStatistics,omitempty"`          
 	EnableMasterImportance                          *bool                    `json:"enableMasterImportance,omitempty"`                         
+	EnablePrintingReportRecordsScreen               *bool                    `json:"enablePrintingReportRecordsScreen,omitempty"`              
 	EnableServiceTimeLimit                          *bool                    `json:"enableServiceTimeLimit,omitempty"`                         
 	EnableSourceChoice                              *bool                    `json:"enableSourceChoice,omitempty"`                             
 	EnableTaxonomyChildrenAgeCheck                  *bool                    `json:"enableTaxonomyChildrenAgeCheck,omitempty"`                 
@@ -1184,6 +1185,7 @@ type InfoMiniWidgetConfiguration struct {
 // Данные о работнике бизнеса
 type Resource struct {
 	AdditionalExtraID  []string                     `json:"additionalExtraId"`            // информация из внешней информационной системы как есть (при интеграции)
+	BadIconResolution  *bool                        `json:"badIconResolution,omitempty"`  
 	Capacity           float64                      `json:"capacity"`                     // Количество записей, которые может принимать работник единовременно
 	Color              *string                      `json:"color,omitempty"`              // цвет колонки с работником
 	Degree             *string                      `json:"degree,omitempty"`             
@@ -1219,7 +1221,7 @@ type Resource struct {
 	OriginBusinessID   *string                      `json:"originBusinessID,omitempty"`   // (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
 	OriginTaxonomies   []string                     `json:"originTaxonomies"`             // (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет; работник
 	Perk               *string                      `json:"perk,omitempty"`               // особый навык
-	Phone              FaxElement                   `json:"phone"`                        
+	Phone              []FaxElement                 `json:"phone"`                        
 	Profession         *string                      `json:"profession,omitempty"`         // информация о профессии работника, используется в Бекофис
 	Profile            *ИнформацияОПрофилеРаботника `json:"profile,omitempty"`            
 	Rating             *float64                     `json:"rating,omitempty"`             // Рейтинг работника
@@ -1812,6 +1814,7 @@ type BusinessBackofficeConfiguration struct {
 	ShowSeasonTickets                               *bool                    `json:"showSeasonTickets,omitempty"`                              
 	ShowTaxonomyChildren                            *bool                    `json:"showTaxonomyChildren,omitempty"`                           
 	ShowTaxonomyLocalization                        *bool                    `json:"showTaxonomyLocalization,omitempty"`                       
+	ShowTaxonomyNameExtraID                         *bool                    `json:"showTaxonomyNameExtraId,omitempty"`                        
 	ShowTaxonomyVisitType                           *bool                    `json:"showTaxonomyVisitType,omitempty"`                          
 	ShowTestRecord                                  *bool                    `json:"showTestRecord,omitempty"`                                 
 	ShowUTM                                         *bool                    `json:"showUTM,omitempty"`                                        
@@ -1893,7 +1896,7 @@ type BusinessTaxonomy struct {
 	DateLimits                 []FluffyDateLimit               `json:"dateLimits"`                          
 	DateLimitType              *DateLimitType                  `json:"dateLimitType,omitempty"`             
 	Designs                    []string                        `json:"designs"`                             
-	Discounts                  *Discount                       `json:"discounts,omitempty"`                 
+	Discounts                  []Discount                      `json:"discounts"`                           
 	DisplayInWidget            *bool                           `json:"displayInWidget,omitempty"`           
 	Duration                   *float64                        `json:"duration,omitempty"`                  
 	Exceptions                 []interface{}                   `json:"exceptions"`                          

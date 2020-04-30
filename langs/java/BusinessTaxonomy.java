@@ -28,7 +28,7 @@ public class BusinessTaxonomy {
     private List<FluffyDateLimit> dateLimits;
     private DateLimitType dateLimitType;
     private List<String> designs;
-    private Discount discounts;
+    private List<Discount> discounts;
     private Boolean displayInWidget;
     private Double duration;
     private List<Object> exceptions;
@@ -186,9 +186,9 @@ public class BusinessTaxonomy {
     public void setDesigns(List<String> value) { this.designs = value; }
 
     @JsonProperty("discounts")
-    public Discount getDiscounts() { return discounts; }
+    public List<Discount> getDiscounts() { return discounts; }
     @JsonProperty("discounts")
-    public void setDiscounts(Discount value) { this.discounts = value; }
+    public void setDiscounts(List<Discount> value) { this.discounts = value; }
 
     @JsonProperty("displayInWidget")
     public Boolean getDisplayInWidget() { return displayInWidget; }

@@ -2322,6 +2322,9 @@ namespace GBookingCoreV2
         [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableMasterImportance { get; set; }
 
+        [JsonProperty("enablePrintingReportRecordsScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnablePrintingReportRecordsScreen { get; set; }
+
         [JsonProperty("enableServiceTimeLimit", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableServiceTimeLimit { get; set; }
 
@@ -3106,6 +3109,9 @@ namespace GBookingCoreV2
         [JsonProperty("additionalExtraId", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> AdditionalExtraId { get; set; }
 
+        [JsonProperty("badIconResolution", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? BadIconResolution { get; set; }
+
         /// <summary>
         /// Количество записей, которые может принимать работник единовременно
         /// </summary>
@@ -3292,8 +3298,8 @@ namespace GBookingCoreV2
         [JsonProperty("perk", NullValueHandling = NullValueHandling.Ignore)]
         public string Perk { get; set; }
 
-        [JsonProperty("phone")]
-        public FaxElement Phone { get; set; }
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Phone { get; set; }
 
         /// <summary>
         /// информация о профессии работника, используется в Бекофис
@@ -5077,6 +5083,9 @@ namespace GBookingCoreV2
         [JsonProperty("showTaxonomyLocalization", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowTaxonomyLocalization { get; set; }
 
+        [JsonProperty("showTaxonomyNameExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowTaxonomyNameExtraId { get; set; }
+
         [JsonProperty("showTaxonomyVisitType", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowTaxonomyVisitType { get; set; }
 
@@ -5279,7 +5288,7 @@ namespace GBookingCoreV2
         public List<string> Designs { get; set; }
 
         [JsonProperty("discounts", NullValueHandling = NullValueHandling.Ignore)]
-        public Discount Discounts { get; set; }
+        public List<Discount> Discounts { get; set; }
 
         [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
         public bool? DisplayInWidget { get; set; }

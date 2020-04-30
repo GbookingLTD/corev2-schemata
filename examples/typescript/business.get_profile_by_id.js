@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var GBookingCoreV2API = require("../../langs/typescript/GBookingCoreV2");
 var fetch = require('node-fetch');
 var jsonRpcCounter = 1;
 var params = {
@@ -24,12 +23,12 @@ fetch(process.env.ENDPOINT, {
     headers: {
         'Content-Type': 'application/json'
     },
-    body: GBookingCoreV2API.Convert.businessGetProfileByIdRequestToJson(req)
+    body: JSON.stringify(req)
 })
     .then(function (res) { return res.text(); })
     .then(function (json) {
     // console.info("json %s", json);
-    return GBookingCoreV2API.Convert.toBusinessGetProfileByIdResponse(json);
+    return JSON.parse(json);
 })
     .then(function (res) {
     if (res.error) {

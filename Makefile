@@ -80,8 +80,12 @@ test_dev:
 test_prod:
 	ENDPOINT=http://apiv2.gbooking.ru/rpc node bin/test_prod.js $(GROUP)
 
-example_ts:
-	tsc examples/typescript/business.get_profile_by_id.ts && \
+example_ts_get_profile_by_id:
+	tsc --declaration examples/typescript/business.get_profile_by_id.ts && \
 		ENDPOINT=http://api2.dev.gbooking.ru/rpc node examples/typescript/business.get_profile_by_id.js
+
+example_ts_get_network_data:
+	tsc --declaration examples/typescript/business.get_network_data.ts && \
+		ENDPOINT=http://api2.dev.gbooking.ru/rpc node examples/typescript/business.get_network_data.js
 
 

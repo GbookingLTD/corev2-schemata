@@ -54,6 +54,21 @@ definitions:
         items:
           type: "string"
 
+  NetworkConfigurationBusiness:
+    title: "NetworkConfigurationBusiness"
+    type: "object"
+    additionalProperties: false
+    required:
+      - "active"
+      - "internalID"
+    properties:
+      active:
+        type: "boolean"
+      _id:
+        type: "string"
+      internalID:
+        type: "string"
+
   SuccessResponse:
     type: "object"
     additionalProperties: false
@@ -107,18 +122,7 @@ definitions:
                 businesses:
                   type: "array"
                   items:
-                    type: "object"
-                    additionalProperties: false
-                    required:
-                      - "active"
-                      - "internalID"
-                    properties:
-                      active:
-                        type: "boolean"
-                      _id:
-                        type: "string"
-                      internalID:
-                        type: "string"
+                    $ref: "#/definitions/NetworkConfigurationBusiness"
                 _id:
                   type: "string"
                 source:

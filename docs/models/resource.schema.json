@@ -289,7 +289,10 @@
             "type": "string"
         },
         "phone": {
-            "$ref": "./phone.schema.json"
+            "type": "array",
+            "items": {
+                "$ref": "./phone.schema.json"
+            }
         },
         "smsEnabled": {
             "description": "включена ли отправка смс уведомлений для данного работника",
@@ -370,6 +373,9 @@
         },
         "degree": {
             "type": "string"
+        },
+        "badIconResolution": {
+            "type": "boolean"
         }
     },
     "required": [
@@ -383,7 +389,6 @@
         "taxonomyLevels",
         "taxonomyChildren",
         "level",
-        "phone",
         "displayInWidget",
         "manualChanges",
         "timetable",

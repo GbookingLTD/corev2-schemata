@@ -566,7 +566,10 @@
                     "type": "boolean"
                 },
                 "discounts": {
-                    "$ref": "./discount.schema.json"
+                    "type": "array",
+                    "items": {
+                        "$ref": "./discount.schema.json"
+                    }
                 },
                 "additionalDurations": {
                     "type": "array",
@@ -1020,6 +1023,10 @@
                     "default": false
                 },
                 "showTaxonomyLocalization": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showTaxonomyNameExtraId": {
                     "type": "boolean",
                     "default": false
                 },
