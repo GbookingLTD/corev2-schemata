@@ -7,6 +7,7 @@
 ## /models/
 
 - [AdditionalFields](./models/additionalField.schema.md) – `schemas-json/models/additionalField.schema.json` (Unknown)
+- [Appointment](./models/appointment.schema.md) – `schemas-json/models/appointment.schema.json` (Unknown)
 - [Business](./models/business.schema.md) – `schemas-json/models/business.schema.json` (Unknown)
 - [Business](./models/businessData.schema.md) – `schemas-json/models/businessData.schema.json` (Unknown)
 - [Discount](./models/discount.schema.md) – `schemas-json/models/discount.schema.json` (Unknown)
@@ -15,15 +16,8 @@
 - [Timetable](./models/timetable.schema.md) – `schemas-json/models/timetable.schema.json` (Unknown)
 - [](./models/address.schema.md) – `schemas-json/models/address.schema.json` (Unknown)
 - [](./models/addressCamelCase.schema.md) – `schemas-json/models/addressCamelCase.schema.json` (Unknown)
-- [](./models/appointment.schema.md) – `schemas-json/models/appointment.schema.json` (Unknown)
 - [](./models/client.schema.md) – `schemas-json/models/client.schema.json` (Unknown)
 - [](./models/socialNetwork.schema.md) – `schemas-json/models/socialNetwork.schema.json` (Unknown)
-
-## /common/
-
-- [Error Response](./common/errorResponse.schema.md) – `schemas-json/common/errorResponse.schema.json` (Unknown)
-- [Request](./common/request.schema.md) – `schemas-json/common/request.schema.json` (Unknown)
-- [Success Response](./common/successResponse.schema.md) – `schemas-json/common/successResponse.schema.json` (Unknown)
 
 ## /controllers/
 
@@ -33,19 +27,24 @@
 - [ClientController](./controllers/client.schema.md) – `schemas-json/controllers/client.schema.json` (Unknown)
 - [CracSlotsController](./controllers/cracSlots.schema.md) – `schemas-json/controllers/cracSlots.schema.json` (Unknown)
 
+## /common/
+
+- [Error Response](./common/errorResponse.schema.md) – `schemas-json/common/errorResponse.schema.json` (Unknown)
+- [Request](./common/request.schema.md) – `schemas-json/common/request.schema.json` (Unknown)
+- [Success Response](./common/successResponse.schema.md) – `schemas-json/common/successResponse.schema.json` (Unknown)
+
 ## /models/partials/
 
 - [BusinessInfo](./models/partials/businessInfo.schema.md) – `schemas-json/models/partials/businessInfo.schema.json`
+  (Unknown)
+- [CracSlotsRequestBusinessParams](./models/partials/cracSlotsRequestBusinessParams.schema.md) –
+  `schemas-json/models/partials/cracSlotsRequestBusinessParams.schema.json` (Unknown)
+- [LoyaltyInfo](./models/partials/loyaltyInfo.schema.md) – `schemas-json/models/partials/loyaltyInfo.schema.json`
   (Unknown)
 - [TimeFrame](./models/partials/timeframe.schema.md) – `schemas-json/models/partials/timeframe.schema.json` (Unknown)
 - [](./models/partials/currency.schema.md) – `schemas-json/models/partials/currency.schema.json` (Unknown)
 - [](./models/partials/language.schema.md) – `schemas-json/models/partials/language.schema.json` (Unknown)
 - [](./models/partials/taxonomyType.schema.md) – `schemas-json/models/partials/taxonomyType.schema.json` (Unknown)
-
-## /common/partials/
-
-- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
-  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)
 
 ## /controllers/appointment/
 
@@ -95,14 +94,14 @@
   `schemas-json/controllers/client/add_client.request.schema.json` (Unknown)
 - [client.add_client.response](./controllers/client/add_client.response.schema.md) –
   `schemas-json/controllers/client/add_client.response.schema.json` (Unknown)
-- [client.add_client.response](./controllers/client/update_client.response.schema.md) –
-  `schemas-json/controllers/client/update_client.response.schema.json` (Unknown)
 - [client.find_of_create_client.response](./controllers/client/find_or_create_client.response.schema.md) –
   `schemas-json/controllers/client/find_of_create_client.response.schema.json` (Unknown)
 - [client.find_or_create_client.request](./controllers/client/find_or_create_client.request.schema.md) –
   `schemas-json/controllers/client/find_or_create_client.request.schema.json` (Unknown)
 - [client.update_client.request](./controllers/client/update_client.request.schema.md) –
   `schemas-json/controllers/client/update_client.request.schema.json` (Unknown)
+- [client.update_client.response](./controllers/client/update_client.response.schema.md) –
+  `schemas-json/controllers/client/update_client.response.schema.json` (Unknown)
 
 ## /controllers/cracSlots/
 
@@ -130,3 +129,8 @@
   `schemas-json/controllers/crackSlots/GetCRACResourcesAndRooms.request.schema.json` (Unknown)
 - [CracSlots.GetCRACResourcesAndRooms.response](./controllers/cracSlots/GetCRACResourcesAndRooms.response.schema.md) –
   `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json` (Unknown)
+
+## /common/partials/
+
+- [Auth Error Codes](./common/partials/authErrorCodes.schema.md) –
+  `schemas-json/common/partials/authErrorCodes.schema.json` (Unknown)

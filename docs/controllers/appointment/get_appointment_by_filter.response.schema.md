@@ -10,12 +10,32 @@ schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.j
 
 # appointment.get_appointment_by_filter.response Definitions
 
-| Property            | Type     | Group                                                                                                              |
-| ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| [error](#error)     | complex  | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/ErrorCodes`      |
-| [id](#id)           | `number` | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/SuccessResponse` |
-| [jsonrpc](#jsonrpc) | `const`  | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/SuccessResponse` |
-| [result](#result)   | `object` | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/SuccessResponse` |
+| Property                    | Type      | Group                                                                                                                                              |
+| --------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [data](#data)               | reference | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/AppointmentGetAppointmentByFilterResponseResult` |
+| [error](#error)             | complex   | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/ErrorCodes`                                      |
+| [id](#id)                   | `number`  | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/SuccessResponse`                                 |
+| [jsonrpc](#jsonrpc)         | `const`   | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/SuccessResponse`                                 |
+| [page](#page)               | `number`  | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/AppointmentGetAppointmentByFilterResponseResult` |
+| [result](#result)           | reference | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/SuccessResponse`                                 |
+| [total](#total)             | `number`  | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/AppointmentGetAppointmentByFilterResponseResult` |
+| [unconfirmed](#unconfirmed) | `number`  | `schemas-json/controllers/appointment/get_appointment_by_filter.response.schema.json#/definitions/AppointmentGetAppointmentByFilterResponseResult` |
+
+## data
+
+`data`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### data Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `../../models/appointment.schema.json`
 
 ## error
 
@@ -101,72 +121,51 @@ The value of this property **must** be equal to:
 "2.0"
 ```
 
-## result
-
-данные, передаваемые в ответ
-
-`result`
-
-- is **required**
-- type: `object`
-- defined in this schema
-
-### result Type
-
-`object` with following properties:
-
-| Property      | Type   | Required     |
-| ------------- | ------ | ------------ |
-| `data`        | array  | **Required** |
-| `page`        | number | **Required** |
-| `total`       | number | **Required** |
-| `unconfirmed` | number | **Required** |
-
-#### data
-
-`data`
-
-- is **required**
-- type: reference
-
-##### data Type
-
-Array type: reference
-
-All items must be of the type:
-
-- []() – `../../models/appointment.schema.json`
-
-#### page
+## page
 
 `page`
 
 - is **required**
 - type: `number`
+- defined in this schema
 
-##### page Type
+### page Type
 
 `number`
 
-#### total
+## result
+
+`result`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### result Type
+
+- []() – `#/definitions/AppointmentGetAppointmentByFilterResponseResult`
+
+## total
 
 `total`
 
 - is **required**
 - type: `number`
+- defined in this schema
 
-##### total Type
+### total Type
 
 `number`
 
-#### unconfirmed
+## unconfirmed
 
 `unconfirmed`
 
 - is **required**
 - type: `number`
+- defined in this schema
 
-##### unconfirmed Type
+### unconfirmed Type
 
 `number`
 

@@ -13,13 +13,16 @@ schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.js
 | Property                | Type       | Group                                                                                                             |
 | ----------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
 | [available](#available) | `boolean`  | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/CutSlot`         |
+| [date](#date)           | `string`   | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/DaySchedule`     |
 | [duration](#duration)   | `number`   | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/CutSlot`         |
 | [end](#end)             | `number`   | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/CutSlot`         |
 | [error](#error)         | complex    | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/ErrorCodes`      |
 | [id](#id)               | `number`   | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/SuccessResponse` |
 | [jsonrpc](#jsonrpc)     | `const`    | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/SuccessResponse` |
+| [resources](#resources) | `object[]` | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/DaySchedule`     |
 | [result](#result)       | reference  | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/SuccessResponse` |
-| [slots](#slots)         | `object[]` | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/CracSlots`       |
+| [rooms](#rooms)         | `object[]` | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/DaySchedule`     |
+| [slots](#slots)         | reference  | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/CracSlots`       |
 | [start](#start)         | `number`   | `schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.json#/definitions/CutSlot`         |
 
 ## available
@@ -33,6 +36,18 @@ schemas-json/controllers/crack-slots/GetCRACResourcesAndRooms.response.schema.js
 ### available Type
 
 `boolean`
+
+## date
+
+`date`
+
+- is **required**
+- type: `string`
+- defined in this schema
+
+### date Type
+
+`string`
 
 ## duration
 
@@ -130,6 +145,51 @@ The value of this property **must** be equal to:
 "2.0"
 ```
 
+## resources
+
+`resources`
+
+- is **required**
+- type: `object[]`
+- defined in this schema
+
+### resources Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property     | Type   | Required     |
+| ------------ | ------ | ------------ |
+| `cutSlots`   | array  | **Required** |
+| `resourceId` | string | **Required** |
+
+#### cutSlots
+
+`cutSlots`
+
+- is **required**
+- type: reference
+
+##### cutSlots Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/CutSlot`
+
+#### resourceId
+
+`resourceId`
+
+- is **required**
+- type: `string`
+
+##### resourceId Type
+
+`string`
+
 ## result
 
 `result`
@@ -142,58 +202,15 @@ The value of this property **must** be equal to:
 
 - []() – `#/definitions/CracSlots`
 
-## slots
-
-`slots`
-
-- is **required**
-- type: `object[]`
-- defined in this schema
-
-### slots Type
-
-Array type: `object[]`
-
-All items must be of the type: `object` with following properties:
-
-| Property    | Type   | Required     |
-| ----------- | ------ | ------------ |
-| `date`      | string | **Required** |
-| `resources` | array  | **Required** |
-| `rooms`     | array  | **Required** |
-
-#### date
-
-`date`
-
-- is **required**
-- type: `string`
-
-##### date Type
-
-`string`
-
-- format: `date-time` – date and time (according to [RFC 3339, section 5.6](http://tools.ietf.org/html/rfc3339))
-
-#### resources
-
-`resources`
-
-- is **required**
-- type: `array`
-
-##### resources Type
-
-Array type: `array`
-
-#### rooms
+## rooms
 
 `rooms`
 
 - is **required**
 - type: `object[]`
+- defined in this schema
 
-##### rooms Type
+### rooms Type
 
 Array type: `object[]`
 
@@ -202,6 +219,22 @@ All items must be of the type: `object` with following properties:
 | Property | Type | Required |
 | -------- | ---- | -------- |
 
+
+## slots
+
+`slots`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### slots Type
+
+Array type: reference
+
+All items must be of the type:
+
+- []() – `#/definitions/DaySchedule`
 
 ## start
 

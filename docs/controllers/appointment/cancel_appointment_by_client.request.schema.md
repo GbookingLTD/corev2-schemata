@@ -10,10 +10,10 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 
 # appointment.cancel_appointment_by_client.request Definitions
 
-| Property                    | Type     | Group                                                                                                                  |
-| --------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-| [appointment](#appointment) | `object` | `schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema.json#/definitions/CancelAppointment` |
-| [client](#client)           | `object` | `schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema.json#/definitions/CancelAppointment` |
+| Property                    | Type     | Group                                                                                                                          |
+| --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [appointment](#appointment) | `object` | `schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema.json#/definitions/CancelAppointmentByClient` |
+| [client](#client)           | `object` | `schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema.json#/definitions/CancelAppointmentByClient` |
 
 ## appointment
 
@@ -58,7 +58,7 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 
 `client`
 
-- is optional
+- is **required**
 - type: `object`
 - defined in this schema
 
@@ -115,7 +115,7 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 | Property      | Type   | Required     |
 | ------------- | ------ | ------------ |
 | `appointment` | object | **Required** |
-| `client`      | object | Optional     |
+| `client`      | object | **Required** |
 
 #### appointment
 
@@ -159,7 +159,7 @@ schemas-json/controllers/appointment/cancel_appointment_by_client.request.schema
 
 `client`
 
-- is optional
+- is **required**
 - type: `object`
 
 ##### client Type

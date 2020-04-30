@@ -10,18 +10,20 @@ schemas-json/controllers/business/get_network_data.response.schema.json
 
 # business.get_network_data.response Definitions
 
-| Property                                | Type       | Group                                                                                                       |
-| --------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
-| [\_id](#_id)                            | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
-| [businessID](#businessid)               | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
-| [error](#error)                         | complex    | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/ErrorCodes`           |
-| [id](#id)                               | `number`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`      |
-| [info](#info)                           | reference  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
-| [isMapBusiness](#ismapbusiness)         | `boolean`  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
-| [jsonrpc](#jsonrpc)                     | `const`    | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`      |
-| [order](#order)                         | `number`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
-| [result](#result)                       | `object`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`      |
-| [virtualTaxonomies](#virtualtaxonomies) | `string[]` | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork` |
+| Property                                | Type       | Group                                                                                                               |
+| --------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------- |
+| [\_id](#_id)                            | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/NetworkConfigurationBusiness` |
+| [active](#active)                       | `boolean`  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/NetworkConfigurationBusiness` |
+| [businessID](#businessid)               | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork`         |
+| [error](#error)                         | complex    | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/ErrorCodes`                   |
+| [id](#id)                               | `number`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`              |
+| [info](#info)                           | reference  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork`         |
+| [internalID](#internalid)               | `string`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/NetworkConfigurationBusiness` |
+| [isMapBusiness](#ismapbusiness)         | `boolean`  | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork`         |
+| [jsonrpc](#jsonrpc)                     | `const`    | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`              |
+| [order](#order)                         | `number`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork`         |
+| [result](#result)                       | `object`   | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/SuccessResponse`              |
+| [virtualTaxonomies](#virtualtaxonomies) | `string[]` | `schemas-json/controllers/business/get_network_data.response.schema.json#/definitions/BusinessRefInNetwork`         |
 
 ## \_id
 
@@ -34,6 +36,18 @@ schemas-json/controllers/business/get_network_data.response.schema.json
 ### \_id Type
 
 `string`
+
+## active
+
+`active`
+
+- is **required**
+- type: `boolean`
+- defined in this schema
+
+### active Type
+
+`boolean`
 
 ## businessID
 
@@ -114,6 +128,18 @@ The value of this property **must** be equal to one of the [known values below](
 ### info Type
 
 - []() – `../../models/businessData.schema.json`
+
+## internalID
+
+`internalID`
+
+- is **required**
+- type: `string`
+- defined in this schema
+
+### internalID Type
+
+`string`
 
 ## isMapBusiness
 
@@ -319,52 +345,15 @@ All items must be of the type: `object` with following properties:
 `businesses`
 
 - is **required**
-- type: `object[]`
+- type: reference
 
 ##### businesses Type
 
-Array type: `object[]`
+Array type: reference
 
-All items must be of the type: `object` with following properties:
+All items must be of the type:
 
-| Property     | Type    | Required     |
-| ------------ | ------- | ------------ |
-| `_id`        | string  | Optional     |
-| `active`     | boolean | **Required** |
-| `internalID` | string  | **Required** |
-
-#### \_id
-
-`_id`
-
-- is optional
-- type: `string`
-
-##### \_id Type
-
-`string`
-
-#### active
-
-`active`
-
-- is **required**
-- type: `boolean`
-
-##### active Type
-
-`boolean`
-
-#### internalID
-
-`internalID`
-
-- is **required**
-- type: `string`
-
-##### internalID Type
-
-`string`
+- []() – `#/definitions/NetworkConfigurationBusiness`
 
 #### defaultServiceID
 

@@ -5,6 +5,7 @@
     "type": "object",
     "definitions": {
         "ResourceFilter": {
+            "title": "CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter",
             "type": "object",
             "additionalProperties": true,
             "required": [
@@ -18,6 +19,50 @@
                 },
                 "duration": {
                     "type": "number"
+                }
+            }
+        },
+        "Filters": {
+            "title": "CracSlotsGetCRACInsuranceResourcesAndRoomsRequestFilters",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "insuranceID",
+                "resources",
+                "rooms",
+                "date"
+            ],
+            "properties": {
+                "insuranceID": {
+                    "type": "string"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ResourceFilter"
+                    }
+                },
+                "rooms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "date": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "from",
+                        "to"
+                    ],
+                    "properties": {
+                        "from": {
+                            "type": "string"
+                        },
+                        "to": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -38,88 +83,10 @@
                     ],
                     "properties": {
                         "business": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                                "id",
-                                "widget_configuration",
-                                "general_info"
-                            ],
-                            "properties": {
-                                "id": {
-                                    "type": "string"
-                                },
-                                "widget_configuration": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": [
-                                        "cracServer"
-                                    ],
-                                    "properties": {
-                                        "cracServer": {
-                                            "type": "string"
-                                        },
-                                        "mostFreeEnable": {
-                                            "type": "boolean"
-                                        }
-                                    }
-                                },
-                                "general_info": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": [
-                                        "timezone"
-                                    ],
-                                    "properties": {
-                                        "timezone": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
+                            "$ref": "../../models/partials/cracSlotsRequestBusinessParams.schema.json"
                         },
                         "filters": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                                "insuranceID",
-                                "resources",
-                                "rooms",
-                                "date"
-                            ],
-                            "properties": {
-                                "insuranceID": {
-                                    "type": "string"
-                                },
-                                "resources": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/ResourceFilter"
-                                    }
-                                },
-                                "rooms": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "date": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "required": [
-                                        "from",
-                                        "to"
-                                    ],
-                                    "properties": {
-                                        "from": {
-                                            "type": "string"
-                                        },
-                                        "to": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
+                            "$ref": "#/definitions/Filters"
                         }
                     }
                 }

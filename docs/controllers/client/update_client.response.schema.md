@@ -1,4 +1,4 @@
-# client.add_client.response Schema
+# client.update_client.response Schema
 
 ```
 schemas-json/controllers/client/update_client.response.schema.json
@@ -8,7 +8,7 @@ schemas-json/controllers/client/update_client.response.schema.json
 | ---------------------- | ---------- | ------------ | ------------ | ----------------- | --------------------- | ------------------------------------------------------------------------------------------- |
 | Cannot be instantiated | Yes        | Experimental | No           | Forbidden         | Permitted             | [controllers/client/update_client.response.schema.json](update_client.response.schema.json) |
 
-# client.add_client.response Definitions
+# client.update_client.response Definitions
 
 | Property          | Type     | Group                                                                                             |
 | ----------------- | -------- | ------------------------------------------------------------------------------------------------- |

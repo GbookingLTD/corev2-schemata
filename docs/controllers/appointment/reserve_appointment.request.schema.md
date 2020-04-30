@@ -31,9 +31,60 @@ schemas-json/controllers/appointment/reserve_appointment.request.schema.json
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `start`  | string | **Required** |
+| Property   | Type   | Required     |
+| ---------- | ------ | ------------ |
+| `duration` | number | Optional     |
+| `price`    | object | Optional     |
+| `start`    | string | **Required** |
+
+#### duration
+
+`duration`
+
+- is optional
+- type: `number`
+
+##### duration Type
+
+`number`
+
+#### price
+
+`price`
+
+- is optional
+- type: `object`
+
+##### price Type
+
+`object` with following properties:
+
+| Property   | Type   | Required     |
+| ---------- | ------ | ------------ |
+| `amount`   | number | **Required** |
+| `currency` |        | **Required** |
+
+#### amount
+
+`amount`
+
+- is **required**
+- type: `number`
+
+##### amount Type
+
+`number`
+
+#### currency
+
+`currency`
+
+- is **required**
+- type: reference
+
+##### currency Type
+
+- []() – `../../models/partials/currency.schema.json#/definitions/CurrencyList`
 
 #### start
 
@@ -200,9 +251,60 @@ All items must be of the type: `string`
 
 `object` with following properties:
 
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `start`  | string | **Required** |
+| Property   | Type   | Required     |
+| ---------- | ------ | ------------ |
+| `duration` | number | Optional     |
+| `price`    | object | Optional     |
+| `start`    | string | **Required** |
+
+#### duration
+
+`duration`
+
+- is optional
+- type: `number`
+
+##### duration Type
+
+`number`
+
+#### price
+
+`price`
+
+- is optional
+- type: `object`
+
+##### price Type
+
+`object` with following properties:
+
+| Property   | Type   | Required     |
+| ---------- | ------ | ------------ |
+| `amount`   | number | **Required** |
+| `currency` |        | **Required** |
+
+#### amount
+
+`amount`
+
+- is **required**
+- type: `number`
+
+##### amount Type
+
+`number`
+
+#### currency
+
+`currency`
+
+- is **required**
+- type: reference
+
+##### currency Type
+
+- []() – `../../models/partials/currency.schema.json#/definitions/CurrencyList`
 
 #### start
 

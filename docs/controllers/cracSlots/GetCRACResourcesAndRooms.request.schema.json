@@ -5,6 +5,7 @@
     "type": "object",
     "definitions": {
         "ResourceFilter": {
+            "title": "CracSlotsGetCRACResourcesAndRoomsRequestResourceFilter",
             "type": "object",
             "additionalProperties": true,
             "required": [
@@ -21,48 +22,8 @@
                 }
             }
         },
-        "Business": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "widget_configuration",
-                "general_info"
-            ],
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "widget_configuration": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                        "cracServer"
-                    ],
-                    "properties": {
-                        "cracServer": {
-                            "type": "string"
-                        },
-                        "mostFreeEnable": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "general_info": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                        "timezone"
-                    ],
-                    "properties": {
-                        "timezone": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "Filters": {
+            "title": "CracSlotsGetCRACResourcesAndRoomsRequestFilters",
             "type": "object",
             "additionalProperties": false,
             "required": [
@@ -127,7 +88,7 @@
                     ],
                     "properties": {
                         "business": {
-                            "$ref": "#/definitions/Business"
+                            "$ref": "../../models/partials/cracSlotsRequestBusinessParams.schema.json"
                         },
                         "filters": {
                             "$ref": "#/definitions/Filters"
