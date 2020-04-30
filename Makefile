@@ -9,7 +9,7 @@ errors:
 	bin/error_response.sh > errorResponce.yaml
 	node bin/errors.js > errors.md
 
-gen_java: clear_java
+gen_java: json clear_java
 	$(qt) -s schema ./schemas-json/CoreV2.schema.json -l java \
 		-o ./langs/java/* \
 		--package ru.gbooking.apiv2 \
