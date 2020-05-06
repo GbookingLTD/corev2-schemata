@@ -548,6 +548,8 @@ properties:
 
   client_payment_invoice:
     type: "string"
+  client_payment_transaction_id:
+    type: "string"
   referrer:
     type: "string"
   source:
@@ -640,6 +642,8 @@ properties:
         payment:
           $ref: "#/definitions/AppointmentClientPayment"
         payment_invoice:
+          type: "string"
+        payment_transaction_id:
           type: "string"
         appear:
           $ref: "#/definitions/AppointmentClientAppear"
