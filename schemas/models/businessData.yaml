@@ -624,6 +624,8 @@ definitions:
         default: false
       displaySlotSize:
         type: "number"
+      strictSlotCutting:
+        type: "boolean"
       additionalName:
         type: "string"
       shortLink:
