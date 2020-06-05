@@ -120,6 +120,9 @@ properties:
   schedulerTick:
     type: "number"
     default: 15
+  eventEditorMinutesTick:
+    type: "number"
+    default: 5
   skipBilling:
     type: "boolean"
     default: false
