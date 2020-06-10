@@ -1,7 +1,7 @@
 # Discount Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.schema.json
+schemas-json/models/discount.schema.json
 ```
 
 Информация о скидке
@@ -87,21 +87,20 @@ The value of this property **must** be equal to one of the [known values below](
 
 `object` with following properties:
 
-| Property | Type      | Required |
-| -------- | --------- | -------- |
-| `time`   | TimeFrame | Optional |
+| Property | Type | Required |
+| -------- | ---- | -------- |
+| `time`   |      | Optional |
 
 #### time
 
 `time`
 
 - is optional
-- type: TimeFrame
+- type: reference
 
 ##### time Type
 
-- [TimeFrame](partials/timeframe.schema.md) –
-  `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json`
+- []() – `./partials/timeframe.schema.json`
 
 ## start
 

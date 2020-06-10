@@ -1,5 +1,6 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/partials/businessInfo.schema.json",
     "title": "BusinessInfo",
     "description": "Содержит детальную информацию о бизнесе — название, адрес, график работы и другое",
     "type": "object",
@@ -23,7 +24,7 @@
             "description": "Адреса компании или филиала",
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/address.schema.json"
+                "$ref": "../address.schema.json"
             }
         },
         "email": {
@@ -34,25 +35,28 @@
             "description": "Список телефонов бизнеса",
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+                "$ref": "../phone.schema.json"
             }
         },
         "mobile": {
             "description": "Список телефонов бизнеса",
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+                "$ref": "../phone.schema.json"
             }
         },
         "fax": {
             "description": "",
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+                "$ref": "../phone.schema.json"
             }
         },
         "timezone": {
-            "type": "string"
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "description": {
             "description": "",
@@ -68,17 +72,23 @@
         "additionalFields": {
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/additionalFields.schema.json"
+                "$ref": "../additionalField.schema.json"
             }
         },
         "contactName": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "website": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "timetable": {
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+            "$ref": "../timetable.schema.json"
         },
         "instant_messaging": {
             "type": "array",
@@ -89,14 +99,14 @@
         "social_network": {
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/socialnetwork.schema.json"
+                "$ref": "../socialNetwork.schema.json"
             }
         },
         "accepted_currency": {
             "type": "array",
             "items": {
                 "type": "string",
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+                "$ref": "currency.schema.json#/definitions/CurrencyList"
             }
         },
         "paymentMethods": {
@@ -132,8 +142,10 @@
             ]
         },
         "align_min_booking_time": {
-            "type": "boolean",
-            "default": false
+            "type": [
+                "boolean",
+                "null"
+            ]
         },
         "images": {
             "type": "array",
@@ -158,7 +170,7 @@
             "additionalProperties": false
         },
         "language": {
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/language.schema.json#/definitions/LanguageList"
+            "$ref": "language.schema.json#/definitions/LanguageList"
         },
         "networkID": {
             "type": [
@@ -195,6 +207,10 @@
         "schedulerTick": {
             "type": "number",
             "default": 15
+        },
+        "eventEditorMinutesTick": {
+            "type": "number",
+            "default": 5
         },
         "skipBilling": {
             "type": "boolean",
@@ -279,6 +295,54 @@
                 "properties": {
                     "internalID": {
                         "type": "string"
+                    }
+                },
+                "additionalProperties": true
+            }
+        },
+        "showcaseBusinessData": {
+            "description": "если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из витрины",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "internalID": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Название бизнеса",
+                        "type": "string"
+                    },
+                    "address": {
+                        "description": "Адреса компании или филиала",
+                        "type": "array",
+                        "items": {
+                            "$ref": "../address.schema.json"
+                        }
+                    },
+                    "email": {
+                        "description": "Список e-mail адресов компании или филиала",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "description": "Список телефонов бизнеса",
+                        "type": "array",
+                        "items": {
+                            "$ref": "../phone.schema.json"
+                        }
+                    },
+                    "language": {
+                        "$ref": "language.schema.json#/definitions/LanguageList"
+                    },
+                    "timezone": {
+                        "type": "string"
+                    },
+                    "receptionTypes": {
+                        "description": "Список видов приема филиала",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "additionalProperties": true

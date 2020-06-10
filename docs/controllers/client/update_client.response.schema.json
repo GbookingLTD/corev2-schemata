@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/client/update_client.response.schema.json",
+    "title": "client.update_client.response",
+    "type": "object",
+    "definitions": {
+        "ErrorCodes": {
+            "type": "object",
+            "required": [
+                "error"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "error": {
+                    "oneOf": [
+                        {
+                            "$ref": "../../common/partials/authErrorCodes.schema.json"
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "code"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "code": {
+                                    "description": "код ошибки создания клиента",
+                                    "type": "number",
+                                    "enum": [
+                                        -11100,
+                                        -11200,
+                                        -11201,
+                                        -11300,
+                                        -11500,
+                                        -11800
+                                    ],
+                                    "meta:enum": {
+                                        "-11100": "CLIENT_CREATE_FAILED - Failed to create client",
+                                        "-11200": "CLIENT_RETRIEVE_FAILED - Failed to retrieve client",
+                                        "-11201": "CLIENT_DUPLICATE_PHONE_FAILED - Failed to retrieve client",
+                                        "-11300": "CLIENT_UPDATE_FAILED - Failed to update client",
+                                        "-11500": "CLIENT_DATA_MISSING - Client data missing",
+                                        "-11800": "CLIENT_IN_BLACKLIST - Client in blacklist"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ErrorResponse": {
+            "allOf": [
+                {
+                    "$ref": "../../common/errorResponse.schema.json"
+                },
+                {
+                    "$ref": "#/definitions/ErrorCodes"
+                }
+            ]
+        },
+        "SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "object",
+                    "required": [
+                        "success"
+                    ],
+                    "properties": {
+                        "success": {
+                            "type": "boolean"
+                        },
+                        "added_document": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "result"
+            ]
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/SuccessResponse"
+        },
+        {
+            "$ref": "#/definitions/ErrorResponse"
+        }
+    ]
+}

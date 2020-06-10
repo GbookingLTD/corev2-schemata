@@ -1,7 +1,7 @@
 # client.add_client.response Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json
+schemas-json/controllers/client/add_client.response.schema.json
 ```
 
 | Abstract               | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                                            |
@@ -10,10 +10,66 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/cli
 
 # client.add_client.response Definitions
 
-| Property          | Type     | Group                                                                                                                                     |
-| ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [error](#error)   | complex  | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json#/definitions/ErrorCodes`      |
-| [result](#result) | `object` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/client.add_client.schema.json#/definitions/SuccessResponse` |
+| Property                | Type      | Group                                                                                                        |
+| ----------------------- | --------- | ------------------------------------------------------------------------------------------------------------ |
+| [business](#business)   | `object`  | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ClientAddClientResponseResult` |
+| [client](#client)       | reference | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ClientAddClientResponseResult` |
+| [documents](#documents) | `string`  | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ClientAddClientResponseResult` |
+| [error](#error)         | complex   | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ErrorCodes`                    |
+| [profile](#profile)     | `object`  | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ClientAddClientResponseResult` |
+| [result](#result)       | reference | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/SuccessResponse`               |
+| [source](#source)       | `enum`    | `schemas-json/controllers/client/add_client.response.schema.json#/definitions/ClientAddClientResponseResult` |
+
+## business
+
+`business`
+
+- is **required**
+- type: `object`
+- defined in this schema
+
+### business Type
+
+`object` with following properties:
+
+| Property | Type   | Required     |
+| -------- | ------ | ------------ |
+| `id`     | string | **Required** |
+
+#### id
+
+`id`
+
+- is **required**
+- type: `string`
+
+##### id Type
+
+`string`
+
+## client
+
+`client`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### client Type
+
+- []() – `../../models/client.schema.json`
+
+## documents
+
+`documents`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### documents Type
+
+`string`
 
 ## error
 
@@ -29,7 +85,7 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/cli
 
 #### Condition 1
 
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml`
+- []() – `../../common/partials/authErrorCodes.schema.json`
 
 #### Condition 2
 
@@ -61,81 +117,15 @@ The value of this property **must** be equal to one of the [known values below](
 | `-11500` | CLIENT_DATA_MISSING - Client data missing                 |
 | `-11800` | CLIENT_IN_BLACKLIST - Client in blacklist                 |
 
-## result
-
-`result`
-
-- is **required**
-- type: `object`
-- defined in this schema
-
-### result Type
-
-`object` with following properties:
-
-| Property    | Type   | Required     |
-| ----------- | ------ | ------------ |
-| `business`  | object | Optional     |
-| `client`    |        | **Required** |
-| `documents` | array  | Optional     |
-| `profile`   | object | Optional     |
-
-#### business
-
-`business`
-
-- is optional
-- type: `object`
-
-##### business Type
-
-`object` with following properties:
-
-| Property | Type   | Required     |
-| -------- | ------ | ------------ |
-| `id`     | string | **Required** |
-
-#### id
-
-`id`
-
-- is **required**
-- type: `string`
-
-##### id Type
-
-`string`
-
-#### client
-
-`client`
-
-- is **required**
-- type: reference
-
-##### client Type
-
-- []() – `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/client.schema.json`
-
-#### documents
-
-`documents`
-
-- is optional
-- type: `array`
-
-##### documents Type
-
-Array type: `array`
-
-#### profile
+## profile
 
 `profile`
 
 - is optional
 - type: `object`
+- defined in this schema
 
-##### profile Type
+### profile Type
 
 `object` with following properties:
 
@@ -153,6 +143,37 @@ Array type: `array`
 ##### id Type
 
 `string`
+
+## result
+
+`result`
+
+- is **required**
+- type: reference
+- defined in this schema
+
+### result Type
+
+- []() – `#/definitions/ClientAddClientResponseResult`
+
+## source
+
+`source`
+
+- is optional
+- type: `enum`
+- defined in this schema
+
+The value of this property **must** be equal to one of the [known values below](#source-known-values).
+
+### source Known Values
+
+| Value           | Description |
+| --------------- | ----------- |
+| `WIDGET`        |             |
+| `MOBILE_WIDGET` |             |
+| `MINI_WIDGET`   |             |
+| `BACKOFFICE`    |             |
 
 **One** of the following _conditions_ need to be fulfilled.
 

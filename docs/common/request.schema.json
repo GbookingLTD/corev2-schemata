@@ -1,5 +1,6 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/common/request.schema.json",
     "title": "Request",
     "description": "jsonrpc2 запрос",
     "properties": {
@@ -50,7 +51,10 @@
         },
         "params": {
             "description": "параметры запроса",
-            "type": "object"
+            "type": [
+                "object",
+                "array"
+            ]
         }
     },
     "required": [

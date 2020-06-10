@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/partials/loyaltyInfo.schema.json",
+    "type": "object",
+    "title": "LoyaltyInfo",
+    "required": [],
+    "additionalProperties": false,
+    "properties": {
+        "cardNumber": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string"
+        },
+        "bonusPoints": {
+            "type": "number",
+            "default": 0
+        },
+        "annualTurnover": {
+            "type": "number"
+        },
+        "presents": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "extraID": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "READY",
+                            "RECEIVED"
+                        ],
+                        "default": "READY"
+                    }
+                }
+            }
+        },
+        "purchases": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "goodID": {
+                        "type": "string"
+                    },
+                    "expirationDate": {
+                        "type": "string"
+                    },
+                    "transactionID": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number",
+                        "default": 0
+                    },
+                    "free": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "active": {
+                        "type": "boolean",
+                        "default": true
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,71 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/crackSlots/GetCRACDistributedResourcesAndRooms.request.schema.json"
+title: "CracSlots.GetCRACDistributedResourcesAndRooms.request"
+type: "object"
+definitions:
+  ResourceFilter:
+    title: "CracSlotsGetCRACDistributedResourcesAndRoomsRequestResourceFilter"
+    type: "object"
+    additionalProperties: true
+    required: ["resource", "business"]
+    properties:
+      resource:
+        description: "идентификатор ресурса"
+        type: "string"
+      business:
+        type: "object"
+        additionalProperties: false
+        required: ["id"]
+        properties:
+          id:
+            description: "идентификатор бизнеса"
+            type: "string"
+
+  Filters:
+    title: "CracSlotsGetCRACDistributedResourcesAndRoomsRequestFilters"
+    type: "object"
+    additionalProperties: false
+    required: ["resources", "taxonomies", "rooms", "date"]
+    properties:
+      resources:
+        type: "array"
+        items:
+          $ref: "#/definitions/ResourceFilter"
+      taxonomies:
+        type: "array"
+        items:
+          type: "string"
+      rooms:
+        type: "array"
+        items:
+          type: "string"
+      date:
+        type: "object"
+        additionalProperties: false
+        required: ["from", "to"]
+        properties:
+          from:
+            type: "string"
+          to:
+            type: "string"
+
+  Request:
+    type: "object"
+    additionalProperties: true
+    required: ["params"]
+    properties:
+      params:
+        description: "параметры запроса"
+        type: "object"
+        additionalProperties: false
+        required: ["business", "filters"]
+        properties:
+          business:
+            $ref: "../../models/partials/cracSlotsRequestBusinessParams.schema.json"
+          filters:
+            $ref: "#/definitions/Filters"
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+

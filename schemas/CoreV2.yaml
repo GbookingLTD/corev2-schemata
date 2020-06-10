@@ -1,0 +1,52 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/CoreV2.schema.json"
+title: "GBooking CoreV2 API"
+type: "object"
+properties:
+  Common:
+    type: "object"
+    properties:
+      Request:
+        $ref: "./common/request.schema.json"
+      SuccessResponse:
+        $ref: "./common/successResponse.schema.json"
+      ErrorResponse:
+        $ref: "./common/errorResponse.schema.json"
+      AuthErrorCodes:
+        $ref: "./common/partials/authErrorCodes.schema.json"
+  Controllers:
+    type: "object"
+    properties:
+      Appointment:
+        $ref: "./controllers/appointment.schema.json"
+      Business:
+        $ref: "./controllers/business.schema.json"
+      Client:
+        $ref: "./controllers/client.schema.json"
+      CracSlots:
+        $ref: "./controllers/cracSlots.schema.json"
+    required:
+      - Appointment
+      - Business
+      - Client
+      - CracSlots
+    additionalProperties: false
+  Models:
+    type: "object"
+    properties:
+      Appointment:
+        $ref: "./models/appointment.schema.json"
+      Business:
+        $ref: "./models/business.schema.json"
+      Client:
+        $ref: "./models/client.schema.json"
+    required:
+      - Appointment
+      - Business
+      - Client
+    additionalProperties: false
+required:
+  - Common
+  - Controllers
+  - Models
+additionalProperties: false

@@ -1,0 +1,47 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/appointment/get_appointment_by_showcase.request.schema.json"
+title: "appointment.get_appointment_by_showcase.request"
+type: "object"
+definitions:
+  Filters:
+    type: "object"
+    required:
+      - business
+      - pageSize
+      - page
+    properties:
+      business:
+        type: "object"
+        required: ["id"]
+        additionalProperties: false
+        properties:
+          id:
+            type: ["string", "number"]
+      pageSize:
+        type: "number"
+      page:
+        type: "number"
+      source:
+        type: "string"
+      created:
+        type: "object"
+        required: ["start", "end"]
+        additionalProperties: false
+        properties:
+          start:
+            type: "string"
+            format: "date-time"
+          end:
+            type: "string"
+            format: "date-time"
+  Request:
+    type: "object"
+    required: ["params"]
+    properties:
+      params:
+        $ref: '#/definitions/Filters'
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+

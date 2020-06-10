@@ -1,6 +1,9 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/discount.schema.json"
 title: "Discount"
 description: "Информация о скидке"
+type: "object"
+additionalProperties: false
 properties:
   active:
     type: "boolean"
@@ -24,5 +27,4 @@ properties:
     type: "object"
     properties:
       time:
-        $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
-additionalProperties: false
+        $ref: "./partials/timeframe.schema.json"

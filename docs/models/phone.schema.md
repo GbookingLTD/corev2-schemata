@@ -1,7 +1,7 @@
 # Phone Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json
+schemas-json/models/phone.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                    |

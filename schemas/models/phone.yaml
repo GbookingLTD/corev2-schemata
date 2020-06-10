@@ -1,5 +1,8 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/phone.schema.json"
 title: "Phone"
+type: "object"
+additionalProperties: false
 meta:extensible: true
 properties:
   country_code:
@@ -9,4 +12,3 @@ properties:
   number:
     type: "string"
 required: ["country_code", "area_code", "number"]
-additionalProperties: false

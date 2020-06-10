@@ -1,0 +1,37 @@
+package ru.gbooking.apiv2;
+
+import java.util.*;
+import com.fasterxml.jackson.annotation.*;
+
+public class ClientAddClientResponseResult {
+    private HilariousBusiness business;
+    private ClientClass client;
+    private String documents;
+    private PurpleProfile profile;
+    private Source source;
+
+    @JsonProperty("business")
+    public HilariousBusiness getBusiness() { return business; }
+    @JsonProperty("business")
+    public void setBusiness(HilariousBusiness value) { this.business = value; }
+
+    @JsonProperty("client")
+    public ClientClass getClient() { return client; }
+    @JsonProperty("client")
+    public void setClient(ClientClass value) { this.client = value; }
+
+    @JsonProperty("documents")
+    public String getDocuments() { return documents; }
+    @JsonProperty("documents")
+    public void setDocuments(String value) { this.documents = value; }
+
+    @JsonProperty("profile")
+    public PurpleProfile getProfile() { return profile; }
+    @JsonProperty("profile")
+    public void setProfile(PurpleProfile value) { this.profile = value; }
+
+    @JsonProperty("source")
+    public Source getSource() { return source; }
+    @JsonProperty("source")
+    public void setSource(Source value) { this.source = value; }
+}

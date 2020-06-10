@@ -1,0 +1,162 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.response.schema.json",
+    "title": "CracSlots.GetCRACInsuranceResourcesAndRooms.response",
+    "type": "object",
+    "definitions": {
+        "ErrorCodes": {
+            "type": "object",
+            "required": [
+                "error"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "error": {
+                    "oneOf": [
+                        {
+                            "$ref": "../../common/partials/authErrorCodes.schema.json"
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "code"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "code": {
+                                    "description": "код ошибки",
+                                    "type": "number",
+                                    "enum": [
+                                        -10000,
+                                        -70300
+                                    ],
+                                    "meta:enum": {
+                                        "-10000": "UNKNOWN_ERROR - Unknown error occurred",
+                                        "-70300": "CRAC_PROXY_ERROR"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ErrorResponse": {
+            "allOf": [
+                {
+                    "$ref": "../../common/errorResponse.schema.json"
+                },
+                {
+                    "$ref": "#/definitions/ErrorCodes"
+                }
+            ]
+        },
+        "CutSlot": {
+            "type": "object",
+            "required": [
+                "start",
+                "end",
+                "duration",
+                "available"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "start": {
+                    "type": "number"
+                },
+                "end": {
+                    "type": "number"
+                },
+                "duration": {
+                    "type": "number"
+                },
+                "available": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "CracSlots": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "slots"
+            ],
+            "properties": {
+                "slots": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "resources",
+                            "rooms",
+                            "date"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "resources": {
+                                "type": "array",
+                                "required": [
+                                    "resourceId",
+                                    "cutSlots"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "resourceId": {
+                                        "type": "string"
+                                    },
+                                    "cutSlots": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/definitions/CutSlot"
+                                        }
+                                    }
+                                }
+                            },
+                            "rooms": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object"
+                                }
+                            },
+                            "date": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "SuccessResponse": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "jsonrpc",
+                "id",
+                "result"
+            ],
+            "properties": {
+                "jsonrpc": {
+                    "description": "версия протокола (2.0)",
+                    "type": "string",
+                    "const": "2.0"
+                },
+                "id": {
+                    "description": "значение числового типа для идентификации запроса на сервере",
+                    "type": "number"
+                },
+                "result": {
+                    "$ref": "#/definitions/CracSlots"
+                }
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/SuccessResponse"
+        },
+        {
+            "$ref": "#/definitions/ErrorResponse"
+        }
+    ]
+}

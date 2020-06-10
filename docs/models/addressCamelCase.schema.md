@@ -1,7 +1,7 @@
 # Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json
+schemas-json/models/addressCamelCase.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                          |
@@ -10,11 +10,11 @@ http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.
 
 # Definitions
 
-| Property                    | Type     | Group                                                                                                                   |
-| --------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- |
-| [\_id](#_id)                | `string` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json#/definitions/MetroStation` |
-| [description](#description) | `string` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json#/definitions/MetroStation` |
-| [name](#name)               | `string` | `http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json#/definitions/MetroStation` |
+| Property                    | Type     | Group                                                                        |
+| --------------------------- | -------- | ---------------------------------------------------------------------------- |
+| [\_id](#_id)                | `string` | `schemas-json/models/addressCamelCase.schema.json#/definitions/MetroStation` |
+| [description](#description) | `string` | `schemas-json/models/addressCamelCase.schema.json#/definitions/MetroStation` |
+| [name](#name)               | `string` | `schemas-json/models/addressCamelCase.schema.json#/definitions/MetroStation` |
 
 ## \_id
 

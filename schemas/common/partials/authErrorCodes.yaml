@@ -1,6 +1,7 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml"
-title: "Кода ошибки авторизации"
-description: "Список кодов ошибки авторизации"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/common/partials/authErrorCodes.schema.json"
+title: "Auth Error Codes"
+description: "Код ошибки авторизации"
 type: "object"
 required: ["code"]
 additionalProperties: true

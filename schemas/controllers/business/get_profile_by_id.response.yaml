@@ -1,4 +1,5 @@
-$id: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.response.schema.json"
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/business/get_profile_by_id.response.schema.json"
 title: "business.get_profile_by_id.response"
 type: "object"
 definitions:
@@ -9,7 +10,7 @@ definitions:
     properties:
       error:
         oneOf:
-          - $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/partials/authErrorCodes.yaml"
+          - $ref: "../../common/partials/authErrorCodes.schema.json"
           - type: "object"
             required: ["code"]
             additionalProperties: true
@@ -26,9 +27,9 @@ definitions:
   
   ErrorResponse:
     allOf:
-    - $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json"
+    - $ref: "../../common/errorResponse.schema.json"
     - $ref: "#/definitions/ErrorCodes"
-    
+
   SuccessResponse:
     type: "object"
     properties:
@@ -44,7 +45,7 @@ definitions:
         type: "object"
         properties:
           business:
-            $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json"
+            $ref: "../../models/business.schema.json"
           yandexFeedType:
             type: "string"
             enum: [ "static", "dynamic", "static-service-only", "no"]
@@ -77,7 +78,7 @@ definitions:
                 description:
                   type: "string"
                 address:
-                  $ref: "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/addressCamelCase.schema.json"
+                  $ref: "../../models/addressCamelCase.schema.json"
               required: ["internalID", "businessName", "description"]
           freeSms:
             type: "number"
@@ -85,6 +86,10 @@ definitions:
           monthlyFreeSms:
             type: "number"
             default: 0
+          profiles:
+            type: "array"
+            items:
+              type: "object"
         
         required:
         - "business"

@@ -1,0 +1,99 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/appointment/cancel_appointment_by_client.response.schema.json",
+    "title": "appointment.cancel_appointment_by_client.response",
+    "type": "object",
+    "definitions": {
+        "ErrorCodes": {
+            "type": "object",
+            "required": [
+                "error"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "error": {
+                    "oneOf": [
+                        {
+                            "$ref": "../../common/partials/authErrorCodes.schema.json"
+                        },
+                        {
+                            "type": "object",
+                            "required": [
+                                "code"
+                            ],
+                            "additionalProperties": true,
+                            "properties": {
+                                "code": {
+                                    "description": "код ошибки",
+                                    "type": "number",
+                                    "enum": [
+                                        -10000,
+                                        -10200,
+                                        -14308,
+                                        -14309,
+                                        -14310,
+                                        -14311,
+                                        -14312,
+                                        -14313
+                                    ],
+                                    "meta:enum": {
+                                        "-10000": "UNKNOWN_ERROR - Unknown error occurred",
+                                        "-10200": "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business",
+                                        "-14308": "APPOINTMENT_MIS_CONFIRM_FAILED",
+                                        "-14309": "APPOINTMENT_MIS_RESERVE_FAILED",
+                                        "-14310": "APPOINTMENT_MIS_CONFIRM_CLEINT_DUPLICATE_RECORD_ERROR",
+                                        "-14311": "APPOINTMENT_MIS_CONFIRM_CLEINT_NOT_FOUND",
+                                        "-14312": "APPOINTMENT_MIS_UPDATE_FATAL_ERROR",
+                                        "-14313": "APPOINTMENT_MIS_UPDATE_FAIL"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ErrorResponse": {
+            "allOf": [
+                {
+                    "$ref": "../../common/errorResponse.schema.json"
+                },
+                {
+                    "$ref": "#/definitions/ErrorCodes"
+                }
+            ]
+        },
+        "SuccessResponse": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "jsonrpc": {
+                    "description": "версия протокола (2.0)",
+                    "type": "string",
+                    "const": "2.0"
+                },
+                "id": {
+                    "description": "значение числового типа для идентификации запроса на сервере",
+                    "type": "number"
+                },
+                "result": {
+                    "description": "данные, передаваемые в ответ",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "jsonrpc",
+                "id",
+                "result"
+            ]
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/SuccessResponse"
+        },
+        {
+            "$ref": "#/definitions/ErrorResponse"
+        }
+    ]
+}

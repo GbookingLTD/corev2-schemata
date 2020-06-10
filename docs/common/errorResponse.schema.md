@@ -1,7 +1,7 @@
 # Error Response Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/errorResponse.schema.json
+schemas-json/common/errorResponse.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                    |

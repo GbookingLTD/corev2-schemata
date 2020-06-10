@@ -1,7 +1,7 @@
 # Success Response Schema
 
 ```
-http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/successResponse.schema.json
+schemas-json/common/successResponse.schema.json
 ```
 
 | Abstract            | Extensible | Status       | Identifiable | Custom Properties | Additional Properties | Defined In                                                        |

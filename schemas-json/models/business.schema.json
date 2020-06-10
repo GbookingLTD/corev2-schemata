@@ -1,13 +1,19 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/business.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/business.schema.json",
     "title": "Business",
+    "type": "object",
+    "additionalProperties": false,
     "meta:extensible": true,
     "meta:extends": [
-        "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json",
-        "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+        "./phone.schema.json",
+        "./resource.schema.json"
     ],
     "properties": {
         "id": {
+            "type": "string"
+        },
+        "extraID": {
             "type": "string"
         },
         "created_on": {
@@ -15,7 +21,7 @@
             "format": "date-time"
         },
         "general_info": {
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json"
+            "$ref": "./partials/businessInfo.schema.json"
         },
         "taxonomies": {
             "type": "array",
@@ -26,7 +32,7 @@
         "resources": {
             "type": "array",
             "items": {
-                "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json"
+                "$ref": "./resource.schema.json"
             }
         },
         "designs": {
@@ -226,7 +232,6 @@
         "resources",
         "taxonomies"
     ],
-    "additionalProperties": false,
     "definitions": {
         "Department": {
             "title": "Department",
@@ -289,7 +294,7 @@
             "properties": {
                 "currency": {
                     "description": "Аббревиатура валюты (например, RUB - рубль)",
-                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+                    "$ref": "./partials/currency.schema.json#/definitions/CurrencyList"
                 },
                 "amount": {
                     "description": "Значение цены",
@@ -343,7 +348,7 @@
                 },
                 "currency": {
                     "description": "Аббревиатура валюты",
-                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/currency.schema.json#/definitions/CurrencyList"
+                    "$ref": "./partials/currency.schema.json#/definitions/CurrencyList"
                 },
                 "amount": {
                     "description": "Значение цены",
@@ -352,7 +357,10 @@
                 },
                 "stockAmount": {
                     "description": "Значение цены, с учётом промо акций",
-                    "type": "string",
+                    "type": [
+                        "null",
+                        "string"
+                    ],
                     "default": "0"
                 },
                 "type": {
@@ -558,7 +566,10 @@
                     "type": "boolean"
                 },
                 "discounts": {
-                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/discount.schema.json"
+                    "type": "array",
+                    "items": {
+                        "$ref": "./discount.schema.json"
+                    }
                 },
                 "additionalDurations": {
                     "type": "array",
@@ -603,7 +614,7 @@
                     "type": "string"
                 },
                 "taxonomyType": {
-                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/taxonomyType.schema.json#/definitions/TaxonomyType"
+                    "$ref": "./partials/taxonomyType.schema.json#/definitions/TaxonomyType"
                 },
                 "designs": {
                     "type": "array",
@@ -636,7 +647,7 @@
                     "type": "string"
                 },
                 "timetable": {
-                    "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+                    "$ref": "./timetable.schema.json"
                 },
                 "exceptions": {
                     "type": "array"
@@ -703,6 +714,9 @@
                             "dateLimitTo": {
                                 "type": "string",
                                 "format": "date-time"
+                            },
+                            "_id": {
+                                "type": "string"
                             }
                         },
                         "additionalProperties": false
@@ -746,6 +760,13 @@
                     ],
                     "default": "PLAN_CLINIC"
                 },
+                "receptionTypes": {
+                    "description": "Список видов приема услуги",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "showcaseItems": {
                     "type": "array",
                     "items": {
@@ -779,6 +800,13 @@
                             },
                             "businessID": {
                                 "type": "string"
+                            },
+                            "receptionTypes": {
+                                "description": "Список видов приема услуги",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             }
                         },
                         "additionalProperties": false
@@ -797,6 +825,18 @@
                 "scheduleDefaultWorkersLimit": {
                     "type": "number",
                     "default": 25
+                },
+                "scheduleDefaultWorkersLimitDay": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "scheduleDefaultWorkersLimitWeek": {
+                    "type": [
+                        "number",
+                        "null"
+                    ]
                 },
                 "resourceTimetableType": {
                     "type": "string",
@@ -982,7 +1022,46 @@
                     "type": "boolean",
                     "default": false
                 },
+                "scheduleSplitDayTimeIntervals": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "selected": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "startHour": {
+                                "type": "number"
+                            },
+                            "startMinute": {
+                                "type": "number"
+                            },
+                            "endHour": {
+                                "type": "number"
+                            },
+                            "endMinute": {
+                                "type": "number"
+                            },
+                            "schedulerTick": {
+                                "type": "number"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "scheduleEnableDayIntervals": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "showTaxonomyLocalization": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showTaxonomyNameExtraId": {
                     "type": "boolean",
                     "default": false
                 },
@@ -1015,7 +1094,10 @@
                     "default": false
                 },
                 "stateLevelHolidays": {
-                    "type": "array",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
                     "items": {
                         "type": "object"
                     }
@@ -1029,6 +1111,8 @@
                     "enum": [
                         "yandexMoney",
                         "deltaProcessing",
+                        "cloudpayments",
+                        "pelecard",
                         "DISABLE"
                     ]
                 },
@@ -1310,10 +1394,13 @@
                     "default": false
                 },
                 "clientCommentTitle": {
+                    "type": "string"
+                },
+                "calendarMode": {
                     "type": "boolean",
                     "default": false
                 },
-                "calendarMode": {
+                "calendarModeHideTime": {
                     "type": "boolean",
                     "default": false
                 },
@@ -1331,6 +1418,9 @@
                 },
                 "displaySlotSize": {
                     "type": "number"
+                },
+                "strictSlotCutting": {
+                    "type": "boolean"
                 },
                 "additionalName": {
                     "type": "string"
@@ -1432,6 +1522,8 @@
                     "enum": [
                         "yandexMoney",
                         "deltaProcessing",
+                        "cloudpayments",
+                        "pelecard",
                         "DISABLE"
                     ],
                     "default": "yandexMoney"
@@ -1642,7 +1734,7 @@
                 "insuranceClientSupportPhone": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+                        "$ref": "./phone.schema.json"
                     }
                 },
                 "showDisabledTaxonomies": {
@@ -1737,12 +1829,25 @@
                     "type": "boolean",
                     "default": false
                 },
+                "showStartText": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "startTextMessage": {
+                    "type": "string"
+                },
+                "startTextButton": {
+                    "type": "string"
+                },
                 "newWidgetTheme": {
                     "type": "object",
                     "additionalProperties": true
                 },
                 "worker_unavailability_text": {
                     "type": "string"
+                },
+                "middleNameSupport": {
+                    "type": "boolean"
                 }
             },
             "additionalProperties": false

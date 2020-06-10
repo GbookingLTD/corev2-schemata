@@ -1,0 +1,723 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/appointment.schema.json"
+title: "Appointment"
+type: "object"
+additionalProperties: false
+definitions:
+  AppointmentTaxonomy:
+    type: "object"
+    additionalProperties: false
+    required: ["id", "alias"]
+    properties:
+      id:
+        type: "string"
+      alias:
+        type: "string"
+      extraId:
+        type: "string"
+
+  AppointmentResource:
+    type: "object"
+    additionalProperties: false
+    required: ["id", "name", "surname"]
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      middleName:
+        type: "string"
+      extraID:
+        type: ["string", "null"]
+
+  CamelPhone:
+    type: "object"
+    additionalProperties: false
+    required: ["number", "countryCode", "areaCode"]
+    properties:
+      number:
+        type: "string"
+      countryCode:
+        type: "string"
+      areaCode:
+        type: "string"
+
+  Phone:
+    type: "object"
+    additionalProperties: false
+    required: ["number", "country_code", "area_code"]
+    properties:
+      number:
+        type: "string"
+      country_code:
+        type: "string"
+      area_code:
+        type: "string"
+
+
+  AppointmentClientFeedback:
+    type: "object"
+    additionalProperties: false
+    required: []
+    properties:
+      rating:
+        type: "string"
+      inprogress:
+        type: "boolean"
+      complaintStatus:
+        type: "string"
+        enum: ['INVALID','NOT_ENTERED','CHECKING','ENTERED','INVESTIGATION','CLOSED']
+      originalMessage:
+        type: "string"
+      complaintText:
+        type: "string"
+      complaintActionText:
+        type: "string"
+      extraFields:
+        type: "array"
+        items:
+          $ref: "#/definitions/ExtraField"
+
+  AppointmentStatus:
+    type: "string"
+    enum:
+      - "TENTATIVE"
+      - "CONFIRMED_BY_CLIENT"
+      - "CONFIRMED_BY_BUSINESS"
+      - "DENIED"
+      - "CANCELLED_BY_CLIENT"
+      - "CANCELLED_BY_BUSINESS"
+      - "CONFIRMED_MOVED"
+      - "DONE"
+      - "TIMED_OUT"
+      - "ACTIVE"
+      - "CANCELLED_BY_ADMIN"
+      - "CONFIRMED_BY_ADMIN"
+
+
+  AppointmentClientPayment:
+    type: "string"
+    enum:
+      - "YES_PAYED_ONLINE"
+      - "YES_PAYED_FULL"
+      - "YES_PAYED_PART"
+      - "NO_PAYMENT"
+      - "NONE"
+
+  AppointmentClientAppear:
+    type: "string"
+    enum:
+      - "YES_APPEAR"
+      - "NO_APPEAR"
+      - "NONE"
+
+  Review:
+    type: "object"
+    additionalProperties: false
+    required: []
+    properties:
+      rate:
+        type: "number"
+      comment:
+        type: "string"
+
+  AdditionalField:
+    type: "object"
+    additionalProperties: false
+    required: ["name", "type", "value", "requiredField", "shortName"]
+    properties:
+      name:
+        type: "string"
+      shortName:
+        type: "string"
+      type:
+        type: "string"
+        enum: ["STRING", "BOOL", "RADIO", "FILE", "COUPON"]
+      value:
+        type: "string"
+      requiredField:
+        type: "boolean"
+
+
+  ExtraField:
+    type: "object"
+    additionalProperties: false
+    required: ["fieldID", "fieldName"]
+    properties:
+      fieldID:
+        type: "string"
+      fieldName:
+        type: "string"
+      value:
+        type: ["number", "string", "object", "null"]
+
+  AppointmentClient:
+    type: "object"
+    additionalProperties: false
+    required: ["id", "name", "surname"]
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      middleName:
+        type: ["string", "null"]
+      extraID:
+        type: ["string", "null"]
+      sex:
+        type: "string"
+        enum: ['', 'MALE','FEMALE','NOT_SPECIFIED']
+      email:
+        type: "array"
+        items:
+          type: "string"
+      passportId:
+        type: ["string", "null"]
+      clientCardNumber:
+        type: ["string", "null"]
+      fax:
+        type: ["string", "null"]
+      birthday:
+        type: ["string", "object", "null"]
+      address:
+        type: ["string", "null"]
+      houseNumber:
+        type: ["string", "null"]
+      israelCity:
+        oneOf:
+        - type: "null"
+        - type: "object"
+          additionalProperties: false
+          required: []
+          properties: {}
+        - type: "object"
+          additionalProperties: false
+          required: ["cityId", "name"]
+          properties:
+            cityId:
+              type: "string"
+            name:
+              type: "string"
+      kupatHolim:
+        oneOf:
+        - type: "null"
+        - type: "object"
+          additionalProperties: false
+          required: []
+          properties: {}
+        - type: "object"
+          additionalProperties: false
+          required: ["kupatHolimId", "name"]
+          properties:
+            kupatHolimId:
+              type: "string"
+            name:
+              type: "string"
+      isVIP:
+        type: "boolean"
+      clientComment:
+        type: ["string", "null"]
+      adminComment:
+        type: ["string", "null"]
+      seasonTicketId:
+        type: ["string", "null"]
+      seasonTicketNumber:
+        type: ["string", "null"]
+      creatorProfileID:
+        type: ["string", "null"]
+      creatorProfileName:
+        type: ["string", "null"]
+      driverLicense:
+        type: ["string", "null"]
+      taxiPark:
+        type: ["string", "null"]
+      taxiParkMemberCount:
+        type: ["number", "null"]
+      language:
+        type: "string"
+      GAClientID:
+        type: ["string", "null"]
+      extraVisitors:
+        type: "number"
+      incomingPhone:
+        type: "array"
+        items:
+          $ref: "#/definitions/Phone"
+      shortId:
+        type: "string"
+      phone:
+        type: "array"
+        items:
+          $ref: "#/definitions/Phone"
+      feedback:
+        $ref: "#/definitions/AppointmentClientFeedback"
+      extraData:
+        type: "object"
+
+  Price:
+    type: "object"
+    additionalProperties: false
+    required:
+      - amount
+      - currency
+      - additionalTaxonomyDiscount
+    properties:
+      amount:
+        type: "number"
+      originalAmount:
+        type: ["number", "null"]
+      discount:
+        type: "number"
+      discountType:
+        type: "string"
+      discountProvider:
+        type: "string"
+        enum: ['LOCAL', 'YANDEX', 'GROUPON']
+      currency:
+        $ref: "./partials/currency.schema.json#/definitions/CurrencyList"
+      additionalTaxonomyDiscount:
+        type: "array"
+        items:
+          type: "object"
+          additionalProperties: false
+          required: []
+          properties:
+            taxonomyID:
+              type: "string"
+            discount:
+              type: "number"
+            discountType:
+              type: "string"
+            discountProvider:
+              type: "string"
+              enum: ['LOCAL', 'YANDEX', 'GROUPON']
+
+  AppointmentInfo:
+    type: "object"
+    additionalProperties: false
+    required:
+      - "id"
+      - "backofficeID"
+      - "testRecord"
+      - "start"
+      - "duration"
+      - "hideAppointmentTime"
+      - "blockSMS"
+      - "created"
+      - "updated"
+      - "status"
+      - "price"
+      - "shortId"
+    properties:
+      id:
+        type: "string"
+      backofficeID:
+        type: ["string", "number"]
+        default: 0
+      testRecord:
+        type: "boolean"
+        default: false
+      start:
+        type: "string"
+        format: "date-time"
+      duration:
+        type: "number"
+      hideAppointmentTime:
+        type: "boolean"
+      blockSMS:
+        type: "boolean"
+      created:
+        type: "string"
+        format: "date-time"
+      updated:
+        type: "string"
+        format: "date-time"
+      status:
+        $ref: "#/definitions/AppointmentStatus"
+
+      drinkAnswer:
+        type: "string"
+        enum: ['NOT_IMPORTANT', 'TEA', 'COFFEE']
+        default: 'NOT_IMPORTANT'
+      talkAnswer:
+        type: "string"
+        enum: ['NOT_IMPORTANT', 'TALK', 'NOT_TALK']
+        default: 'NOT_IMPORTANT'
+      price:
+        $ref: "#/definitions/Price"
+      shortId:
+        type: "string"
+      integration_data:
+        type: "object"
+        additionalProperties: false
+        required: ["extraId"]
+        properties:
+          extraId:
+            type: ["string", "null"]
+
+  AppointmentClientVisitor:           
+    type: "object"
+    additionalProperties: true
+    properties:
+      parentClientID:
+        type: "string"
+      parentProfileID:
+        type: "string"
+      sex:
+        type: "string"
+        enum: ['','MALE','FEMALE','NOT_SPECIFIED']
+      email:
+        type: "array"
+        items:
+          type: "string"
+      extraVisitors:
+        type: "number"
+      phone:
+        type: "array"
+        items:
+          $ref: "#/definitions/Phone"
+      name:
+        type: "string"
+      birthday:
+        type: ["string", "object", "null"]
+
+required:
+  - "appointment"
+  - "cabinet"
+  - "notes"
+  - "changeReason"
+  - "clientComment"
+  - "moveCounter"
+  - "movedByRobot"
+  - "client_appear"
+  - "bannedClients"
+  - "client_payment"
+  - "source"
+  - "taxonomy"
+  - "additionalTaxonomies"
+  - "additionalProducts"
+  - "resource"
+  - "business"
+  - "showcase"
+  - "order"
+  - "client"
+  - "additionalClients"
+  - "removedClientsData"
+  - "additionalFields"
+  - "extraFields"
+  - "additionalClientAppears"
+  - "additionalClientStatuses"
+  - "additionalClientSources"
+  - "additionalClientUtms"
+  - "additionalClientPayments"
+  - "reminder"
+
+properties:
+  appointment:
+    $ref: "#/definitions/AppointmentInfo"
+
+  socialToken:
+    type: "string"
+
+  additionalClientStatuses:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["clientID", "status"]
+      properties:
+        _id:
+          type: "string"
+        clientID:
+          type: "string"
+        status:
+          $ref: "#/definitions/AppointmentStatus"
+        history:
+          type: "array"
+          items:
+            type: "object"
+            additionalProperties: true
+  additional_info:
+    type: "object"
+  masterImportance:
+    type: "boolean"
+
+  adjacentId:
+    type: "string"
+  cabinet:
+    type: "object"
+    additionalProperties: false
+    required: []
+    properties:
+      id:
+        type: "string"
+  capacity:
+    type: "number"
+    default: 1
+  notes:
+    type: "string"
+    default: ""
+  changeReason:
+    type: "string"
+    default: ""
+  clientComment:
+    type: "string"
+    default: ""
+  gt:
+    type: "boolean"
+  gtTimeFrame:
+    type: "string"
+  minClients:
+    type: "number"
+  utm:
+    type: "object"
+  additionalClientUtms:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["clientID"]
+      properties:
+        _id:
+          type: "string"
+        clientID:
+          type: "string"
+        utm:
+          type: "object"
+  color:
+    type: "string"
+  preferredResource:
+    type: "boolean"
+  promoCode:
+    type: "string"
+  refererLink:
+    type: "string"
+  destinationLink:
+    type: "string"
+  destinationKeyword:
+    type: "string"
+  autoPhoneCallStatus:
+    type: "string"
+  withCoSale:
+    type: "boolean"
+  moveCounter:
+    type: "number"
+  movedByRobot:
+    type: "boolean"
+  movedFromFired:
+    type: "boolean"
+
+  client_appear:
+    $ref: "#/definitions/AppointmentClientAppear"
+
+  additionalClientAppears:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["clientID", "appear"]
+      properties:
+        clientID:
+          type: "string"
+        appear:
+          $ref: "#/definitions/AppointmentClientAppear"
+
+  bannedClients:
+    type: "array"
+    items:
+      type: "string"
+
+  client_payment:
+    $ref: "#/definitions/AppointmentClientPayment"
+
+  additionalClientPayments:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["clientID", "payment"]
+      properties:
+        clientID:
+          type: "string"
+        payment:
+          $ref: "#/definitions/AppointmentClientPayment"
+
+  client_payment_invoice:
+    type: "string"
+  client_payment_transaction_id:
+    type: "string"
+  referrer:
+    type: "string"
+  source:
+    type: "string"
+  additionalClientSources:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["clientID", "source"]
+      properties:
+        _id:
+          type: "string"
+        clientID:
+          type: "string"
+        source:
+          type: "string"
+
+  taxonomy:
+    $ref: "#/definitions/AppointmentTaxonomy"
+  additionalTaxonomies:
+    type: "array"
+    items:
+      $ref: "#/definitions/AppointmentTaxonomy"
+  additionalProducts:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["id", "price"]
+      properties:
+        id:
+          type: "string"
+        price:
+          type: "number"
+  resource:
+    $ref: "#/definitions/AppointmentResource"
+  business:
+    type: "object"
+    additionalProperties: false
+    required: ["id"]
+    properties:
+      id:
+        type: "string"
+
+  showcase:
+    type: "object"
+    additionalProperties: false
+    required: []
+    properties:
+      businessID:
+        type: "string"
+
+  order:
+    type: "object"
+    additionalProperties: false
+    required: ["id"]
+    properties:
+      id:
+        type: "string"
+
+  client:
+    oneOf:
+     - $ref: "#/definitions/AppointmentClient"
+     - type: "object"
+       description: "пустой объект в момент резервирования"
+       required: []
+       additionalProperties: false
+       properties: {}
+
+  client_med_code:
+    type: "string"
+
+  additionalClients:
+    type: "array"
+    items:
+      $ref: "#/definitions/AppointmentClient"
+
+  removedClientsData:
+    type: "array"
+    items:
+      type: "object"
+      additionalProperties: false
+      required: ["client"]
+      properties:
+        client:
+          $ref: "#/definitions/AppointmentClient"
+        status:
+          $ref: "#/definitions/AppointmentStatus"
+        payment:
+          $ref: "#/definitions/AppointmentClientPayment"
+        payment_invoice:
+          type: "string"
+        payment_transaction_id:
+          type: "string"
+        appear:
+          $ref: "#/definitions/AppointmentClientAppear"
+        created:
+          type: "string"
+          format: "date-time"
+        source:
+          type: "string"
+
+  review:
+    type: "object"
+    additionalProperties: false
+    required:
+      - worker
+      - taxonomy
+      - business
+    properties:
+      worker:
+        $ref: "#/definitions/Review"
+      taxonomy:
+        $ref: "#/definitions/Review"
+      business:
+        $ref: "#/definitions/Review"
+
+
+  additionalFields:
+    type: "array"
+    items:
+      $ref: "#/definitions/AdditionalField"
+
+  extraFields:
+    type: "array"
+    items:
+      $ref: "#/definitions/ExtraField"
+
+  room:
+    type: "object"
+    additionalProperties: false
+    required: ["id"]
+    properties:
+      id:
+        type: "string"
+
+  networkID:
+    type: "string"
+
+  address:
+    type: "string"
+
+  location:
+    type: "object"
+    additionalProperties: false
+    required: ["longitude", "latitude"]
+    properties:
+      longitude:
+        type: "number"
+      latitude:
+        type: "number"
+  reminder:
+    type: "object"
+    additionalProperties: false
+    required: ["status", "time_reminder"]
+    properties:
+      status:
+        type: "string"
+        enum: ["ON", "OFF", "NOT_SET"]
+      time_reminder:
+        type: "number"
+        enum: [0, 1, 2, 4, 6, 8, 12, 24]
+
+  clientVisitors:
+    type: "array"
+    items:
+      $ref: "#/definitions/AppointmentClientVisitor"
+
+
+

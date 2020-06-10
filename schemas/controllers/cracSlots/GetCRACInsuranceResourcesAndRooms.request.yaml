@@ -1,0 +1,62 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/crackSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json"
+title: "CracSlots.GetCRACInsuranceResourcesAndRooms.request"
+type: "object"
+definitions:
+  ResourceFilter:
+    title: "CracSlotsGetCRACInsuranceResourcesAndRoomsRequestResourceFilter"
+    type: "object"
+    additionalProperties: true
+    required: ["id", "duration"]
+    properties:
+      id:
+        description: "идентификатор ресурса"
+        type: "string"
+      duration:
+        type: "number"
+
+  Filters:
+    title: "CracSlotsGetCRACInsuranceResourcesAndRoomsRequestFilters"
+    type: "object"
+    additionalProperties: false
+    required: ["insuranceID", "resources", "rooms", "date"]
+    properties:
+      insuranceID:
+        type: "string"
+      resources:
+        type: "array"
+        items:
+          $ref: "#/definitions/ResourceFilter"
+      rooms:
+        type: "array"
+        items:
+          type: "string"
+      date:
+        type: "object"
+        additionalProperties: false
+        required: ["from", "to"]
+        properties:
+          from:
+            type: "string"
+          to:
+            type: "string"
+
+  Request:
+    type: "object"
+    additionalProperties: true
+    required: ["params"]
+    properties:
+      params:
+        description: "параметры запроса"
+        type: "object"
+        additionalProperties: false
+        required: ["business", "filters"]
+        properties:
+          business:
+            $ref: "../../models/partials/cracSlotsRequestBusinessParams.schema.json"
+          filters:
+            $ref: "#/definitions/Filters"
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"

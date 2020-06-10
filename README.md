@@ -20,6 +20,12 @@ Before updating the doc need to install adobe/jsonschema2md:
 npm install
 ````
 
+For generate of code you need to install `quicktype` globally:
+
+````
+npm install -g quicktype
+````
+
 ## Updating schemas
 
 If you need to check remote data (response from dev or prod servers) you can run `make test_dev` or `make test_prod`.

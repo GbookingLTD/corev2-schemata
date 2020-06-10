@@ -11,7 +11,8 @@
     "@adobe/jsonschema2md": "^3.3.1",
     "ajv": "^6.5.3",
     "js-yaml": "^3.12.0",
-    "lodash-node": "^3.10.2",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
     "q": "^1.5.1",
     "readline": "^1.3.0",
     "request": "^2.88.0"
@@ -19,7 +20,9 @@
   "directories": {
     "docs": "docs"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^13.7.7"
+  },
   "repository": {
     "type": "git",
     "url": "http://git.dev.gbooking.ru/vitaliy/corev2-schemata.git"

@@ -1,0 +1,125 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/appointment.schema.json",
+    "title": "AppointmentController",
+    "type": "object",
+    "properties": {
+        "reserve_appointment": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/reserve_appointment.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/reserve_appointment.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "client_remove_empty_appointment": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/client_remove_empty_appointment.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/client_remove_empty_appointment.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "client_confirm_appointment": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/client_confirm_appointment.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/client_confirm_appointment.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "cancel_appointment_by_client": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/cancel_appointment_by_client.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/cancel_appointment_by_client.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "cancel_appointment_by_business": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/cancel_appointment_by_business.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/cancel_appointment_by_business.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "get_appointment_by_filter": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/get_appointment_by_filter.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/get_appointment_by_filter.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        },
+        "get_appointment_by_showcase": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/get_appointment_by_showcase.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/get_appointment_by_showcase.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "reserve_appointment",
+        "client_remove_empty_appointment"
+    ],
+    "additionalProperties": false
+}

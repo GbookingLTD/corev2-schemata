@@ -1,11 +1,14 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/resource.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/resource.schema.json",
     "title": "Resource",
     "description": "Данные о работнике бизнеса",
+    "type": "object",
+    "additionalProperties": false,
     "meta:extensible": true,
     "meta:extends": [
-        "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json",
-        "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+        "./phone.schema.json",
+        "./timetable.schema.json"
     ],
     "definitions": {
         "ResourceProfile": {
@@ -80,7 +83,7 @@
         "EvenOddTimetable": {
             "meta:extensible": true,
             "meta:extends": [
-                "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+                "./timetable.schema.json"
             ],
             "type": "object",
             "properties": {
@@ -96,14 +99,14 @@
                     "description": "расписание для чётных дней",
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "./partials/timeframe.schema.json"
                     }
                 },
                 "odd": {
                     "description": "расписание для нечётных дней",
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "./partials/timeframe.schema.json"
                     }
                 }
             },
@@ -172,7 +175,7 @@
         "origin_general_info": {
             "description": "(только в витрине) объект с данными бизнеса-филиала",
             "type": "object",
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/businessInfo.schema.json"
+            "$ref": "./partials/businessInfo.schema.json"
         },
         "name": {
             "description": "имя работника",
@@ -286,7 +289,10 @@
             "type": "string"
         },
         "phone": {
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/phone.schema.json"
+            "type": "array",
+            "items": {
+                "$ref": "./phone.schema.json"
+            }
         },
         "smsEnabled": {
             "description": "включена ли отправка смс уведомлений для данного работника",
@@ -306,7 +312,7 @@
         },
         "timetable": {
             "definition": "таблица с регулярным еженедельным расписанием работника",
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json"
+            "$ref": "./timetable.schema.json"
         },
         "evenOddTimetable": {
             "definition": "таблица с разделением расписания по чётным и нечётным дням",
@@ -367,6 +373,9 @@
         },
         "degree": {
             "type": "string"
+        },
+        "badIconResolution": {
+            "type": "boolean"
         }
     },
     "required": [
@@ -380,12 +389,10 @@
         "taxonomyLevels",
         "taxonomyChildren",
         "level",
-        "phone",
         "displayInWidget",
         "manualChanges",
         "timetable",
         "evenOddTimetable",
         "location"
-    ],
-    "additionalProperties": false
+    ]
 }

@@ -1,0 +1,40 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/client.schema.json"
+title: "ClientController"
+type: "object"
+properties:
+  add_client:
+    type: "object"
+    properties:
+      request:
+        $ref: "./client/add_client.request.schema.json"
+      response:
+        $ref: "./client/add_client.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+
+  find_or_create_client:
+    type: "object"
+    properties:
+      request:
+        $ref: "./client/find_or_create_client.request.schema.json"
+      response:
+        $ref: "./client/find_or_create_client.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+
+  update_client:
+    type: "object"
+    properties:
+      request:
+        $ref: "./client/update_client.request.schema.json"
+      response:
+        $ref: "./client/update_client.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+
+required:
+  - add_client
+  - find_or_create_client
+  - update_client
+additionalProperties: false

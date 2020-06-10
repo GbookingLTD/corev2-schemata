@@ -1,5 +1,6 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/timetable.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/timetable.schema.json",
     "title": "Timetable",
     "description": "таблица регулярного недельного расписания",
     "type": "object",
@@ -14,43 +15,43 @@
                 "sun": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "./partials/timeframe.schema.json"
                     }
                 },
                 "mon": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "./partials/timeframe.schema.json"
                     }
                 },
                 "tue": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "./partials/timeframe.schema.json"
                     }
                 },
                 "wed": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "partials/timeframe.schema.json"
                     }
                 },
                 "thu": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "partials/timeframe.schema.json"
                     }
                 },
                 "fri": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "partials/timeframe.schema.json"
                     }
                 },
                 "sat": {
                     "type": "array",
                     "items": {
-                        "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/models/partials/timeframe.schema.json"
+                        "$ref": "partials/timeframe.schema.json"
                     }
                 }
             },

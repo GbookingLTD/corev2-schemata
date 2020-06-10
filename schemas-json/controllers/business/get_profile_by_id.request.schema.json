@@ -1,5 +1,6 @@
 {
-    "$id": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/controllers/business/get_profile_by_id.request.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/controllers/business/get_profile_by_id.request.schema.json",
     "title": "business.get_profile_by_id.request",
     "type": "object",
     "definitions": {
@@ -10,7 +11,7 @@
             ],
             "properties": {
                 "params": {
-                    "description": "параметры запроса",
+                    "description": "параметры запроса business.get_profile_by_id",
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
@@ -118,7 +119,7 @@
     },
     "allOf": [
         {
-            "$ref": "http://git.dev.gbooking.ru/corev2-schemata/schemas-json/common/request.schema.json"
+            "$ref": "../../common/request.schema.json"
         },
         {
             "$ref": "#/definitions/Request"

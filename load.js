@@ -10,7 +10,7 @@ corev2Schemata.loadSchemas(ajv).then(function() {
     console.info('json-schema loaded successful!');
     loaded = true;
 }).fail(function (err) {
-    console.error('json-schema error while loaded');
+    console.error('json-schema error while loaded filepath=%s', err.filePath);
     console.error(err);
     process.exit(1);
 });
