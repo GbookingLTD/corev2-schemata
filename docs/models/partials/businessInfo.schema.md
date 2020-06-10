@@ -25,6 +25,7 @@ schemas-json/models/partials/businessInfo.schema.json
 | [date_joined](#date_joined)                               | `string`   | Optional | No       |             | BusinessInfo (this schema) |
 | [description](#description)                               | `string`   | Optional | No       |             | BusinessInfo (this schema) |
 | [email](#email)                                           | `string`   | Optional | No       |             | BusinessInfo (this schema) |
+| [eventEditorMinutesTick](#eventeditorminutestick)         | `number`   | Optional | No       | `5`         | BusinessInfo (this schema) |
 | [fax](#fax)                                               | reference  | Optional | No       |             | BusinessInfo (this schema) |
 | [images](#images)                                         | `string[]` | Optional | No       |             | BusinessInfo (this schema) |
 | [instant_messaging](#instant_messaging)                   | `object[]` | Optional | No       |             | BusinessInfo (this schema) |
@@ -226,6 +227,19 @@ All items must be of the type: `object` with following properties:
 ### email Type
 
 `string`
+
+## eventEditorMinutesTick
+
+`eventEditorMinutesTick`
+
+- is optional
+- type: `number`
+- default: `5`
+- defined in this schema
+
+### eventEditorMinutesTick Type
+
+`number`
 
 ## fax
 

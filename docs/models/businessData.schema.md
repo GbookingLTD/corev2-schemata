@@ -252,6 +252,7 @@ schemas-json/models/businessData.schema.json
 | [startTextMessage](#starttextmessage)                                                               | `string`   | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
 | [stateLevelHolidays](#statelevelholidays)                                                           | `object[]` | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
 | [stockAmount](#stockamount)                                                                         | `string`   | `schemas-json/models/businessData.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [strictSlotCutting](#strictslotcutting)                                                             | `boolean`  | `schemas-json/models/businessData.schema.json#/definitions/WidgetConfiguration`               |
 | [taxonomyAppExtraID](#taxonomyappextraid)                                                           | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
 | [taxonomyCategoryExtraID](#taxonomycategoryextraid)                                                 | `string`   | `schemas-json/models/businessData.schema.json#/definitions/BusinessTaxonomy`                  |
 | [taxonomyChildrenMaxAge](#taxonomychildrenmaxage)                                                   | `number`   | `schemas-json/models/businessData.schema.json#/definitions/BackofficeConfiguration`           |
@@ -3940,6 +3941,18 @@ All items must be of the type: `object` with following properties:
 
 `string`, nullable
 
+## strictSlotCutting
+
+`strictSlotCutting`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### strictSlotCutting Type
+
+`boolean`
+
 ## taxonomyAppExtraID
 
 `taxonomyAppExtraID`
@@ -6560,6 +6573,7 @@ Array type: `array`
 | `splitName`                              | boolean | Optional | `false`         |
 | `startTextButton`                        | string  | Optional |                 |
 | `startTextMessage`                       | string  | Optional |                 |
+| `strictSlotCutting`                      | boolean | Optional |                 |
 | `tentativeTTL`                           | number  | Optional |                 |
 | `theme`                                  | string  | Optional | `"theme1"`      |
 | `useAppointmentReminder`                 | boolean | Optional | `false`         |
@@ -7910,6 +7924,17 @@ The value of this property **must** be equal to one of the [known values below](
 ##### startTextMessage Type
 
 `string`
+
+#### strictSlotCutting
+
+`strictSlotCutting`
+
+- is optional
+- type: `boolean`
+
+##### strictSlotCutting Type
+
+`boolean`
 
 #### tentativeTTL
 

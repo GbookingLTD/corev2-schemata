@@ -894,6 +894,9 @@
                 "displaySlotSize": {
                     "type": "number"
                 },
+                "strictSlotCutting": {
+                    "type": "boolean"
+                },
                 "additionalName": {
                     "type": "string"
                 },

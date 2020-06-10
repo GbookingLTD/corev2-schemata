@@ -1212,64 +1212,65 @@ Either one of:
 
 # Appointment Properties
 
-| Property                                              | Type       | Required     | Nullable | Default | Defined by                |
-| ----------------------------------------------------- | ---------- | ------------ | -------- | ------- | ------------------------- |
-| [additionalClientAppears](#additionalclientappears)   | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [additionalClientPayments](#additionalclientpayments) | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [additionalClientSources](#additionalclientsources)   | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [additionalClientStatuses](#additionalclientstatuses) | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [additionalClientUtms](#additionalclientutms)         | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [additionalClients](#additionalclients)               | reference  | **Required** | No       |         | Appointment (this schema) |
-| [additionalFields](#additionalfields)                 | reference  | **Required** | No       |         | Appointment (this schema) |
-| [additionalProducts](#additionalproducts)             | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [additionalTaxonomies](#additionaltaxonomies)         | reference  | **Required** | No       |         | Appointment (this schema) |
-| [additional_info](#additional_info)                   | `object`   | Optional     | No       |         | Appointment (this schema) |
-| [address](#address)                                   | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [adjacentId](#adjacentid)                             | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [appointment](#appointment)                           | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [autoPhoneCallStatus](#autophonecallstatus)           | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [bannedClients](#bannedclients)                       | `string[]` | **Required** | No       |         | Appointment (this schema) |
-| [business](#business)                                 | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [cabinet](#cabinet)                                   | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [capacity](#capacity)                                 | `number`   | Optional     | No       | `1`     | Appointment (this schema) |
-| [changeReason](#changereason)                         | `string`   | **Required** | No       | `""`    | Appointment (this schema) |
-| [client](#client)                                     | complex    | **Required** | No       |         | Appointment (this schema) |
-| [clientComment](#clientcomment)                       | `string`   | **Required** | No       | `""`    | Appointment (this schema) |
-| [clientVisitors](#clientvisitors)                     | reference  | Optional     | No       |         | Appointment (this schema) |
-| [client_appear](#client_appear)                       | `enum`     | **Required** | No       |         | Appointment (this schema) |
-| [client_med_code](#client_med_code)                   | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [client_payment](#client_payment)                     | `enum`     | **Required** | No       |         | Appointment (this schema) |
-| [client_payment_invoice](#client_payment_invoice)     | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [color](#color)                                       | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [destinationKeyword](#destinationkeyword)             | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [destinationLink](#destinationlink)                   | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [extraFields](#extrafields)                           | reference  | **Required** | No       |         | Appointment (this schema) |
-| [gt](#gt)                                             | `boolean`  | Optional     | No       |         | Appointment (this schema) |
-| [gtTimeFrame](#gttimeframe)                           | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [location](#location)                                 | `object`   | Optional     | No       |         | Appointment (this schema) |
-| [masterImportance](#masterimportance)                 | `boolean`  | Optional     | No       |         | Appointment (this schema) |
-| [minClients](#minclients)                             | `number`   | Optional     | No       |         | Appointment (this schema) |
-| [moveCounter](#movecounter)                           | `number`   | **Required** | No       |         | Appointment (this schema) |
-| [movedByRobot](#movedbyrobot)                         | `boolean`  | **Required** | No       |         | Appointment (this schema) |
-| [movedFromFired](#movedfromfired)                     | `boolean`  | Optional     | No       |         | Appointment (this schema) |
-| [networkID](#networkid)                               | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [notes](#notes)                                       | `string`   | **Required** | No       | `""`    | Appointment (this schema) |
-| [order](#order)                                       | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [preferredResource](#preferredresource)               | `boolean`  | Optional     | No       |         | Appointment (this schema) |
-| [promoCode](#promocode)                               | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [refererLink](#refererlink)                           | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [referrer](#referrer)                                 | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [reminder](#reminder)                                 | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [removedClientsData](#removedclientsdata)             | `object[]` | **Required** | No       |         | Appointment (this schema) |
-| [resource](#resource)                                 | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [review](#review)                                     | `object`   | Optional     | No       |         | Appointment (this schema) |
-| [room](#room)                                         | `object`   | Optional     | No       |         | Appointment (this schema) |
-| [showcase](#showcase)                                 | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [socialToken](#socialtoken)                           | `string`   | Optional     | No       |         | Appointment (this schema) |
-| [source](#source)                                     | `string`   | **Required** | No       |         | Appointment (this schema) |
-| [taxonomy](#taxonomy)                                 | `object`   | **Required** | No       |         | Appointment (this schema) |
-| [utm](#utm)                                           | `object`   | Optional     | No       |         | Appointment (this schema) |
-| [withCoSale](#withcosale)                             | `boolean`  | Optional     | No       |         | Appointment (this schema) |
+| Property                                                        | Type       | Required     | Nullable | Default | Defined by                |
+| --------------------------------------------------------------- | ---------- | ------------ | -------- | ------- | ------------------------- |
+| [additionalClientAppears](#additionalclientappears)             | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [additionalClientPayments](#additionalclientpayments)           | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [additionalClientSources](#additionalclientsources)             | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [additionalClientStatuses](#additionalclientstatuses)           | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [additionalClientUtms](#additionalclientutms)                   | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [additionalClients](#additionalclients)                         | reference  | **Required** | No       |         | Appointment (this schema) |
+| [additionalFields](#additionalfields)                           | reference  | **Required** | No       |         | Appointment (this schema) |
+| [additionalProducts](#additionalproducts)                       | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [additionalTaxonomies](#additionaltaxonomies)                   | reference  | **Required** | No       |         | Appointment (this schema) |
+| [additional_info](#additional_info)                             | `object`   | Optional     | No       |         | Appointment (this schema) |
+| [address](#address)                                             | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [adjacentId](#adjacentid)                                       | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [appointment](#appointment)                                     | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [autoPhoneCallStatus](#autophonecallstatus)                     | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [bannedClients](#bannedclients)                                 | `string[]` | **Required** | No       |         | Appointment (this schema) |
+| [business](#business)                                           | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [cabinet](#cabinet)                                             | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [capacity](#capacity)                                           | `number`   | Optional     | No       | `1`     | Appointment (this schema) |
+| [changeReason](#changereason)                                   | `string`   | **Required** | No       | `""`    | Appointment (this schema) |
+| [client](#client)                                               | complex    | **Required** | No       |         | Appointment (this schema) |
+| [clientComment](#clientcomment)                                 | `string`   | **Required** | No       | `""`    | Appointment (this schema) |
+| [clientVisitors](#clientvisitors)                               | reference  | Optional     | No       |         | Appointment (this schema) |
+| [client_appear](#client_appear)                                 | `enum`     | **Required** | No       |         | Appointment (this schema) |
+| [client_med_code](#client_med_code)                             | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [client_payment](#client_payment)                               | `enum`     | **Required** | No       |         | Appointment (this schema) |
+| [client_payment_invoice](#client_payment_invoice)               | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [client_payment_transaction_id](#client_payment_transaction_id) | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [color](#color)                                                 | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [destinationKeyword](#destinationkeyword)                       | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [destinationLink](#destinationlink)                             | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [extraFields](#extrafields)                                     | reference  | **Required** | No       |         | Appointment (this schema) |
+| [gt](#gt)                                                       | `boolean`  | Optional     | No       |         | Appointment (this schema) |
+| [gtTimeFrame](#gttimeframe)                                     | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [location](#location)                                           | `object`   | Optional     | No       |         | Appointment (this schema) |
+| [masterImportance](#masterimportance)                           | `boolean`  | Optional     | No       |         | Appointment (this schema) |
+| [minClients](#minclients)                                       | `number`   | Optional     | No       |         | Appointment (this schema) |
+| [moveCounter](#movecounter)                                     | `number`   | **Required** | No       |         | Appointment (this schema) |
+| [movedByRobot](#movedbyrobot)                                   | `boolean`  | **Required** | No       |         | Appointment (this schema) |
+| [movedFromFired](#movedfromfired)                               | `boolean`  | Optional     | No       |         | Appointment (this schema) |
+| [networkID](#networkid)                                         | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [notes](#notes)                                                 | `string`   | **Required** | No       | `""`    | Appointment (this schema) |
+| [order](#order)                                                 | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [preferredResource](#preferredresource)                         | `boolean`  | Optional     | No       |         | Appointment (this schema) |
+| [promoCode](#promocode)                                         | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [refererLink](#refererlink)                                     | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [referrer](#referrer)                                           | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [reminder](#reminder)                                           | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [removedClientsData](#removedclientsdata)                       | `object[]` | **Required** | No       |         | Appointment (this schema) |
+| [resource](#resource)                                           | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [review](#review)                                               | `object`   | Optional     | No       |         | Appointment (this schema) |
+| [room](#room)                                                   | `object`   | Optional     | No       |         | Appointment (this schema) |
+| [showcase](#showcase)                                           | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [socialToken](#socialtoken)                                     | `string`   | Optional     | No       |         | Appointment (this schema) |
+| [source](#source)                                               | `string`   | **Required** | No       |         | Appointment (this schema) |
+| [taxonomy](#taxonomy)                                           | `object`   | **Required** | No       |         | Appointment (this schema) |
+| [utm](#utm)                                                     | `object`   | Optional     | No       |         | Appointment (this schema) |
+| [withCoSale](#withcosale)                                       | `boolean`  | Optional     | No       |         | Appointment (this schema) |
 
 ## additionalClientAppears
 
@@ -2124,6 +2125,18 @@ The value of this property **must** be equal to one of the [known values below](
 
 `string`
 
+## client_payment_transaction_id
+
+`client_payment_transaction_id`
+
+- is optional
+- type: `string`
+- defined in this schema
+
+### client_payment_transaction_id Type
+
+`string`
+
 ## color
 
 `color`
@@ -2469,15 +2482,16 @@ Array type: `object[]`
 
 All items must be of the type: `object` with following properties:
 
-| Property          | Type   | Required     |
-| ----------------- | ------ | ------------ |
-| `appear`          |        | Optional     |
-| `client`          |        | **Required** |
-| `created`         | string | Optional     |
-| `payment`         |        | Optional     |
-| `payment_invoice` | string | Optional     |
-| `source`          | string | Optional     |
-| `status`          |        | Optional     |
+| Property                 | Type   | Required     |
+| ------------------------ | ------ | ------------ |
+| `appear`                 |        | Optional     |
+| `client`                 |        | **Required** |
+| `created`                | string | Optional     |
+| `payment`                |        | Optional     |
+| `payment_invoice`        | string | Optional     |
+| `payment_transaction_id` | string | Optional     |
+| `source`                 | string | Optional     |
+| `status`                 |        | Optional     |
 
 #### appear
 
@@ -2533,6 +2547,17 @@ All items must be of the type: `object` with following properties:
 - type: `string`
 
 ##### payment_invoice Type
+
+`string`
+
+#### payment_transaction_id
+
+`payment_transaction_id`
+
+- is optional
+- type: `string`
+
+##### payment_transaction_id Type
 
 `string`
 

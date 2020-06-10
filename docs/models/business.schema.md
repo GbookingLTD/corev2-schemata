@@ -169,6 +169,8 @@ schemas-json/models/business.schema.json
 | [scheduleDefaultWorkersLimit](#scheduledefaultworkerslimit)                                         | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [scheduleDefaultWorkersLimitDay](#scheduledefaultworkerslimitday)                                   | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [scheduleDefaultWorkersLimitWeek](#scheduledefaultworkerslimitweek)                                 | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleEnableDayIntervals](#scheduleenabledayintervals)                                           | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
+| [scheduleSplitDayTimeIntervals](#schedulesplitdaytimeintervals)                                     | `object[]` | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [scheduleWorkerHours](#scheduleworkerhours)                                                         | `boolean`  | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [schedulerWeekViewType](#schedulerweekviewtype)                                                     | `enum`     | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [shortLink](#shortlink)                                                                             | `string`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
@@ -252,6 +254,7 @@ schemas-json/models/business.schema.json
 | [startTextMessage](#starttextmessage)                                                               | `string`   | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [stateLevelHolidays](#statelevelholidays)                                                           | `object[]` | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
 | [stockAmount](#stockamount)                                                                         | `string`   | `schemas-json/models/business.schema.json#/definitions/AdditionalBusinessTaxonomyPrice`   |
+| [strictSlotCutting](#strictslotcutting)                                                             | `boolean`  | `schemas-json/models/business.schema.json#/definitions/WidgetConfiguration`               |
 | [taxonomyAppExtraID](#taxonomyappextraid)                                                           | `string`   | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [taxonomyCategoryExtraID](#taxonomycategoryextraid)                                                 | `string`   | `schemas-json/models/business.schema.json#/definitions/BusinessTaxonomy`                  |
 | [taxonomyChildrenMaxAge](#taxonomychildrenmaxage)                                                   | `number`   | `schemas-json/models/business.schema.json#/definitions/BackofficeConfiguration`           |
@@ -2662,6 +2665,121 @@ All items must be of the type: `string`
 
 `number`, nullable
 
+## scheduleEnableDayIntervals
+
+`scheduleEnableDayIntervals`
+
+- is optional
+- type: `boolean`
+- default: `false`
+- defined in this schema
+
+### scheduleEnableDayIntervals Type
+
+`boolean`
+
+## scheduleSplitDayTimeIntervals
+
+`scheduleSplitDayTimeIntervals`
+
+- is optional
+- type: `object[]`
+- defined in this schema
+
+### scheduleSplitDayTimeIntervals Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property        | Type    | Required | Default |
+| --------------- | ------- | -------- | ------- |
+| `endHour`       | number  | Optional |         |
+| `endMinute`     | number  | Optional |         |
+| `schedulerTick` | number  | Optional |         |
+| `selected`      | boolean | Optional | `false` |
+| `startHour`     | number  | Optional |         |
+| `startMinute`   | number  | Optional |         |
+| `title`         | string  | Optional |         |
+
+#### endHour
+
+`endHour`
+
+- is optional
+- type: `number`
+
+##### endHour Type
+
+`number`
+
+#### endMinute
+
+`endMinute`
+
+- is optional
+- type: `number`
+
+##### endMinute Type
+
+`number`
+
+#### schedulerTick
+
+`schedulerTick`
+
+- is optional
+- type: `number`
+
+##### schedulerTick Type
+
+`number`
+
+#### selected
+
+`selected`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### selected Type
+
+`boolean`
+
+#### startHour
+
+`startHour`
+
+- is optional
+- type: `number`
+
+##### startHour Type
+
+`number`
+
+#### startMinute
+
+`startMinute`
+
+- is optional
+- type: `number`
+
+##### startMinute Type
+
+`number`
+
+#### title
+
+`title`
+
+- is optional
+- type: `string`
+
+##### title Type
+
+`string`
+
 ## scheduleWorkerHours
 
 `scheduleWorkerHours`
@@ -3946,6 +4064,18 @@ All items must be of the type: `object` with following properties:
 
 `string`, nullable
 
+## strictSlotCutting
+
+`strictSlotCutting`
+
+- is optional
+- type: `boolean`
+- defined in this schema
+
+### strictSlotCutting Type
+
+`boolean`
+
 ## taxonomyAppExtraID
 
 `taxonomyAppExtraID`
@@ -4603,6 +4733,8 @@ The value of this property **must** be equal to one of the [known values below](
 | `scheduleDefaultWorkersLimit`                     | number      | Optional | `25`        |
 | `scheduleDefaultWorkersLimitDay`                  | number,null | Optional |             |
 | `scheduleDefaultWorkersLimitWeek`                 | number,null | Optional |             |
+| `scheduleEnableDayIntervals`                      | boolean     | Optional | `false`     |
+| `scheduleSplitDayTimeIntervals`                   | array       | Optional |             |
 | `scheduleWorkerHours`                             | boolean     | Optional | `false`     |
 | `schedulerWeekViewType`                           | string      | Optional | `"week"`    |
 | `showAdditionalFields`                            | boolean     | Optional | `false`     |
@@ -5223,6 +5355,119 @@ The value of this property **must** be equal to one of the [known values below](
 ##### scheduleDefaultWorkersLimitWeek Type
 
 `number`, nullable
+
+#### scheduleEnableDayIntervals
+
+`scheduleEnableDayIntervals`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### scheduleEnableDayIntervals Type
+
+`boolean`
+
+#### scheduleSplitDayTimeIntervals
+
+`scheduleSplitDayTimeIntervals`
+
+- is optional
+- type: `object[]`
+
+##### scheduleSplitDayTimeIntervals Type
+
+Array type: `object[]`
+
+All items must be of the type: `object` with following properties:
+
+| Property        | Type    | Required | Default |
+| --------------- | ------- | -------- | ------- |
+| `endHour`       | number  | Optional |         |
+| `endMinute`     | number  | Optional |         |
+| `schedulerTick` | number  | Optional |         |
+| `selected`      | boolean | Optional | `false` |
+| `startHour`     | number  | Optional |         |
+| `startMinute`   | number  | Optional |         |
+| `title`         | string  | Optional |         |
+
+#### endHour
+
+`endHour`
+
+- is optional
+- type: `number`
+
+##### endHour Type
+
+`number`
+
+#### endMinute
+
+`endMinute`
+
+- is optional
+- type: `number`
+
+##### endMinute Type
+
+`number`
+
+#### schedulerTick
+
+`schedulerTick`
+
+- is optional
+- type: `number`
+
+##### schedulerTick Type
+
+`number`
+
+#### selected
+
+`selected`
+
+- is optional
+- type: `boolean`
+- default: `false`
+
+##### selected Type
+
+`boolean`
+
+#### startHour
+
+`startHour`
+
+- is optional
+- type: `number`
+
+##### startHour Type
+
+`number`
+
+#### startMinute
+
+`startMinute`
+
+- is optional
+- type: `number`
+
+##### startMinute Type
+
+`number`
+
+#### title
+
+`title`
+
+- is optional
+- type: `string`
+
+##### title Type
+
+`string`
 
 #### scheduleWorkerHours
 
@@ -6538,6 +6783,7 @@ Array type: `array`
 | `splitName`                              | boolean | Optional | `false`         |
 | `startTextButton`                        | string  | Optional |                 |
 | `startTextMessage`                       | string  | Optional |                 |
+| `strictSlotCutting`                      | boolean | Optional |                 |
 | `tentativeTTL`                           | number  | Optional |                 |
 | `theme`                                  | string  | Optional | `"theme1"`      |
 | `useAppointmentReminder`                 | boolean | Optional | `false`         |
@@ -7890,6 +8136,17 @@ The value of this property **must** be equal to one of the [known values below](
 ##### startTextMessage Type
 
 `string`
+
+#### strictSlotCutting
+
+`strictSlotCutting`
+
+- is optional
+- type: `boolean`
+
+##### strictSlotCutting Type
+
+`boolean`
 
 #### tentativeTTL
 

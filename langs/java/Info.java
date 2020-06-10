@@ -20,6 +20,7 @@ public class Info {
     private String dateJoined;
     private String description;
     private String email;
+    private Double eventEditorMinutesTick;
     private List<FaxElement> fax;
     private List<String> images;
     private List<Map<String, Object>> instantMessaging;
@@ -117,6 +118,11 @@ public class Info {
     public String getEmail() { return email; }
     @JsonProperty("email")
     public void setEmail(String value) { this.email = value; }
+
+    @JsonProperty("eventEditorMinutesTick")
+    public Double getEventEditorMinutesTick() { return eventEditorMinutesTick; }
+    @JsonProperty("eventEditorMinutesTick")
+    public void setEventEditorMinutesTick(Double value) { this.eventEditorMinutesTick = value; }
 
     @JsonProperty("fax")
     public List<FaxElement> getFax() { return fax; }

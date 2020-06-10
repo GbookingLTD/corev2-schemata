@@ -390,6 +390,7 @@ export interface Appointment {
     client_med_code?: string;
     client_payment: AppointmentClientPayment;
     client_payment_invoice?: string;
+    client_payment_transaction_id?: string;
     clientComment: string;
     clientVisitors?: AppointmentClientVisitor[];
     color?: string;
@@ -731,6 +732,7 @@ export interface RemovedClientsDatum {
     created?: Date;
     payment?: AppointmentClientPayment;
     payment_invoice?: string;
+    payment_transaction_id?: string;
     source?: string;
     status?: AppointmentStatus;
 }
@@ -1470,6 +1472,7 @@ export interface BusinessInfo {
      * Список e-mail адресов компании или филиала
      */
     email?: string;
+    eventEditorMinutesTick?: number;
     fax?: FaxElement[];
     images?: string[];
     instant_messaging?: {
@@ -1990,6 +1993,7 @@ export interface Info {
      * Список e-mail адресов компании или филиала
      */
     email?: string;
+    eventEditorMinutesTick?: number;
     fax?: FaxElement[];
     images?: string[];
     instant_messaging?: {
@@ -2427,6 +2431,7 @@ export interface InfoWidgetConfiguration {
     splitName?: boolean;
     startTextButton?: string;
     startTextMessage?: string;
+    strictSlotCutting?: boolean;
     tentativeTTL?: number;
     theme?: string;
     useAppointmentReminder?: boolean;
@@ -2764,7 +2769,9 @@ export interface BusinessBackofficeConfiguration {
     scheduleDefaultWorkersLimit?: number;
     scheduleDefaultWorkersLimitDay?: number | null;
     scheduleDefaultWorkersLimitWeek?: number | null;
+    scheduleEnableDayIntervals?: boolean;
     schedulerWeekViewType?: SchedulerWeekViewType;
+    scheduleSplitDayTimeIntervals?: ScheduleSplitDayTimeInterval[];
     scheduleWorkerHours?: boolean;
     showAdditionalFields?: boolean;
     showAddress?: boolean;
@@ -2829,6 +2836,15 @@ export declare enum FluffyPaymentProvider {
     Disable = "DISABLE",
     Pelecard = "pelecard",
     YandexMoney = "yandexMoney"
+}
+export interface ScheduleSplitDayTimeInterval {
+    endHour?: number;
+    endMinute?: number;
+    schedulerTick?: number;
+    selected?: boolean;
+    startHour?: number;
+    startMinute?: number;
+    title?: string;
 }
 export interface BusinessBackofficeConfigurationObject {
     enableMasterImportance?: boolean;
@@ -3125,6 +3141,7 @@ export interface BusinessWidgetConfiguration {
     splitName?: boolean;
     startTextButton?: string;
     startTextMessage?: string;
+    strictSlotCutting?: boolean;
     tentativeTTL?: number;
     theme?: string;
     useAppointmentReminder?: boolean;

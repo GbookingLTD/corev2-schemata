@@ -31,6 +31,7 @@ public class Appointment {
     private String clientMedCode;
     private AppointmentClientPayment clientPayment;
     private String clientPaymentInvoice;
+    private String clientPaymentTransactionID;
     private String clientComment;
     private List<AppointmentClientVisitor> clientVisitors;
     private String color;
@@ -183,6 +184,11 @@ public class Appointment {
     public String getClientPaymentInvoice() { return clientPaymentInvoice; }
     @JsonProperty("client_payment_invoice")
     public void setClientPaymentInvoice(String value) { this.clientPaymentInvoice = value; }
+
+    @JsonProperty("client_payment_transaction_id")
+    public String getClientPaymentTransactionID() { return clientPaymentTransactionID; }
+    @JsonProperty("client_payment_transaction_id")
+    public void setClientPaymentTransactionID(String value) { this.clientPaymentTransactionID = value; }
 
     @JsonProperty("clientComment")
     public String getClientComment() { return clientComment; }

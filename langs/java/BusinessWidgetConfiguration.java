@@ -92,6 +92,7 @@ public class BusinessWidgetConfiguration {
     private Boolean splitName;
     private String startTextButton;
     private String startTextMessage;
+    private Boolean strictSlotCutting;
     private Double tentativeTTL;
     private String theme;
     private Boolean useAppointmentReminder;
@@ -554,6 +555,11 @@ public class BusinessWidgetConfiguration {
     public String getStartTextMessage() { return startTextMessage; }
     @JsonProperty("startTextMessage")
     public void setStartTextMessage(String value) { this.startTextMessage = value; }
+
+    @JsonProperty("strictSlotCutting")
+    public Boolean getStrictSlotCutting() { return strictSlotCutting; }
+    @JsonProperty("strictSlotCutting")
+    public void setStrictSlotCutting(Boolean value) { this.strictSlotCutting = value; }
 
     @JsonProperty("tentativeTTL")
     public Double getTentativeTTL() { return tentativeTTL; }

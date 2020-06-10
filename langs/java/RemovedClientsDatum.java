@@ -9,6 +9,7 @@ public class RemovedClientsDatum {
     private String created;
     private AppointmentClientPayment payment;
     private String paymentInvoice;
+    private String paymentTransactionID;
     private String source;
     private AppointmentStatus status;
 
@@ -36,6 +37,11 @@ public class RemovedClientsDatum {
     public String getPaymentInvoice() { return paymentInvoice; }
     @JsonProperty("payment_invoice")
     public void setPaymentInvoice(String value) { this.paymentInvoice = value; }
+
+    @JsonProperty("payment_transaction_id")
+    public String getPaymentTransactionID() { return paymentTransactionID; }
+    @JsonProperty("payment_transaction_id")
+    public void setPaymentTransactionID(String value) { this.paymentTransactionID = value; }
 
     @JsonProperty("source")
     public String getSource() { return source; }

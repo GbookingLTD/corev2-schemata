@@ -405,62 +405,63 @@ export interface AppointmentClientConfirmAppointmentResponseError {
  * данные, передаваемые в ответ
  */
 export interface Appointment {
-    additional_info?:         { [key: string]: any };
-    additionalClientAppears:  AdditionalClientAppear[];
-    additionalClientPayments: AdditionalClientPayment[];
-    additionalClients:        AdditionalClientElement[];
-    additionalClientSources:  AdditionalClientSource[];
-    additionalClientStatuses: AdditionalClientStatus[];
-    additionalClientUtms:     AdditionalClientUtm[];
-    additionalFields:         AdditionalField[];
-    additionalProducts:       AdditionalProduct[];
-    additionalTaxonomies:     AppointmentTaxonomy[];
-    address?:                 string;
-    adjacentId?:              string;
-    appointment:              AppointmentInfo;
-    autoPhoneCallStatus?:     string;
-    bannedClients:            string[];
-    business:                 AppointmentBusiness;
-    cabinet:                  Cabinet;
-    capacity?:                number;
-    changeReason:             string;
-    client:                   PurpleAppointmentClient;
-    client_appear:            AppointmentClientAppear;
-    client_med_code?:         string;
-    client_payment:           AppointmentClientPayment;
-    client_payment_invoice?:  string;
-    clientComment:            string;
-    clientVisitors?:          AppointmentClientVisitor[];
-    color?:                   string;
-    destinationKeyword?:      string;
-    destinationLink?:         string;
-    extraFields:              ExtraField[];
-    gt?:                      boolean;
-    gtTimeFrame?:             string;
-    location?:                Location;
-    masterImportance?:        boolean;
-    minClients?:              number;
-    moveCounter:              number;
-    movedByRobot:             boolean;
-    movedFromFired?:          boolean;
-    networkID?:               string;
-    notes:                    string;
-    order:                    Order;
-    preferredResource?:       boolean;
-    promoCode?:               string;
-    refererLink?:             string;
-    referrer?:                string;
-    reminder:                 Reminder;
-    removedClientsData:       RemovedClientsDatum[];
-    resource:                 AppointmentResource;
-    review?:                  Review;
-    room?:                    Room;
-    showcase:                 AppointmentShowcase;
-    socialToken?:             string;
-    source:                   string;
-    taxonomy:                 AppointmentTaxonomy;
-    utm?:                     { [key: string]: any };
-    withCoSale?:              boolean;
+    additional_info?:               { [key: string]: any };
+    additionalClientAppears:        AdditionalClientAppear[];
+    additionalClientPayments:       AdditionalClientPayment[];
+    additionalClients:              AdditionalClientElement[];
+    additionalClientSources:        AdditionalClientSource[];
+    additionalClientStatuses:       AdditionalClientStatus[];
+    additionalClientUtms:           AdditionalClientUtm[];
+    additionalFields:               AdditionalField[];
+    additionalProducts:             AdditionalProduct[];
+    additionalTaxonomies:           AppointmentTaxonomy[];
+    address?:                       string;
+    adjacentId?:                    string;
+    appointment:                    AppointmentInfo;
+    autoPhoneCallStatus?:           string;
+    bannedClients:                  string[];
+    business:                       AppointmentBusiness;
+    cabinet:                        Cabinet;
+    capacity?:                      number;
+    changeReason:                   string;
+    client:                         PurpleAppointmentClient;
+    client_appear:                  AppointmentClientAppear;
+    client_med_code?:               string;
+    client_payment:                 AppointmentClientPayment;
+    client_payment_invoice?:        string;
+    client_payment_transaction_id?: string;
+    clientComment:                  string;
+    clientVisitors?:                AppointmentClientVisitor[];
+    color?:                         string;
+    destinationKeyword?:            string;
+    destinationLink?:               string;
+    extraFields:                    ExtraField[];
+    gt?:                            boolean;
+    gtTimeFrame?:                   string;
+    location?:                      Location;
+    masterImportance?:              boolean;
+    minClients?:                    number;
+    moveCounter:                    number;
+    movedByRobot:                   boolean;
+    movedFromFired?:                boolean;
+    networkID?:                     string;
+    notes:                          string;
+    order:                          Order;
+    preferredResource?:             boolean;
+    promoCode?:                     string;
+    refererLink?:                   string;
+    referrer?:                      string;
+    reminder:                       Reminder;
+    removedClientsData:             RemovedClientsDatum[];
+    resource:                       AppointmentResource;
+    review?:                        Review;
+    room?:                          Room;
+    showcase:                       AppointmentShowcase;
+    socialToken?:                   string;
+    source:                         string;
+    taxonomy:                       AppointmentTaxonomy;
+    utm?:                           { [key: string]: any };
+    withCoSale?:                    boolean;
 }
 
 export interface AdditionalClientAppear {
@@ -790,13 +791,14 @@ export enum ReminderStatus {
 }
 
 export interface RemovedClientsDatum {
-    appear?:          AppointmentClientAppear;
-    client:           AdditionalClientElement;
-    created?:         Date;
-    payment?:         AppointmentClientPayment;
-    payment_invoice?: string;
-    source?:          string;
-    status?:          AppointmentStatus;
+    appear?:                 AppointmentClientAppear;
+    client:                  AdditionalClientElement;
+    created?:                Date;
+    payment?:                AppointmentClientPayment;
+    payment_invoice?:        string;
+    payment_transaction_id?: string;
+    source?:                 string;
+    status?:                 AppointmentStatus;
 }
 
 export interface AppointmentResource {
@@ -1588,10 +1590,11 @@ export interface BusinessInfo {
     /**
      * Список e-mail адресов компании или филиала
      */
-    email?:             string;
-    fax?:               FaxElement[];
-    images?:            string[];
-    instant_messaging?: { [key: string]: any }[];
+    email?:                  string;
+    eventEditorMinutesTick?: number;
+    fax?:                    FaxElement[];
+    images?:                 string[];
+    instant_messaging?:      { [key: string]: any }[];
     /**
      * является ли данный бизнес витриной
      */
@@ -2134,10 +2137,11 @@ export interface Info {
     /**
      * Список e-mail адресов компании или филиала
      */
-    email?:             string;
-    fax?:               FaxElement[];
-    images?:            string[];
-    instant_messaging?: { [key: string]: any }[];
+    email?:                  string;
+    eventEditorMinutesTick?: number;
+    fax?:                    FaxElement[];
+    images?:                 string[];
+    instant_messaging?:      { [key: string]: any }[];
     /**
      * является ли данный бизнес витриной
      */
@@ -2591,6 +2595,7 @@ export interface InfoWidgetConfiguration {
     splitName?:                              boolean;
     startTextButton?:                        string;
     startTextMessage?:                       string;
+    strictSlotCutting?:                      boolean;
     tentativeTTL?:                           number;
     theme?:                                  string;
     useAppointmentReminder?:                 boolean;
@@ -2942,7 +2947,9 @@ export interface BusinessBackofficeConfiguration {
     scheduleDefaultWorkersLimit?:                     number;
     scheduleDefaultWorkersLimitDay?:                  number | null;
     scheduleDefaultWorkersLimitWeek?:                 number | null;
+    scheduleEnableDayIntervals?:                      boolean;
     schedulerWeekViewType?:                           SchedulerWeekViewType;
+    scheduleSplitDayTimeIntervals?:                   ScheduleSplitDayTimeInterval[];
     scheduleWorkerHours?:                             boolean;
     showAdditionalFields?:                            boolean;
     showAddress?:                                     boolean;
@@ -3006,6 +3013,16 @@ export enum FluffyPaymentProvider {
     Disable = "DISABLE",
     Pelecard = "pelecard",
     YandexMoney = "yandexMoney",
+}
+
+export interface ScheduleSplitDayTimeInterval {
+    endHour?:       number;
+    endMinute?:     number;
+    schedulerTick?: number;
+    selected?:      boolean;
+    startHour?:     number;
+    startMinute?:   number;
+    title?:         string;
 }
 
 export interface BusinessBackofficeConfigurationObject {
@@ -3315,6 +3332,7 @@ export interface BusinessWidgetConfiguration {
     splitName?:                              boolean;
     startTextButton?:                        string;
     startTextMessage?:                       string;
+    strictSlotCutting?:                      boolean;
     tentativeTTL?:                           number;
     theme?:                                  string;
     useAppointmentReminder?:                 boolean;
@@ -4801,6 +4819,7 @@ const typeMap: any = {
         { json: "client_med_code", js: "client_med_code", typ: u(undefined, "") },
         { json: "client_payment", js: "client_payment", typ: r("AppointmentClientPayment") },
         { json: "client_payment_invoice", js: "client_payment_invoice", typ: u(undefined, "") },
+        { json: "client_payment_transaction_id", js: "client_payment_transaction_id", typ: u(undefined, "") },
         { json: "clientComment", js: "clientComment", typ: "" },
         { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AppointmentClientVisitor"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
@@ -5039,6 +5058,7 @@ const typeMap: any = {
         { json: "created", js: "created", typ: u(undefined, Date) },
         { json: "payment", js: "payment", typ: u(undefined, r("AppointmentClientPayment")) },
         { json: "payment_invoice", js: "payment_invoice", typ: u(undefined, "") },
+        { json: "payment_transaction_id", js: "payment_transaction_id", typ: u(undefined, "") },
         { json: "source", js: "source", typ: u(undefined, "") },
         { json: "status", js: "status", typ: u(undefined, r("AppointmentStatus")) },
     ], false),
@@ -5477,6 +5497,7 @@ const typeMap: any = {
         { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "eventEditorMinutesTick", js: "eventEditorMinutesTick", typ: u(undefined, 3.14) },
         { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
@@ -5698,6 +5719,7 @@ const typeMap: any = {
         { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "eventEditorMinutesTick", js: "eventEditorMinutesTick", typ: u(undefined, 3.14) },
         { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
@@ -5968,6 +5990,7 @@ const typeMap: any = {
         { json: "splitName", js: "splitName", typ: u(undefined, true) },
         { json: "startTextButton", js: "startTextButton", typ: u(undefined, "") },
         { json: "startTextMessage", js: "startTextMessage", typ: u(undefined, "") },
+        { json: "strictSlotCutting", js: "strictSlotCutting", typ: u(undefined, true) },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
@@ -6169,7 +6192,9 @@ const typeMap: any = {
         { json: "scheduleDefaultWorkersLimit", js: "scheduleDefaultWorkersLimit", typ: u(undefined, 3.14) },
         { json: "scheduleDefaultWorkersLimitDay", js: "scheduleDefaultWorkersLimitDay", typ: u(undefined, u(3.14, null)) },
         { json: "scheduleDefaultWorkersLimitWeek", js: "scheduleDefaultWorkersLimitWeek", typ: u(undefined, u(3.14, null)) },
+        { json: "scheduleEnableDayIntervals", js: "scheduleEnableDayIntervals", typ: u(undefined, true) },
         { json: "schedulerWeekViewType", js: "schedulerWeekViewType", typ: u(undefined, r("SchedulerWeekViewType")) },
+        { json: "scheduleSplitDayTimeIntervals", js: "scheduleSplitDayTimeIntervals", typ: u(undefined, a(r("ScheduleSplitDayTimeInterval"))) },
         { json: "scheduleWorkerHours", js: "scheduleWorkerHours", typ: u(undefined, true) },
         { json: "showAdditionalFields", js: "showAdditionalFields", typ: u(undefined, true) },
         { json: "showAddress", js: "showAddress", typ: u(undefined, true) },
@@ -6225,6 +6250,15 @@ const typeMap: any = {
         { json: "useGtAppMethod", js: "useGtAppMethod", typ: u(undefined, true) },
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
+    ], false),
+    "ScheduleSplitDayTimeInterval": o([
+        { json: "endHour", js: "endHour", typ: u(undefined, 3.14) },
+        { json: "endMinute", js: "endMinute", typ: u(undefined, 3.14) },
+        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
+        { json: "selected", js: "selected", typ: u(undefined, true) },
+        { json: "startHour", js: "startHour", typ: u(undefined, 3.14) },
+        { json: "startMinute", js: "startMinute", typ: u(undefined, 3.14) },
+        { json: "title", js: "title", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
@@ -6464,6 +6498,7 @@ const typeMap: any = {
         { json: "splitName", js: "splitName", typ: u(undefined, true) },
         { json: "startTextButton", js: "startTextButton", typ: u(undefined, "") },
         { json: "startTextMessage", js: "startTextMessage", typ: u(undefined, "") },
+        { json: "strictSlotCutting", js: "strictSlotCutting", typ: u(undefined, true) },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },

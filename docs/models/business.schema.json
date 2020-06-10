@@ -1022,6 +1022,41 @@
                     "type": "boolean",
                     "default": false
                 },
+                "scheduleSplitDayTimeIntervals": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "selected": {
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "startHour": {
+                                "type": "number"
+                            },
+                            "startMinute": {
+                                "type": "number"
+                            },
+                            "endHour": {
+                                "type": "number"
+                            },
+                            "endMinute": {
+                                "type": "number"
+                            },
+                            "schedulerTick": {
+                                "type": "number"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "scheduleEnableDayIntervals": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "showTaxonomyLocalization": {
                     "type": "boolean",
                     "default": false
@@ -1383,6 +1418,9 @@
                 },
                 "displaySlotSize": {
                     "type": "number"
+                },
+                "strictSlotCutting": {
+                    "type": "boolean"
                 },
                 "additionalName": {
                     "type": "string"

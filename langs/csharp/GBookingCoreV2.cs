@@ -647,6 +647,9 @@ namespace GBookingCoreV2
         [JsonProperty("client_payment_invoice", NullValueHandling = NullValueHandling.Ignore)]
         public string ClientPaymentInvoice { get; set; }
 
+        [JsonProperty("client_payment_transaction_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientPaymentTransactionId { get; set; }
+
         [JsonProperty("clientComment")]
         public string ClientComment { get; set; }
 
@@ -1285,6 +1288,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("payment_invoice", NullValueHandling = NullValueHandling.Ignore)]
         public string PaymentInvoice { get; set; }
+
+        [JsonProperty("payment_transaction_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string PaymentTransactionId { get; set; }
 
         [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
         public string Source { get; set; }
@@ -2667,6 +2673,9 @@ namespace GBookingCoreV2
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
         public string Email { get; set; }
 
+        [JsonProperty("eventEditorMinutesTick", NullValueHandling = NullValueHandling.Ignore)]
+        public double? EventEditorMinutesTick { get; set; }
+
         [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
         public List<FaxElement> Fax { get; set; }
 
@@ -3472,6 +3481,9 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
         public string Email { get; set; }
+
+        [JsonProperty("eventEditorMinutesTick", NullValueHandling = NullValueHandling.Ignore)]
+        public double? EventEditorMinutesTick { get; set; }
 
         [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
         public List<FaxElement> Fax { get; set; }
@@ -4332,6 +4344,9 @@ namespace GBookingCoreV2
         [JsonProperty("startTextMessage", NullValueHandling = NullValueHandling.Ignore)]
         public string StartTextMessage { get; set; }
 
+        [JsonProperty("strictSlotCutting", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? StrictSlotCutting { get; set; }
+
         [JsonProperty("tentativeTTL", NullValueHandling = NullValueHandling.Ignore)]
         public double? TentativeTtl { get; set; }
 
@@ -4984,8 +4999,14 @@ namespace GBookingCoreV2
         [JsonProperty("scheduleDefaultWorkersLimitWeek")]
         public double? ScheduleDefaultWorkersLimitWeek { get; set; }
 
+        [JsonProperty("scheduleEnableDayIntervals", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ScheduleEnableDayIntervals { get; set; }
+
         [JsonProperty("schedulerWeekViewType", NullValueHandling = NullValueHandling.Ignore)]
         public SchedulerWeekViewType? SchedulerWeekViewType { get; set; }
+
+        [JsonProperty("scheduleSplitDayTimeIntervals", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ScheduleSplitDayTimeInterval> ScheduleSplitDayTimeIntervals { get; set; }
 
         [JsonProperty("scheduleWorkerHours", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ScheduleWorkerHours { get; set; }
@@ -5151,6 +5172,30 @@ namespace GBookingCoreV2
 
         [JsonProperty("workWeekStart", NullValueHandling = NullValueHandling.Ignore)]
         public double? WorkWeekStart { get; set; }
+    }
+
+    public partial class ScheduleSplitDayTimeInterval
+    {
+        [JsonProperty("endHour", NullValueHandling = NullValueHandling.Ignore)]
+        public double? EndHour { get; set; }
+
+        [JsonProperty("endMinute", NullValueHandling = NullValueHandling.Ignore)]
+        public double? EndMinute { get; set; }
+
+        [JsonProperty("schedulerTick", NullValueHandling = NullValueHandling.Ignore)]
+        public double? SchedulerTick { get; set; }
+
+        [JsonProperty("selected", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Selected { get; set; }
+
+        [JsonProperty("startHour", NullValueHandling = NullValueHandling.Ignore)]
+        public double? StartHour { get; set; }
+
+        [JsonProperty("startMinute", NullValueHandling = NullValueHandling.Ignore)]
+        public double? StartMinute { get; set; }
+
+        [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
+        public string Title { get; set; }
     }
 
     public partial class BusinessBackofficeConfigurationClass
@@ -5862,6 +5907,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("startTextMessage", NullValueHandling = NullValueHandling.Ignore)]
         public string StartTextMessage { get; set; }
+
+        [JsonProperty("strictSlotCutting", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? StrictSlotCutting { get; set; }
 
         [JsonProperty("tentativeTTL", NullValueHandling = NullValueHandling.Ignore)]
         public double? TentativeTtl { get; set; }

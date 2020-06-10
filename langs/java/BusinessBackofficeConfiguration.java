@@ -50,7 +50,9 @@ public class BusinessBackofficeConfiguration {
     private Double scheduleDefaultWorkersLimit;
     private Double scheduleDefaultWorkersLimitDay;
     private Double scheduleDefaultWorkersLimitWeek;
+    private Boolean scheduleEnableDayIntervals;
     private SchedulerWeekViewType schedulerWeekViewType;
+    private List<ScheduleSplitDayTimeInterval> scheduleSplitDayTimeIntervals;
     private Boolean scheduleWorkerHours;
     private Boolean showAdditionalFields;
     private Boolean showAddress;
@@ -337,10 +339,20 @@ public class BusinessBackofficeConfiguration {
     @JsonProperty("scheduleDefaultWorkersLimitWeek")
     public void setScheduleDefaultWorkersLimitWeek(Double value) { this.scheduleDefaultWorkersLimitWeek = value; }
 
+    @JsonProperty("scheduleEnableDayIntervals")
+    public Boolean getScheduleEnableDayIntervals() { return scheduleEnableDayIntervals; }
+    @JsonProperty("scheduleEnableDayIntervals")
+    public void setScheduleEnableDayIntervals(Boolean value) { this.scheduleEnableDayIntervals = value; }
+
     @JsonProperty("schedulerWeekViewType")
     public SchedulerWeekViewType getSchedulerWeekViewType() { return schedulerWeekViewType; }
     @JsonProperty("schedulerWeekViewType")
     public void setSchedulerWeekViewType(SchedulerWeekViewType value) { this.schedulerWeekViewType = value; }
+
+    @JsonProperty("scheduleSplitDayTimeIntervals")
+    public List<ScheduleSplitDayTimeInterval> getScheduleSplitDayTimeIntervals() { return scheduleSplitDayTimeIntervals; }
+    @JsonProperty("scheduleSplitDayTimeIntervals")
+    public void setScheduleSplitDayTimeIntervals(List<ScheduleSplitDayTimeInterval> value) { this.scheduleSplitDayTimeIntervals = value; }
 
     @JsonProperty("scheduleWorkerHours")
     public Boolean getScheduleWorkerHours() { return scheduleWorkerHours; }
