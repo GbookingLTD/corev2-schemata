@@ -134,6 +134,7 @@ export interface AppointmentController {
     client_remove_empty_appointment: ClientRemoveEmptyAppointment;
     get_appointment_by_filter?: GetAppointmentByFilter;
     get_appointment_by_showcase?: GetAppointmentByShowcase;
+    get_appointments_by_client_v2?: GetAppointmentsByClientV2;
     reserve_appointment: ReserveAppointment;
 }
 export interface CancelAppointmentByBusiness {
@@ -859,8 +860,8 @@ export interface AppointmentGetAppointmentByFilterRequest {
 }
 export interface AppointmentGetAppointmentByFilterRequestParams {
     business?: FluffyBusiness;
-    extraFilters?: ExtraFilters;
-    filter?: Filter;
+    extraFilters?: PurpleExtraFilters;
+    filter?: PurpleFilter;
     network?: PurpleNetwork;
     page: number;
     pageSize: number;
@@ -869,10 +870,10 @@ export interface AppointmentGetAppointmentByFilterRequestParams {
 export interface FluffyBusiness {
     id?: BackofficeIdUnion;
 }
-export interface ExtraFilters {
-    sort?: Sort[];
+export interface PurpleExtraFilters {
+    sort?: PurpleSort[];
 }
-export interface Sort {
+export interface PurpleSort {
     dir: Dir;
     field: SortField;
 }
@@ -884,15 +885,15 @@ export declare enum SortField {
     Created = "created",
     Start = "start"
 }
-export interface Filter {
-    created?: FilterCreated;
+export interface PurpleFilter {
+    created?: PurpleCreated;
     end?: Date;
     services?: string[];
     skipUpdated?: boolean;
     start?: Date;
     workers?: string[];
 }
-export interface FilterCreated {
+export interface PurpleCreated {
     end: Date;
     start: Date;
 }
@@ -1016,6 +1017,111 @@ export interface AppointmentGetAppointmentByShowcaseResponseError {
      */
     message: string;
 }
+export interface GetAppointmentsByClientV2 {
+    request: AppointmentGetAppointmentsByClientV2RequestRequest;
+    response: AppointmentGetAppointmentsByClientV2RequestResponse;
+}
+export interface AppointmentGetAppointmentsByClientV2RequestRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: AppointmentGetAppointmentsByClientV2RequestRequestParams;
+}
+export interface AppointmentGetAppointmentsByClientV2RequestRequestParams {
+    business: StickyBusiness;
+    client: TentacledClient;
+    extraFilters?: FluffyExtraFilters;
+    filter?: FluffyFilter;
+    network?: FluffyNetwork;
+    skipBusinessCancelled?: boolean;
+}
+export interface StickyBusiness {
+    id: BackofficeIdUnion;
+}
+export interface TentacledClient {
+    id: BackofficeIdUnion;
+}
+export interface FluffyExtraFilters {
+    sort?: FluffySort[];
+}
+export interface FluffySort {
+    dir: Dir;
+    field: SortField;
+}
+export interface FluffyFilter {
+    created?: FluffyCreated;
+    end?: Date;
+    services?: string[];
+    skipUpdated?: boolean;
+    start?: Date;
+    workers?: string[];
+}
+export interface FluffyCreated {
+    end: Date;
+    start: Date;
+}
+export interface FluffyNetwork {
+    id?: BackofficeIdUnion;
+}
+export interface AppointmentGetAppointmentsByClientV2RequestResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    result?: AppointmentGetAppointmentsByClientV2ResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentGetAppointmentsByClientV2RequestResponseError;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentGetAppointmentsByClientV2RequestResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: string;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+/**
+ * данные, передаваемые в ответ
+ */
+export interface AppointmentGetAppointmentsByClientV2ResponseResult {
+    data: Appointment[];
+    page: number;
+    total: number;
+    unconfirmed: number;
+}
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;
     response: AppointmentReserveAppointmentResponse;
@@ -1044,7 +1150,7 @@ export interface AppointmentReserveAppointmentRequest {
 }
 export interface AppointmentReserve {
     appointment: AppointmentObject;
-    business: StickyBusiness;
+    business: IndigoBusiness;
     originBusinessID?: null | string;
     resource: ParamsResourceClass;
     source: string;
@@ -1059,7 +1165,7 @@ export interface PurplePrice {
     amount: number;
     currency: CurrencyList;
 }
-export interface StickyBusiness {
+export interface IndigoBusiness {
     id: string;
 }
 export interface ParamsResourceClass {
@@ -2550,7 +2656,7 @@ export interface BusinessGetProfileByIdRequest {
  * параметры запроса business.get_profile_by_id
  */
 export interface BusinessGetProfileByIdRequestParams {
-    business: IndigoBusiness;
+    business: IndecentBusiness;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -2611,7 +2717,7 @@ export interface BusinessGetProfileByIdRequestParams {
      */
     worker_sorting_type?: WorkerSortingType;
 }
-export interface IndigoBusiness {
+export interface IndecentBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3275,13 +3381,13 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business: IndecentBusiness;
+    business: HilariousBusiness;
     client: ClientClass;
     profile?: ParamsProfile;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface IndecentBusiness {
+export interface HilariousBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3435,13 +3541,13 @@ export interface ClientAddClientResponseError {
     message: string;
 }
 export interface ClientAddClientResponseResult {
-    business: HilariousBusiness;
+    business: AmbitiousBusiness;
     client: ClientClass;
     documents?: string;
     profile?: PurpleProfile;
     source?: Source;
 }
-export interface HilariousBusiness {
+export interface AmbitiousBusiness {
     id: string;
 }
 export interface PurpleProfile {
@@ -3483,19 +3589,19 @@ export interface ClientFindOrCreateClientRequest {
  * параметры запроса
  */
 export interface ClientFindOrCreateClientRequestParams {
-    business: AmbitiousBusiness;
+    business: CunningBusiness;
     client?: ClientClass;
-    network?: FluffyNetwork;
+    network?: TentacledNetwork;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface AmbitiousBusiness {
+export interface CunningBusiness {
     /**
      * идентификатор бизнеса
      */
     id: BackofficeIdUnion;
 }
-export interface FluffyNetwork {
+export interface TentacledNetwork {
     /**
      * идентификатор нетворка
      */
@@ -3538,12 +3644,12 @@ export interface ClientFindOfCreateClientResponseError {
     message: string;
 }
 export interface ClientFindOfCreateClientResponseResult {
-    business?: CunningBusiness;
+    business?: MagentaBusiness;
     client: ClientClass;
     documents?: any[];
     profile?: FluffyProfile;
 }
-export interface CunningBusiness {
+export interface MagentaBusiness {
     id: string;
 }
 export interface FluffyProfile {
@@ -3579,17 +3685,17 @@ export interface ClientUpdateClientRequest {
  * параметры запроса
  */
 export interface ClientUpdateClientRequestParams {
-    business: MagentaBusiness;
+    business: FriskyBusiness;
     client: ClientClass;
-    network?: TentacledNetwork;
+    network?: StickyNetwork;
 }
-export interface MagentaBusiness {
+export interface FriskyBusiness {
     /**
      * идентификатор бизнеса
      */
     id: BackofficeIdUnion;
 }
-export interface TentacledNetwork {
+export interface StickyNetwork {
     /**
      * идентификатор нетворка
      */
@@ -3672,11 +3778,11 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
     params: CracCracDistributedResourcesFreeByDateRequestParam[];
 }
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business: FriskyBusiness;
+    business: MischievousBusiness;
     resources: string[];
     taxonomy: PurpleTaxonomy;
 }
-export interface FriskyBusiness {
+export interface MischievousBusiness {
     id: string;
 }
 export interface PurpleTaxonomy {
@@ -3829,13 +3935,13 @@ export interface CracCracResourcesFreeByDateV2Request {
     params: CracCracResourcesFreeByDateV2RequestParam[];
 }
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business: MischievousBusiness;
+    business: BraggadociousBusiness;
     duration: number;
     durations: number[];
     resources: string[];
     taxonomy: TentacledTaxonomy;
 }
-export interface MischievousBusiness {
+export interface BraggadociousBusiness {
     id: string;
 }
 export interface TentacledTaxonomy {
