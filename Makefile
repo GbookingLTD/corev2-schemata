@@ -3,7 +3,7 @@ qt=quicktype
 tsc=tsc
 
 .PHONY: default
-default: json docu gen_java gen_csharp gen_typescript gen_golang gen_python
+default: json gen_java gen_csharp gen_typescript gen_golang gen_python
 
 errors:
 	bin/error_response.sh > errorResponce.yaml

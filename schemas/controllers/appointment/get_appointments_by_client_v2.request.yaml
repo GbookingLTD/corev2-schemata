@@ -1,0 +1,96 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/appointment/get_appointments_by_client_v2.request.request.schema.json"
+title: "appointment.get_appointments_by_client_v2.request.request"
+type: "object"
+definitions:
+  Filters:
+    type: "object"
+    required:
+      - client
+      - business
+    properties:
+      business:
+        type: "object"
+        required: ["id"]
+        additionalProperties: false
+        properties:
+          id:
+            type: ["string", "number"]
+      client:
+        type: "object"
+        required: ["id"]
+        additionalProperties: false
+        properties:
+          id:
+            type: ["string", "number"]
+      network:
+        type: "object"
+        required: []
+        additionalProperties: false
+        properties:
+          id:
+            type: ["string", "number"]
+      extraFilters:
+        type: "object"
+        additionalProperties: false
+        properties:
+          sort:
+            type: "array"
+            items:
+              type: "object"
+              required: ["dir", "field"]
+              additionalProperties: false
+              properties:
+                dir:
+                  type: "string"
+                  enum: ["asc", "desc"]
+                field:
+                  type: "string"
+                  enum: ["created", "start"]
+      skipBusinessCancelled:
+        type: "boolean"
+        default: false
+      filter:
+        type: "object"
+        required: []
+        additionalProperties: false
+        properties:
+          start:
+            type: "string"
+            format: "date-time"
+          end:
+            type: "string"
+            format: "date-time"
+          created:
+            type: "object"
+            required: ["start", "end"]
+            additionalProperties: false
+            properties:
+              start:
+                type: "string"
+                format: "date-time"
+              end:
+                type: "string"
+                format: "date-time"
+          skipUpdated:
+            type: "boolean"
+            default: false
+          services:
+            type: "array"
+            items:
+              type: "string"
+          workers:
+            type: "array"
+            items:
+              type: "string"
+  Request:
+    type: "object"
+    required: ["params"]
+    properties:
+      params:
+        $ref: '#/definitions/Filters'
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+
