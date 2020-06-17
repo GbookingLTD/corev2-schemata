@@ -1018,10 +1018,10 @@ export interface AppointmentGetAppointmentByShowcaseResponseError {
     message: string;
 }
 export interface GetAppointmentsByClientV2 {
-    request: AppointmentGetAppointmentsByClientV2RequestRequest;
-    response: AppointmentGetAppointmentsByClientV2RequestResponse;
+    request: AppointmentGetAppointmentsByClientV2Request;
+    response: AppointmentGetAppointmentsByClientV2Response;
 }
-export interface AppointmentGetAppointmentsByClientV2RequestRequest {
+export interface AppointmentGetAppointmentsByClientV2Request {
     /**
      * авторизационные параметры
      */
@@ -1041,9 +1041,9 @@ export interface AppointmentGetAppointmentsByClientV2RequestRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentGetAppointmentsByClientV2RequestRequestParams;
+    params: AppointmentGetAppointmentsByClientV2RequestParams;
 }
-export interface AppointmentGetAppointmentsByClientV2RequestRequestParams {
+export interface AppointmentGetAppointmentsByClientV2RequestParams {
     business: StickyBusiness;
     client: TentacledClient;
     extraFilters?: FluffyExtraFilters;
@@ -1079,7 +1079,7 @@ export interface FluffyCreated {
 export interface FluffyNetwork {
     id?: BackofficeIdUnion;
 }
-export interface AppointmentGetAppointmentsByClientV2RequestResponse {
+export interface AppointmentGetAppointmentsByClientV2Response {
     /**
      * значение числового типа для идентификации запроса на сервере
      */
@@ -1092,14 +1092,14 @@ export interface AppointmentGetAppointmentsByClientV2RequestResponse {
     /**
      * объект, содержащий информацию об ошибке
      */
-    error?: AppointmentGetAppointmentsByClientV2RequestResponseError;
+    error?: AppointmentGetAppointmentsByClientV2ResponseError;
 }
 /**
  * объект, содержащий информацию об ошибке
  *
  * Код ошибки авторизации
  */
-export interface AppointmentGetAppointmentsByClientV2RequestResponseError {
+export interface AppointmentGetAppointmentsByClientV2ResponseError {
     /**
      * код ошибки
      */
