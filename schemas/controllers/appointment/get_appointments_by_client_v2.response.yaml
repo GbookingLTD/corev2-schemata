@@ -1,6 +1,6 @@
 $schema: "http://json-schema.org/draft-07/schema#"
-$id: "schemas-json/controllers/appointment/get_appointments_by_client_v2.request.response.schema.json"
-title: "appointment.get_appointments_by_client_v2.request.response"
+$id: "schemas-json/controllers/appointment/get_appointments_by_client_v2.response.schema.json"
+title: "appointment.get_appointments_by_client_v2.response"
 type: "object"
 definitions:
   ErrorCodes:
