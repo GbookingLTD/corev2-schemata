@@ -1096,17 +1096,17 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "GetAppointmentsByClientV2": o([
-        { json: "request", js: "request", typ: r("AppointmentGetAppointmentsByClientV2RequestRequest") },
-        { json: "response", js: "response", typ: r("AppointmentGetAppointmentsByClientV2RequestResponse") },
+        { json: "request", js: "request", typ: r("AppointmentGetAppointmentsByClientV2Request") },
+        { json: "response", js: "response", typ: r("AppointmentGetAppointmentsByClientV2Response") },
     ], false),
-    "AppointmentGetAppointmentsByClientV2RequestRequest": o([
+    "AppointmentGetAppointmentsByClientV2Request": o([
         { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("AppointmentGetAppointmentsByClientV2RequestRequestParams") },
+        { json: "params", js: "params", typ: r("AppointmentGetAppointmentsByClientV2RequestParams") },
     ], false),
-    "AppointmentGetAppointmentsByClientV2RequestRequestParams": o([
+    "AppointmentGetAppointmentsByClientV2RequestParams": o([
         { json: "business", js: "business", typ: r("StickyBusiness") },
         { json: "client", js: "client", typ: r("TentacledClient") },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("FluffyExtraFilters")) },
@@ -1142,13 +1142,13 @@ var typeMap = {
     "FluffyNetwork": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
-    "AppointmentGetAppointmentsByClientV2RequestResponse": o([
+    "AppointmentGetAppointmentsByClientV2Response": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByClientV2ResponseResult")) },
-        { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByClientV2RequestResponseError")) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByClientV2ResponseError")) },
     ], false),
-    "AppointmentGetAppointmentsByClientV2RequestResponseError": o([
+    "AppointmentGetAppointmentsByClientV2ResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
