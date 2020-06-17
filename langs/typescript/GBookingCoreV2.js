@@ -397,17 +397,17 @@ function invalidValue(typ, val) {
 }
 function jsonToJSProps(typ) {
     if (typ.jsonToJS === undefined) {
-        var map = {};
-        typ.props.forEach(function (p) { return map[p.json] = { key: p.js, typ: p.typ }; });
-        typ.jsonToJS = map;
+        var map_1 = {};
+        typ.props.forEach(function (p) { return map_1[p.json] = { key: p.js, typ: p.typ }; });
+        typ.jsonToJS = map_1;
     }
     return typ.jsonToJS;
 }
 function jsToJSONProps(typ) {
     if (typ.jsToJSON === undefined) {
-        var map = {};
-        typ.props.forEach(function (p) { return map[p.js] = { key: p.json, typ: p.typ }; });
-        typ.jsToJSON = map;
+        var map_2 = {};
+        typ.props.forEach(function (p) { return map_2[p.js] = { key: p.json, typ: p.typ }; });
+        typ.jsToJSON = map_2;
     }
     return typ.jsToJSON;
 }
@@ -421,9 +421,9 @@ function transform(val, typ, getProps) {
         // val must validate against one typ in typs
         var l = typs.length;
         for (var i = 0; i < l; i++) {
-            var typ = typs[i];
+            var typ_1 = typs[i];
             try {
-                return transform(val, typ, getProps);
+                return transform(val, typ_1, getProps);
             }
             catch (_) { }
         }
@@ -440,7 +440,7 @@ function transform(val, typ, getProps) {
             return invalidValue("array", val);
         return val.map(function (el) { return transform(el, typ, getProps); });
     }
-    function transformDate(typ, val) {
+    function transformDate(val) {
         if (val === null) {
             return null;
         }
@@ -489,7 +489,7 @@ function transform(val, typ, getProps) {
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number")
-        return transformDate(typ, val);
+        return transformDate(val);
     return transformPrimitive(typ, val);
 }
 function cast(val, typ) {
