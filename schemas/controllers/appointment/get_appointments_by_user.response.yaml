@@ -1,6 +1,6 @@
 $schema: "http://json-schema.org/draft-07/schema#"
-$id: "schemas-json/controllers/appointment/get_appointments_by_profile.response.schema.json"
-title: "appointment.get_appointments_by_profile.response"
+$id: "schemas-json/controllers/appointment/get_appointments_by_user.response.schema.json"
+title: "appointment.get_appointments_by_user.response"
 type: "object"
 definitions:
   ErrorCodes:
@@ -54,8 +54,8 @@ definitions:
       - $ref: "../../common/errorResponse.schema.json"
       - $ref: "#/definitions/ErrorCodes"
 
-  AppointmentGetAppointmentsByProfileResponseResult:
-    title: "AppointmentGetAppointmentsByProfileResponseResult"
+  AppointmentGetAppointmentsByUserResponseResult:
+    title: "AppointmentGetAppointmentsByUserResponseResult"
     type: "object"
     description: "данные, передаваемые в ответ"
     additionalProperties: false
@@ -88,7 +88,7 @@ definitions:
         description: "значение числового типа для идентификации запроса на сервере"
         type: "number"
       result:
-        $ref: "#/definitions/AppointmentGetAppointmentsByProfileResponseResult"
+        $ref: "#/definitions/AppointmentGetAppointmentsByUserResponseResult"
 
     required:
       - "jsonrpc"

@@ -66,13 +66,13 @@ properties:
           $ref: "./appointment/get_appointments_by_client_v2.response.schema.json"
       required: ['request', 'response']
       additionalProperties: false
-  get_appointments_by_client_v2:
+  get_appointments_by_user:
     type: "object"
     properties:
       request:
-        $ref: "./appointment/get_appointments_by_profile.request.schema.json"
+        $ref: "./appointment/get_appointments_by_user.request.schema.json"
       response:
-        $ref: "./appointment/get_appointments_by_profile.response.schema.json"
+        $ref: "./appointment/get_appointments_by_user.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
   get_appointment_by_showcase:
