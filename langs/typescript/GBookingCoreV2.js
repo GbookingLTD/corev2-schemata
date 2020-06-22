@@ -572,6 +572,7 @@ var typeMap = {
         { json: "get_appointment_by_filter", js: "get_appointment_by_filter", typ: u(undefined, r("GetAppointmentByFilter")) },
         { json: "get_appointment_by_showcase", js: "get_appointment_by_showcase", typ: u(undefined, r("GetAppointmentByShowcase")) },
         { json: "get_appointments_by_client_v2", js: "get_appointments_by_client_v2", typ: u(undefined, r("GetAppointmentsByClientV2")) },
+        { json: "get_appointments_by_user", js: "get_appointments_by_user", typ: u(undefined, r("GetAppointmentsByUser")) },
         { json: "reserve_appointment", js: "reserve_appointment", typ: r("ReserveAppointment") },
     ], false),
     "CancelAppointmentByBusiness": o([
@@ -1159,6 +1160,66 @@ var typeMap = {
         { json: "total", js: "total", typ: 3.14 },
         { json: "unconfirmed", js: "unconfirmed", typ: 3.14 },
     ], false),
+    "GetAppointmentsByUser": o([
+        { json: "request", js: "request", typ: r("AppointmentGetAppointmentsByUserRequest") },
+        { json: "response", js: "response", typ: r("AppointmentGetAppointmentsByUserResponse") },
+    ], false),
+    "AppointmentGetAppointmentsByUserRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("AppointmentGetAppointmentsByUserRequestParams") },
+    ], false),
+    "AppointmentGetAppointmentsByUserRequestParams": o([
+        { json: "business", js: "business", typ: u(undefined, r("IndigoBusiness")) },
+        { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
+        { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
+        { json: "network", js: "network", typ: u(undefined, r("TentacledNetwork")) },
+        { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
+    ], "any"),
+    "IndigoBusiness": o([
+        { json: "id", js: "id", typ: u(3.14, "") },
+    ], false),
+    "TentacledExtraFilters": o([
+        { json: "sort", js: "sort", typ: u(undefined, a(r("TentacledSort"))) },
+    ], false),
+    "TentacledSort": o([
+        { json: "dir", js: "dir", typ: r("Dir") },
+        { json: "field", js: "field", typ: r("SortField") },
+    ], false),
+    "TentacledFilter": o([
+        { json: "created", js: "created", typ: u(undefined, r("TentacledCreated")) },
+        { json: "end", js: "end", typ: u(undefined, Date) },
+        { json: "services", js: "services", typ: u(undefined, a("")) },
+        { json: "skipUpdated", js: "skipUpdated", typ: u(undefined, true) },
+        { json: "start", js: "start", typ: u(undefined, Date) },
+        { json: "workers", js: "workers", typ: u(undefined, a("")) },
+    ], false),
+    "TentacledCreated": o([
+        { json: "end", js: "end", typ: Date },
+        { json: "start", js: "start", typ: Date },
+    ], false),
+    "TentacledNetwork": o([
+        { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
+    ], false),
+    "AppointmentGetAppointmentsByUserResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
+    ], false),
+    "AppointmentGetAppointmentsByUserResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "AppointmentGetAppointmentsByUserResponseResult": o([
+        { json: "data", js: "data", typ: a(r("Appointment")) },
+        { json: "page", js: "page", typ: 3.14 },
+        { json: "total", js: "total", typ: 3.14 },
+        { json: "unconfirmed", js: "unconfirmed", typ: 3.14 },
+    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -1172,7 +1233,7 @@ var typeMap = {
     ], false),
     "AppointmentReserve": o([
         { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
-        { json: "business", js: "business", typ: r("IndigoBusiness") },
+        { json: "business", js: "business", typ: r("IndecentBusiness") },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, u(null, "")) },
         { json: "resource", js: "resource", typ: r("ParamsResourceClass") },
         { json: "source", js: "source", typ: "" },
@@ -1187,7 +1248,7 @@ var typeMap = {
         { json: "amount", js: "amount", typ: 3.14 },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
     ], false),
-    "IndigoBusiness": o([
+    "IndecentBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ParamsResourceClass": o([
@@ -2011,7 +2072,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("IndecentBusiness") },
+        { json: "business", js: "business", typ: r("HilariousBusiness") },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -2027,7 +2088,7 @@ var typeMap = {
         { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
         { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
     ], false),
-    "IndecentBusiness": o([
+    "HilariousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "BusinessGetProfileByIdResponse": o([
@@ -2553,13 +2614,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "HilariousBusiness": o([
+    "AmbitiousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientClass": o([
@@ -2671,13 +2732,13 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "business", js: "business", typ: r("CunningBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "documents", js: "documents", typ: u(undefined, "") },
         { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
         { json: "source", js: "source", typ: u(undefined, r("Source")) },
     ], "any"),
-    "AmbitiousBusiness": o([
+    "CunningBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleProfile": o([
@@ -2695,16 +2756,16 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
         { json: "client", js: "client", typ: u(undefined, r("ClientClass")) },
-        { json: "network", js: "network", typ: u(undefined, r("TentacledNetwork")) },
+        { json: "network", js: "network", typ: u(undefined, r("StickyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "CunningBusiness": o([
+    "MagentaBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
-    "TentacledNetwork": o([
+    "StickyNetwork": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
     "ClientFindOfCreateClientResponse": o([
@@ -2719,12 +2780,12 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("MagentaBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("FriskyBusiness")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
-    "MagentaBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "FluffyProfile": o([
@@ -2742,14 +2803,14 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientUpdateClientRequestParams") },
     ], false),
     "ClientUpdateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "business", js: "business", typ: r("MischievousBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
-        { json: "network", js: "network", typ: u(undefined, r("StickyNetwork")) },
+        { json: "network", js: "network", typ: u(undefined, r("IndigoNetwork")) },
     ], false),
-    "FriskyBusiness": o([
+    "MischievousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
-    "StickyNetwork": o([
+    "IndigoNetwork": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
     "ClientUpdateClientResponse": o([
@@ -2787,11 +2848,11 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "MischievousBusiness": o([
+    "BraggadociousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -2868,13 +2929,13 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "BraggadociousBusiness": o([
+    "Business1": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([
