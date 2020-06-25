@@ -408,6 +408,15 @@ definitions:
         type: "boolean"
       chargeUnitsStep:
         type: "number"
+      isTelemed:
+        type: "boolean"
+        default: false
+      disableClientSmsNotifications:
+        type: "boolean"
+        default: false
+      confirmationEmailAlert:
+        type: "string"
+
       forPay:
         type: "boolean"
         default: false
@@ -1235,4 +1244,35 @@ definitions:
         type: "string"
       middleNameSupport:
         type: "boolean"
+      analyticsGoogle:
+        type: "object"
+        additionalProperties: false
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          key:
+            type: "string"
+            default: ""
+
+      analyticsYandex:
+        type: "object"
+        additionalProperties: false
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          key:
+            type: "string"
+            default: ""
+
+
+      toggleReminder:
+        type: "boolean"
+        default: false
+
+      askClientPassportID:
+        type: "boolean"
+        default: false
+
     additionalProperties: false
