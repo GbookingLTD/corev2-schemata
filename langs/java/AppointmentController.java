@@ -10,6 +10,8 @@ public class AppointmentController {
     private ClientRemoveEmptyAppointment clientRemoveEmptyAppointment;
     private GetAppointmentByFilter getAppointmentByFilter;
     private GetAppointmentByShowcase getAppointmentByShowcase;
+    private GetAppointmentsByClientV2 getAppointmentsByClientV2;
+    private GetAppointmentsByUser getAppointmentsByUser;
     private ReserveAppointment reserveAppointment;
 
     @JsonProperty("cancel_appointment_by_business")
@@ -41,6 +43,16 @@ public class AppointmentController {
     public GetAppointmentByShowcase getGetAppointmentByShowcase() { return getAppointmentByShowcase; }
     @JsonProperty("get_appointment_by_showcase")
     public void setGetAppointmentByShowcase(GetAppointmentByShowcase value) { this.getAppointmentByShowcase = value; }
+
+    @JsonProperty("get_appointments_by_client_v2")
+    public GetAppointmentsByClientV2 getGetAppointmentsByClientV2() { return getAppointmentsByClientV2; }
+    @JsonProperty("get_appointments_by_client_v2")
+    public void setGetAppointmentsByClientV2(GetAppointmentsByClientV2 value) { this.getAppointmentsByClientV2 = value; }
+
+    @JsonProperty("get_appointments_by_user")
+    public GetAppointmentsByUser getGetAppointmentsByUser() { return getAppointmentsByUser; }
+    @JsonProperty("get_appointments_by_user")
+    public void setGetAppointmentsByUser(GetAppointmentsByUser value) { this.getAppointmentsByUser = value; }
 
     @JsonProperty("reserve_appointment")
     public ReserveAppointment getReserveAppointment() { return reserveAppointment; }

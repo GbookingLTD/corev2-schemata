@@ -9,10 +9,13 @@ public class BusinessWidgetConfiguration {
     private Boolean allowAutoSelect;
     private Boolean allowBookVisitor;
     private Boolean allowSkipTimeCheck;
+    private AnalyticsGoogle analyticsGoogle;
+    private AnalyticsYandex analyticsYandex;
     private String appointmentConfirmationText;
     private String appointmentConfirmationTitle;
     private Boolean askClientBirthday;
     private Boolean askClientGender;
+    private Boolean askClientPassportID;
     private FluffyBookableDateRanges bookableDateRanges;
     private Double bookableMonthsCount;
     private Boolean calendarMode;
@@ -95,6 +98,7 @@ public class BusinessWidgetConfiguration {
     private Boolean strictSlotCutting;
     private Double tentativeTTL;
     private String theme;
+    private Boolean toggleReminder;
     private Boolean useAppointmentReminder;
     private Boolean useBusinessScheduleForUnavailableLabel;
     private Boolean useClustersMap;
@@ -141,6 +145,16 @@ public class BusinessWidgetConfiguration {
     @JsonProperty("allowSkipTimeCheck")
     public void setAllowSkipTimeCheck(Boolean value) { this.allowSkipTimeCheck = value; }
 
+    @JsonProperty("analyticsGoogle")
+    public AnalyticsGoogle getAnalyticsGoogle() { return analyticsGoogle; }
+    @JsonProperty("analyticsGoogle")
+    public void setAnalyticsGoogle(AnalyticsGoogle value) { this.analyticsGoogle = value; }
+
+    @JsonProperty("analyticsYandex")
+    public AnalyticsYandex getAnalyticsYandex() { return analyticsYandex; }
+    @JsonProperty("analyticsYandex")
+    public void setAnalyticsYandex(AnalyticsYandex value) { this.analyticsYandex = value; }
+
     @JsonProperty("appointment_confirmation_text")
     public String getAppointmentConfirmationText() { return appointmentConfirmationText; }
     @JsonProperty("appointment_confirmation_text")
@@ -160,6 +174,11 @@ public class BusinessWidgetConfiguration {
     public Boolean getAskClientGender() { return askClientGender; }
     @JsonProperty("askClientGender")
     public void setAskClientGender(Boolean value) { this.askClientGender = value; }
+
+    @JsonProperty("askClientPassportID")
+    public Boolean getAskClientPassportID() { return askClientPassportID; }
+    @JsonProperty("askClientPassportID")
+    public void setAskClientPassportID(Boolean value) { this.askClientPassportID = value; }
 
     @JsonProperty("bookableDateRanges")
     public FluffyBookableDateRanges getBookableDateRanges() { return bookableDateRanges; }
@@ -570,6 +589,11 @@ public class BusinessWidgetConfiguration {
     public String getTheme() { return theme; }
     @JsonProperty("theme")
     public void setTheme(String value) { this.theme = value; }
+
+    @JsonProperty("toggleReminder")
+    public Boolean getToggleReminder() { return toggleReminder; }
+    @JsonProperty("toggleReminder")
+    public void setToggleReminder(Boolean value) { this.toggleReminder = value; }
 
     @JsonProperty("useAppointmentReminder")
     public Boolean getUseAppointmentReminder() { return useAppointmentReminder; }

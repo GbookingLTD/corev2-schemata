@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentByFilterRequestParams {
     private FluffyBusiness business;
-    private ExtraFilters extraFilters;
-    private Filter filter;
+    private PurpleExtraFilters extraFilters;
+    private PurpleFilter filter;
     private PurpleNetwork network;
     private double page;
     private double pageSize;
@@ -18,14 +18,14 @@ public class AppointmentGetAppointmentByFilterRequestParams {
     public void setBusiness(FluffyBusiness value) { this.business = value; }
 
     @JsonProperty("extraFilters")
-    public ExtraFilters getExtraFilters() { return extraFilters; }
+    public PurpleExtraFilters getExtraFilters() { return extraFilters; }
     @JsonProperty("extraFilters")
-    public void setExtraFilters(ExtraFilters value) { this.extraFilters = value; }
+    public void setExtraFilters(PurpleExtraFilters value) { this.extraFilters = value; }
 
     @JsonProperty("filter")
-    public Filter getFilter() { return filter; }
+    public PurpleFilter getFilter() { return filter; }
     @JsonProperty("filter")
-    public void setFilter(Filter value) { this.filter = value; }
+    public void setFilter(PurpleFilter value) { this.filter = value; }
 
     @JsonProperty("network")
     public PurpleNetwork getNetwork() { return network; }

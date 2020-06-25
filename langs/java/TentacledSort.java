@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Sort {
+public class TentacledSort {
     private Dir dir;
     private SortField field;
 

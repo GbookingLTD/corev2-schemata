@@ -8,6 +8,7 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
+exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.FluffyPaymentProvider = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.DaysOfWeek = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PurplePaymentProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.ReminderStatus = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -397,17 +398,17 @@ function invalidValue(typ, val) {
 }
 function jsonToJSProps(typ) {
     if (typ.jsonToJS === undefined) {
-        var map_1 = {};
-        typ.props.forEach(function (p) { return map_1[p.json] = { key: p.js, typ: p.typ }; });
-        typ.jsonToJS = map_1;
+        var map = {};
+        typ.props.forEach(function (p) { return map[p.json] = { key: p.js, typ: p.typ }; });
+        typ.jsonToJS = map;
     }
     return typ.jsonToJS;
 }
 function jsToJSONProps(typ) {
     if (typ.jsToJSON === undefined) {
-        var map_2 = {};
-        typ.props.forEach(function (p) { return map_2[p.js] = { key: p.json, typ: p.typ }; });
-        typ.jsToJSON = map_2;
+        var map = {};
+        typ.props.forEach(function (p) { return map[p.js] = { key: p.json, typ: p.typ }; });
+        typ.jsToJSON = map;
     }
     return typ.jsToJSON;
 }
@@ -421,9 +422,9 @@ function transform(val, typ, getProps) {
         // val must validate against one typ in typs
         var l = typs.length;
         for (var i = 0; i < l; i++) {
-            var typ_1 = typs[i];
+            var typ = typs[i];
             try {
-                return transform(val, typ_1, getProps);
+                return transform(val, typ, getProps);
             }
             catch (_) { }
         }
@@ -440,7 +441,7 @@ function transform(val, typ, getProps) {
             return invalidValue("array", val);
         return val.map(function (el) { return transform(el, typ, getProps); });
     }
-    function transformDate(val) {
+    function transformDate(typ, val) {
         if (val === null) {
             return null;
         }
@@ -489,7 +490,7 @@ function transform(val, typ, getProps) {
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number")
-        return transformDate(val);
+        return transformDate(typ, val);
     return transformPrimitive(typ, val);
 }
 function cast(val, typ) {
@@ -2315,10 +2316,12 @@ var typeMap = {
         { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
         { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
+        { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
         { json: "discounts", js: "discounts", typ: u(undefined, a(r("Discount"))) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
@@ -2330,6 +2333,7 @@ var typeMap = {
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "isTelemed", js: "isTelemed", typ: u(undefined, true) },
         { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
         { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
         { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
@@ -2421,10 +2425,13 @@ var typeMap = {
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
         { json: "allowBookVisitor", js: "allowBookVisitor", typ: u(undefined, true) },
         { json: "allowSkipTimeCheck", js: "allowSkipTimeCheck", typ: u(undefined, true) },
+        { json: "analyticsGoogle", js: "analyticsGoogle", typ: u(undefined, r("AnalyticsGoogle")) },
+        { json: "analyticsYandex", js: "analyticsYandex", typ: u(undefined, r("AnalyticsYandex")) },
         { json: "appointment_confirmation_text", js: "appointment_confirmation_text", typ: u(undefined, "") },
         { json: "appointment_confirmation_title", js: "appointment_confirmation_title", typ: u(undefined, "") },
         { json: "askClientBirthday", js: "askClientBirthday", typ: u(undefined, true) },
         { json: "askClientGender", js: "askClientGender", typ: u(undefined, true) },
+        { json: "askClientPassportID", js: "askClientPassportID", typ: u(undefined, true) },
         { json: "bookableDateRanges", js: "bookableDateRanges", typ: u(undefined, r("FluffyBookableDateRanges")) },
         { json: "bookableMonthsCount", js: "bookableMonthsCount", typ: u(undefined, 3.14) },
         { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
@@ -2507,6 +2514,7 @@ var typeMap = {
         { json: "strictSlotCutting", js: "strictSlotCutting", typ: u(undefined, true) },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
+        { json: "toggleReminder", js: "toggleReminder", typ: u(undefined, true) },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
         { json: "useBusinessScheduleForUnavailableLabel", js: "useBusinessScheduleForUnavailableLabel", typ: u(undefined, true) },
         { json: "useClustersMap", js: "useClustersMap", typ: u(undefined, true) },
@@ -2527,6 +2535,14 @@ var typeMap = {
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
+    ], false),
+    "AnalyticsGoogle": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "key", js: "key", typ: u(undefined, "") },
+    ], false),
+    "AnalyticsYandex": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "key", js: "key", typ: u(undefined, "") },
     ], false),
     "FluffyBookableDateRanges": o([
         { json: "enabled", js: "enabled", typ: u(undefined, true) },
@@ -2639,7 +2655,7 @@ var typeMap = {
         { json: "extraFields", js: "extraFields", typ: u(undefined, a(r("ClientExtraField"))) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "favResources", js: "favResources", typ: u(undefined, a(r("FavResource"))) },
-        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "fax", js: "fax", typ: u(undefined, "") },
         { json: "fromSms", js: "fromSms", typ: u(undefined, u(true, "")) },
         { json: "fullAddress", js: "fullAddress", typ: u(undefined, a(r("AddressSchema"))) },
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, "") },

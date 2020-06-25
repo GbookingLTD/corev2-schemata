@@ -22,7 +22,7 @@ public class ClientClass {
     private List<ClientExtraField> extraFields;
     private String extraID;
     private List<FavResource> favResources;
-    private List<FaxElement> fax;
+    private String fax;
     private FromSMS fromSMS;
     private List<AddressSchema> fullAddress;
     private String houseNumber;
@@ -134,9 +134,9 @@ public class ClientClass {
     public void setFavResources(List<FavResource> value) { this.favResources = value; }
 
     @JsonProperty("fax")
-    public List<FaxElement> getFax() { return fax; }
+    public String getFax() { return fax; }
     @JsonProperty("fax")
-    public void setFax(List<FaxElement> value) { this.fax = value; }
+    public void setFax(String value) { this.fax = value; }
 
     @JsonProperty("fromSms")
     public FromSMS getFromSMS() { return fromSMS; }

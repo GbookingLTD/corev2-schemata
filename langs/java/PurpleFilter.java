@@ -3,8 +3,8 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class Filter {
-    private FilterCreated created;
+public class PurpleFilter {
+    private PurpleCreated created;
     private String end;
     private List<String> services;
     private Boolean skipUpdated;
@@ -12,9 +12,9 @@ public class Filter {
     private List<String> workers;
 
     @JsonProperty("created")
-    public FilterCreated getCreated() { return created; }
+    public PurpleCreated getCreated() { return created; }
     @JsonProperty("created")
-    public void setCreated(FilterCreated value) { this.created = value; }
+    public void setCreated(PurpleCreated value) { this.created = value; }
 
     @JsonProperty("end")
     public String getEnd() { return end; }

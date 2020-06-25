@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class FilterCreated {
+public class PurpleCreated {
     private String end;
     private String start;
 

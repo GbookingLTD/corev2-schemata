@@ -3107,10 +3107,12 @@ export interface BusinessTaxonomy {
     childrenTaxonomyTypes?: ChildrenTaxonomyType[];
     color?: string;
     confirmationAlert?: string;
+    confirmationEmailAlert?: string;
     confirmationSmsAlert?: string;
     dateLimits?: FluffyDateLimit[];
     dateLimitType?: DateLimitType;
     designs?: string[];
+    disableClientSmsNotifications?: boolean;
     discounts?: Discount[];
     displayInWidget?: boolean;
     duration?: number;
@@ -3122,6 +3124,7 @@ export interface BusinessTaxonomy {
     id?: string;
     images?: string[];
     isOther?: boolean;
+    isTelemed?: boolean;
     lastModified?: Date;
     leaves?: string[];
     manualChanges?: boolean;
@@ -3264,10 +3267,13 @@ export interface BusinessWidgetConfiguration {
     allowAutoSelect?: boolean;
     allowBookVisitor?: boolean;
     allowSkipTimeCheck?: boolean;
+    analyticsGoogle?: AnalyticsGoogle;
+    analyticsYandex?: AnalyticsYandex;
     appointment_confirmation_text?: string;
     appointment_confirmation_title?: string;
     askClientBirthday?: boolean;
     askClientGender?: boolean;
+    askClientPassportID?: boolean;
     bookableDateRanges?: FluffyBookableDateRanges;
     bookableMonthsCount?: number;
     calendarMode?: boolean;
@@ -3352,6 +3358,7 @@ export interface BusinessWidgetConfiguration {
     strictSlotCutting?: boolean;
     tentativeTTL?: number;
     theme?: string;
+    toggleReminder?: boolean;
     useAppointmentReminder?: boolean;
     useBusinessScheduleForUnavailableLabel?: boolean;
     useClustersMap?: boolean;
@@ -3372,6 +3379,14 @@ export interface BusinessWidgetConfiguration {
     withoutWorkers?: boolean;
     worker_unavailability_text?: string;
     workerNameReverse?: boolean;
+}
+export interface AnalyticsGoogle {
+    active?: boolean;
+    key?: string;
+}
+export interface AnalyticsYandex {
+    active?: boolean;
+    key?: string;
 }
 export interface FluffyBookableDateRanges {
     enabled?: boolean;
@@ -3514,7 +3529,7 @@ export interface ClientClass {
     extraFields?: ClientExtraField[];
     extraID?: string;
     favResources?: FavResource[];
-    fax?: FaxElement[];
+    fax?: string;
     fromSms?: FromSms;
     fullAddress?: AddressSchema[];
     houseNumber?: string;

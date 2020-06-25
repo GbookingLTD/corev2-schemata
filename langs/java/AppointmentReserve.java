@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentReserve {
     private IndigoAppointment appointment;
-    private StickyBusiness business;
+    private IndecentBusiness business;
     private String originBusinessID;
     private PurpleResource resource;
     private String source;
@@ -17,9 +17,9 @@ public class AppointmentReserve {
     public void setAppointment(IndigoAppointment value) { this.appointment = value; }
 
     @JsonProperty("business")
-    public StickyBusiness getBusiness() { return business; }
+    public IndecentBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(StickyBusiness value) { this.business = value; }
+    public void setBusiness(IndecentBusiness value) { this.business = value; }
 
     @JsonProperty("originBusinessID")
     public String getOriginBusinessID() { return originBusinessID; }

@@ -3293,52 +3293,55 @@ export interface BusinessMiniWidgetConfiguration {
 }
 
 export interface BusinessTaxonomy {
-    active?:                     boolean;
-    additionalDurations?:        TentacledAdditionalDuration[];
-    additionalPrices?:           FluffyBusinessTaxonomyPrice[];
-    additionalProducts?:         FluffyBusinessTaxonomyProduct[];
-    additionalTaxonomyExtraId?:  { [key: string]: any }[];
-    adjacentSameTimeStart?:      boolean;
-    adjacentTaxonomies?:         FluffyAdjacentTaxonomy[];
-    alias?:                      { [key: string]: any };
-    allowBookingInBO?:           boolean;
-    allowNextBookingCount?:      number;
-    allowNextBookingInDays?:     number;
-    allowNextBookingInDaysText?: string;
-    cabinets?:                   string[];
-    cabinetsEnabled?:            boolean;
-    capacity?:                   number;
-    capacity_decrease?:          number;
-    chargeUnitsStep?:            number;
-    childrenTaxonomyTypes?:      ChildrenTaxonomyType[];
-    color?:                      string;
-    confirmationAlert?:          string;
-    confirmationSmsAlert?:       string;
-    dateLimits?:                 FluffyDateLimit[];
-    dateLimitType?:              DateLimitType;
-    designs?:                    string[];
-    discounts?:                  Discount[];
-    displayInWidget?:            boolean;
-    duration?:                   number;
-    exceptions?:                 any[];
-    extraDescription?:           string;
-    extraId?:                    string;
-    extraLink?:                  string;
-    forPay?:                     boolean;
-    id?:                         string;
-    images?:                     string[];
-    isOther?:                    boolean;
-    lastModified?:               Date;
-    leaves?:                     string[];
-    manualChanges?:              boolean;
-    newTaxonomy?:                boolean;
-    onlineMode?:                 OnlineMode;
-    onlyAfterTaxonomies?:        string[];
-    order?:                      number;
-    parallelTaxonomies?:         string[];
-    popularity?:                 number;
-    price?:                      TentacledPrice;
-    priceLink?:                  string;
+    active?:                        boolean;
+    additionalDurations?:           TentacledAdditionalDuration[];
+    additionalPrices?:              FluffyBusinessTaxonomyPrice[];
+    additionalProducts?:            FluffyBusinessTaxonomyProduct[];
+    additionalTaxonomyExtraId?:     { [key: string]: any }[];
+    adjacentSameTimeStart?:         boolean;
+    adjacentTaxonomies?:            FluffyAdjacentTaxonomy[];
+    alias?:                         { [key: string]: any };
+    allowBookingInBO?:              boolean;
+    allowNextBookingCount?:         number;
+    allowNextBookingInDays?:        number;
+    allowNextBookingInDaysText?:    string;
+    cabinets?:                      string[];
+    cabinetsEnabled?:               boolean;
+    capacity?:                      number;
+    capacity_decrease?:             number;
+    chargeUnitsStep?:               number;
+    childrenTaxonomyTypes?:         ChildrenTaxonomyType[];
+    color?:                         string;
+    confirmationAlert?:             string;
+    confirmationEmailAlert?:        string;
+    confirmationSmsAlert?:          string;
+    dateLimits?:                    FluffyDateLimit[];
+    dateLimitType?:                 DateLimitType;
+    designs?:                       string[];
+    disableClientSmsNotifications?: boolean;
+    discounts?:                     Discount[];
+    displayInWidget?:               boolean;
+    duration?:                      number;
+    exceptions?:                    any[];
+    extraDescription?:              string;
+    extraId?:                       string;
+    extraLink?:                     string;
+    forPay?:                        boolean;
+    id?:                            string;
+    images?:                        string[];
+    isOther?:                       boolean;
+    isTelemed?:                     boolean;
+    lastModified?:                  Date;
+    leaves?:                        string[];
+    manualChanges?:                 boolean;
+    newTaxonomy?:                   boolean;
+    onlineMode?:                    OnlineMode;
+    onlyAfterTaxonomies?:           string[];
+    order?:                         number;
+    parallelTaxonomies?:            string[];
+    popularity?:                    number;
+    price?:                         TentacledPrice;
+    priceLink?:                     string;
     /**
      * Список видов приема услуги
      */
@@ -3482,10 +3485,13 @@ export interface BusinessWidgetConfiguration {
     allowAutoSelect?:                        boolean;
     allowBookVisitor?:                       boolean;
     allowSkipTimeCheck?:                     boolean;
+    analyticsGoogle?:                        AnalyticsGoogle;
+    analyticsYandex?:                        AnalyticsYandex;
     appointment_confirmation_text?:          string;
     appointment_confirmation_title?:         string;
     askClientBirthday?:                      boolean;
     askClientGender?:                        boolean;
+    askClientPassportID?:                    boolean;
     bookableDateRanges?:                     FluffyBookableDateRanges;
     bookableMonthsCount?:                    number;
     calendarMode?:                           boolean;
@@ -3568,6 +3574,7 @@ export interface BusinessWidgetConfiguration {
     strictSlotCutting?:                      boolean;
     tentativeTTL?:                           number;
     theme?:                                  string;
+    toggleReminder?:                         boolean;
     useAppointmentReminder?:                 boolean;
     useBusinessScheduleForUnavailableLabel?: boolean;
     useClustersMap?:                         boolean;
@@ -3588,6 +3595,16 @@ export interface BusinessWidgetConfiguration {
     withoutWorkers?:                         boolean;
     worker_unavailability_text?:             string;
     workerNameReverse?:                      boolean;
+}
+
+export interface AnalyticsGoogle {
+    active?: boolean;
+    key?:    string;
+}
+
+export interface AnalyticsYandex {
+    active?: boolean;
+    key?:    string;
 }
 
 export interface FluffyBookableDateRanges {
@@ -3745,7 +3762,7 @@ export interface ClientClass {
     extraFields?:                ClientExtraField[];
     extraID?:                    string;
     favResources?:               FavResource[];
-    fax?:                        FaxElement[];
+    fax?:                        string;
     fromSms?:                    FromSms;
     fullAddress?:                AddressSchema[];
     houseNumber?:                string;
@@ -4747,7 +4764,7 @@ function invalidValue(typ: any, val: any): never {
 
 function jsonToJSProps(typ: any): any {
     if (typ.jsonToJS === undefined) {
-        const map: any = {};
+        var map: any = {};
         typ.props.forEach((p: any) => map[p.json] = { key: p.js, typ: p.typ });
         typ.jsonToJS = map;
     }
@@ -4756,7 +4773,7 @@ function jsonToJSProps(typ: any): any {
 
 function jsToJSONProps(typ: any): any {
     if (typ.jsToJSON === undefined) {
-        const map: any = {};
+        var map: any = {};
         typ.props.forEach((p: any) => map[p.js] = { key: p.json, typ: p.typ });
         typ.jsToJSON = map;
     }
@@ -4771,9 +4788,9 @@ function transform(val: any, typ: any, getProps: any): any {
 
     function transformUnion(typs: any[], val: any): any {
         // val must validate against one typ in typs
-        const l = typs.length;
-        for (let i = 0; i < l; i++) {
-            const typ = typs[i];
+        var l = typs.length;
+        for (var i = 0; i < l; i++) {
+            var typ = typs[i];
             try {
                 return transform(val, typ, getProps);
             } catch (_) {}
@@ -4792,7 +4809,7 @@ function transform(val: any, typ: any, getProps: any): any {
         return val.map(el => transform(el, typ, getProps));
     }
 
-    function transformDate(val: any): any {
+    function transformDate(typ: any, val: any): any {
         if (val === null) {
             return null;
         }
@@ -4807,7 +4824,7 @@ function transform(val: any, typ: any, getProps: any): any {
         if (val === null || typeof val !== "object" || Array.isArray(val)) {
             return invalidValue("object", val);
         }
-        const result: any = {};
+        var result: any = {};
         Object.getOwnPropertyNames(props).forEach(key => {
             const prop = props[key];
             const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
@@ -4838,7 +4855,7 @@ function transform(val: any, typ: any, getProps: any): any {
             : invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
-    if (typ === Date && typeof val !== "number") return transformDate(val);
+    if (typ === Date && typeof val !== "number") return transformDate(typ, val);
     return transformPrimitive(typ, val);
 }
 
@@ -6668,10 +6685,12 @@ const typeMap: any = {
         { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
         { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
+        { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
         { json: "discounts", js: "discounts", typ: u(undefined, a(r("Discount"))) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
@@ -6683,6 +6702,7 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "isTelemed", js: "isTelemed", typ: u(undefined, true) },
         { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
         { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
         { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
@@ -6774,10 +6794,13 @@ const typeMap: any = {
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
         { json: "allowBookVisitor", js: "allowBookVisitor", typ: u(undefined, true) },
         { json: "allowSkipTimeCheck", js: "allowSkipTimeCheck", typ: u(undefined, true) },
+        { json: "analyticsGoogle", js: "analyticsGoogle", typ: u(undefined, r("AnalyticsGoogle")) },
+        { json: "analyticsYandex", js: "analyticsYandex", typ: u(undefined, r("AnalyticsYandex")) },
         { json: "appointment_confirmation_text", js: "appointment_confirmation_text", typ: u(undefined, "") },
         { json: "appointment_confirmation_title", js: "appointment_confirmation_title", typ: u(undefined, "") },
         { json: "askClientBirthday", js: "askClientBirthday", typ: u(undefined, true) },
         { json: "askClientGender", js: "askClientGender", typ: u(undefined, true) },
+        { json: "askClientPassportID", js: "askClientPassportID", typ: u(undefined, true) },
         { json: "bookableDateRanges", js: "bookableDateRanges", typ: u(undefined, r("FluffyBookableDateRanges")) },
         { json: "bookableMonthsCount", js: "bookableMonthsCount", typ: u(undefined, 3.14) },
         { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
@@ -6860,6 +6883,7 @@ const typeMap: any = {
         { json: "strictSlotCutting", js: "strictSlotCutting", typ: u(undefined, true) },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
+        { json: "toggleReminder", js: "toggleReminder", typ: u(undefined, true) },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
         { json: "useBusinessScheduleForUnavailableLabel", js: "useBusinessScheduleForUnavailableLabel", typ: u(undefined, true) },
         { json: "useClustersMap", js: "useClustersMap", typ: u(undefined, true) },
@@ -6880,6 +6904,14 @@ const typeMap: any = {
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
+    ], false),
+    "AnalyticsGoogle": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "key", js: "key", typ: u(undefined, "") },
+    ], false),
+    "AnalyticsYandex": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "key", js: "key", typ: u(undefined, "") },
     ], false),
     "FluffyBookableDateRanges": o([
         { json: "enabled", js: "enabled", typ: u(undefined, true) },
@@ -6992,7 +7024,7 @@ const typeMap: any = {
         { json: "extraFields", js: "extraFields", typ: u(undefined, a(r("ClientExtraField"))) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
         { json: "favResources", js: "favResources", typ: u(undefined, a(r("FavResource"))) },
-        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "fax", js: "fax", typ: u(undefined, "") },
         { json: "fromSms", js: "fromSms", typ: u(undefined, u(true, "")) },
         { json: "fullAddress", js: "fullAddress", typ: u(undefined, a(r("AddressSchema"))) },
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, "") },

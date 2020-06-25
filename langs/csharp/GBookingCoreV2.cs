@@ -203,6 +203,12 @@ namespace GBookingCoreV2
         [JsonProperty("get_appointment_by_showcase", NullValueHandling = NullValueHandling.Ignore)]
         public GetAppointmentByShowcase GetAppointmentByShowcase { get; set; }
 
+        [JsonProperty("get_appointments_by_client_v2", NullValueHandling = NullValueHandling.Ignore)]
+        public GetAppointmentsByClientV2 GetAppointmentsByClientV2 { get; set; }
+
+        [JsonProperty("get_appointments_by_user", NullValueHandling = NullValueHandling.Ignore)]
+        public GetAppointmentsByUser GetAppointmentsByUser { get; set; }
+
         [JsonProperty("reserve_appointment")]
         public ReserveAppointment ReserveAppointment { get; set; }
     }
@@ -1514,10 +1520,10 @@ namespace GBookingCoreV2
         public FluffyBusiness Business { get; set; }
 
         [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
-        public ExtraFilters ExtraFilters { get; set; }
+        public PurpleExtraFilters ExtraFilters { get; set; }
 
         [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
-        public Filter Filter { get; set; }
+        public PurpleFilter Filter { get; set; }
 
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleNetwork Network { get; set; }
@@ -1538,13 +1544,13 @@ namespace GBookingCoreV2
         public BackofficeIdUnion? Id { get; set; }
     }
 
-    public partial class ExtraFilters
+    public partial class PurpleExtraFilters
     {
         [JsonProperty("sort", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Sort> Sort { get; set; }
+        public List<PurpleSort> Sort { get; set; }
     }
 
-    public partial class Sort
+    public partial class PurpleSort
     {
         [JsonProperty("dir")]
         public Dir Dir { get; set; }
@@ -1553,10 +1559,10 @@ namespace GBookingCoreV2
         public SortField Field { get; set; }
     }
 
-    public partial class Filter
+    public partial class PurpleFilter
     {
         [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
-        public FilterCreated Created { get; set; }
+        public PurpleCreated Created { get; set; }
 
         [JsonProperty("end", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? End { get; set; }
@@ -1574,7 +1580,7 @@ namespace GBookingCoreV2
         public List<string> Workers { get; set; }
     }
 
-    public partial class FilterCreated
+    public partial class PurpleCreated
     {
         [JsonProperty("end")]
         public DateTimeOffset End { get; set; }
@@ -1782,6 +1788,385 @@ namespace GBookingCoreV2
         public string Message { get; set; }
     }
 
+    public partial class GetAppointmentsByClientV2
+    {
+        [JsonProperty("request")]
+        public AppointmentGetAppointmentsByClientV2Request Request { get; set; }
+
+        [JsonProperty("response")]
+        public AppointmentGetAppointmentsByClientV2Response Response { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByClientV2Request
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public AppointmentGetAppointmentsByClientV2RequestParams Params { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByClientV2RequestParams
+    {
+        [JsonProperty("business")]
+        public StickyBusiness Business { get; set; }
+
+        [JsonProperty("client")]
+        public StickyClient Client { get; set; }
+
+        [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyExtraFilters ExtraFilters { get; set; }
+
+        [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyFilter Filter { get; set; }
+
+        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyNetwork Network { get; set; }
+
+        [JsonProperty("skipBusinessCancelled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipBusinessCancelled { get; set; }
+    }
+
+    public partial class StickyBusiness
+    {
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+    }
+
+    public partial class StickyClient
+    {
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+    }
+
+    public partial class FluffyExtraFilters
+    {
+        [JsonProperty("sort", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffySort> Sort { get; set; }
+    }
+
+    public partial class FluffySort
+    {
+        [JsonProperty("dir")]
+        public Dir Dir { get; set; }
+
+        [JsonProperty("field")]
+        public SortField Field { get; set; }
+    }
+
+    public partial class FluffyFilter
+    {
+        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyCreated Created { get; set; }
+
+        [JsonProperty("end", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? End { get; set; }
+
+        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Services { get; set; }
+
+        [JsonProperty("skipUpdated", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipUpdated { get; set; }
+
+        [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Start { get; set; }
+
+        [JsonProperty("workers", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Workers { get; set; }
+    }
+
+    public partial class FluffyCreated
+    {
+        [JsonProperty("end")]
+        public DateTimeOffset End { get; set; }
+
+        [JsonProperty("start")]
+        public DateTimeOffset Start { get; set; }
+    }
+
+    public partial class FluffyNetwork
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeIdUnion? Id { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByClientV2Response
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentGetAppointmentsByClientV2ResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentGetAppointmentsByClientV2ResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AppointmentGetAppointmentsByClientV2ResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// данные, передаваемые в ответ
+    /// </summary>
+    public partial class AppointmentGetAppointmentsByClientV2ResponseResult
+    {
+        [JsonProperty("data")]
+        public List<Appointment> Data { get; set; }
+
+        [JsonProperty("page")]
+        public double Page { get; set; }
+
+        [JsonProperty("total")]
+        public double Total { get; set; }
+
+        [JsonProperty("unconfirmed")]
+        public double Unconfirmed { get; set; }
+    }
+
+    public partial class GetAppointmentsByUser
+    {
+        [JsonProperty("request")]
+        public AppointmentGetAppointmentsByUserRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public AppointmentGetAppointmentsByUserResponse Response { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByUserRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public AppointmentGetAppointmentsByUserRequestParams Params { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByUserRequestParams
+    {
+        [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
+        public IndigoBusiness Business { get; set; }
+
+        [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledExtraFilters ExtraFilters { get; set; }
+
+        [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledFilter Filter { get; set; }
+
+        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledNetwork Network { get; set; }
+
+        [JsonProperty("skipBusinessCancelled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipBusinessCancelled { get; set; }
+    }
+
+    public partial class IndigoBusiness
+    {
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+    }
+
+    public partial class TentacledExtraFilters
+    {
+        [JsonProperty("sort", NullValueHandling = NullValueHandling.Ignore)]
+        public List<TentacledSort> Sort { get; set; }
+    }
+
+    public partial class TentacledSort
+    {
+        [JsonProperty("dir")]
+        public Dir Dir { get; set; }
+
+        [JsonProperty("field")]
+        public SortField Field { get; set; }
+    }
+
+    public partial class TentacledFilter
+    {
+        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledCreated Created { get; set; }
+
+        [JsonProperty("end", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? End { get; set; }
+
+        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Services { get; set; }
+
+        [JsonProperty("skipUpdated", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipUpdated { get; set; }
+
+        [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Start { get; set; }
+
+        [JsonProperty("workers", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Workers { get; set; }
+    }
+
+    public partial class TentacledCreated
+    {
+        [JsonProperty("end")]
+        public DateTimeOffset End { get; set; }
+
+        [JsonProperty("start")]
+        public DateTimeOffset Start { get; set; }
+    }
+
+    public partial class TentacledNetwork
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeIdUnion? Id { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByUserResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentGetAppointmentsByUserResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentGetAppointmentsByUserResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AppointmentGetAppointmentsByUserResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public string Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// данные, передаваемые в ответ
+    /// </summary>
+    public partial class AppointmentGetAppointmentsByUserResponseResult
+    {
+        [JsonProperty("data")]
+        public List<Appointment> Data { get; set; }
+
+        [JsonProperty("page")]
+        public double Page { get; set; }
+
+        [JsonProperty("total")]
+        public double Total { get; set; }
+
+        [JsonProperty("unconfirmed")]
+        public double Unconfirmed { get; set; }
+    }
+
     public partial class ReserveAppointment
     {
         [JsonProperty("request")]
@@ -1830,7 +2215,7 @@ namespace GBookingCoreV2
         public IndigoAppointment Appointment { get; set; }
 
         [JsonProperty("business")]
-        public StickyBusiness Business { get; set; }
+        public IndecentBusiness Business { get; set; }
 
         [JsonProperty("originBusinessID")]
         public string OriginBusinessId { get; set; }
@@ -1866,7 +2251,7 @@ namespace GBookingCoreV2
         public CurrencyList Currency { get; set; }
     }
 
-    public partial class StickyBusiness
+    public partial class IndecentBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -4566,7 +4951,7 @@ namespace GBookingCoreV2
     public partial class BusinessGetProfileByIdRequestParams
     {
         [JsonProperty("business")]
-        public IndigoBusiness Business { get; set; }
+        public HilariousBusiness Business { get; set; }
 
         /// <summary>
         /// если указано true - меняет формат представления discounts
@@ -4656,7 +5041,7 @@ namespace GBookingCoreV2
         public WorkerSortingType? WorkerSortingType { get; set; }
     }
 
-    public partial class IndigoBusiness
+    public partial class HilariousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -5326,6 +5711,9 @@ namespace GBookingCoreV2
         [JsonProperty("confirmationAlert", NullValueHandling = NullValueHandling.Ignore)]
         public string ConfirmationAlert { get; set; }
 
+        [JsonProperty("confirmationEmailAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationEmailAlert { get; set; }
+
         [JsonProperty("confirmationSmsAlert", NullValueHandling = NullValueHandling.Ignore)]
         public string ConfirmationSmsAlert { get; set; }
 
@@ -5337,6 +5725,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("designs", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> Designs { get; set; }
+
+        [JsonProperty("disableClientSmsNotifications", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisableClientSmsNotifications { get; set; }
 
         [JsonProperty("discounts", NullValueHandling = NullValueHandling.Ignore)]
         public List<Discount> Discounts { get; set; }
@@ -5370,6 +5761,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("isOther", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsOther { get; set; }
+
+        [JsonProperty("isTelemed", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsTelemed { get; set; }
 
         [JsonProperty("lastModified", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? LastModified { get; set; }
@@ -5659,6 +6053,12 @@ namespace GBookingCoreV2
         [JsonProperty("allowSkipTimeCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? AllowSkipTimeCheck { get; set; }
 
+        [JsonProperty("analyticsGoogle", NullValueHandling = NullValueHandling.Ignore)]
+        public AnalyticsGoogle AnalyticsGoogle { get; set; }
+
+        [JsonProperty("analyticsYandex", NullValueHandling = NullValueHandling.Ignore)]
+        public AnalyticsYandex AnalyticsYandex { get; set; }
+
         [JsonProperty("appointment_confirmation_text", NullValueHandling = NullValueHandling.Ignore)]
         public string AppointmentConfirmationText { get; set; }
 
@@ -5670,6 +6070,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("askClientGender", NullValueHandling = NullValueHandling.Ignore)]
         public bool? AskClientGender { get; set; }
+
+        [JsonProperty("askClientPassportID", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AskClientPassportId { get; set; }
 
         [JsonProperty("bookableDateRanges", NullValueHandling = NullValueHandling.Ignore)]
         public FluffyBookableDateRanges BookableDateRanges { get; set; }
@@ -5917,6 +6320,9 @@ namespace GBookingCoreV2
         [JsonProperty("theme", NullValueHandling = NullValueHandling.Ignore)]
         public string Theme { get; set; }
 
+        [JsonProperty("toggleReminder", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ToggleReminder { get; set; }
+
         [JsonProperty("useAppointmentReminder", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAppointmentReminder { get; set; }
 
@@ -5976,6 +6382,24 @@ namespace GBookingCoreV2
 
         [JsonProperty("workerNameReverse", NullValueHandling = NullValueHandling.Ignore)]
         public bool? WorkerNameReverse { get; set; }
+    }
+
+    public partial class AnalyticsGoogle
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+        public string Key { get; set; }
+    }
+
+    public partial class AnalyticsYandex
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+        public string Key { get; set; }
     }
 
     public partial class FluffyBookableDateRanges
@@ -6221,7 +6645,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientRequestParams
     {
         [JsonProperty("business")]
-        public IndecentBusiness Business { get; set; }
+        public AmbitiousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -6236,7 +6660,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class IndecentBusiness
+    public partial class AmbitiousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -6296,7 +6720,7 @@ namespace GBookingCoreV2
         public List<FavResource> FavResources { get; set; }
 
         [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FaxElement> Fax { get; set; }
+        public string Fax { get; set; }
 
         [JsonProperty("fromSms", NullValueHandling = NullValueHandling.Ignore)]
         public FromSms? FromSms { get; set; }
@@ -6570,7 +6994,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientResponseResult
     {
         [JsonProperty("business")]
-        public HilariousBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -6585,7 +7009,7 @@ namespace GBookingCoreV2
         public Source? Source { get; set; }
     }
 
-    public partial class HilariousBusiness
+    public partial class CunningBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6645,13 +7069,13 @@ namespace GBookingCoreV2
     public partial class ClientFindOrCreateClientRequestParams
     {
         [JsonProperty("business")]
-        public AmbitiousBusiness Business { get; set; }
+        public MagentaBusiness Business { get; set; }
 
         [JsonProperty("client", NullValueHandling = NullValueHandling.Ignore)]
         public ClientClass Client { get; set; }
 
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyNetwork Network { get; set; }
+        public StickyNetwork Network { get; set; }
 
         [JsonProperty("skipEmailCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SkipEmailCheck { get; set; }
@@ -6660,7 +7084,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class AmbitiousBusiness
+    public partial class MagentaBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -6669,7 +7093,7 @@ namespace GBookingCoreV2
         public BackofficeIdUnion Id { get; set; }
     }
 
-    public partial class FluffyNetwork
+    public partial class StickyNetwork
     {
         /// <summary>
         /// идентификатор нетворка
@@ -6733,7 +7157,7 @@ namespace GBookingCoreV2
     public partial class ClientFindOfCreateClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public CunningBusiness Business { get; set; }
+        public FriskyBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -6745,7 +7169,7 @@ namespace GBookingCoreV2
         public FluffyProfile Profile { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class FriskyBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -6805,16 +7229,16 @@ namespace GBookingCoreV2
     public partial class ClientUpdateClientRequestParams
     {
         [JsonProperty("business")]
-        public MagentaBusiness Business { get; set; }
+        public MischievousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
 
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
-        public TentacledNetwork Network { get; set; }
+        public IndigoNetwork Network { get; set; }
     }
 
-    public partial class MagentaBusiness
+    public partial class MischievousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -6823,7 +7247,7 @@ namespace GBookingCoreV2
         public BackofficeIdUnion Id { get; set; }
     }
 
-    public partial class TentacledNetwork
+    public partial class IndigoNetwork
     {
         /// <summary>
         /// идентификатор нетворка
@@ -6959,7 +7383,7 @@ namespace GBookingCoreV2
     public partial class CracCracDistributedResourcesFreeByDateRequestParam
     {
         [JsonProperty("business")]
-        public FriskyBusiness Business { get; set; }
+        public BraggadociousBusiness Business { get; set; }
 
         [JsonProperty("resources")]
         public List<string> Resources { get; set; }
@@ -6968,7 +7392,7 @@ namespace GBookingCoreV2
         public TentacledTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class FriskyBusiness
+    public partial class BraggadociousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -7227,7 +7651,7 @@ namespace GBookingCoreV2
     public partial class CracCracResourcesFreeByDateV2RequestParam
     {
         [JsonProperty("business")]
-        public MischievousBusiness Business { get; set; }
+        public Business1 Business { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -7242,7 +7666,7 @@ namespace GBookingCoreV2
         public IndigoTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class MischievousBusiness
+    public partial class Business1
     {
         [JsonProperty("id")]
         public string Id { get; set; }

@@ -3,9 +3,12 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class FluffyNetwork {
+public class IndigoNetwork {
     private FluffyTimeFrameDate id;
 
+    /**
+     * идентификатор нетворка
+     */
     @JsonProperty("id")
     public FluffyTimeFrameDate getID() { return id; }
     @JsonProperty("id")
