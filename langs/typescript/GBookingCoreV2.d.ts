@@ -1545,7 +1545,7 @@ export interface InfoBackofficeConfiguration {
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
-    paymentProvider?: PurplePaymentProvider;
+    paymentProvider?: BackofficeConfigurationPaymentProvider;
     readonlyResourceSchedule?: boolean;
     resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
@@ -1626,10 +1626,13 @@ export declare enum InvoiceProvider {
     Disable = "DISABLE",
     Icount = "icount"
 }
-export declare enum PurplePaymentProvider {
+export declare enum BackofficeConfigurationPaymentProvider {
+    Cloudpayments = "cloudpayments",
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
-    YandexMoney = "yandexMoney"
+    Pelecard = "pelecard",
+    YandexMoney = "yandexMoney",
+    YandexMoneyv3 = "yandexMoneyv3"
 }
 export declare enum ResourceTimetableType {
     Default = "DEFAULT",
@@ -2632,7 +2635,7 @@ export interface InfoWidgetConfiguration {
     noDefaultImages?: boolean;
     overrideFooter?: string;
     payment?: Payment;
-    paymentProvider?: PurplePaymentProvider;
+    paymentProvider?: BackofficeConfigurationPaymentProvider;
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
@@ -3010,7 +3013,7 @@ export interface BusinessBackofficeConfiguration {
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
-    paymentProvider?: FluffyPaymentProvider;
+    paymentProvider?: BackofficeConfigurationPaymentProvider;
     readonlyResourceSchedule?: boolean;
     resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
@@ -3082,13 +3085,6 @@ export interface BusinessBackofficeConfiguration {
     useGtAppMethod?: boolean;
     workWeekEnd?: number;
     workWeekStart?: number;
-}
-export declare enum FluffyPaymentProvider {
-    Cloudpayments = "cloudpayments",
-    DeltaProcessing = "deltaProcessing",
-    Disable = "DISABLE",
-    Pelecard = "pelecard",
-    YandexMoney = "yandexMoney"
 }
 export interface ScheduleSplitDayTimeInterval {
     endHour?: number;
@@ -3368,7 +3364,7 @@ export interface BusinessWidgetConfiguration {
     noDefaultImages?: boolean;
     overrideFooter?: string;
     payment?: Payment;
-    paymentProvider?: FluffyPaymentProvider;
+    paymentProvider?: PurplePaymentProvider;
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
@@ -3450,6 +3446,13 @@ export interface FluffyClientBlockingSettings {
 export interface FluffyDiscountedPriceRounding {
     rule?: Rule;
     value?: number;
+}
+export declare enum PurplePaymentProvider {
+    Cloudpayments = "cloudpayments",
+    DeltaProcessing = "deltaProcessing",
+    Disable = "DISABLE",
+    Pelecard = "pelecard",
+    YandexMoney = "yandexMoney"
 }
 export interface FluffySocialSharing {
     active?: boolean;

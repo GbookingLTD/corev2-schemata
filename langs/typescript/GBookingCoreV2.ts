@@ -1680,7 +1680,7 @@ export interface InfoBackofficeConfiguration {
     manualExceptionSupport?:                          boolean;
     noInternetAlert?:                                 boolean;
     pastTimeEdit?:                                    number;
-    paymentProvider?:                                 PurplePaymentProvider;
+    paymentProvider?:                                 BackofficeConfigurationPaymentProvider;
     readonlyResourceSchedule?:                        boolean;
     resourceSurnameFirst?:                            boolean;
     resourceTimetableType?:                           ResourceTimetableType;
@@ -1762,10 +1762,13 @@ export enum InvoiceProvider {
     Icount = "icount",
 }
 
-export enum PurplePaymentProvider {
+export enum BackofficeConfigurationPaymentProvider {
+    Cloudpayments = "cloudpayments",
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
+    Pelecard = "pelecard",
     YandexMoney = "yandexMoney",
+    YandexMoneyv3 = "yandexMoneyv3",
 }
 
 export enum ResourceTimetableType {
@@ -2824,7 +2827,7 @@ export interface InfoWidgetConfiguration {
     noDefaultImages?:                        boolean;
     overrideFooter?:                         string;
     payment?:                                Payment;
-    paymentProvider?:                        PurplePaymentProvider;
+    paymentProvider?:                        BackofficeConfigurationPaymentProvider;
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
@@ -3218,7 +3221,7 @@ export interface BusinessBackofficeConfiguration {
     manualExceptionSupport?:                          boolean;
     noInternetAlert?:                                 boolean;
     pastTimeEdit?:                                    number;
-    paymentProvider?:                                 FluffyPaymentProvider;
+    paymentProvider?:                                 BackofficeConfigurationPaymentProvider;
     readonlyResourceSchedule?:                        boolean;
     resourceSurnameFirst?:                            boolean;
     resourceTimetableType?:                           ResourceTimetableType;
@@ -3288,14 +3291,6 @@ export interface BusinessBackofficeConfiguration {
     useGtAppMethod?:                                  boolean;
     workWeekEnd?:                                     number;
     workWeekStart?:                                   number;
-}
-
-export enum FluffyPaymentProvider {
-    Cloudpayments = "cloudpayments",
-    DeltaProcessing = "deltaProcessing",
-    Disable = "DISABLE",
-    Pelecard = "pelecard",
-    YandexMoney = "yandexMoney",
 }
 
 export interface ScheduleSplitDayTimeInterval {
@@ -3589,7 +3584,7 @@ export interface BusinessWidgetConfiguration {
     noDefaultImages?:                        boolean;
     overrideFooter?:                         string;
     payment?:                                Payment;
-    paymentProvider?:                        FluffyPaymentProvider;
+    paymentProvider?:                        PurplePaymentProvider;
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
@@ -3676,6 +3671,14 @@ export interface FluffyClientBlockingSettings {
 export interface FluffyDiscountedPriceRounding {
     rule?:  Rule;
     value?: number;
+}
+
+export enum PurplePaymentProvider {
+    Cloudpayments = "cloudpayments",
+    DeltaProcessing = "deltaProcessing",
+    Disable = "DISABLE",
+    Pelecard = "pelecard",
+    YandexMoney = "yandexMoney",
 }
 
 export interface FluffySocialSharing {
@@ -5844,7 +5847,7 @@ const typeMap: any = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
@@ -6416,7 +6419,7 @@ const typeMap: any = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -6658,7 +6661,7 @@ const typeMap: any = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
@@ -6950,7 +6953,7 @@ const typeMap: any = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -7734,10 +7737,13 @@ const typeMap: any = {
         "DISABLE",
         "icount",
     ],
-    "PurplePaymentProvider": [
+    "BackofficeConfigurationPaymentProvider": [
+        "cloudpayments",
         "deltaProcessing",
         "DISABLE",
+        "pelecard",
         "yandexMoney",
+        "yandexMoneyv3",
     ],
     "ResourceTimetableType": [
         "DEFAULT",
@@ -7922,7 +7928,7 @@ const typeMap: any = {
         "none",
         "workload",
     ],
-    "FluffyPaymentProvider": [
+    "PurplePaymentProvider": [
         "cloudpayments",
         "deltaProcessing",
         "DISABLE",

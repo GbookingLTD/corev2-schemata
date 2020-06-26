@@ -63,7 +63,7 @@ public class InfoWidgetConfiguration {
     private Boolean noDefaultImages;
     private String overrideFooter;
     private Payment payment;
-    private PurplePaymentProvider paymentProvider;
+    private BackofficeConfigurationPaymentProvider paymentProvider;
     private Boolean requireAgreement;
     private String requireAgreementLink;
     private Double revisionVersion;
@@ -416,9 +416,9 @@ public class InfoWidgetConfiguration {
     public void setPayment(Payment value) { this.payment = value; }
 
     @JsonProperty("paymentProvider")
-    public PurplePaymentProvider getPaymentProvider() { return paymentProvider; }
+    public BackofficeConfigurationPaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(PurplePaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(BackofficeConfigurationPaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("requireAgreement")
     public Boolean getRequireAgreement() { return requireAgreement; }

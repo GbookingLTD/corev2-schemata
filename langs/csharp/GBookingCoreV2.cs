@@ -2783,7 +2783,7 @@ namespace GBookingCoreV2
         public double? PastTimeEdit { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePaymentProvider? PaymentProvider { get; set; }
+        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadonlyResourceSchedule { get; set; }
@@ -4682,7 +4682,7 @@ namespace GBookingCoreV2
         public Payment? Payment { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePaymentProvider? PaymentProvider { get; set; }
+        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequireAgreement { get; set; }
@@ -5451,7 +5451,7 @@ namespace GBookingCoreV2
         public double? PastTimeEdit { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyPaymentProvider? PaymentProvider { get; set; }
+        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadonlyResourceSchedule { get; set; }
@@ -6318,7 +6318,7 @@ namespace GBookingCoreV2
         public Payment? Payment { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyPaymentProvider? PaymentProvider { get; set; }
+        public PurplePaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequireAgreement { get; set; }
@@ -8458,7 +8458,7 @@ namespace GBookingCoreV2
 
     public enum InvoiceProvider { Disable, Icount };
 
-    public enum PurplePaymentProvider { DeltaProcessing, Disable, YandexMoney };
+    public enum BackofficeConfigurationPaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney, YandexMoneyv3 };
 
     public enum ResourceTimetableType { Default, Evenodd };
 
@@ -8529,7 +8529,7 @@ namespace GBookingCoreV2
     /// </summary>
     public enum WorkerSortingType { MostFree, None, Workload };
 
-    public enum FluffyPaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney };
+    public enum PurplePaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney };
 
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
 
@@ -8780,7 +8780,7 @@ namespace GBookingCoreV2
                 AppointmentExtensionTypeConverter.Singleton,
                 FeedBackMinRatingConverter.Singleton,
                 InvoiceProviderConverter.Singleton,
-                PurplePaymentProviderConverter.Singleton,
+                BackofficeConfigurationPaymentProviderConverter.Singleton,
                 ResourceTimetableTypeConverter.Singleton,
                 SchedulerWeekViewTypeConverter.Singleton,
                 TelemedProviderConverter.Singleton,
@@ -8811,7 +8811,7 @@ namespace GBookingCoreV2
                 DiscountTypeConverter.Singleton,
                 UseDirectScheduleReadConverter.Singleton,
                 WorkerSortingTypeConverter.Singleton,
-                FluffyPaymentProviderConverter.Singleton,
+                PurplePaymentProviderConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
                 FluffyValueConverter.Singleton,
                 FromSmsConverter.Singleton,
@@ -10114,9 +10114,9 @@ namespace GBookingCoreV2
         public static readonly InvoiceProviderConverter Singleton = new InvoiceProviderConverter();
     }
 
-    internal class PurplePaymentProviderConverter : JsonConverter
+    internal class BackofficeConfigurationPaymentProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(PurplePaymentProvider) || t == typeof(PurplePaymentProvider?);
+        public override bool CanConvert(Type t) => t == typeof(BackofficeConfigurationPaymentProvider) || t == typeof(BackofficeConfigurationPaymentProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -10125,13 +10125,19 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return PurplePaymentProvider.Disable;
+                    return BackofficeConfigurationPaymentProvider.Disable;
+                case "cloudpayments":
+                    return BackofficeConfigurationPaymentProvider.Cloudpayments;
                 case "deltaProcessing":
-                    return PurplePaymentProvider.DeltaProcessing;
+                    return BackofficeConfigurationPaymentProvider.DeltaProcessing;
+                case "pelecard":
+                    return BackofficeConfigurationPaymentProvider.Pelecard;
                 case "yandexMoney":
-                    return PurplePaymentProvider.YandexMoney;
+                    return BackofficeConfigurationPaymentProvider.YandexMoney;
+                case "yandexMoneyv3":
+                    return BackofficeConfigurationPaymentProvider.YandexMoneyv3;
             }
-            throw new Exception("Cannot unmarshal type PurplePaymentProvider");
+            throw new Exception("Cannot unmarshal type BackofficeConfigurationPaymentProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -10141,23 +10147,32 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (PurplePaymentProvider)untypedValue;
+            var value = (BackofficeConfigurationPaymentProvider)untypedValue;
             switch (value)
             {
-                case PurplePaymentProvider.Disable:
+                case BackofficeConfigurationPaymentProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case PurplePaymentProvider.DeltaProcessing:
+                case BackofficeConfigurationPaymentProvider.Cloudpayments:
+                    serializer.Serialize(writer, "cloudpayments");
+                    return;
+                case BackofficeConfigurationPaymentProvider.DeltaProcessing:
                     serializer.Serialize(writer, "deltaProcessing");
                     return;
-                case PurplePaymentProvider.YandexMoney:
+                case BackofficeConfigurationPaymentProvider.Pelecard:
+                    serializer.Serialize(writer, "pelecard");
+                    return;
+                case BackofficeConfigurationPaymentProvider.YandexMoney:
                     serializer.Serialize(writer, "yandexMoney");
                     return;
+                case BackofficeConfigurationPaymentProvider.YandexMoneyv3:
+                    serializer.Serialize(writer, "yandexMoneyv3");
+                    return;
             }
-            throw new Exception("Cannot marshal type PurplePaymentProvider");
+            throw new Exception("Cannot marshal type BackofficeConfigurationPaymentProvider");
         }
 
-        public static readonly PurplePaymentProviderConverter Singleton = new PurplePaymentProviderConverter();
+        public static readonly BackofficeConfigurationPaymentProviderConverter Singleton = new BackofficeConfigurationPaymentProviderConverter();
     }
 
     internal class ResourceTimetableTypeConverter : JsonConverter
@@ -11751,9 +11766,9 @@ namespace GBookingCoreV2
         public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
     }
 
-    internal class FluffyPaymentProviderConverter : JsonConverter
+    internal class PurplePaymentProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(FluffyPaymentProvider) || t == typeof(FluffyPaymentProvider?);
+        public override bool CanConvert(Type t) => t == typeof(PurplePaymentProvider) || t == typeof(PurplePaymentProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -11762,17 +11777,17 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return FluffyPaymentProvider.Disable;
+                    return PurplePaymentProvider.Disable;
                 case "cloudpayments":
-                    return FluffyPaymentProvider.Cloudpayments;
+                    return PurplePaymentProvider.Cloudpayments;
                 case "deltaProcessing":
-                    return FluffyPaymentProvider.DeltaProcessing;
+                    return PurplePaymentProvider.DeltaProcessing;
                 case "pelecard":
-                    return FluffyPaymentProvider.Pelecard;
+                    return PurplePaymentProvider.Pelecard;
                 case "yandexMoney":
-                    return FluffyPaymentProvider.YandexMoney;
+                    return PurplePaymentProvider.YandexMoney;
             }
-            throw new Exception("Cannot unmarshal type FluffyPaymentProvider");
+            throw new Exception("Cannot unmarshal type PurplePaymentProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -11782,29 +11797,29 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (FluffyPaymentProvider)untypedValue;
+            var value = (PurplePaymentProvider)untypedValue;
             switch (value)
             {
-                case FluffyPaymentProvider.Disable:
+                case PurplePaymentProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case FluffyPaymentProvider.Cloudpayments:
+                case PurplePaymentProvider.Cloudpayments:
                     serializer.Serialize(writer, "cloudpayments");
                     return;
-                case FluffyPaymentProvider.DeltaProcessing:
+                case PurplePaymentProvider.DeltaProcessing:
                     serializer.Serialize(writer, "deltaProcessing");
                     return;
-                case FluffyPaymentProvider.Pelecard:
+                case PurplePaymentProvider.Pelecard:
                     serializer.Serialize(writer, "pelecard");
                     return;
-                case FluffyPaymentProvider.YandexMoney:
+                case PurplePaymentProvider.YandexMoney:
                     serializer.Serialize(writer, "yandexMoney");
                     return;
             }
-            throw new Exception("Cannot marshal type FluffyPaymentProvider");
+            throw new Exception("Cannot marshal type PurplePaymentProvider");
         }
 
-        public static readonly FluffyPaymentProviderConverter Singleton = new FluffyPaymentProviderConverter();
+        public static readonly PurplePaymentProviderConverter Singleton = new PurplePaymentProviderConverter();
     }
 
     internal class YandexFeedTypeConverter : JsonConverter

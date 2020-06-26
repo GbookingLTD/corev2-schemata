@@ -4,8 +4,8 @@ import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
-public enum FluffyPaymentProvider {
-    CLOUDPAYMENTS, DELTA_PROCESSING, DISABLE, PELECARD, YANDEX_MONEY;
+public enum BackofficeConfigurationPaymentProvider {
+    CLOUDPAYMENTS, DELTA_PROCESSING, DISABLE, PELECARD, YANDEX_MONEY, YANDEX_MONEYV3;
 
     @JsonValue
     public String toValue() {
@@ -15,17 +15,19 @@ public enum FluffyPaymentProvider {
         case DISABLE: return "DISABLE";
         case PELECARD: return "pelecard";
         case YANDEX_MONEY: return "yandexMoney";
+        case YANDEX_MONEYV3: return "yandexMoneyv3";
         }
         return null;
     }
 
     @JsonCreator
-    public static FluffyPaymentProvider forValue(String value) throws IOException {
+    public static BackofficeConfigurationPaymentProvider forValue(String value) throws IOException {
         if (value.equals("cloudpayments")) return CLOUDPAYMENTS;
         if (value.equals("deltaProcessing")) return DELTA_PROCESSING;
         if (value.equals("DISABLE")) return DISABLE;
         if (value.equals("pelecard")) return PELECARD;
         if (value.equals("yandexMoney")) return YANDEX_MONEY;
-        throw new IOException("Cannot deserialize FluffyPaymentProvider");
+        if (value.equals("yandexMoneyv3")) return YANDEX_MONEYV3;
+        throw new IOException("Cannot deserialize BackofficeConfigurationPaymentProvider");
     }
 }

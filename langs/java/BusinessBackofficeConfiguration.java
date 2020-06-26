@@ -48,7 +48,7 @@ public class BusinessBackofficeConfiguration {
     private Boolean manualExceptionSupport;
     private Boolean noInternetAlert;
     private Double pastTimeEdit;
-    private FluffyPaymentProvider paymentProvider;
+    private BackofficeConfigurationPaymentProvider paymentProvider;
     private Boolean readonlyResourceSchedule;
     private Boolean resourceSurnameFirst;
     private ResourceTimetableType resourceTimetableType;
@@ -340,9 +340,9 @@ public class BusinessBackofficeConfiguration {
     public void setPastTimeEdit(Double value) { this.pastTimeEdit = value; }
 
     @JsonProperty("paymentProvider")
-    public FluffyPaymentProvider getPaymentProvider() { return paymentProvider; }
+    public BackofficeConfigurationPaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(FluffyPaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(BackofficeConfigurationPaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("readonlyResourceSchedule")
     public Boolean getReadonlyResourceSchedule() { return readonlyResourceSchedule; }

@@ -8,7 +8,7 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
-exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.FluffyPaymentProvider = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.DaysOfWeek = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PurplePaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.ReminderStatus = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.AppointmentClientAppear = void 0;
+exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.PurplePaymentProvider = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.DaysOfWeek = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.BackofficeConfigurationPaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.ReminderStatus = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -132,12 +132,15 @@ var InvoiceProvider;
     InvoiceProvider["Disable"] = "DISABLE";
     InvoiceProvider["Icount"] = "icount";
 })(InvoiceProvider = exports.InvoiceProvider || (exports.InvoiceProvider = {}));
-var PurplePaymentProvider;
-(function (PurplePaymentProvider) {
-    PurplePaymentProvider["DeltaProcessing"] = "deltaProcessing";
-    PurplePaymentProvider["Disable"] = "DISABLE";
-    PurplePaymentProvider["YandexMoney"] = "yandexMoney";
-})(PurplePaymentProvider = exports.PurplePaymentProvider || (exports.PurplePaymentProvider = {}));
+var BackofficeConfigurationPaymentProvider;
+(function (BackofficeConfigurationPaymentProvider) {
+    BackofficeConfigurationPaymentProvider["Cloudpayments"] = "cloudpayments";
+    BackofficeConfigurationPaymentProvider["DeltaProcessing"] = "deltaProcessing";
+    BackofficeConfigurationPaymentProvider["Disable"] = "DISABLE";
+    BackofficeConfigurationPaymentProvider["Pelecard"] = "pelecard";
+    BackofficeConfigurationPaymentProvider["YandexMoney"] = "yandexMoney";
+    BackofficeConfigurationPaymentProvider["YandexMoneyv3"] = "yandexMoneyv3";
+})(BackofficeConfigurationPaymentProvider = exports.BackofficeConfigurationPaymentProvider || (exports.BackofficeConfigurationPaymentProvider = {}));
 var ResourceTimetableType;
 (function (ResourceTimetableType) {
     ResourceTimetableType["Default"] = "DEFAULT";
@@ -362,14 +365,14 @@ var WorkerSortingType;
     WorkerSortingType["None"] = "none";
     WorkerSortingType["Workload"] = "workload";
 })(WorkerSortingType = exports.WorkerSortingType || (exports.WorkerSortingType = {}));
-var FluffyPaymentProvider;
-(function (FluffyPaymentProvider) {
-    FluffyPaymentProvider["Cloudpayments"] = "cloudpayments";
-    FluffyPaymentProvider["DeltaProcessing"] = "deltaProcessing";
-    FluffyPaymentProvider["Disable"] = "DISABLE";
-    FluffyPaymentProvider["Pelecard"] = "pelecard";
-    FluffyPaymentProvider["YandexMoney"] = "yandexMoney";
-})(FluffyPaymentProvider = exports.FluffyPaymentProvider || (exports.FluffyPaymentProvider = {}));
+var PurplePaymentProvider;
+(function (PurplePaymentProvider) {
+    PurplePaymentProvider["Cloudpayments"] = "cloudpayments";
+    PurplePaymentProvider["DeltaProcessing"] = "deltaProcessing";
+    PurplePaymentProvider["Disable"] = "DISABLE";
+    PurplePaymentProvider["Pelecard"] = "pelecard";
+    PurplePaymentProvider["YandexMoney"] = "yandexMoney";
+})(PurplePaymentProvider = exports.PurplePaymentProvider || (exports.PurplePaymentProvider = {}));
 var YandexFeedType;
 (function (YandexFeedType) {
     YandexFeedType["Dynamic"] = "dynamic";
@@ -1420,7 +1423,7 @@ var typeMap = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
@@ -1992,7 +1995,7 @@ var typeMap = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -2234,7 +2237,7 @@ var typeMap = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
@@ -2526,7 +2529,7 @@ var typeMap = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -3310,10 +3313,13 @@ var typeMap = {
         "DISABLE",
         "icount",
     ],
-    "PurplePaymentProvider": [
+    "BackofficeConfigurationPaymentProvider": [
+        "cloudpayments",
         "deltaProcessing",
         "DISABLE",
+        "pelecard",
         "yandexMoney",
+        "yandexMoneyv3",
     ],
     "ResourceTimetableType": [
         "DEFAULT",
@@ -3498,7 +3504,7 @@ var typeMap = {
         "none",
         "workload",
     ],
-    "FluffyPaymentProvider": [
+    "PurplePaymentProvider": [
         "cloudpayments",
         "deltaProcessing",
         "DISABLE",

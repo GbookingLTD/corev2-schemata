@@ -63,7 +63,7 @@ public class BusinessWidgetConfiguration {
     private Boolean noDefaultImages;
     private String overrideFooter;
     private Payment payment;
-    private FluffyPaymentProvider paymentProvider;
+    private PurplePaymentProvider paymentProvider;
     private Boolean requireAgreement;
     private String requireAgreementLink;
     private Double revisionVersion;
@@ -416,9 +416,9 @@ public class BusinessWidgetConfiguration {
     public void setPayment(Payment value) { this.payment = value; }
 
     @JsonProperty("paymentProvider")
-    public FluffyPaymentProvider getPaymentProvider() { return paymentProvider; }
+    public PurplePaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(FluffyPaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(PurplePaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("requireAgreement")
     public Boolean getRequireAgreement() { return requireAgreement; }
