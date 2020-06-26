@@ -721,13 +721,18 @@ properties:
     description: "Данные для телемед конференции"
     required: []
     properties:
-      joinUrl: "string"
-      id: "string"
-      startUrl: "string"
-      shortStartUrl: "string"
-      joinUrl: "string"
-      shortJoinUrl: "string"
-      password: "string"
+      joinUrl:
+        type: "string"
+      id:
+        type: "string"
+      startUrl:
+        type: "string"
+      shortStartUrl:
+        type: "string"
+      shortJoinUrl:
+        type: "string"
+      password: 
+        type: "string"
 
   clientVisitors:
     type: "array"
