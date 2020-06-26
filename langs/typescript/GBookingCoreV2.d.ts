@@ -615,8 +615,8 @@ export interface IntegrationData {
     extraId: null | string;
 }
 export interface Price {
-    additionalTaxonomyDiscount: AdditionalTaxonomyDiscount[];
-    amount: number;
+    additionalTaxonomyDiscount?: AdditionalTaxonomyDiscount[];
+    amount?: number;
     currency: CurrencyList;
     discount?: number;
     discountProvider?: DiscountProvider;
@@ -1190,7 +1190,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByUserResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1214,12 +1214,6 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
-}
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByUserResponseResult {
-    data: Appointment[];
 }
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;
@@ -1261,7 +1255,7 @@ export interface AppointmentObject {
     start: string;
 }
 export interface PurplePrice {
-    amount: number;
+    amount?: number;
     currency: CurrencyList;
 }
 export interface IndecentBusiness {

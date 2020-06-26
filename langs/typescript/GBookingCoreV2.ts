@@ -668,13 +668,13 @@ export interface IntegrationData {
 }
 
 export interface Price {
-    additionalTaxonomyDiscount: AdditionalTaxonomyDiscount[];
-    amount:                     number;
-    currency:                   CurrencyList;
-    discount?:                  number;
-    discountProvider?:          DiscountProvider;
-    discountType?:              string;
-    originalAmount?:            number | null;
+    additionalTaxonomyDiscount?: AdditionalTaxonomyDiscount[];
+    amount?:                     number;
+    currency:                    CurrencyList;
+    discount?:                   number;
+    discountProvider?:           DiscountProvider;
+    discountType?:               string;
+    originalAmount?:             number | null;
 }
 
 export interface AdditionalTaxonomyDiscount {
@@ -1310,7 +1310,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByUserResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1335,13 +1335,6 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
-}
-
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByUserResponseResult {
-    data: Appointment[];
 }
 
 export interface ReserveAppointment {
@@ -1388,7 +1381,7 @@ export interface AppointmentObject {
 }
 
 export interface PurplePrice {
-    amount:   number;
+    amount?:  number;
     currency: CurrencyList;
 }
 
@@ -5300,8 +5293,8 @@ const typeMap: any = {
         { json: "extraId", js: "extraId", typ: u(null, "") },
     ], false),
     "Price": o([
-        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: a(r("AdditionalTaxonomyDiscount")) },
-        { json: "amount", js: "amount", typ: 3.14 },
+        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("AdditionalTaxonomyDiscount"))) },
+        { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
         { json: "discountProvider", js: "discountProvider", typ: u(undefined, r("DiscountProvider")) },
@@ -5648,7 +5641,7 @@ const typeMap: any = {
     "AppointmentGetAppointmentsByUserResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
+        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
@@ -5656,9 +5649,6 @@ const typeMap: any = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "AppointmentGetAppointmentsByUserResponseResult": o([
-        { json: "data", js: "data", typ: a(r("Appointment")) },
-    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -5684,7 +5674,7 @@ const typeMap: any = {
         { json: "start", js: "start", typ: "" },
     ], "any"),
     "PurplePrice": o([
-        { json: "amount", js: "amount", typ: 3.14 },
+        { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
     ], false),
     "IndecentBusiness": o([

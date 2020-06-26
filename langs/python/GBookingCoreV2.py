@@ -1429,15 +1429,15 @@ class CurrencyList(Enum):
 
 
 class Price:
-    additional_taxonomy_discount: List[AdditionalTaxonomyDiscount]
-    amount: float
+    additional_taxonomy_discount: Optional[List[AdditionalTaxonomyDiscount]]
+    amount: Optional[float]
     currency: CurrencyList
     discount: Optional[float]
     discount_provider: Optional[DiscountProvider]
     discount_type: Optional[str]
     original_amount: Optional[float]
 
-    def __init__(self, additional_taxonomy_discount: List[AdditionalTaxonomyDiscount], amount: float, currency: CurrencyList, discount: Optional[float], discount_provider: Optional[DiscountProvider], discount_type: Optional[str], original_amount: Optional[float]) -> None:
+    def __init__(self, additional_taxonomy_discount: Optional[List[AdditionalTaxonomyDiscount]], amount: Optional[float], currency: CurrencyList, discount: Optional[float], discount_provider: Optional[DiscountProvider], discount_type: Optional[str], original_amount: Optional[float]) -> None:
         self.additional_taxonomy_discount = additional_taxonomy_discount
         self.amount = amount
         self.currency = currency
@@ -1449,8 +1449,8 @@ class Price:
     @staticmethod
     def from_dict(obj: Any) -> 'Price':
         assert isinstance(obj, dict)
-        additional_taxonomy_discount = from_list(AdditionalTaxonomyDiscount.from_dict, obj.get("additionalTaxonomyDiscount"))
-        amount = from_float(obj.get("amount"))
+        additional_taxonomy_discount = from_union([lambda x: from_list(AdditionalTaxonomyDiscount.from_dict, x), from_none], obj.get("additionalTaxonomyDiscount"))
+        amount = from_union([from_float, from_none], obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
         discount = from_union([from_float, from_none], obj.get("discount"))
         discount_provider = from_union([DiscountProvider, from_none], obj.get("discountProvider"))
@@ -1460,8 +1460,8 @@ class Price:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["additionalTaxonomyDiscount"] = from_list(lambda x: to_class(AdditionalTaxonomyDiscount, x), self.additional_taxonomy_discount)
-        result["amount"] = to_float(self.amount)
+        result["additionalTaxonomyDiscount"] = from_union([lambda x: from_list(lambda x: to_class(AdditionalTaxonomyDiscount, x), x), from_none], self.additional_taxonomy_discount)
+        result["amount"] = from_union([to_float, from_none], self.amount)
         result["currency"] = to_enum(CurrencyList, self.currency)
         result["discount"] = from_union([to_float, from_none], self.discount)
         result["discountProvider"] = from_union([lambda x: to_enum(DiscountProvider, x), from_none], self.discount_provider)
@@ -3635,35 +3635,16 @@ class AppointmentGetAppointmentsByUserResponseError:
         return result
 
 
-class AppointmentGetAppointmentsByUserResponseResult:
-    """данные, передаваемые в ответ"""
-    data: List[Appointment]
-
-    def __init__(self, data: List[Appointment]) -> None:
-        self.data = data
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByUserResponseResult':
-        assert isinstance(obj, dict)
-        data = from_list(Appointment.from_dict, obj.get("data"))
-        return AppointmentGetAppointmentsByUserResponseResult(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = from_list(lambda x: to_class(Appointment, x), self.data)
-        return result
-
-
 class AppointmentGetAppointmentsByUserResponse:
     """значение числового типа для идентификации запроса на сервере"""
     id: float
     """версия протокола (2.0)"""
     jsonrpc: str
-    result: Optional[AppointmentGetAppointmentsByUserResponseResult]
+    result: Optional[List[Appointment]]
     """объект, содержащий информацию об ошибке"""
     error: Optional[AppointmentGetAppointmentsByUserResponseError]
 
-    def __init__(self, id: float, jsonrpc: str, result: Optional[AppointmentGetAppointmentsByUserResponseResult], error: Optional[AppointmentGetAppointmentsByUserResponseError]) -> None:
+    def __init__(self, id: float, jsonrpc: str, result: Optional[List[Appointment]], error: Optional[AppointmentGetAppointmentsByUserResponseError]) -> None:
         self.id = id
         self.jsonrpc = jsonrpc
         self.result = result
@@ -3674,7 +3655,7 @@ class AppointmentGetAppointmentsByUserResponse:
         assert isinstance(obj, dict)
         id = from_float(obj.get("id"))
         jsonrpc = from_str(obj.get("jsonrpc"))
-        result = from_union([AppointmentGetAppointmentsByUserResponseResult.from_dict, from_none], obj.get("result"))
+        result = from_union([lambda x: from_list(Appointment.from_dict, x), from_none], obj.get("result"))
         error = from_union([AppointmentGetAppointmentsByUserResponseError.from_dict, from_none], obj.get("error"))
         return AppointmentGetAppointmentsByUserResponse(id, jsonrpc, result, error)
 
@@ -3682,7 +3663,7 @@ class AppointmentGetAppointmentsByUserResponse:
         result: dict = {}
         result["id"] = to_float(self.id)
         result["jsonrpc"] = from_str(self.jsonrpc)
-        result["result"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByUserResponseResult, x), from_none], self.result)
+        result["result"] = from_union([lambda x: from_list(lambda x: to_class(Appointment, x), x), from_none], self.result)
         result["error"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByUserResponseError, x), from_none], self.error)
         return result
 
@@ -3710,23 +3691,23 @@ class GetAppointmentsByUser:
 
 
 class PurplePrice:
-    amount: float
+    amount: Optional[float]
     currency: CurrencyList
 
-    def __init__(self, amount: float, currency: CurrencyList) -> None:
+    def __init__(self, amount: Optional[float], currency: CurrencyList) -> None:
         self.amount = amount
         self.currency = currency
 
     @staticmethod
     def from_dict(obj: Any) -> 'PurplePrice':
         assert isinstance(obj, dict)
-        amount = from_float(obj.get("amount"))
+        amount = from_union([from_float, from_none], obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
         return PurplePrice(amount, currency)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["amount"] = to_float(self.amount)
+        result["amount"] = from_union([to_float, from_none], self.amount)
         result["currency"] = to_enum(CurrencyList, self.currency)
         return result
 

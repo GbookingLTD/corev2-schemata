@@ -4,13 +4,13 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class PurplePrice {
-    private double amount;
+    private Double amount;
     private CurrencyList currency;
 
     @JsonProperty("amount")
-    public double getAmount() { return amount; }
+    public Double getAmount() { return amount; }
     @JsonProperty("amount")
-    public void setAmount(double value) { this.amount = value; }
+    public void setAmount(Double value) { this.amount = value; }
 
     @JsonProperty("currency")
     public CurrencyList getCurrency() { return currency; }

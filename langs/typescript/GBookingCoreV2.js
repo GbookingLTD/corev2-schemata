@@ -864,8 +864,8 @@ var typeMap = {
         { json: "extraId", js: "extraId", typ: u(null, "") },
     ], false),
     "Price": o([
-        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: a(r("AdditionalTaxonomyDiscount")) },
-        { json: "amount", js: "amount", typ: 3.14 },
+        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("AdditionalTaxonomyDiscount"))) },
+        { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
         { json: "discountProvider", js: "discountProvider", typ: u(undefined, r("DiscountProvider")) },
@@ -1212,7 +1212,7 @@ var typeMap = {
     "AppointmentGetAppointmentsByUserResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
+        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
@@ -1220,9 +1220,6 @@ var typeMap = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "AppointmentGetAppointmentsByUserResponseResult": o([
-        { json: "data", js: "data", typ: a(r("Appointment")) },
-    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -1248,7 +1245,7 @@ var typeMap = {
         { json: "start", js: "start", typ: "" },
     ], "any"),
     "PurplePrice": o([
-        { json: "amount", js: "amount", typ: 3.14 },
+        { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
     ], false),
     "IndecentBusiness": o([

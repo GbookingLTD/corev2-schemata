@@ -36,7 +36,6 @@
                             "type": "object",
                             "additionalProperties": false,
                             "required": [
-                                "amount",
                                 "currency"
                             ],
                             "properties": {

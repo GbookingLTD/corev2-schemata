@@ -1073,11 +1073,11 @@ namespace GBookingCoreV2
 
     public partial class Price
     {
-        [JsonProperty("additionalTaxonomyDiscount")]
+        [JsonProperty("additionalTaxonomyDiscount", NullValueHandling = NullValueHandling.Ignore)]
         public List<AdditionalTaxonomyDiscount> AdditionalTaxonomyDiscount { get; set; }
 
-        [JsonProperty("amount")]
-        public double Amount { get; set; }
+        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Amount { get; set; }
 
         [JsonProperty("currency")]
         public CurrencyList Currency { get; set; }
@@ -2114,7 +2114,7 @@ namespace GBookingCoreV2
         public string Jsonrpc { get; set; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public AppointmentGetAppointmentsByUserResponseResult Result { get; set; }
+        public List<Appointment> Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -2147,15 +2147,6 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
-    }
-
-    /// <summary>
-    /// данные, передаваемые в ответ
-    /// </summary>
-    public partial class AppointmentGetAppointmentsByUserResponseResult
-    {
-        [JsonProperty("data")]
-        public List<Appointment> Data { get; set; }
     }
 
     public partial class ReserveAppointment
@@ -2235,8 +2226,8 @@ namespace GBookingCoreV2
 
     public partial class PurplePrice
     {
-        [JsonProperty("amount")]
-        public double Amount { get; set; }
+        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Amount { get; set; }
 
         [JsonProperty("currency")]
         public CurrencyList Currency { get; set; }

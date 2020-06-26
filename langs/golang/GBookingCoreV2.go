@@ -422,7 +422,7 @@ type IntegrationData struct {
 
 type Price struct {
 	AdditionalTaxonomyDiscount []AdditionalTaxonomyDiscount `json:"additionalTaxonomyDiscount"`
-	Amount                     float64                      `json:"amount"`                    
+	Amount                     *float64                     `json:"amount,omitempty"`          
 	Currency                   CurrencyList                 `json:"currency"`                  
 	Discount                   *float64                     `json:"discount,omitempty"`        
 	DiscountProvider           *DiscountProvider            `json:"discountProvider,omitempty"`
@@ -845,10 +845,10 @@ type TentacledNetwork struct {
 }
 
 type AppointmentGetAppointmentsByUserResponse struct {
-	ID      float64                                         `json:"id"`              // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                                          `json:"jsonrpc"`         // версия протокола (2.0)
-	Result  *AppointmentGetAppointmentsByUserResponseResult `json:"result,omitempty"`
-	Error   *AppointmentGetAppointmentsByUserResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+	ID      float64                                        `json:"id"`             // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                         `json:"jsonrpc"`        // версия протокола (2.0)
+	Result  []Appointment                                  `json:"result"`         
+	Error   *AppointmentGetAppointmentsByUserResponseError `json:"error,omitempty"`// объект, содержащий информацию об ошибке
 }
 
 // объект, содержащий информацию об ошибке
@@ -858,11 +858,6 @@ type AppointmentGetAppointmentsByUserResponseError struct {
 	Code    float64 `json:"code"`          // код ошибки
 	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
 	Message string  `json:"message"`       // текстовая информация об ошибке
-}
-
-// данные, передаваемые в ответ
-type AppointmentGetAppointmentsByUserResponseResult struct {
-	Data []Appointment `json:"data"`
 }
 
 type ReserveAppointment struct {
@@ -894,8 +889,8 @@ type IndigoAppointment struct {
 }
 
 type PurplePrice struct {
-	Amount   float64      `json:"amount"`  
-	Currency CurrencyList `json:"currency"`
+	Amount   *float64     `json:"amount,omitempty"`
+	Currency CurrencyList `json:"currency"`        
 }
 
 type IndecentBusiness struct {

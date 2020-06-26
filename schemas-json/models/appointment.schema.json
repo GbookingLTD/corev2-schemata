@@ -475,9 +475,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "amount",
-                "currency",
-                "additionalTaxonomyDiscount"
+                "currency"
             ],
             "properties": {
                 "amount": {
