@@ -244,7 +244,11 @@ definitions:
       extraVisitors:
         type: "number"
       incomingPhone:
-        $ref: "#/definitions/Phone"
+        oneOf:
+          - $ref: "#/definitions/Phone"
+          - type: "object"
+            description: "пустой объект в момент резервирования"
+            required: []        
       shortId:
         type: "string"
       phone:
