@@ -436,7 +436,7 @@ definitions:
         default: false
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "DISABLE"]
+        enum: ["yandexMoney", "yandexMoneyv3", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
       showDefaulterBlockscreen:
         type: "boolean"
         default: false
