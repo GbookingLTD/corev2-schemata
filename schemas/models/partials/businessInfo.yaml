@@ -78,7 +78,7 @@ properties:
   phone_mask:
     type: ["string", "null"]
   min_booking_time:
-    type: ["boolean", "null"]
+    type: ["number", "null"]
     default: false
   align_min_booking_time:
     type: ["boolean", "null"]
