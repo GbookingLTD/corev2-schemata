@@ -562,6 +562,9 @@ definitions:
       skipServiceFiltering:
         type: "boolean"
         default: false
+      resourceSurnameFirst:
+        type: "boolean"
+        default: false
       skipAppointmentPriceUpdate:
         type: "boolean"
         default: false

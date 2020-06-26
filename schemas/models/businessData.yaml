@@ -248,6 +248,9 @@ definitions:
       showTestRecord:
         type: "boolean"
         default: false
+      resourceSurnameFirst:
+        type: "boolean"
+        default: false
       skipServiceFiltering:
         type: "boolean"
         default: false
