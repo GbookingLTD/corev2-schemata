@@ -59,10 +59,13 @@ definitions:
     type: "object"
     description: "данные, передаваемые в ответ"
     additionalProperties: false
+    required:
+      - data
     properties:
-      type: "array"
-      items:
-        $ref: "../../models/appointment.schema.json"
+      data:
+        type: "array"
+        items:
+          $ref: "../../models/appointment.schema.json"
 
   SuccessResponse:
     type: "object"
