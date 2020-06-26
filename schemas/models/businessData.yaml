@@ -251,6 +251,9 @@ definitions:
       resourceSurnameFirst:
         type: "boolean"
         default: false
+      showCreatedUsername:
+        type: "boolean"
+        default: false
       skipServiceFiltering:
         type: "boolean"
         default: false
