@@ -2059,6 +2059,7 @@ type BusinessBackofficeConfiguration struct {
 }
 
 type ScheduleSplitDayTimeInterval struct {
+	ID            *string  `json:"_id,omitempty"`          
 	EndHour       *float64 `json:"endHour,omitempty"`      
 	EndMinute     *float64 `json:"endMinute,omitempty"`    
 	SchedulerTick *float64 `json:"schedulerTick,omitempty"`

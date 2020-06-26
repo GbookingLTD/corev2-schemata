@@ -2309,6 +2309,7 @@ var typeMap = {
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
     "ScheduleSplitDayTimeInterval": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "endHour", js: "endHour", typ: u(undefined, 3.14) },
         { json: "endMinute", js: "endMinute", typ: u(undefined, 3.14) },
         { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },

@@ -8329,6 +8329,7 @@ class BusinessAdditionalSettings:
 
 
 class ScheduleSplitDayTimeInterval:
+    id: Optional[str]
     end_hour: Optional[float]
     end_minute: Optional[float]
     scheduler_tick: Optional[float]
@@ -8337,7 +8338,8 @@ class ScheduleSplitDayTimeInterval:
     start_minute: Optional[float]
     title: Optional[str]
 
-    def __init__(self, end_hour: Optional[float], end_minute: Optional[float], scheduler_tick: Optional[float], selected: Optional[bool], start_hour: Optional[float], start_minute: Optional[float], title: Optional[str]) -> None:
+    def __init__(self, id: Optional[str], end_hour: Optional[float], end_minute: Optional[float], scheduler_tick: Optional[float], selected: Optional[bool], start_hour: Optional[float], start_minute: Optional[float], title: Optional[str]) -> None:
+        self.id = id
         self.end_hour = end_hour
         self.end_minute = end_minute
         self.scheduler_tick = scheduler_tick
@@ -8349,6 +8351,7 @@ class ScheduleSplitDayTimeInterval:
     @staticmethod
     def from_dict(obj: Any) -> 'ScheduleSplitDayTimeInterval':
         assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("_id"))
         end_hour = from_union([from_float, from_none], obj.get("endHour"))
         end_minute = from_union([from_float, from_none], obj.get("endMinute"))
         scheduler_tick = from_union([from_float, from_none], obj.get("schedulerTick"))
@@ -8356,10 +8359,11 @@ class ScheduleSplitDayTimeInterval:
         start_hour = from_union([from_float, from_none], obj.get("startHour"))
         start_minute = from_union([from_float, from_none], obj.get("startMinute"))
         title = from_union([from_str, from_none], obj.get("title"))
-        return ScheduleSplitDayTimeInterval(end_hour, end_minute, scheduler_tick, selected, start_hour, start_minute, title)
+        return ScheduleSplitDayTimeInterval(id, end_hour, end_minute, scheduler_tick, selected, start_hour, start_minute, title)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["_id"] = from_union([from_str, from_none], self.id)
         result["endHour"] = from_union([to_float, from_none], self.end_hour)
         result["endMinute"] = from_union([to_float, from_none], self.end_minute)
         result["schedulerTick"] = from_union([to_float, from_none], self.scheduler_tick)

@@ -5690,6 +5690,9 @@ namespace GBookingCoreV2
 
     public partial class ScheduleSplitDayTimeInterval
     {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
         [JsonProperty("endHour", NullValueHandling = NullValueHandling.Ignore)]
         public double? EndHour { get; set; }
 

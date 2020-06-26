@@ -3101,6 +3101,7 @@ export interface BusinessBackofficeConfiguration {
     workWeekStart?: number;
 }
 export interface ScheduleSplitDayTimeInterval {
+    _id?: string;
     endHour?: number;
     endMinute?: number;
     schedulerTick?: number;
