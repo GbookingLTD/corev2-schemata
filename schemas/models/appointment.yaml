@@ -715,6 +715,19 @@ properties:
       time_reminder:
         type: "number"
         enum: [0, 1, 2, 4, 6, 8, 12, 24]
+  telemedData:
+    type: "object"
+    additionalProperties: false
+    description: "Данные для телемед конференции"
+    required: []
+    properties:
+      joinUrl: "string"
+      id: "string"
+      startUrl: "string"
+      shortStartUrl: "string"
+      joinUrl: "string"
+      shortJoinUrl: "string"
+      password: "string"
 
   clientVisitors:
     type: "array"
