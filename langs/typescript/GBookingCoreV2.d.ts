@@ -1190,7 +1190,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: Appointment[];
+    result?: AppointmentGetAppointmentsByUserResponseResult;
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1214,6 +1214,12 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
+}
+/**
+ * данные, передаваемые в ответ
+ */
+export interface AppointmentGetAppointmentsByUserResponseResult {
+    data: Appointment[];
 }
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;
@@ -1705,7 +1711,7 @@ export interface BusinessInfo {
     logo_url?: null | string;
     marketingNotifications?: MarketingNotifications;
     metro?: Metro;
-    min_booking_time?: number | null;
+    min_booking_time?: boolean;
     /**
      * Список телефонов бизнеса
      */
@@ -2227,7 +2233,7 @@ export interface Info {
     logo_url?: null | string;
     marketingNotifications?: MarketingNotifications;
     metro?: Metro;
-    min_booking_time?: number | null;
+    min_booking_time?: boolean;
     /**
      * Список телефонов бизнеса
      */

@@ -2114,7 +2114,7 @@ namespace GBookingCoreV2
         public string Jsonrpc { get; set; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Appointment> Result { get; set; }
+        public AppointmentGetAppointmentsByUserResponseResult Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -2147,6 +2147,15 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// данные, передаваемые в ответ
+    /// </summary>
+    public partial class AppointmentGetAppointmentsByUserResponseResult
+    {
+        [JsonProperty("data")]
+        public List<Appointment> Data { get; set; }
     }
 
     public partial class ReserveAppointment
@@ -3097,8 +3106,8 @@ namespace GBookingCoreV2
         [JsonProperty("metro", NullValueHandling = NullValueHandling.Ignore)]
         public Metro Metro { get; set; }
 
-        [JsonProperty("min_booking_time")]
-        public double? MinBookingTime { get; set; }
+        [JsonProperty("min_booking_time", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MinBookingTime { get; set; }
 
         /// <summary>
         /// Список телефонов бизнеса
@@ -3909,8 +3918,8 @@ namespace GBookingCoreV2
         [JsonProperty("metro", NullValueHandling = NullValueHandling.Ignore)]
         public Metro Metro { get; set; }
 
-        [JsonProperty("min_booking_time")]
-        public double? MinBookingTime { get; set; }
+        [JsonProperty("min_booking_time", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? MinBookingTime { get; set; }
 
         /// <summary>
         /// Список телефонов бизнеса

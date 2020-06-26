@@ -1310,7 +1310,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: Appointment[];
+    result?: AppointmentGetAppointmentsByUserResponseResult;
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1335,6 +1335,13 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
+}
+
+/**
+ * данные, передаваемые в ответ
+ */
+export interface AppointmentGetAppointmentsByUserResponseResult {
+    data: Appointment[];
 }
 
 export interface ReserveAppointment {
@@ -1848,7 +1855,7 @@ export interface BusinessInfo {
     logo_url?:               null | string;
     marketingNotifications?: MarketingNotifications;
     metro?:                  Metro;
-    min_booking_time?:       number | null;
+    min_booking_time?:       boolean;
     /**
      * Список телефонов бизнеса
      */
@@ -2396,7 +2403,7 @@ export interface Info {
     logo_url?:               null | string;
     marketingNotifications?: MarketingNotifications;
     metro?:                  Metro;
-    min_booking_time?:       number | null;
+    min_booking_time?:       boolean;
     /**
      * Список телефонов бизнеса
      */
@@ -5641,7 +5648,7 @@ const typeMap: any = {
     "AppointmentGetAppointmentsByUserResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
@@ -5649,6 +5656,9 @@ const typeMap: any = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
+    "AppointmentGetAppointmentsByUserResponseResult": o([
+        { json: "data", js: "data", typ: a(r("Appointment")) },
+    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -5950,7 +5960,7 @@ const typeMap: any = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, true) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
@@ -6173,7 +6183,7 @@ const typeMap: any = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, true) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },

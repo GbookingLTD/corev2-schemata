@@ -1212,7 +1212,7 @@ var typeMap = {
     "AppointmentGetAppointmentsByUserResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
@@ -1220,6 +1220,9 @@ var typeMap = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
+    "AppointmentGetAppointmentsByUserResponseResult": o([
+        { json: "data", js: "data", typ: a(r("Appointment")) },
+    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -1521,7 +1524,7 @@ var typeMap = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, true) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
@@ -1744,7 +1747,7 @@ var typeMap = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, true) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
