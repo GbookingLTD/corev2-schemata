@@ -177,7 +177,9 @@ properties:
       appointmentsCount:
         type: "number"
       businesses:
-        type: ["object"]
+        type: "array"
+        items:
+          type: "object"
       lastAppointment:
         type: "string"
       lastBusinessId:
@@ -185,9 +187,11 @@ properties:
       lastWorkerId:
         type: "string"
       services:
-        type: ["object"]
+        type: "array"
+        items:
+          type: "object"
       totalPrices:
-        type: ["object"]
+        type: "array"
   created:
     type: "string"
   updated:
