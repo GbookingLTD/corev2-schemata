@@ -77,11 +77,19 @@
         },
         "AppointmentGetAppointmentsByUserResponseResult": {
             "title": "AppointmentGetAppointmentsByUserResponseResult",
-            "type": "array",
+            "type": "object",
             "description": "данные, передаваемые в ответ",
             "additionalProperties": false,
-            "items": {
-                "$ref": "../../models/appointment.schema.json"
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../../models/appointment.schema.json"
+                    }
+                }
             }
         },
         "SuccessResponse": {

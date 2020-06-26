@@ -27,7 +27,7 @@ public class BusinessInfo {
     private String logoURL;
     private MarketingNotifications marketingNotifications;
     private Metro metro;
-    private Double minBookingTime;
+    private Boolean minBookingTime;
     private List<FaxElement> mobile;
     private String name;
     private Double networkID;
@@ -166,9 +166,9 @@ public class BusinessInfo {
     public void setMetro(Metro value) { this.metro = value; }
 
     @JsonProperty("min_booking_time")
-    public Double getMinBookingTime() { return minBookingTime; }
+    public Boolean getMinBookingTime() { return minBookingTime; }
     @JsonProperty("min_booking_time")
-    public void setMinBookingTime(Double value) { this.minBookingTime = value; }
+    public void setMinBookingTime(Boolean value) { this.minBookingTime = value; }
 
     /**
      * Список телефонов бизнеса

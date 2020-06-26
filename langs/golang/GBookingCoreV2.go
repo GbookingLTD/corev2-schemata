@@ -845,10 +845,10 @@ type TentacledNetwork struct {
 }
 
 type AppointmentGetAppointmentsByUserResponse struct {
-	ID      float64                                        `json:"id"`             // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                                         `json:"jsonrpc"`        // версия протокола (2.0)
-	Result  []Appointment                                  `json:"result"`         
-	Error   *AppointmentGetAppointmentsByUserResponseError `json:"error,omitempty"`// объект, содержащий информацию об ошибке
+	ID      float64                                         `json:"id"`              // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                          `json:"jsonrpc"`         // версия протокола (2.0)
+	Result  *AppointmentGetAppointmentsByUserResponseResult `json:"result,omitempty"`
+	Error   *AppointmentGetAppointmentsByUserResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
 }
 
 // объект, содержащий информацию об ошибке
@@ -858,6 +858,11 @@ type AppointmentGetAppointmentsByUserResponseError struct {
 	Code    float64 `json:"code"`          // код ошибки
 	Data    *string `json:"data,omitempty"`// дополнительные данные об ошибке
 	Message string  `json:"message"`       // текстовая информация об ошибке
+}
+
+// данные, передаваемые в ответ
+type AppointmentGetAppointmentsByUserResponseResult struct {
+	Data []Appointment `json:"data"`
 }
 
 type ReserveAppointment struct {
@@ -1198,7 +1203,7 @@ type BusinessInfo struct {
 	LogoURL                    *string                  `json:"logo_url"`                            
 	MarketingNotifications     *MarketingNotifications  `json:"marketingNotifications,omitempty"`    
 	Metro                      *Metro                   `json:"metro,omitempty"`                     
-	MinBookingTime             *float64                 `json:"min_booking_time"`                    
+	MinBookingTime             *bool                    `json:"min_booking_time,omitempty"`          
 	Mobile                     []FaxElement             `json:"mobile"`                              // Список телефонов бизнеса
 	Name                       *string                  `json:"name,omitempty"`                      // Название бизнеса
 	NetworkID                  *float64                 `json:"networkID"`                           
@@ -1445,7 +1450,7 @@ type Info struct {
 	LogoURL                    *string                  `json:"logo_url"`                            
 	MarketingNotifications     *MarketingNotifications  `json:"marketingNotifications,omitempty"`    
 	Metro                      *Metro                   `json:"metro,omitempty"`                     
-	MinBookingTime             *float64                 `json:"min_booking_time"`                    
+	MinBookingTime             *bool                    `json:"min_booking_time,omitempty"`          
 	Mobile                     []FaxElement             `json:"mobile"`                              // Список телефонов бизнеса
 	Name                       *string                  `json:"name,omitempty"`                      // Название бизнеса
 	NetworkID                  *float64                 `json:"networkID"`                           

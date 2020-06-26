@@ -3635,16 +3635,35 @@ class AppointmentGetAppointmentsByUserResponseError:
         return result
 
 
+class AppointmentGetAppointmentsByUserResponseResult:
+    """данные, передаваемые в ответ"""
+    data: List[Appointment]
+
+    def __init__(self, data: List[Appointment]) -> None:
+        self.data = data
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByUserResponseResult':
+        assert isinstance(obj, dict)
+        data = from_list(Appointment.from_dict, obj.get("data"))
+        return AppointmentGetAppointmentsByUserResponseResult(data)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["data"] = from_list(lambda x: to_class(Appointment, x), self.data)
+        return result
+
+
 class AppointmentGetAppointmentsByUserResponse:
     """значение числового типа для идентификации запроса на сервере"""
     id: float
     """версия протокола (2.0)"""
     jsonrpc: str
-    result: Optional[List[Appointment]]
+    result: Optional[AppointmentGetAppointmentsByUserResponseResult]
     """объект, содержащий информацию об ошибке"""
     error: Optional[AppointmentGetAppointmentsByUserResponseError]
 
-    def __init__(self, id: float, jsonrpc: str, result: Optional[List[Appointment]], error: Optional[AppointmentGetAppointmentsByUserResponseError]) -> None:
+    def __init__(self, id: float, jsonrpc: str, result: Optional[AppointmentGetAppointmentsByUserResponseResult], error: Optional[AppointmentGetAppointmentsByUserResponseError]) -> None:
         self.id = id
         self.jsonrpc = jsonrpc
         self.result = result
@@ -3655,7 +3674,7 @@ class AppointmentGetAppointmentsByUserResponse:
         assert isinstance(obj, dict)
         id = from_float(obj.get("id"))
         jsonrpc = from_str(obj.get("jsonrpc"))
-        result = from_union([lambda x: from_list(Appointment.from_dict, x), from_none], obj.get("result"))
+        result = from_union([AppointmentGetAppointmentsByUserResponseResult.from_dict, from_none], obj.get("result"))
         error = from_union([AppointmentGetAppointmentsByUserResponseError.from_dict, from_none], obj.get("error"))
         return AppointmentGetAppointmentsByUserResponse(id, jsonrpc, result, error)
 
@@ -3663,7 +3682,7 @@ class AppointmentGetAppointmentsByUserResponse:
         result: dict = {}
         result["id"] = to_float(self.id)
         result["jsonrpc"] = from_str(self.jsonrpc)
-        result["result"] = from_union([lambda x: from_list(lambda x: to_class(Appointment, x), x), from_none], self.result)
+        result["result"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByUserResponseResult, x), from_none], self.result)
         result["error"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByUserResponseError, x), from_none], self.error)
         return result
 
@@ -5424,7 +5443,7 @@ class BusinessInfo:
     logo_url: Optional[str]
     marketing_notifications: Optional[MarketingNotifications]
     metro: Optional[Metro]
-    min_booking_time: Optional[float]
+    min_booking_time: Optional[bool]
     """Список телефонов бизнеса"""
     mobile: Optional[List[FaxElement]]
     """Название бизнеса"""
@@ -5458,7 +5477,7 @@ class BusinessInfo:
     vertical_translation: Optional[VerticalTranslation]
     website: Optional[str]
 
-    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[AdditionalFields]], address: Optional[List[AddressSchema]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], event_editor_minutes_tick: Optional[float], fax: Optional[List[FaxElement]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[float], mobile: Optional[List[FaxElement]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[FaxElement]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
+    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[AdditionalFields]], address: Optional[List[AddressSchema]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], event_editor_minutes_tick: Optional[float], fax: Optional[List[FaxElement]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[bool], mobile: Optional[List[FaxElement]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[FaxElement]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
         self.accepted_currency = accepted_currency
         self.additional_info = additional_info
         self.additional_fields = additional_fields
@@ -5528,7 +5547,7 @@ class BusinessInfo:
         logo_url = from_union([from_none, from_str], obj.get("logo_url"))
         marketing_notifications = from_union([MarketingNotifications.from_dict, from_none], obj.get("marketingNotifications"))
         metro = from_union([Metro.from_dict, from_none], obj.get("metro"))
-        min_booking_time = from_union([from_float, from_none], obj.get("min_booking_time"))
+        min_booking_time = from_union([from_bool, from_none], obj.get("min_booking_time"))
         mobile = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("mobile"))
         name = from_union([from_str, from_none], obj.get("name"))
         network_id = from_union([from_float, from_none], obj.get("networkID"))
@@ -5577,7 +5596,7 @@ class BusinessInfo:
         result["logo_url"] = from_union([from_none, from_str], self.logo_url)
         result["marketingNotifications"] = from_union([lambda x: to_class(MarketingNotifications, x), from_none], self.marketing_notifications)
         result["metro"] = from_union([lambda x: to_class(Metro, x), from_none], self.metro)
-        result["min_booking_time"] = from_union([to_float, from_none], self.min_booking_time)
+        result["min_booking_time"] = from_union([from_bool, from_none], self.min_booking_time)
         result["mobile"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.mobile)
         result["name"] = from_union([from_str, from_none], self.name)
         result["networkID"] = from_union([to_float, from_none], self.network_id)
@@ -5739,7 +5758,7 @@ class Info:
     logo_url: Optional[str]
     marketing_notifications: Optional[MarketingNotifications]
     metro: Optional[Metro]
-    min_booking_time: Optional[float]
+    min_booking_time: Optional[bool]
     """Список телефонов бизнеса"""
     mobile: Optional[List[FaxElement]]
     """Название бизнеса"""
@@ -5773,7 +5792,7 @@ class Info:
     vertical_translation: Optional[VerticalTranslation]
     website: Optional[str]
 
-    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[AdditionalFields]], address: Optional[List[AddressSchema]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], event_editor_minutes_tick: Optional[float], fax: Optional[List[FaxElement]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[float], mobile: Optional[List[FaxElement]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[FaxElement]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
+    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[AdditionalFields]], address: Optional[List[AddressSchema]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], event_editor_minutes_tick: Optional[float], fax: Optional[List[FaxElement]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[bool], mobile: Optional[List[FaxElement]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[FaxElement]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
         self.accepted_currency = accepted_currency
         self.additional_info = additional_info
         self.additional_fields = additional_fields
@@ -5843,7 +5862,7 @@ class Info:
         logo_url = from_union([from_none, from_str], obj.get("logo_url"))
         marketing_notifications = from_union([MarketingNotifications.from_dict, from_none], obj.get("marketingNotifications"))
         metro = from_union([Metro.from_dict, from_none], obj.get("metro"))
-        min_booking_time = from_union([from_float, from_none], obj.get("min_booking_time"))
+        min_booking_time = from_union([from_bool, from_none], obj.get("min_booking_time"))
         mobile = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("mobile"))
         name = from_union([from_str, from_none], obj.get("name"))
         network_id = from_union([from_float, from_none], obj.get("networkID"))
@@ -5892,7 +5911,7 @@ class Info:
         result["logo_url"] = from_union([from_none, from_str], self.logo_url)
         result["marketingNotifications"] = from_union([lambda x: to_class(MarketingNotifications, x), from_none], self.marketing_notifications)
         result["metro"] = from_union([lambda x: to_class(Metro, x), from_none], self.metro)
-        result["min_booking_time"] = from_union([to_float, from_none], self.min_booking_time)
+        result["min_booking_time"] = from_union([from_bool, from_none], self.min_booking_time)
         result["mobile"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.mobile)
         result["name"] = from_union([from_str, from_none], self.name)
         result["networkID"] = from_union([to_float, from_none], self.network_id)
