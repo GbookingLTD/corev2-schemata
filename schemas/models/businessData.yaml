@@ -470,9 +470,6 @@ definitions:
       enableServiceTimeLimit:
         type: "boolean"
         default: false
-      enablePrintingReportRecordsScreen:
-        type: "boolean"
-        default: false
       showGender:
         type: "boolean"
         default: false
