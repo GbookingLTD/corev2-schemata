@@ -148,6 +148,9 @@ properties:
         type: "boolean"
         default: false
 
+  maxFilterDateDuration: 
+    type: "number"
+
 required:
 - "general_info"
 - "widget_configuration"
