@@ -1203,7 +1203,7 @@ type BusinessInfo struct {
 	LogoURL                    *string                  `json:"logo_url"`                            
 	MarketingNotifications     *MarketingNotifications  `json:"marketingNotifications,omitempty"`    
 	Metro                      *Metro                   `json:"metro,omitempty"`                     
-	MinBookingTime             *bool                    `json:"min_booking_time,omitempty"`          
+	MinBookingTime             *bool                    `json:"min_booking_time"`                    
 	Mobile                     []FaxElement             `json:"mobile"`                              // Список телефонов бизнеса
 	Name                       *string                  `json:"name,omitempty"`                      // Название бизнеса
 	NetworkID                  *float64                 `json:"networkID"`                           
@@ -1450,7 +1450,7 @@ type Info struct {
 	LogoURL                    *string                  `json:"logo_url"`                            
 	MarketingNotifications     *MarketingNotifications  `json:"marketingNotifications,omitempty"`    
 	Metro                      *Metro                   `json:"metro,omitempty"`                     
-	MinBookingTime             *bool                    `json:"min_booking_time,omitempty"`          
+	MinBookingTime             *bool                    `json:"min_booking_time"`                    
 	Mobile                     []FaxElement             `json:"mobile"`                              // Список телефонов бизнеса
 	Name                       *string                  `json:"name,omitempty"`                      // Название бизнеса
 	NetworkID                  *float64                 `json:"networkID"`                           

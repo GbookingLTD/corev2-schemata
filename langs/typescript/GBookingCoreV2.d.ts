@@ -1711,7 +1711,7 @@ export interface BusinessInfo {
     logo_url?: null | string;
     marketingNotifications?: MarketingNotifications;
     metro?: Metro;
-    min_booking_time?: boolean;
+    min_booking_time?: boolean | null;
     /**
      * Список телефонов бизнеса
      */
@@ -2233,7 +2233,7 @@ export interface Info {
     logo_url?: null | string;
     marketingNotifications?: MarketingNotifications;
     metro?: Metro;
-    min_booking_time?: boolean;
+    min_booking_time?: boolean | null;
     /**
      * Список телефонов бизнеса
      */
