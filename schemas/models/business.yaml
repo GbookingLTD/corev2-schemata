@@ -603,7 +603,7 @@ definitions:
         default: false
       invoiceProvider:
         type: "string"
-        enum: ["DEFAULT", "icount"]
+        enum: ["DISABLE", "icount"]
         default: "DISABLE"
       invoiceCondition:
         type: "array"
@@ -612,7 +612,7 @@ definitions:
           enum: ["YES_PAYED_ONLINE", "YES_PAYED_FULL", "YES_PAYED_PART", "NO_PAYMENT", "NONE"]
       telemedProvider:
         type: "string"
-        enum: ["DEFAULT", "zoom"]
+        enum: ["DISABLE", "zoom"]
         default: "DISABLE"
       showGapWindow:
         type: "boolean"

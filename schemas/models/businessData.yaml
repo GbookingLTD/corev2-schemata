@@ -262,7 +262,7 @@ definitions:
         default: false
       invoiceProvider:
         type: "string"
-        enum: ["DEFAULT", "icount"]
+        enum: ["DISABLE", "icount"]
         default: "DISABLE"
       invoiceCondition:
         type: "array"
@@ -274,7 +274,7 @@ definitions:
         default: false
       telemedProvider:
         type: "string"
-        enum: ["DEFAULT", "zoom"]
+        enum: ["DISABLE", "zoom"]
         default: "DISABLE"
       enablePhoneNationalMode:
         type: "boolean"
