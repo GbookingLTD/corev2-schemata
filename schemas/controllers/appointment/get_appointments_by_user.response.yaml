@@ -56,16 +56,11 @@ definitions:
 
   AppointmentGetAppointmentsByUserResponseResult:
     title: "AppointmentGetAppointmentsByUserResponseResult"
-    type: "object"
     description: "данные, передаваемые в ответ"
     additionalProperties: false
-    required:
-      - data
-    properties:
-      data:
-        type: "array"
-        items:
-          $ref: "../../models/appointment.schema.json"
+    type: "array"
+      items:
+        $ref: "../../models/appointment.schema.json"
 
   SuccessResponse:
     type: "object"
