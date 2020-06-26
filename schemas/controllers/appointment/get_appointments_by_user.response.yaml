@@ -59,8 +59,8 @@ definitions:
     description: "данные, передаваемые в ответ"
     additionalProperties: false
     type: "array"
-      items:
-        $ref: "../../models/appointment.schema.json"
+    items:
+      $ref: "../../models/appointment.schema.json"
 
   SuccessResponse:
     type: "object"
