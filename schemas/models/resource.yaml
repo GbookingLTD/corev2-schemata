@@ -264,6 +264,14 @@ properties:
     type: "string"
   badIconResolution:
     type: "boolean"
+  telemedData:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      active:
+        type: "boolean"
+      
 required:
   - "revisionVersion"
   - "capacity"
