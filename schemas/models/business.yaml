@@ -603,7 +603,7 @@ definitions:
         default: false
       invoiceProvider:
         type: "string"
-        enum: ["DEFAULT", "zoom"]
+        enum: ["DEFAULT", "icount"]
         default: "DISABLE"
       invoiceCondition:
         type: "string"
