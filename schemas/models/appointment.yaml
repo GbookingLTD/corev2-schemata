@@ -264,9 +264,7 @@ definitions:
     type: "object"
     additionalProperties: false
     required:
-      - amount
       - currency
-      - additionalTaxonomyDiscount
     properties:
       amount:
         type: "number"
