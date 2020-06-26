@@ -25,6 +25,8 @@ properties:
     type: "array"
     items:
       type: "string"
+  description:
+    type: "string"
   fromSms:
     type: ["boolean","string"]
     default: false
@@ -43,11 +45,11 @@ properties:
     type: "string"
     enum: ["ACTIVE", "INACTIVE"]
   receiveSmsAfterService:
-    type: "string"
+    type: "boolean"
   icon_url:
     type: "string"
   blackList:
-    type: "string"
+    type: "boolean"
   passportId:
     type: "string"
   passportSeries:
@@ -78,9 +80,17 @@ properties:
   houseNumber:
     type: "string"
   israelCity:
-    type: "string"
+    properties:
+      cityId:
+        type: "string"
+      name:
+        type: "string"
   kupatHolim:
-    type: "string"
+    properties:
+      kupatHolimId:
+        type: "string"
+      name:
+        type: "string"
   isVIP:
     type: "boolean"
     default: false;
@@ -96,7 +106,7 @@ properties:
     type: "array"
     items:
       type: "object"
-      required: ["fieldID", "fieldName", "value"]
+      required: ["fieldID", "fieldName"]
       additionalProperties: false
       properties:
         fieldID:
