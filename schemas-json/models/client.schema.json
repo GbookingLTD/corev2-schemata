@@ -262,9 +262,6 @@
         },
         "integrationData": {
             "type": "object",
-            "required": [
-                "transactionID"
-            ],
             "additionalProperties": false,
             "properties": {
                 "transactionID": {
@@ -302,6 +299,50 @@
                 "null",
                 "string"
             ]
+        },
+        "statistics": {
+            "type": "object",
+            "properties": {
+                "appointmentsCount": {
+                    "type": "number"
+                },
+                "businesses": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "lastAppointment": {
+                    "type": "string"
+                },
+                "lastBusinessId": {
+                    "type": "string"
+                },
+                "lastWorkerId": {
+                    "type": "string"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "totalPrices": {
+                    "type": "array"
+                }
+            }
+        },
+        "created": {
+            "type": "string"
+        },
+        "updated": {
+            "type": "string"
+        },
+        "lastVisitedAppointment": {
+            "type": "object"
+        },
+        "lastCreatedAppointment": {
+            "type": "object"
         }
     }
 }
