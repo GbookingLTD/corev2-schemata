@@ -171,4 +171,23 @@ properties:
   taxiParkMemberCount:
     type: ["number", "null", "string"]
 
+  #find_client_request
+  statistics:
+    type: "object"
+    properties:
+      appointmentsCount:
+        type: "number"
+      businesses:
+        type: ["object"]
+      lastAppointment:
+        type: "string"
+      lastBusinessId:
+        type: "string"
+      lastWorkerId:
+        type: "string"
+      services:
+        type: ["object"]
+      totalPrices:
+        type: ["object"]
+
 
