@@ -909,6 +909,33 @@ definitions:
         type: "string"
       middleNameSupport:
         type: "boolean"
+      analyticsGoogle:
+        type: "object"
+        additionalProperties: false
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          key:
+            type: "string"
+            default: ""
+      analyticsYandex:
+        type: "object"
+        additionalProperties: false
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          key:
+            type: "string"
+            default: "" 
+      toggleReminder:
+        type: "boolean"
+        default: false
+      askClientPassportID:
+        type: "boolean"
+        default: false
+
     additionalProperties: false
 
   BusinessTaxonomy:
