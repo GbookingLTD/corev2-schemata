@@ -1190,7 +1190,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByUserResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1214,15 +1214,6 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
-}
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByUserResponseResult {
-    data: Appointment[];
-    page: number;
-    total: number;
-    unconfirmed: number;
 }
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;
@@ -1545,7 +1536,7 @@ export interface InfoBackofficeConfiguration {
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
-    paymentProvider?: BackofficeConfigurationPaymentProvider;
+    paymentProvider?: PaymentProvider;
     readonlyResourceSchedule?: boolean;
     resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
@@ -1626,7 +1617,7 @@ export declare enum InvoiceProvider {
     Disable = "DISABLE",
     Icount = "icount"
 }
-export declare enum BackofficeConfigurationPaymentProvider {
+export declare enum PaymentProvider {
     Cloudpayments = "cloudpayments",
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
@@ -2635,7 +2626,7 @@ export interface InfoWidgetConfiguration {
     noDefaultImages?: boolean;
     overrideFooter?: string;
     payment?: Payment;
-    paymentProvider?: BackofficeConfigurationPaymentProvider;
+    paymentProvider?: PaymentProvider;
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
@@ -3013,7 +3004,7 @@ export interface BusinessBackofficeConfiguration {
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
-    paymentProvider?: BackofficeConfigurationPaymentProvider;
+    paymentProvider?: PaymentProvider;
     readonlyResourceSchedule?: boolean;
     resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
@@ -3364,7 +3355,7 @@ export interface BusinessWidgetConfiguration {
     noDefaultImages?: boolean;
     overrideFooter?: string;
     payment?: Payment;
-    paymentProvider?: PurplePaymentProvider;
+    paymentProvider?: PaymentProvider;
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
@@ -3446,13 +3437,6 @@ export interface FluffyClientBlockingSettings {
 export interface FluffyDiscountedPriceRounding {
     rule?: Rule;
     value?: number;
-}
-export declare enum PurplePaymentProvider {
-    Cloudpayments = "cloudpayments",
-    DeltaProcessing = "deltaProcessing",
-    Disable = "DISABLE",
-    Pelecard = "pelecard",
-    YandexMoney = "yandexMoney"
 }
 export interface FluffySocialSharing {
     active?: boolean;
@@ -3569,6 +3553,7 @@ export interface ClientClass {
     clientCardCreationDate?: string;
     clientCardNumber?: string;
     clientContractNumber?: string;
+    created?: string;
     creatorProfileID?: null | string;
     creatorProfileName?: null | string;
     description?: string;
@@ -3592,6 +3577,12 @@ export interface ClientClass {
     isVIP?: boolean;
     kupatHolim?: KupatHolimUnion;
     language?: LanguageList;
+    lastCreatedAppointment?: {
+        [key: string]: any;
+    };
+    lastVisitedAppointment?: {
+        [key: string]: any;
+    };
     lazyResolvedDate?: string;
     locality?: string;
     loyaltyInfo?: LoyaltyInfo;
@@ -3607,11 +3598,13 @@ export interface ClientClass {
     skipMarketingNotifications?: boolean;
     skipNotifications?: boolean;
     snils?: string;
+    statistics?: Statistics;
     status?: ResourceStatus;
     surname: string;
     taxiPark?: null | string;
     taxiParkMemberCount?: OrderWeight;
     twoFAUserID?: string;
+    updated?: string;
     workPlace?: string;
 }
 export interface ChildrenClient {
@@ -3636,7 +3629,7 @@ export interface FavResource {
 }
 export declare type FromSms = boolean | string;
 export interface IntegrationDataClass {
-    transactionID: string;
+    transactionID?: string;
 }
 export declare type IsraelCityUnion = any[] | boolean | number | number | null | IsraelCityObject | string;
 export interface IsraelCityObject {
@@ -3673,6 +3666,19 @@ export interface Purchase {
     goodID?: string;
     price?: number;
     transactionID?: string;
+}
+export interface Statistics {
+    appointmentsCount?: number;
+    businesses?: {
+        [key: string]: any;
+    }[];
+    lastAppointment?: string;
+    lastBusinessId?: string;
+    lastWorkerId?: string;
+    services?: {
+        [key: string]: any;
+    }[];
+    totalPrices?: any[];
 }
 export interface ParamsProfile {
     /**

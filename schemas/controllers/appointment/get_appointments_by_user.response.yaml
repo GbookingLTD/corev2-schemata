@@ -56,9 +56,10 @@ definitions:
 
   AppointmentGetAppointmentsByUserResponseResult:
     title: "AppointmentGetAppointmentsByUserResponseResult"
-    type: "object"
+    type: "array"
     description: "данные, передаваемые в ответ"
     additionalProperties: false
+<<<<<<< HEAD
     required:
       - data
     properties:
@@ -66,6 +67,10 @@ definitions:
         type: "array"
         items:
           $ref: "../../models/appointment.schema.json"
+=======
+    items:
+      $ref: "../../models/appointment.schema.json"
+>>>>>>> 66e9b0f1db5339664f079b2617bcd7aa10daa035
 
   SuccessResponse:
     type: "object"

@@ -1310,7 +1310,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByUserResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1335,16 +1335,6 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
-}
-
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByUserResponseResult {
-    data:        Appointment[];
-    page:        number;
-    total:       number;
-    unconfirmed: number;
 }
 
 export interface ReserveAppointment {
@@ -1680,7 +1670,7 @@ export interface InfoBackofficeConfiguration {
     manualExceptionSupport?:                          boolean;
     noInternetAlert?:                                 boolean;
     pastTimeEdit?:                                    number;
-    paymentProvider?:                                 BackofficeConfigurationPaymentProvider;
+    paymentProvider?:                                 PaymentProvider;
     readonlyResourceSchedule?:                        boolean;
     resourceSurnameFirst?:                            boolean;
     resourceTimetableType?:                           ResourceTimetableType;
@@ -1762,7 +1752,7 @@ export enum InvoiceProvider {
     Icount = "icount",
 }
 
-export enum BackofficeConfigurationPaymentProvider {
+export enum PaymentProvider {
     Cloudpayments = "cloudpayments",
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
@@ -2827,7 +2817,7 @@ export interface InfoWidgetConfiguration {
     noDefaultImages?:                        boolean;
     overrideFooter?:                         string;
     payment?:                                Payment;
-    paymentProvider?:                        BackofficeConfigurationPaymentProvider;
+    paymentProvider?:                        PaymentProvider;
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
@@ -3221,7 +3211,7 @@ export interface BusinessBackofficeConfiguration {
     manualExceptionSupport?:                          boolean;
     noInternetAlert?:                                 boolean;
     pastTimeEdit?:                                    number;
-    paymentProvider?:                                 BackofficeConfigurationPaymentProvider;
+    paymentProvider?:                                 PaymentProvider;
     readonlyResourceSchedule?:                        boolean;
     resourceSurnameFirst?:                            boolean;
     resourceTimetableType?:                           ResourceTimetableType;
@@ -3584,7 +3574,7 @@ export interface BusinessWidgetConfiguration {
     noDefaultImages?:                        boolean;
     overrideFooter?:                         string;
     payment?:                                Payment;
-    paymentProvider?:                        PurplePaymentProvider;
+    paymentProvider?:                        PaymentProvider;
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
@@ -3671,14 +3661,6 @@ export interface FluffyClientBlockingSettings {
 export interface FluffyDiscountedPriceRounding {
     rule?:  Rule;
     value?: number;
-}
-
-export enum PurplePaymentProvider {
-    Cloudpayments = "cloudpayments",
-    DeltaProcessing = "deltaProcessing",
-    Disable = "DISABLE",
-    Pelecard = "pelecard",
-    YandexMoney = "yandexMoney",
 }
 
 export interface FluffySocialSharing {
@@ -3807,6 +3789,7 @@ export interface ClientClass {
     clientCardCreationDate?:     string;
     clientCardNumber?:           string;
     clientContractNumber?:       string;
+    created?:                    string;
     creatorProfileID?:           null | string;
     creatorProfileName?:         null | string;
     description?:                string;
@@ -3830,6 +3813,8 @@ export interface ClientClass {
     isVIP?:                      boolean;
     kupatHolim?:                 KupatHolimUnion;
     language?:                   LanguageList;
+    lastCreatedAppointment?:     { [key: string]: any };
+    lastVisitedAppointment?:     { [key: string]: any };
     lazyResolvedDate?:           string;
     locality?:                   string;
     loyaltyInfo?:                LoyaltyInfo;
@@ -3845,11 +3830,13 @@ export interface ClientClass {
     skipMarketingNotifications?: boolean;
     skipNotifications?:          boolean;
     snils?:                      string;
+    statistics?:                 Statistics;
     status?:                     ResourceStatus;
     surname:                     string;
     taxiPark?:                   null | string;
     taxiParkMemberCount?:        OrderWeight;
     twoFAUserID?:                string;
+    updated?:                    string;
     workPlace?:                  string;
 }
 
@@ -3878,7 +3865,7 @@ export interface FavResource {
 export type FromSms = boolean | string;
 
 export interface IntegrationDataClass {
-    transactionID: string;
+    transactionID?: string;
 }
 
 export type IsraelCityUnion = any[] | boolean | number | number | null | IsraelCityObject | string;
@@ -3923,6 +3910,16 @@ export interface Purchase {
     goodID?:         string;
     price?:          number;
     transactionID?:  string;
+}
+
+export interface Statistics {
+    appointmentsCount?: number;
+    businesses?:        { [key: string]: any }[];
+    lastAppointment?:   string;
+    lastBusinessId?:    string;
+    lastWorkerId?:      string;
+    services?:          { [key: string]: any }[];
+    totalPrices?:       any[];
 }
 
 export interface ParamsProfile {
@@ -5644,7 +5641,7 @@ const typeMap: any = {
     "AppointmentGetAppointmentsByUserResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
+        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
@@ -5652,12 +5649,6 @@ const typeMap: any = {
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "AppointmentGetAppointmentsByUserResponseResult": o([
-        { json: "data", js: "data", typ: a(r("Appointment")) },
-        { json: "page", js: "page", typ: 3.14 },
-        { json: "total", js: "total", typ: 3.14 },
-        { json: "unconfirmed", js: "unconfirmed", typ: 3.14 },
-    ], false),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -5847,7 +5838,7 @@ const typeMap: any = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
@@ -6419,7 +6410,7 @@ const typeMap: any = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -6661,7 +6652,7 @@ const typeMap: any = {
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
@@ -6953,7 +6944,7 @@ const typeMap: any = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -7121,6 +7112,7 @@ const typeMap: any = {
         { json: "clientCardCreationDate", js: "clientCardCreationDate", typ: u(undefined, "") },
         { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, "") },
         { json: "clientContractNumber", js: "clientContractNumber", typ: u(undefined, "") },
+        { json: "created", js: "created", typ: u(undefined, "") },
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
         { json: "description", js: "description", typ: u(undefined, "") },
@@ -7144,6 +7136,8 @@ const typeMap: any = {
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
         { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(a("any"), true, 3.14, 0, null, r("KupatHolimObject"), "")) },
         { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "lastCreatedAppointment", js: "lastCreatedAppointment", typ: u(undefined, m("any")) },
+        { json: "lastVisitedAppointment", js: "lastVisitedAppointment", typ: u(undefined, m("any")) },
         { json: "lazyResolvedDate", js: "lazyResolvedDate", typ: u(undefined, "") },
         { json: "locality", js: "locality", typ: u(undefined, "") },
         { json: "loyaltyInfo", js: "loyaltyInfo", typ: u(undefined, r("LoyaltyInfo")) },
@@ -7159,11 +7153,13 @@ const typeMap: any = {
         { json: "skipMarketingNotifications", js: "skipMarketingNotifications", typ: u(undefined, true) },
         { json: "skipNotifications", js: "skipNotifications", typ: u(undefined, true) },
         { json: "snils", js: "snils", typ: u(undefined, "") },
+        { json: "statistics", js: "statistics", typ: u(undefined, r("Statistics")) },
         { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
         { json: "surname", js: "surname", typ: "" },
         { json: "taxiPark", js: "taxiPark", typ: u(undefined, u(null, "")) },
         { json: "taxiParkMemberCount", js: "taxiParkMemberCount", typ: u(undefined, u(3.14, null, "")) },
         { json: "twoFAUserID", js: "twoFAUserID", typ: u(undefined, "") },
+        { json: "updated", js: "updated", typ: u(undefined, "") },
         { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
     "ChildrenClient": o([
@@ -7184,7 +7180,7 @@ const typeMap: any = {
         { json: "resourceID", js: "resourceID", typ: "" },
     ], false),
     "IntegrationDataClass": o([
-        { json: "transactionID", js: "transactionID", typ: "" },
+        { json: "transactionID", js: "transactionID", typ: u(undefined, "") },
     ], false),
     "IsraelCityObject": o([
         { json: "cityId", js: "cityId", typ: u(undefined, "") },
@@ -7215,6 +7211,15 @@ const typeMap: any = {
         { json: "goodID", js: "goodID", typ: u(undefined, "") },
         { json: "price", js: "price", typ: u(undefined, 3.14) },
         { json: "transactionID", js: "transactionID", typ: u(undefined, "") },
+    ], "any"),
+    "Statistics": o([
+        { json: "appointmentsCount", js: "appointmentsCount", typ: u(undefined, 3.14) },
+        { json: "businesses", js: "businesses", typ: u(undefined, a(m("any"))) },
+        { json: "lastAppointment", js: "lastAppointment", typ: u(undefined, "") },
+        { json: "lastBusinessId", js: "lastBusinessId", typ: u(undefined, "") },
+        { json: "lastWorkerId", js: "lastWorkerId", typ: u(undefined, "") },
+        { json: "services", js: "services", typ: u(undefined, a(m("any"))) },
+        { json: "totalPrices", js: "totalPrices", typ: u(undefined, a("any")) },
     ], "any"),
     "ParamsProfile": o([
         { json: "id", js: "id", typ: "" },
@@ -7737,7 +7742,7 @@ const typeMap: any = {
         "DISABLE",
         "icount",
     ],
-    "BackofficeConfigurationPaymentProvider": [
+    "PaymentProvider": [
         "cloudpayments",
         "deltaProcessing",
         "DISABLE",
@@ -7927,13 +7932,6 @@ const typeMap: any = {
         "most_free",
         "none",
         "workload",
-    ],
-    "PurplePaymentProvider": [
-        "cloudpayments",
-        "deltaProcessing",
-        "DISABLE",
-        "pelecard",
-        "yandexMoney",
     ],
     "YandexFeedType": [
         "dynamic",

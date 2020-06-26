@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "schemas-json/controllers/cracSlots.schema.json",
+    "$id": "schemas-json/controllers/CracSlots.schema.json",
     "title": "CracSlotsController",
     "type": "object",
     "properties": {
@@ -8,10 +8,10 @@
             "type": "object",
             "properties": {
                 "request": {
-                    "$ref": "./cracSlots/GetCRACResourcesAndRooms.request.schema.json"
+                    "$ref": "./CracSlots/GetCRACResourcesAndRooms.request.schema.json"
                 },
                 "response": {
-                    "$ref": "./cracSlots/GetCRACResourcesAndRooms.response.schema.json"
+                    "$ref": "./CracSlots/GetCRACResourcesAndRooms.response.schema.json"
                 }
             },
             "required": [
@@ -24,10 +24,10 @@
             "type": "object",
             "properties": {
                 "request": {
-                    "$ref": "./cracSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json"
+                    "$ref": "./CracSlots/GetCRACInsuranceResourcesAndRooms.request.schema.json"
                 },
                 "response": {
-                    "$ref": "./cracSlots/GetCRACInsuranceResourcesAndRooms.response.schema.json"
+                    "$ref": "./CracSlots/GetCRACInsuranceResourcesAndRooms.response.schema.json"
                 }
             },
             "required": [
@@ -40,10 +40,10 @@
             "type": "object",
             "properties": {
                 "request": {
-                    "$ref": "./cracSlots/GetCRACDistributedResourcesAndRooms.request.schema.json"
+                    "$ref": "./CracSlots/GetCRACDistributedResourcesAndRooms.request.schema.json"
                 },
                 "response": {
-                    "$ref": "./cracSlots/GetCRACDistributedResourcesAndRooms.response.schema.json"
+                    "$ref": "./CracSlots/GetCRACDistributedResourcesAndRooms.response.schema.json"
                 }
             },
             "required": [
@@ -56,10 +56,10 @@
             "type": "object",
             "properties": {
                 "request": {
-                    "$ref": "./cracSlots/CRACDistributedResourcesFreeByDate.request.schema.json"
+                    "$ref": "./CracSlots/CRACDistributedResourcesFreeByDate.request.schema.json"
                 },
                 "response": {
-                    "$ref": "./cracSlots/CRACDistributedResourcesFreeByDate.response.schema.json"
+                    "$ref": "./CracSlots/CRACDistributedResourcesFreeByDate.response.schema.json"
                 }
             },
             "required": [
@@ -72,10 +72,10 @@
             "type": "object",
             "properties": {
                 "request": {
-                    "$ref": "./cracSlots/CRACResourcesFreeByDate.request.schema.json"
+                    "$ref": "./CracSlots/CRACResourcesFreeByDate.request.schema.json"
                 },
                 "response": {
-                    "$ref": "./cracSlots/CRACResourcesFreeByDate.response.schema.json"
+                    "$ref": "./CracSlots/CRACResourcesFreeByDate.response.schema.json"
                 }
             },
             "required": [
@@ -87,10 +87,10 @@
             "type": "object",
             "properties": {
                 "request": {
-                    "$ref": "./cracSlots/CRACResourcesFreeByDateV2.request.schema.json"
+                    "$ref": "./CracSlots/CRACResourcesFreeByDateV2.request.schema.json"
                 },
                 "response": {
-                    "$ref": "./cracSlots/CRACResourcesFreeByDateV2.response.schema.json"
+                    "$ref": "./CracSlots/CRACResourcesFreeByDateV2.response.schema.json"
                 }
             },
             "required": [

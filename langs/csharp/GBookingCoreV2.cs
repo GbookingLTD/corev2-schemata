@@ -2114,7 +2114,7 @@ namespace GBookingCoreV2
         public string Jsonrpc { get; set; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public AppointmentGetAppointmentsByUserResponseResult Result { get; set; }
+        public List<Appointment> Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -2147,24 +2147,6 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
-    }
-
-    /// <summary>
-    /// данные, передаваемые в ответ
-    /// </summary>
-    public partial class AppointmentGetAppointmentsByUserResponseResult
-    {
-        [JsonProperty("data")]
-        public List<Appointment> Data { get; set; }
-
-        [JsonProperty("page")]
-        public double Page { get; set; }
-
-        [JsonProperty("total")]
-        public double Total { get; set; }
-
-        [JsonProperty("unconfirmed")]
-        public double Unconfirmed { get; set; }
     }
 
     public partial class ReserveAppointment
@@ -2783,7 +2765,7 @@ namespace GBookingCoreV2
         public double? PastTimeEdit { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
+        public PaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadonlyResourceSchedule { get; set; }
@@ -4682,7 +4664,7 @@ namespace GBookingCoreV2
         public Payment? Payment { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
+        public PaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequireAgreement { get; set; }
@@ -5451,7 +5433,7 @@ namespace GBookingCoreV2
         public double? PastTimeEdit { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
+        public PaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadonlyResourceSchedule { get; set; }
@@ -6318,7 +6300,7 @@ namespace GBookingCoreV2
         public Payment? Payment { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePaymentProvider? PaymentProvider { get; set; }
+        public PaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequireAgreement { get; set; }
@@ -6797,6 +6779,9 @@ namespace GBookingCoreV2
         [JsonProperty("clientContractNumber", NullValueHandling = NullValueHandling.Ignore)]
         public string ClientContractNumber { get; set; }
 
+        [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
+        public string Created { get; set; }
+
         [JsonProperty("creatorProfileID")]
         public string CreatorProfileId { get; set; }
 
@@ -6866,6 +6851,12 @@ namespace GBookingCoreV2
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public LanguageList? Language { get; set; }
 
+        [JsonProperty("lastCreatedAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> LastCreatedAppointment { get; set; }
+
+        [JsonProperty("lastVisitedAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> LastVisitedAppointment { get; set; }
+
         [JsonProperty("lazyResolvedDate", NullValueHandling = NullValueHandling.Ignore)]
         public string LazyResolvedDate { get; set; }
 
@@ -6911,6 +6902,9 @@ namespace GBookingCoreV2
         [JsonProperty("snils", NullValueHandling = NullValueHandling.Ignore)]
         public string Snils { get; set; }
 
+        [JsonProperty("statistics", NullValueHandling = NullValueHandling.Ignore)]
+        public Statistics Statistics { get; set; }
+
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceStatus? Status { get; set; }
 
@@ -6925,6 +6919,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("twoFAUserID", NullValueHandling = NullValueHandling.Ignore)]
         public string TwoFaUserId { get; set; }
+
+        [JsonProperty("updated", NullValueHandling = NullValueHandling.Ignore)]
+        public string Updated { get; set; }
 
         [JsonProperty("workPlace", NullValueHandling = NullValueHandling.Ignore)]
         public string WorkPlace { get; set; }
@@ -6974,7 +6971,7 @@ namespace GBookingCoreV2
 
     public partial class IntegrationDataClass
     {
-        [JsonProperty("transactionID")]
+        [JsonProperty("transactionID", NullValueHandling = NullValueHandling.Ignore)]
         public string TransactionId { get; set; }
     }
 
@@ -7051,6 +7048,30 @@ namespace GBookingCoreV2
 
         [JsonProperty("transactionID", NullValueHandling = NullValueHandling.Ignore)]
         public string TransactionId { get; set; }
+    }
+
+    public partial class Statistics
+    {
+        [JsonProperty("appointmentsCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AppointmentsCount { get; set; }
+
+        [JsonProperty("businesses", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> Businesses { get; set; }
+
+        [JsonProperty("lastAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        public string LastAppointment { get; set; }
+
+        [JsonProperty("lastBusinessId", NullValueHandling = NullValueHandling.Ignore)]
+        public string LastBusinessId { get; set; }
+
+        [JsonProperty("lastWorkerId", NullValueHandling = NullValueHandling.Ignore)]
+        public string LastWorkerId { get; set; }
+
+        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> Services { get; set; }
+
+        [JsonProperty("totalPrices", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> TotalPrices { get; set; }
     }
 
     public partial class ParamsProfile
@@ -8458,7 +8479,7 @@ namespace GBookingCoreV2
 
     public enum InvoiceProvider { Disable, Icount };
 
-    public enum BackofficeConfigurationPaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney, YandexMoneyv3 };
+    public enum PaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney, YandexMoneyv3 };
 
     public enum ResourceTimetableType { Default, Evenodd };
 
@@ -8528,8 +8549,6 @@ namespace GBookingCoreV2
     /// тип сортировки работника
     /// </summary>
     public enum WorkerSortingType { MostFree, None, Workload };
-
-    public enum PurplePaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney };
 
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
 
@@ -8780,7 +8799,7 @@ namespace GBookingCoreV2
                 AppointmentExtensionTypeConverter.Singleton,
                 FeedBackMinRatingConverter.Singleton,
                 InvoiceProviderConverter.Singleton,
-                BackofficeConfigurationPaymentProviderConverter.Singleton,
+                PaymentProviderConverter.Singleton,
                 ResourceTimetableTypeConverter.Singleton,
                 SchedulerWeekViewTypeConverter.Singleton,
                 TelemedProviderConverter.Singleton,
@@ -8811,7 +8830,6 @@ namespace GBookingCoreV2
                 DiscountTypeConverter.Singleton,
                 UseDirectScheduleReadConverter.Singleton,
                 WorkerSortingTypeConverter.Singleton,
-                PurplePaymentProviderConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
                 FluffyValueConverter.Singleton,
                 FromSmsConverter.Singleton,
@@ -10114,9 +10132,9 @@ namespace GBookingCoreV2
         public static readonly InvoiceProviderConverter Singleton = new InvoiceProviderConverter();
     }
 
-    internal class BackofficeConfigurationPaymentProviderConverter : JsonConverter
+    internal class PaymentProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(BackofficeConfigurationPaymentProvider) || t == typeof(BackofficeConfigurationPaymentProvider?);
+        public override bool CanConvert(Type t) => t == typeof(PaymentProvider) || t == typeof(PaymentProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -10125,19 +10143,19 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return BackofficeConfigurationPaymentProvider.Disable;
+                    return PaymentProvider.Disable;
                 case "cloudpayments":
-                    return BackofficeConfigurationPaymentProvider.Cloudpayments;
+                    return PaymentProvider.Cloudpayments;
                 case "deltaProcessing":
-                    return BackofficeConfigurationPaymentProvider.DeltaProcessing;
+                    return PaymentProvider.DeltaProcessing;
                 case "pelecard":
-                    return BackofficeConfigurationPaymentProvider.Pelecard;
+                    return PaymentProvider.Pelecard;
                 case "yandexMoney":
-                    return BackofficeConfigurationPaymentProvider.YandexMoney;
+                    return PaymentProvider.YandexMoney;
                 case "yandexMoneyv3":
-                    return BackofficeConfigurationPaymentProvider.YandexMoneyv3;
+                    return PaymentProvider.YandexMoneyv3;
             }
-            throw new Exception("Cannot unmarshal type BackofficeConfigurationPaymentProvider");
+            throw new Exception("Cannot unmarshal type PaymentProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -10147,32 +10165,32 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (BackofficeConfigurationPaymentProvider)untypedValue;
+            var value = (PaymentProvider)untypedValue;
             switch (value)
             {
-                case BackofficeConfigurationPaymentProvider.Disable:
+                case PaymentProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case BackofficeConfigurationPaymentProvider.Cloudpayments:
+                case PaymentProvider.Cloudpayments:
                     serializer.Serialize(writer, "cloudpayments");
                     return;
-                case BackofficeConfigurationPaymentProvider.DeltaProcessing:
+                case PaymentProvider.DeltaProcessing:
                     serializer.Serialize(writer, "deltaProcessing");
                     return;
-                case BackofficeConfigurationPaymentProvider.Pelecard:
+                case PaymentProvider.Pelecard:
                     serializer.Serialize(writer, "pelecard");
                     return;
-                case BackofficeConfigurationPaymentProvider.YandexMoney:
+                case PaymentProvider.YandexMoney:
                     serializer.Serialize(writer, "yandexMoney");
                     return;
-                case BackofficeConfigurationPaymentProvider.YandexMoneyv3:
+                case PaymentProvider.YandexMoneyv3:
                     serializer.Serialize(writer, "yandexMoneyv3");
                     return;
             }
-            throw new Exception("Cannot marshal type BackofficeConfigurationPaymentProvider");
+            throw new Exception("Cannot marshal type PaymentProvider");
         }
 
-        public static readonly BackofficeConfigurationPaymentProviderConverter Singleton = new BackofficeConfigurationPaymentProviderConverter();
+        public static readonly PaymentProviderConverter Singleton = new PaymentProviderConverter();
     }
 
     internal class ResourceTimetableTypeConverter : JsonConverter
@@ -11764,62 +11782,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
-    }
-
-    internal class PurplePaymentProviderConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(PurplePaymentProvider) || t == typeof(PurplePaymentProvider?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "DISABLE":
-                    return PurplePaymentProvider.Disable;
-                case "cloudpayments":
-                    return PurplePaymentProvider.Cloudpayments;
-                case "deltaProcessing":
-                    return PurplePaymentProvider.DeltaProcessing;
-                case "pelecard":
-                    return PurplePaymentProvider.Pelecard;
-                case "yandexMoney":
-                    return PurplePaymentProvider.YandexMoney;
-            }
-            throw new Exception("Cannot unmarshal type PurplePaymentProvider");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (PurplePaymentProvider)untypedValue;
-            switch (value)
-            {
-                case PurplePaymentProvider.Disable:
-                    serializer.Serialize(writer, "DISABLE");
-                    return;
-                case PurplePaymentProvider.Cloudpayments:
-                    serializer.Serialize(writer, "cloudpayments");
-                    return;
-                case PurplePaymentProvider.DeltaProcessing:
-                    serializer.Serialize(writer, "deltaProcessing");
-                    return;
-                case PurplePaymentProvider.Pelecard:
-                    serializer.Serialize(writer, "pelecard");
-                    return;
-                case PurplePaymentProvider.YandexMoney:
-                    serializer.Serialize(writer, "yandexMoney");
-                    return;
-            }
-            throw new Exception("Cannot marshal type PurplePaymentProvider");
-        }
-
-        public static readonly PurplePaymentProviderConverter Singleton = new PurplePaymentProviderConverter();
     }
 
     internal class YandexFeedTypeConverter : JsonConverter

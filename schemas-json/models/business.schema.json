@@ -1593,6 +1593,7 @@
                     "type": "string",
                     "enum": [
                         "yandexMoney",
+                        "yandexMoneyv3",
                         "deltaProcessing",
                         "cloudpayments",
                         "pelecard",

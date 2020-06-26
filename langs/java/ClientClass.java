@@ -14,6 +14,7 @@ public class ClientClass {
     private String clientCardCreationDate;
     private String clientCardNumber;
     private String clientContractNumber;
+    private String created;
     private String creatorProfileID;
     private String creatorProfileName;
     private String description;
@@ -37,6 +38,8 @@ public class ClientClass {
     private Boolean isVIP;
     private KupatHolimUnion kupatHolim;
     private LanguageList language;
+    private Map<String, Object> lastCreatedAppointment;
+    private Map<String, Object> lastVisitedAppointment;
     private String lazyResolvedDate;
     private String locality;
     private LoyaltyInfo loyaltyInfo;
@@ -52,11 +55,13 @@ public class ClientClass {
     private Boolean skipMarketingNotifications;
     private Boolean skipNotifications;
     private String snils;
+    private Statistics statistics;
     private ResourceStatus status;
     private String surname;
     private String taxiPark;
     private FluffyTimeFrameDate taxiParkMemberCount;
     private String twoFAUserID;
+    private String updated;
     private String workPlace;
 
     @JsonProperty("address")
@@ -93,6 +98,11 @@ public class ClientClass {
     public String getClientContractNumber() { return clientContractNumber; }
     @JsonProperty("clientContractNumber")
     public void setClientContractNumber(String value) { this.clientContractNumber = value; }
+
+    @JsonProperty("created")
+    public String getCreated() { return created; }
+    @JsonProperty("created")
+    public void setCreated(String value) { this.created = value; }
 
     @JsonProperty("creatorProfileID")
     public String getCreatorProfileID() { return creatorProfileID; }
@@ -209,6 +219,16 @@ public class ClientClass {
     @JsonProperty("language")
     public void setLanguage(LanguageList value) { this.language = value; }
 
+    @JsonProperty("lastCreatedAppointment")
+    public Map<String, Object> getLastCreatedAppointment() { return lastCreatedAppointment; }
+    @JsonProperty("lastCreatedAppointment")
+    public void setLastCreatedAppointment(Map<String, Object> value) { this.lastCreatedAppointment = value; }
+
+    @JsonProperty("lastVisitedAppointment")
+    public Map<String, Object> getLastVisitedAppointment() { return lastVisitedAppointment; }
+    @JsonProperty("lastVisitedAppointment")
+    public void setLastVisitedAppointment(Map<String, Object> value) { this.lastVisitedAppointment = value; }
+
     @JsonProperty("lazyResolvedDate")
     public String getLazyResolvedDate() { return lazyResolvedDate; }
     @JsonProperty("lazyResolvedDate")
@@ -284,6 +304,11 @@ public class ClientClass {
     @JsonProperty("snils")
     public void setSnils(String value) { this.snils = value; }
 
+    @JsonProperty("statistics")
+    public Statistics getStatistics() { return statistics; }
+    @JsonProperty("statistics")
+    public void setStatistics(Statistics value) { this.statistics = value; }
+
     @JsonProperty("status")
     public ResourceStatus getStatus() { return status; }
     @JsonProperty("status")
@@ -308,6 +333,11 @@ public class ClientClass {
     public String getTwoFAUserID() { return twoFAUserID; }
     @JsonProperty("twoFAUserID")
     public void setTwoFAUserID(String value) { this.twoFAUserID = value; }
+
+    @JsonProperty("updated")
+    public String getUpdated() { return updated; }
+    @JsonProperty("updated")
+    public void setUpdated(String value) { this.updated = value; }
 
     @JsonProperty("workPlace")
     public String getWorkPlace() { return workPlace; }
