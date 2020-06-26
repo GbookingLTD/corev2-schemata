@@ -8,7 +8,7 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
-exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.FluffyPaymentProvider = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.DaysOfWeek = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PurplePaymentProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.ReminderStatus = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.AppointmentClientAppear = void 0;
+exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.PurplePaymentProvider = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.DaysOfWeek = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.BackofficeConfigurationPaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.ReminderStatus = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -127,12 +127,20 @@ var FeedBackMinRating;
     FeedBackMinRating["The4"] = "4";
     FeedBackMinRating["The5"] = "5";
 })(FeedBackMinRating = exports.FeedBackMinRating || (exports.FeedBackMinRating = {}));
-var PurplePaymentProvider;
-(function (PurplePaymentProvider) {
-    PurplePaymentProvider["DeltaProcessing"] = "deltaProcessing";
-    PurplePaymentProvider["Disable"] = "DISABLE";
-    PurplePaymentProvider["YandexMoney"] = "yandexMoney";
-})(PurplePaymentProvider = exports.PurplePaymentProvider || (exports.PurplePaymentProvider = {}));
+var InvoiceProvider;
+(function (InvoiceProvider) {
+    InvoiceProvider["Disable"] = "DISABLE";
+    InvoiceProvider["Icount"] = "icount";
+})(InvoiceProvider = exports.InvoiceProvider || (exports.InvoiceProvider = {}));
+var BackofficeConfigurationPaymentProvider;
+(function (BackofficeConfigurationPaymentProvider) {
+    BackofficeConfigurationPaymentProvider["Cloudpayments"] = "cloudpayments";
+    BackofficeConfigurationPaymentProvider["DeltaProcessing"] = "deltaProcessing";
+    BackofficeConfigurationPaymentProvider["Disable"] = "DISABLE";
+    BackofficeConfigurationPaymentProvider["Pelecard"] = "pelecard";
+    BackofficeConfigurationPaymentProvider["YandexMoney"] = "yandexMoney";
+    BackofficeConfigurationPaymentProvider["YandexMoneyv3"] = "yandexMoneyv3";
+})(BackofficeConfigurationPaymentProvider = exports.BackofficeConfigurationPaymentProvider || (exports.BackofficeConfigurationPaymentProvider = {}));
 var ResourceTimetableType;
 (function (ResourceTimetableType) {
     ResourceTimetableType["Default"] = "DEFAULT";
@@ -143,6 +151,11 @@ var SchedulerWeekViewType;
     SchedulerWeekViewType["Week"] = "week";
     SchedulerWeekViewType["WorkWeek"] = "workWeek";
 })(SchedulerWeekViewType = exports.SchedulerWeekViewType || (exports.SchedulerWeekViewType = {}));
+var TelemedProvider;
+(function (TelemedProvider) {
+    TelemedProvider["Disable"] = "DISABLE";
+    TelemedProvider["Zoom"] = "zoom";
+})(TelemedProvider = exports.TelemedProvider || (exports.TelemedProvider = {}));
 var BackofficeType;
 (function (BackofficeType) {
     BackofficeType["Common"] = "COMMON";
@@ -352,14 +365,14 @@ var WorkerSortingType;
     WorkerSortingType["None"] = "none";
     WorkerSortingType["Workload"] = "workload";
 })(WorkerSortingType = exports.WorkerSortingType || (exports.WorkerSortingType = {}));
-var FluffyPaymentProvider;
-(function (FluffyPaymentProvider) {
-    FluffyPaymentProvider["Cloudpayments"] = "cloudpayments";
-    FluffyPaymentProvider["DeltaProcessing"] = "deltaProcessing";
-    FluffyPaymentProvider["Disable"] = "DISABLE";
-    FluffyPaymentProvider["Pelecard"] = "pelecard";
-    FluffyPaymentProvider["YandexMoney"] = "yandexMoney";
-})(FluffyPaymentProvider = exports.FluffyPaymentProvider || (exports.FluffyPaymentProvider = {}));
+var PurplePaymentProvider;
+(function (PurplePaymentProvider) {
+    PurplePaymentProvider["Cloudpayments"] = "cloudpayments";
+    PurplePaymentProvider["DeltaProcessing"] = "deltaProcessing";
+    PurplePaymentProvider["Disable"] = "DISABLE";
+    PurplePaymentProvider["Pelecard"] = "pelecard";
+    PurplePaymentProvider["YandexMoney"] = "yandexMoney";
+})(PurplePaymentProvider = exports.PurplePaymentProvider || (exports.PurplePaymentProvider = {}));
 var YandexFeedType;
 (function (YandexFeedType) {
     YandexFeedType["Dynamic"] = "dynamic";
@@ -779,9 +792,9 @@ var typeMap = {
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: "" },
         { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
-        { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCity"), null)) },
+        { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCityClass"), null)) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
-        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolim"), null)) },
+        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolimClass"), null)) },
         { json: "language", js: "language", typ: u(undefined, "") },
         { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: "" },
@@ -814,11 +827,11 @@ var typeMap = {
         { json: "country_code", js: "country_code", typ: "" },
         { json: "number", js: "number", typ: "" },
     ], false),
-    "IsraelCity": o([
+    "IsraelCityClass": o([
         { json: "cityId", js: "cityId", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
-    "KupatHolim": o([
+    "KupatHolimClass": o([
         { json: "kupatHolimId", js: "kupatHolimId", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
     ], false),
@@ -898,9 +911,9 @@ var typeMap = {
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
-        { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCity"), null)) },
+        { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCityClass"), null)) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
-        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolim"), null)) },
+        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolimClass"), null)) },
         { json: "language", js: "language", typ: u(undefined, "") },
         { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: u(undefined, "") },
@@ -1388,11 +1401,14 @@ var typeMap = {
         { json: "enableCustomOnlinePaymentConfirmation", js: "enableCustomOnlinePaymentConfirmation", typ: u(undefined, true) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableExtendedRecordsClientStatistics", js: "enableExtendedRecordsClientStatistics", typ: u(undefined, true) },
+        { json: "enableInvoice", js: "enableInvoice", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "enablePrintingReportRecordsScreen", js: "enablePrintingReportRecordsScreen", typ: u(undefined, true) },
         { json: "enableServiceTimeLimit", js: "enableServiceTimeLimit", typ: u(undefined, true) },
         { json: "enableSourceChoice", js: "enableSourceChoice", typ: u(undefined, true) },
         { json: "enableTaxonomyChildrenAgeCheck", js: "enableTaxonomyChildrenAgeCheck", typ: u(undefined, true) },
+        { json: "enableTelemed", js: "enableTelemed", typ: u(undefined, true) },
         { json: "exportToExcelRemovedClients", js: "exportToExcelRemovedClients", typ: u(undefined, true) },
         { json: "feedbackCustomerPortalMessage", js: "feedbackCustomerPortalMessage", typ: u(undefined, "") },
         { json: "feedbackCustomerPortalThankYouMessage", js: "feedbackCustomerPortalThankYouMessage", typ: u(undefined, "") },
@@ -1402,11 +1418,14 @@ var typeMap = {
         { json: "finName", js: "finName", typ: u(undefined, "") },
         { json: "hideCustomerPortalFooter", js: "hideCustomerPortalFooter", typ: u(undefined, true) },
         { json: "highlightedResource", js: "highlightedResource", typ: u(undefined, true) },
+        { json: "invoiceCondition", js: "invoiceCondition", typ: u(undefined, a(r("AppointmentClientPayment"))) },
+        { json: "invoiceProvider", js: "invoiceProvider", typ: u(undefined, r("InvoiceProvider")) },
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
+        { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
         { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
@@ -1418,12 +1437,14 @@ var typeMap = {
         { json: "showAdditionalFields", js: "showAdditionalFields", typ: u(undefined, true) },
         { json: "showAddress", js: "showAddress", typ: u(undefined, true) },
         { json: "showBirthDate", js: "showBirthDate", typ: u(undefined, true) },
+        { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
         { json: "showClientAppear", js: "showClientAppear", typ: u(undefined, true) },
         { json: "showClientAppearOnSchedule", js: "showClientAppearOnSchedule", typ: u(undefined, true) },
         { json: "showClientBirthdayFilter", js: "showClientBirthdayFilter", typ: u(undefined, true) },
         { json: "showClientContractNumber", js: "showClientContractNumber", typ: u(undefined, true) },
         { json: "showClientImage", js: "showClientImage", typ: u(undefined, true) },
         { json: "showClientPayment", js: "showClientPayment", typ: u(undefined, true) },
+        { json: "showCreatedUsername", js: "showCreatedUsername", typ: u(undefined, true) },
         { json: "showDefaulterBlockscreen", js: "showDefaulterBlockscreen", typ: u(undefined, true) },
         { json: "showDeliveryStatus", js: "showDeliveryStatus", typ: u(undefined, true) },
         { json: "showDepartmentFilter", js: "showDepartmentFilter", typ: u(undefined, true) },
@@ -1462,6 +1483,7 @@ var typeMap = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -1700,6 +1722,7 @@ var typeMap = {
         { json: "taxonomies", js: "taxonomies", typ: a("") },
         { json: "taxonomyChildren", js: "taxonomyChildren", typ: a(r("ResourceTaxonomyChildren")) },
         { json: "taxonomyLevels", js: "taxonomyLevels", typ: a(r("ResourceTaxonomyLevel")) },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedData")) },
         { json: "timetable", js: "timetable", typ: r("Timetable") },
         { json: "userData", js: "userData", typ: u(undefined, m("any")) },
         { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
@@ -1774,6 +1797,10 @@ var typeMap = {
     "ResourceTaxonomyLevel": o([
         { json: "id", js: "id", typ: "" },
         { json: "level", js: "level", typ: 3.14 },
+    ], "any"),
+    "TelemedData": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "InfoTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
@@ -1914,10 +1941,13 @@ var typeMap = {
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
         { json: "allowBookVisitor", js: "allowBookVisitor", typ: u(undefined, true) },
         { json: "allowSkipTimeCheck", js: "allowSkipTimeCheck", typ: u(undefined, true) },
+        { json: "analyticsGoogle", js: "analyticsGoogle", typ: u(undefined, r("PurpleAnalyticsGoogle")) },
+        { json: "analyticsYandex", js: "analyticsYandex", typ: u(undefined, r("PurpleAnalyticsYandex")) },
         { json: "appointment_confirmation_text", js: "appointment_confirmation_text", typ: u(undefined, "") },
         { json: "appointment_confirmation_title", js: "appointment_confirmation_title", typ: u(undefined, "") },
         { json: "askClientBirthday", js: "askClientBirthday", typ: u(undefined, true) },
         { json: "askClientGender", js: "askClientGender", typ: u(undefined, true) },
+        { json: "askClientPassportID", js: "askClientPassportID", typ: u(undefined, true) },
         { json: "bookableDateRanges", js: "bookableDateRanges", typ: u(undefined, r("PurpleBookableDateRanges")) },
         { json: "bookableMonthsCount", js: "bookableMonthsCount", typ: u(undefined, 3.14) },
         { json: "calendarMode", js: "calendarMode", typ: u(undefined, true) },
@@ -1965,7 +1995,7 @@ var typeMap = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -2000,6 +2030,7 @@ var typeMap = {
         { json: "strictSlotCutting", js: "strictSlotCutting", typ: u(undefined, true) },
         { json: "tentativeTTL", js: "tentativeTTL", typ: u(undefined, 3.14) },
         { json: "theme", js: "theme", typ: u(undefined, "") },
+        { json: "toggleReminder", js: "toggleReminder", typ: u(undefined, true) },
         { json: "useAppointmentReminder", js: "useAppointmentReminder", typ: u(undefined, true) },
         { json: "useBusinessScheduleForUnavailableLabel", js: "useBusinessScheduleForUnavailableLabel", typ: u(undefined, true) },
         { json: "useClustersMap", js: "useClustersMap", typ: u(undefined, true) },
@@ -2020,6 +2051,14 @@ var typeMap = {
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
+    ], false),
+    "PurpleAnalyticsGoogle": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "key", js: "key", typ: u(undefined, "") },
+    ], false),
+    "PurpleAnalyticsYandex": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "key", js: "key", typ: u(undefined, "") },
     ], false),
     "PurpleBookableDateRanges": o([
         { json: "enabled", js: "enabled", typ: u(undefined, true) },
@@ -2135,6 +2174,7 @@ var typeMap = {
         { json: "group", js: "group", typ: u(undefined, r("Group")) },
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "integration_data", js: "integration_data", typ: u(undefined, m("any")) },
+        { json: "maxFilterDateDuration", js: "maxFilterDateDuration", typ: u(undefined, 3.14) },
         { json: "mini_widget_configuration", js: "mini_widget_configuration", typ: r("BusinessMiniWidgetConfiguration") },
         { json: "mobileData", js: "mobileData", typ: u(undefined, a("any")) },
         { json: "notifications", js: "notifications", typ: u(undefined, a("any")) },
@@ -2175,10 +2215,14 @@ var typeMap = {
         { json: "enableCustomOnlinePaymentConfirmation", js: "enableCustomOnlinePaymentConfirmation", typ: u(undefined, true) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableExtendedRecordsClientStatistics", js: "enableExtendedRecordsClientStatistics", typ: u(undefined, true) },
+        { json: "enableInvoice", js: "enableInvoice", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
+        { json: "enablePrintingReportRecordsScreen", js: "enablePrintingReportRecordsScreen", typ: u(undefined, true) },
         { json: "enableServiceTimeLimit", js: "enableServiceTimeLimit", typ: u(undefined, true) },
         { json: "enableSourceChoice", js: "enableSourceChoice", typ: u(undefined, true) },
         { json: "enableTaxonomyChildrenAgeCheck", js: "enableTaxonomyChildrenAgeCheck", typ: u(undefined, true) },
+        { json: "enableTelemed", js: "enableTelemed", typ: u(undefined, true) },
         { json: "exportToExcelRemovedClients", js: "exportToExcelRemovedClients", typ: u(undefined, true) },
         { json: "feedbackCustomerPortalMessage", js: "feedbackCustomerPortalMessage", typ: u(undefined, "") },
         { json: "feedbackCustomerPortalThankYouMessage", js: "feedbackCustomerPortalThankYouMessage", typ: u(undefined, "") },
@@ -2188,11 +2232,14 @@ var typeMap = {
         { json: "finName", js: "finName", typ: u(undefined, "") },
         { json: "hideCustomerPortalFooter", js: "hideCustomerPortalFooter", typ: u(undefined, true) },
         { json: "highlightedResource", js: "highlightedResource", typ: u(undefined, true) },
+        { json: "invoiceCondition", js: "invoiceCondition", typ: u(undefined, a(r("AppointmentClientPayment"))) },
+        { json: "invoiceProvider", js: "invoiceProvider", typ: u(undefined, r("InvoiceProvider")) },
         { json: "manualExceptionSupport", js: "manualExceptionSupport", typ: u(undefined, true) },
         { json: "noInternetAlert", js: "noInternetAlert", typ: u(undefined, true) },
         { json: "pastTimeEdit", js: "pastTimeEdit", typ: u(undefined, 3.14) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("BackofficeConfigurationPaymentProvider")) },
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
+        { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
         { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
@@ -2206,12 +2253,14 @@ var typeMap = {
         { json: "showAdditionalFields", js: "showAdditionalFields", typ: u(undefined, true) },
         { json: "showAddress", js: "showAddress", typ: u(undefined, true) },
         { json: "showBirthDate", js: "showBirthDate", typ: u(undefined, true) },
+        { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
         { json: "showClientAppear", js: "showClientAppear", typ: u(undefined, true) },
         { json: "showClientAppearOnSchedule", js: "showClientAppearOnSchedule", typ: u(undefined, true) },
         { json: "showClientBirthdayFilter", js: "showClientBirthdayFilter", typ: u(undefined, true) },
         { json: "showClientContractNumber", js: "showClientContractNumber", typ: u(undefined, true) },
         { json: "showClientImage", js: "showClientImage", typ: u(undefined, true) },
         { json: "showClientPayment", js: "showClientPayment", typ: u(undefined, true) },
+        { json: "showCreatedUsername", js: "showCreatedUsername", typ: u(undefined, true) },
         { json: "showDefaulterBlockscreen", js: "showDefaulterBlockscreen", typ: u(undefined, true) },
         { json: "showDeliveryStatus", js: "showDeliveryStatus", typ: u(undefined, true) },
         { json: "showDepartmentFilter", js: "showDepartmentFilter", typ: u(undefined, true) },
@@ -2251,6 +2300,7 @@ var typeMap = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, u(a(m("any")), null)) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -2425,8 +2475,8 @@ var typeMap = {
         { json: "allowAutoSelect", js: "allowAutoSelect", typ: u(undefined, true) },
         { json: "allowBookVisitor", js: "allowBookVisitor", typ: u(undefined, true) },
         { json: "allowSkipTimeCheck", js: "allowSkipTimeCheck", typ: u(undefined, true) },
-        { json: "analyticsGoogle", js: "analyticsGoogle", typ: u(undefined, r("AnalyticsGoogle")) },
-        { json: "analyticsYandex", js: "analyticsYandex", typ: u(undefined, r("AnalyticsYandex")) },
+        { json: "analyticsGoogle", js: "analyticsGoogle", typ: u(undefined, r("FluffyAnalyticsGoogle")) },
+        { json: "analyticsYandex", js: "analyticsYandex", typ: u(undefined, r("FluffyAnalyticsYandex")) },
         { json: "appointment_confirmation_text", js: "appointment_confirmation_text", typ: u(undefined, "") },
         { json: "appointment_confirmation_title", js: "appointment_confirmation_title", typ: u(undefined, "") },
         { json: "askClientBirthday", js: "askClientBirthday", typ: u(undefined, true) },
@@ -2479,7 +2529,7 @@ var typeMap = {
         { json: "noDefaultImages", js: "noDefaultImages", typ: u(undefined, true) },
         { json: "overrideFooter", js: "overrideFooter", typ: u(undefined, "") },
         { json: "payment", js: "payment", typ: u(undefined, r("Payment")) },
-        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("FluffyPaymentProvider")) },
+        { json: "paymentProvider", js: "paymentProvider", typ: u(undefined, r("PurplePaymentProvider")) },
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
@@ -2536,11 +2586,11 @@ var typeMap = {
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
     ], false),
-    "AnalyticsGoogle": o([
+    "FluffyAnalyticsGoogle": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "key", js: "key", typ: u(undefined, "") },
     ], false),
-    "AnalyticsYandex": o([
+    "FluffyAnalyticsYandex": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "key", js: "key", typ: u(undefined, "") },
     ], false),
@@ -2642,13 +2692,14 @@ var typeMap = {
     "ClientClass": o([
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
-        { json: "blackList", js: "blackList", typ: u(undefined, "") },
+        { json: "blackList", js: "blackList", typ: u(undefined, true) },
         { json: "childrenClients", js: "childrenClients", typ: u(undefined, a(r("ChildrenClient"))) },
         { json: "clientCardCreationDate", js: "clientCardCreationDate", typ: u(undefined, "") },
         { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, "") },
         { json: "clientContractNumber", js: "clientContractNumber", typ: u(undefined, "") },
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
+        { json: "description", js: "description", typ: u(undefined, "") },
         { json: "discountCode", js: "discountCode", typ: u(undefined, "") },
         { json: "driverLicense", js: "driverLicense", typ: u(undefined, u(null, "")) },
         { json: "email", js: "email", typ: u(undefined, a("")) },
@@ -2665,9 +2716,9 @@ var typeMap = {
         { json: "insuranceNumber", js: "insuranceNumber", typ: u(undefined, "") },
         { json: "integrationData", js: "integrationData", typ: u(undefined, r("IntegrationDataClass")) },
         { json: "isLazy", js: "isLazy", typ: u(undefined, true) },
-        { json: "israelCity", js: "israelCity", typ: u(undefined, "") },
+        { json: "israelCity", js: "israelCity", typ: u(undefined, u(a("any"), true, 3.14, 0, null, r("IsraelCityObject"), "")) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
-        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, "") },
+        { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(a("any"), true, 3.14, 0, null, r("KupatHolimObject"), "")) },
         { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
         { json: "lazyResolvedDate", js: "lazyResolvedDate", typ: u(undefined, "") },
         { json: "locality", js: "locality", typ: u(undefined, "") },
@@ -2679,7 +2730,7 @@ var typeMap = {
         { json: "passportIssued", js: "passportIssued", typ: u(undefined, "") },
         { json: "passportSeries", js: "passportSeries", typ: u(undefined, "") },
         { json: "phone", js: "phone", typ: a(r("FaxElement")) },
-        { json: "receiveSmsAfterService", js: "receiveSmsAfterService", typ: u(undefined, "") },
+        { json: "receiveSmsAfterService", js: "receiveSmsAfterService", typ: u(undefined, true) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
         { json: "skipMarketingNotifications", js: "skipMarketingNotifications", typ: u(undefined, true) },
         { json: "skipNotifications", js: "skipNotifications", typ: u(undefined, true) },
@@ -2701,7 +2752,7 @@ var typeMap = {
     "ClientExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
-        { json: "value", js: "value", typ: u(true, 3.14, m("any"), null, "") },
+        { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
     ], false),
     "FavResource": o([
         { json: "businessID", js: "businessID", typ: 3.14 },
@@ -2711,6 +2762,14 @@ var typeMap = {
     "IntegrationDataClass": o([
         { json: "transactionID", js: "transactionID", typ: "" },
     ], false),
+    "IsraelCityObject": o([
+        { json: "cityId", js: "cityId", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
+    ], "any"),
+    "KupatHolimObject": o([
+        { json: "kupatHolimId", js: "kupatHolimId", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
+    ], "any"),
     "LoyaltyInfo": o([
         { json: "annualTurnover", js: "annualTurnover", typ: u(undefined, 3.14) },
         { json: "bonusPoints", js: "bonusPoints", typ: u(undefined, 3.14) },
@@ -3250,10 +3309,17 @@ var typeMap = {
         "4",
         "5",
     ],
-    "PurplePaymentProvider": [
+    "InvoiceProvider": [
+        "DISABLE",
+        "icount",
+    ],
+    "BackofficeConfigurationPaymentProvider": [
+        "cloudpayments",
         "deltaProcessing",
         "DISABLE",
+        "pelecard",
         "yandexMoney",
+        "yandexMoneyv3",
     ],
     "ResourceTimetableType": [
         "DEFAULT",
@@ -3262,6 +3328,10 @@ var typeMap = {
     "SchedulerWeekViewType": [
         "week",
         "workWeek",
+    ],
+    "TelemedProvider": [
+        "DISABLE",
+        "zoom",
     ],
     "BackofficeType": [
         "COMMON",
@@ -3434,7 +3504,7 @@ var typeMap = {
         "none",
         "workload",
     ],
-    "FluffyPaymentProvider": [
+    "PurplePaymentProvider": [
         "cloudpayments",
         "deltaProcessing",
         "DISABLE",

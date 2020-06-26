@@ -867,13 +867,13 @@ namespace GBookingCoreV2
         public List<IncomingPhoneElement> IncomingPhone { get; set; }
 
         [JsonProperty("israelCity")]
-        public IsraelCity IsraelCity { get; set; }
+        public AdditionalClientIsraelCity IsraelCity { get; set; }
 
         [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsVip { get; set; }
 
         [JsonProperty("kupatHolim")]
-        public KupatHolim KupatHolim { get; set; }
+        public AdditionalClientKupatHolim KupatHolim { get; set; }
 
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; }
@@ -960,7 +960,7 @@ namespace GBookingCoreV2
         public string Number { get; set; }
     }
 
-    public partial class IsraelCity
+    public partial class AdditionalClientIsraelCity
     {
         [JsonProperty("cityId", NullValueHandling = NullValueHandling.Ignore)]
         public string CityId { get; set; }
@@ -969,7 +969,7 @@ namespace GBookingCoreV2
         public string Name { get; set; }
     }
 
-    public partial class KupatHolim
+    public partial class AdditionalClientKupatHolim
     {
         [JsonProperty("kupatHolimId", NullValueHandling = NullValueHandling.Ignore)]
         public string KupatHolimId { get; set; }
@@ -1182,13 +1182,13 @@ namespace GBookingCoreV2
         public List<IncomingPhoneElement> IncomingPhone { get; set; }
 
         [JsonProperty("israelCity")]
-        public IsraelCity IsraelCity { get; set; }
+        public AdditionalClientIsraelCity IsraelCity { get; set; }
 
         [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsVip { get; set; }
 
         [JsonProperty("kupatHolim")]
-        public KupatHolim KupatHolim { get; set; }
+        public AdditionalClientKupatHolim KupatHolim { get; set; }
 
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public string Language { get; set; }
@@ -2716,8 +2716,14 @@ namespace GBookingCoreV2
         [JsonProperty("enableExtendedRecordsClientStatistics", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableExtendedRecordsClientStatistics { get; set; }
 
+        [JsonProperty("enableInvoice", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableInvoice { get; set; }
+
         [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableMasterImportance { get; set; }
+
+        [JsonProperty("enablePhoneNationalMode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnablePhoneNationalMode { get; set; }
 
         [JsonProperty("enablePrintingReportRecordsScreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnablePrintingReportRecordsScreen { get; set; }
@@ -2730,6 +2736,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("enableTaxonomyChildrenAgeCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableTaxonomyChildrenAgeCheck { get; set; }
+
+        [JsonProperty("enableTelemed", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableTelemed { get; set; }
 
         [JsonProperty("exportToExcelRemovedClients", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ExportToExcelRemovedClients { get; set; }
@@ -2758,6 +2767,12 @@ namespace GBookingCoreV2
         [JsonProperty("highlightedResource", NullValueHandling = NullValueHandling.Ignore)]
         public bool? HighlightedResource { get; set; }
 
+        [JsonProperty("invoiceCondition", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AppointmentClientPayment> InvoiceCondition { get; set; }
+
+        [JsonProperty("invoiceProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public InvoiceProvider? InvoiceProvider { get; set; }
+
         [JsonProperty("manualExceptionSupport", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ManualExceptionSupport { get; set; }
 
@@ -2768,10 +2783,13 @@ namespace GBookingCoreV2
         public double? PastTimeEdit { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePaymentProvider? PaymentProvider { get; set; }
+        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadonlyResourceSchedule { get; set; }
+
+        [JsonProperty("resourceSurnameFirst", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ResourceSurnameFirst { get; set; }
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
@@ -2806,6 +2824,9 @@ namespace GBookingCoreV2
         [JsonProperty("showBirthDate", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowBirthDate { get; set; }
 
+        [JsonProperty("showClientAddress", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientAddress { get; set; }
+
         [JsonProperty("showClientAppear", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowClientAppear { get; set; }
 
@@ -2823,6 +2844,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("showClientPayment", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowClientPayment { get; set; }
+
+        [JsonProperty("showCreatedUsername", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowCreatedUsername { get; set; }
 
         [JsonProperty("showDefaulterBlockscreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowDefaulterBlockscreen { get; set; }
@@ -2937,6 +2961,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("taxonomyChildrenMaxAge", NullValueHandling = NullValueHandling.Ignore)]
         public double? TaxonomyChildrenMaxAge { get; set; }
+
+        [JsonProperty("telemedProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public TelemedProvider? TelemedProvider { get; set; }
 
         [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAdditionalDurations { get; set; }
@@ -3768,6 +3795,9 @@ namespace GBookingCoreV2
         [JsonProperty("taxonomyLevels")]
         public List<ResourceTaxonomyLevel> TaxonomyLevels { get; set; }
 
+        [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
+        public TelemedData TelemedData { get; set; }
+
         [JsonProperty("timetable")]
         public Timetable Timetable { get; set; }
 
@@ -4050,6 +4080,15 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("level")]
         public double Level { get; set; }
+    }
+
+    public partial class TelemedData
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class InfoTaxonomy
@@ -4480,6 +4519,12 @@ namespace GBookingCoreV2
         [JsonProperty("allowSkipTimeCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? AllowSkipTimeCheck { get; set; }
 
+        [JsonProperty("analyticsGoogle", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleAnalyticsGoogle AnalyticsGoogle { get; set; }
+
+        [JsonProperty("analyticsYandex", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleAnalyticsYandex AnalyticsYandex { get; set; }
+
         [JsonProperty("appointment_confirmation_text", NullValueHandling = NullValueHandling.Ignore)]
         public string AppointmentConfirmationText { get; set; }
 
@@ -4491,6 +4536,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("askClientGender", NullValueHandling = NullValueHandling.Ignore)]
         public bool? AskClientGender { get; set; }
+
+        [JsonProperty("askClientPassportID", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AskClientPassportId { get; set; }
 
         [JsonProperty("bookableDateRanges", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleBookableDateRanges BookableDateRanges { get; set; }
@@ -4634,7 +4682,7 @@ namespace GBookingCoreV2
         public Payment? Payment { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePaymentProvider? PaymentProvider { get; set; }
+        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequireAgreement { get; set; }
@@ -4738,6 +4786,9 @@ namespace GBookingCoreV2
         [JsonProperty("theme", NullValueHandling = NullValueHandling.Ignore)]
         public string Theme { get; set; }
 
+        [JsonProperty("toggleReminder", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ToggleReminder { get; set; }
+
         [JsonProperty("useAppointmentReminder", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAppointmentReminder { get; set; }
 
@@ -4797,6 +4848,24 @@ namespace GBookingCoreV2
 
         [JsonProperty("workerNameReverse", NullValueHandling = NullValueHandling.Ignore)]
         public bool? WorkerNameReverse { get; set; }
+    }
+
+    public partial class PurpleAnalyticsGoogle
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+        public string Key { get; set; }
+    }
+
+    public partial class PurpleAnalyticsYandex
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
+        public string Key { get; set; }
     }
 
     public partial class PurpleBookableDateRanges
@@ -5198,6 +5267,9 @@ namespace GBookingCoreV2
         [JsonProperty("integration_data", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> IntegrationData { get; set; }
 
+        [JsonProperty("maxFilterDateDuration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? MaxFilterDateDuration { get; set; }
+
         [JsonProperty("mini_widget_configuration")]
         public BusinessMiniWidgetConfiguration MiniWidgetConfiguration { get; set; }
 
@@ -5312,8 +5384,17 @@ namespace GBookingCoreV2
         [JsonProperty("enableExtendedRecordsClientStatistics", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableExtendedRecordsClientStatistics { get; set; }
 
+        [JsonProperty("enableInvoice", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableInvoice { get; set; }
+
         [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableMasterImportance { get; set; }
+
+        [JsonProperty("enablePhoneNationalMode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnablePhoneNationalMode { get; set; }
+
+        [JsonProperty("enablePrintingReportRecordsScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnablePrintingReportRecordsScreen { get; set; }
 
         [JsonProperty("enableServiceTimeLimit", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableServiceTimeLimit { get; set; }
@@ -5323,6 +5404,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("enableTaxonomyChildrenAgeCheck", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableTaxonomyChildrenAgeCheck { get; set; }
+
+        [JsonProperty("enableTelemed", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableTelemed { get; set; }
 
         [JsonProperty("exportToExcelRemovedClients", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ExportToExcelRemovedClients { get; set; }
@@ -5351,6 +5435,12 @@ namespace GBookingCoreV2
         [JsonProperty("highlightedResource", NullValueHandling = NullValueHandling.Ignore)]
         public bool? HighlightedResource { get; set; }
 
+        [JsonProperty("invoiceCondition", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AppointmentClientPayment> InvoiceCondition { get; set; }
+
+        [JsonProperty("invoiceProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public InvoiceProvider? InvoiceProvider { get; set; }
+
         [JsonProperty("manualExceptionSupport", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ManualExceptionSupport { get; set; }
 
@@ -5361,10 +5451,13 @@ namespace GBookingCoreV2
         public double? PastTimeEdit { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyPaymentProvider? PaymentProvider { get; set; }
+        public BackofficeConfigurationPaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("readonlyResourceSchedule", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReadonlyResourceSchedule { get; set; }
+
+        [JsonProperty("resourceSurnameFirst", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ResourceSurnameFirst { get; set; }
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
@@ -5405,6 +5498,9 @@ namespace GBookingCoreV2
         [JsonProperty("showBirthDate", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowBirthDate { get; set; }
 
+        [JsonProperty("showClientAddress", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowClientAddress { get; set; }
+
         [JsonProperty("showClientAppear", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowClientAppear { get; set; }
 
@@ -5422,6 +5518,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("showClientPayment", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowClientPayment { get; set; }
+
+        [JsonProperty("showCreatedUsername", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowCreatedUsername { get; set; }
 
         [JsonProperty("showDefaulterBlockscreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowDefaulterBlockscreen { get; set; }
@@ -5539,6 +5638,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("taxonomyChildrenMaxAge", NullValueHandling = NullValueHandling.Ignore)]
         public double? TaxonomyChildrenMaxAge { get; set; }
+
+        [JsonProperty("telemedProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public TelemedProvider? TelemedProvider { get; set; }
 
         [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAdditionalDurations { get; set; }
@@ -6054,10 +6156,10 @@ namespace GBookingCoreV2
         public bool? AllowSkipTimeCheck { get; set; }
 
         [JsonProperty("analyticsGoogle", NullValueHandling = NullValueHandling.Ignore)]
-        public AnalyticsGoogle AnalyticsGoogle { get; set; }
+        public FluffyAnalyticsGoogle AnalyticsGoogle { get; set; }
 
         [JsonProperty("analyticsYandex", NullValueHandling = NullValueHandling.Ignore)]
-        public AnalyticsYandex AnalyticsYandex { get; set; }
+        public FluffyAnalyticsYandex AnalyticsYandex { get; set; }
 
         [JsonProperty("appointment_confirmation_text", NullValueHandling = NullValueHandling.Ignore)]
         public string AppointmentConfirmationText { get; set; }
@@ -6216,7 +6318,7 @@ namespace GBookingCoreV2
         public Payment? Payment { get; set; }
 
         [JsonProperty("paymentProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyPaymentProvider? PaymentProvider { get; set; }
+        public PurplePaymentProvider? PaymentProvider { get; set; }
 
         [JsonProperty("requireAgreement", NullValueHandling = NullValueHandling.Ignore)]
         public bool? RequireAgreement { get; set; }
@@ -6384,7 +6486,7 @@ namespace GBookingCoreV2
         public bool? WorkerNameReverse { get; set; }
     }
 
-    public partial class AnalyticsGoogle
+    public partial class FluffyAnalyticsGoogle
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -6393,7 +6495,7 @@ namespace GBookingCoreV2
         public string Key { get; set; }
     }
 
-    public partial class AnalyticsYandex
+    public partial class FluffyAnalyticsYandex
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -6681,7 +6783,7 @@ namespace GBookingCoreV2
         public Birthday? Birthday { get; set; }
 
         [JsonProperty("blackList", NullValueHandling = NullValueHandling.Ignore)]
-        public string BlackList { get; set; }
+        public bool? BlackList { get; set; }
 
         [JsonProperty("childrenClients", NullValueHandling = NullValueHandling.Ignore)]
         public List<ChildrenClient> ChildrenClients { get; set; }
@@ -6700,6 +6802,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("creatorProfileName")]
         public string CreatorProfileName { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
 
         [JsonProperty("discountCode", NullValueHandling = NullValueHandling.Ignore)]
         public string DiscountCode { get; set; }
@@ -6749,14 +6854,14 @@ namespace GBookingCoreV2
         [JsonProperty("isLazy", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsLazy { get; set; }
 
-        [JsonProperty("israelCity", NullValueHandling = NullValueHandling.Ignore)]
-        public string IsraelCity { get; set; }
+        [JsonProperty("israelCity")]
+        public IsraelCityUnion? IsraelCity { get; set; }
 
         [JsonProperty("isVIP", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsVip { get; set; }
 
-        [JsonProperty("kupatHolim", NullValueHandling = NullValueHandling.Ignore)]
-        public string KupatHolim { get; set; }
+        [JsonProperty("kupatHolim")]
+        public KupatHolimUnion? KupatHolim { get; set; }
 
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public LanguageList? Language { get; set; }
@@ -6792,7 +6897,7 @@ namespace GBookingCoreV2
         public List<FaxElement> Phone { get; set; }
 
         [JsonProperty("receiveSmsAfterService", NullValueHandling = NullValueHandling.Ignore)]
-        public string ReceiveSmsAfterService { get; set; }
+        public bool? ReceiveSmsAfterService { get; set; }
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
         public Sex? Sex { get; set; }
@@ -6852,7 +6957,7 @@ namespace GBookingCoreV2
         public string FieldName { get; set; }
 
         [JsonProperty("value")]
-        public FluffyValue Value { get; set; }
+        public FluffyValue? Value { get; set; }
     }
 
     public partial class FavResource
@@ -6871,6 +6976,24 @@ namespace GBookingCoreV2
     {
         [JsonProperty("transactionID")]
         public string TransactionId { get; set; }
+    }
+
+    public partial class IsraelCityIsraelCity
+    {
+        [JsonProperty("cityId", NullValueHandling = NullValueHandling.Ignore)]
+        public string CityId { get; set; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    }
+
+    public partial class KupatHolimKupatHolim
+    {
+        [JsonProperty("kupatHolimId", NullValueHandling = NullValueHandling.Ignore)]
+        public string KupatHolimId { get; set; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
     }
 
     public partial class LoyaltyInfo
@@ -8333,11 +8456,15 @@ namespace GBookingCoreV2
 
     public enum FeedBackMinRating { The1, The2, The3, The4, The5 };
 
-    public enum PurplePaymentProvider { DeltaProcessing, Disable, YandexMoney };
+    public enum InvoiceProvider { Disable, Icount };
+
+    public enum BackofficeConfigurationPaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney, YandexMoneyv3 };
 
     public enum ResourceTimetableType { Default, Evenodd };
 
     public enum SchedulerWeekViewType { Week, WorkWeek };
+
+    public enum TelemedProvider { Disable, Zoom };
 
     public enum BackofficeType { Common, Gt, Ll, Mb, Mu };
 
@@ -8402,7 +8529,7 @@ namespace GBookingCoreV2
     /// </summary>
     public enum WorkerSortingType { MostFree, None, Workload };
 
-    public enum FluffyPaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney };
+    public enum PurplePaymentProvider { Cloudpayments, DeltaProcessing, Disable, Pelecard, YandexMoney };
 
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
 
@@ -8575,6 +8702,42 @@ namespace GBookingCoreV2
         public static implicit operator FromSms(string String) => new FromSms { String = String };
     }
 
+    public partial struct IsraelCityUnion
+    {
+        public List<object> AnythingArray;
+        public bool? Bool;
+        public double? Double;
+        public long? Integer;
+        public IsraelCityIsraelCity IsraelCityIsraelCity;
+        public string String;
+
+        public static implicit operator IsraelCityUnion(List<object> AnythingArray) => new IsraelCityUnion { AnythingArray = AnythingArray };
+        public static implicit operator IsraelCityUnion(bool Bool) => new IsraelCityUnion { Bool = Bool };
+        public static implicit operator IsraelCityUnion(double Double) => new IsraelCityUnion { Double = Double };
+        public static implicit operator IsraelCityUnion(long Integer) => new IsraelCityUnion { Integer = Integer };
+        public static implicit operator IsraelCityUnion(IsraelCityIsraelCity IsraelCityIsraelCity) => new IsraelCityUnion { IsraelCityIsraelCity = IsraelCityIsraelCity };
+        public static implicit operator IsraelCityUnion(string String) => new IsraelCityUnion { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && IsraelCityIsraelCity == null && Double == null && Integer == null && String == null;
+    }
+
+    public partial struct KupatHolimUnion
+    {
+        public List<object> AnythingArray;
+        public bool? Bool;
+        public double? Double;
+        public long? Integer;
+        public KupatHolimKupatHolim KupatHolimKupatHolim;
+        public string String;
+
+        public static implicit operator KupatHolimUnion(List<object> AnythingArray) => new KupatHolimUnion { AnythingArray = AnythingArray };
+        public static implicit operator KupatHolimUnion(bool Bool) => new KupatHolimUnion { Bool = Bool };
+        public static implicit operator KupatHolimUnion(double Double) => new KupatHolimUnion { Double = Double };
+        public static implicit operator KupatHolimUnion(long Integer) => new KupatHolimUnion { Integer = Integer };
+        public static implicit operator KupatHolimUnion(KupatHolimKupatHolim KupatHolimKupatHolim) => new KupatHolimUnion { KupatHolimKupatHolim = KupatHolimKupatHolim };
+        public static implicit operator KupatHolimUnion(string String) => new KupatHolimUnion { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && KupatHolimKupatHolim == null && Double == null && Integer == null && String == null;
+    }
+
     public partial class GBookingCoreV2
     {
         public static GBookingCoreV2 FromJson(string json) => JsonConvert.DeserializeObject<GBookingCoreV2>(json, GBookingCoreV2.Converter.Settings);
@@ -8616,9 +8779,11 @@ namespace GBookingCoreV2
                 ResourceIdConverter.Singleton,
                 AppointmentExtensionTypeConverter.Singleton,
                 FeedBackMinRatingConverter.Singleton,
-                PurplePaymentProviderConverter.Singleton,
+                InvoiceProviderConverter.Singleton,
+                BackofficeConfigurationPaymentProviderConverter.Singleton,
                 ResourceTimetableTypeConverter.Singleton,
                 SchedulerWeekViewTypeConverter.Singleton,
+                TelemedProviderConverter.Singleton,
                 BackofficeTypeConverter.Singleton,
                 CountryConverter.Singleton,
                 LanguageListConverter.Singleton,
@@ -8646,10 +8811,12 @@ namespace GBookingCoreV2
                 DiscountTypeConverter.Singleton,
                 UseDirectScheduleReadConverter.Singleton,
                 WorkerSortingTypeConverter.Singleton,
-                FluffyPaymentProviderConverter.Singleton,
+                PurplePaymentProviderConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
                 FluffyValueConverter.Singleton,
                 FromSmsConverter.Singleton,
+                IsraelCityUnionConverter.Singleton,
+                KupatHolimUnionConverter.Singleton,
                 PresentStatusConverter.Singleton,
                 SourceConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
@@ -9906,9 +10073,9 @@ namespace GBookingCoreV2
         public static readonly FeedBackMinRatingConverter Singleton = new FeedBackMinRatingConverter();
     }
 
-    internal class PurplePaymentProviderConverter : JsonConverter
+    internal class InvoiceProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(PurplePaymentProvider) || t == typeof(PurplePaymentProvider?);
+        public override bool CanConvert(Type t) => t == typeof(InvoiceProvider) || t == typeof(InvoiceProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -9917,13 +10084,11 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return PurplePaymentProvider.Disable;
-                case "deltaProcessing":
-                    return PurplePaymentProvider.DeltaProcessing;
-                case "yandexMoney":
-                    return PurplePaymentProvider.YandexMoney;
+                    return InvoiceProvider.Disable;
+                case "icount":
+                    return InvoiceProvider.Icount;
             }
-            throw new Exception("Cannot unmarshal type PurplePaymentProvider");
+            throw new Exception("Cannot unmarshal type InvoiceProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -9933,23 +10098,81 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (PurplePaymentProvider)untypedValue;
+            var value = (InvoiceProvider)untypedValue;
             switch (value)
             {
-                case PurplePaymentProvider.Disable:
+                case InvoiceProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case PurplePaymentProvider.DeltaProcessing:
-                    serializer.Serialize(writer, "deltaProcessing");
-                    return;
-                case PurplePaymentProvider.YandexMoney:
-                    serializer.Serialize(writer, "yandexMoney");
+                case InvoiceProvider.Icount:
+                    serializer.Serialize(writer, "icount");
                     return;
             }
-            throw new Exception("Cannot marshal type PurplePaymentProvider");
+            throw new Exception("Cannot marshal type InvoiceProvider");
         }
 
-        public static readonly PurplePaymentProviderConverter Singleton = new PurplePaymentProviderConverter();
+        public static readonly InvoiceProviderConverter Singleton = new InvoiceProviderConverter();
+    }
+
+    internal class BackofficeConfigurationPaymentProviderConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(BackofficeConfigurationPaymentProvider) || t == typeof(BackofficeConfigurationPaymentProvider?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "DISABLE":
+                    return BackofficeConfigurationPaymentProvider.Disable;
+                case "cloudpayments":
+                    return BackofficeConfigurationPaymentProvider.Cloudpayments;
+                case "deltaProcessing":
+                    return BackofficeConfigurationPaymentProvider.DeltaProcessing;
+                case "pelecard":
+                    return BackofficeConfigurationPaymentProvider.Pelecard;
+                case "yandexMoney":
+                    return BackofficeConfigurationPaymentProvider.YandexMoney;
+                case "yandexMoneyv3":
+                    return BackofficeConfigurationPaymentProvider.YandexMoneyv3;
+            }
+            throw new Exception("Cannot unmarshal type BackofficeConfigurationPaymentProvider");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (BackofficeConfigurationPaymentProvider)untypedValue;
+            switch (value)
+            {
+                case BackofficeConfigurationPaymentProvider.Disable:
+                    serializer.Serialize(writer, "DISABLE");
+                    return;
+                case BackofficeConfigurationPaymentProvider.Cloudpayments:
+                    serializer.Serialize(writer, "cloudpayments");
+                    return;
+                case BackofficeConfigurationPaymentProvider.DeltaProcessing:
+                    serializer.Serialize(writer, "deltaProcessing");
+                    return;
+                case BackofficeConfigurationPaymentProvider.Pelecard:
+                    serializer.Serialize(writer, "pelecard");
+                    return;
+                case BackofficeConfigurationPaymentProvider.YandexMoney:
+                    serializer.Serialize(writer, "yandexMoney");
+                    return;
+                case BackofficeConfigurationPaymentProvider.YandexMoneyv3:
+                    serializer.Serialize(writer, "yandexMoneyv3");
+                    return;
+            }
+            throw new Exception("Cannot marshal type BackofficeConfigurationPaymentProvider");
+        }
+
+        public static readonly BackofficeConfigurationPaymentProviderConverter Singleton = new BackofficeConfigurationPaymentProviderConverter();
     }
 
     internal class ResourceTimetableTypeConverter : JsonConverter
@@ -10032,6 +10255,47 @@ namespace GBookingCoreV2
         }
 
         public static readonly SchedulerWeekViewTypeConverter Singleton = new SchedulerWeekViewTypeConverter();
+    }
+
+    internal class TelemedProviderConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(TelemedProvider) || t == typeof(TelemedProvider?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "DISABLE":
+                    return TelemedProvider.Disable;
+                case "zoom":
+                    return TelemedProvider.Zoom;
+            }
+            throw new Exception("Cannot unmarshal type TelemedProvider");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (TelemedProvider)untypedValue;
+            switch (value)
+            {
+                case TelemedProvider.Disable:
+                    serializer.Serialize(writer, "DISABLE");
+                    return;
+                case TelemedProvider.Zoom:
+                    serializer.Serialize(writer, "zoom");
+                    return;
+            }
+            throw new Exception("Cannot marshal type TelemedProvider");
+        }
+
+        public static readonly TelemedProviderConverter Singleton = new TelemedProviderConverter();
     }
 
     internal class BackofficeTypeConverter : JsonConverter
@@ -11502,9 +11766,9 @@ namespace GBookingCoreV2
         public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
     }
 
-    internal class FluffyPaymentProviderConverter : JsonConverter
+    internal class PurplePaymentProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(FluffyPaymentProvider) || t == typeof(FluffyPaymentProvider?);
+        public override bool CanConvert(Type t) => t == typeof(PurplePaymentProvider) || t == typeof(PurplePaymentProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -11513,17 +11777,17 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return FluffyPaymentProvider.Disable;
+                    return PurplePaymentProvider.Disable;
                 case "cloudpayments":
-                    return FluffyPaymentProvider.Cloudpayments;
+                    return PurplePaymentProvider.Cloudpayments;
                 case "deltaProcessing":
-                    return FluffyPaymentProvider.DeltaProcessing;
+                    return PurplePaymentProvider.DeltaProcessing;
                 case "pelecard":
-                    return FluffyPaymentProvider.Pelecard;
+                    return PurplePaymentProvider.Pelecard;
                 case "yandexMoney":
-                    return FluffyPaymentProvider.YandexMoney;
+                    return PurplePaymentProvider.YandexMoney;
             }
-            throw new Exception("Cannot unmarshal type FluffyPaymentProvider");
+            throw new Exception("Cannot unmarshal type PurplePaymentProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -11533,29 +11797,29 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (FluffyPaymentProvider)untypedValue;
+            var value = (PurplePaymentProvider)untypedValue;
             switch (value)
             {
-                case FluffyPaymentProvider.Disable:
+                case PurplePaymentProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case FluffyPaymentProvider.Cloudpayments:
+                case PurplePaymentProvider.Cloudpayments:
                     serializer.Serialize(writer, "cloudpayments");
                     return;
-                case FluffyPaymentProvider.DeltaProcessing:
+                case PurplePaymentProvider.DeltaProcessing:
                     serializer.Serialize(writer, "deltaProcessing");
                     return;
-                case FluffyPaymentProvider.Pelecard:
+                case PurplePaymentProvider.Pelecard:
                     serializer.Serialize(writer, "pelecard");
                     return;
-                case FluffyPaymentProvider.YandexMoney:
+                case PurplePaymentProvider.YandexMoney:
                     serializer.Serialize(writer, "yandexMoney");
                     return;
             }
-            throw new Exception("Cannot marshal type FluffyPaymentProvider");
+            throw new Exception("Cannot marshal type PurplePaymentProvider");
         }
 
-        public static readonly FluffyPaymentProviderConverter Singleton = new FluffyPaymentProviderConverter();
+        public static readonly PurplePaymentProviderConverter Singleton = new PurplePaymentProviderConverter();
     }
 
     internal class YandexFeedTypeConverter : JsonConverter
@@ -11707,6 +11971,160 @@ namespace GBookingCoreV2
         }
 
         public static readonly FromSmsConverter Singleton = new FromSmsConverter();
+    }
+
+    internal class IsraelCityUnionConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(IsraelCityUnion) || t == typeof(IsraelCityUnion?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new IsraelCityUnion { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new IsraelCityUnion { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new IsraelCityUnion { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new IsraelCityUnion { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new IsraelCityUnion { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<IsraelCityIsraelCity>(reader);
+                    return new IsraelCityUnion { IsraelCityIsraelCity = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new IsraelCityUnion { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type IsraelCityUnion");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (IsraelCityUnion)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.IsraelCityIsraelCity != null)
+            {
+                serializer.Serialize(writer, value.IsraelCityIsraelCity);
+                return;
+            }
+            throw new Exception("Cannot marshal type IsraelCityUnion");
+        }
+
+        public static readonly IsraelCityUnionConverter Singleton = new IsraelCityUnionConverter();
+    }
+
+    internal class KupatHolimUnionConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(KupatHolimUnion) || t == typeof(KupatHolimUnion?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new KupatHolimUnion { };
+                case JsonToken.Integer:
+                    var integerValue = serializer.Deserialize<long>(reader);
+                    return new KupatHolimUnion { Integer = integerValue };
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new KupatHolimUnion { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new KupatHolimUnion { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new KupatHolimUnion { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<KupatHolimKupatHolim>(reader);
+                    return new KupatHolimUnion { KupatHolimKupatHolim = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new KupatHolimUnion { AnythingArray = arrayValue };
+            }
+            throw new Exception("Cannot unmarshal type KupatHolimUnion");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (KupatHolimUnion)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Integer != null)
+            {
+                serializer.Serialize(writer, value.Integer.Value);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
+            if (value.KupatHolimKupatHolim != null)
+            {
+                serializer.Serialize(writer, value.KupatHolimKupatHolim);
+                return;
+            }
+            throw new Exception("Cannot marshal type KupatHolimUnion");
+        }
+
+        public static readonly KupatHolimUnionConverter Singleton = new KupatHolimUnionConverter();
     }
 
     internal class PresentStatusConverter : JsonConverter

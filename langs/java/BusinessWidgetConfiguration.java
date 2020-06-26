@@ -9,8 +9,8 @@ public class BusinessWidgetConfiguration {
     private Boolean allowAutoSelect;
     private Boolean allowBookVisitor;
     private Boolean allowSkipTimeCheck;
-    private AnalyticsGoogle analyticsGoogle;
-    private AnalyticsYandex analyticsYandex;
+    private FluffyAnalyticsGoogle analyticsGoogle;
+    private FluffyAnalyticsYandex analyticsYandex;
     private String appointmentConfirmationText;
     private String appointmentConfirmationTitle;
     private Boolean askClientBirthday;
@@ -63,7 +63,7 @@ public class BusinessWidgetConfiguration {
     private Boolean noDefaultImages;
     private String overrideFooter;
     private Payment payment;
-    private FluffyPaymentProvider paymentProvider;
+    private PurplePaymentProvider paymentProvider;
     private Boolean requireAgreement;
     private String requireAgreementLink;
     private Double revisionVersion;
@@ -146,14 +146,14 @@ public class BusinessWidgetConfiguration {
     public void setAllowSkipTimeCheck(Boolean value) { this.allowSkipTimeCheck = value; }
 
     @JsonProperty("analyticsGoogle")
-    public AnalyticsGoogle getAnalyticsGoogle() { return analyticsGoogle; }
+    public FluffyAnalyticsGoogle getAnalyticsGoogle() { return analyticsGoogle; }
     @JsonProperty("analyticsGoogle")
-    public void setAnalyticsGoogle(AnalyticsGoogle value) { this.analyticsGoogle = value; }
+    public void setAnalyticsGoogle(FluffyAnalyticsGoogle value) { this.analyticsGoogle = value; }
 
     @JsonProperty("analyticsYandex")
-    public AnalyticsYandex getAnalyticsYandex() { return analyticsYandex; }
+    public FluffyAnalyticsYandex getAnalyticsYandex() { return analyticsYandex; }
     @JsonProperty("analyticsYandex")
-    public void setAnalyticsYandex(AnalyticsYandex value) { this.analyticsYandex = value; }
+    public void setAnalyticsYandex(FluffyAnalyticsYandex value) { this.analyticsYandex = value; }
 
     @JsonProperty("appointment_confirmation_text")
     public String getAppointmentConfirmationText() { return appointmentConfirmationText; }
@@ -416,9 +416,9 @@ public class BusinessWidgetConfiguration {
     public void setPayment(Payment value) { this.payment = value; }
 
     @JsonProperty("paymentProvider")
-    public FluffyPaymentProvider getPaymentProvider() { return paymentProvider; }
+    public PurplePaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(FluffyPaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(PurplePaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("requireAgreement")
     public Boolean getRequireAgreement() { return requireAgreement; }
