@@ -244,9 +244,7 @@ definitions:
       extraVisitors:
         type: "number"
       incomingPhone:
-        type: "array"
-        items:
-          $ref: "#/definitions/Phone"
+        $ref: "#/definitions/Phone"
       shortId:
         type: "string"
       phone:
