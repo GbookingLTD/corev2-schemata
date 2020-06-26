@@ -189,5 +189,12 @@ properties:
         type: ["object"]
       totalPrices:
         type: ["object"]
-
+  created:
+    type: "string"
+  updated:
+    type: "string"
+  lastVisitedAppointment:
+    type: "object"
+  lastCreatedAppointment:
+    type: "object"
 
