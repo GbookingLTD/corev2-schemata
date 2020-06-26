@@ -568,10 +568,7 @@ definitions:
       showCreatedUsername:
         type: "boolean"
         default: false
-      showCreatedUsername:
-        type: "boolean"
-        default: false
-      showClientAddress:
+      enablePhoneNationalMode:
         type: "boolean"
         default: false
       skipAppointmentPriceUpdate:
