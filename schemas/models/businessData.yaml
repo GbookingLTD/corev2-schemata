@@ -254,6 +254,9 @@ definitions:
       showCreatedUsername:
         type: "boolean"
         default: false
+      showClientAddress:
+        type: "boolean"
+        default: false
       enablePhoneNationalMode:
         type: "boolean"
         default: false

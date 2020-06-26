@@ -592,6 +592,9 @@ definitions:
       showClientContractNumber:
         type: "boolean"
         default: false
+      showClientAddress:
+        type: "boolean"
+        default: false
       showGapWindow:
         type: "boolean"
         default: false
