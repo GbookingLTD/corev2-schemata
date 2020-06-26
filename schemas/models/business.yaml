@@ -601,6 +601,13 @@ definitions:
       enableInvoice:
         type: "boolean"
         default: false
+      invoiceProvider:
+        type: "string"
+        enum: ["DEFAULT", "zoom"]
+        default: "DISABLE"
+      invoiceCondition:
+        type: "string"
+        enum: ["YES_PAYED_ONLINE", "YES_PAYED_FULL", "YES_PAYED_PART", "NO_PAYMENT", "NONE"]
       telemedProvider:
         type: "string"
         enum: ["DEFAULT", "zoom"]
