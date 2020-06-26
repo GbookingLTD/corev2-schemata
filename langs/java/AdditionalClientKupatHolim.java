@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class KupatHolim {
+public class AdditionalClientKupatHolim {
     private String kupatHolimID;
     private String name;
 

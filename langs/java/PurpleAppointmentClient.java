@@ -25,9 +25,9 @@ public class PurpleAppointmentClient {
     private String houseNumber;
     private String id;
     private List<IncomingPhoneElement> incomingPhone;
-    private IsraelCity israelCity;
+    private AdditionalClientIsraelCity israelCity;
     private Boolean isVIP;
-    private KupatHolim kupatHolim;
+    private AdditionalClientKupatHolim kupatHolim;
     private String language;
     private String middleName;
     private String name;
@@ -132,9 +132,9 @@ public class PurpleAppointmentClient {
     public void setIncomingPhone(List<IncomingPhoneElement> value) { this.incomingPhone = value; }
 
     @JsonProperty("israelCity")
-    public IsraelCity getIsraelCity() { return israelCity; }
+    public AdditionalClientIsraelCity getIsraelCity() { return israelCity; }
     @JsonProperty("israelCity")
-    public void setIsraelCity(IsraelCity value) { this.israelCity = value; }
+    public void setIsraelCity(AdditionalClientIsraelCity value) { this.israelCity = value; }
 
     @JsonProperty("isVIP")
     public Boolean getIsVIP() { return isVIP; }
@@ -142,9 +142,9 @@ public class PurpleAppointmentClient {
     public void setIsVIP(Boolean value) { this.isVIP = value; }
 
     @JsonProperty("kupatHolim")
-    public KupatHolim getKupatHolim() { return kupatHolim; }
+    public AdditionalClientKupatHolim getKupatHolim() { return kupatHolim; }
     @JsonProperty("kupatHolim")
-    public void setKupatHolim(KupatHolim value) { this.kupatHolim = value; }
+    public void setKupatHolim(AdditionalClientKupatHolim value) { this.kupatHolim = value; }
 
     @JsonProperty("language")
     public String getLanguage() { return language; }

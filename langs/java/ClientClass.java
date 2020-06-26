@@ -9,13 +9,14 @@ import com.fasterxml.jackson.annotation.*;
 public class ClientClass {
     private String address;
     private Birthday birthday;
-    private String blackList;
+    private Boolean blackList;
     private List<ChildrenClient> childrenClients;
     private String clientCardCreationDate;
     private String clientCardNumber;
     private String clientContractNumber;
     private String creatorProfileID;
     private String creatorProfileName;
+    private String description;
     private String discountCode;
     private String driverLicense;
     private List<String> email;
@@ -32,9 +33,9 @@ public class ClientClass {
     private String insuranceNumber;
     private IntegrationDataClass integrationData;
     private Boolean isLazy;
-    private String israelCity;
+    private IsraelCityUnion israelCity;
     private Boolean isVIP;
-    private String kupatHolim;
+    private KupatHolimUnion kupatHolim;
     private LanguageList language;
     private String lazyResolvedDate;
     private String locality;
@@ -46,7 +47,7 @@ public class ClientClass {
     private String passportIssued;
     private String passportSeries;
     private List<FaxElement> phone;
-    private String receiveSMSAfterService;
+    private Boolean receiveSMSAfterService;
     private Sex sex;
     private Boolean skipMarketingNotifications;
     private Boolean skipNotifications;
@@ -69,9 +70,9 @@ public class ClientClass {
     public void setBirthday(Birthday value) { this.birthday = value; }
 
     @JsonProperty("blackList")
-    public String getBlackList() { return blackList; }
+    public Boolean getBlackList() { return blackList; }
     @JsonProperty("blackList")
-    public void setBlackList(String value) { this.blackList = value; }
+    public void setBlackList(Boolean value) { this.blackList = value; }
 
     @JsonProperty("childrenClients")
     public List<ChildrenClient> getChildrenClients() { return childrenClients; }
@@ -102,6 +103,11 @@ public class ClientClass {
     public String getCreatorProfileName() { return creatorProfileName; }
     @JsonProperty("creatorProfileName")
     public void setCreatorProfileName(String value) { this.creatorProfileName = value; }
+
+    @JsonProperty("description")
+    public String getDescription() { return description; }
+    @JsonProperty("description")
+    public void setDescription(String value) { this.description = value; }
 
     @JsonProperty("discountCode")
     public String getDiscountCode() { return discountCode; }
@@ -184,9 +190,9 @@ public class ClientClass {
     public void setIsLazy(Boolean value) { this.isLazy = value; }
 
     @JsonProperty("israelCity")
-    public String getIsraelCity() { return israelCity; }
+    public IsraelCityUnion getIsraelCity() { return israelCity; }
     @JsonProperty("israelCity")
-    public void setIsraelCity(String value) { this.israelCity = value; }
+    public void setIsraelCity(IsraelCityUnion value) { this.israelCity = value; }
 
     @JsonProperty("isVIP")
     public Boolean getIsVIP() { return isVIP; }
@@ -194,9 +200,9 @@ public class ClientClass {
     public void setIsVIP(Boolean value) { this.isVIP = value; }
 
     @JsonProperty("kupatHolim")
-    public String getKupatHolim() { return kupatHolim; }
+    public KupatHolimUnion getKupatHolim() { return kupatHolim; }
     @JsonProperty("kupatHolim")
-    public void setKupatHolim(String value) { this.kupatHolim = value; }
+    public void setKupatHolim(KupatHolimUnion value) { this.kupatHolim = value; }
 
     @JsonProperty("language")
     public LanguageList getLanguage() { return language; }
@@ -254,9 +260,9 @@ public class ClientClass {
     public void setPhone(List<FaxElement> value) { this.phone = value; }
 
     @JsonProperty("receiveSmsAfterService")
-    public String getReceiveSMSAfterService() { return receiveSMSAfterService; }
+    public Boolean getReceiveSMSAfterService() { return receiveSMSAfterService; }
     @JsonProperty("receiveSmsAfterService")
-    public void setReceiveSMSAfterService(String value) { this.receiveSMSAfterService = value; }
+    public void setReceiveSMSAfterService(Boolean value) { this.receiveSMSAfterService = value; }
 
     @JsonProperty("sex")
     public Sex getSex() { return sex; }

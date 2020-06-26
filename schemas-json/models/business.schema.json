@@ -223,6 +223,9 @@
                     "default": false
                 }
             }
+        },
+        "maxFilterDateDuration": {
+            "type": "number"
         }
     },
     "required": [
@@ -869,6 +872,18 @@
                     "type": "boolean",
                     "default": false
                 },
+                "resourceSurnameFirst": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showCreatedUsername": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enablePhoneNationalMode": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "skipAppointmentPriceUpdate": {
                     "type": "boolean",
                     "default": false
@@ -896,6 +911,47 @@
                 "showClientContractNumber": {
                     "type": "boolean",
                     "default": false
+                },
+                "showClientAddress": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableTelemed": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableInvoice": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "invoiceProvider": {
+                    "type": "string",
+                    "enum": [
+                        "DISABLE",
+                        "icount"
+                    ],
+                    "default": "DISABLE"
+                },
+                "invoiceCondition": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "YES_PAYED_ONLINE",
+                            "YES_PAYED_FULL",
+                            "YES_PAYED_PART",
+                            "NO_PAYMENT",
+                            "NONE"
+                        ]
+                    }
+                },
+                "telemedProvider": {
+                    "type": "string",
+                    "enum": [
+                        "DISABLE",
+                        "zoom"
+                    ],
+                    "default": "DISABLE"
                 },
                 "showGapWindow": {
                     "type": "boolean",
@@ -1210,6 +1266,10 @@
                     "type": "string"
                 },
                 "enableServiceTimeLimit": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enablePrintingReportRecordsScreen": {
                     "type": "boolean",
                     "default": false
                 },

@@ -503,9 +503,9 @@ export interface AdditionalClientElement {
     houseNumber?: null | string;
     id: string;
     incomingPhone?: IncomingPhoneElement[];
-    israelCity?: IsraelCity | null;
+    israelCity?: IsraelCityClass | null;
     isVIP?: boolean;
-    kupatHolim?: KupatHolim | null;
+    kupatHolim?: KupatHolimClass | null;
     language?: string;
     middleName?: null | string;
     name: string;
@@ -552,11 +552,11 @@ export interface IncomingPhoneElement {
     country_code: string;
     number: string;
 }
-export interface IsraelCity {
+export interface IsraelCityClass {
     cityId?: string;
     name?: string;
 }
-export interface KupatHolim {
+export interface KupatHolimClass {
     kupatHolimId?: string;
     name?: string;
 }
@@ -686,9 +686,9 @@ export interface PurpleAppointmentClient {
     houseNumber?: null | string;
     id?: string;
     incomingPhone?: IncomingPhoneElement[];
-    israelCity?: IsraelCity | null;
+    israelCity?: IsraelCityClass | null;
     isVIP?: boolean;
-    kupatHolim?: KupatHolim | null;
+    kupatHolim?: KupatHolimClass | null;
     language?: string;
     middleName?: null | string;
     name?: string;
@@ -1523,11 +1523,14 @@ export interface InfoBackofficeConfiguration {
     enableCustomOnlinePaymentConfirmation?: boolean;
     enableExtendedPhone?: boolean;
     enableExtendedRecordsClientStatistics?: boolean;
+    enableInvoice?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
     enablePrintingReportRecordsScreen?: boolean;
     enableServiceTimeLimit?: boolean;
     enableSourceChoice?: boolean;
     enableTaxonomyChildrenAgeCheck?: boolean;
+    enableTelemed?: boolean;
     exportToExcelRemovedClients?: boolean;
     feedbackCustomerPortalMessage?: string;
     feedbackCustomerPortalThankYouMessage?: string;
@@ -1537,11 +1540,14 @@ export interface InfoBackofficeConfiguration {
     finName?: string;
     hideCustomerPortalFooter?: boolean;
     highlightedResource?: boolean;
+    invoiceCondition?: AppointmentClientPayment[];
+    invoiceProvider?: InvoiceProvider;
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
     paymentProvider?: PurplePaymentProvider;
     readonlyResourceSchedule?: boolean;
+    resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
     revisionVersion?: number;
     schduleWeekViewIsDefault?: boolean;
@@ -1553,12 +1559,14 @@ export interface InfoBackofficeConfiguration {
     showAdditionalFields?: boolean;
     showAddress?: boolean;
     showBirthDate?: boolean;
+    showClientAddress?: boolean;
     showClientAppear?: boolean;
     showClientAppearOnSchedule?: boolean;
     showClientBirthdayFilter?: boolean;
     showClientContractNumber?: boolean;
     showClientImage?: boolean;
     showClientPayment?: boolean;
+    showCreatedUsername?: boolean;
     showDefaulterBlockscreen?: boolean;
     showDeliveryStatus?: boolean;
     showDepartmentFilter?: boolean;
@@ -1599,6 +1607,7 @@ export interface InfoBackofficeConfiguration {
     }[];
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
+    telemedProvider?: TelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -1613,6 +1622,10 @@ export declare enum FeedBackMinRating {
     The4 = "4",
     The5 = "5"
 }
+export declare enum InvoiceProvider {
+    Disable = "DISABLE",
+    Icount = "icount"
+}
 export declare enum PurplePaymentProvider {
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
@@ -1625,6 +1638,10 @@ export declare enum ResourceTimetableType {
 export declare enum SchedulerWeekViewType {
     Week = "week",
     WorkWeek = "workWeek"
+}
+export declare enum TelemedProvider {
+    Disable = "DISABLE",
+    Zoom = "zoom"
 }
 export declare enum BackofficeType {
     Common = "COMMON",
@@ -2131,6 +2148,7 @@ export interface Resource {
      * массив уровня скорости выполнения услуги (см так же Resource level)
      */
     taxonomyLevels: ResourceTaxonomyLevel[];
+    telemedData?: TelemedData;
     timetable: Timetable;
     userData?: {
         [key: string]: any;
@@ -2312,6 +2330,10 @@ export interface ResourceTaxonomyLevel {
      * уровень скорости
      */
     level: number;
+}
+export interface TelemedData {
+    active?: boolean;
+    id?: string;
 }
 export interface InfoTaxonomy {
     active?: boolean;
@@ -2554,10 +2576,13 @@ export interface InfoWidgetConfiguration {
     allowAutoSelect?: boolean;
     allowBookVisitor?: boolean;
     allowSkipTimeCheck?: boolean;
+    analyticsGoogle?: PurpleAnalyticsGoogle;
+    analyticsYandex?: PurpleAnalyticsYandex;
     appointment_confirmation_text?: string;
     appointment_confirmation_title?: string;
     askClientBirthday?: boolean;
     askClientGender?: boolean;
+    askClientPassportID?: boolean;
     bookableDateRanges?: PurpleBookableDateRanges;
     bookableMonthsCount?: number;
     calendarMode?: boolean;
@@ -2642,6 +2667,7 @@ export interface InfoWidgetConfiguration {
     strictSlotCutting?: boolean;
     tentativeTTL?: number;
     theme?: string;
+    toggleReminder?: boolean;
     useAppointmentReminder?: boolean;
     useBusinessScheduleForUnavailableLabel?: boolean;
     useClustersMap?: boolean;
@@ -2662,6 +2688,14 @@ export interface InfoWidgetConfiguration {
     withoutWorkers?: boolean;
     worker_unavailability_text?: string;
     workerNameReverse?: boolean;
+}
+export interface PurpleAnalyticsGoogle {
+    active?: boolean;
+    key?: string;
+}
+export interface PurpleAnalyticsYandex {
+    active?: boolean;
+    key?: string;
 }
 export interface PurpleBookableDateRanges {
     enabled?: boolean;
@@ -2911,6 +2945,7 @@ export interface BusinessClass {
     integration_data?: {
         [key: string]: any;
     };
+    maxFilterDateDuration?: number;
     mini_widget_configuration: BusinessMiniWidgetConfiguration;
     mobileData?: any[];
     notifications?: any[];
@@ -2953,10 +2988,14 @@ export interface BusinessBackofficeConfiguration {
     enableCustomOnlinePaymentConfirmation?: boolean;
     enableExtendedPhone?: boolean;
     enableExtendedRecordsClientStatistics?: boolean;
+    enableInvoice?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
+    enablePrintingReportRecordsScreen?: boolean;
     enableServiceTimeLimit?: boolean;
     enableSourceChoice?: boolean;
     enableTaxonomyChildrenAgeCheck?: boolean;
+    enableTelemed?: boolean;
     exportToExcelRemovedClients?: boolean;
     feedbackCustomerPortalMessage?: string;
     feedbackCustomerPortalThankYouMessage?: string;
@@ -2966,11 +3005,14 @@ export interface BusinessBackofficeConfiguration {
     finName?: string;
     hideCustomerPortalFooter?: boolean;
     highlightedResource?: boolean;
+    invoiceCondition?: AppointmentClientPayment[];
+    invoiceProvider?: InvoiceProvider;
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
     paymentProvider?: FluffyPaymentProvider;
     readonlyResourceSchedule?: boolean;
+    resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
     revisionVersion?: number;
     schduleWeekViewIsDefault?: boolean;
@@ -2984,12 +3026,14 @@ export interface BusinessBackofficeConfiguration {
     showAdditionalFields?: boolean;
     showAddress?: boolean;
     showBirthDate?: boolean;
+    showClientAddress?: boolean;
     showClientAppear?: boolean;
     showClientAppearOnSchedule?: boolean;
     showClientBirthdayFilter?: boolean;
     showClientContractNumber?: boolean;
     showClientImage?: boolean;
     showClientPayment?: boolean;
+    showCreatedUsername?: boolean;
     showDefaulterBlockscreen?: boolean;
     showDeliveryStatus?: boolean;
     showDepartmentFilter?: boolean;
@@ -3031,6 +3075,7 @@ export interface BusinessBackofficeConfiguration {
     }[] | null;
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
+    telemedProvider?: TelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -3267,8 +3312,8 @@ export interface BusinessWidgetConfiguration {
     allowAutoSelect?: boolean;
     allowBookVisitor?: boolean;
     allowSkipTimeCheck?: boolean;
-    analyticsGoogle?: AnalyticsGoogle;
-    analyticsYandex?: AnalyticsYandex;
+    analyticsGoogle?: FluffyAnalyticsGoogle;
+    analyticsYandex?: FluffyAnalyticsYandex;
     appointment_confirmation_text?: string;
     appointment_confirmation_title?: string;
     askClientBirthday?: boolean;
@@ -3380,11 +3425,11 @@ export interface BusinessWidgetConfiguration {
     worker_unavailability_text?: string;
     workerNameReverse?: boolean;
 }
-export interface AnalyticsGoogle {
+export interface FluffyAnalyticsGoogle {
     active?: boolean;
     key?: string;
 }
-export interface AnalyticsYandex {
+export interface FluffyAnalyticsYandex {
     active?: boolean;
     key?: string;
 }
@@ -3516,13 +3561,14 @@ export interface AmbitiousBusiness {
 export interface ClientClass {
     address?: string;
     birthday?: Birthday;
-    blackList?: string;
+    blackList?: boolean;
     childrenClients?: ChildrenClient[];
     clientCardCreationDate?: string;
     clientCardNumber?: string;
     clientContractNumber?: string;
     creatorProfileID?: null | string;
     creatorProfileName?: null | string;
+    description?: string;
     discountCode?: string;
     driverLicense?: null | string;
     email?: string[];
@@ -3539,9 +3585,9 @@ export interface ClientClass {
     insuranceNumber?: string;
     integrationData?: IntegrationDataClass;
     isLazy?: boolean;
-    israelCity?: string;
+    israelCity?: IsraelCityUnion;
     isVIP?: boolean;
-    kupatHolim?: string;
+    kupatHolim?: KupatHolimUnion;
     language?: LanguageList;
     lazyResolvedDate?: string;
     locality?: string;
@@ -3553,7 +3599,7 @@ export interface ClientClass {
     passportIssued?: string;
     passportSeries?: string;
     phone: FaxElement[];
-    receiveSmsAfterService?: string;
+    receiveSmsAfterService?: boolean;
     sex?: Sex;
     skipMarketingNotifications?: boolean;
     skipNotifications?: boolean;
@@ -3575,7 +3621,7 @@ export interface ChildrenClient {
 export interface ClientExtraField {
     fieldID: string;
     fieldName: string;
-    value: FluffyValue;
+    value?: FluffyValue;
 }
 export declare type FluffyValue = boolean | number | {
     [key: string]: any;
@@ -3588,6 +3634,16 @@ export interface FavResource {
 export declare type FromSms = boolean | string;
 export interface IntegrationDataClass {
     transactionID: string;
+}
+export declare type IsraelCityUnion = any[] | boolean | number | number | null | IsraelCityObject | string;
+export interface IsraelCityObject {
+    cityId?: string;
+    name?: string;
+}
+export declare type KupatHolimUnion = any[] | boolean | number | number | null | KupatHolimObject | string;
+export interface KupatHolimObject {
+    kupatHolimId?: string;
+    name?: string;
 }
 export interface LoyaltyInfo {
     annualTurnover?: number;

@@ -47,6 +47,9 @@
                 "type": "string"
             }
         },
+        "description": {
+            "type": "string"
+        },
         "fromSms": {
             "type": [
                 "boolean",
@@ -83,13 +86,13 @@
             ]
         },
         "receiveSmsAfterService": {
-            "type": "string"
+            "type": "boolean"
         },
         "icon_url": {
             "type": "string"
         },
         "blackList": {
-            "type": "string"
+            "type": "boolean"
         },
         "passportId": {
             "type": "string"
@@ -135,10 +138,24 @@
             "type": "string"
         },
         "israelCity": {
-            "type": "string"
+            "properties": {
+                "cityId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
         },
         "kupatHolim": {
-            "type": "string"
+            "properties": {
+                "kupatHolimId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
         },
         "isVIP": {
             "type": "boolean",
@@ -162,8 +179,7 @@
                 "type": "object",
                 "required": [
                     "fieldID",
-                    "fieldName",
-                    "value"
+                    "fieldName"
                 ],
                 "additionalProperties": false,
                 "properties": {

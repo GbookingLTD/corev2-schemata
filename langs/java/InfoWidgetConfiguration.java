@@ -9,10 +9,13 @@ public class InfoWidgetConfiguration {
     private Boolean allowAutoSelect;
     private Boolean allowBookVisitor;
     private Boolean allowSkipTimeCheck;
+    private PurpleAnalyticsGoogle analyticsGoogle;
+    private PurpleAnalyticsYandex analyticsYandex;
     private String appointmentConfirmationText;
     private String appointmentConfirmationTitle;
     private Boolean askClientBirthday;
     private Boolean askClientGender;
+    private Boolean askClientPassportID;
     private PurpleBookableDateRanges bookableDateRanges;
     private Double bookableMonthsCount;
     private Boolean calendarMode;
@@ -95,6 +98,7 @@ public class InfoWidgetConfiguration {
     private Boolean strictSlotCutting;
     private Double tentativeTTL;
     private String theme;
+    private Boolean toggleReminder;
     private Boolean useAppointmentReminder;
     private Boolean useBusinessScheduleForUnavailableLabel;
     private Boolean useClustersMap;
@@ -141,6 +145,16 @@ public class InfoWidgetConfiguration {
     @JsonProperty("allowSkipTimeCheck")
     public void setAllowSkipTimeCheck(Boolean value) { this.allowSkipTimeCheck = value; }
 
+    @JsonProperty("analyticsGoogle")
+    public PurpleAnalyticsGoogle getAnalyticsGoogle() { return analyticsGoogle; }
+    @JsonProperty("analyticsGoogle")
+    public void setAnalyticsGoogle(PurpleAnalyticsGoogle value) { this.analyticsGoogle = value; }
+
+    @JsonProperty("analyticsYandex")
+    public PurpleAnalyticsYandex getAnalyticsYandex() { return analyticsYandex; }
+    @JsonProperty("analyticsYandex")
+    public void setAnalyticsYandex(PurpleAnalyticsYandex value) { this.analyticsYandex = value; }
+
     @JsonProperty("appointment_confirmation_text")
     public String getAppointmentConfirmationText() { return appointmentConfirmationText; }
     @JsonProperty("appointment_confirmation_text")
@@ -160,6 +174,11 @@ public class InfoWidgetConfiguration {
     public Boolean getAskClientGender() { return askClientGender; }
     @JsonProperty("askClientGender")
     public void setAskClientGender(Boolean value) { this.askClientGender = value; }
+
+    @JsonProperty("askClientPassportID")
+    public Boolean getAskClientPassportID() { return askClientPassportID; }
+    @JsonProperty("askClientPassportID")
+    public void setAskClientPassportID(Boolean value) { this.askClientPassportID = value; }
 
     @JsonProperty("bookableDateRanges")
     public PurpleBookableDateRanges getBookableDateRanges() { return bookableDateRanges; }
@@ -570,6 +589,11 @@ public class InfoWidgetConfiguration {
     public String getTheme() { return theme; }
     @JsonProperty("theme")
     public void setTheme(String value) { this.theme = value; }
+
+    @JsonProperty("toggleReminder")
+    public Boolean getToggleReminder() { return toggleReminder; }
+    @JsonProperty("toggleReminder")
+    public void setToggleReminder(Boolean value) { this.toggleReminder = value; }
 
     @JsonProperty("useAppointmentReminder")
     public Boolean getUseAppointmentReminder() { return useAppointmentReminder; }

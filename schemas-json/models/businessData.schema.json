@@ -373,6 +373,59 @@
                     "type": "boolean",
                     "default": false
                 },
+                "resourceSurnameFirst": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showCreatedUsername": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showClientAddress": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableInvoice": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "invoiceProvider": {
+                    "type": "string",
+                    "enum": [
+                        "DISABLE",
+                        "icount"
+                    ],
+                    "default": "DISABLE"
+                },
+                "invoiceCondition": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "YES_PAYED_ONLINE",
+                            "YES_PAYED_FULL",
+                            "YES_PAYED_PART",
+                            "NO_PAYMENT",
+                            "NONE"
+                        ]
+                    }
+                },
+                "enableTelemed": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "telemedProvider": {
+                    "type": "string",
+                    "enum": [
+                        "DISABLE",
+                        "zoom"
+                    ],
+                    "default": "DISABLE"
+                },
+                "enablePhoneNationalMode": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "skipServiceFiltering": {
                     "type": "boolean",
                     "default": false
@@ -1321,6 +1374,42 @@
                 },
                 "middleNameSupport": {
                     "type": "boolean"
+                },
+                "analyticsGoogle": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "active": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "key": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                },
+                "analyticsYandex": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "active": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "key": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                },
+                "toggleReminder": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "askClientPassportID": {
+                    "type": "boolean",
+                    "default": false
                 }
             },
             "additionalProperties": false
