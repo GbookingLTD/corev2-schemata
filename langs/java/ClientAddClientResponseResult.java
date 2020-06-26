@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 public class ClientAddClientResponseResult {
     private CunningBusiness business;
     private ClientClass client;
-    private String documents;
+    private List<String> documents;
     private PurpleProfile profile;
     private Source source;
 
@@ -21,9 +21,9 @@ public class ClientAddClientResponseResult {
     public void setClient(ClientClass value) { this.client = value; }
 
     @JsonProperty("documents")
-    public String getDocuments() { return documents; }
+    public List<String> getDocuments() { return documents; }
     @JsonProperty("documents")
-    public void setDocuments(String value) { this.documents = value; }
+    public void setDocuments(List<String> value) { this.documents = value; }
 
     @JsonProperty("profile")
     public PurpleProfile getProfile() { return profile; }

@@ -449,10 +449,16 @@
                     "type": "number"
                 },
                 "incomingPhone": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Phone"
-                    }
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Phone"
+                        },
+                        {
+                            "type": "object",
+                            "description": "пустой объект в момент резервирования",
+                            "required": []
+                        }
+                    ]
                 },
                 "shortId": {
                     "type": "string"
@@ -1148,6 +1154,32 @@
                         12,
                         24
                     ]
+                }
+            }
+        },
+        "telemedData": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Данные для телемед конференции",
+            "required": [],
+            "properties": {
+                "joinUrl": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "startUrl": {
+                    "type": "string"
+                },
+                "shortStartUrl": {
+                    "type": "string"
+                },
+                "shortJoinUrl": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
                 }
             }
         },

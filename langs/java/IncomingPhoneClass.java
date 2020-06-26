@@ -3,7 +3,10 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class IncomingPhoneElement {
+/**
+ * пустой объект в момент резервирования
+ */
+public class IncomingPhoneClass {
     private String areaCode;
     private String countryCode;
     private String number;

@@ -278,6 +278,7 @@ type Appointment struct {
 	SocialToken                *string                    `json:"socialToken,omitempty"`                  
 	Source                     string                     `json:"source"`                                 
 	Taxonomy                   AppointmentTaxonomy        `json:"taxonomy"`                               
+	TelemedData                *AppointmentTelemedData    `json:"telemedData,omitempty"`                  // Данные для телемед конференции
 	Utm                        map[string]interface{}     `json:"utm,omitempty"`                          
 	WithCoSale                 *bool                      `json:"withCoSale,omitempty"`                   
 }
@@ -329,7 +330,7 @@ type AdditionalClientElement struct {
 	GAClientID          *string                     `json:"GAClientID"`             
 	HouseNumber         *string                     `json:"houseNumber"`            
 	ID                  string                      `json:"id"`                     
-	IncomingPhone       []IncomingPhoneElement      `json:"incomingPhone"`          
+	IncomingPhone       *IncomingPhoneClass         `json:"incomingPhone,omitempty"`
 	IsraelCity          *AdditionalClientIsraelCity `json:"israelCity"`             
 	IsVIP               *bool                       `json:"isVIP,omitempty"`        
 	KupatHolim          *AdditionalClientKupatHolim `json:"kupatHolim"`             
@@ -337,7 +338,7 @@ type AdditionalClientElement struct {
 	MiddleName          *string                     `json:"middleName"`             
 	Name                string                      `json:"name"`                   
 	PassportID          *string                     `json:"passportId"`             
-	Phone               []IncomingPhoneElement      `json:"phone"`                  
+	Phone               []AdditionalClientPhone     `json:"phone"`                  
 	SeasonTicketID      *string                     `json:"seasonTicketId"`         
 	SeasonTicketNumber  *string                     `json:"seasonTicketNumber"`     
 	Sex                 *Sex                        `json:"sex,omitempty"`          
@@ -363,10 +364,11 @@ type ExtraField struct {
 	Value     *PurpleValue `json:"value"`    
 }
 
-type IncomingPhoneElement struct {
-	AreaCode    string `json:"area_code"`   
-	CountryCode string `json:"country_code"`
-	Number      string `json:"number"`      
+// пустой объект в момент резервирования
+type IncomingPhoneClass struct {
+	AreaCode    *string `json:"area_code,omitempty"`   
+	CountryCode *string `json:"country_code,omitempty"`
+	Number      *string `json:"number,omitempty"`      
 }
 
 type AdditionalClientIsraelCity struct {
@@ -377,6 +379,12 @@ type AdditionalClientIsraelCity struct {
 type AdditionalClientKupatHolim struct {
 	KupatHolimID *string `json:"kupatHolimId,omitempty"`
 	Name         *string `json:"name,omitempty"`        
+}
+
+type AdditionalClientPhone struct {
+	AreaCode    string `json:"area_code"`   
+	CountryCode string `json:"country_code"`
+	Number      string `json:"number"`      
 }
 
 type AdditionalField struct {
@@ -464,7 +472,7 @@ type PurpleAppointmentClient struct {
 	GAClientID          *string                     `json:"GAClientID"`             
 	HouseNumber         *string                     `json:"houseNumber"`            
 	ID                  *string                     `json:"id,omitempty"`           
-	IncomingPhone       []IncomingPhoneElement      `json:"incomingPhone"`          
+	IncomingPhone       *IncomingPhoneClass         `json:"incomingPhone,omitempty"`
 	IsraelCity          *AdditionalClientIsraelCity `json:"israelCity"`             
 	IsVIP               *bool                       `json:"isVIP,omitempty"`        
 	KupatHolim          *AdditionalClientKupatHolim `json:"kupatHolim"`             
@@ -472,7 +480,7 @@ type PurpleAppointmentClient struct {
 	MiddleName          *string                     `json:"middleName"`             
 	Name                *string                     `json:"name,omitempty"`         
 	PassportID          *string                     `json:"passportId"`             
-	Phone               []IncomingPhoneElement      `json:"phone"`                  
+	Phone               []AdditionalClientPhone     `json:"phone"`                  
 	SeasonTicketID      *string                     `json:"seasonTicketId"`         
 	SeasonTicketNumber  *string                     `json:"seasonTicketNumber"`     
 	Sex                 *Sex                        `json:"sex,omitempty"`          
@@ -483,14 +491,14 @@ type PurpleAppointmentClient struct {
 }
 
 type AppointmentClientVisitor struct {
-	Birthday        *Birthday              `json:"birthday"`                 
-	Email           []string               `json:"email"`                    
-	ExtraVisitors   *float64               `json:"extraVisitors,omitempty"`  
-	Name            *string                `json:"name,omitempty"`           
-	ParentClientID  *string                `json:"parentClientID,omitempty"` 
-	ParentProfileID *string                `json:"parentProfileID,omitempty"`
-	Phone           []IncomingPhoneElement `json:"phone"`                    
-	Sex             *Sex                   `json:"sex,omitempty"`            
+	Birthday        *Birthday               `json:"birthday"`                 
+	Email           []string                `json:"email"`                    
+	ExtraVisitors   *float64                `json:"extraVisitors,omitempty"`  
+	Name            *string                 `json:"name,omitempty"`           
+	ParentClientID  *string                 `json:"parentClientID,omitempty"` 
+	ParentProfileID *string                 `json:"parentProfileID,omitempty"`
+	Phone           []AdditionalClientPhone `json:"phone"`                    
+	Sex             *Sex                    `json:"sex,omitempty"`            
 }
 
 type Location struct {
@@ -543,6 +551,16 @@ type Room struct {
 
 type AppointmentShowcase struct {
 	BusinessID *string `json:"businessID,omitempty"`
+}
+
+// Данные для телемед конференции
+type AppointmentTelemedData struct {
+	ID            *string `json:"id,omitempty"`           
+	JoinURL       *string `json:"joinUrl,omitempty"`      
+	Password      *string `json:"password,omitempty"`     
+	ShortJoinURL  *string `json:"shortJoinUrl,omitempty"` 
+	ShortStartURL *string `json:"shortStartUrl,omitempty"`
+	StartURL      *string `json:"startUrl,omitempty"`     
 }
 
 type ClientRemoveEmptyAppointment struct {
@@ -1198,7 +1216,7 @@ type BusinessInfo struct {
 	LogoURL                    *string                  `json:"logo_url"`                            
 	MarketingNotifications     *MarketingNotifications  `json:"marketingNotifications,omitempty"`    
 	Metro                      *Metro                   `json:"metro,omitempty"`                     
-	MinBookingTime             *bool                    `json:"min_booking_time"`                    
+	MinBookingTime             *float64                 `json:"min_booking_time"`                    
 	Mobile                     []FaxElement             `json:"mobile"`                              // Список телефонов бизнеса
 	Name                       *string                  `json:"name,omitempty"`                      // Название бизнеса
 	NetworkID                  *float64                 `json:"networkID"`                           
@@ -1403,7 +1421,7 @@ type Resource struct {
 	Taxonomies         []string                     `json:"taxonomies"`                   // массив идентификаторов услуг, которые выполняет работник
 	TaxonomyChildren   []ResourceTaxonomyChildren   `json:"taxonomyChildren"`             // массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны; оба или не указаны вовсе для услуги)
 	TaxonomyLevels     []ResourceTaxonomyLevel      `json:"taxonomyLevels"`               // массив уровня скорости выполнения услуги (см так же Resource level)
-	TelemedData        *TelemedData                 `json:"telemedData,omitempty"`        
+	TelemedData        *ResourceTelemedData         `json:"telemedData,omitempty"`        
 	Timetable          Timetable                    `json:"timetable"`                    
 	UserData           map[string]interface{}       `json:"userData,omitempty"`           
 	WorkPlace          *string                      `json:"workPlace,omitempty"`          // рабочее место, которое занимает работник
@@ -1445,7 +1463,7 @@ type Info struct {
 	LogoURL                    *string                  `json:"logo_url"`                            
 	MarketingNotifications     *MarketingNotifications  `json:"marketingNotifications,omitempty"`    
 	Metro                      *Metro                   `json:"metro,omitempty"`                     
-	MinBookingTime             *bool                    `json:"min_booking_time"`                    
+	MinBookingTime             *float64                 `json:"min_booking_time"`                    
 	Mobile                     []FaxElement             `json:"mobile"`                              // Список телефонов бизнеса
 	Name                       *string                  `json:"name,omitempty"`                      // Название бизнеса
 	NetworkID                  *float64                 `json:"networkID"`                           
@@ -1490,7 +1508,7 @@ type ResourceTaxonomyLevel struct {
 	Level float64 `json:"level"`// уровень скорости
 }
 
-type TelemedData struct {
+type ResourceTelemedData struct {
 	Active *bool   `json:"active,omitempty"`
 	ID     *string `json:"id,omitempty"`    
 }
@@ -2490,8 +2508,8 @@ type ClientClass struct {
 	IsVIP                      *bool                  `json:"isVIP,omitempty"`                     
 	KupatHolim                 *KupatHolimUnion       `json:"kupatHolim"`                          
 	Language                   *LanguageList          `json:"language,omitempty"`                  
-	LastCreatedAppointment     map[string]interface{} `json:"lastCreatedAppointment,omitempty"`    
-	LastVisitedAppointment     map[string]interface{} `json:"lastVisitedAppointment,omitempty"`    
+	LastCreatedAppointment     map[string]interface{} `json:"lastCreatedAppointment"`              
+	LastVisitedAppointment     map[string]interface{} `json:"lastVisitedAppointment"`              
 	LazyResolvedDate           *string                `json:"lazyResolvedDate,omitempty"`          
 	Locality                   *string                `json:"locality,omitempty"`                  
 	LoyaltyInfo                *LoyaltyInfo           `json:"loyaltyInfo,omitempty"`               
@@ -2607,11 +2625,11 @@ type ClientAddClientResponseError struct {
 }
 
 type ClientAddClientResponseResult struct {
-	Business  CunningBusiness `json:"business"`           
-	Client    ClientClass     `json:"client"`             
-	Documents *string         `json:"documents,omitempty"`
-	Profile   *PurpleProfile  `json:"profile,omitempty"`  
-	Source    *Source         `json:"source,omitempty"`   
+	Business  CunningBusiness `json:"business"`         
+	Client    ClientClass     `json:"client"`           
+	Documents []string        `json:"documents"`        
+	Profile   *PurpleProfile  `json:"profile,omitempty"`
+	Source    *Source         `json:"source,omitempty"` 
 }
 
 type CunningBusiness struct {

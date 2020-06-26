@@ -423,6 +423,10 @@ export interface Appointment {
     socialToken?: string;
     source: string;
     taxonomy: AppointmentTaxonomy;
+    /**
+     * Данные для телемед конференции
+     */
+    telemedData?: TelemedDataClass;
     utm?: {
         [key: string]: any;
     };
@@ -502,7 +506,7 @@ export interface AdditionalClientElement {
     GAClientID?: null | string;
     houseNumber?: null | string;
     id: string;
-    incomingPhone?: IncomingPhoneElement[];
+    incomingPhone?: IncomingPhoneObject;
     israelCity?: IsraelCityClass | null;
     isVIP?: boolean;
     kupatHolim?: KupatHolimClass | null;
@@ -510,7 +514,7 @@ export interface AdditionalClientElement {
     middleName?: null | string;
     name: string;
     passportId?: null | string;
-    phone?: IncomingPhoneElement[];
+    phone?: AdditionalClientPhone[];
     seasonTicketId?: null | string;
     seasonTicketNumber?: null | string;
     sex?: Sex;
@@ -547,10 +551,13 @@ export interface ExtraField {
 export declare type PurpleValue = number | {
     [key: string]: any;
 } | null | string;
-export interface IncomingPhoneElement {
-    area_code: string;
-    country_code: string;
-    number: string;
+/**
+ * пустой объект в момент резервирования
+ */
+export interface IncomingPhoneObject {
+    area_code?: string;
+    country_code?: string;
+    number?: string;
 }
 export interface IsraelCityClass {
     cityId?: string;
@@ -559,6 +566,11 @@ export interface IsraelCityClass {
 export interface KupatHolimClass {
     kupatHolimId?: string;
     name?: string;
+}
+export interface AdditionalClientPhone {
+    area_code: string;
+    country_code: string;
+    number: string;
 }
 export declare enum Sex {
     Empty = "",
@@ -685,7 +697,7 @@ export interface PurpleAppointmentClient {
     GAClientID?: null | string;
     houseNumber?: null | string;
     id?: string;
-    incomingPhone?: IncomingPhoneElement[];
+    incomingPhone?: IncomingPhoneObject;
     israelCity?: IsraelCityClass | null;
     isVIP?: boolean;
     kupatHolim?: KupatHolimClass | null;
@@ -693,7 +705,7 @@ export interface PurpleAppointmentClient {
     middleName?: null | string;
     name?: string;
     passportId?: null | string;
-    phone?: IncomingPhoneElement[];
+    phone?: AdditionalClientPhone[];
     seasonTicketId?: null | string;
     seasonTicketNumber?: null | string;
     sex?: Sex;
@@ -709,7 +721,7 @@ export interface AppointmentClientVisitor {
     name?: string;
     parentClientID?: string;
     parentProfileID?: string;
-    phone?: IncomingPhoneElement[];
+    phone?: AdditionalClientPhone[];
     sex?: Sex;
 }
 export interface Location {
@@ -759,6 +771,17 @@ export interface Room {
 }
 export interface AppointmentShowcase {
     businessID?: string;
+}
+/**
+ * Данные для телемед конференции
+ */
+export interface TelemedDataClass {
+    id?: string;
+    joinUrl?: string;
+    password?: string;
+    shortJoinUrl?: string;
+    shortStartUrl?: string;
+    startUrl?: string;
 }
 export interface ClientRemoveEmptyAppointment {
     request: AppointmentClientRemoveEmptyAppointmentRequest;
@@ -1705,7 +1728,7 @@ export interface BusinessInfo {
     logo_url?: null | string;
     marketingNotifications?: MarketingNotifications;
     metro?: Metro;
-    min_booking_time?: boolean | null;
+    min_booking_time?: number | null;
     /**
      * Список телефонов бизнеса
      */
@@ -2142,7 +2165,7 @@ export interface Resource {
      * массив уровня скорости выполнения услуги (см так же Resource level)
      */
     taxonomyLevels: ResourceTaxonomyLevel[];
-    telemedData?: TelemedData;
+    telemedData?: TelemedDataObject;
     timetable: Timetable;
     userData?: {
         [key: string]: any;
@@ -2227,7 +2250,7 @@ export interface Info {
     logo_url?: null | string;
     marketingNotifications?: MarketingNotifications;
     metro?: Metro;
-    min_booking_time?: boolean | null;
+    min_booking_time?: number | null;
     /**
      * Список телефонов бизнеса
      */
@@ -2325,7 +2348,7 @@ export interface ResourceTaxonomyLevel {
      */
     level: number;
 }
-export interface TelemedData {
+export interface TelemedDataObject {
     active?: boolean;
     id?: string;
 }
@@ -3579,10 +3602,10 @@ export interface ClientClass {
     language?: LanguageList;
     lastCreatedAppointment?: {
         [key: string]: any;
-    };
+    } | null;
     lastVisitedAppointment?: {
         [key: string]: any;
-    };
+    } | null;
     lazyResolvedDate?: string;
     locality?: string;
     loyaltyInfo?: LoyaltyInfo;
@@ -3725,7 +3748,7 @@ export interface ClientAddClientResponseError {
 export interface ClientAddClientResponseResult {
     business: CunningBusiness;
     client: ClientClass;
-    documents?: string;
+    documents?: string[];
     profile?: PurpleProfile;
     source?: Source;
 }

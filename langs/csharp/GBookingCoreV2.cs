@@ -746,6 +746,12 @@ namespace GBookingCoreV2
         [JsonProperty("taxonomy")]
         public AppointmentTaxonomy Taxonomy { get; set; }
 
+        /// <summary>
+        /// Данные для телемед конференции
+        /// </summary>
+        [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentTelemedData TelemedData { get; set; }
+
         [JsonProperty("utm", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Utm { get; set; }
 
@@ -864,7 +870,7 @@ namespace GBookingCoreV2
         public string Id { get; set; }
 
         [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<IncomingPhoneElement> IncomingPhone { get; set; }
+        public IncomingPhoneClass IncomingPhone { get; set; }
 
         [JsonProperty("israelCity")]
         public AdditionalClientIsraelCity IsraelCity { get; set; }
@@ -888,7 +894,7 @@ namespace GBookingCoreV2
         public string PassportId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<IncomingPhoneElement> Phone { get; set; }
+        public List<AdditionalClientPhone> Phone { get; set; }
 
         [JsonProperty("seasonTicketId")]
         public string SeasonTicketId { get; set; }
@@ -948,15 +954,18 @@ namespace GBookingCoreV2
         public PurpleValue? Value { get; set; }
     }
 
-    public partial class IncomingPhoneElement
+    /// <summary>
+    /// пустой объект в момент резервирования
+    /// </summary>
+    public partial class IncomingPhoneClass
     {
-        [JsonProperty("area_code")]
+        [JsonProperty("area_code", NullValueHandling = NullValueHandling.Ignore)]
         public string AreaCode { get; set; }
 
-        [JsonProperty("country_code")]
+        [JsonProperty("country_code", NullValueHandling = NullValueHandling.Ignore)]
         public string CountryCode { get; set; }
 
-        [JsonProperty("number")]
+        [JsonProperty("number", NullValueHandling = NullValueHandling.Ignore)]
         public string Number { get; set; }
     }
 
@@ -976,6 +985,18 @@ namespace GBookingCoreV2
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
+    }
+
+    public partial class AdditionalClientPhone
+    {
+        [JsonProperty("area_code")]
+        public string AreaCode { get; set; }
+
+        [JsonProperty("country_code")]
+        public string CountryCode { get; set; }
+
+        [JsonProperty("number")]
+        public string Number { get; set; }
     }
 
     public partial class AdditionalField
@@ -1179,7 +1200,7 @@ namespace GBookingCoreV2
         public string Id { get; set; }
 
         [JsonProperty("incomingPhone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<IncomingPhoneElement> IncomingPhone { get; set; }
+        public IncomingPhoneClass IncomingPhone { get; set; }
 
         [JsonProperty("israelCity")]
         public AdditionalClientIsraelCity IsraelCity { get; set; }
@@ -1203,7 +1224,7 @@ namespace GBookingCoreV2
         public string PassportId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<IncomingPhoneElement> Phone { get; set; }
+        public List<AdditionalClientPhone> Phone { get; set; }
 
         [JsonProperty("seasonTicketId")]
         public string SeasonTicketId { get; set; }
@@ -1248,7 +1269,7 @@ namespace GBookingCoreV2
         public string ParentProfileId { get; set; }
 
         [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<IncomingPhoneElement> Phone { get; set; }
+        public List<AdditionalClientPhone> Phone { get; set; }
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
         public Sex? Sex { get; set; }
@@ -1354,6 +1375,30 @@ namespace GBookingCoreV2
     {
         [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BusinessId { get; set; }
+    }
+
+    /// <summary>
+    /// Данные для телемед конференции
+    /// </summary>
+    public partial class AppointmentTelemedData
+    {
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("joinUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string JoinUrl { get; set; }
+
+        [JsonProperty("password", NullValueHandling = NullValueHandling.Ignore)]
+        public string Password { get; set; }
+
+        [JsonProperty("shortJoinUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShortJoinUrl { get; set; }
+
+        [JsonProperty("shortStartUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShortStartUrl { get; set; }
+
+        [JsonProperty("startUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string StartUrl { get; set; }
     }
 
     public partial class ClientRemoveEmptyAppointment
@@ -3098,7 +3143,7 @@ namespace GBookingCoreV2
         public Metro Metro { get; set; }
 
         [JsonProperty("min_booking_time")]
-        public bool? MinBookingTime { get; set; }
+        public double? MinBookingTime { get; set; }
 
         /// <summary>
         /// Список телефонов бизнеса
@@ -3778,7 +3823,7 @@ namespace GBookingCoreV2
         public List<ResourceTaxonomyLevel> TaxonomyLevels { get; set; }
 
         [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
-        public TelemedData TelemedData { get; set; }
+        public ResourceTelemedData TelemedData { get; set; }
 
         [JsonProperty("timetable")]
         public Timetable Timetable { get; set; }
@@ -3910,7 +3955,7 @@ namespace GBookingCoreV2
         public Metro Metro { get; set; }
 
         [JsonProperty("min_booking_time")]
-        public bool? MinBookingTime { get; set; }
+        public double? MinBookingTime { get; set; }
 
         /// <summary>
         /// Список телефонов бизнеса
@@ -4064,7 +4109,7 @@ namespace GBookingCoreV2
         public double Level { get; set; }
     }
 
-    public partial class TelemedData
+    public partial class ResourceTelemedData
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -6851,10 +6896,10 @@ namespace GBookingCoreV2
         [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
         public LanguageList? Language { get; set; }
 
-        [JsonProperty("lastCreatedAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("lastCreatedAppointment")]
         public Dictionary<string, object> LastCreatedAppointment { get; set; }
 
-        [JsonProperty("lastVisitedAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("lastVisitedAppointment")]
         public Dictionary<string, object> LastVisitedAppointment { get; set; }
 
         [JsonProperty("lazyResolvedDate", NullValueHandling = NullValueHandling.Ignore)]
@@ -7144,7 +7189,7 @@ namespace GBookingCoreV2
         public ClientClass Client { get; set; }
 
         [JsonProperty("documents", NullValueHandling = NullValueHandling.Ignore)]
-        public string Documents { get; set; }
+        public List<string> Documents { get; set; }
 
         [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleProfile Profile { get; set; }

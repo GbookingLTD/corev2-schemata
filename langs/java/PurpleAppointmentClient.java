@@ -24,7 +24,7 @@ public class PurpleAppointmentClient {
     private String gaClientID;
     private String houseNumber;
     private String id;
-    private List<IncomingPhoneElement> incomingPhone;
+    private IncomingPhoneClass incomingPhone;
     private AdditionalClientIsraelCity israelCity;
     private Boolean isVIP;
     private AdditionalClientKupatHolim kupatHolim;
@@ -32,7 +32,7 @@ public class PurpleAppointmentClient {
     private String middleName;
     private String name;
     private String passportID;
-    private List<IncomingPhoneElement> phone;
+    private List<AdditionalClientPhone> phone;
     private String seasonTicketID;
     private String seasonTicketNumber;
     private Sex sex;
@@ -127,9 +127,9 @@ public class PurpleAppointmentClient {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("incomingPhone")
-    public List<IncomingPhoneElement> getIncomingPhone() { return incomingPhone; }
+    public IncomingPhoneClass getIncomingPhone() { return incomingPhone; }
     @JsonProperty("incomingPhone")
-    public void setIncomingPhone(List<IncomingPhoneElement> value) { this.incomingPhone = value; }
+    public void setIncomingPhone(IncomingPhoneClass value) { this.incomingPhone = value; }
 
     @JsonProperty("israelCity")
     public AdditionalClientIsraelCity getIsraelCity() { return israelCity; }
@@ -167,9 +167,9 @@ public class PurpleAppointmentClient {
     public void setPassportID(String value) { this.passportID = value; }
 
     @JsonProperty("phone")
-    public List<IncomingPhoneElement> getPhone() { return phone; }
+    public List<AdditionalClientPhone> getPhone() { return phone; }
     @JsonProperty("phone")
-    public void setPhone(List<IncomingPhoneElement> value) { this.phone = value; }
+    public void setPhone(List<AdditionalClientPhone> value) { this.phone = value; }
 
     @JsonProperty("seasonTicketId")
     public String getSeasonTicketID() { return seasonTicketID; }

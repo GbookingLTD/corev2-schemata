@@ -462,8 +462,12 @@ export interface Appointment {
     socialToken?:                   string;
     source:                         string;
     taxonomy:                       AppointmentTaxonomy;
-    utm?:                           { [key: string]: any };
-    withCoSale?:                    boolean;
+    /**
+     * Данные для телемед конференции
+     */
+    telemedData?: TelemedDataClass;
+    utm?:         { [key: string]: any };
+    withCoSale?:  boolean;
 }
 
 export interface AdditionalClientAppear {
@@ -542,7 +546,7 @@ export interface AdditionalClientElement {
     GAClientID?:          null | string;
     houseNumber?:         null | string;
     id:                   string;
-    incomingPhone?:       IncomingPhoneElement[];
+    incomingPhone?:       IncomingPhoneObject;
     israelCity?:          IsraelCityClass | null;
     isVIP?:               boolean;
     kupatHolim?:          KupatHolimClass | null;
@@ -550,7 +554,7 @@ export interface AdditionalClientElement {
     middleName?:          null | string;
     name:                 string;
     passportId?:          null | string;
-    phone?:               IncomingPhoneElement[];
+    phone?:               AdditionalClientPhone[];
     seasonTicketId?:      null | string;
     seasonTicketNumber?:  null | string;
     sex?:                 Sex;
@@ -589,10 +593,13 @@ export interface ExtraField {
 
 export type PurpleValue = number | { [key: string]: any } | null | string;
 
-export interface IncomingPhoneElement {
-    area_code:    string;
-    country_code: string;
-    number:       string;
+/**
+ * пустой объект в момент резервирования
+ */
+export interface IncomingPhoneObject {
+    area_code?:    string;
+    country_code?: string;
+    number?:       string;
 }
 
 export interface IsraelCityClass {
@@ -603,6 +610,12 @@ export interface IsraelCityClass {
 export interface KupatHolimClass {
     kupatHolimId?: string;
     name?:         string;
+}
+
+export interface AdditionalClientPhone {
+    area_code:    string;
+    country_code: string;
+    number:       string;
 }
 
 export enum Sex {
@@ -743,7 +756,7 @@ export interface PurpleAppointmentClient {
     GAClientID?:          null | string;
     houseNumber?:         null | string;
     id?:                  string;
-    incomingPhone?:       IncomingPhoneElement[];
+    incomingPhone?:       IncomingPhoneObject;
     israelCity?:          IsraelCityClass | null;
     isVIP?:               boolean;
     kupatHolim?:          KupatHolimClass | null;
@@ -751,7 +764,7 @@ export interface PurpleAppointmentClient {
     middleName?:          null | string;
     name?:                string;
     passportId?:          null | string;
-    phone?:               IncomingPhoneElement[];
+    phone?:               AdditionalClientPhone[];
     seasonTicketId?:      null | string;
     seasonTicketNumber?:  null | string;
     sex?:                 Sex;
@@ -768,7 +781,7 @@ export interface AppointmentClientVisitor {
     name?:            string;
     parentClientID?:  string;
     parentProfileID?: string;
-    phone?:           IncomingPhoneElement[];
+    phone?:           AdditionalClientPhone[];
     sex?:             Sex;
 }
 
@@ -828,6 +841,18 @@ export interface Room {
 
 export interface AppointmentShowcase {
     businessID?: string;
+}
+
+/**
+ * Данные для телемед конференции
+ */
+export interface TelemedDataClass {
+    id?:            string;
+    joinUrl?:       string;
+    password?:      string;
+    shortJoinUrl?:  string;
+    shortStartUrl?: string;
+    startUrl?:      string;
 }
 
 export interface ClientRemoveEmptyAppointment {
@@ -1848,7 +1873,7 @@ export interface BusinessInfo {
     logo_url?:               null | string;
     marketingNotifications?: MarketingNotifications;
     metro?:                  Metro;
-    min_booking_time?:       boolean | null;
+    min_booking_time?:       number | null;
     /**
      * Список телефонов бизнеса
      */
@@ -2310,7 +2335,7 @@ export interface Resource {
      * массив уровня скорости выполнения услуги (см так же Resource level)
      */
     taxonomyLevels: ResourceTaxonomyLevel[];
-    telemedData?:   TelemedData;
+    telemedData?:   TelemedDataObject;
     timetable:      Timetable;
     userData?:      { [key: string]: any };
     /**
@@ -2396,7 +2421,7 @@ export interface Info {
     logo_url?:               null | string;
     marketingNotifications?: MarketingNotifications;
     metro?:                  Metro;
-    min_booking_time?:       boolean | null;
+    min_booking_time?:       number | null;
     /**
      * Список телефонов бизнеса
      */
@@ -2500,7 +2525,7 @@ export interface ResourceTaxonomyLevel {
     level: number;
 }
 
-export interface TelemedData {
+export interface TelemedDataObject {
     active?: boolean;
     id?:     string;
 }
@@ -3813,8 +3838,8 @@ export interface ClientClass {
     isVIP?:                      boolean;
     kupatHolim?:                 KupatHolimUnion;
     language?:                   LanguageList;
-    lastCreatedAppointment?:     { [key: string]: any };
-    lastVisitedAppointment?:     { [key: string]: any };
+    lastCreatedAppointment?:     { [key: string]: any } | null;
+    lastVisitedAppointment?:     { [key: string]: any } | null;
     lazyResolvedDate?:           string;
     locality?:                   string;
     loyaltyInfo?:                LoyaltyInfo;
@@ -3970,7 +3995,7 @@ export interface ClientAddClientResponseError {
 export interface ClientAddClientResponseResult {
     business:   CunningBusiness;
     client:     ClientClass;
-    documents?: string;
+    documents?: string[];
     profile?:   PurpleProfile;
     source?:    Source;
 }
@@ -5167,6 +5192,7 @@ const typeMap: any = {
         { json: "socialToken", js: "socialToken", typ: u(undefined, "") },
         { json: "source", js: "source", typ: "" },
         { json: "taxonomy", js: "taxonomy", typ: r("AppointmentTaxonomy") },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataClass")) },
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
         { json: "withCoSale", js: "withCoSale", typ: u(undefined, true) },
     ], false),
@@ -5212,7 +5238,7 @@ const typeMap: any = {
         { json: "GAClientID", js: "GAClientID", typ: u(undefined, u(null, "")) },
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: "" },
-        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
+        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, r("IncomingPhoneObject")) },
         { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCityClass"), null)) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
         { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolimClass"), null)) },
@@ -5220,7 +5246,7 @@ const typeMap: any = {
         { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: "" },
         { json: "passportId", js: "passportId", typ: u(undefined, u(null, "")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("AdditionalClientPhone"))) },
         { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, u(null, "")) },
         { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, u(null, "")) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
@@ -5243,11 +5269,11 @@ const typeMap: any = {
         { json: "fieldName", js: "fieldName", typ: "" },
         { json: "value", js: "value", typ: u(undefined, u(3.14, m("any"), null, "")) },
     ], false),
-    "IncomingPhoneElement": o([
-        { json: "area_code", js: "area_code", typ: "" },
-        { json: "country_code", js: "country_code", typ: "" },
-        { json: "number", js: "number", typ: "" },
-    ], false),
+    "IncomingPhoneObject": o([
+        { json: "area_code", js: "area_code", typ: u(undefined, "") },
+        { json: "country_code", js: "country_code", typ: u(undefined, "") },
+        { json: "number", js: "number", typ: u(undefined, "") },
+    ], "any"),
     "IsraelCityClass": o([
         { json: "cityId", js: "cityId", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
@@ -5255,6 +5281,11 @@ const typeMap: any = {
     "KupatHolimClass": o([
         { json: "kupatHolimId", js: "kupatHolimId", typ: u(undefined, "") },
         { json: "name", js: "name", typ: u(undefined, "") },
+    ], false),
+    "AdditionalClientPhone": o([
+        { json: "area_code", js: "area_code", typ: "" },
+        { json: "country_code", js: "country_code", typ: "" },
+        { json: "number", js: "number", typ: "" },
     ], false),
     "AdditionalField": o([
         { json: "name", js: "name", typ: "" },
@@ -5331,7 +5362,7 @@ const typeMap: any = {
         { json: "GAClientID", js: "GAClientID", typ: u(undefined, u(null, "")) },
         { json: "houseNumber", js: "houseNumber", typ: u(undefined, u(null, "")) },
         { json: "id", js: "id", typ: u(undefined, "") },
-        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
+        { json: "incomingPhone", js: "incomingPhone", typ: u(undefined, r("IncomingPhoneObject")) },
         { json: "israelCity", js: "israelCity", typ: u(undefined, u(r("IsraelCityClass"), null)) },
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
         { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(r("KupatHolimClass"), null)) },
@@ -5339,7 +5370,7 @@ const typeMap: any = {
         { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "passportId", js: "passportId", typ: u(undefined, u(null, "")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("AdditionalClientPhone"))) },
         { json: "seasonTicketId", js: "seasonTicketId", typ: u(undefined, u(null, "")) },
         { json: "seasonTicketNumber", js: "seasonTicketNumber", typ: u(undefined, u(null, "")) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
@@ -5355,7 +5386,7 @@ const typeMap: any = {
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "parentClientID", js: "parentClientID", typ: u(undefined, "") },
         { json: "parentProfileID", js: "parentProfileID", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("IncomingPhoneElement"))) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("AdditionalClientPhone"))) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
     ], "any"),
     "Location": o([
@@ -5400,6 +5431,14 @@ const typeMap: any = {
     ], false),
     "AppointmentShowcase": o([
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
+    ], false),
+    "TelemedDataClass": o([
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "joinUrl", js: "joinUrl", typ: u(undefined, "") },
+        { json: "password", js: "password", typ: u(undefined, "") },
+        { json: "shortJoinUrl", js: "shortJoinUrl", typ: u(undefined, "") },
+        { json: "shortStartUrl", js: "shortStartUrl", typ: u(undefined, "") },
+        { json: "startUrl", js: "startUrl", typ: u(undefined, "") },
     ], false),
     "ClientRemoveEmptyAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentClientRemoveEmptyAppointmentRequest") },
@@ -5950,7 +5989,7 @@ const typeMap: any = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(true, null)) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
@@ -6137,7 +6176,7 @@ const typeMap: any = {
         { json: "taxonomies", js: "taxonomies", typ: a("") },
         { json: "taxonomyChildren", js: "taxonomyChildren", typ: a(r("ResourceTaxonomyChildren")) },
         { json: "taxonomyLevels", js: "taxonomyLevels", typ: a(r("ResourceTaxonomyLevel")) },
-        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedData")) },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
         { json: "timetable", js: "timetable", typ: r("Timetable") },
         { json: "userData", js: "userData", typ: u(undefined, m("any")) },
         { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
@@ -6173,7 +6212,7 @@ const typeMap: any = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(true, null)) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
@@ -6213,7 +6252,7 @@ const typeMap: any = {
         { json: "id", js: "id", typ: "" },
         { json: "level", js: "level", typ: 3.14 },
     ], "any"),
-    "TelemedData": o([
+    "TelemedDataObject": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
@@ -7136,8 +7175,8 @@ const typeMap: any = {
         { json: "isVIP", js: "isVIP", typ: u(undefined, true) },
         { json: "kupatHolim", js: "kupatHolim", typ: u(undefined, u(a("any"), true, 3.14, 0, null, r("KupatHolimObject"), "")) },
         { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
-        { json: "lastCreatedAppointment", js: "lastCreatedAppointment", typ: u(undefined, m("any")) },
-        { json: "lastVisitedAppointment", js: "lastVisitedAppointment", typ: u(undefined, m("any")) },
+        { json: "lastCreatedAppointment", js: "lastCreatedAppointment", typ: u(undefined, u(m("any"), null)) },
+        { json: "lastVisitedAppointment", js: "lastVisitedAppointment", typ: u(undefined, u(m("any"), null)) },
         { json: "lazyResolvedDate", js: "lazyResolvedDate", typ: u(undefined, "") },
         { json: "locality", js: "locality", typ: u(undefined, "") },
         { json: "loyaltyInfo", js: "loyaltyInfo", typ: u(undefined, r("LoyaltyInfo")) },
@@ -7238,7 +7277,7 @@ const typeMap: any = {
     "ClientAddClientResponseResult": o([
         { json: "business", js: "business", typ: r("CunningBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
-        { json: "documents", js: "documents", typ: u(undefined, "") },
+        { json: "documents", js: "documents", typ: u(undefined, a("")) },
         { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
         { json: "source", js: "source", typ: u(undefined, r("Source")) },
     ], "any"),

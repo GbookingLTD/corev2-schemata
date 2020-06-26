@@ -58,7 +58,7 @@ public class Resource {
     private List<String> taxonomies;
     private List<ResourceTaxonomyChildren> taxonomyChildren;
     private List<ResourceTaxonomyLevel> taxonomyLevels;
-    private TelemedData telemedData;
+    private ResourceTelemedData telemedData;
     private Timetable timetable;
     private Map<String, Object> userData;
     private String workPlace;
@@ -431,9 +431,9 @@ public class Resource {
     public void setTaxonomyLevels(List<ResourceTaxonomyLevel> value) { this.taxonomyLevels = value; }
 
     @JsonProperty("telemedData")
-    public TelemedData getTelemedData() { return telemedData; }
+    public ResourceTelemedData getTelemedData() { return telemedData; }
     @JsonProperty("telemedData")
-    public void setTelemedData(TelemedData value) { this.telemedData = value; }
+    public void setTelemedData(ResourceTelemedData value) { this.telemedData = value; }
 
     @JsonProperty("timetable")
     public Timetable getTimetable() { return timetable; }

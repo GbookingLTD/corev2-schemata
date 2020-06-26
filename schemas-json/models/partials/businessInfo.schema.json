@@ -137,7 +137,7 @@
         },
         "min_booking_time": {
             "type": [
-                "boolean",
+                "number",
                 "null"
             ],
             "default": false
