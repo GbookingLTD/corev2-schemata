@@ -598,6 +598,10 @@ definitions:
       enableTelemed:
         type: "boolean"
         default: false
+      telemedProvider:
+        type: "string"
+        enum: ["DEFAULT", "zoom"]
+        default: "DISABLE"
       showGapWindow:
         type: "boolean"
         default: false

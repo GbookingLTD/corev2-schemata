@@ -260,6 +260,10 @@ definitions:
       enableTelemed:
         type: "boolean"
         default: false
+      telemedProvider:
+        type: "string"
+        enum: ["DEFAULT", "zoom"]
+        default: "DISABLE"
       enablePhoneNationalMode:
         type: "boolean"
         default: false
