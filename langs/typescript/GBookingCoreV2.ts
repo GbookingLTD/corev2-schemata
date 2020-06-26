@@ -1855,7 +1855,7 @@ export interface BusinessInfo {
     logo_url?:               null | string;
     marketingNotifications?: MarketingNotifications;
     metro?:                  Metro;
-    min_booking_time?:       boolean;
+    min_booking_time?:       boolean | null;
     /**
      * Список телефонов бизнеса
      */
@@ -2403,7 +2403,7 @@ export interface Info {
     logo_url?:               null | string;
     marketingNotifications?: MarketingNotifications;
     metro?:                  Metro;
-    min_booking_time?:       boolean;
+    min_booking_time?:       boolean | null;
     /**
      * Список телефонов бизнеса
      */
@@ -5960,7 +5960,7 @@ const typeMap: any = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, true) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(true, null)) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
@@ -6183,7 +6183,7 @@ const typeMap: any = {
         { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
         { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
         { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, true) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(true, null)) },
         { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },

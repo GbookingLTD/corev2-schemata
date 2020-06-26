@@ -3106,7 +3106,7 @@ namespace GBookingCoreV2
         [JsonProperty("metro", NullValueHandling = NullValueHandling.Ignore)]
         public Metro Metro { get; set; }
 
-        [JsonProperty("min_booking_time", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("min_booking_time")]
         public bool? MinBookingTime { get; set; }
 
         /// <summary>
@@ -3918,7 +3918,7 @@ namespace GBookingCoreV2
         [JsonProperty("metro", NullValueHandling = NullValueHandling.Ignore)]
         public Metro Metro { get; set; }
 
-        [JsonProperty("min_booking_time", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("min_booking_time")]
         public bool? MinBookingTime { get; set; }
 
         /// <summary>
