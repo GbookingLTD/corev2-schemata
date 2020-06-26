@@ -254,7 +254,10 @@ definitions:
       showCreatedUsername:
         type: "boolean"
         default: false
-      enablePhoneNationalMode:
+      showCreatedUsername:
+        type: "boolean"
+        default: false
+      showClientAddress:
         type: "boolean"
         default: false
       skipServiceFiltering:
