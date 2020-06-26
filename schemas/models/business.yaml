@@ -598,6 +598,9 @@ definitions:
       enableTelemed:
         type: "boolean"
         default: false
+      enableInvoice:
+        type: "boolean"
+        default: false
       telemedProvider:
         type: "string"
         enum: ["DEFAULT", "zoom"]

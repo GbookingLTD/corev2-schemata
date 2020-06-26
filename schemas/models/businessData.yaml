@@ -257,6 +257,9 @@ definitions:
       showClientAddress:
         type: "boolean"
         default: false
+      enableInvoice:
+        type: "boolean"
+        default: false
       enableTelemed:
         type: "boolean"
         default: false
