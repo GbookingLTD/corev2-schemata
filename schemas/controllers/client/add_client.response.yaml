@@ -63,7 +63,9 @@ definitions:
         type: "string"
         enum: ["WIDGET", "MOBILE_WIDGET", "MINI_WIDGET", "BACKOFFICE"]
       documents:
-        type: "string"
+        type: "array"
+        items:
+          type: "string"
 
   SuccessResponse:
     type: "object"

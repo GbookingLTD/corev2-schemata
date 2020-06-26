@@ -197,7 +197,7 @@ properties:
   updated:
     type: "string"
   lastVisitedAppointment:
-    type: "object"
+    type: ["object", "null"]
   lastCreatedAppointment:
-    type: "object"
+    type: ["object", "null"]
 
