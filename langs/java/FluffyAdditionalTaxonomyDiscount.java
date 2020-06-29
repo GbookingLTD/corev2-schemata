@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AdditionalTaxonomyDiscount {
+public class FluffyAdditionalTaxonomyDiscount {
     private Double discount;
     private DiscountProvider discountProvider;
     private String discountType;

@@ -665,6 +665,9 @@ namespace GBookingCoreV2
         [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
         public string Color { get; set; }
 
+        [JsonProperty("createdUser", NullValueHandling = NullValueHandling.Ignore)]
+        public CreatedUser CreatedUser { get; set; }
+
         [JsonProperty("destinationKeyword", NullValueHandling = NullValueHandling.Ignore)]
         public string DestinationKeyword { get; set; }
 
@@ -1095,7 +1098,7 @@ namespace GBookingCoreV2
     public partial class Price
     {
         [JsonProperty("additionalTaxonomyDiscount", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AdditionalTaxonomyDiscount> AdditionalTaxonomyDiscount { get; set; }
+        public List<PurpleAdditionalTaxonomyDiscount> AdditionalTaxonomyDiscount { get; set; }
 
         [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
         public double? Amount { get; set; }
@@ -1116,7 +1119,7 @@ namespace GBookingCoreV2
         public double? OriginalAmount { get; set; }
     }
 
-    public partial class AdditionalTaxonomyDiscount
+    public partial class PurpleAdditionalTaxonomyDiscount
     {
         [JsonProperty("discount", NullValueHandling = NullValueHandling.Ignore)]
         public double? Discount { get; set; }
@@ -1273,6 +1276,24 @@ namespace GBookingCoreV2
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
         public Sex? Sex { get; set; }
+    }
+
+    public partial class CreatedUser
+    {
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        public string MiddleName { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("surname", NullValueHandling = NullValueHandling.Ignore)]
+        public string Surname { get; set; }
     }
 
     public partial class Location
@@ -2271,11 +2292,41 @@ namespace GBookingCoreV2
 
     public partial class PurplePrice
     {
+        [JsonProperty("additionalTaxonomyDiscount", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyAdditionalTaxonomyDiscount> AdditionalTaxonomyDiscount { get; set; }
+
         [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
         public double? Amount { get; set; }
 
         [JsonProperty("currency")]
         public CurrencyList Currency { get; set; }
+
+        [JsonProperty("discount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Discount { get; set; }
+
+        [JsonProperty("discountProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscountProvider? DiscountProvider { get; set; }
+
+        [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
+        public string DiscountType { get; set; }
+
+        [JsonProperty("originalAmount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? OriginalAmount { get; set; }
+    }
+
+    public partial class FluffyAdditionalTaxonomyDiscount
+    {
+        [JsonProperty("discount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Discount { get; set; }
+
+        [JsonProperty("discountProvider", NullValueHandling = NullValueHandling.Ignore)]
+        public DiscountProvider? DiscountProvider { get; set; }
+
+        [JsonProperty("discountType", NullValueHandling = NullValueHandling.Ignore)]
+        public string DiscountType { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
     }
 
     public partial class IndecentBusiness

@@ -435,6 +435,7 @@ export interface Appointment {
     clientComment:                  string;
     clientVisitors?:                AppointmentClientVisitor[];
     color?:                         string;
+    createdUser?:                   CreatedUser;
     destinationKeyword?:            string;
     destinationLink?:               string;
     extraFields:                    ExtraField[];
@@ -681,7 +682,7 @@ export interface IntegrationData {
 }
 
 export interface Price {
-    additionalTaxonomyDiscount?: AdditionalTaxonomyDiscount[];
+    additionalTaxonomyDiscount?: PurpleAdditionalTaxonomyDiscount[];
     amount?:                     number;
     currency:                    CurrencyList;
     discount?:                   number;
@@ -690,7 +691,7 @@ export interface Price {
     originalAmount?:             number | null;
 }
 
-export interface AdditionalTaxonomyDiscount {
+export interface PurpleAdditionalTaxonomyDiscount {
     discount?:         number;
     discountProvider?: DiscountProvider;
     discountType?:     string;
@@ -783,6 +784,14 @@ export interface AppointmentClientVisitor {
     parentProfileID?: string;
     phone?:           AdditionalClientPhone[];
     sex?:             Sex;
+}
+
+export interface CreatedUser {
+    email?:      string;
+    id:          string;
+    middleName?: string;
+    name:        string;
+    surname?:    string;
 }
 
 export interface Location {
@@ -1406,8 +1415,20 @@ export interface AppointmentObject {
 }
 
 export interface PurplePrice {
-    amount?:  number;
-    currency: CurrencyList;
+    additionalTaxonomyDiscount?: FluffyAdditionalTaxonomyDiscount[];
+    amount?:                     number;
+    currency:                    CurrencyList;
+    discount?:                   number;
+    discountProvider?:           DiscountProvider;
+    discountType?:               string;
+    originalAmount?:             number;
+}
+
+export interface FluffyAdditionalTaxonomyDiscount {
+    discount?:         number;
+    discountProvider?: DiscountProvider;
+    discountType?:     string;
+    taxonomyID?:       string;
 }
 
 export interface IndecentBusiness {
@@ -5166,6 +5187,7 @@ const typeMap: any = {
         { json: "clientComment", js: "clientComment", typ: "" },
         { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AppointmentClientVisitor"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "createdUser", js: "createdUser", typ: u(undefined, r("CreatedUser")) },
         { json: "destinationKeyword", js: "destinationKeyword", typ: u(undefined, "") },
         { json: "destinationLink", js: "destinationLink", typ: u(undefined, "") },
         { json: "extraFields", js: "extraFields", typ: a(r("ExtraField")) },
@@ -5325,7 +5347,7 @@ const typeMap: any = {
         { json: "extraId", js: "extraId", typ: u(null, "") },
     ], false),
     "Price": o([
-        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("AdditionalTaxonomyDiscount"))) },
+        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("PurpleAdditionalTaxonomyDiscount"))) },
         { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
@@ -5333,7 +5355,7 @@ const typeMap: any = {
         { json: "discountType", js: "discountType", typ: u(undefined, "") },
         { json: "originalAmount", js: "originalAmount", typ: u(undefined, u(3.14, null)) },
     ], false),
-    "AdditionalTaxonomyDiscount": o([
+    "PurpleAdditionalTaxonomyDiscount": o([
         { json: "discount", js: "discount", typ: u(undefined, 3.14) },
         { json: "discountProvider", js: "discountProvider", typ: u(undefined, r("DiscountProvider")) },
         { json: "discountType", js: "discountType", typ: u(undefined, "") },
@@ -5390,6 +5412,13 @@ const typeMap: any = {
         { json: "phone", js: "phone", typ: u(undefined, a(r("AdditionalClientPhone"))) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
     ], "any"),
+    "CreatedUser": o([
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: "" },
+        { json: "middleName", js: "middleName", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: "" },
+        { json: "surname", js: "surname", typ: u(undefined, "") },
+    ], false),
     "Location": o([
         { json: "latitude", js: "latitude", typ: 3.14 },
         { json: "longitude", js: "longitude", typ: 3.14 },
@@ -5714,8 +5743,19 @@ const typeMap: any = {
         { json: "start", js: "start", typ: "" },
     ], "any"),
     "PurplePrice": o([
+        { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("FluffyAdditionalTaxonomyDiscount"))) },
         { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "discount", js: "discount", typ: u(undefined, 3.14) },
+        { json: "discountProvider", js: "discountProvider", typ: u(undefined, r("DiscountProvider")) },
+        { json: "discountType", js: "discountType", typ: u(undefined, "") },
+        { json: "originalAmount", js: "originalAmount", typ: u(undefined, 3.14) },
+    ], false),
+    "FluffyAdditionalTaxonomyDiscount": o([
+        { json: "discount", js: "discount", typ: u(undefined, 3.14) },
+        { json: "discountProvider", js: "discountProvider", typ: u(undefined, r("DiscountProvider")) },
+        { json: "discountType", js: "discountType", typ: u(undefined, "") },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
     "IndecentBusiness": o([
         { json: "id", js: "id", typ: "" },

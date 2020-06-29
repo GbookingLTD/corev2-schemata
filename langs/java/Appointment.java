@@ -35,6 +35,7 @@ public class Appointment {
     private String clientComment;
     private List<AppointmentClientVisitor> clientVisitors;
     private String color;
+    private CreatedUser createdUser;
     private String destinationKeyword;
     private String destinationLink;
     private List<ExtraField> extraFields;
@@ -205,6 +206,11 @@ public class Appointment {
     public String getColor() { return color; }
     @JsonProperty("color")
     public void setColor(String value) { this.color = value; }
+
+    @JsonProperty("createdUser")
+    public CreatedUser getCreatedUser() { return createdUser; }
+    @JsonProperty("createdUser")
+    public void setCreatedUser(CreatedUser value) { this.createdUser = value; }
 
     @JsonProperty("destinationKeyword")
     public String getDestinationKeyword() { return destinationKeyword; }

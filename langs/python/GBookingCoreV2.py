@@ -1408,7 +1408,7 @@ class DiscountProvider(Enum):
     YANDEX = "YANDEX"
 
 
-class AdditionalTaxonomyDiscount:
+class PurpleAdditionalTaxonomyDiscount:
     discount: Optional[float]
     discount_provider: Optional[DiscountProvider]
     discount_type: Optional[str]
@@ -1421,13 +1421,13 @@ class AdditionalTaxonomyDiscount:
         self.taxonomy_id = taxonomy_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AdditionalTaxonomyDiscount':
+    def from_dict(obj: Any) -> 'PurpleAdditionalTaxonomyDiscount':
         assert isinstance(obj, dict)
         discount = from_union([from_float, from_none], obj.get("discount"))
         discount_provider = from_union([DiscountProvider, from_none], obj.get("discountProvider"))
         discount_type = from_union([from_str, from_none], obj.get("discountType"))
         taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
-        return AdditionalTaxonomyDiscount(discount, discount_provider, discount_type, taxonomy_id)
+        return PurpleAdditionalTaxonomyDiscount(discount, discount_provider, discount_type, taxonomy_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -1456,7 +1456,7 @@ class CurrencyList(Enum):
 
 
 class Price:
-    additional_taxonomy_discount: Optional[List[AdditionalTaxonomyDiscount]]
+    additional_taxonomy_discount: Optional[List[PurpleAdditionalTaxonomyDiscount]]
     amount: Optional[float]
     currency: CurrencyList
     discount: Optional[float]
@@ -1464,7 +1464,7 @@ class Price:
     discount_type: Optional[str]
     original_amount: Optional[float]
 
-    def __init__(self, additional_taxonomy_discount: Optional[List[AdditionalTaxonomyDiscount]], amount: Optional[float], currency: CurrencyList, discount: Optional[float], discount_provider: Optional[DiscountProvider], discount_type: Optional[str], original_amount: Optional[float]) -> None:
+    def __init__(self, additional_taxonomy_discount: Optional[List[PurpleAdditionalTaxonomyDiscount]], amount: Optional[float], currency: CurrencyList, discount: Optional[float], discount_provider: Optional[DiscountProvider], discount_type: Optional[str], original_amount: Optional[float]) -> None:
         self.additional_taxonomy_discount = additional_taxonomy_discount
         self.amount = amount
         self.currency = currency
@@ -1476,7 +1476,7 @@ class Price:
     @staticmethod
     def from_dict(obj: Any) -> 'Price':
         assert isinstance(obj, dict)
-        additional_taxonomy_discount = from_union([lambda x: from_list(AdditionalTaxonomyDiscount.from_dict, x), from_none], obj.get("additionalTaxonomyDiscount"))
+        additional_taxonomy_discount = from_union([lambda x: from_list(PurpleAdditionalTaxonomyDiscount.from_dict, x), from_none], obj.get("additionalTaxonomyDiscount"))
         amount = from_union([from_float, from_none], obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
         discount = from_union([from_float, from_none], obj.get("discount"))
@@ -1487,7 +1487,7 @@ class Price:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["additionalTaxonomyDiscount"] = from_union([lambda x: from_list(lambda x: to_class(AdditionalTaxonomyDiscount, x), x), from_none], self.additional_taxonomy_discount)
+        result["additionalTaxonomyDiscount"] = from_union([lambda x: from_list(lambda x: to_class(PurpleAdditionalTaxonomyDiscount, x), x), from_none], self.additional_taxonomy_discount)
         result["amount"] = from_union([to_float, from_none], self.amount)
         result["currency"] = to_enum(CurrencyList, self.currency)
         result["discount"] = from_union([to_float, from_none], self.discount)
@@ -1806,6 +1806,40 @@ class AppointmentClientVisitor:
         return result
 
 
+class CreatedUser:
+    email: Optional[str]
+    id: str
+    middle_name: Optional[str]
+    name: str
+    surname: Optional[str]
+
+    def __init__(self, email: Optional[str], id: str, middle_name: Optional[str], name: str, surname: Optional[str]) -> None:
+        self.email = email
+        self.id = id
+        self.middle_name = middle_name
+        self.name = name
+        self.surname = surname
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'CreatedUser':
+        assert isinstance(obj, dict)
+        email = from_union([from_str, from_none], obj.get("email"))
+        id = from_str(obj.get("id"))
+        middle_name = from_union([from_str, from_none], obj.get("middleName"))
+        name = from_str(obj.get("name"))
+        surname = from_union([from_str, from_none], obj.get("surname"))
+        return CreatedUser(email, id, middle_name, name, surname)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["id"] = from_str(self.id)
+        result["middleName"] = from_union([from_str, from_none], self.middle_name)
+        result["name"] = from_str(self.name)
+        result["surname"] = from_union([from_str, from_none], self.surname)
+        return result
+
+
 class Location:
     latitude: float
     longitude: float
@@ -2107,6 +2141,7 @@ class Appointment:
     client_comment: str
     client_visitors: Optional[List[AppointmentClientVisitor]]
     color: Optional[str]
+    created_user: Optional[CreatedUser]
     destination_keyword: Optional[str]
     destination_link: Optional[str]
     extra_fields: List[ExtraField]
@@ -2139,7 +2174,7 @@ class Appointment:
     utm: Optional[Dict[str, Any]]
     with_co_sale: Optional[bool]
 
-    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_payment_transaction_id: Optional[str], client_comment: str, client_visitors: Optional[List[AppointmentClientVisitor]], color: Optional[str], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: Optional[str], notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: Reminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Optional[Review], room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, telemed_data: Optional[AppointmentTelemedData], utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
+    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_payment_transaction_id: Optional[str], client_comment: str, client_visitors: Optional[List[AppointmentClientVisitor]], color: Optional[str], created_user: Optional[CreatedUser], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: Optional[str], notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: Reminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Optional[Review], room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, telemed_data: Optional[AppointmentTelemedData], utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
         self.additional_info = additional_info
         self.additional_client_appears = additional_client_appears
         self.additional_client_payments = additional_client_payments
@@ -2168,6 +2203,7 @@ class Appointment:
         self.client_comment = client_comment
         self.client_visitors = client_visitors
         self.color = color
+        self.created_user = created_user
         self.destination_keyword = destination_keyword
         self.destination_link = destination_link
         self.extra_fields = extra_fields
@@ -2230,6 +2266,7 @@ class Appointment:
         client_comment = from_str(obj.get("clientComment"))
         client_visitors = from_union([lambda x: from_list(AppointmentClientVisitor.from_dict, x), from_none], obj.get("clientVisitors"))
         color = from_union([from_str, from_none], obj.get("color"))
+        created_user = from_union([CreatedUser.from_dict, from_none], obj.get("createdUser"))
         destination_keyword = from_union([from_str, from_none], obj.get("destinationKeyword"))
         destination_link = from_union([from_str, from_none], obj.get("destinationLink"))
         extra_fields = from_list(ExtraField.from_dict, obj.get("extraFields"))
@@ -2260,7 +2297,7 @@ class Appointment:
         telemed_data = from_union([AppointmentTelemedData.from_dict, from_none], obj.get("telemedData"))
         utm = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("utm"))
         with_co_sale = from_union([from_bool, from_none], obj.get("withCoSale"))
-        return Appointment(additional_info, additional_client_appears, additional_client_payments, additional_clients, additional_client_sources, additional_client_statuses, additional_client_utms, additional_fields, additional_products, additional_taxonomies, address, adjacent_id, appointment, auto_phone_call_status, banned_clients, business, cabinet, capacity, change_reason, client, client_appear, client_med_code, client_payment, client_payment_invoice, client_payment_transaction_id, client_comment, client_visitors, color, destination_keyword, destination_link, extra_fields, gt, gt_time_frame, location, master_importance, min_clients, move_counter, moved_by_robot, moved_from_fired, network_id, notes, order, preferred_resource, promo_code, referer_link, referrer, reminder, removed_clients_data, resource, review, room, showcase, social_token, source, taxonomy, telemed_data, utm, with_co_sale)
+        return Appointment(additional_info, additional_client_appears, additional_client_payments, additional_clients, additional_client_sources, additional_client_statuses, additional_client_utms, additional_fields, additional_products, additional_taxonomies, address, adjacent_id, appointment, auto_phone_call_status, banned_clients, business, cabinet, capacity, change_reason, client, client_appear, client_med_code, client_payment, client_payment_invoice, client_payment_transaction_id, client_comment, client_visitors, color, created_user, destination_keyword, destination_link, extra_fields, gt, gt_time_frame, location, master_importance, min_clients, move_counter, moved_by_robot, moved_from_fired, network_id, notes, order, preferred_resource, promo_code, referer_link, referrer, reminder, removed_clients_data, resource, review, room, showcase, social_token, source, taxonomy, telemed_data, utm, with_co_sale)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2292,6 +2329,7 @@ class Appointment:
         result["clientComment"] = from_str(self.client_comment)
         result["clientVisitors"] = from_union([lambda x: from_list(lambda x: to_class(AppointmentClientVisitor, x), x), from_none], self.client_visitors)
         result["color"] = from_union([from_str, from_none], self.color)
+        result["createdUser"] = from_union([lambda x: to_class(CreatedUser, x), from_none], self.created_user)
         result["destinationKeyword"] = from_union([from_str, from_none], self.destination_keyword)
         result["destinationLink"] = from_union([from_str, from_none], self.destination_link)
         result["extraFields"] = from_list(lambda x: to_class(ExtraField, x), self.extra_fields)
@@ -3761,25 +3799,75 @@ class GetAppointmentsByUser:
         return result
 
 
+class FluffyAdditionalTaxonomyDiscount:
+    discount: Optional[float]
+    discount_provider: Optional[DiscountProvider]
+    discount_type: Optional[str]
+    taxonomy_id: Optional[str]
+
+    def __init__(self, discount: Optional[float], discount_provider: Optional[DiscountProvider], discount_type: Optional[str], taxonomy_id: Optional[str]) -> None:
+        self.discount = discount
+        self.discount_provider = discount_provider
+        self.discount_type = discount_type
+        self.taxonomy_id = taxonomy_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyAdditionalTaxonomyDiscount':
+        assert isinstance(obj, dict)
+        discount = from_union([from_float, from_none], obj.get("discount"))
+        discount_provider = from_union([DiscountProvider, from_none], obj.get("discountProvider"))
+        discount_type = from_union([from_str, from_none], obj.get("discountType"))
+        taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
+        return FluffyAdditionalTaxonomyDiscount(discount, discount_provider, discount_type, taxonomy_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["discount"] = from_union([to_float, from_none], self.discount)
+        result["discountProvider"] = from_union([lambda x: to_enum(DiscountProvider, x), from_none], self.discount_provider)
+        result["discountType"] = from_union([from_str, from_none], self.discount_type)
+        result["taxonomyID"] = from_union([from_str, from_none], self.taxonomy_id)
+        return result
+
+
 class PurplePrice:
+    additional_taxonomy_discount: Optional[List[FluffyAdditionalTaxonomyDiscount]]
     amount: Optional[float]
     currency: CurrencyList
+    discount: Optional[float]
+    discount_provider: Optional[DiscountProvider]
+    discount_type: Optional[str]
+    original_amount: Optional[float]
 
-    def __init__(self, amount: Optional[float], currency: CurrencyList) -> None:
+    def __init__(self, additional_taxonomy_discount: Optional[List[FluffyAdditionalTaxonomyDiscount]], amount: Optional[float], currency: CurrencyList, discount: Optional[float], discount_provider: Optional[DiscountProvider], discount_type: Optional[str], original_amount: Optional[float]) -> None:
+        self.additional_taxonomy_discount = additional_taxonomy_discount
         self.amount = amount
         self.currency = currency
+        self.discount = discount
+        self.discount_provider = discount_provider
+        self.discount_type = discount_type
+        self.original_amount = original_amount
 
     @staticmethod
     def from_dict(obj: Any) -> 'PurplePrice':
         assert isinstance(obj, dict)
+        additional_taxonomy_discount = from_union([lambda x: from_list(FluffyAdditionalTaxonomyDiscount.from_dict, x), from_none], obj.get("additionalTaxonomyDiscount"))
         amount = from_union([from_float, from_none], obj.get("amount"))
         currency = CurrencyList(obj.get("currency"))
-        return PurplePrice(amount, currency)
+        discount = from_union([from_float, from_none], obj.get("discount"))
+        discount_provider = from_union([DiscountProvider, from_none], obj.get("discountProvider"))
+        discount_type = from_union([from_str, from_none], obj.get("discountType"))
+        original_amount = from_union([from_float, from_none], obj.get("originalAmount"))
+        return PurplePrice(additional_taxonomy_discount, amount, currency, discount, discount_provider, discount_type, original_amount)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["additionalTaxonomyDiscount"] = from_union([lambda x: from_list(lambda x: to_class(FluffyAdditionalTaxonomyDiscount, x), x), from_none], self.additional_taxonomy_discount)
         result["amount"] = from_union([to_float, from_none], self.amount)
         result["currency"] = to_enum(CurrencyList, self.currency)
+        result["discount"] = from_union([to_float, from_none], self.discount)
+        result["discountProvider"] = from_union([lambda x: to_enum(DiscountProvider, x), from_none], self.discount_provider)
+        result["discountType"] = from_union([from_str, from_none], self.discount_type)
+        result["originalAmount"] = from_union([to_float, from_none], self.original_amount)
         return result
 
 

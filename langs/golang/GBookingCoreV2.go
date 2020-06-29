@@ -251,6 +251,7 @@ type Appointment struct {
 	ClientComment              string                     `json:"clientComment"`                          
 	ClientVisitors             []AppointmentClientVisitor `json:"clientVisitors"`                         
 	Color                      *string                    `json:"color,omitempty"`                        
+	CreatedUser                *CreatedUser               `json:"createdUser,omitempty"`                  
 	DestinationKeyword         *string                    `json:"destinationKeyword,omitempty"`           
 	DestinationLink            *string                    `json:"destinationLink,omitempty"`              
 	ExtraFields                []ExtraField               `json:"extraFields"`                            
@@ -429,16 +430,16 @@ type IntegrationData struct {
 }
 
 type Price struct {
-	AdditionalTaxonomyDiscount []AdditionalTaxonomyDiscount `json:"additionalTaxonomyDiscount"`
-	Amount                     *float64                     `json:"amount,omitempty"`          
-	Currency                   CurrencyList                 `json:"currency"`                  
-	Discount                   *float64                     `json:"discount,omitempty"`        
-	DiscountProvider           *DiscountProvider            `json:"discountProvider,omitempty"`
-	DiscountType               *string                      `json:"discountType,omitempty"`    
-	OriginalAmount             *float64                     `json:"originalAmount"`            
+	AdditionalTaxonomyDiscount []PurpleAdditionalTaxonomyDiscount `json:"additionalTaxonomyDiscount"`
+	Amount                     *float64                           `json:"amount,omitempty"`          
+	Currency                   CurrencyList                       `json:"currency"`                  
+	Discount                   *float64                           `json:"discount,omitempty"`        
+	DiscountProvider           *DiscountProvider                  `json:"discountProvider,omitempty"`
+	DiscountType               *string                            `json:"discountType,omitempty"`    
+	OriginalAmount             *float64                           `json:"originalAmount"`            
 }
 
-type AdditionalTaxonomyDiscount struct {
+type PurpleAdditionalTaxonomyDiscount struct {
 	Discount         *float64          `json:"discount,omitempty"`        
 	DiscountProvider *DiscountProvider `json:"discountProvider,omitempty"`
 	DiscountType     *string           `json:"discountType,omitempty"`    
@@ -499,6 +500,14 @@ type AppointmentClientVisitor struct {
 	ParentProfileID *string                 `json:"parentProfileID,omitempty"`
 	Phone           []AdditionalClientPhone `json:"phone"`                    
 	Sex             *Sex                    `json:"sex,omitempty"`            
+}
+
+type CreatedUser struct {
+	Email      *string `json:"email,omitempty"`     
+	ID         string  `json:"id"`                  
+	MiddleName *string `json:"middleName,omitempty"`
+	Name       string  `json:"name"`                
+	Surname    *string `json:"surname,omitempty"`   
 }
 
 type Location struct {
@@ -907,8 +916,20 @@ type IndigoAppointment struct {
 }
 
 type PurplePrice struct {
-	Amount   *float64     `json:"amount,omitempty"`
-	Currency CurrencyList `json:"currency"`        
+	AdditionalTaxonomyDiscount []FluffyAdditionalTaxonomyDiscount `json:"additionalTaxonomyDiscount"`
+	Amount                     *float64                           `json:"amount,omitempty"`          
+	Currency                   CurrencyList                       `json:"currency"`                  
+	Discount                   *float64                           `json:"discount,omitempty"`        
+	DiscountProvider           *DiscountProvider                  `json:"discountProvider,omitempty"`
+	DiscountType               *string                            `json:"discountType,omitempty"`    
+	OriginalAmount             *float64                           `json:"originalAmount,omitempty"`  
+}
+
+type FluffyAdditionalTaxonomyDiscount struct {
+	Discount         *float64          `json:"discount,omitempty"`        
+	DiscountProvider *DiscountProvider `json:"discountProvider,omitempty"`
+	DiscountType     *string           `json:"discountType,omitempty"`    
+	TaxonomyID       *string           `json:"taxonomyID,omitempty"`      
 }
 
 type IndecentBusiness struct {

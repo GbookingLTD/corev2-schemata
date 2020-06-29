@@ -396,6 +396,7 @@ export interface Appointment {
     clientComment: string;
     clientVisitors?: AppointmentClientVisitor[];
     color?: string;
+    createdUser?: CreatedUser;
     destinationKeyword?: string;
     destinationLink?: string;
     extraFields: ExtraField[];
@@ -627,7 +628,7 @@ export interface IntegrationData {
     extraId: null | string;
 }
 export interface Price {
-    additionalTaxonomyDiscount?: AdditionalTaxonomyDiscount[];
+    additionalTaxonomyDiscount?: PurpleAdditionalTaxonomyDiscount[];
     amount?: number;
     currency: CurrencyList;
     discount?: number;
@@ -635,7 +636,7 @@ export interface Price {
     discountType?: string;
     originalAmount?: number | null;
 }
-export interface AdditionalTaxonomyDiscount {
+export interface PurpleAdditionalTaxonomyDiscount {
     discount?: number;
     discountProvider?: DiscountProvider;
     discountType?: string;
@@ -723,6 +724,13 @@ export interface AppointmentClientVisitor {
     parentProfileID?: string;
     phone?: AdditionalClientPhone[];
     sex?: Sex;
+}
+export interface CreatedUser {
+    email?: string;
+    id: string;
+    middleName?: string;
+    name: string;
+    surname?: string;
 }
 export interface Location {
     latitude: number;
@@ -1278,8 +1286,19 @@ export interface AppointmentObject {
     start: string;
 }
 export interface PurplePrice {
+    additionalTaxonomyDiscount?: FluffyAdditionalTaxonomyDiscount[];
     amount?: number;
     currency: CurrencyList;
+    discount?: number;
+    discountProvider?: DiscountProvider;
+    discountType?: string;
+    originalAmount?: number;
+}
+export interface FluffyAdditionalTaxonomyDiscount {
+    discount?: number;
+    discountProvider?: DiscountProvider;
+    discountType?: string;
+    taxonomyID?: string;
 }
 export interface IndecentBusiness {
     id: string;
