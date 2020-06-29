@@ -737,5 +737,22 @@ properties:
     items:
       $ref: "#/definitions/AppointmentClientVisitor"
 
+  createdUser:
+    type: "object"
+    additionalProperties: false
+    required:
+      - "id"
+      - "name"
+    properties:
+      id:
+        type: "string"
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      middleName:
+        type: "string"
 
 
