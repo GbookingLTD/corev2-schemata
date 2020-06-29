@@ -30,8 +30,33 @@ definitions:
             properties:
               amount:
                 type: "number"
+              originalAmount:
+                type: "number"
+              discount:
+                type: "number"
+              discountType:
+                type: "string"
+              discountProvider:
+                type: "string"
+                enum: ['LOCAL', 'YANDEX', 'GROUPON']
               currency:
                 $ref: "../../models/partials/currency.schema.json#/definitions/CurrencyList"
+              additionalTaxonomyDiscount:
+                type: "array"
+                items:
+                  type: "object"
+                  additionalProperties: false
+                  required: []
+                  properties:
+                    taxonomyID:
+                      type: "string"
+                    discount:
+                      type: "number"
+                    discountType:
+                      type: "string"
+                    discountProvider:
+                      type: "string"
+                      enum: ['LOCAL', 'YANDEX', 'GROUPON']
       source:
         type: "string"
       business:
