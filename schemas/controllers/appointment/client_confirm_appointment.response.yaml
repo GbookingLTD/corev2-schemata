@@ -39,6 +39,7 @@ definitions:
                   - -14311
                   - -14312
                   - -14313
+                  - -14320
                 meta:enum:
                   -10000: "UNKNOWN_ERROR - Unknown error occurred"
                   -10001: "BUSINESS_DATA_MISSING - Business data missing"
@@ -60,6 +61,7 @@ definitions:
                   -14311: "APPOINTMENT_MIS_CONFIRM_CLEINT_NOT_FOUND"
                   -14312: "APPOINTMENT_MIS_UPDATE_FATAL_ERROR"
                   -14313: "APPOINTMENT_MIS_UPDATE_FAIL"
+                  -14320: "APPOINTMENT_TELE_CREATE_FAIL"
 
   ErrorResponse:
     allOf:

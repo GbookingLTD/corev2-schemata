@@ -612,7 +612,7 @@ definitions:
           enum: ["YES_PAYED_ONLINE", "YES_PAYED_FULL", "YES_PAYED_PART", "NO_PAYMENT", "NONE"]
       telemedProvider:
         type: "string"
-        enum: ["DISABLE", "zoom"]
+        enum: ["DISABLE", "zoom", "mmconf"]
         default: "DISABLE"
       showGapWindow:
         type: "boolean"
