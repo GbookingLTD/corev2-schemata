@@ -5,7 +5,9 @@ type: "object"
 definitions:
   Filters:
     type: "object"
-    required: []
+    required:
+      - pageSize
+      - page
     properties:
       business:
         type: "object"
@@ -21,8 +23,13 @@ definitions:
         properties:
           id:
             type: ["string", "number"]
+      pageSize:
+        type: "number"
+      page:
+        type: "number"
       extraFilters:
         type: "object"
+        required: []
         additionalProperties: false
         properties:
           sort:
