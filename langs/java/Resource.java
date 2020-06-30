@@ -1,7 +1,9 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Данные о работнике бизнеса
@@ -20,7 +22,7 @@ public class Resource {
     private Boolean emailEnabled;
     private EvenOddTimetable evenOddTimetable;
     private List<Object> exceptions;
-    private String experience;
+    private OffsetDateTime experience;
     private String extraDescription;
     private String extraID;
     private String extraLink;
@@ -28,7 +30,7 @@ public class Resource {
     private String iconURL;
     private String id;
     private String image;
-    private String lastSU;
+    private OffsetDateTime lastSU;
     private double level;
     private boolean loaned;
     private String loanedFrom;
@@ -39,7 +41,7 @@ public class Resource {
     private String name;
     private String nickname;
     private Double order;
-    private FluffyTimeFrameDate orderWeight;
+    private TaxiParkMemberCountUnion orderWeight;
     private Info originGeneralInfo;
     private String originBusinessID;
     private List<String> originTaxonomies;
@@ -153,9 +155,9 @@ public class Resource {
     public void setExceptions(List<Object> value) { this.exceptions = value; }
 
     @JsonProperty("experience")
-    public String getExperience() { return experience; }
+    public OffsetDateTime getExperience() { return experience; }
     @JsonProperty("experience")
-    public void setExperience(String value) { this.experience = value; }
+    public void setExperience(OffsetDateTime value) { this.experience = value; }
 
     /**
      * информация из внешней информационной системы как есть (при интеграции)
@@ -213,9 +215,9 @@ public class Resource {
     public void setImage(String value) { this.image = value; }
 
     @JsonProperty("lastSU")
-    public String getLastSU() { return lastSU; }
+    public OffsetDateTime getLastSU() { return lastSU; }
     @JsonProperty("lastSU")
-    public void setLastSU(String value) { this.lastSU = value; }
+    public void setLastSU(OffsetDateTime value) { this.lastSU = value; }
 
     /**
      * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
@@ -295,9 +297,9 @@ public class Resource {
      * вес работника, в зависимости от указанного способа сортировки
      */
     @JsonProperty("orderWeight")
-    public FluffyTimeFrameDate getOrderWeight() { return orderWeight; }
+    public TaxiParkMemberCountUnion getOrderWeight() { return orderWeight; }
     @JsonProperty("orderWeight")
-    public void setOrderWeight(FluffyTimeFrameDate value) { this.orderWeight = value; }
+    public void setOrderWeight(TaxiParkMemberCountUnion value) { this.orderWeight = value; }
 
     /**
      * (только в витрине) объект с данными бизнеса-филиала

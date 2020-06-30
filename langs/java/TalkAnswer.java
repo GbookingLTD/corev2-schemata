@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,9 +9,9 @@ public enum TalkAnswer {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case NOT_IMPORTANT: return "NOT_IMPORTANT";
-        case NOT_TALK: return "NOT_TALK";
-        case TALK: return "TALK";
+            case NOT_IMPORTANT: return "NOT_IMPORTANT";
+            case NOT_TALK: return "NOT_TALK";
+            case TALK: return "TALK";
         }
         return null;
     }

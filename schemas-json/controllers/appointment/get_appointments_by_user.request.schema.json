@@ -6,7 +6,10 @@
     "definitions": {
         "Filters": {
             "type": "object",
-            "required": [],
+            "required": [
+                "pageSize",
+                "page"
+            ],
             "properties": {
                 "business": {
                     "type": "object",
@@ -36,8 +39,15 @@
                         }
                     }
                 },
+                "pageSize": {
+                    "type": "number"
+                },
+                "page": {
+                    "type": "number"
+                },
                 "extraFilters": {
                     "type": "object",
+                    "required": [],
                     "additionalProperties": false,
                     "properties": {
                         "sort": {

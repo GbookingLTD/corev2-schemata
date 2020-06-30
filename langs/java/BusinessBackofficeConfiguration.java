@@ -1,7 +1,8 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 public class BusinessBackofficeConfiguration {
     private Double adjacentTaxonomiesTreshold;
@@ -111,7 +112,7 @@ public class BusinessBackofficeConfiguration {
     private List<Map<String, Object>> stateLevelHolidays;
     private Boolean stateLevelHolidaysNotWorking;
     private Double taxonomyChildrenMaxAge;
-    private TelemedProvider telemedProvider;
+    private FluffyTelemedProvider telemedProvider;
     private Boolean useAdditionalDurations;
     private Boolean useAdjacentTaxonomies;
     private Boolean useAdjacentTaxonomiesSlotSplitting;
@@ -655,9 +656,9 @@ public class BusinessBackofficeConfiguration {
     public void setTaxonomyChildrenMaxAge(Double value) { this.taxonomyChildrenMaxAge = value; }
 
     @JsonProperty("telemedProvider")
-    public TelemedProvider getTelemedProvider() { return telemedProvider; }
+    public FluffyTelemedProvider getTelemedProvider() { return telemedProvider; }
     @JsonProperty("telemedProvider")
-    public void setTelemedProvider(TelemedProvider value) { this.telemedProvider = value; }
+    public void setTelemedProvider(FluffyTelemedProvider value) { this.telemedProvider = value; }
 
     @JsonProperty("useAdditionalDurations")
     public Boolean getUseAdditionalDurations() { return useAdditionalDurations; }

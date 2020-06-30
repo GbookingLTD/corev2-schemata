@@ -949,7 +949,8 @@
                     "type": "string",
                     "enum": [
                         "DISABLE",
-                        "zoom"
+                        "zoom",
+                        "mmconf"
                     ],
                     "default": "DISABLE"
                 },

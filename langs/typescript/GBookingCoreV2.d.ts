@@ -547,9 +547,9 @@ export declare enum ComplaintStatus {
 export interface ExtraField {
     fieldID: string;
     fieldName: string;
-    value?: PurpleValue;
+    value?: Value;
 }
-export declare type PurpleValue = number | {
+export declare type Value = boolean | number | {
     [key: string]: any;
 } | null | string;
 /**
@@ -1185,6 +1185,8 @@ export interface AppointmentGetAppointmentsByUserRequestParams {
     extraFilters?: TentacledExtraFilters;
     filter?: TentacledFilter;
     network?: TentacledNetwork;
+    page: number;
+    pageSize: number;
     skipBusinessCancelled?: boolean;
 }
 export interface IndigoBusiness {
@@ -1640,7 +1642,7 @@ export interface InfoBackofficeConfiguration {
     }[];
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
-    telemedProvider?: TelemedProvider;
+    telemedProvider?: PurpleTelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -1675,7 +1677,7 @@ export declare enum SchedulerWeekViewType {
     Week = "week",
     WorkWeek = "workWeek"
 }
-export declare enum TelemedProvider {
+export declare enum PurpleTelemedProvider {
     Disable = "DISABLE",
     Zoom = "zoom"
 }
@@ -3111,7 +3113,7 @@ export interface BusinessBackofficeConfiguration {
     }[] | null;
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
-    telemedProvider?: TelemedProvider;
+    telemedProvider?: FluffyTelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -3128,6 +3130,11 @@ export interface ScheduleSplitDayTimeInterval {
     startHour?: number;
     startMinute?: number;
     title?: string;
+}
+export declare enum FluffyTelemedProvider {
+    Disable = "DISABLE",
+    Mmconf = "mmconf",
+    Zoom = "zoom"
 }
 export interface BusinessBackofficeConfigurationObject {
     enableMasterImportance?: boolean;
@@ -3660,11 +3667,8 @@ export interface ChildrenClient {
 export interface ClientExtraField {
     fieldID: string;
     fieldName: string;
-    value?: FluffyValue;
+    value?: Value;
 }
-export declare type FluffyValue = boolean | number | {
-    [key: string]: any;
-} | null | string;
 export interface FavResource {
     businessID: number;
     networkID: string;

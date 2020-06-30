@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,8 +9,8 @@ public enum ResourceStatus {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case ACTIVE: return "ACTIVE";
-        case INACTIVE: return "INACTIVE";
+            case ACTIVE: return "ACTIVE";
+            case INACTIVE: return "INACTIVE";
         }
         return null;
     }

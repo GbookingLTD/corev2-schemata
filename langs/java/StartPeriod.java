@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -14,8 +13,8 @@ public enum StartPeriod {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case MONTH: return "month";
-        case WEEK: return "week";
+            case MONTH: return "month";
+            case WEEK: return "week";
         }
         return null;
     }

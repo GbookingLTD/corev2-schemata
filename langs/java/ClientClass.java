@@ -1,7 +1,8 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Данные клиента
@@ -59,7 +60,7 @@ public class ClientClass {
     private ResourceStatus status;
     private String surname;
     private String taxiPark;
-    private FluffyTimeFrameDate taxiParkMemberCount;
+    private TaxiParkMemberCountUnion taxiParkMemberCount;
     private String twoFAUserID;
     private String updated;
     private String workPlace;
@@ -325,9 +326,9 @@ public class ClientClass {
     public void setTaxiPark(String value) { this.taxiPark = value; }
 
     @JsonProperty("taxiParkMemberCount")
-    public FluffyTimeFrameDate getTaxiParkMemberCount() { return taxiParkMemberCount; }
+    public TaxiParkMemberCountUnion getTaxiParkMemberCount() { return taxiParkMemberCount; }
     @JsonProperty("taxiParkMemberCount")
-    public void setTaxiParkMemberCount(FluffyTimeFrameDate value) { this.taxiParkMemberCount = value; }
+    public void setTaxiParkMemberCount(TaxiParkMemberCountUnion value) { this.taxiParkMemberCount = value; }
 
     @JsonProperty("twoFAUserID")
     public String getTwoFAUserID() { return twoFAUserID; }

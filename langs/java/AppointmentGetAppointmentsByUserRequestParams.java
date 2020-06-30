@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentsByUserRequestParams {
@@ -8,6 +7,8 @@ public class AppointmentGetAppointmentsByUserRequestParams {
     private TentacledExtraFilters extraFilters;
     private TentacledFilter filter;
     private TentacledNetwork network;
+    private double page;
+    private double pageSize;
     private Boolean skipBusinessCancelled;
 
     @JsonProperty("business")
@@ -29,6 +30,16 @@ public class AppointmentGetAppointmentsByUserRequestParams {
     public TentacledNetwork getNetwork() { return network; }
     @JsonProperty("network")
     public void setNetwork(TentacledNetwork value) { this.network = value; }
+
+    @JsonProperty("page")
+    public double getPage() { return page; }
+    @JsonProperty("page")
+    public void setPage(double value) { this.page = value; }
+
+    @JsonProperty("pageSize")
+    public double getPageSize() { return pageSize; }
+    @JsonProperty("pageSize")
+    public void setPageSize(double value) { this.pageSize = value; }
 
     @JsonProperty("skipBusinessCancelled")
     public Boolean getSkipBusinessCancelled() { return skipBusinessCancelled; }

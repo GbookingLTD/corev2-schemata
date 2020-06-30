@@ -589,10 +589,10 @@ export enum ComplaintStatus {
 export interface ExtraField {
     fieldID:   string;
     fieldName: string;
-    value?:    PurpleValue;
+    value?:    Value;
 }
 
-export type PurpleValue = number | { [key: string]: any } | null | string;
+export type Value = boolean | number | { [key: string]: any } | null | string;
 
 /**
  * пустой объект в момент резервирования
@@ -1301,6 +1301,8 @@ export interface AppointmentGetAppointmentsByUserRequestParams {
     extraFilters?:          TentacledExtraFilters;
     filter?:                TentacledFilter;
     network?:               TentacledNetwork;
+    page:                   number;
+    pageSize:               number;
     skipBusinessCancelled?: boolean;
 }
 
@@ -1776,7 +1778,7 @@ export interface InfoBackofficeConfiguration {
     stateLevelHolidays?:                              { [key: string]: any }[];
     stateLevelHolidaysNotWorking?:                    boolean;
     taxonomyChildrenMaxAge?:                          number;
-    telemedProvider?:                                 TelemedProvider;
+    telemedProvider?:                                 PurpleTelemedProvider;
     useAdditionalDurations?:                          boolean;
     useAdjacentTaxonomies?:                           boolean;
     useAdjacentTaxonomiesSlotSplitting?:              boolean;
@@ -1817,7 +1819,7 @@ export enum SchedulerWeekViewType {
     WorkWeek = "workWeek",
 }
 
-export enum TelemedProvider {
+export enum PurpleTelemedProvider {
     Disable = "DISABLE",
     Zoom = "zoom",
 }
@@ -3320,7 +3322,7 @@ export interface BusinessBackofficeConfiguration {
     stateLevelHolidays?:                              { [key: string]: any }[] | null;
     stateLevelHolidaysNotWorking?:                    boolean;
     taxonomyChildrenMaxAge?:                          number;
-    telemedProvider?:                                 TelemedProvider;
+    telemedProvider?:                                 FluffyTelemedProvider;
     useAdditionalDurations?:                          boolean;
     useAdjacentTaxonomies?:                           boolean;
     useAdjacentTaxonomiesSlotSplitting?:              boolean;
@@ -3338,6 +3340,12 @@ export interface ScheduleSplitDayTimeInterval {
     startHour?:     number;
     startMinute?:   number;
     title?:         string;
+}
+
+export enum FluffyTelemedProvider {
+    Disable = "DISABLE",
+    Mmconf = "mmconf",
+    Zoom = "zoom",
 }
 
 export interface BusinessBackofficeConfigurationObject {
@@ -3898,10 +3906,8 @@ export interface ChildrenClient {
 export interface ClientExtraField {
     fieldID:   string;
     fieldName: string;
-    value?:    FluffyValue;
+    value?:    Value;
 }
-
-export type FluffyValue = boolean | number | { [key: string]: any } | null | string;
 
 export interface FavResource {
     businessID: number;
@@ -4876,7 +4882,7 @@ function invalidValue(typ: any, val: any): never {
 
 function jsonToJSProps(typ: any): any {
     if (typ.jsonToJS === undefined) {
-        var map: any = {};
+        const map: any = {};
         typ.props.forEach((p: any) => map[p.json] = { key: p.js, typ: p.typ });
         typ.jsonToJS = map;
     }
@@ -4885,7 +4891,7 @@ function jsonToJSProps(typ: any): any {
 
 function jsToJSONProps(typ: any): any {
     if (typ.jsToJSON === undefined) {
-        var map: any = {};
+        const map: any = {};
         typ.props.forEach((p: any) => map[p.js] = { key: p.json, typ: p.typ });
         typ.jsToJSON = map;
     }
@@ -4900,9 +4906,9 @@ function transform(val: any, typ: any, getProps: any): any {
 
     function transformUnion(typs: any[], val: any): any {
         // val must validate against one typ in typs
-        var l = typs.length;
-        for (var i = 0; i < l; i++) {
-            var typ = typs[i];
+        const l = typs.length;
+        for (let i = 0; i < l; i++) {
+            const typ = typs[i];
             try {
                 return transform(val, typ, getProps);
             } catch (_) {}
@@ -4921,7 +4927,7 @@ function transform(val: any, typ: any, getProps: any): any {
         return val.map(el => transform(el, typ, getProps));
     }
 
-    function transformDate(typ: any, val: any): any {
+    function transformDate(val: any): any {
         if (val === null) {
             return null;
         }
@@ -4936,7 +4942,7 @@ function transform(val: any, typ: any, getProps: any): any {
         if (val === null || typeof val !== "object" || Array.isArray(val)) {
             return invalidValue("object", val);
         }
-        var result: any = {};
+        const result: any = {};
         Object.getOwnPropertyNames(props).forEach(key => {
             const prop = props[key];
             const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
@@ -4967,7 +4973,7 @@ function transform(val: any, typ: any, getProps: any): any {
             : invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
-    if (typ === Date && typeof val !== "number") return transformDate(typ, val);
+    if (typ === Date && typeof val !== "number") return transformDate(val);
     return transformPrimitive(typ, val);
 }
 
@@ -5290,7 +5296,7 @@ const typeMap: any = {
     "ExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
-        { json: "value", js: "value", typ: u(undefined, u(3.14, m("any"), null, "")) },
+        { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
     ], false),
     "IncomingPhoneObject": o([
         { json: "area_code", js: "area_code", typ: u(undefined, "") },
@@ -5680,6 +5686,8 @@ const typeMap: any = {
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("TentacledNetwork")) },
+        { json: "page", js: "page", typ: 3.14 },
+        { json: "pageSize", js: "pageSize", typ: 3.14 },
         { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
     ], "any"),
     "IndigoBusiness": o([
@@ -5978,7 +5986,7 @@ const typeMap: any = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("PurpleTelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -6795,7 +6803,7 @@ const typeMap: any = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, u(a(m("any")), null)) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("FluffyTelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -7839,7 +7847,7 @@ const typeMap: any = {
         "week",
         "workWeek",
     ],
-    "TelemedProvider": [
+    "PurpleTelemedProvider": [
         "DISABLE",
         "zoom",
     ],
@@ -8013,6 +8021,11 @@ const typeMap: any = {
         "most_free",
         "none",
         "workload",
+    ],
+    "FluffyTelemedProvider": [
+        "DISABLE",
+        "mmconf",
+        "zoom",
     ],
     "YandexFeedType": [
         "dynamic",

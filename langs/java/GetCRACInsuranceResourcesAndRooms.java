@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class GetCRACInsuranceResourcesAndRooms {

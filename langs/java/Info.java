@@ -1,7 +1,9 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Map;
 
 /**
  * (только в витрине) объект с данными бизнеса-филиала
@@ -17,7 +19,7 @@ public class Info {
     private Boolean autoAcceptAppointment;
     private List<BusinessShowcaseAlias> businessShowcaseAliases;
     private String contactName;
-    private String dateJoined;
+    private OffsetDateTime dateJoined;
     private String description;
     private String email;
     private Double eventEditorMinutesTick;
@@ -102,9 +104,9 @@ public class Info {
     public void setContactName(String value) { this.contactName = value; }
 
     @JsonProperty("date_joined")
-    public String getDateJoined() { return dateJoined; }
+    public OffsetDateTime getDateJoined() { return dateJoined; }
     @JsonProperty("date_joined")
-    public void setDateJoined(String value) { this.dateJoined = value; }
+    public void setDateJoined(OffsetDateTime value) { this.dateJoined = value; }
 
     @JsonProperty("description")
     public String getDescription() { return description; }

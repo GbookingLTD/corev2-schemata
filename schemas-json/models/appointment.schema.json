@@ -234,7 +234,8 @@
                         "number",
                         "string",
                         "object",
-                        "null"
+                        "null",
+                        "boolean"
                     ]
                 }
             }

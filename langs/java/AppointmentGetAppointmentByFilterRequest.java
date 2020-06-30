@@ -1,11 +1,10 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentByFilterRequest {
     private Cred cred;
-    private PurpleTimeFrameDate id;
+    private BackofficeIDUnion id;
     private String jsonrpc;
     private String method;
     private AppointmentGetAppointmentByFilterRequestParams params;
@@ -22,9 +21,9 @@ public class AppointmentGetAppointmentByFilterRequest {
      * значение числового типа для идентификации запроса на сервере
      */
     @JsonProperty("id")
-    public PurpleTimeFrameDate getID() { return id; }
+    public BackofficeIDUnion getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleTimeFrameDate value) { this.id = value; }
+    public void setID(BackofficeIDUnion value) { this.id = value; }
 
     /**
      * версия протокола - 2.0

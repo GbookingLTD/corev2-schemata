@@ -360,9 +360,9 @@ type AppointmentClientFeedback struct {
 }
 
 type ExtraField struct {
-	FieldID   string       `json:"fieldID"`  
-	FieldName string       `json:"fieldName"`
-	Value     *PurpleValue `json:"value"`    
+	FieldID   string `json:"fieldID"`  
+	FieldName string `json:"fieldName"`
+	Value     *Value `json:"value"`    
 }
 
 // пустой объект в момент резервирования
@@ -837,6 +837,8 @@ type AppointmentGetAppointmentsByUserRequestParams struct {
 	ExtraFilters          *TentacledExtraFilters `json:"extraFilters,omitempty"`         
 	Filter                *TentacledFilter       `json:"filter,omitempty"`               
 	Network               *TentacledNetwork      `json:"network,omitempty"`              
+	Page                  float64                `json:"page"`                           
+	PageSize              float64                `json:"pageSize"`                       
 	SkipBusinessCancelled *bool                  `json:"skipBusinessCancelled,omitempty"`
 }
 
@@ -1178,7 +1180,7 @@ type InfoBackofficeConfiguration struct {
 	StateLevelHolidays                              []map[string]interface{}   `json:"stateLevelHolidays"`                                       
 	StateLevelHolidaysNotWorking                    *bool                      `json:"stateLevelHolidaysNotWorking,omitempty"`                   
 	TaxonomyChildrenMaxAge                          *float64                   `json:"taxonomyChildrenMaxAge,omitempty"`                         
-	TelemedProvider                                 *TelemedProvider           `json:"telemedProvider,omitempty"`                                
+	TelemedProvider                                 *PurpleTelemedProvider     `json:"telemedProvider,omitempty"`                                
 	UseAdditionalDurations                          *bool                      `json:"useAdditionalDurations,omitempty"`                         
 	UseAdjacentTaxonomies                           *bool                      `json:"useAdjacentTaxonomies,omitempty"`                          
 	UseAdjacentTaxonomiesSlotSplitting              *bool                      `json:"useAdjacentTaxonomiesSlotSplitting,omitempty"`             
@@ -2070,7 +2072,7 @@ type BusinessBackofficeConfiguration struct {
 	StateLevelHolidays                              []map[string]interface{}       `json:"stateLevelHolidays"`                                       
 	StateLevelHolidaysNotWorking                    *bool                          `json:"stateLevelHolidaysNotWorking,omitempty"`                   
 	TaxonomyChildrenMaxAge                          *float64                       `json:"taxonomyChildrenMaxAge,omitempty"`                         
-	TelemedProvider                                 *TelemedProvider               `json:"telemedProvider,omitempty"`                                
+	TelemedProvider                                 *FluffyTelemedProvider         `json:"telemedProvider,omitempty"`                                
 	UseAdditionalDurations                          *bool                          `json:"useAdditionalDurations,omitempty"`                         
 	UseAdjacentTaxonomies                           *bool                          `json:"useAdjacentTaxonomies,omitempty"`                          
 	UseAdjacentTaxonomiesSlotSplitting              *bool                          `json:"useAdjacentTaxonomiesSlotSplitting,omitempty"`             
@@ -2566,9 +2568,9 @@ type ChildrenClient struct {
 }
 
 type ClientExtraField struct {
-	FieldID   string       `json:"fieldID"`  
-	FieldName string       `json:"fieldName"`
-	Value     *FluffyValue `json:"value"`    
+	FieldID   string `json:"fieldID"`  
+	FieldName string `json:"fieldName"`
+	Value     *Value `json:"value"`    
 }
 
 type FavResource struct {
@@ -3324,10 +3326,10 @@ const (
 	WorkWeek SchedulerWeekViewType = "workWeek"
 )
 
-type TelemedProvider string
+type PurpleTelemedProvider string
 const (
-	TelemedProviderDISABLE TelemedProvider = "DISABLE"
-	Zoom TelemedProvider = "zoom"
+	PurpleDISABLE PurpleTelemedProvider = "DISABLE"
+	PurpleZoom PurpleTelemedProvider = "zoom"
 )
 
 type BackofficeType string
@@ -3556,6 +3558,13 @@ const (
 	Workload WorkerSortingType = "workload"
 )
 
+type FluffyTelemedProvider string
+const (
+	FluffyDISABLE FluffyTelemedProvider = "DISABLE"
+	FluffyZoom FluffyTelemedProvider = "zoom"
+	Mmconf FluffyTelemedProvider = "mmconf"
+)
+
 type YandexFeedType string
 const (
 	Dynamic YandexFeedType = "dynamic"
@@ -3730,15 +3739,16 @@ func (x *Birthday) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, nil, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
-type PurpleValue struct {
+type Value struct {
 	AnythingMap map[string]interface{}
+	Bool        *bool
 	Double      *float64
 	String      *string
 }
 
-func (x *PurpleValue) UnmarshalJSON(data []byte) error {
+func (x *Value) UnmarshalJSON(data []byte) error {
 	x.AnythingMap = nil
-	object, err := unmarshalUnion(data, nil, &x.Double, nil, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
+	object, err := unmarshalUnion(data, nil, &x.Double, &x.Bool, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
 	if err != nil {
 		return err
 	}
@@ -3747,8 +3757,8 @@ func (x *PurpleValue) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (x *PurpleValue) MarshalJSON() ([]byte, error) {
-	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
+func (x *Value) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, x.Double, x.Bool, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
 type ID struct {
@@ -3789,28 +3799,6 @@ func (x *OrderWeight) UnmarshalJSON(data []byte) error {
 
 func (x *OrderWeight) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, false, nil, false, nil, true)
-}
-
-type FluffyValue struct {
-	AnythingMap map[string]interface{}
-	Bool        *bool
-	Double      *float64
-	String      *string
-}
-
-func (x *FluffyValue) UnmarshalJSON(data []byte) error {
-	x.AnythingMap = nil
-	object, err := unmarshalUnion(data, nil, &x.Double, &x.Bool, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
-	if err != nil {
-		return err
-	}
-	if object {
-	}
-	return nil
-}
-
-func (x *FluffyValue) MarshalJSON() ([]byte, error) {
-	return marshalUnion(nil, x.Double, x.Bool, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
 type FromSMS struct {

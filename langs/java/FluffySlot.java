@@ -1,17 +1,19 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Map;
 
 public class FluffySlot {
-    private String date;
+    private OffsetDateTime date;
     private List<Object> resources;
     private List<Map<String, Object>> rooms;
 
     @JsonProperty("date")
-    public String getDate() { return date; }
+    public OffsetDateTime getDate() { return date; }
     @JsonProperty("date")
-    public void setDate(String value) { this.date = value; }
+    public void setDate(OffsetDateTime value) { this.date = value; }
 
     @JsonProperty("resources")
     public List<Object> getResources() { return resources; }

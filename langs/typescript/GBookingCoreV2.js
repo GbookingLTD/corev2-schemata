@@ -8,7 +8,6 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
-exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.DaysOfWeek = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.ReminderStatus = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -151,11 +150,11 @@ var SchedulerWeekViewType;
     SchedulerWeekViewType["Week"] = "week";
     SchedulerWeekViewType["WorkWeek"] = "workWeek";
 })(SchedulerWeekViewType = exports.SchedulerWeekViewType || (exports.SchedulerWeekViewType = {}));
-var TelemedProvider;
-(function (TelemedProvider) {
-    TelemedProvider["Disable"] = "DISABLE";
-    TelemedProvider["Zoom"] = "zoom";
-})(TelemedProvider = exports.TelemedProvider || (exports.TelemedProvider = {}));
+var PurpleTelemedProvider;
+(function (PurpleTelemedProvider) {
+    PurpleTelemedProvider["Disable"] = "DISABLE";
+    PurpleTelemedProvider["Zoom"] = "zoom";
+})(PurpleTelemedProvider = exports.PurpleTelemedProvider || (exports.PurpleTelemedProvider = {}));
 var BackofficeType;
 (function (BackofficeType) {
     BackofficeType["Common"] = "COMMON";
@@ -365,6 +364,12 @@ var WorkerSortingType;
     WorkerSortingType["None"] = "none";
     WorkerSortingType["Workload"] = "workload";
 })(WorkerSortingType = exports.WorkerSortingType || (exports.WorkerSortingType = {}));
+var FluffyTelemedProvider;
+(function (FluffyTelemedProvider) {
+    FluffyTelemedProvider["Disable"] = "DISABLE";
+    FluffyTelemedProvider["Mmconf"] = "mmconf";
+    FluffyTelemedProvider["Zoom"] = "zoom";
+})(FluffyTelemedProvider = exports.FluffyTelemedProvider || (exports.FluffyTelemedProvider = {}));
 var YandexFeedType;
 (function (YandexFeedType) {
     YandexFeedType["Dynamic"] = "dynamic";
@@ -403,17 +408,17 @@ function invalidValue(typ, val) {
 }
 function jsonToJSProps(typ) {
     if (typ.jsonToJS === undefined) {
-        var map = {};
-        typ.props.forEach(function (p) { return map[p.json] = { key: p.js, typ: p.typ }; });
-        typ.jsonToJS = map;
+        var map_1 = {};
+        typ.props.forEach(function (p) { return map_1[p.json] = { key: p.js, typ: p.typ }; });
+        typ.jsonToJS = map_1;
     }
     return typ.jsonToJS;
 }
 function jsToJSONProps(typ) {
     if (typ.jsToJSON === undefined) {
-        var map = {};
-        typ.props.forEach(function (p) { return map[p.js] = { key: p.json, typ: p.typ }; });
-        typ.jsToJSON = map;
+        var map_2 = {};
+        typ.props.forEach(function (p) { return map_2[p.js] = { key: p.json, typ: p.typ }; });
+        typ.jsToJSON = map_2;
     }
     return typ.jsToJSON;
 }
@@ -427,9 +432,9 @@ function transform(val, typ, getProps) {
         // val must validate against one typ in typs
         var l = typs.length;
         for (var i = 0; i < l; i++) {
-            var typ = typs[i];
+            var typ_1 = typs[i];
             try {
-                return transform(val, typ, getProps);
+                return transform(val, typ_1, getProps);
             }
             catch (_) { }
         }
@@ -446,7 +451,7 @@ function transform(val, typ, getProps) {
             return invalidValue("array", val);
         return val.map(function (el) { return transform(el, typ, getProps); });
     }
-    function transformDate(typ, val) {
+    function transformDate(val) {
         if (val === null) {
             return null;
         }
@@ -495,7 +500,7 @@ function transform(val, typ, getProps) {
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number")
-        return transformDate(typ, val);
+        return transformDate(val);
     return transformPrimitive(typ, val);
 }
 function cast(val, typ) {
@@ -814,7 +819,7 @@ var typeMap = {
     "ExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
-        { json: "value", js: "value", typ: u(undefined, u(3.14, m("any"), null, "")) },
+        { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
     ], false),
     "IncomingPhoneObject": o([
         { json: "area_code", js: "area_code", typ: u(undefined, "") },
@@ -1204,6 +1209,8 @@ var typeMap = {
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("TentacledNetwork")) },
+        { json: "page", js: "page", typ: 3.14 },
+        { json: "pageSize", js: "pageSize", typ: 3.14 },
         { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
     ], "any"),
     "IndigoBusiness": o([
@@ -1502,7 +1509,7 @@ var typeMap = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("PurpleTelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -2319,7 +2326,7 @@ var typeMap = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, u(a(m("any")), null)) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("FluffyTelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -3363,7 +3370,7 @@ var typeMap = {
         "week",
         "workWeek",
     ],
-    "TelemedProvider": [
+    "PurpleTelemedProvider": [
         "DISABLE",
         "zoom",
     ],
@@ -3537,6 +3544,11 @@ var typeMap = {
         "most_free",
         "none",
         "workload",
+    ],
+    "FluffyTelemedProvider": [
+        "DISABLE",
+        "mmconf",
+        "zoom",
     ],
     "YandexFeedType": [
         "dynamic",

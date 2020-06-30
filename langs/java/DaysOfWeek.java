@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,13 +9,13 @@ public enum DaysOfWeek {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case FRI: return "fri";
-        case MON: return "mon";
-        case SAT: return "sat";
-        case SUN: return "sun";
-        case THU: return "thu";
-        case TUE: return "tue";
-        case WED: return "wed";
+            case FRI: return "fri";
+            case MON: return "mon";
+            case SAT: return "sat";
+            case SUN: return "sun";
+            case THU: return "thu";
+            case TUE: return "tue";
+            case WED: return "wed";
         }
         return null;
     }

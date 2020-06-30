@@ -954,7 +954,7 @@ namespace GBookingCoreV2
         public string FieldName { get; set; }
 
         [JsonProperty("value")]
-        public PurpleValue? Value { get; set; }
+        public Value? Value { get; set; }
     }
 
     /// <summary>
@@ -2104,6 +2104,12 @@ namespace GBookingCoreV2
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
         public TentacledNetwork Network { get; set; }
 
+        [JsonProperty("page")]
+        public double Page { get; set; }
+
+        [JsonProperty("pageSize")]
+        public double PageSize { get; set; }
+
         [JsonProperty("skipBusinessCancelled", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SkipBusinessCancelled { get; set; }
     }
@@ -3041,7 +3047,7 @@ namespace GBookingCoreV2
         public double? TaxonomyChildrenMaxAge { get; set; }
 
         [JsonProperty("telemedProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public TelemedProvider? TelemedProvider { get; set; }
+        public PurpleTelemedProvider? TelemedProvider { get; set; }
 
         [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAdditionalDurations { get; set; }
@@ -5718,7 +5724,7 @@ namespace GBookingCoreV2
         public double? TaxonomyChildrenMaxAge { get; set; }
 
         [JsonProperty("telemedProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public TelemedProvider? TelemedProvider { get; set; }
+        public FluffyTelemedProvider? TelemedProvider { get; set; }
 
         [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAdditionalDurations { get; set; }
@@ -7053,7 +7059,7 @@ namespace GBookingCoreV2
         public string FieldName { get; set; }
 
         [JsonProperty("value")]
-        public FluffyValue? Value { get; set; }
+        public Value? Value { get; set; }
     }
 
     public partial class FavResource
@@ -8584,7 +8590,7 @@ namespace GBookingCoreV2
 
     public enum SchedulerWeekViewType { Week, WorkWeek };
 
-    public enum TelemedProvider { Disable, Zoom };
+    public enum PurpleTelemedProvider { Disable, Zoom };
 
     public enum BackofficeType { Common, Gt, Ll, Mb, Mu };
 
@@ -8648,6 +8654,8 @@ namespace GBookingCoreV2
     /// тип сортировки работника
     /// </summary>
     public enum WorkerSortingType { MostFree, None, Workload };
+
+    public enum FluffyTelemedProvider { Disable, Mmconf, Zoom };
 
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
 
@@ -8754,16 +8762,18 @@ namespace GBookingCoreV2
         public bool IsNull => AnythingMap == null && String == null;
     }
 
-    public partial struct PurpleValue
+    public partial struct Value
     {
         public Dictionary<string, object> AnythingMap;
+        public bool? Bool;
         public double? Double;
         public string String;
 
-        public static implicit operator PurpleValue(Dictionary<string, object> AnythingMap) => new PurpleValue { AnythingMap = AnythingMap };
-        public static implicit operator PurpleValue(double Double) => new PurpleValue { Double = Double };
-        public static implicit operator PurpleValue(string String) => new PurpleValue { String = String };
-        public bool IsNull => Double == null && AnythingMap == null && String == null;
+        public static implicit operator Value(Dictionary<string, object> AnythingMap) => new Value { AnythingMap = AnythingMap };
+        public static implicit operator Value(bool Bool) => new Value { Bool = Bool };
+        public static implicit operator Value(double Double) => new Value { Double = Double };
+        public static implicit operator Value(string String) => new Value { String = String };
+        public bool IsNull => Bool == null && Double == null && AnythingMap == null && String == null;
     }
 
     public partial struct ResourceId
@@ -8795,20 +8805,6 @@ namespace GBookingCoreV2
         public static implicit operator OrderWeight(double Double) => new OrderWeight { Double = Double };
         public static implicit operator OrderWeight(string String) => new OrderWeight { String = String };
         public bool IsNull => Double == null && String == null;
-    }
-
-    public partial struct FluffyValue
-    {
-        public Dictionary<string, object> AnythingMap;
-        public bool? Bool;
-        public double? Double;
-        public string String;
-
-        public static implicit operator FluffyValue(Dictionary<string, object> AnythingMap) => new FluffyValue { AnythingMap = AnythingMap };
-        public static implicit operator FluffyValue(bool Bool) => new FluffyValue { Bool = Bool };
-        public static implicit operator FluffyValue(double Double) => new FluffyValue { Double = Double };
-        public static implicit operator FluffyValue(string String) => new FluffyValue { String = String };
-        public bool IsNull => Bool == null && Double == null && AnythingMap == null && String == null;
     }
 
     public partial struct FromSms
@@ -8884,7 +8880,7 @@ namespace GBookingCoreV2
                 AppointmentStatusConverter.Singleton,
                 BirthdayConverter.Singleton,
                 ComplaintStatusConverter.Singleton,
-                PurpleValueConverter.Singleton,
+                ValueConverter.Singleton,
                 SexConverter.Singleton,
                 AdditionalFieldTypeConverter.Singleton,
                 DrinkAnswerConverter.Singleton,
@@ -8901,7 +8897,7 @@ namespace GBookingCoreV2
                 PaymentProviderConverter.Singleton,
                 ResourceTimetableTypeConverter.Singleton,
                 SchedulerWeekViewTypeConverter.Singleton,
-                TelemedProviderConverter.Singleton,
+                PurpleTelemedProviderConverter.Singleton,
                 BackofficeTypeConverter.Singleton,
                 CountryConverter.Singleton,
                 LanguageListConverter.Singleton,
@@ -8929,8 +8925,8 @@ namespace GBookingCoreV2
                 DiscountTypeConverter.Singleton,
                 UseDirectScheduleReadConverter.Singleton,
                 WorkerSortingTypeConverter.Singleton,
+                FluffyTelemedProviderConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
-                FluffyValueConverter.Singleton,
                 FromSmsConverter.Singleton,
                 IsraelCityUnionConverter.Singleton,
                 KupatHolimUnionConverter.Singleton,
@@ -9547,34 +9543,37 @@ namespace GBookingCoreV2
         public static readonly ComplaintStatusConverter Singleton = new ComplaintStatusConverter();
     }
 
-    internal class PurpleValueConverter : JsonConverter
+    internal class ValueConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(PurpleValue) || t == typeof(PurpleValue?);
+        public override bool CanConvert(Type t) => t == typeof(Value) || t == typeof(Value?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
             switch (reader.TokenType)
             {
                 case JsonToken.Null:
-                    return new PurpleValue { };
+                    return new Value { };
                 case JsonToken.Integer:
                 case JsonToken.Float:
                     var doubleValue = serializer.Deserialize<double>(reader);
-                    return new PurpleValue { Double = doubleValue };
+                    return new Value { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new Value { Bool = boolValue };
                 case JsonToken.String:
                 case JsonToken.Date:
                     var stringValue = serializer.Deserialize<string>(reader);
-                    return new PurpleValue { String = stringValue };
+                    return new Value { String = stringValue };
                 case JsonToken.StartObject:
                     var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
-                    return new PurpleValue { AnythingMap = objectValue };
+                    return new Value { AnythingMap = objectValue };
             }
-            throw new Exception("Cannot unmarshal type PurpleValue");
+            throw new Exception("Cannot unmarshal type Value");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
         {
-            var value = (PurpleValue)untypedValue;
+            var value = (Value)untypedValue;
             if (value.IsNull)
             {
                 serializer.Serialize(writer, null);
@@ -9583,6 +9582,11 @@ namespace GBookingCoreV2
             if (value.Double != null)
             {
                 serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
                 return;
             }
             if (value.String != null)
@@ -9595,10 +9599,10 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.AnythingMap);
                 return;
             }
-            throw new Exception("Cannot marshal type PurpleValue");
+            throw new Exception("Cannot marshal type Value");
         }
 
-        public static readonly PurpleValueConverter Singleton = new PurpleValueConverter();
+        public static readonly ValueConverter Singleton = new ValueConverter();
     }
 
     internal class SexConverter : JsonConverter
@@ -10374,9 +10378,9 @@ namespace GBookingCoreV2
         public static readonly SchedulerWeekViewTypeConverter Singleton = new SchedulerWeekViewTypeConverter();
     }
 
-    internal class TelemedProviderConverter : JsonConverter
+    internal class PurpleTelemedProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(TelemedProvider) || t == typeof(TelemedProvider?);
+        public override bool CanConvert(Type t) => t == typeof(PurpleTelemedProvider) || t == typeof(PurpleTelemedProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -10385,11 +10389,11 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return TelemedProvider.Disable;
+                    return PurpleTelemedProvider.Disable;
                 case "zoom":
-                    return TelemedProvider.Zoom;
+                    return PurpleTelemedProvider.Zoom;
             }
-            throw new Exception("Cannot unmarshal type TelemedProvider");
+            throw new Exception("Cannot unmarshal type PurpleTelemedProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -10399,20 +10403,20 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (TelemedProvider)untypedValue;
+            var value = (PurpleTelemedProvider)untypedValue;
             switch (value)
             {
-                case TelemedProvider.Disable:
+                case PurpleTelemedProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case TelemedProvider.Zoom:
+                case PurpleTelemedProvider.Zoom:
                     serializer.Serialize(writer, "zoom");
                     return;
             }
-            throw new Exception("Cannot marshal type TelemedProvider");
+            throw new Exception("Cannot marshal type PurpleTelemedProvider");
         }
 
-        public static readonly TelemedProviderConverter Singleton = new TelemedProviderConverter();
+        public static readonly PurpleTelemedProviderConverter Singleton = new PurpleTelemedProviderConverter();
     }
 
     internal class BackofficeTypeConverter : JsonConverter
@@ -11883,6 +11887,52 @@ namespace GBookingCoreV2
         public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
     }
 
+    internal class FluffyTelemedProviderConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(FluffyTelemedProvider) || t == typeof(FluffyTelemedProvider?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "DISABLE":
+                    return FluffyTelemedProvider.Disable;
+                case "mmconf":
+                    return FluffyTelemedProvider.Mmconf;
+                case "zoom":
+                    return FluffyTelemedProvider.Zoom;
+            }
+            throw new Exception("Cannot unmarshal type FluffyTelemedProvider");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (FluffyTelemedProvider)untypedValue;
+            switch (value)
+            {
+                case FluffyTelemedProvider.Disable:
+                    serializer.Serialize(writer, "DISABLE");
+                    return;
+                case FluffyTelemedProvider.Mmconf:
+                    serializer.Serialize(writer, "mmconf");
+                    return;
+                case FluffyTelemedProvider.Zoom:
+                    serializer.Serialize(writer, "zoom");
+                    return;
+            }
+            throw new Exception("Cannot marshal type FluffyTelemedProvider");
+        }
+
+        public static readonly FluffyTelemedProviderConverter Singleton = new FluffyTelemedProviderConverter();
+    }
+
     internal class YandexFeedTypeConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(YandexFeedType) || t == typeof(YandexFeedType?);
@@ -11932,68 +11982,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly YandexFeedTypeConverter Singleton = new YandexFeedTypeConverter();
-    }
-
-    internal class FluffyValueConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(FluffyValue) || t == typeof(FluffyValue?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            switch (reader.TokenType)
-            {
-                case JsonToken.Null:
-                    return new FluffyValue { };
-                case JsonToken.Integer:
-                case JsonToken.Float:
-                    var doubleValue = serializer.Deserialize<double>(reader);
-                    return new FluffyValue { Double = doubleValue };
-                case JsonToken.Boolean:
-                    var boolValue = serializer.Deserialize<bool>(reader);
-                    return new FluffyValue { Bool = boolValue };
-                case JsonToken.String:
-                case JsonToken.Date:
-                    var stringValue = serializer.Deserialize<string>(reader);
-                    return new FluffyValue { String = stringValue };
-                case JsonToken.StartObject:
-                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
-                    return new FluffyValue { AnythingMap = objectValue };
-            }
-            throw new Exception("Cannot unmarshal type FluffyValue");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            var value = (FluffyValue)untypedValue;
-            if (value.IsNull)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            if (value.Double != null)
-            {
-                serializer.Serialize(writer, value.Double.Value);
-                return;
-            }
-            if (value.Bool != null)
-            {
-                serializer.Serialize(writer, value.Bool.Value);
-                return;
-            }
-            if (value.String != null)
-            {
-                serializer.Serialize(writer, value.String);
-                return;
-            }
-            if (value.AnythingMap != null)
-            {
-                serializer.Serialize(writer, value.AnythingMap);
-                return;
-            }
-            throw new Exception("Cannot marshal type FluffyValue");
-        }
-
-        public static readonly FluffyValueConverter Singleton = new FluffyValueConverter();
     }
 
     internal class FromSmsConverter : JsonConverter
