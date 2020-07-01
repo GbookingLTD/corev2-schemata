@@ -1223,7 +1223,7 @@ export interface AppointmentGetAppointmentsByUserResponse {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: Appointment[];
+    result?: AppointmentGetAppointmentsByUserResponseResult;
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1247,6 +1247,12 @@ export interface AppointmentGetAppointmentsByUserResponseError {
      * текстовая информация об ошибке
      */
     message: string;
+}
+export interface AppointmentGetAppointmentsByUserResponseResult {
+    data: Appointment[];
+    page: number;
+    total: number;
+    unconfirmed?: number;
 }
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;

@@ -1241,13 +1241,19 @@ var typeMap = {
     "AppointmentGetAppointmentsByUserResponse": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
+        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseResult")) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByUserResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
         { json: "data", js: "data", typ: u(undefined, "") },
         { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "AppointmentGetAppointmentsByUserResponseResult": o([
+        { json: "data", js: "data", typ: a(r("Appointment")) },
+        { json: "page", js: "page", typ: 3.14 },
+        { json: "total", js: "total", typ: 3.14 },
+        { json: "unconfirmed", js: "unconfirmed", typ: u(undefined, 3.14) },
     ], "any"),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },

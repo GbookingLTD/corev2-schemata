@@ -98,7 +98,29 @@
                     "type": "number"
                 },
                 "result": {
-                    "$ref": "#/definitions/AppointmentGetAppointmentsByUserResponseResult"
+                    "type": "object",
+                    "required": [
+                        "page",
+                        "data",
+                        "total"
+                    ],
+                    "properties": {
+                        "page": {
+                            "type": "number"
+                        },
+                        "unconfirmed": {
+                            "type": "number"
+                        },
+                        "total": {
+                            "type": "number"
+                        },
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../../models/appointment.schema.json"
+                            }
+                        }
+                    }
                 }
             },
             "required": [
