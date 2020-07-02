@@ -415,7 +415,7 @@ properties:
         type: "string"
       data:
         description: "дополнительные данные об ошибке"
-        type: "string"
+        type: ["string", "object"]
     required: ["code", "message"]
 
 required: ["jsonrpc", "id", "error"]
