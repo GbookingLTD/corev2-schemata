@@ -7,7 +7,6 @@ definitions:
     type: "object"
     required:
       - appointment
-      - client
     properties:
       appointment:
         type: "object"
