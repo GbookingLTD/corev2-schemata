@@ -1049,7 +1049,9 @@ definitions:
       manualChanges:
         type: "boolean"
       discounts:
-        $ref: "./discount.schema.json"
+        type: "array"
+        items:
+          $ref: "./discount.schema.json"
       additionalDurations:
         type: "array"
         items:
