@@ -1087,6 +1087,14 @@ definitions:
           type: "string"
       isOther:
         type: "boolean"
+      isTelemed:
+        type: "boolean"
+        default: false
+      disableClientSmsNotifications:
+        type: "boolean"
+        default: false
+      confirmationEmailAlert:
+        type: "string"
       chargeUnitsStep:
         type: "number"
       forPay:
