@@ -1,13 +1,14 @@
 package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
+import java.util.Map;
 
 /**
  * объект, содержащий информацию об ошибке
  */
 public class Error {
     private double code;
-    private String data;
+    private Data data;
     private String message;
 
     /**
@@ -22,9 +23,9 @@ public class Error {
      * дополнительные данные об ошибке
      */
     @JsonProperty("data")
-    public String getData() { return data; }
+    public Data getData() { return data; }
     @JsonProperty("data")
-    public void setData(String value) { this.data = value; }
+    public void setData(Data value) { this.data = value; }
 
     /**
      * текстовая информация об ошибке

@@ -1535,7 +1535,10 @@
                     "type": "boolean"
                 },
                 "discounts": {
-                    "$ref": "./discount.schema.json"
+                    "type": "array",
+                    "items": {
+                        "$ref": "./discount.schema.json"
+                    }
                 },
                 "additionalDurations": {
                     "type": "array",
@@ -1590,6 +1593,17 @@
                 },
                 "isOther": {
                     "type": "boolean"
+                },
+                "isTelemed": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "disableClientSmsNotifications": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "confirmationEmailAlert": {
+                    "type": "string"
                 },
                 "chargeUnitsStep": {
                     "type": "number"

@@ -55,7 +55,7 @@ public class Appointment {
     private String promoCode;
     private String refererLink;
     private String referrer;
-    private Reminder reminder;
+    private ResultReminder reminder;
     private List<RemovedClientsDatum> removedClientsData;
     private AppointmentResource resource;
     private Review review;
@@ -304,9 +304,9 @@ public class Appointment {
     public void setReferrer(String value) { this.referrer = value; }
 
     @JsonProperty("reminder")
-    public Reminder getReminder() { return reminder; }
+    public ResultReminder getReminder() { return reminder; }
     @JsonProperty("reminder")
-    public void setReminder(Reminder value) { this.reminder = value; }
+    public void setReminder(ResultReminder value) { this.reminder = value; }
 
     @JsonProperty("removedClientsData")
     public List<RemovedClientsDatum> getRemovedClientsData() { return removedClientsData; }

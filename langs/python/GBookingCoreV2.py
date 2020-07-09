@@ -10,7 +10,7 @@
 #
 #     result = g_booking_core_v2_from_dict(json.loads(json_string))
 
-from typing import Any, Optional, Union, List, Dict, TypeVar, Type, cast, Callable
+from typing import Any, Dict, Union, Optional, List, TypeVar, Callable, Type, cast
 from enum import Enum
 from datetime import datetime
 import dateutil.parser
@@ -35,6 +35,11 @@ def from_str(x: Any) -> str:
     return x
 
 
+def from_dict(f: Callable[[Any], T], x: Any) -> Dict[str, T]:
+    assert isinstance(x, dict)
+    return { k: f(v) for (k, v) in x.items() }
+
+
 def from_none(x: Any) -> Any:
     assert x is None
     return x
@@ -57,11 +62,6 @@ def to_class(c: Type[T], x: Any) -> dict:
 def from_list(f: Callable[[Any], T], x: Any) -> List[T]:
     assert isinstance(x, list)
     return [f(y) for y in x]
-
-
-def from_dict(f: Callable[[Any], T], x: Any) -> Dict[str, T]:
-    assert isinstance(x, dict)
-    return { k: f(v) for (k, v) in x.items() }
 
 
 def from_int(x: Any) -> int:
@@ -107,11 +107,11 @@ class Error:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -120,14 +120,14 @@ class Error:
     def from_dict(obj: Any) -> 'Error':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return Error(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -326,9 +326,9 @@ class PurpleClient:
 
 class ParamsClass:
     appointment: PurpleAppointment
-    client: PurpleClient
+    client: Optional[PurpleClient]
 
-    def __init__(self, appointment: PurpleAppointment, client: PurpleClient) -> None:
+    def __init__(self, appointment: PurpleAppointment, client: Optional[PurpleClient]) -> None:
         self.appointment = appointment
         self.client = client
 
@@ -336,13 +336,13 @@ class ParamsClass:
     def from_dict(obj: Any) -> 'ParamsClass':
         assert isinstance(obj, dict)
         appointment = PurpleAppointment.from_dict(obj.get("appointment"))
-        client = PurpleClient.from_dict(obj.get("client"))
+        client = from_union([PurpleClient.from_dict, from_none], obj.get("client"))
         return ParamsClass(appointment, client)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["appointment"] = to_class(PurpleAppointment, self.appointment)
-        result["client"] = to_class(PurpleClient, self.client)
+        result["client"] = from_union([lambda x: to_class(PurpleClient, x), from_none], self.client)
         return result
 
 
@@ -393,11 +393,11 @@ class AppointmentCancelAppointmentByBusinessResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -406,14 +406,14 @@ class AppointmentCancelAppointmentByBusinessResponseError:
     def from_dict(obj: Any) -> 'AppointmentCancelAppointmentByBusinessResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentCancelAppointmentByBusinessResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -587,11 +587,11 @@ class AppointmentCancelAppointmentByClientResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -600,14 +600,14 @@ class AppointmentCancelAppointmentByClientResponseError:
     def from_dict(obj: Any) -> 'AppointmentCancelAppointmentByClientResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentCancelAppointmentByClientResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -668,24 +668,56 @@ class CancelAppointmentByClient:
         return result
 
 
+class ReminderStatus(Enum):
+    NOT_SET = "NOT_SET"
+    OFF = "OFF"
+    ON = "ON"
+
+
+class AppointmentReminder:
+    status: Optional[ReminderStatus]
+    time_reminder: Optional[float]
+
+    def __init__(self, status: Optional[ReminderStatus], time_reminder: Optional[float]) -> None:
+        self.status = status
+        self.time_reminder = time_reminder
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AppointmentReminder':
+        assert isinstance(obj, dict)
+        status = from_union([ReminderStatus, from_none], obj.get("status"))
+        time_reminder = from_union([from_float, from_none], obj.get("time_reminder"))
+        return AppointmentReminder(status, time_reminder)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["status"] = from_union([lambda x: to_enum(ReminderStatus, x), from_none], self.status)
+        result["time_reminder"] = from_union([to_float, from_none], self.time_reminder)
+        return result
+
+
 class TentacledAppointment:
     id: str
+    reminder: Optional[AppointmentReminder]
     source: Optional[str]
 
-    def __init__(self, id: str, source: Optional[str]) -> None:
+    def __init__(self, id: str, reminder: Optional[AppointmentReminder], source: Optional[str]) -> None:
         self.id = id
+        self.reminder = reminder
         self.source = source
 
     @staticmethod
     def from_dict(obj: Any) -> 'TentacledAppointment':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
+        reminder = from_union([AppointmentReminder.from_dict, from_none], obj.get("reminder"))
         source = from_union([from_str, from_none], obj.get("source"))
-        return TentacledAppointment(id, source)
+        return TentacledAppointment(id, reminder, source)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["id"] = from_str(self.id)
+        result["reminder"] = from_union([lambda x: to_class(AppointmentReminder, x), from_none], self.reminder)
         result["source"] = from_union([from_str, from_none], self.source)
         return result
 
@@ -781,11 +813,11 @@ class AppointmentClientConfirmAppointmentResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -794,14 +826,14 @@ class AppointmentClientConfirmAppointmentResponseError:
     def from_dict(obj: Any) -> 'AppointmentClientConfirmAppointmentResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentClientConfirmAppointmentResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -1217,7 +1249,7 @@ class AdditionalClientElement:
         assert isinstance(obj, dict)
         address = from_union([from_none, from_str], obj.get("address"))
         admin_comment = from_union([from_none, from_str], obj.get("adminComment"))
-        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
+        birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
         client_card_number = from_union([from_none, from_str], obj.get("clientCardNumber"))
         client_comment = from_union([from_none, from_str], obj.get("clientComment"))
         creator_profile_id = from_union([from_none, from_str], obj.get("creatorProfileID"))
@@ -1254,7 +1286,7 @@ class AdditionalClientElement:
         result: dict = {}
         result["address"] = from_union([from_none, from_str], self.address)
         result["adminComment"] = from_union([from_none, from_str], self.admin_comment)
-        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
+        result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
         result["clientCardNumber"] = from_union([from_none, from_str], self.client_card_number)
         result["clientComment"] = from_union([from_none, from_str], self.client_comment)
         result["creatorProfileID"] = from_union([from_none, from_str], self.creator_profile_id)
@@ -1689,7 +1721,7 @@ class PurpleAppointmentClient:
         assert isinstance(obj, dict)
         address = from_union([from_none, from_str], obj.get("address"))
         admin_comment = from_union([from_none, from_str], obj.get("adminComment"))
-        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
+        birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
         client_card_number = from_union([from_none, from_str], obj.get("clientCardNumber"))
         client_comment = from_union([from_none, from_str], obj.get("clientComment"))
         creator_profile_id = from_union([from_none, from_str], obj.get("creatorProfileID"))
@@ -1726,7 +1758,7 @@ class PurpleAppointmentClient:
         result: dict = {}
         result["address"] = from_union([from_none, from_str], self.address)
         result["adminComment"] = from_union([from_none, from_str], self.admin_comment)
-        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
+        result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
         result["clientCardNumber"] = from_union([from_none, from_str], self.client_card_number)
         result["clientComment"] = from_union([from_none, from_str], self.client_comment)
         result["creatorProfileID"] = from_union([from_none, from_str], self.creator_profile_id)
@@ -1783,7 +1815,7 @@ class AppointmentClientVisitor:
     @staticmethod
     def from_dict(obj: Any) -> 'AppointmentClientVisitor':
         assert isinstance(obj, dict)
-        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
+        birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
         email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         extra_visitors = from_union([from_float, from_none], obj.get("extraVisitors"))
         name = from_union([from_str, from_none], obj.get("name"))
@@ -1795,7 +1827,7 @@ class AppointmentClientVisitor:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
+        result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
         result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["extraVisitors"] = from_union([to_float, from_none], self.extra_visitors)
         result["name"] = from_union([from_str, from_none], self.name)
@@ -1880,13 +1912,7 @@ class Order:
         return result
 
 
-class ReminderStatus(Enum):
-    NOT_SET = "NOT_SET"
-    OFF = "OFF"
-    ON = "ON"
-
-
-class Reminder:
+class ResultReminder:
     status: ReminderStatus
     time_reminder: float
 
@@ -1895,11 +1921,11 @@ class Reminder:
         self.time_reminder = time_reminder
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Reminder':
+    def from_dict(obj: Any) -> 'ResultReminder':
         assert isinstance(obj, dict)
         status = ReminderStatus(obj.get("status"))
         time_reminder = from_float(obj.get("time_reminder"))
-        return Reminder(status, time_reminder)
+        return ResultReminder(status, time_reminder)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2160,7 +2186,7 @@ class Appointment:
     promo_code: Optional[str]
     referer_link: Optional[str]
     referrer: Optional[str]
-    reminder: Reminder
+    reminder: ResultReminder
     removed_clients_data: List[RemovedClientsDatum]
     resource: AppointmentResource
     review: Optional[Review]
@@ -2174,7 +2200,7 @@ class Appointment:
     utm: Optional[Dict[str, Any]]
     with_co_sale: Optional[bool]
 
-    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_payment_transaction_id: Optional[str], client_comment: str, client_visitors: Optional[List[AppointmentClientVisitor]], color: Optional[str], created_user: Optional[CreatedUser], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: Optional[str], notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: Reminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Optional[Review], room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, telemed_data: Optional[AppointmentTelemedData], utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
+    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_payment_transaction_id: Optional[str], client_comment: str, client_visitors: Optional[List[AppointmentClientVisitor]], color: Optional[str], created_user: Optional[CreatedUser], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: Optional[str], notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: ResultReminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Optional[Review], room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, telemed_data: Optional[AppointmentTelemedData], utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
         self.additional_info = additional_info
         self.additional_client_appears = additional_client_appears
         self.additional_client_payments = additional_client_payments
@@ -2285,7 +2311,7 @@ class Appointment:
         promo_code = from_union([from_str, from_none], obj.get("promoCode"))
         referer_link = from_union([from_str, from_none], obj.get("refererLink"))
         referrer = from_union([from_str, from_none], obj.get("referrer"))
-        reminder = Reminder.from_dict(obj.get("reminder"))
+        reminder = ResultReminder.from_dict(obj.get("reminder"))
         removed_clients_data = from_list(RemovedClientsDatum.from_dict, obj.get("removedClientsData"))
         resource = AppointmentResource.from_dict(obj.get("resource"))
         review = from_union([Review.from_dict, from_none], obj.get("review"))
@@ -2348,7 +2374,7 @@ class Appointment:
         result["promoCode"] = from_union([from_str, from_none], self.promo_code)
         result["refererLink"] = from_union([from_str, from_none], self.referer_link)
         result["referrer"] = from_union([from_str, from_none], self.referrer)
-        result["reminder"] = to_class(Reminder, self.reminder)
+        result["reminder"] = to_class(ResultReminder, self.reminder)
         result["removedClientsData"] = from_list(lambda x: to_class(RemovedClientsDatum, x), self.removed_clients_data)
         result["resource"] = to_class(AppointmentResource, self.resource)
         result["review"] = from_union([lambda x: to_class(Review, x), from_none], self.review)
@@ -2524,11 +2550,11 @@ class AppointmentClientRemoveEmptyAppointmentResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -2537,14 +2563,14 @@ class AppointmentClientRemoveEmptyAppointmentResponseError:
     def from_dict(obj: Any) -> 'AppointmentClientRemoveEmptyAppointmentResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentClientRemoveEmptyAppointmentResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -2840,11 +2866,11 @@ class AppointmentGetAppointmentByFilterResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -2853,14 +2879,14 @@ class AppointmentGetAppointmentByFilterResponseError:
     def from_dict(obj: Any) -> 'AppointmentGetAppointmentByFilterResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentGetAppointmentByFilterResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -3072,11 +3098,11 @@ class AppointmentGetAppointmentByShowcaseResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -3085,14 +3111,14 @@ class AppointmentGetAppointmentByShowcaseResponseError:
     def from_dict(obj: Any) -> 'AppointmentGetAppointmentByShowcaseResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentGetAppointmentByShowcaseResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -3391,11 +3417,11 @@ class AppointmentGetAppointmentsByClientV2ResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -3404,14 +3430,14 @@ class AppointmentGetAppointmentsByClientV2ResponseError:
     def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByClientV2ResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentGetAppointmentsByClientV2ResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -3727,11 +3753,11 @@ class AppointmentGetAppointmentsByUserResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -3740,15 +3766,45 @@ class AppointmentGetAppointmentsByUserResponseError:
     def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByUserResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentGetAppointmentsByUserResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
+        return result
+
+
+class AppointmentGetAppointmentsByUserResponseResult:
+    data: List[Appointment]
+    page: float
+    total: float
+    unconfirmed: Optional[float]
+
+    def __init__(self, data: List[Appointment], page: float, total: float, unconfirmed: Optional[float]) -> None:
+        self.data = data
+        self.page = page
+        self.total = total
+        self.unconfirmed = unconfirmed
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByUserResponseResult':
+        assert isinstance(obj, dict)
+        data = from_list(Appointment.from_dict, obj.get("data"))
+        page = from_float(obj.get("page"))
+        total = from_float(obj.get("total"))
+        unconfirmed = from_union([from_float, from_none], obj.get("unconfirmed"))
+        return AppointmentGetAppointmentsByUserResponseResult(data, page, total, unconfirmed)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["data"] = from_list(lambda x: to_class(Appointment, x), self.data)
+        result["page"] = to_float(self.page)
+        result["total"] = to_float(self.total)
+        result["unconfirmed"] = from_union([to_float, from_none], self.unconfirmed)
         return result
 
 
@@ -3757,11 +3813,11 @@ class AppointmentGetAppointmentsByUserResponse:
     id: float
     """версия протокола (2.0)"""
     jsonrpc: str
-    result: Optional[List[Appointment]]
+    result: Optional[AppointmentGetAppointmentsByUserResponseResult]
     """объект, содержащий информацию об ошибке"""
     error: Optional[AppointmentGetAppointmentsByUserResponseError]
 
-    def __init__(self, id: float, jsonrpc: str, result: Optional[List[Appointment]], error: Optional[AppointmentGetAppointmentsByUserResponseError]) -> None:
+    def __init__(self, id: float, jsonrpc: str, result: Optional[AppointmentGetAppointmentsByUserResponseResult], error: Optional[AppointmentGetAppointmentsByUserResponseError]) -> None:
         self.id = id
         self.jsonrpc = jsonrpc
         self.result = result
@@ -3772,7 +3828,7 @@ class AppointmentGetAppointmentsByUserResponse:
         assert isinstance(obj, dict)
         id = from_float(obj.get("id"))
         jsonrpc = from_str(obj.get("jsonrpc"))
-        result = from_union([lambda x: from_list(Appointment.from_dict, x), from_none], obj.get("result"))
+        result = from_union([AppointmentGetAppointmentsByUserResponseResult.from_dict, from_none], obj.get("result"))
         error = from_union([AppointmentGetAppointmentsByUserResponseError.from_dict, from_none], obj.get("error"))
         return AppointmentGetAppointmentsByUserResponse(id, jsonrpc, result, error)
 
@@ -3780,7 +3836,7 @@ class AppointmentGetAppointmentsByUserResponse:
         result: dict = {}
         result["id"] = to_float(self.id)
         result["jsonrpc"] = from_str(self.jsonrpc)
-        result["result"] = from_union([lambda x: from_list(lambda x: to_class(Appointment, x), x), from_none], self.result)
+        result["result"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByUserResponseResult, x), from_none], self.result)
         result["error"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByUserResponseError, x), from_none], self.error)
         return result
 
@@ -4044,11 +4100,11 @@ class AppointmentReserveAppointmentResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -4057,14 +4113,14 @@ class AppointmentReserveAppointmentResponseError:
     def from_dict(obj: Any) -> 'AppointmentReserveAppointmentResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return AppointmentReserveAppointmentResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -4300,11 +4356,11 @@ class BusinessGetNetworkDataResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -4313,14 +4369,14 @@ class BusinessGetNetworkDataResponseError:
     def from_dict(obj: Any) -> 'BusinessGetNetworkDataResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return BusinessGetNetworkDataResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -6886,11 +6942,13 @@ class InfoTaxonomy:
     children_taxonomy_types: Optional[List[ChildrenTaxonomyType]]
     color: Optional[str]
     confirmation_alert: Optional[str]
+    confirmation_email_alert: Optional[str]
     confirmation_sms_alert: Optional[str]
     date_limits: Optional[List[PurpleDateLimit]]
     date_limit_type: Optional[DateLimitType]
     designs: Optional[List[str]]
-    discounts: Optional[Discount]
+    disable_client_sms_notifications: Optional[bool]
+    discounts: Optional[List[Discount]]
     display_in_widget: Optional[bool]
     duration: Optional[float]
     exceptions: Optional[List[Any]]
@@ -6901,6 +6959,7 @@ class InfoTaxonomy:
     id: Optional[str]
     images: Optional[List[str]]
     is_other: Optional[bool]
+    is_telemed: Optional[bool]
     last_modified: Optional[datetime]
     leaves: Optional[List[str]]
     manual_changes: Optional[bool]
@@ -6930,7 +6989,7 @@ class InfoTaxonomy:
     use_confirmation_sms_alert: Optional[bool]
     visit_type: Optional[str]
 
-    def __init__(self, active: Optional[bool], additional_durations: Optional[List[PurpleAdditionalDuration]], additional_prices: Optional[List[PurpleBusinessTaxonomyPrice]], additional_products: Optional[List[PurpleBusinessTaxonomyProduct]], additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]], adjacent_same_time_start: Optional[bool], adjacent_taxonomies: Optional[List[PurpleAdjacentTaxonomy]], alias: Optional[Dict[str, Any]], allow_booking_in_bo: Optional[bool], allow_next_booking_count: Optional[float], allow_next_booking_in_days: Optional[float], allow_next_booking_in_days_text: Optional[str], cabinets: Optional[List[str]], cabinets_enabled: Optional[bool], capacity: Optional[float], capacity_decrease: Optional[float], charge_units_step: Optional[float], children_taxonomy_types: Optional[List[ChildrenTaxonomyType]], color: Optional[str], confirmation_alert: Optional[str], confirmation_sms_alert: Optional[str], date_limits: Optional[List[PurpleDateLimit]], date_limit_type: Optional[DateLimitType], designs: Optional[List[str]], discounts: Optional[Discount], display_in_widget: Optional[bool], duration: Optional[float], exceptions: Optional[List[Any]], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], for_pay: Optional[bool], id: Optional[str], images: Optional[List[str]], is_other: Optional[bool], last_modified: Optional[datetime], leaves: Optional[List[str]], manual_changes: Optional[bool], new_taxonomy: Optional[bool], online_mode: Optional[OnlineMode], only_after_taxonomies: Optional[List[str]], order: Optional[float], parallel_taxonomies: Optional[List[str]], popularity: Optional[float], price: Optional[FluffyPrice], price_link: Optional[str], reception_types: Optional[List[str]], rooms: Optional[List[str]], showcase_items: Optional[List[PurpleShowcaseItem]], showcases: Optional[List[PurpleTaxonomyShowcase]], showcase_taxonomy_id: Optional[str], site_id: Optional[str], special_cabinet: Optional[str], taxonomy_app_extra_id: Optional[str], taxonomy_category_extra_id: Optional[str], taxonomy_parent_id: Optional[str], taxonomy_type: Optional[TaxonomyType], timetable: Optional[Timetable], use_confirmation_sms_alert: Optional[bool], visit_type: Optional[str]) -> None:
+    def __init__(self, active: Optional[bool], additional_durations: Optional[List[PurpleAdditionalDuration]], additional_prices: Optional[List[PurpleBusinessTaxonomyPrice]], additional_products: Optional[List[PurpleBusinessTaxonomyProduct]], additional_taxonomy_extra_id: Optional[List[Dict[str, Any]]], adjacent_same_time_start: Optional[bool], adjacent_taxonomies: Optional[List[PurpleAdjacentTaxonomy]], alias: Optional[Dict[str, Any]], allow_booking_in_bo: Optional[bool], allow_next_booking_count: Optional[float], allow_next_booking_in_days: Optional[float], allow_next_booking_in_days_text: Optional[str], cabinets: Optional[List[str]], cabinets_enabled: Optional[bool], capacity: Optional[float], capacity_decrease: Optional[float], charge_units_step: Optional[float], children_taxonomy_types: Optional[List[ChildrenTaxonomyType]], color: Optional[str], confirmation_alert: Optional[str], confirmation_email_alert: Optional[str], confirmation_sms_alert: Optional[str], date_limits: Optional[List[PurpleDateLimit]], date_limit_type: Optional[DateLimitType], designs: Optional[List[str]], disable_client_sms_notifications: Optional[bool], discounts: Optional[List[Discount]], display_in_widget: Optional[bool], duration: Optional[float], exceptions: Optional[List[Any]], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], for_pay: Optional[bool], id: Optional[str], images: Optional[List[str]], is_other: Optional[bool], is_telemed: Optional[bool], last_modified: Optional[datetime], leaves: Optional[List[str]], manual_changes: Optional[bool], new_taxonomy: Optional[bool], online_mode: Optional[OnlineMode], only_after_taxonomies: Optional[List[str]], order: Optional[float], parallel_taxonomies: Optional[List[str]], popularity: Optional[float], price: Optional[FluffyPrice], price_link: Optional[str], reception_types: Optional[List[str]], rooms: Optional[List[str]], showcase_items: Optional[List[PurpleShowcaseItem]], showcases: Optional[List[PurpleTaxonomyShowcase]], showcase_taxonomy_id: Optional[str], site_id: Optional[str], special_cabinet: Optional[str], taxonomy_app_extra_id: Optional[str], taxonomy_category_extra_id: Optional[str], taxonomy_parent_id: Optional[str], taxonomy_type: Optional[TaxonomyType], timetable: Optional[Timetable], use_confirmation_sms_alert: Optional[bool], visit_type: Optional[str]) -> None:
         self.active = active
         self.additional_durations = additional_durations
         self.additional_prices = additional_prices
@@ -6951,10 +7010,12 @@ class InfoTaxonomy:
         self.children_taxonomy_types = children_taxonomy_types
         self.color = color
         self.confirmation_alert = confirmation_alert
+        self.confirmation_email_alert = confirmation_email_alert
         self.confirmation_sms_alert = confirmation_sms_alert
         self.date_limits = date_limits
         self.date_limit_type = date_limit_type
         self.designs = designs
+        self.disable_client_sms_notifications = disable_client_sms_notifications
         self.discounts = discounts
         self.display_in_widget = display_in_widget
         self.duration = duration
@@ -6966,6 +7027,7 @@ class InfoTaxonomy:
         self.id = id
         self.images = images
         self.is_other = is_other
+        self.is_telemed = is_telemed
         self.last_modified = last_modified
         self.leaves = leaves
         self.manual_changes = manual_changes
@@ -7015,11 +7077,13 @@ class InfoTaxonomy:
         children_taxonomy_types = from_union([lambda x: from_list(ChildrenTaxonomyType, x), from_none], obj.get("childrenTaxonomyTypes"))
         color = from_union([from_str, from_none], obj.get("color"))
         confirmation_alert = from_union([from_str, from_none], obj.get("confirmationAlert"))
+        confirmation_email_alert = from_union([from_str, from_none], obj.get("confirmationEmailAlert"))
         confirmation_sms_alert = from_union([from_str, from_none], obj.get("confirmationSmsAlert"))
         date_limits = from_union([lambda x: from_list(PurpleDateLimit.from_dict, x), from_none], obj.get("dateLimits"))
         date_limit_type = from_union([DateLimitType, from_none], obj.get("dateLimitType"))
         designs = from_union([lambda x: from_list(from_str, x), from_none], obj.get("designs"))
-        discounts = from_union([Discount.from_dict, from_none], obj.get("discounts"))
+        disable_client_sms_notifications = from_union([from_bool, from_none], obj.get("disableClientSmsNotifications"))
+        discounts = from_union([lambda x: from_list(Discount.from_dict, x), from_none], obj.get("discounts"))
         display_in_widget = from_union([from_bool, from_none], obj.get("displayInWidget"))
         duration = from_union([from_float, from_none], obj.get("duration"))
         exceptions = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("exceptions"))
@@ -7030,6 +7094,7 @@ class InfoTaxonomy:
         id = from_union([from_str, from_none], obj.get("id"))
         images = from_union([lambda x: from_list(from_str, x), from_none], obj.get("images"))
         is_other = from_union([from_bool, from_none], obj.get("isOther"))
+        is_telemed = from_union([from_bool, from_none], obj.get("isTelemed"))
         last_modified = from_union([from_datetime, from_none], obj.get("lastModified"))
         leaves = from_union([lambda x: from_list(from_str, x), from_none], obj.get("leaves"))
         manual_changes = from_union([from_bool, from_none], obj.get("manualChanges"))
@@ -7055,7 +7120,7 @@ class InfoTaxonomy:
         timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
         use_confirmation_sms_alert = from_union([from_bool, from_none], obj.get("useConfirmationSmsAlert"))
         visit_type = from_union([from_str, from_none], obj.get("visitType"))
-        return InfoTaxonomy(active, additional_durations, additional_prices, additional_products, additional_taxonomy_extra_id, adjacent_same_time_start, adjacent_taxonomies, alias, allow_booking_in_bo, allow_next_booking_count, allow_next_booking_in_days, allow_next_booking_in_days_text, cabinets, cabinets_enabled, capacity, capacity_decrease, charge_units_step, children_taxonomy_types, color, confirmation_alert, confirmation_sms_alert, date_limits, date_limit_type, designs, discounts, display_in_widget, duration, exceptions, extra_description, extra_id, extra_link, for_pay, id, images, is_other, last_modified, leaves, manual_changes, new_taxonomy, online_mode, only_after_taxonomies, order, parallel_taxonomies, popularity, price, price_link, reception_types, rooms, showcase_items, showcases, showcase_taxonomy_id, site_id, special_cabinet, taxonomy_app_extra_id, taxonomy_category_extra_id, taxonomy_parent_id, taxonomy_type, timetable, use_confirmation_sms_alert, visit_type)
+        return InfoTaxonomy(active, additional_durations, additional_prices, additional_products, additional_taxonomy_extra_id, adjacent_same_time_start, adjacent_taxonomies, alias, allow_booking_in_bo, allow_next_booking_count, allow_next_booking_in_days, allow_next_booking_in_days_text, cabinets, cabinets_enabled, capacity, capacity_decrease, charge_units_step, children_taxonomy_types, color, confirmation_alert, confirmation_email_alert, confirmation_sms_alert, date_limits, date_limit_type, designs, disable_client_sms_notifications, discounts, display_in_widget, duration, exceptions, extra_description, extra_id, extra_link, for_pay, id, images, is_other, is_telemed, last_modified, leaves, manual_changes, new_taxonomy, online_mode, only_after_taxonomies, order, parallel_taxonomies, popularity, price, price_link, reception_types, rooms, showcase_items, showcases, showcase_taxonomy_id, site_id, special_cabinet, taxonomy_app_extra_id, taxonomy_category_extra_id, taxonomy_parent_id, taxonomy_type, timetable, use_confirmation_sms_alert, visit_type)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7079,11 +7144,13 @@ class InfoTaxonomy:
         result["childrenTaxonomyTypes"] = from_union([lambda x: from_list(lambda x: to_enum(ChildrenTaxonomyType, x), x), from_none], self.children_taxonomy_types)
         result["color"] = from_union([from_str, from_none], self.color)
         result["confirmationAlert"] = from_union([from_str, from_none], self.confirmation_alert)
+        result["confirmationEmailAlert"] = from_union([from_str, from_none], self.confirmation_email_alert)
         result["confirmationSmsAlert"] = from_union([from_str, from_none], self.confirmation_sms_alert)
         result["dateLimits"] = from_union([lambda x: from_list(lambda x: to_class(PurpleDateLimit, x), x), from_none], self.date_limits)
         result["dateLimitType"] = from_union([lambda x: to_enum(DateLimitType, x), from_none], self.date_limit_type)
         result["designs"] = from_union([lambda x: from_list(from_str, x), from_none], self.designs)
-        result["discounts"] = from_union([lambda x: to_class(Discount, x), from_none], self.discounts)
+        result["disableClientSmsNotifications"] = from_union([from_bool, from_none], self.disable_client_sms_notifications)
+        result["discounts"] = from_union([lambda x: from_list(lambda x: to_class(Discount, x), x), from_none], self.discounts)
         result["displayInWidget"] = from_union([from_bool, from_none], self.display_in_widget)
         result["duration"] = from_union([to_float, from_none], self.duration)
         result["exceptions"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.exceptions)
@@ -7094,6 +7161,7 @@ class InfoTaxonomy:
         result["id"] = from_union([from_str, from_none], self.id)
         result["images"] = from_union([lambda x: from_list(from_str, x), from_none], self.images)
         result["isOther"] = from_union([from_bool, from_none], self.is_other)
+        result["isTelemed"] = from_union([from_bool, from_none], self.is_telemed)
         result["lastModified"] = from_union([lambda x: x.isoformat(), from_none], self.last_modified)
         result["leaves"] = from_union([lambda x: from_list(from_str, x), from_none], self.leaves)
         result["manualChanges"] = from_union([from_bool, from_none], self.manual_changes)
@@ -8247,6 +8315,8 @@ class BusinessGetProfileByIDRequestParams:
     showcase_business_id: Union[float, None, str]
     """если указано true - не приминяет сортировку работников"""
     skip_worker_sorting: Optional[bool]
+    """содержит только доступные для записи наборы услуг и работников"""
+    use_optimized_cache: Optional[bool]
     """если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)"""
     with_billing: Optional[bool]
     """если указано true - возвращает список операций, доступных в БекОфисе в поле profiles
@@ -8270,13 +8340,14 @@ class BusinessGetProfileByIDRequestParams:
     """тип сортировки работника"""
     worker_sorting_type: Optional[WorkerSortingType]
 
-    def __init__(self, business: HilariousBusiness, desktop_discounts: Optional[bool], only_active_workers: Optional[bool], show_inactive_workers: Optional[bool], showcase_business_id: Union[float, None, str], skip_worker_sorting: Optional[bool], with_billing: Optional[bool], with_bop: Optional[bool], with_campaigns: Optional[bool], with_discounts: Optional[bool], with_discounts_from: Optional[datetime], with_discounts_to: Optional[datetime], with_networks: Optional[bool], with_taxonomy_showcase: Optional[bool], worker_sorting_type: Optional[WorkerSortingType]) -> None:
+    def __init__(self, business: HilariousBusiness, desktop_discounts: Optional[bool], only_active_workers: Optional[bool], show_inactive_workers: Optional[bool], showcase_business_id: Union[float, None, str], skip_worker_sorting: Optional[bool], use_optimized_cache: Optional[bool], with_billing: Optional[bool], with_bop: Optional[bool], with_campaigns: Optional[bool], with_discounts: Optional[bool], with_discounts_from: Optional[datetime], with_discounts_to: Optional[datetime], with_networks: Optional[bool], with_taxonomy_showcase: Optional[bool], worker_sorting_type: Optional[WorkerSortingType]) -> None:
         self.business = business
         self.desktop_discounts = desktop_discounts
         self.only_active_workers = only_active_workers
         self.show_inactive_workers = show_inactive_workers
         self.showcase_business_id = showcase_business_id
         self.skip_worker_sorting = skip_worker_sorting
+        self.use_optimized_cache = use_optimized_cache
         self.with_billing = with_billing
         self.with_bop = with_bop
         self.with_campaigns = with_campaigns
@@ -8296,6 +8367,7 @@ class BusinessGetProfileByIDRequestParams:
         show_inactive_workers = from_union([from_bool, from_none], obj.get("show_inactive_workers"))
         showcase_business_id = from_union([from_float, from_str, from_none], obj.get("showcase_business_id"))
         skip_worker_sorting = from_union([from_bool, from_none], obj.get("skip_worker_sorting"))
+        use_optimized_cache = from_union([from_bool, from_none], obj.get("use_optimized_cache"))
         with_billing = from_union([from_bool, from_none], obj.get("with_billing"))
         with_bop = from_union([from_bool, from_none], obj.get("with_bop"))
         with_campaigns = from_union([from_bool, from_none], obj.get("with_campaigns"))
@@ -8305,7 +8377,7 @@ class BusinessGetProfileByIDRequestParams:
         with_networks = from_union([from_bool, from_none], obj.get("with_networks"))
         with_taxonomy_showcase = from_union([from_bool, from_none], obj.get("with_taxonomy_showcase"))
         worker_sorting_type = from_union([WorkerSortingType, from_none], obj.get("worker_sorting_type"))
-        return BusinessGetProfileByIDRequestParams(business, desktop_discounts, only_active_workers, show_inactive_workers, showcase_business_id, skip_worker_sorting, with_billing, with_bop, with_campaigns, with_discounts, with_discounts_from, with_discounts_to, with_networks, with_taxonomy_showcase, worker_sorting_type)
+        return BusinessGetProfileByIDRequestParams(business, desktop_discounts, only_active_workers, show_inactive_workers, showcase_business_id, skip_worker_sorting, use_optimized_cache, with_billing, with_bop, with_campaigns, with_discounts, with_discounts_from, with_discounts_to, with_networks, with_taxonomy_showcase, worker_sorting_type)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -8315,6 +8387,7 @@ class BusinessGetProfileByIDRequestParams:
         result["show_inactive_workers"] = from_union([from_bool, from_none], self.show_inactive_workers)
         result["showcase_business_id"] = from_union([to_float, from_str, from_none], self.showcase_business_id)
         result["skip_worker_sorting"] = from_union([from_bool, from_none], self.skip_worker_sorting)
+        result["use_optimized_cache"] = from_union([from_bool, from_none], self.use_optimized_cache)
         result["with_billing"] = from_union([from_bool, from_none], self.with_billing)
         result["with_bop"] = from_union([from_bool, from_none], self.with_bop)
         result["with_campaigns"] = from_union([from_bool, from_none], self.with_campaigns)
@@ -8377,11 +8450,11 @@ class BusinessGetProfileByIDResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -8390,14 +8463,14 @@ class BusinessGetProfileByIDResponseError:
     def from_dict(obj: Any) -> 'BusinessGetProfileByIDResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return BusinessGetProfileByIDResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -11244,7 +11317,7 @@ class ClientClass:
     def from_dict(obj: Any) -> 'ClientClass':
         assert isinstance(obj, dict)
         address = from_union([from_str, from_none], obj.get("address"))
-        birthday = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("birthday"))
+        birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
         black_list = from_union([from_bool, from_none], obj.get("blackList"))
         children_clients = from_union([lambda x: from_list(ChildrenClient.from_dict, x), from_none], obj.get("childrenClients"))
         client_card_creation_date = from_union([from_str, from_none], obj.get("clientCardCreationDate"))
@@ -11304,7 +11377,7 @@ class ClientClass:
     def to_dict(self) -> dict:
         result: dict = {}
         result["address"] = from_union([from_str, from_none], self.address)
-        result["birthday"] = from_union([from_none, from_str, lambda x: from_dict(lambda x: x, x)], self.birthday)
+        result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
         result["blackList"] = from_union([from_bool, from_none], self.black_list)
         result["childrenClients"] = from_union([lambda x: from_list(lambda x: to_class(ChildrenClient, x), x), from_none], self.children_clients)
         result["clientCardCreationDate"] = from_union([from_str, from_none], self.client_card_creation_date)
@@ -11466,11 +11539,11 @@ class ClientAddClientResponseError:
     """
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -11479,14 +11552,14 @@ class ClientAddClientResponseError:
     def from_dict(obj: Any) -> 'ClientAddClientResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return ClientAddClientResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -11746,11 +11819,11 @@ class ClientFindOfCreateClientResponseError:
     """
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -11759,14 +11832,14 @@ class ClientFindOfCreateClientResponseError:
     def from_dict(obj: Any) -> 'ClientFindOfCreateClientResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return ClientFindOfCreateClientResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -12007,11 +12080,11 @@ class ClientUpdateClientResponseError:
     """
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -12020,14 +12093,14 @@ class ClientUpdateClientResponseError:
     def from_dict(obj: Any) -> 'ClientUpdateClientResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return ClientUpdateClientResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -12244,11 +12317,11 @@ class CracCRACDistributedResourcesFreeByDateResponseError:
     """код ошибки"""
     code: Optional[float]
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: Optional[str]
 
-    def __init__(self, code: Optional[float], data: Optional[str], message: Optional[str]) -> None:
+    def __init__(self, code: Optional[float], data: Union[Dict[str, Any], None, str], message: Optional[str]) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -12257,14 +12330,14 @@ class CracCRACDistributedResourcesFreeByDateResponseError:
     def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateResponseError':
         assert isinstance(obj, dict)
         code = from_union([from_float, from_none], obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_union([from_str, from_none], obj.get("message"))
         return CracCRACDistributedResourcesFreeByDateResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = from_union([to_float, from_none], self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_union([from_str, from_none], self.message)
         return result
 
@@ -12463,11 +12536,11 @@ class CracCRACResourcesFreeByDateResponseError:
     """код ошибки"""
     code: Optional[float]
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: Optional[str]
 
-    def __init__(self, code: Optional[float], data: Optional[str], message: Optional[str]) -> None:
+    def __init__(self, code: Optional[float], data: Union[Dict[str, Any], None, str], message: Optional[str]) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -12476,14 +12549,14 @@ class CracCRACResourcesFreeByDateResponseError:
     def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateResponseError':
         assert isinstance(obj, dict)
         code = from_union([from_float, from_none], obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_union([from_str, from_none], obj.get("message"))
         return CracCRACResourcesFreeByDateResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = from_union([to_float, from_none], self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_union([from_str, from_none], self.message)
         return result
 
@@ -12708,11 +12781,11 @@ class CracCRACResourcesFreeByDateV2ResponseError:
     """код ошибки"""
     code: Optional[float]
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: Optional[str]
 
-    def __init__(self, code: Optional[float], data: Optional[str], message: Optional[str]) -> None:
+    def __init__(self, code: Optional[float], data: Union[Dict[str, Any], None, str], message: Optional[str]) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -12721,14 +12794,14 @@ class CracCRACResourcesFreeByDateV2ResponseError:
     def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2ResponseError':
         assert isinstance(obj, dict)
         code = from_union([from_float, from_none], obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_union([from_str, from_none], obj.get("message"))
         return CracCRACResourcesFreeByDateV2ResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = from_union([to_float, from_none], self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_union([from_str, from_none], self.message)
         return result
 
@@ -13070,11 +13143,11 @@ class CracSlotsGetCRACDistributedResourcesAndRoomsResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -13083,14 +13156,14 @@ class CracSlotsGetCRACDistributedResourcesAndRoomsResponseError:
     def from_dict(obj: Any) -> 'CracSlotsGetCRACDistributedResourcesAndRoomsResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return CracSlotsGetCRACDistributedResourcesAndRoomsResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -13339,11 +13412,11 @@ class CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -13352,14 +13425,14 @@ class CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError:
     def from_dict(obj: Any) -> 'CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return CracSlotsGetCRACInsuranceResourcesAndRoomsResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 
@@ -13608,11 +13681,11 @@ class CracSlotsGetCRACResourcesAndRoomsResponseError:
     """код ошибки"""
     code: float
     """дополнительные данные об ошибке"""
-    data: Optional[str]
+    data: Union[Dict[str, Any], None, str]
     """текстовая информация об ошибке"""
     message: str
 
-    def __init__(self, code: float, data: Optional[str], message: str) -> None:
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
         self.code = code
         self.data = data
         self.message = message
@@ -13621,14 +13694,14 @@ class CracSlotsGetCRACResourcesAndRoomsResponseError:
     def from_dict(obj: Any) -> 'CracSlotsGetCRACResourcesAndRoomsResponseError':
         assert isinstance(obj, dict)
         code = from_float(obj.get("code"))
-        data = from_union([from_str, from_none], obj.get("data"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
         message = from_str(obj.get("message"))
         return CracSlotsGetCRACResourcesAndRoomsResponseError(code, data, message)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["code"] = to_float(self.code)
-        result["data"] = from_union([from_str, from_none], self.data)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
         result["message"] = from_str(self.message)
         return result
 

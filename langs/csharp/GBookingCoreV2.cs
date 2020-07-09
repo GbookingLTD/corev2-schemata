@@ -87,7 +87,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -260,7 +260,7 @@ namespace GBookingCoreV2
         [JsonProperty("appointment")]
         public PurpleAppointment Appointment { get; set; }
 
-        [JsonProperty("client")]
+        [JsonProperty("client", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleClient Client { get; set; }
     }
 
@@ -323,7 +323,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -445,7 +445,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -510,8 +510,20 @@ namespace GBookingCoreV2
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        [JsonProperty("reminder", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentReminder Reminder { get; set; }
+
         [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
         public string Source { get; set; }
+    }
+
+    public partial class AppointmentReminder
+    {
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public ReminderStatus? Status { get; set; }
+
+        [JsonProperty("time_reminder", NullValueHandling = NullValueHandling.Ignore)]
+        public double? TimeReminder { get; set; }
     }
 
     public partial class TentacledClient
@@ -567,7 +579,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -723,7 +735,7 @@ namespace GBookingCoreV2
         public string Referrer { get; set; }
 
         [JsonProperty("reminder")]
-        public Reminder Reminder { get; set; }
+        public ResultReminder Reminder { get; set; }
 
         [JsonProperty("removedClientsData")]
         public List<RemovedClientsDatum> RemovedClientsData { get; set; }
@@ -1311,7 +1323,7 @@ namespace GBookingCoreV2
         public string Id { get; set; }
     }
 
-    public partial class Reminder
+    public partial class ResultReminder
     {
         [JsonProperty("status")]
         public ReminderStatus Status { get; set; }
@@ -1529,7 +1541,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -1702,7 +1714,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -1845,7 +1857,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -2021,7 +2033,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -2186,7 +2198,7 @@ namespace GBookingCoreV2
         public string Jsonrpc { get; set; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Appointment> Result { get; set; }
+        public AppointmentGetAppointmentsByUserResponseResult Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -2212,13 +2224,28 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
+    }
+
+    public partial class AppointmentGetAppointmentsByUserResponseResult
+    {
+        [JsonProperty("data")]
+        public List<Appointment> Data { get; set; }
+
+        [JsonProperty("page")]
+        public double Page { get; set; }
+
+        [JsonProperty("total")]
+        public double Total { get; set; }
+
+        [JsonProperty("unconfirmed", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Unconfirmed { get; set; }
     }
 
     public partial class ReserveAppointment
@@ -2397,7 +2424,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -2547,7 +2574,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -4237,6 +4264,9 @@ namespace GBookingCoreV2
         [JsonProperty("confirmationAlert", NullValueHandling = NullValueHandling.Ignore)]
         public string ConfirmationAlert { get; set; }
 
+        [JsonProperty("confirmationEmailAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationEmailAlert { get; set; }
+
         [JsonProperty("confirmationSmsAlert", NullValueHandling = NullValueHandling.Ignore)]
         public string ConfirmationSmsAlert { get; set; }
 
@@ -4249,8 +4279,11 @@ namespace GBookingCoreV2
         [JsonProperty("designs", NullValueHandling = NullValueHandling.Ignore)]
         public List<string> Designs { get; set; }
 
+        [JsonProperty("disableClientSmsNotifications", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisableClientSmsNotifications { get; set; }
+
         [JsonProperty("discounts", NullValueHandling = NullValueHandling.Ignore)]
-        public Discount Discounts { get; set; }
+        public List<Discount> Discounts { get; set; }
 
         [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
         public bool? DisplayInWidget { get; set; }
@@ -4281,6 +4314,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("isOther", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsOther { get; set; }
+
+        [JsonProperty("isTelemed", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsTelemed { get; set; }
 
         [JsonProperty("lastModified", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? LastModified { get; set; }
@@ -5138,6 +5174,12 @@ namespace GBookingCoreV2
         public bool? SkipWorkerSorting { get; set; }
 
         /// <summary>
+        /// содержит только доступные для записи наборы услуг и работников
+        /// </summary>
+        [JsonProperty("use_optimized_cache", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseOptimizedCache { get; set; }
+
+        /// <summary>
         /// если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
         /// </summary>
         [JsonProperty("with_billing", NullValueHandling = NullValueHandling.Ignore)]
@@ -5247,7 +5289,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -7231,7 +7273,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -7394,7 +7436,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -7548,7 +7590,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -7694,7 +7736,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -7825,7 +7867,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -7968,7 +8010,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -8168,7 +8210,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -8326,7 +8368,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -8484,7 +8526,7 @@ namespace GBookingCoreV2
         /// дополнительные данные об ошибке
         /// </summary>
         [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
-        public string Data { get; set; }
+        public Data? Data { get; set; }
 
         /// <summary>
         /// текстовая информация об ошибке
@@ -8547,6 +8589,8 @@ namespace GBookingCoreV2
         public ClientClass Client { get; set; }
     }
 
+    public enum ReminderStatus { NotSet, Off, On };
+
     public enum AppointmentClientAppear { NoAppear, None, YesAppear };
 
     public enum AppointmentClientPayment { NoPayment, None, YesPayedFull, YesPayedOnline, YesPayedPart };
@@ -8571,8 +8615,6 @@ namespace GBookingCoreV2
     public enum CurrencyList { Cny, Eur, Gbp, Huf, Ils, Kzt, Rub, Uah, Usd, Uzs };
 
     public enum TalkAnswer { NotImportant, NotTalk, Talk };
-
-    public enum ReminderStatus { NotSet, Off, On };
 
     public enum Dir { Asc, Desc };
 
@@ -8662,6 +8704,18 @@ namespace GBookingCoreV2
     public enum PresentStatus { Ready, Received };
 
     public enum Source { Backoffice, MiniWidget, MobileWidget, Widget };
+
+    /// <summary>
+    /// дополнительные данные об ошибке
+    /// </summary>
+    public partial struct Data
+    {
+        public Dictionary<string, object> AnythingMap;
+        public string String;
+
+        public static implicit operator Data(Dictionary<string, object> AnythingMap) => new Data { AnythingMap = AnythingMap };
+        public static implicit operator Data(string String) => new Data { String = String };
+    }
 
     public partial struct ErrorResponse
     {
@@ -8871,10 +8925,12 @@ namespace GBookingCoreV2
             Converters =
             {
                 ErrorResponseConverter.Singleton,
+                DataConverter.Singleton,
                 RequestConverter.Singleton,
                 BackofficeIdUnionConverter.Singleton,
                 ParamsUnionConverter.Singleton,
                 SuccessResponseConverter.Singleton,
+                ReminderStatusConverter.Singleton,
                 AppointmentClientAppearConverter.Singleton,
                 AppointmentClientPaymentConverter.Singleton,
                 AppointmentStatusConverter.Singleton,
@@ -8887,7 +8943,6 @@ namespace GBookingCoreV2
                 DiscountProviderConverter.Singleton,
                 CurrencyListConverter.Singleton,
                 TalkAnswerConverter.Singleton,
-                ReminderStatusConverter.Singleton,
                 DirConverter.Singleton,
                 SortFieldConverter.Singleton,
                 ResourceIdConverter.Singleton,
@@ -9012,6 +9067,44 @@ namespace GBookingCoreV2
         }
 
         public static readonly ErrorResponseConverter Singleton = new ErrorResponseConverter();
+    }
+
+    internal class DataConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Data) || t == typeof(Data?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new Data { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
+                    return new Data { AnythingMap = objectValue };
+            }
+            throw new Exception("Cannot unmarshal type Data");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (Data)untypedValue;
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingMap != null)
+            {
+                serializer.Serialize(writer, value.AnythingMap);
+                return;
+            }
+            throw new Exception("Cannot marshal type Data");
+        }
+
+        public static readonly DataConverter Singleton = new DataConverter();
     }
 
     internal class RequestConverter : JsonConverter
@@ -9242,6 +9335,52 @@ namespace GBookingCoreV2
         }
 
         public static readonly SuccessResponseConverter Singleton = new SuccessResponseConverter();
+    }
+
+    internal class ReminderStatusConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ReminderStatus) || t == typeof(ReminderStatus?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NOT_SET":
+                    return ReminderStatus.NotSet;
+                case "OFF":
+                    return ReminderStatus.Off;
+                case "ON":
+                    return ReminderStatus.On;
+            }
+            throw new Exception("Cannot unmarshal type ReminderStatus");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (ReminderStatus)untypedValue;
+            switch (value)
+            {
+                case ReminderStatus.NotSet:
+                    serializer.Serialize(writer, "NOT_SET");
+                    return;
+                case ReminderStatus.Off:
+                    serializer.Serialize(writer, "OFF");
+                    return;
+                case ReminderStatus.On:
+                    serializer.Serialize(writer, "ON");
+                    return;
+            }
+            throw new Exception("Cannot marshal type ReminderStatus");
+        }
+
+        public static readonly ReminderStatusConverter Singleton = new ReminderStatusConverter();
     }
 
     internal class AppointmentClientAppearConverter : JsonConverter
@@ -9929,52 +10068,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly TalkAnswerConverter Singleton = new TalkAnswerConverter();
-    }
-
-    internal class ReminderStatusConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ReminderStatus) || t == typeof(ReminderStatus?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "NOT_SET":
-                    return ReminderStatus.NotSet;
-                case "OFF":
-                    return ReminderStatus.Off;
-                case "ON":
-                    return ReminderStatus.On;
-            }
-            throw new Exception("Cannot unmarshal type ReminderStatus");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (ReminderStatus)untypedValue;
-            switch (value)
-            {
-                case ReminderStatus.NotSet:
-                    serializer.Serialize(writer, "NOT_SET");
-                    return;
-                case ReminderStatus.Off:
-                    serializer.Serialize(writer, "OFF");
-                    return;
-                case ReminderStatus.On:
-                    serializer.Serialize(writer, "ON");
-                    return;
-            }
-            throw new Exception("Cannot marshal type ReminderStatus");
-        }
-
-        public static readonly ReminderStatusConverter Singleton = new ReminderStatusConverter();
     }
 
     internal class DirConverter : JsonConverter

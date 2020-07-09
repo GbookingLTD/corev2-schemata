@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public class ClientClass {
     private String address;
-    private Birthday birthday;
+    private Data birthday;
     private Boolean blackList;
     private List<ChildrenClient> childrenClients;
     private String clientCardCreationDate;
@@ -71,9 +71,9 @@ public class ClientClass {
     public void setAddress(String value) { this.address = value; }
 
     @JsonProperty("birthday")
-    public Birthday getBirthday() { return birthday; }
+    public Data getBirthday() { return birthday; }
     @JsonProperty("birthday")
-    public void setBirthday(Birthday value) { this.birthday = value; }
+    public void setBirthday(Data value) { this.birthday = value; }
 
     @JsonProperty("blackList")
     public Boolean getBlackList() { return blackList; }

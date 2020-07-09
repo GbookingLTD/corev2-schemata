@@ -421,7 +421,10 @@
                 },
                 "data": {
                     "description": "дополнительные данные об ошибке",
-                    "type": "string"
+                    "type": [
+                        "string",
+                        "object"
+                    ]
                 }
             },
             "required": [

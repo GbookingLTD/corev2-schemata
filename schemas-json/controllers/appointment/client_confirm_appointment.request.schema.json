@@ -23,6 +23,33 @@
                         },
                         "source": {
                             "type": "string"
+                        },
+                        "reminder": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ON",
+                                        "OFF",
+                                        "NOT_SET"
+                                    ]
+                                },
+                                "time_reminder": {
+                                    "type": "number",
+                                    "enum": [
+                                        0,
+                                        1,
+                                        2,
+                                        4,
+                                        6,
+                                        8,
+                                        12,
+                                        24
+                                    ]
+                                }
+                            }
                         }
                     }
                 },

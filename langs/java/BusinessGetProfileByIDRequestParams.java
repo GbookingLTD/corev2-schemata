@@ -13,6 +13,7 @@ public class BusinessGetProfileByIDRequestParams {
     private Boolean showInactiveWorkers;
     private TaxiParkMemberCountUnion showcaseBusinessID;
     private Boolean skipWorkerSorting;
+    private Boolean useOptimizedCache;
     private Boolean withBilling;
     private Boolean withBop;
     private Boolean withCampaigns;
@@ -68,6 +69,14 @@ public class BusinessGetProfileByIDRequestParams {
     public Boolean getSkipWorkerSorting() { return skipWorkerSorting; }
     @JsonProperty("skip_worker_sorting")
     public void setSkipWorkerSorting(Boolean value) { this.skipWorkerSorting = value; }
+
+    /**
+     * содержит только доступные для записи наборы услуг и работников
+     */
+    @JsonProperty("use_optimized_cache")
+    public Boolean getUseOptimizedCache() { return useOptimizedCache; }
+    @JsonProperty("use_optimized_cache")
+    public void setUseOptimizedCache(Boolean value) { this.useOptimizedCache = value; }
 
     /**
      * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)

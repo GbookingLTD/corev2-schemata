@@ -55,12 +55,17 @@ export interface Error {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
+
+/**
+ * дополнительные данные об ошибке
+ */
+export type Data = { [key: string]: any } | string;
 
 /**
  * jsonrpc2 запрос
@@ -188,7 +193,7 @@ export interface AppointmentCancelAppointmentByBusinessRequest {
 
 export interface ParamsObject {
     appointment: PurpleAppointment;
-    client:      PurpleClient;
+    client?:     PurpleClient;
 }
 
 export interface PurpleAppointment {
@@ -232,7 +237,7 @@ export interface AppointmentCancelAppointmentByBusinessResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -314,7 +319,7 @@ export interface AppointmentCancelAppointmentByClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -355,8 +360,20 @@ export interface ConfirmAppointment {
 }
 
 export interface TentacledAppointment {
-    id:      string;
-    source?: string;
+    id:        string;
+    reminder?: AppointmentReminder;
+    source?:   string;
+}
+
+export interface AppointmentReminder {
+    status?:        ReminderStatus;
+    time_reminder?: number;
+}
+
+export enum ReminderStatus {
+    NotSet = "NOT_SET",
+    Off = "OFF",
+    On = "ON",
 }
 
 export interface ClientObject {
@@ -396,7 +413,7 @@ export interface AppointmentClientConfirmAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -454,7 +471,7 @@ export interface Appointment {
     promoCode?:                     string;
     refererLink?:                   string;
     referrer?:                      string;
-    reminder:                       Reminder;
+    reminder:                       ResultReminder;
     removedClientsData:             RemovedClientsDatum[];
     resource:                       AppointmentResource;
     review?:                        Review;
@@ -803,15 +820,9 @@ export interface Order {
     id: string;
 }
 
-export interface Reminder {
+export interface ResultReminder {
     status:        ReminderStatus;
     time_reminder: number;
-}
-
-export enum ReminderStatus {
-    NotSet = "NOT_SET",
-    Off = "OFF",
-    On = "ON",
 }
 
 export interface RemovedClientsDatum {
@@ -937,7 +948,7 @@ export interface AppointmentClientRemoveEmptyAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1052,7 +1063,7 @@ export interface AppointmentGetAppointmentByFilterResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1143,7 +1154,7 @@ export interface AppointmentGetAppointmentByShowcaseResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1251,7 +1262,7 @@ export interface AppointmentGetAppointmentsByClientV2ResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1366,7 +1377,7 @@ export interface AppointmentGetAppointmentsByUserResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1486,7 +1497,7 @@ export interface AppointmentReserveAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1592,7 +1603,7 @@ export interface BusinessGetNetworkDataResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -2561,52 +2572,55 @@ export interface TelemedDataObject {
 }
 
 export interface InfoTaxonomy {
-    active?:                     boolean;
-    additionalDurations?:        PurpleAdditionalDuration[];
-    additionalPrices?:           PurpleBusinessTaxonomyPrice[];
-    additionalProducts?:         PurpleBusinessTaxonomyProduct[];
-    additionalTaxonomyExtraId?:  { [key: string]: any }[];
-    adjacentSameTimeStart?:      boolean;
-    adjacentTaxonomies?:         PurpleAdjacentTaxonomy[];
-    alias?:                      { [key: string]: any };
-    allowBookingInBO?:           boolean;
-    allowNextBookingCount?:      number;
-    allowNextBookingInDays?:     number;
-    allowNextBookingInDaysText?: string;
-    cabinets?:                   string[];
-    cabinetsEnabled?:            boolean;
-    capacity?:                   number;
-    capacity_decrease?:          number;
-    chargeUnitsStep?:            number;
-    childrenTaxonomyTypes?:      ChildrenTaxonomyType[];
-    color?:                      string;
-    confirmationAlert?:          string;
-    confirmationSmsAlert?:       string;
-    dateLimits?:                 PurpleDateLimit[];
-    dateLimitType?:              DateLimitType;
-    designs?:                    string[];
-    discounts?:                  Discount;
-    displayInWidget?:            boolean;
-    duration?:                   number;
-    exceptions?:                 any[];
-    extraDescription?:           string;
-    extraId?:                    string;
-    extraLink?:                  string;
-    forPay?:                     boolean;
-    id?:                         string;
-    images?:                     string[];
-    isOther?:                    boolean;
-    lastModified?:               Date;
-    leaves?:                     string[];
-    manualChanges?:              boolean;
-    newTaxonomy?:                boolean;
-    onlineMode?:                 OnlineMode;
-    onlyAfterTaxonomies?:        string[];
-    order?:                      number;
-    parallelTaxonomies?:         string[];
-    popularity?:                 number;
-    price?:                      FluffyPrice;
-    priceLink?:                  string;
+    active?:                        boolean;
+    additionalDurations?:           PurpleAdditionalDuration[];
+    additionalPrices?:              PurpleBusinessTaxonomyPrice[];
+    additionalProducts?:            PurpleBusinessTaxonomyProduct[];
+    additionalTaxonomyExtraId?:     { [key: string]: any }[];
+    adjacentSameTimeStart?:         boolean;
+    adjacentTaxonomies?:            PurpleAdjacentTaxonomy[];
+    alias?:                         { [key: string]: any };
+    allowBookingInBO?:              boolean;
+    allowNextBookingCount?:         number;
+    allowNextBookingInDays?:        number;
+    allowNextBookingInDaysText?:    string;
+    cabinets?:                      string[];
+    cabinetsEnabled?:               boolean;
+    capacity?:                      number;
+    capacity_decrease?:             number;
+    chargeUnitsStep?:               number;
+    childrenTaxonomyTypes?:         ChildrenTaxonomyType[];
+    color?:                         string;
+    confirmationAlert?:             string;
+    confirmationEmailAlert?:        string;
+    confirmationSmsAlert?:          string;
+    dateLimits?:                    PurpleDateLimit[];
+    dateLimitType?:                 DateLimitType;
+    designs?:                       string[];
+    disableClientSmsNotifications?: boolean;
+    discounts?:                     Discount[];
+    displayInWidget?:               boolean;
+    duration?:                      number;
+    exceptions?:                    any[];
+    extraDescription?:              string;
+    extraId?:                       string;
+    extraLink?:                     string;
+    forPay?:                        boolean;
+    id?:                            string;
+    images?:                        string[];
+    isOther?:                       boolean;
+    isTelemed?:                     boolean;
+    lastModified?:                  Date;
+    leaves?:                        string[];
+    manualChanges?:                 boolean;
+    newTaxonomy?:                   boolean;
+    onlineMode?:                    OnlineMode;
+    onlyAfterTaxonomies?:           string[];
+    order?:                         number;
+    parallelTaxonomies?:            string[];
+    popularity?:                    number;
+    price?:                         FluffyPrice;
+    priceLink?:                     string;
     /**
      * Список видов приема услуги
      */
@@ -3071,6 +3085,10 @@ export interface BusinessGetProfileByIdRequestParams {
      */
     skip_worker_sorting?: boolean;
     /**
+     * содержит только доступные для записи наборы услуг и работников
+     */
+    use_optimized_cache?: boolean;
+    /**
      * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
      */
     with_billing?: boolean;
@@ -3158,7 +3176,7 @@ export interface BusinessGetProfileByIdResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4020,7 +4038,7 @@ export interface ClientAddClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4134,7 +4152,7 @@ export interface ClientFindOfCreateClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4238,7 +4256,7 @@ export interface ClientUpdateClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4330,7 +4348,7 @@ export interface CracCracDistributedResourcesFreeByDateResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4415,7 +4433,7 @@ export interface CracCracResourcesFreeByDateResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4506,7 +4524,7 @@ export interface CracCracResourcesFreeByDateV2ResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4632,7 +4650,7 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4734,7 +4752,7 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4836,7 +4854,7 @@ export interface CracSlotsGetCracResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -5034,7 +5052,7 @@ const typeMap: any = {
     ], false),
     "Error": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "RequestClass": o([
@@ -5083,7 +5101,7 @@ const typeMap: any = {
     ], false),
     "ParamsObject": o([
         { json: "appointment", js: "appointment", typ: r("PurpleAppointment") },
-        { json: "client", js: "client", typ: r("PurpleClient") },
+        { json: "client", js: "client", typ: u(undefined, r("PurpleClient")) },
     ], "any"),
     "PurpleAppointment": o([
         { json: "id", js: "id", typ: "" },
@@ -5100,7 +5118,7 @@ const typeMap: any = {
     ], false),
     "AppointmentCancelAppointmentByBusinessResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CancelAppointmentByClient": o([
@@ -5134,7 +5152,7 @@ const typeMap: any = {
     ], false),
     "AppointmentCancelAppointmentByClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientConfirmAppointment": o([
@@ -5154,7 +5172,12 @@ const typeMap: any = {
     ], "any"),
     "TentacledAppointment": o([
         { json: "id", js: "id", typ: "" },
+        { json: "reminder", js: "reminder", typ: u(undefined, r("AppointmentReminder")) },
         { json: "source", js: "source", typ: u(undefined, "") },
+    ], false),
+    "AppointmentReminder": o([
+        { json: "status", js: "status", typ: u(undefined, r("ReminderStatus")) },
+        { json: "time_reminder", js: "time_reminder", typ: u(undefined, 3.14) },
     ], false),
     "ClientObject": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
@@ -5168,7 +5191,7 @@ const typeMap: any = {
     ], false),
     "AppointmentClientConfirmAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "Appointment": o([
@@ -5219,7 +5242,7 @@ const typeMap: any = {
         { json: "promoCode", js: "promoCode", typ: u(undefined, "") },
         { json: "refererLink", js: "refererLink", typ: u(undefined, "") },
         { json: "referrer", js: "referrer", typ: u(undefined, "") },
-        { json: "reminder", js: "reminder", typ: r("Reminder") },
+        { json: "reminder", js: "reminder", typ: r("ResultReminder") },
         { json: "removedClientsData", js: "removedClientsData", typ: a(r("RemovedClientsDatum")) },
         { json: "resource", js: "resource", typ: r("AppointmentResource") },
         { json: "review", js: "review", typ: u(undefined, r("Review")) },
@@ -5439,7 +5462,7 @@ const typeMap: any = {
     "Order": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "Reminder": o([
+    "ResultReminder": o([
         { json: "status", js: "status", typ: r("ReminderStatus") },
         { json: "time_reminder", js: "time_reminder", typ: 3.14 },
     ], false),
@@ -5512,7 +5535,7 @@ const typeMap: any = {
     ], false),
     "AppointmentClientRemoveEmptyAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "GetAppointmentByFilter": o([
@@ -5568,7 +5591,7 @@ const typeMap: any = {
     ], false),
     "AppointmentGetAppointmentByFilterResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentByFilterResponseResult": o([
@@ -5610,7 +5633,7 @@ const typeMap: any = {
     ], false),
     "AppointmentGetAppointmentByShowcaseResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "GetAppointmentsByClientV2": o([
@@ -5668,7 +5691,7 @@ const typeMap: any = {
     ], false),
     "AppointmentGetAppointmentsByClientV2ResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentsByClientV2ResponseResult": o([
@@ -5730,7 +5753,7 @@ const typeMap: any = {
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentsByUserResponseResult": o([
@@ -5795,7 +5818,7 @@ const typeMap: any = {
     ], false),
     "AppointmentReserveAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "BusinessController": o([
@@ -5833,7 +5856,7 @@ const typeMap: any = {
     ], false),
     "BusinessGetNetworkDataResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ResultClass": o([
@@ -6339,11 +6362,13 @@ const typeMap: any = {
         { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
         { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
-        { json: "discounts", js: "discounts", typ: u(undefined, r("Discount")) },
+        { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
+        { json: "discounts", js: "discounts", typ: u(undefined, a(r("Discount"))) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
@@ -6354,6 +6379,7 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "isTelemed", js: "isTelemed", typ: u(undefined, true) },
         { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
         { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
         { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
@@ -6634,6 +6660,7 @@ const typeMap: any = {
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
         { json: "showcase_business_id", js: "showcase_business_id", typ: u(undefined, u(3.14, "")) },
         { json: "skip_worker_sorting", js: "skip_worker_sorting", typ: u(undefined, true) },
+        { json: "use_optimized_cache", js: "use_optimized_cache", typ: u(undefined, true) },
         { json: "with_billing", js: "with_billing", typ: u(undefined, true) },
         { json: "with_bop", js: "with_bop", typ: u(undefined, true) },
         { json: "with_campaigns", js: "with_campaigns", typ: u(undefined, true) },
@@ -6655,7 +6682,7 @@ const typeMap: any = {
     ], "any"),
     "BusinessGetProfileByIdResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "BusinessGetProfileByIdResponseResult": o([
@@ -7334,7 +7361,7 @@ const typeMap: any = {
     ], "any"),
     "ClientAddClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
@@ -7382,7 +7409,7 @@ const typeMap: any = {
     ], "any"),
     "ClientFindOfCreateClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
@@ -7427,7 +7454,7 @@ const typeMap: any = {
     ], "any"),
     "ClientUpdateClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientUpdateClientResponseResult": o([
@@ -7472,7 +7499,7 @@ const typeMap: any = {
     ], false),
     "CracCracDistributedResourcesFreeByDateResponseError": o([
         { json: "code", js: "code", typ: u(undefined, 3.14) },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: u(undefined, "") },
     ], "any"),
     "CracCracDistributedResourcesFreeByDateResponseResult": o([
@@ -7511,7 +7538,7 @@ const typeMap: any = {
     ], false),
     "CracCracResourcesFreeByDateResponseError": o([
         { json: "code", js: "code", typ: u(undefined, 3.14) },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: u(undefined, "") },
     ], "any"),
     "CracCracResourcesFreeByDateResponseResult": o([
@@ -7555,7 +7582,7 @@ const typeMap: any = {
     ], false),
     "CracCracResourcesFreeByDateV2ResponseError": o([
         { json: "code", js: "code", typ: u(undefined, 3.14) },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: u(undefined, "") },
     ], "any"),
     "CracCracResourcesFreeByDateV2ResponseResult": o([
@@ -7620,7 +7647,7 @@ const typeMap: any = {
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CracSlotsGetCracDistributedResourcesAndRoomsResponseResult": o([
@@ -7668,7 +7695,7 @@ const typeMap: any = {
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult": o([
@@ -7716,7 +7743,7 @@ const typeMap: any = {
     ], false),
     "CracSlotsGetCracResourcesAndRoomsResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CracSlotsGetCracResourcesAndRoomsResponseResult": o([
@@ -7742,6 +7769,11 @@ const typeMap: any = {
         { json: "Business", js: "Business", typ: r("BusinessClass") },
         { json: "Client", js: "Client", typ: r("ClientClass") },
     ], false),
+    "ReminderStatus": [
+        "NOT_SET",
+        "OFF",
+        "ON",
+    ],
     "AppointmentClientAppear": [
         "NO_APPEAR",
         "NONE",
@@ -7815,11 +7847,6 @@ const typeMap: any = {
         "NOT_IMPORTANT",
         "NOT_TALK",
         "TALK",
-    ],
-    "ReminderStatus": [
-        "NOT_SET",
-        "OFF",
-        "ON",
     ],
     "Dir": [
         "asc",

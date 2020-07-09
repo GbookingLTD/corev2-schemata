@@ -41,12 +41,18 @@ export interface Error {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
+/**
+ * дополнительные данные об ошибке
+ */
+export declare type Data = {
+    [key: string]: any;
+} | string;
 /**
  * jsonrpc2 запрос
  */
@@ -166,7 +172,7 @@ export interface AppointmentCancelAppointmentByBusinessRequest {
 }
 export interface ParamsObject {
     appointment: PurpleAppointment;
-    client: PurpleClient;
+    client?: PurpleClient;
 }
 export interface PurpleAppointment {
     id: string;
@@ -206,7 +212,7 @@ export interface AppointmentCancelAppointmentByBusinessResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -281,7 +287,7 @@ export interface AppointmentCancelAppointmentByClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -319,7 +325,17 @@ export interface ConfirmAppointment {
 }
 export interface TentacledAppointment {
     id: string;
+    reminder?: AppointmentReminder;
     source?: string;
+}
+export interface AppointmentReminder {
+    status?: ReminderStatus;
+    time_reminder?: number;
+}
+export declare enum ReminderStatus {
+    NotSet = "NOT_SET",
+    Off = "OFF",
+    On = "ON"
 }
 export interface ClientObject {
     comment?: string;
@@ -356,7 +372,7 @@ export interface AppointmentClientConfirmAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -415,7 +431,7 @@ export interface Appointment {
     promoCode?: string;
     refererLink?: string;
     referrer?: string;
-    reminder: Reminder;
+    reminder: ResultReminder;
     removedClientsData: RemovedClientsDatum[];
     resource: AppointmentResource;
     review?: Review;
@@ -739,14 +755,9 @@ export interface Location {
 export interface Order {
     id: string;
 }
-export interface Reminder {
+export interface ResultReminder {
     status: ReminderStatus;
     time_reminder: number;
-}
-export declare enum ReminderStatus {
-    NotSet = "NOT_SET",
-    Off = "OFF",
-    On = "ON"
 }
 export interface RemovedClientsDatum {
     appear?: AppointmentClientAppear;
@@ -858,7 +869,7 @@ export interface AppointmentClientRemoveEmptyAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -960,7 +971,7 @@ export interface AppointmentGetAppointmentByFilterResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1043,7 +1054,7 @@ export interface AppointmentGetAppointmentByShowcaseResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1139,7 +1150,7 @@ export interface AppointmentGetAppointmentsByClientV2ResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1242,7 +1253,7 @@ export interface AppointmentGetAppointmentsByUserResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1349,7 +1360,7 @@ export interface AppointmentReserveAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1447,7 +1458,7 @@ export interface BusinessGetNetworkDataResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -2404,11 +2415,13 @@ export interface InfoTaxonomy {
     childrenTaxonomyTypes?: ChildrenTaxonomyType[];
     color?: string;
     confirmationAlert?: string;
+    confirmationEmailAlert?: string;
     confirmationSmsAlert?: string;
     dateLimits?: PurpleDateLimit[];
     dateLimitType?: DateLimitType;
     designs?: string[];
-    discounts?: Discount;
+    disableClientSmsNotifications?: boolean;
+    discounts?: Discount[];
     displayInWidget?: boolean;
     duration?: number;
     exceptions?: any[];
@@ -2419,6 +2432,7 @@ export interface InfoTaxonomy {
     id?: string;
     images?: string[];
     isOther?: boolean;
+    isTelemed?: boolean;
     lastModified?: Date;
     leaves?: string[];
     manualChanges?: boolean;
@@ -2859,6 +2873,10 @@ export interface BusinessGetProfileByIdRequestParams {
      */
     skip_worker_sorting?: boolean;
     /**
+     * содержит только доступные для записи наборы услуг и работников
+     */
+    use_optimized_cache?: boolean;
+    /**
      * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
      */
     with_billing?: boolean;
@@ -2942,7 +2960,7 @@ export interface BusinessGetProfileByIdResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -3769,7 +3787,7 @@ export interface ClientAddClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -3872,7 +3890,7 @@ export interface ClientFindOfCreateClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -3966,7 +3984,7 @@ export interface ClientUpdateClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4051,7 +4069,7 @@ export interface CracCracDistributedResourcesFreeByDateResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4128,7 +4146,7 @@ export interface CracCracResourcesFreeByDateResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4210,7 +4228,7 @@ export interface CracCracResourcesFreeByDateV2ResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4322,7 +4340,7 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4416,7 +4434,7 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4510,7 +4528,7 @@ export interface CracSlotsGetCracResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */

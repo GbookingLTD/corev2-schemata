@@ -10,7 +10,7 @@ import java.util.Map;
 public class PurpleAppointmentClient {
     private String address;
     private String adminComment;
-    private Birthday birthday;
+    private Data birthday;
     private String clientCardNumber;
     private String clientComment;
     private String creatorProfileID;
@@ -53,9 +53,9 @@ public class PurpleAppointmentClient {
     public void setAdminComment(String value) { this.adminComment = value; }
 
     @JsonProperty("birthday")
-    public Birthday getBirthday() { return birthday; }
+    public Data getBirthday() { return birthday; }
     @JsonProperty("birthday")
-    public void setBirthday(Birthday value) { this.birthday = value; }
+    public void setBirthday(Data value) { this.birthday = value; }
 
     @JsonProperty("clientCardNumber")
     public String getClientCardNumber() { return clientCardNumber; }

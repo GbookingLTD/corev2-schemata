@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AppointmentClientVisitor {
-    private Birthday birthday;
+    private Data birthday;
     private List<String> email;
     private Double extraVisitors;
     private String name;
@@ -15,9 +15,9 @@ public class AppointmentClientVisitor {
     private Sex sex;
 
     @JsonProperty("birthday")
-    public Birthday getBirthday() { return birthday; }
+    public Data getBirthday() { return birthday; }
     @JsonProperty("birthday")
-    public void setBirthday(Birthday value) { this.birthday = value; }
+    public void setBirthday(Data value) { this.birthday = value; }
 
     @JsonProperty("email")
     public List<String> getEmail() { return email; }

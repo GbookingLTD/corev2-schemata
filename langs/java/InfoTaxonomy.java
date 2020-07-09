@@ -26,11 +26,13 @@ public class InfoTaxonomy {
     private List<ChildrenTaxonomyType> childrenTaxonomyTypes;
     private String color;
     private String confirmationAlert;
+    private String confirmationEmailAlert;
     private String confirmationSMSAlert;
     private List<PurpleDateLimit> dateLimits;
     private DateLimitType dateLimitType;
     private List<String> designs;
-    private Discount discounts;
+    private Boolean disableClientSMSNotifications;
+    private List<Discount> discounts;
     private Boolean displayInWidget;
     private Double duration;
     private List<Object> exceptions;
@@ -41,6 +43,7 @@ public class InfoTaxonomy {
     private String id;
     private List<String> images;
     private Boolean isOther;
+    private Boolean isTelemed;
     private OffsetDateTime lastModified;
     private List<String> leaves;
     private Boolean manualChanges;
@@ -167,6 +170,11 @@ public class InfoTaxonomy {
     @JsonProperty("confirmationAlert")
     public void setConfirmationAlert(String value) { this.confirmationAlert = value; }
 
+    @JsonProperty("confirmationEmailAlert")
+    public String getConfirmationEmailAlert() { return confirmationEmailAlert; }
+    @JsonProperty("confirmationEmailAlert")
+    public void setConfirmationEmailAlert(String value) { this.confirmationEmailAlert = value; }
+
     @JsonProperty("confirmationSmsAlert")
     public String getConfirmationSMSAlert() { return confirmationSMSAlert; }
     @JsonProperty("confirmationSmsAlert")
@@ -187,10 +195,15 @@ public class InfoTaxonomy {
     @JsonProperty("designs")
     public void setDesigns(List<String> value) { this.designs = value; }
 
+    @JsonProperty("disableClientSmsNotifications")
+    public Boolean getDisableClientSMSNotifications() { return disableClientSMSNotifications; }
+    @JsonProperty("disableClientSmsNotifications")
+    public void setDisableClientSMSNotifications(Boolean value) { this.disableClientSMSNotifications = value; }
+
     @JsonProperty("discounts")
-    public Discount getDiscounts() { return discounts; }
+    public List<Discount> getDiscounts() { return discounts; }
     @JsonProperty("discounts")
-    public void setDiscounts(Discount value) { this.discounts = value; }
+    public void setDiscounts(List<Discount> value) { this.discounts = value; }
 
     @JsonProperty("displayInWidget")
     public Boolean getDisplayInWidget() { return displayInWidget; }
@@ -241,6 +254,11 @@ public class InfoTaxonomy {
     public Boolean getIsOther() { return isOther; }
     @JsonProperty("isOther")
     public void setIsOther(Boolean value) { this.isOther = value; }
+
+    @JsonProperty("isTelemed")
+    public Boolean getIsTelemed() { return isTelemed; }
+    @JsonProperty("isTelemed")
+    public void setIsTelemed(Boolean value) { this.isTelemed = value; }
 
     @JsonProperty("lastModified")
     public OffsetDateTime getLastModified() { return lastModified; }

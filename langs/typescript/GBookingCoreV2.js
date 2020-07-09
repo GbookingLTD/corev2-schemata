@@ -8,6 +8,12 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
+var ReminderStatus;
+(function (ReminderStatus) {
+    ReminderStatus["NotSet"] = "NOT_SET";
+    ReminderStatus["Off"] = "OFF";
+    ReminderStatus["On"] = "ON";
+})(ReminderStatus = exports.ReminderStatus || (exports.ReminderStatus = {}));
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -97,12 +103,6 @@ var TalkAnswer;
     TalkAnswer["NotTalk"] = "NOT_TALK";
     TalkAnswer["Talk"] = "TALK";
 })(TalkAnswer = exports.TalkAnswer || (exports.TalkAnswer = {}));
-var ReminderStatus;
-(function (ReminderStatus) {
-    ReminderStatus["NotSet"] = "NOT_SET";
-    ReminderStatus["Off"] = "OFF";
-    ReminderStatus["On"] = "ON";
-})(ReminderStatus = exports.ReminderStatus || (exports.ReminderStatus = {}));
 var Dir;
 (function (Dir) {
     Dir["Asc"] = "asc";
@@ -550,7 +550,7 @@ var typeMap = {
     ], false),
     "Error": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "RequestClass": o([
@@ -599,7 +599,7 @@ var typeMap = {
     ], false),
     "ParamsObject": o([
         { json: "appointment", js: "appointment", typ: r("PurpleAppointment") },
-        { json: "client", js: "client", typ: r("PurpleClient") },
+        { json: "client", js: "client", typ: u(undefined, r("PurpleClient")) },
     ], "any"),
     "PurpleAppointment": o([
         { json: "id", js: "id", typ: "" },
@@ -616,7 +616,7 @@ var typeMap = {
     ], false),
     "AppointmentCancelAppointmentByBusinessResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CancelAppointmentByClient": o([
@@ -650,7 +650,7 @@ var typeMap = {
     ], false),
     "AppointmentCancelAppointmentByClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientConfirmAppointment": o([
@@ -670,7 +670,12 @@ var typeMap = {
     ], "any"),
     "TentacledAppointment": o([
         { json: "id", js: "id", typ: "" },
+        { json: "reminder", js: "reminder", typ: u(undefined, r("AppointmentReminder")) },
         { json: "source", js: "source", typ: u(undefined, "") },
+    ], false),
+    "AppointmentReminder": o([
+        { json: "status", js: "status", typ: u(undefined, r("ReminderStatus")) },
+        { json: "time_reminder", js: "time_reminder", typ: u(undefined, 3.14) },
     ], false),
     "ClientObject": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
@@ -684,7 +689,7 @@ var typeMap = {
     ], false),
     "AppointmentClientConfirmAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "Appointment": o([
@@ -735,7 +740,7 @@ var typeMap = {
         { json: "promoCode", js: "promoCode", typ: u(undefined, "") },
         { json: "refererLink", js: "refererLink", typ: u(undefined, "") },
         { json: "referrer", js: "referrer", typ: u(undefined, "") },
-        { json: "reminder", js: "reminder", typ: r("Reminder") },
+        { json: "reminder", js: "reminder", typ: r("ResultReminder") },
         { json: "removedClientsData", js: "removedClientsData", typ: a(r("RemovedClientsDatum")) },
         { json: "resource", js: "resource", typ: r("AppointmentResource") },
         { json: "review", js: "review", typ: u(undefined, r("Review")) },
@@ -955,7 +960,7 @@ var typeMap = {
     "Order": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "Reminder": o([
+    "ResultReminder": o([
         { json: "status", js: "status", typ: r("ReminderStatus") },
         { json: "time_reminder", js: "time_reminder", typ: 3.14 },
     ], false),
@@ -1028,7 +1033,7 @@ var typeMap = {
     ], false),
     "AppointmentClientRemoveEmptyAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "GetAppointmentByFilter": o([
@@ -1084,7 +1089,7 @@ var typeMap = {
     ], false),
     "AppointmentGetAppointmentByFilterResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentByFilterResponseResult": o([
@@ -1126,7 +1131,7 @@ var typeMap = {
     ], false),
     "AppointmentGetAppointmentByShowcaseResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "GetAppointmentsByClientV2": o([
@@ -1184,7 +1189,7 @@ var typeMap = {
     ], false),
     "AppointmentGetAppointmentsByClientV2ResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentsByClientV2ResponseResult": o([
@@ -1246,7 +1251,7 @@ var typeMap = {
     ], false),
     "AppointmentGetAppointmentsByUserResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "AppointmentGetAppointmentsByUserResponseResult": o([
@@ -1311,7 +1316,7 @@ var typeMap = {
     ], false),
     "AppointmentReserveAppointmentResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "BusinessController": o([
@@ -1349,7 +1354,7 @@ var typeMap = {
     ], false),
     "BusinessGetNetworkDataResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ResultClass": o([
@@ -1855,11 +1860,13 @@ var typeMap = {
         { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
         { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
-        { json: "discounts", js: "discounts", typ: u(undefined, r("Discount")) },
+        { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
+        { json: "discounts", js: "discounts", typ: u(undefined, a(r("Discount"))) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
@@ -1870,6 +1877,7 @@ var typeMap = {
         { json: "id", js: "id", typ: u(undefined, "") },
         { json: "images", js: "images", typ: u(undefined, a("")) },
         { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "isTelemed", js: "isTelemed", typ: u(undefined, true) },
         { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
         { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
         { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
@@ -2150,6 +2158,7 @@ var typeMap = {
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
         { json: "showcase_business_id", js: "showcase_business_id", typ: u(undefined, u(3.14, "")) },
         { json: "skip_worker_sorting", js: "skip_worker_sorting", typ: u(undefined, true) },
+        { json: "use_optimized_cache", js: "use_optimized_cache", typ: u(undefined, true) },
         { json: "with_billing", js: "with_billing", typ: u(undefined, true) },
         { json: "with_bop", js: "with_bop", typ: u(undefined, true) },
         { json: "with_campaigns", js: "with_campaigns", typ: u(undefined, true) },
@@ -2171,7 +2180,7 @@ var typeMap = {
     ], "any"),
     "BusinessGetProfileByIdResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "BusinessGetProfileByIdResponseResult": o([
@@ -2850,7 +2859,7 @@ var typeMap = {
     ], "any"),
     "ClientAddClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
@@ -2898,7 +2907,7 @@ var typeMap = {
     ], "any"),
     "ClientFindOfCreateClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
@@ -2943,7 +2952,7 @@ var typeMap = {
     ], "any"),
     "ClientUpdateClientResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientUpdateClientResponseResult": o([
@@ -2988,7 +2997,7 @@ var typeMap = {
     ], false),
     "CracCracDistributedResourcesFreeByDateResponseError": o([
         { json: "code", js: "code", typ: u(undefined, 3.14) },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: u(undefined, "") },
     ], "any"),
     "CracCracDistributedResourcesFreeByDateResponseResult": o([
@@ -3027,7 +3036,7 @@ var typeMap = {
     ], false),
     "CracCracResourcesFreeByDateResponseError": o([
         { json: "code", js: "code", typ: u(undefined, 3.14) },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: u(undefined, "") },
     ], "any"),
     "CracCracResourcesFreeByDateResponseResult": o([
@@ -3071,7 +3080,7 @@ var typeMap = {
     ], false),
     "CracCracResourcesFreeByDateV2ResponseError": o([
         { json: "code", js: "code", typ: u(undefined, 3.14) },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: u(undefined, "") },
     ], "any"),
     "CracCracResourcesFreeByDateV2ResponseResult": o([
@@ -3136,7 +3145,7 @@ var typeMap = {
     ], false),
     "CracSlotsGetCracDistributedResourcesAndRoomsResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CracSlotsGetCracDistributedResourcesAndRoomsResponseResult": o([
@@ -3184,7 +3193,7 @@ var typeMap = {
     ], false),
     "CracSlotsGetCracInsuranceResourcesAndRoomsResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CracSlotsGetCracInsuranceResourcesAndRoomsResponseResult": o([
@@ -3232,7 +3241,7 @@ var typeMap = {
     ], false),
     "CracSlotsGetCracResourcesAndRoomsResponseError": o([
         { json: "code", js: "code", typ: 3.14 },
-        { json: "data", js: "data", typ: u(undefined, "") },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "CracSlotsGetCracResourcesAndRoomsResponseResult": o([
@@ -3258,6 +3267,11 @@ var typeMap = {
         { json: "Business", js: "Business", typ: r("BusinessClass") },
         { json: "Client", js: "Client", typ: r("ClientClass") },
     ], false),
+    "ReminderStatus": [
+        "NOT_SET",
+        "OFF",
+        "ON",
+    ],
     "AppointmentClientAppear": [
         "NO_APPEAR",
         "NONE",
@@ -3331,11 +3345,6 @@ var typeMap = {
         "NOT_IMPORTANT",
         "NOT_TALK",
         "TALK",
-    ],
-    "ReminderStatus": [
-        "NOT_SET",
-        "OFF",
-        "ON",
     ],
     "Dir": [
         "asc",
