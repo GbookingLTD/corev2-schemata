@@ -7,7 +7,6 @@ definitions:
     type: "object"
     required:
       - appointment
-      - client
     properties:
       appointment:
         type: "object"
@@ -18,12 +17,16 @@ definitions:
             type: "string"
           shortId:
             type: "string"
+          clientID:
+            type: "string"
       client:
         type: "object"
         required: ["id"]
         additionalProperties: false
         properties:
           id:
+            type: "string"
+          clientID:
             type: "string"
           comment:
             type: "string"
