@@ -15,4 +15,4 @@ properties:
     default: "STRING"
   requiredField:
     type: "boolean"
-required: ["name", "shortName", "value", "type", "requiredField"]
+required: ["name", "shortName", "type"]
