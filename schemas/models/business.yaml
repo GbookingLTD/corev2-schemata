@@ -220,7 +220,7 @@ definitions:
         - equal: "Цена ровно как указана в поле amount"
         - begin_with: "Цена \"от\" - в поле amount указано начальное значение"
         - average: "Средняя цена (deprecated)"
-    required: ["currency", "amount", "stockAmount", "type"]
+    required: ["currency", "amount", "type"]
     additionalProperties: false
 
   AdditionalBusinessTaxonomyPrice:
