@@ -872,6 +872,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "enableServiceOrModeFilter": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "resourceSurnameFirst": {
                     "type": "boolean",
                     "default": false

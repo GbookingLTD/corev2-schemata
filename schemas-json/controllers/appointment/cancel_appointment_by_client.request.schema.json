@@ -7,8 +7,7 @@
         "CancelAppointmentByClient": {
             "type": "object",
             "required": [
-                "appointment",
-                "client"
+                "appointment"
             ],
             "properties": {
                 "appointment": {
@@ -23,6 +22,9 @@
                         },
                         "shortId": {
                             "type": "string"
+                        },
+                        "clientID": {
+                            "type": "string"
                         }
                     }
                 },
@@ -34,6 +36,9 @@
                     "additionalProperties": false,
                     "properties": {
                         "id": {
+                            "type": "string"
+                        },
+                        "clientID": {
                             "type": "string"
                         },
                         "comment": {

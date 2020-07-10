@@ -274,17 +274,19 @@ export interface AppointmentCancelAppointmentByClientRequest {
 
 export interface AppointmentCancelAppointmentByClientRequestParams {
     appointment: FluffyAppointment;
-    client:      FluffyClient;
+    client?:     FluffyClient;
 }
 
 export interface FluffyAppointment {
-    id:       string;
-    shortId?: string;
+    clientID?: string;
+    id:        string;
+    shortId?:  string;
 }
 
 export interface FluffyClient {
-    comment?: string;
-    id:       string;
+    clientID?: string;
+    comment?:  string;
+    id:        string;
 }
 
 export interface AppointmentCancelAppointmentByClientResponse {
@@ -1718,6 +1720,7 @@ export interface InfoBackofficeConfiguration {
     enableMasterImportance?:                          boolean;
     enablePhoneNationalMode?:                         boolean;
     enablePrintingReportRecordsScreen?:               boolean;
+    enableServiceOrModeFilter?:                       boolean;
     enableServiceTimeLimit?:                          boolean;
     enableSourceChoice?:                              boolean;
     enableTaxonomyChildrenAgeCheck?:                  boolean;
@@ -1961,11 +1964,11 @@ export interface BusinessInfo {
 }
 
 export interface AdditionalFields {
-    name:          string;
-    requiredField: boolean;
-    shortName:     string;
-    type:          AdditionalFieldType;
-    value:         string;
+    name:           string;
+    requiredField?: boolean;
+    shortName:      string;
+    type:           AdditionalFieldType;
+    value?:         string;
 }
 
 export interface AddressSchema {
@@ -3266,6 +3269,7 @@ export interface BusinessBackofficeConfiguration {
     enableMasterImportance?:                          boolean;
     enablePhoneNationalMode?:                         boolean;
     enablePrintingReportRecordsScreen?:               boolean;
+    enableServiceOrModeFilter?:                       boolean;
     enableServiceTimeLimit?:                          boolean;
     enableSourceChoice?:                              boolean;
     enableTaxonomyChildrenAgeCheck?:                  boolean;
@@ -5134,13 +5138,15 @@ const typeMap: any = {
     ], false),
     "AppointmentCancelAppointmentByClientRequestParams": o([
         { json: "appointment", js: "appointment", typ: r("FluffyAppointment") },
-        { json: "client", js: "client", typ: r("FluffyClient") },
+        { json: "client", js: "client", typ: u(undefined, r("FluffyClient")) },
     ], "any"),
     "FluffyAppointment": o([
+        { json: "clientID", js: "clientID", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
         { json: "shortId", js: "shortId", typ: u(undefined, "") },
     ], false),
     "FluffyClient": o([
+        { json: "clientID", js: "clientID", typ: u(undefined, "") },
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
     ], false),
@@ -5944,6 +5950,7 @@ const typeMap: any = {
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "enablePrintingReportRecordsScreen", js: "enablePrintingReportRecordsScreen", typ: u(undefined, true) },
+        { json: "enableServiceOrModeFilter", js: "enableServiceOrModeFilter", typ: u(undefined, true) },
         { json: "enableServiceTimeLimit", js: "enableServiceTimeLimit", typ: u(undefined, true) },
         { json: "enableSourceChoice", js: "enableSourceChoice", typ: u(undefined, true) },
         { json: "enableTaxonomyChildrenAgeCheck", js: "enableTaxonomyChildrenAgeCheck", typ: u(undefined, true) },
@@ -6102,10 +6109,10 @@ const typeMap: any = {
     ], false),
     "AdditionalFields": o([
         { json: "name", js: "name", typ: "" },
-        { json: "requiredField", js: "requiredField", typ: true },
+        { json: "requiredField", js: "requiredField", typ: u(undefined, true) },
         { json: "shortName", js: "shortName", typ: "" },
         { json: "type", js: "type", typ: r("AdditionalFieldType") },
-        { json: "value", js: "value", typ: "" },
+        { json: "value", js: "value", typ: u(undefined, "") },
     ], "any"),
     "AddressSchema": o([
         { json: "address", js: "address", typ: u(undefined, "") },
@@ -6762,6 +6769,7 @@ const typeMap: any = {
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "enablePrintingReportRecordsScreen", js: "enablePrintingReportRecordsScreen", typ: u(undefined, true) },
+        { json: "enableServiceOrModeFilter", js: "enableServiceOrModeFilter", typ: u(undefined, true) },
         { json: "enableServiceTimeLimit", js: "enableServiceTimeLimit", typ: u(undefined, true) },
         { json: "enableSourceChoice", js: "enableSourceChoice", typ: u(undefined, true) },
         { json: "enableTaxonomyChildrenAgeCheck", js: "enableTaxonomyChildrenAgeCheck", typ: u(undefined, true) },

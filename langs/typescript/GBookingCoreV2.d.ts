@@ -246,13 +246,15 @@ export interface AppointmentCancelAppointmentByClientRequest {
 }
 export interface AppointmentCancelAppointmentByClientRequestParams {
     appointment: FluffyAppointment;
-    client: FluffyClient;
+    client?: FluffyClient;
 }
 export interface FluffyAppointment {
+    clientID?: string;
     id: string;
     shortId?: string;
 }
 export interface FluffyClient {
+    clientID?: string;
     comment?: string;
     id: string;
 }
@@ -1579,6 +1581,7 @@ export interface InfoBackofficeConfiguration {
     enableMasterImportance?: boolean;
     enablePhoneNationalMode?: boolean;
     enablePrintingReportRecordsScreen?: boolean;
+    enableServiceOrModeFilter?: boolean;
     enableServiceTimeLimit?: boolean;
     enableSourceChoice?: boolean;
     enableTaxonomyChildrenAgeCheck?: boolean;
@@ -1813,10 +1816,10 @@ export interface BusinessInfo {
 }
 export interface AdditionalFields {
     name: string;
-    requiredField: boolean;
+    requiredField?: boolean;
     shortName: string;
     type: AdditionalFieldType;
-    value: string;
+    value?: string;
 }
 export interface AddressSchema {
     address?: string;
@@ -3054,6 +3057,7 @@ export interface BusinessBackofficeConfiguration {
     enableMasterImportance?: boolean;
     enablePhoneNationalMode?: boolean;
     enablePrintingReportRecordsScreen?: boolean;
+    enableServiceOrModeFilter?: boolean;
     enableServiceTimeLimit?: boolean;
     enableSourceChoice?: boolean;
     enableTaxonomyChildrenAgeCheck?: boolean;

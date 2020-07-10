@@ -430,6 +430,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "enableServiceOrModeFilter": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "skipAppointmentPriceUpdate": {
                     "type": "boolean",
                     "default": false
