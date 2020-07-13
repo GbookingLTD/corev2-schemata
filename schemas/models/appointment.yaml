@@ -151,7 +151,7 @@ definitions:
       fieldName:
         type: "string"
       value:
-        type: ["number", "string", "object", "null", "boolean"]
+        type: ["number", "string", "object", "null", "boolean", "array"]
 
   AppointmentClient:
     type: "object"
