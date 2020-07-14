@@ -705,7 +705,7 @@ properties:
   reminder:
     type: "object"
     additionalProperties: false
-    required: ["status", "time_reminder"]
+    required: ["status"]
     properties:
       status:
         type: "string"
