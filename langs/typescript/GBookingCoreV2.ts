@@ -608,10 +608,10 @@ export enum ComplaintStatus {
 export interface ExtraField {
     fieldID:   string;
     fieldName: string;
-    value?:    Value;
+    value?:    PurpleValue;
 }
 
-export type Value = boolean | number | { [key: string]: any } | null | string;
+export type PurpleValue = any[] | boolean | number | { [key: string]: any } | null | string;
 
 /**
  * пустой объект в момент резервирования
@@ -823,8 +823,8 @@ export interface Order {
 }
 
 export interface ResultReminder {
-    status:        ReminderStatus;
-    time_reminder: number;
+    status:         ReminderStatus;
+    time_reminder?: number;
 }
 
 export interface RemovedClientsDatum {
@@ -3554,7 +3554,7 @@ export interface TentacledPrice {
     /**
      * Значение цены, с учётом промо акций
      */
-    stockAmount: null | string;
+    stockAmount?: null | string;
     /**
      * Тип цены
      */
@@ -3935,8 +3935,10 @@ export interface ChildrenClient {
 export interface ClientExtraField {
     fieldID:   string;
     fieldName: string;
-    value?:    Value;
+    value?:    FluffyValue;
 }
+
+export type FluffyValue = boolean | number | { [key: string]: any } | null | string;
 
 export interface FavResource {
     businessID: number;
@@ -4210,9 +4212,9 @@ export interface ClientUpdateClientRequest {
  * параметры запроса
  */
 export interface ClientUpdateClientRequestParams {
-    business: MischievousBusiness;
-    client:   ClientClass;
-    network?: IndigoNetwork;
+    business?: MischievousBusiness;
+    client:    ClientClass;
+    network?:  IndigoNetwork;
 }
 
 export interface MischievousBusiness {
@@ -5332,7 +5334,7 @@ const typeMap: any = {
     "ExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
-        { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
+        { json: "value", js: "value", typ: u(undefined, u(a("any"), true, 3.14, m("any"), null, "")) },
     ], false),
     "IncomingPhoneObject": o([
         { json: "area_code", js: "area_code", typ: u(undefined, "") },
@@ -5470,7 +5472,7 @@ const typeMap: any = {
     ], false),
     "ResultReminder": o([
         { json: "status", js: "status", typ: r("ReminderStatus") },
-        { json: "time_reminder", js: "time_reminder", typ: 3.14 },
+        { json: "time_reminder", js: "time_reminder", typ: u(undefined, 3.14) },
     ], false),
     "RemovedClientsDatum": o([
         { json: "appear", js: "appear", typ: u(undefined, r("AppointmentClientAppear")) },
@@ -6992,7 +6994,7 @@ const typeMap: any = {
     "TentacledPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
-        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
+        { json: "stockAmount", js: "stockAmount", typ: u(undefined, u(null, "")) },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
     "FluffyShowcaseItem": o([
@@ -7444,7 +7446,7 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("ClientUpdateClientRequestParams") },
     ], false),
     "ClientUpdateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: u(undefined, r("MischievousBusiness")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "network", js: "network", typ: u(undefined, r("IndigoNetwork")) },
     ], false),

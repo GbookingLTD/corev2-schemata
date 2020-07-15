@@ -336,7 +336,6 @@
             "required": [
                 "currency",
                 "amount",
-                "stockAmount",
                 "type"
             ],
             "additionalProperties": false

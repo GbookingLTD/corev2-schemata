@@ -565,9 +565,9 @@ export declare enum ComplaintStatus {
 export interface ExtraField {
     fieldID: string;
     fieldName: string;
-    value?: Value;
+    value?: PurpleValue;
 }
-export declare type Value = boolean | number | {
+export declare type PurpleValue = any[] | boolean | number | {
     [key: string]: any;
 } | null | string;
 /**
@@ -759,7 +759,7 @@ export interface Order {
 }
 export interface ResultReminder {
     status: ReminderStatus;
-    time_reminder: number;
+    time_reminder?: number;
 }
 export interface RemovedClientsDatum {
     appear?: AppointmentClientAppear;
@@ -3333,7 +3333,7 @@ export interface TentacledPrice {
     /**
      * Значение цены, с учётом промо акций
      */
-    stockAmount: null | string;
+    stockAmount?: null | string;
     /**
      * Тип цены
      */
@@ -3695,8 +3695,11 @@ export interface ChildrenClient {
 export interface ClientExtraField {
     fieldID: string;
     fieldName: string;
-    value?: Value;
+    value?: FluffyValue;
 }
+export declare type FluffyValue = boolean | number | {
+    [key: string]: any;
+} | null | string;
 export interface FavResource {
     businessID: number;
     networkID: string;
@@ -3942,7 +3945,7 @@ export interface ClientUpdateClientRequest {
  * параметры запроса
  */
 export interface ClientUpdateClientRequestParams {
-    business: MischievousBusiness;
+    business?: MischievousBusiness;
     client: ClientClass;
     network?: IndigoNetwork;
 }

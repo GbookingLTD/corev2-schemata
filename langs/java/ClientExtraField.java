@@ -6,7 +6,7 @@ import java.util.Map;
 public class ClientExtraField {
     private String fieldID;
     private String fieldName;
-    private Value value;
+    private FluffyValue value;
 
     @JsonProperty("fieldID")
     public String getFieldID() { return fieldID; }
@@ -19,7 +19,7 @@ public class ClientExtraField {
     public void setFieldName(String value) { this.fieldName = value; }
 
     @JsonProperty("value")
-    public Value getValue() { return value; }
+    public FluffyValue getValue() { return value; }
     @JsonProperty("value")
-    public void setValue(Value value) { this.value = value; }
+    public void setValue(FluffyValue value) { this.value = value; }
 }

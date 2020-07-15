@@ -235,7 +235,8 @@
                         "string",
                         "object",
                         "null",
-                        "boolean"
+                        "boolean",
+                        "array"
                     ]
                 }
             }
@@ -1131,8 +1132,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "status",
-                "time_reminder"
+                "status"
             ],
             "properties": {
                 "status": {

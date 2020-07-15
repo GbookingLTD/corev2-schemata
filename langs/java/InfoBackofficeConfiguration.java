@@ -31,6 +31,7 @@ public class InfoBackofficeConfiguration {
     private Boolean enableMasterImportance;
     private Boolean enablePhoneNationalMode;
     private Boolean enablePrintingReportRecordsScreen;
+    private Boolean enableServiceOrModeFilter;
     private Boolean enableServiceTimeLimit;
     private Boolean enableSourceChoice;
     private Boolean enableTaxonomyChildrenAgeCheck;
@@ -246,6 +247,11 @@ public class InfoBackofficeConfiguration {
     public Boolean getEnablePrintingReportRecordsScreen() { return enablePrintingReportRecordsScreen; }
     @JsonProperty("enablePrintingReportRecordsScreen")
     public void setEnablePrintingReportRecordsScreen(Boolean value) { this.enablePrintingReportRecordsScreen = value; }
+
+    @JsonProperty("enableServiceOrModeFilter")
+    public Boolean getEnableServiceOrModeFilter() { return enableServiceOrModeFilter; }
+    @JsonProperty("enableServiceOrModeFilter")
+    public void setEnableServiceOrModeFilter(Boolean value) { this.enableServiceOrModeFilter = value; }
 
     @JsonProperty("enableServiceTimeLimit")
     public Boolean getEnableServiceTimeLimit() { return enableServiceTimeLimit; }

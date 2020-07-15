@@ -3,8 +3,14 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyClient {
+    private String clientID;
     private String comment;
     private String id;
+
+    @JsonProperty("clientID")
+    public String getClientID() { return clientID; }
+    @JsonProperty("clientID")
+    public void setClientID(String value) { this.clientID = value; }
 
     @JsonProperty("comment")
     public String getComment() { return comment; }

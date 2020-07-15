@@ -826,7 +826,7 @@ var typeMap = {
     "ExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
-        { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
+        { json: "value", js: "value", typ: u(undefined, u(a("any"), true, 3.14, m("any"), null, "")) },
     ], false),
     "IncomingPhoneObject": o([
         { json: "area_code", js: "area_code", typ: u(undefined, "") },
@@ -964,7 +964,7 @@ var typeMap = {
     ], false),
     "ResultReminder": o([
         { json: "status", js: "status", typ: r("ReminderStatus") },
-        { json: "time_reminder", js: "time_reminder", typ: 3.14 },
+        { json: "time_reminder", js: "time_reminder", typ: u(undefined, 3.14) },
     ], false),
     "RemovedClientsDatum": o([
         { json: "appear", js: "appear", typ: u(undefined, r("AppointmentClientAppear")) },
@@ -2486,7 +2486,7 @@ var typeMap = {
     "TentacledPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
-        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
+        { json: "stockAmount", js: "stockAmount", typ: u(undefined, u(null, "")) },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
     "FluffyShowcaseItem": o([
@@ -2938,7 +2938,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientUpdateClientRequestParams") },
     ], false),
     "ClientUpdateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: u(undefined, r("MischievousBusiness")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "network", js: "network", typ: u(undefined, r("IndigoNetwork")) },
     ], false),

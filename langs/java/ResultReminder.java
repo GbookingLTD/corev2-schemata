@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class ResultReminder {
     private ReminderStatus status;
-    private double timeReminder;
+    private Double timeReminder;
 
     @JsonProperty("status")
     public ReminderStatus getStatus() { return status; }
@@ -12,7 +12,7 @@ public class ResultReminder {
     public void setStatus(ReminderStatus value) { this.status = value; }
 
     @JsonProperty("time_reminder")
-    public double getTimeReminder() { return timeReminder; }
+    public Double getTimeReminder() { return timeReminder; }
     @JsonProperty("time_reminder")
-    public void setTimeReminder(double value) { this.timeReminder = value; }
+    public void setTimeReminder(Double value) { this.timeReminder = value; }
 }

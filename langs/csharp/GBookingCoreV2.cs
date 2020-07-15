@@ -379,12 +379,15 @@ namespace GBookingCoreV2
         [JsonProperty("appointment")]
         public FluffyAppointment Appointment { get; set; }
 
-        [JsonProperty("client")]
+        [JsonProperty("client", NullValueHandling = NullValueHandling.Ignore)]
         public FluffyClient Client { get; set; }
     }
 
     public partial class FluffyAppointment
     {
+        [JsonProperty("clientID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientId { get; set; }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 
@@ -394,6 +397,9 @@ namespace GBookingCoreV2
 
     public partial class FluffyClient
     {
+        [JsonProperty("clientID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientId { get; set; }
+
         [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
         public string Comment { get; set; }
 
@@ -966,7 +972,7 @@ namespace GBookingCoreV2
         public string FieldName { get; set; }
 
         [JsonProperty("value")]
-        public Value? Value { get; set; }
+        public PurpleValue? Value { get; set; }
     }
 
     /// <summary>
@@ -1328,8 +1334,8 @@ namespace GBookingCoreV2
         [JsonProperty("status")]
         public ReminderStatus Status { get; set; }
 
-        [JsonProperty("time_reminder")]
-        public double TimeReminder { get; set; }
+        [JsonProperty("time_reminder", NullValueHandling = NullValueHandling.Ignore)]
+        public double? TimeReminder { get; set; }
     }
 
     public partial class RemovedClientsDatum
@@ -2839,6 +2845,9 @@ namespace GBookingCoreV2
         [JsonProperty("enablePrintingReportRecordsScreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnablePrintingReportRecordsScreen { get; set; }
 
+        [JsonProperty("enableServiceOrModeFilter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableServiceOrModeFilter { get; set; }
+
         [JsonProperty("enableServiceTimeLimit", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableServiceTimeLimit { get; set; }
 
@@ -3326,8 +3335,8 @@ namespace GBookingCoreV2
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("requiredField")]
-        public bool RequiredField { get; set; }
+        [JsonProperty("requiredField", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? RequiredField { get; set; }
 
         [JsonProperty("shortName")]
         public string ShortName { get; set; }
@@ -3335,7 +3344,7 @@ namespace GBookingCoreV2
         [JsonProperty("type")]
         public AdditionalFieldType Type { get; set; }
 
-        [JsonProperty("value")]
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
     }
 
@@ -5522,6 +5531,9 @@ namespace GBookingCoreV2
         [JsonProperty("enablePrintingReportRecordsScreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnablePrintingReportRecordsScreen { get; set; }
 
+        [JsonProperty("enableServiceOrModeFilter", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableServiceOrModeFilter { get; set; }
+
         [JsonProperty("enableServiceTimeLimit", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableServiceTimeLimit { get; set; }
 
@@ -7101,7 +7113,7 @@ namespace GBookingCoreV2
         public string FieldName { get; set; }
 
         [JsonProperty("value")]
-        public Value? Value { get; set; }
+        public FluffyValue? Value { get; set; }
     }
 
     public partial class FavResource
@@ -7519,7 +7531,7 @@ namespace GBookingCoreV2
     /// </summary>
     public partial class ClientUpdateClientRequestParams
     {
-        [JsonProperty("business")]
+        [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
         public MischievousBusiness Business { get; set; }
 
         [JsonProperty("client")]
@@ -8816,18 +8828,20 @@ namespace GBookingCoreV2
         public bool IsNull => AnythingMap == null && String == null;
     }
 
-    public partial struct Value
+    public partial struct PurpleValue
     {
+        public List<object> AnythingArray;
         public Dictionary<string, object> AnythingMap;
         public bool? Bool;
         public double? Double;
         public string String;
 
-        public static implicit operator Value(Dictionary<string, object> AnythingMap) => new Value { AnythingMap = AnythingMap };
-        public static implicit operator Value(bool Bool) => new Value { Bool = Bool };
-        public static implicit operator Value(double Double) => new Value { Double = Double };
-        public static implicit operator Value(string String) => new Value { String = String };
-        public bool IsNull => Bool == null && Double == null && AnythingMap == null && String == null;
+        public static implicit operator PurpleValue(List<object> AnythingArray) => new PurpleValue { AnythingArray = AnythingArray };
+        public static implicit operator PurpleValue(Dictionary<string, object> AnythingMap) => new PurpleValue { AnythingMap = AnythingMap };
+        public static implicit operator PurpleValue(bool Bool) => new PurpleValue { Bool = Bool };
+        public static implicit operator PurpleValue(double Double) => new PurpleValue { Double = Double };
+        public static implicit operator PurpleValue(string String) => new PurpleValue { String = String };
+        public bool IsNull => AnythingArray == null && Bool == null && Double == null && AnythingMap == null && String == null;
     }
 
     public partial struct ResourceId
@@ -8859,6 +8873,20 @@ namespace GBookingCoreV2
         public static implicit operator OrderWeight(double Double) => new OrderWeight { Double = Double };
         public static implicit operator OrderWeight(string String) => new OrderWeight { String = String };
         public bool IsNull => Double == null && String == null;
+    }
+
+    public partial struct FluffyValue
+    {
+        public Dictionary<string, object> AnythingMap;
+        public bool? Bool;
+        public double? Double;
+        public string String;
+
+        public static implicit operator FluffyValue(Dictionary<string, object> AnythingMap) => new FluffyValue { AnythingMap = AnythingMap };
+        public static implicit operator FluffyValue(bool Bool) => new FluffyValue { Bool = Bool };
+        public static implicit operator FluffyValue(double Double) => new FluffyValue { Double = Double };
+        public static implicit operator FluffyValue(string String) => new FluffyValue { String = String };
+        public bool IsNull => Bool == null && Double == null && AnythingMap == null && String == null;
     }
 
     public partial struct FromSms
@@ -8936,7 +8964,7 @@ namespace GBookingCoreV2
                 AppointmentStatusConverter.Singleton,
                 BirthdayConverter.Singleton,
                 ComplaintStatusConverter.Singleton,
-                ValueConverter.Singleton,
+                PurpleValueConverter.Singleton,
                 SexConverter.Singleton,
                 AdditionalFieldTypeConverter.Singleton,
                 DrinkAnswerConverter.Singleton,
@@ -8982,6 +9010,7 @@ namespace GBookingCoreV2
                 WorkerSortingTypeConverter.Singleton,
                 FluffyTelemedProviderConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
+                FluffyValueConverter.Singleton,
                 FromSmsConverter.Singleton,
                 IsraelCityUnionConverter.Singleton,
                 KupatHolimUnionConverter.Singleton,
@@ -9682,37 +9711,40 @@ namespace GBookingCoreV2
         public static readonly ComplaintStatusConverter Singleton = new ComplaintStatusConverter();
     }
 
-    internal class ValueConverter : JsonConverter
+    internal class PurpleValueConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(Value) || t == typeof(Value?);
+        public override bool CanConvert(Type t) => t == typeof(PurpleValue) || t == typeof(PurpleValue?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
             switch (reader.TokenType)
             {
                 case JsonToken.Null:
-                    return new Value { };
+                    return new PurpleValue { };
                 case JsonToken.Integer:
                 case JsonToken.Float:
                     var doubleValue = serializer.Deserialize<double>(reader);
-                    return new Value { Double = doubleValue };
+                    return new PurpleValue { Double = doubleValue };
                 case JsonToken.Boolean:
                     var boolValue = serializer.Deserialize<bool>(reader);
-                    return new Value { Bool = boolValue };
+                    return new PurpleValue { Bool = boolValue };
                 case JsonToken.String:
                 case JsonToken.Date:
                     var stringValue = serializer.Deserialize<string>(reader);
-                    return new Value { String = stringValue };
+                    return new PurpleValue { String = stringValue };
                 case JsonToken.StartObject:
                     var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
-                    return new Value { AnythingMap = objectValue };
+                    return new PurpleValue { AnythingMap = objectValue };
+                case JsonToken.StartArray:
+                    var arrayValue = serializer.Deserialize<List<object>>(reader);
+                    return new PurpleValue { AnythingArray = arrayValue };
             }
-            throw new Exception("Cannot unmarshal type Value");
+            throw new Exception("Cannot unmarshal type PurpleValue");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
         {
-            var value = (Value)untypedValue;
+            var value = (PurpleValue)untypedValue;
             if (value.IsNull)
             {
                 serializer.Serialize(writer, null);
@@ -9733,15 +9765,20 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, value.String);
                 return;
             }
+            if (value.AnythingArray != null)
+            {
+                serializer.Serialize(writer, value.AnythingArray);
+                return;
+            }
             if (value.AnythingMap != null)
             {
                 serializer.Serialize(writer, value.AnythingMap);
                 return;
             }
-            throw new Exception("Cannot marshal type Value");
+            throw new Exception("Cannot marshal type PurpleValue");
         }
 
-        public static readonly ValueConverter Singleton = new ValueConverter();
+        public static readonly PurpleValueConverter Singleton = new PurpleValueConverter();
     }
 
     internal class SexConverter : JsonConverter
@@ -12075,6 +12112,68 @@ namespace GBookingCoreV2
         }
 
         public static readonly YandexFeedTypeConverter Singleton = new YandexFeedTypeConverter();
+    }
+
+    internal class FluffyValueConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(FluffyValue) || t == typeof(FluffyValue?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new FluffyValue { };
+                case JsonToken.Integer:
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new FluffyValue { Double = doubleValue };
+                case JsonToken.Boolean:
+                    var boolValue = serializer.Deserialize<bool>(reader);
+                    return new FluffyValue { Bool = boolValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new FluffyValue { String = stringValue };
+                case JsonToken.StartObject:
+                    var objectValue = serializer.Deserialize<Dictionary<string, object>>(reader);
+                    return new FluffyValue { AnythingMap = objectValue };
+            }
+            throw new Exception("Cannot unmarshal type FluffyValue");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (FluffyValue)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.Bool != null)
+            {
+                serializer.Serialize(writer, value.Bool.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            if (value.AnythingMap != null)
+            {
+                serializer.Serialize(writer, value.AnythingMap);
+                return;
+            }
+            throw new Exception("Cannot marshal type FluffyValue");
+        }
+
+        public static readonly FluffyValueConverter Singleton = new FluffyValueConverter();
     }
 
     internal class FromSmsConverter : JsonConverter

@@ -147,18 +147,20 @@ type AppointmentCancelAppointmentByClientRequest struct {
 }
 
 type AppointmentCancelAppointmentByClientRequestParams struct {
-	Appointment FluffyAppointment `json:"appointment"`
-	Client      FluffyClient      `json:"client"`     
+	Appointment FluffyAppointment `json:"appointment"`     
+	Client      *FluffyClient     `json:"client,omitempty"`
 }
 
 type FluffyAppointment struct {
-	ID      string  `json:"id"`               
-	ShortID *string `json:"shortId,omitempty"`
+	ClientID *string `json:"clientID,omitempty"`
+	ID       string  `json:"id"`                
+	ShortID  *string `json:"shortId,omitempty"` 
 }
 
 type FluffyClient struct {
-	Comment *string `json:"comment,omitempty"`
-	ID      string  `json:"id"`               
+	ClientID *string `json:"clientID,omitempty"`
+	Comment  *string `json:"comment,omitempty"` 
+	ID       string  `json:"id"`                
 }
 
 type AppointmentCancelAppointmentByClientResponse struct {
@@ -366,9 +368,9 @@ type AppointmentClientFeedback struct {
 }
 
 type ExtraField struct {
-	FieldID   string `json:"fieldID"`  
-	FieldName string `json:"fieldName"`
-	Value     *Value `json:"value"`    
+	FieldID   string       `json:"fieldID"`  
+	FieldName string       `json:"fieldName"`
+	Value     *PurpleValue `json:"value"`    
 }
 
 // пустой объект в момент резервирования
@@ -526,8 +528,8 @@ type Order struct {
 }
 
 type ResultReminder struct {
-	Status       ReminderStatus `json:"status"`       
-	TimeReminder float64        `json:"time_reminder"`
+	Status       ReminderStatus `json:"status"`                 
+	TimeReminder *float64       `json:"time_reminder,omitempty"`
 }
 
 type RemovedClientsDatum struct {
@@ -1115,6 +1117,7 @@ type InfoBackofficeConfiguration struct {
 	EnableMasterImportance                          *bool                      `json:"enableMasterImportance,omitempty"`                         
 	EnablePhoneNationalMode                         *bool                      `json:"enablePhoneNationalMode,omitempty"`                        
 	EnablePrintingReportRecordsScreen               *bool                      `json:"enablePrintingReportRecordsScreen,omitempty"`              
+	EnableServiceOrModeFilter                       *bool                      `json:"enableServiceOrModeFilter,omitempty"`                      
 	EnableServiceTimeLimit                          *bool                      `json:"enableServiceTimeLimit,omitempty"`                         
 	EnableSourceChoice                              *bool                      `json:"enableSourceChoice,omitempty"`                             
 	EnableTaxonomyChildrenAgeCheck                  *bool                      `json:"enableTaxonomyChildrenAgeCheck,omitempty"`                 
@@ -1280,11 +1283,11 @@ type BusinessInfo struct {
 }
 
 type AdditionalFields struct {
-	Name          string              `json:"name"`         
-	RequiredField bool                `json:"requiredField"`
-	ShortName     string              `json:"shortName"`    
-	Type          AdditionalFieldType `json:"type"`         
-	Value         string              `json:"value"`        
+	Name          string              `json:"name"`                   
+	RequiredField *bool               `json:"requiredField,omitempty"`
+	ShortName     string              `json:"shortName"`              
+	Type          AdditionalFieldType `json:"type"`                   
+	Value         *string             `json:"value,omitempty"`        
 }
 
 type AddressSchema struct {
@@ -2008,6 +2011,7 @@ type BusinessBackofficeConfiguration struct {
 	EnableMasterImportance                          *bool                          `json:"enableMasterImportance,omitempty"`                         
 	EnablePhoneNationalMode                         *bool                          `json:"enablePhoneNationalMode,omitempty"`                        
 	EnablePrintingReportRecordsScreen               *bool                          `json:"enablePrintingReportRecordsScreen,omitempty"`              
+	EnableServiceOrModeFilter                       *bool                          `json:"enableServiceOrModeFilter,omitempty"`                      
 	EnableServiceTimeLimit                          *bool                          `json:"enableServiceTimeLimit,omitempty"`                         
 	EnableSourceChoice                              *bool                          `json:"enableSourceChoice,omitempty"`                             
 	EnableTaxonomyChildrenAgeCheck                  *bool                          `json:"enableTaxonomyChildrenAgeCheck,omitempty"`                 
@@ -2585,9 +2589,9 @@ type ChildrenClient struct {
 }
 
 type ClientExtraField struct {
-	FieldID   string `json:"fieldID"`  
-	FieldName string `json:"fieldName"`
-	Value     *Value `json:"value"`    
+	FieldID   string       `json:"fieldID"`  
+	FieldName string       `json:"fieldName"`
+	Value     *FluffyValue `json:"value"`    
 }
 
 type FavResource struct {
@@ -2757,9 +2761,9 @@ type ClientUpdateClientRequest struct {
 
 // параметры запроса
 type ClientUpdateClientRequestParams struct {
-	Business MischievousBusiness `json:"business"`         
-	Client   ClientClass         `json:"client"`           
-	Network  *IndigoNetwork      `json:"network,omitempty"`
+	Business *MischievousBusiness `json:"business,omitempty"`
+	Client   ClientClass          `json:"client"`            
+	Network  *IndigoNetwork       `json:"network,omitempty"` 
 }
 
 type MischievousBusiness struct {
@@ -3777,16 +3781,18 @@ func (x *Birthday) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, nil, nil, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
-type Value struct {
-	AnythingMap map[string]interface{}
-	Bool        *bool
-	Double      *float64
-	String      *string
+type PurpleValue struct {
+	AnythingArray []interface{}
+	AnythingMap   map[string]interface{}
+	Bool          *bool
+	Double        *float64
+	String        *string
 }
 
-func (x *Value) UnmarshalJSON(data []byte) error {
+func (x *PurpleValue) UnmarshalJSON(data []byte) error {
+	x.AnythingArray = nil
 	x.AnythingMap = nil
-	object, err := unmarshalUnion(data, nil, &x.Double, &x.Bool, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
+	object, err := unmarshalUnion(data, nil, &x.Double, &x.Bool, &x.String, true, &x.AnythingArray, false, nil, true, &x.AnythingMap, false, nil, true)
 	if err != nil {
 		return err
 	}
@@ -3795,8 +3801,8 @@ func (x *Value) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (x *Value) MarshalJSON() ([]byte, error) {
-	return marshalUnion(nil, x.Double, x.Bool, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
+func (x *PurpleValue) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, x.Double, x.Bool, x.String, x.AnythingArray != nil, x.AnythingArray, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
 type ID struct {
@@ -3837,6 +3843,28 @@ func (x *OrderWeight) UnmarshalJSON(data []byte) error {
 
 func (x *OrderWeight) MarshalJSON() ([]byte, error) {
 	return marshalUnion(nil, x.Double, nil, x.String, false, nil, false, nil, false, nil, false, nil, true)
+}
+
+type FluffyValue struct {
+	AnythingMap map[string]interface{}
+	Bool        *bool
+	Double      *float64
+	String      *string
+}
+
+func (x *FluffyValue) UnmarshalJSON(data []byte) error {
+	x.AnythingMap = nil
+	object, err := unmarshalUnion(data, nil, &x.Double, &x.Bool, &x.String, false, nil, false, nil, true, &x.AnythingMap, false, nil, true)
+	if err != nil {
+		return err
+	}
+	if object {
+	}
+	return nil
+}
+
+func (x *FluffyValue) MarshalJSON() ([]byte, error) {
+	return marshalUnion(nil, x.Double, x.Bool, x.String, false, nil, false, nil, x.AnythingMap != nil, x.AnythingMap, false, nil, true)
 }
 
 type FromSMS struct {
