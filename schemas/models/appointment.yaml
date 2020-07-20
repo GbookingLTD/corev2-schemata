@@ -571,7 +571,7 @@ properties:
   taxonomy:
     oneOf:
       - $ref: "#/definitions/AppointmentTaxonomy"
-      - $ref: "./resource.schema.json"
+      - $ref: "./taxonomy.schema.json"
   additionalTaxonomies:
     type: "array"
     items:
