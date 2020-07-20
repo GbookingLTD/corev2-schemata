@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://git.dev.gbooking.ru/vitaliy/corev2-schemata.git"
+    "url": "git@github.com:GbookingLTD/corev2-schemata.git"
   },
   "description": ""
 }
