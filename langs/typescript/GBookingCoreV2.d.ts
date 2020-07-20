@@ -441,7 +441,7 @@ export interface Appointment {
     showcase: AppointmentShowcase;
     socialToken?: string;
     source: string;
-    taxonomy: TaxonomyClass;
+    taxonomy: ResultTaxonomy;
     /**
      * Данные для телемед конференции
      */
@@ -1336,11 +1336,11 @@ export interface TelemedDataObject {
     id?: string;
 }
 export interface Review {
-    business: WorkerClass;
-    taxonomy: WorkerClass;
-    worker: WorkerClass;
+    business: TaxonomyClass;
+    taxonomy: TaxonomyClass;
+    worker: TaxonomyClass;
 }
-export interface WorkerClass {
+export interface TaxonomyClass {
     comment?: string;
     rate?: number;
 }
@@ -1351,182 +1351,235 @@ export interface AppointmentShowcase {
     businessID?: string;
 }
 /**
- * Данные о работнике бизнеса
+ * Данные о услуге бизнеса
  */
-export interface TaxonomyClass {
-    alias?: string;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
+export interface ResultTaxonomy {
+    alias?: Data;
     extraId?: string;
+    id: string;
+    active?: boolean;
+    additionalDurations?: PurpleAdditionalDuration[];
+    additionalPrices?: AdditionalBusinessTaxonomyPrice[];
+    additionalProducts?: PurpleBusinessTaxonomyProduct[];
+    additionalTaxonomyExtraId?: {
+        [key: string]: any;
+    }[];
+    adjacentSameTimeStart?: boolean;
+    adjacentTaxonomies?: PurpleAdjacentTaxonomy[];
+    allowBookingInBO?: boolean;
+    allowNextBookingCount?: number;
+    allowNextBookingInDays?: number;
+    allowNextBookingInDaysText?: string;
+    cabinets?: string[];
+    cabinetsEnabled?: boolean;
+    capacity?: number;
+    capacity_decrease?: number;
+    chargeUnitsStep?: number;
+    childrenTaxonomyTypes?: ChildrenTaxonomyType[];
+    color?: string;
+    confirmationAlert?: string;
+    confirmationEmailAlert?: string;
+    confirmationSmsAlert?: string;
+    dateLimits?: PurpleDateLimit[];
+    dateLimitType?: DateLimitType;
+    designs?: string[];
+    disableClientSmsNotifications?: boolean;
+    discounts?: Discount[];
+    displayInWidget?: boolean;
+    duration?: number;
+    exceptions?: any[];
+    extraDescription?: string;
+    extraLink?: string;
+    forPay?: boolean;
+    images?: string[];
+    isOther?: boolean;
+    isTelemed?: boolean;
+    lastModified?: Date;
+    leaves?: string[];
+    manualChanges?: boolean;
+    newTaxonomy?: boolean;
+    onlineMode?: OnlineMode;
+    onlyAfterTaxonomies?: string[];
+    order?: number;
+    parallelTaxonomies?: string[];
+    popularity?: number;
+    price?: PurplePrice;
+    priceLink?: string;
     /**
-     * внутренний идентификатор работника; уникальный во всей системе GBooking
+     * Список видов приема услуги
+     */
+    receptionTypes?: string[];
+    rooms?: string[];
+    showcaseItems?: PurpleShowcaseItem[];
+    showcases?: PurpleTaxonomyShowcase[];
+    /**
+     * Идентификатор услуги в витрине
+     */
+    showcaseTaxonomyID?: string;
+    /**
+     * Внешний идентификатор таксономии
+     */
+    siteId?: string;
+    specialCabinet?: string;
+    taxonomyAppExtraID?: string;
+    taxonomyCategoryExtraID?: string;
+    taxonomyParentID?: string;
+    taxonomyType?: TaxonomyType;
+    timetable?: Timetable;
+    useConfirmationSmsAlert?: boolean;
+    visitType?: string;
+}
+export interface PurpleAdditionalDuration {
+    duration?: number | null;
+    level?: number;
+}
+export interface AdditionalBusinessTaxonomyPrice {
+    /**
+     * Значение цены
+     */
+    amount?: string;
+    /**
+     * Аббревиатура валюты
+     */
+    currency: CurrencyList;
+    /**
+     * "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+     */
+    resourceLevel: number;
+    /**
+     * Значение цены, с учётом промо акций
+     */
+    stockAmount: null | string;
+    /**
+     * Тип цены
+     */
+    type?: AdditionalPriceType;
+}
+/**
+ * Тип цены
+ */
+export declare enum AdditionalPriceType {
+    Average = "average",
+    BeginWith = "begin_with",
+    Equal = "equal"
+}
+export interface PurpleBusinessTaxonomyProduct {
+    /**
+     * Дополнительный ID товара
+     */
+    extraID: string;
+    /**
+     * ID товара
      */
     id: string;
     /**
-     * информация из внешней информационной системы как есть (при интеграции)
+     * Является ли обязательным при выполнении данной услуги
      */
-    additionalExtraId?: string[];
-    badIconResolution?: boolean;
+    required: boolean;
+}
+export interface PurpleAdjacentTaxonomy {
+    isAnyAvailable?: boolean;
+    order?: number;
+    slotDuration?: number;
+    taxonomyID?: string;
+}
+export declare enum ChildrenTaxonomyType {
+    Child = "child",
+    None = "none",
+    Parent = "parent"
+}
+export declare enum DateLimitType {
+    AllDates = "all_dates",
+    FromDate = "from_date",
+    RangeDates = "range_dates",
+    ToDate = "to_date"
+}
+export interface PurpleDateLimit {
+    _id?: string;
+    dateLimitFrom?: Date;
+    dateLimitTo?: Date;
+}
+/**
+ * Информация о скидке
+ */
+export interface Discount {
+    active?: boolean;
+    daysOfWeek?: DaysOfWeek;
+    repeats?: Repeats;
+    slots?: Slots;
+    start?: Date;
+    unlimWeeklyRepeat?: boolean;
+    weeklyRepeat?: number;
+}
+export declare enum DaysOfWeek {
+    Fri = "fri",
+    Mon = "mon",
+    Sat = "sat",
+    Sun = "sun",
+    Thu = "thu",
+    Tue = "tue",
+    Wed = "wed"
+}
+export declare enum Repeats {
+    Daily = "daily",
+    None = "none",
+    Weekly = "weekly"
+}
+export interface Slots {
+    time?: TimeFrame;
+}
+export declare enum OnlineMode {
+    OncallOnline = "ONCALL_ONLINE",
+    PlanClinic = "PLAN_CLINIC",
+    PlanClinicOnline = "PLAN_CLINIC_ONLINE",
+    PlanOnline = "PLAN_ONLINE"
+}
+export interface PurplePrice {
     /**
-     * Количество записей, которые может принимать работник единовременно
+     * Значение цены
      */
-    capacity?: number;
+    amount: string;
     /**
-     * цвет колонки с работником
+     * Аббревиатура валюты (например, RUB - рубль)
      */
-    color?: string;
-    degree?: string;
+    currency: CurrencyList;
     /**
-     * идентификатор отделения, к которому привязан работник
+     * Значение цены, с учётом промо акций
      */
-    departmentId?: string;
+    stockAmount?: null | string;
     /**
-     * краткое описание работника
+     * Тип цены
      */
-    description?: string;
-    displayInSchedule?: boolean;
+    type: AdditionalPriceType;
+}
+export interface PurpleShowcaseItem {
+    _id?: string;
+    additionalDurations?: FluffyAdditionalDuration[];
+    businessID?: string;
     /**
-     * отображать ли данного работника на виджете или любом другом клиенте
+     * Список видов приема услуги
      */
-    displayInWidget?: boolean;
+    receptionTypes?: string[];
+    taxonomyID?: string;
+}
+export interface FluffyAdditionalDuration {
+    _id?: string;
+    duration?: number;
     /**
-     * e-mail работника
-     */
-    email?: string;
-    /**
-     * включена ли отправка e-mail уведомлений для данного работника
-     */
-    emailEnabled?: boolean;
-    evenOddTimetable?: EvenOddTimetable;
-    exceptions?: any[];
-    experience?: Date;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    extraDescription?: string;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    extraLink?: string;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    extraMediaId?: string;
-    /**
-     * url изображения работника; Если указан относительный путь, то используйте
-     * http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
-     * WidgetConfiguration.defaultWorkerImgUrl)
-     */
-    icon_url?: null | string;
-    image?: string;
-    lastSU?: Date;
-    /**
-     * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+     * поддержка различной длительности услуг в зависимости от работника
      */
     level?: number;
-    /**
-     * не используется
-     */
-    loaned?: boolean;
-    /**
-     * не используется
-     */
-    loanedFrom?: string;
-    /**
-     * не используется
-     */
-    loanedTo?: string;
-    location?: ResourceLocation;
-    manualChanges?: boolean;
-    /**
-     * отчество работника
-     */
-    middleName?: string;
-    /**
-     * имя работника
-     */
-    name?: string;
-    /**
-     * внутреннее название работника в Бекофис
-     */
-    nickname?: string;
-    /**
-     * индекс сортировки работника
-     */
-    order?: number;
-    /**
-     * вес работника, в зависимости от указанного способа сортировки
-     */
-    orderWeight?: OrderWeight;
-    /**
-     * (только в витрине) объект с данными бизнеса-филиала
-     */
-    origin_general_info?: Info;
-    /**
-     * (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
-     */
+}
+export interface PurpleTaxonomyShowcase {
+    baseBusinessID?: string;
+    isBaseNode?: boolean;
     originBusinessID?: string;
-    /**
-     * (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
-     * работник
-     */
-    originTaxonomies?: string[];
-    /**
-     * особый навык
-     */
-    perk?: string;
-    phone?: FaxElement[];
-    /**
-     * информация о профессии работника, используется в Бекофис
-     */
-    profession?: string;
-    profile?: ИнформацияОПрофилеРаботника;
-    /**
-     * Рейтинг работника
-     */
-    rating?: number;
-    readonlyTaxonomies?: string[];
-    /**
-     * Версия изменений документа
-     */
-    revisionVersion?: number;
-    scheduleIsEmpty?: boolean;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    siteId?: string;
-    /**
-     * включена ли отправка смс уведомлений для данного работника
-     */
-    smsEnabled?: boolean;
-    status?: ResourceStatus;
-    /**
-     * фамилия и отчество работника
-     */
-    surname?: string;
-    /**
-     * массив идентификаторов услуг, которые выполняет работник
-     */
-    taxonomies?: string[];
-    /**
-     * массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
-     * оба или не указаны вовсе для услуги)
-     */
-    taxonomyChildren?: ResourceTaxonomyChildren[];
-    /**
-     * массив уровня скорости выполнения услуги (см так же Resource level)
-     */
-    taxonomyLevels?: ResourceTaxonomyLevel[];
-    telemedData?: TelemedDataObject;
-    timetable?: Timetable;
-    userData?: {
-        [key: string]: any;
-    };
-    /**
-     * рабочее место, которое занимает работник
-     */
-    workPlace?: string;
+    showcaseItemID?: string;
+}
+export declare enum TaxonomyType {
+    Category = "CATEGORY",
+    Service = "SERVICE",
+    Subcategory = "SUBCATEGORY"
 }
 /**
  * Данные для телемед конференции
@@ -2040,10 +2093,10 @@ export interface AppointmentReserve {
 }
 export interface AppointmentObject {
     duration?: number;
-    price?: PurplePrice;
+    price?: FluffyPrice;
     start: string;
 }
-export interface PurplePrice {
+export interface FluffyPrice {
     additionalTaxonomyDiscount?: FluffyAdditionalTaxonomyDiscount[];
     amount?: number;
     currency: CurrencyList;
@@ -2748,14 +2801,14 @@ export interface Resource {
 }
 export interface InfoTaxonomy {
     active?: boolean;
-    additionalDurations?: PurpleAdditionalDuration[];
+    additionalDurations?: TentacledAdditionalDuration[];
     additionalPrices?: PurpleBusinessTaxonomyPrice[];
-    additionalProducts?: PurpleBusinessTaxonomyProduct[];
+    additionalProducts?: FluffyBusinessTaxonomyProduct[];
     additionalTaxonomyExtraId?: {
         [key: string]: any;
     }[];
     adjacentSameTimeStart?: boolean;
-    adjacentTaxonomies?: PurpleAdjacentTaxonomy[];
+    adjacentTaxonomies?: FluffyAdjacentTaxonomy[];
     alias?: {
         [key: string]: any;
     };
@@ -2773,7 +2826,7 @@ export interface InfoTaxonomy {
     confirmationAlert?: string;
     confirmationEmailAlert?: string;
     confirmationSmsAlert?: string;
-    dateLimits?: PurpleDateLimit[];
+    dateLimits?: FluffyDateLimit[];
     dateLimitType?: DateLimitType;
     designs?: string[];
     disableClientSmsNotifications?: boolean;
@@ -2798,15 +2851,15 @@ export interface InfoTaxonomy {
     order?: number;
     parallelTaxonomies?: string[];
     popularity?: number;
-    price?: FluffyPrice;
+    price?: TentacledPrice;
     priceLink?: string;
     /**
      * Список видов приема услуги
      */
     receptionTypes?: string[];
     rooms?: string[];
-    showcaseItems?: PurpleShowcaseItem[];
-    showcases?: PurpleTaxonomyShowcase[];
+    showcaseItems?: FluffyShowcaseItem[];
+    showcases?: FluffyTaxonomyShowcase[];
     /**
      * Идентификатор услуги в витрине
      */
@@ -2824,7 +2877,7 @@ export interface InfoTaxonomy {
     useConfirmationSmsAlert?: boolean;
     visitType?: string;
 }
-export interface PurpleAdditionalDuration {
+export interface TentacledAdditionalDuration {
     duration?: number | null;
     level?: number;
 }
@@ -2850,15 +2903,7 @@ export interface PurpleBusinessTaxonomyPrice {
      */
     type?: AdditionalPriceType;
 }
-/**
- * Тип цены
- */
-export declare enum AdditionalPriceType {
-    Average = "average",
-    BeginWith = "begin_with",
-    Equal = "equal"
-}
-export interface PurpleBusinessTaxonomyProduct {
+export interface FluffyBusinessTaxonomyProduct {
     /**
      * Дополнительный ID товара
      */
@@ -2872,64 +2917,18 @@ export interface PurpleBusinessTaxonomyProduct {
      */
     required: boolean;
 }
-export interface PurpleAdjacentTaxonomy {
+export interface FluffyAdjacentTaxonomy {
     isAnyAvailable?: boolean;
     order?: number;
     slotDuration?: number;
     taxonomyID?: string;
 }
-export declare enum ChildrenTaxonomyType {
-    Child = "child",
-    None = "none",
-    Parent = "parent"
-}
-export declare enum DateLimitType {
-    AllDates = "all_dates",
-    FromDate = "from_date",
-    RangeDates = "range_dates",
-    ToDate = "to_date"
-}
-export interface PurpleDateLimit {
+export interface FluffyDateLimit {
     _id?: string;
     dateLimitFrom?: Date;
     dateLimitTo?: Date;
 }
-/**
- * Информация о скидке
- */
-export interface Discount {
-    active?: boolean;
-    daysOfWeek?: DaysOfWeek;
-    repeats?: Repeats;
-    slots?: Slots;
-    start?: Date;
-    unlimWeeklyRepeat?: boolean;
-    weeklyRepeat?: number;
-}
-export declare enum DaysOfWeek {
-    Fri = "fri",
-    Mon = "mon",
-    Sat = "sat",
-    Sun = "sun",
-    Thu = "thu",
-    Tue = "tue",
-    Wed = "wed"
-}
-export declare enum Repeats {
-    Daily = "daily",
-    None = "none",
-    Weekly = "weekly"
-}
-export interface Slots {
-    time?: TimeFrame;
-}
-export declare enum OnlineMode {
-    OncallOnline = "ONCALL_ONLINE",
-    PlanClinic = "PLAN_CLINIC",
-    PlanClinicOnline = "PLAN_CLINIC_ONLINE",
-    PlanOnline = "PLAN_ONLINE"
-}
-export interface FluffyPrice {
+export interface TentacledPrice {
     /**
      * Значение цены
      */
@@ -2947,9 +2946,9 @@ export interface FluffyPrice {
      */
     type: AdditionalPriceType;
 }
-export interface PurpleShowcaseItem {
+export interface FluffyShowcaseItem {
     _id?: string;
-    additionalDurations?: FluffyAdditionalDuration[];
+    additionalDurations?: StickyAdditionalDuration[];
     businessID?: string;
     /**
      * Список видов приема услуги
@@ -2957,7 +2956,7 @@ export interface PurpleShowcaseItem {
     receptionTypes?: string[];
     taxonomyID?: string;
 }
-export interface FluffyAdditionalDuration {
+export interface StickyAdditionalDuration {
     _id?: string;
     duration?: number;
     /**
@@ -2965,16 +2964,11 @@ export interface FluffyAdditionalDuration {
      */
     level?: number;
 }
-export interface PurpleTaxonomyShowcase {
+export interface FluffyTaxonomyShowcase {
     baseBusinessID?: string;
     isBaseNode?: boolean;
     originBusinessID?: string;
     showcaseItemID?: string;
-}
-export declare enum TaxonomyType {
-    Category = "CATEGORY",
-    Service = "SERVICE",
-    Subcategory = "SUBCATEGORY"
 }
 export interface InfoTaxonomiesComplex {
     name?: string;
@@ -3547,14 +3541,14 @@ export interface BusinessMiniWidgetConfiguration {
 }
 export interface BusinessTaxonomy {
     active?: boolean;
-    additionalDurations?: TentacledAdditionalDuration[];
+    additionalDurations?: IndigoAdditionalDuration[];
     additionalPrices?: FluffyBusinessTaxonomyPrice[];
-    additionalProducts?: FluffyBusinessTaxonomyProduct[];
+    additionalProducts?: TentacledBusinessTaxonomyProduct[];
     additionalTaxonomyExtraId?: {
         [key: string]: any;
     }[];
     adjacentSameTimeStart?: boolean;
-    adjacentTaxonomies?: FluffyAdjacentTaxonomy[];
+    adjacentTaxonomies?: TentacledAdjacentTaxonomy[];
     alias?: {
         [key: string]: any;
     };
@@ -3572,7 +3566,7 @@ export interface BusinessTaxonomy {
     confirmationAlert?: string;
     confirmationEmailAlert?: string;
     confirmationSmsAlert?: string;
-    dateLimits?: FluffyDateLimit[];
+    dateLimits?: TentacledDateLimit[];
     dateLimitType?: DateLimitType;
     designs?: string[];
     disableClientSmsNotifications?: boolean;
@@ -3597,15 +3591,15 @@ export interface BusinessTaxonomy {
     order?: number;
     parallelTaxonomies?: string[];
     popularity?: number;
-    price?: TentacledPrice;
+    price?: StickyPrice;
     priceLink?: string;
     /**
      * Список видов приема услуги
      */
     receptionTypes?: string[];
     rooms?: string[];
-    showcaseItems?: FluffyShowcaseItem[];
-    showcases?: FluffyTaxonomyShowcase[];
+    showcaseItems?: TentacledShowcaseItem[];
+    showcases?: TentacledTaxonomyShowcase[];
     /**
      * Идентификатор услуги в витрине
      */
@@ -3623,7 +3617,7 @@ export interface BusinessTaxonomy {
     useConfirmationSmsAlert?: boolean;
     visitType?: string;
 }
-export interface TentacledAdditionalDuration {
+export interface IndigoAdditionalDuration {
     duration?: number | null;
     level?: number;
 }
@@ -3649,7 +3643,7 @@ export interface FluffyBusinessTaxonomyPrice {
      */
     type?: AdditionalPriceType;
 }
-export interface FluffyBusinessTaxonomyProduct {
+export interface TentacledBusinessTaxonomyProduct {
     /**
      * Дополнительный ID товара
      */
@@ -3663,18 +3657,18 @@ export interface FluffyBusinessTaxonomyProduct {
      */
     required: boolean;
 }
-export interface FluffyAdjacentTaxonomy {
+export interface TentacledAdjacentTaxonomy {
     isAnyAvailable?: boolean;
     order?: number;
     slotDuration?: number;
     taxonomyID?: string;
 }
-export interface FluffyDateLimit {
+export interface TentacledDateLimit {
     _id?: string;
     dateLimitFrom?: Date;
     dateLimitTo?: Date;
 }
-export interface TentacledPrice {
+export interface StickyPrice {
     /**
      * Значение цены
      */
@@ -3692,9 +3686,9 @@ export interface TentacledPrice {
      */
     type: AdditionalPriceType;
 }
-export interface FluffyShowcaseItem {
+export interface TentacledShowcaseItem {
     _id?: string;
-    additionalDurations?: StickyAdditionalDuration[];
+    additionalDurations?: IndecentAdditionalDuration[];
     businessID?: string;
     /**
      * Список видов приема услуги
@@ -3702,7 +3696,7 @@ export interface FluffyShowcaseItem {
     receptionTypes?: string[];
     taxonomyID?: string;
 }
-export interface StickyAdditionalDuration {
+export interface IndecentAdditionalDuration {
     _id?: string;
     duration?: number;
     /**
@@ -3710,7 +3704,7 @@ export interface StickyAdditionalDuration {
      */
     level?: number;
 }
-export interface FluffyTaxonomyShowcase {
+export interface TentacledTaxonomyShowcase {
     baseBusinessID?: string;
     isBaseNode?: boolean;
     originBusinessID?: string;

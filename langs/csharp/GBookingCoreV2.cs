@@ -765,7 +765,7 @@ namespace GBookingCoreV2
         public string Source { get; set; }
 
         [JsonProperty("taxonomy")]
-        public TaxonomyClass Taxonomy { get; set; }
+        public ResultTaxonomy Taxonomy { get; set; }
 
         /// <summary>
         /// Данные для телемед конференции
@@ -2240,16 +2240,16 @@ namespace GBookingCoreV2
     public partial class Review
     {
         [JsonProperty("business")]
-        public WorkerClass Business { get; set; }
+        public TaxonomyClass Business { get; set; }
 
         [JsonProperty("taxonomy")]
-        public WorkerClass Taxonomy { get; set; }
+        public TaxonomyClass Taxonomy { get; set; }
 
         [JsonProperty("worker")]
-        public WorkerClass Worker { get; set; }
+        public TaxonomyClass Worker { get; set; }
     }
 
-    public partial class WorkerClass
+    public partial class TaxonomyClass
     {
         [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
         public string Comment { get; set; }
@@ -2271,292 +2271,408 @@ namespace GBookingCoreV2
     }
 
     /// <summary>
-    /// Данные о работнике бизнеса
+    /// Данные о услуге бизнеса
     /// </summary>
-    public partial class TaxonomyClass
+    public partial class ResultTaxonomy
     {
         [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
-        public string Alias { get; set; }
+        public Data? Alias { get; set; }
 
-        /// <summary>
-        /// информация из внешней информационной системы как есть (при интеграции)
-        /// </summary>
         [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
         public string ExtraId { get; set; }
 
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleAdditionalDuration> AdditionalDurations { get; set; }
+
+        [JsonProperty("additionalPrices", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AdditionalBusinessTaxonomyPrice> AdditionalPrices { get; set; }
+
+        [JsonProperty("additionalProducts", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleBusinessTaxonomyProduct> AdditionalProducts { get; set; }
+
+        [JsonProperty("additionalTaxonomyExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> AdditionalTaxonomyExtraId { get; set; }
+
+        [JsonProperty("adjacentSameTimeStart", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AdjacentSameTimeStart { get; set; }
+
+        [JsonProperty("adjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
+
+        [JsonProperty("allowBookingInBO", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AllowBookingInBo { get; set; }
+
+        [JsonProperty("allowNextBookingCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AllowNextBookingCount { get; set; }
+
+        [JsonProperty("allowNextBookingInDays", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AllowNextBookingInDays { get; set; }
+
+        [JsonProperty("allowNextBookingInDaysText", NullValueHandling = NullValueHandling.Ignore)]
+        public string AllowNextBookingInDaysText { get; set; }
+
+        [JsonProperty("cabinets", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Cabinets { get; set; }
+
+        [JsonProperty("cabinetsEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? CabinetsEnabled { get; set; }
+
+        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Capacity { get; set; }
+
+        [JsonProperty("capacity_decrease", NullValueHandling = NullValueHandling.Ignore)]
+        public double? CapacityDecrease { get; set; }
+
+        [JsonProperty("chargeUnitsStep", NullValueHandling = NullValueHandling.Ignore)]
+        public double? ChargeUnitsStep { get; set; }
+
+        [JsonProperty("childrenTaxonomyTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ChildrenTaxonomyType> ChildrenTaxonomyTypes { get; set; }
+
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public string Color { get; set; }
+
+        [JsonProperty("confirmationAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationAlert { get; set; }
+
+        [JsonProperty("confirmationEmailAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationEmailAlert { get; set; }
+
+        [JsonProperty("confirmationSmsAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public string ConfirmationSmsAlert { get; set; }
+
+        [JsonProperty("dateLimits", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleDateLimit> DateLimits { get; set; }
+
+        [JsonProperty("dateLimitType", NullValueHandling = NullValueHandling.Ignore)]
+        public DateLimitType? DateLimitType { get; set; }
+
+        [JsonProperty("designs", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Designs { get; set; }
+
+        [JsonProperty("disableClientSmsNotifications", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisableClientSmsNotifications { get; set; }
+
+        [JsonProperty("discounts", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Discount> Discounts { get; set; }
+
+        [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisplayInWidget { get; set; }
+
+        [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Duration { get; set; }
+
+        [JsonProperty("exceptions", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Exceptions { get; set; }
+
+        [JsonProperty("extraDescription", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraDescription { get; set; }
+
+        [JsonProperty("extraLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraLink { get; set; }
+
+        [JsonProperty("forPay", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ForPay { get; set; }
+
+        [JsonProperty("images", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Images { get; set; }
+
+        [JsonProperty("isOther", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsOther { get; set; }
+
+        [JsonProperty("isTelemed", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsTelemed { get; set; }
+
+        [JsonProperty("lastModified", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? LastModified { get; set; }
+
+        [JsonProperty("leaves", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Leaves { get; set; }
+
+        [JsonProperty("manualChanges", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ManualChanges { get; set; }
+
+        [JsonProperty("newTaxonomy", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? NewTaxonomy { get; set; }
+
+        [JsonProperty("onlineMode", NullValueHandling = NullValueHandling.Ignore)]
+        public OnlineMode? OnlineMode { get; set; }
+
+        [JsonProperty("onlyAfterTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> OnlyAfterTaxonomies { get; set; }
+
+        [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Order { get; set; }
+
+        [JsonProperty("parallelTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ParallelTaxonomies { get; set; }
+
+        [JsonProperty("popularity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Popularity { get; set; }
+
+        [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
+        public PurplePrice Price { get; set; }
+
+        [JsonProperty("priceLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string PriceLink { get; set; }
+
         /// <summary>
-        /// внутренний идентификатор работника; уникальный во всей системе GBooking
+        /// Список видов приема услуги
+        /// </summary>
+        [JsonProperty("receptionTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReceptionTypes { get; set; }
+
+        [JsonProperty("rooms", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Rooms { get; set; }
+
+        [JsonProperty("showcaseItems", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleShowcaseItem> ShowcaseItems { get; set; }
+
+        [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleTaxonomyShowcase> Showcases { get; set; }
+
+        /// <summary>
+        /// Идентификатор услуги в витрине
+        /// </summary>
+        [JsonProperty("showcaseTaxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShowcaseTaxonomyId { get; set; }
+
+        /// <summary>
+        /// Внешний идентификатор таксономии
+        /// </summary>
+        [JsonProperty("siteId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SiteId { get; set; }
+
+        [JsonProperty("specialCabinet", NullValueHandling = NullValueHandling.Ignore)]
+        public string SpecialCabinet { get; set; }
+
+        [JsonProperty("taxonomyAppExtraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyAppExtraId { get; set; }
+
+        [JsonProperty("taxonomyCategoryExtraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyCategoryExtraId { get; set; }
+
+        [JsonProperty("taxonomyParentID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyParentId { get; set; }
+
+        [JsonProperty("taxonomyType", NullValueHandling = NullValueHandling.Ignore)]
+        public TaxonomyType? TaxonomyType { get; set; }
+
+        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
+        public Timetable Timetable { get; set; }
+
+        [JsonProperty("useConfirmationSmsAlert", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UseConfirmationSmsAlert { get; set; }
+
+        [JsonProperty("visitType", NullValueHandling = NullValueHandling.Ignore)]
+        public string VisitType { get; set; }
+    }
+
+    public partial class PurpleAdditionalDuration
+    {
+        [JsonProperty("duration")]
+        public double? Duration { get; set; }
+
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Level { get; set; }
+    }
+
+    public partial class AdditionalBusinessTaxonomyPrice
+    {
+        /// <summary>
+        /// Значение цены
+        /// </summary>
+        [JsonProperty("amount", NullValueHandling = NullValueHandling.Ignore)]
+        public string Amount { get; set; }
+
+        /// <summary>
+        /// Аббревиатура валюты
+        /// </summary>
+        [JsonProperty("currency")]
+        public CurrencyList Currency { get; set; }
+
+        /// <summary>
+        /// "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+        /// </summary>
+        [JsonProperty("resourceLevel")]
+        public double ResourceLevel { get; set; }
+
+        /// <summary>
+        /// Значение цены, с учётом промо акций
+        /// </summary>
+        [JsonProperty("stockAmount")]
+        public string StockAmount { get; set; }
+
+        /// <summary>
+        /// Тип цены
+        /// </summary>
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public AdditionalPriceType? Type { get; set; }
+    }
+
+    public partial class PurpleBusinessTaxonomyProduct
+    {
+        /// <summary>
+        /// Дополнительный ID товара
+        /// </summary>
+        [JsonProperty("extraID")]
+        public string ExtraId { get; set; }
+
+        /// <summary>
+        /// ID товара
         /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; }
 
         /// <summary>
-        /// информация из внешней информационной системы как есть (при интеграции)
+        /// Является ли обязательным при выполнении данной услуги
         /// </summary>
-        [JsonProperty("additionalExtraId", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> AdditionalExtraId { get; set; }
+        [JsonProperty("required")]
+        public bool BusinessTaxonomyProductRequired { get; set; }
+    }
 
-        [JsonProperty("badIconResolution", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? BadIconResolution { get; set; }
+    public partial class PurpleAdjacentTaxonomy
+    {
+        [JsonProperty("isAnyAvailable", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsAnyAvailable { get; set; }
 
-        /// <summary>
-        /// Количество записей, которые может принимать работник единовременно
-        /// </summary>
-        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Capacity { get; set; }
-
-        /// <summary>
-        /// цвет колонки с работником
-        /// </summary>
-        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
-        public string Color { get; set; }
-
-        [JsonProperty("degree", NullValueHandling = NullValueHandling.Ignore)]
-        public string Degree { get; set; }
-
-        /// <summary>
-        /// идентификатор отделения, к которому привязан работник
-        /// </summary>
-        [JsonProperty("departmentId", NullValueHandling = NullValueHandling.Ignore)]
-        public string DepartmentId { get; set; }
-
-        /// <summary>
-        /// краткое описание работника
-        /// </summary>
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        [JsonProperty("displayInSchedule", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DisplayInSchedule { get; set; }
-
-        /// <summary>
-        /// отображать ли данного работника на виджете или любом другом клиенте
-        /// </summary>
-        [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? DisplayInWidget { get; set; }
-
-        /// <summary>
-        /// e-mail работника
-        /// </summary>
-        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; set; }
-
-        /// <summary>
-        /// включена ли отправка e-mail уведомлений для данного работника
-        /// </summary>
-        [JsonProperty("emailEnabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? EmailEnabled { get; set; }
-
-        [JsonProperty("evenOddTimetable", NullValueHandling = NullValueHandling.Ignore)]
-        public EvenOddTimetable EvenOddTimetable { get; set; }
-
-        [JsonProperty("exceptions", NullValueHandling = NullValueHandling.Ignore)]
-        public List<object> Exceptions { get; set; }
-
-        [JsonProperty("experience", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Experience { get; set; }
-
-        /// <summary>
-        /// информация из внешней информационной системы как есть (при интеграции)
-        /// </summary>
-        [JsonProperty("extraDescription", NullValueHandling = NullValueHandling.Ignore)]
-        public string ExtraDescription { get; set; }
-
-        /// <summary>
-        /// информация из внешней информационной системы как есть (при интеграции)
-        /// </summary>
-        [JsonProperty("extraLink", NullValueHandling = NullValueHandling.Ignore)]
-        public string ExtraLink { get; set; }
-
-        /// <summary>
-        /// информация из внешней информационной системы как есть (при интеграции)
-        /// </summary>
-        [JsonProperty("extraMediaId", NullValueHandling = NullValueHandling.Ignore)]
-        public string ExtraMediaId { get; set; }
-
-        /// <summary>
-        /// url изображения работника; Если указан относительный путь, то используйте
-        /// http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
-        /// WidgetConfiguration.defaultWorkerImgUrl)
-        /// </summary>
-        [JsonProperty("icon_url")]
-        public string IconUrl { get; set; }
-
-        [JsonProperty("image", NullValueHandling = NullValueHandling.Ignore)]
-        public string Image { get; set; }
-
-        [JsonProperty("lastSU", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? LastSu { get; set; }
-
-        /// <summary>
-        /// уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
-        /// </summary>
-        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Level { get; set; }
-
-        /// <summary>
-        /// не используется
-        /// </summary>
-        [JsonProperty("loaned", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Loaned { get; set; }
-
-        /// <summary>
-        /// не используется
-        /// </summary>
-        [JsonProperty("loanedFrom", NullValueHandling = NullValueHandling.Ignore)]
-        public string LoanedFrom { get; set; }
-
-        /// <summary>
-        /// не используется
-        /// </summary>
-        [JsonProperty("loanedTo", NullValueHandling = NullValueHandling.Ignore)]
-        public string LoanedTo { get; set; }
-
-        [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
-        public ResourceLocation Location { get; set; }
-
-        [JsonProperty("manualChanges", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ManualChanges { get; set; }
-
-        /// <summary>
-        /// отчество работника
-        /// </summary>
-        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
-        public string MiddleName { get; set; }
-
-        /// <summary>
-        /// имя работника
-        /// </summary>
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// внутреннее название работника в Бекофис
-        /// </summary>
-        [JsonProperty("nickname", NullValueHandling = NullValueHandling.Ignore)]
-        public string Nickname { get; set; }
-
-        /// <summary>
-        /// индекс сортировки работника
-        /// </summary>
         [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
         public double? Order { get; set; }
 
+        [JsonProperty("slotDuration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? SlotDuration { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
+    }
+
+    public partial class PurpleDateLimit
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("dateLimitFrom", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? DateLimitFrom { get; set; }
+
+        [JsonProperty("dateLimitTo", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? DateLimitTo { get; set; }
+    }
+
+    /// <summary>
+    /// Информация о скидке
+    /// </summary>
+    public partial class Discount
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("daysOfWeek", NullValueHandling = NullValueHandling.Ignore)]
+        public DaysOfWeek? DaysOfWeek { get; set; }
+
+        [JsonProperty("repeats", NullValueHandling = NullValueHandling.Ignore)]
+        public Repeats? Repeats { get; set; }
+
+        [JsonProperty("slots", NullValueHandling = NullValueHandling.Ignore)]
+        public Slots Slots { get; set; }
+
+        [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Start { get; set; }
+
+        [JsonProperty("unlimWeeklyRepeat", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? UnlimWeeklyRepeat { get; set; }
+
+        [JsonProperty("weeklyRepeat", NullValueHandling = NullValueHandling.Ignore)]
+        public double? WeeklyRepeat { get; set; }
+    }
+
+    public partial class Slots
+    {
+        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
+        public TimeFrame Time { get; set; }
+    }
+
+    public partial class PurplePrice
+    {
         /// <summary>
-        /// вес работника, в зависимости от указанного способа сортировки
+        /// Значение цены
         /// </summary>
-        [JsonProperty("orderWeight")]
-        public OrderWeight? OrderWeight { get; set; }
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
 
         /// <summary>
-        /// (только в витрине) объект с данными бизнеса-филиала
+        /// Аббревиатура валюты (например, RUB - рубль)
         /// </summary>
-        [JsonProperty("origin_general_info", NullValueHandling = NullValueHandling.Ignore)]
-        public Info OriginGeneralInfo { get; set; }
+        [JsonProperty("currency")]
+        public CurrencyList Currency { get; set; }
 
         /// <summary>
-        /// (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+        /// Значение цены, с учётом промо акций
         /// </summary>
+        [JsonProperty("stockAmount")]
+        public string StockAmount { get; set; }
+
+        /// <summary>
+        /// Тип цены
+        /// </summary>
+        [JsonProperty("type")]
+        public AdditionalPriceType Type { get; set; }
+    }
+
+    public partial class PurpleShowcaseItem
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FluffyAdditionalDuration> AdditionalDurations { get; set; }
+
+        [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BusinessId { get; set; }
+
+        /// <summary>
+        /// Список видов приема услуги
+        /// </summary>
+        [JsonProperty("receptionTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReceptionTypes { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
+    }
+
+    public partial class FluffyAdditionalDuration
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Duration { get; set; }
+
+        /// <summary>
+        /// поддержка различной длительности услуг в зависимости от работника
+        /// </summary>
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Level { get; set; }
+    }
+
+    public partial class PurpleTaxonomyShowcase
+    {
+        [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BaseBusinessId { get; set; }
+
+        [JsonProperty("isBaseNode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsBaseNode { get; set; }
+
         [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
         public string OriginBusinessId { get; set; }
 
-        /// <summary>
-        /// (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
-        /// работник
-        /// </summary>
-        [JsonProperty("originTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> OriginTaxonomies { get; set; }
-
-        /// <summary>
-        /// особый навык
-        /// </summary>
-        [JsonProperty("perk", NullValueHandling = NullValueHandling.Ignore)]
-        public string Perk { get; set; }
-
-        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FaxElement> Phone { get; set; }
-
-        /// <summary>
-        /// информация о профессии работника, используется в Бекофис
-        /// </summary>
-        [JsonProperty("profession", NullValueHandling = NullValueHandling.Ignore)]
-        public string Profession { get; set; }
-
-        [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
-        public ИнформацияОПрофилеРаботника Profile { get; set; }
-
-        /// <summary>
-        /// Рейтинг работника
-        /// </summary>
-        [JsonProperty("rating", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Rating { get; set; }
-
-        [JsonProperty("readonlyTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> ReadonlyTaxonomies { get; set; }
-
-        /// <summary>
-        /// Версия изменений документа
-        /// </summary>
-        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
-        public double? RevisionVersion { get; set; }
-
-        [JsonProperty("scheduleIsEmpty", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ScheduleIsEmpty { get; set; }
-
-        /// <summary>
-        /// информация из внешней информационной системы как есть (при интеграции)
-        /// </summary>
-        [JsonProperty("siteId", NullValueHandling = NullValueHandling.Ignore)]
-        public string SiteId { get; set; }
-
-        /// <summary>
-        /// включена ли отправка смс уведомлений для данного работника
-        /// </summary>
-        [JsonProperty("smsEnabled", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SmsEnabled { get; set; }
-
-        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
-        public ResourceStatus? Status { get; set; }
-
-        /// <summary>
-        /// фамилия и отчество работника
-        /// </summary>
-        [JsonProperty("surname", NullValueHandling = NullValueHandling.Ignore)]
-        public string Surname { get; set; }
-
-        /// <summary>
-        /// массив идентификаторов услуг, которые выполняет работник
-        /// </summary>
-        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Taxonomies { get; set; }
-
-        /// <summary>
-        /// массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
-        /// оба или не указаны вовсе для услуги)
-        /// </summary>
-        [JsonProperty("taxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ResourceTaxonomyChildren> TaxonomyChildren { get; set; }
-
-        /// <summary>
-        /// массив уровня скорости выполнения услуги (см так же Resource level)
-        /// </summary>
-        [JsonProperty("taxonomyLevels", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ResourceTaxonomyLevel> TaxonomyLevels { get; set; }
-
-        [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
-        public ResourceTelemedData TelemedData { get; set; }
-
-        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
-        public Timetable Timetable { get; set; }
-
-        [JsonProperty("userData", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, object> UserData { get; set; }
-
-        /// <summary>
-        /// рабочее место, которое занимает работник
-        /// </summary>
-        [JsonProperty("workPlace", NullValueHandling = NullValueHandling.Ignore)]
-        public string WorkPlace { get; set; }
+        [JsonProperty("showcaseItemID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ShowcaseItemId { get; set; }
     }
 
     /// <summary>
@@ -3472,13 +3588,13 @@ namespace GBookingCoreV2
         public double? Duration { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public PurplePrice Price { get; set; }
+        public FluffyPrice Price { get; set; }
 
         [JsonProperty("start")]
         public string Start { get; set; }
     }
 
-    public partial class PurplePrice
+    public partial class FluffyPrice
     {
         [JsonProperty("additionalTaxonomyDiscount", NullValueHandling = NullValueHandling.Ignore)]
         public List<FluffyAdditionalTaxonomyDiscount> AdditionalTaxonomyDiscount { get; set; }
@@ -4785,13 +4901,13 @@ namespace GBookingCoreV2
         public bool? Active { get; set; }
 
         [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<PurpleAdditionalDuration> AdditionalDurations { get; set; }
+        public List<TentacledAdditionalDuration> AdditionalDurations { get; set; }
 
         [JsonProperty("additionalPrices", NullValueHandling = NullValueHandling.Ignore)]
         public List<PurpleBusinessTaxonomyPrice> AdditionalPrices { get; set; }
 
         [JsonProperty("additionalProducts", NullValueHandling = NullValueHandling.Ignore)]
-        public List<PurpleBusinessTaxonomyProduct> AdditionalProducts { get; set; }
+        public List<FluffyBusinessTaxonomyProduct> AdditionalProducts { get; set; }
 
         [JsonProperty("additionalTaxonomyExtraId", NullValueHandling = NullValueHandling.Ignore)]
         public List<Dictionary<string, object>> AdditionalTaxonomyExtraId { get; set; }
@@ -4800,7 +4916,7 @@ namespace GBookingCoreV2
         public bool? AdjacentSameTimeStart { get; set; }
 
         [JsonProperty("adjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<PurpleAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
+        public List<FluffyAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
 
         [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Alias { get; set; }
@@ -4848,7 +4964,7 @@ namespace GBookingCoreV2
         public string ConfirmationSmsAlert { get; set; }
 
         [JsonProperty("dateLimits", NullValueHandling = NullValueHandling.Ignore)]
-        public List<PurpleDateLimit> DateLimits { get; set; }
+        public List<FluffyDateLimit> DateLimits { get; set; }
 
         [JsonProperty("dateLimitType", NullValueHandling = NullValueHandling.Ignore)]
         public DateLimitType? DateLimitType { get; set; }
@@ -4923,7 +5039,7 @@ namespace GBookingCoreV2
         public double? Popularity { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyPrice Price { get; set; }
+        public TentacledPrice Price { get; set; }
 
         [JsonProperty("priceLink", NullValueHandling = NullValueHandling.Ignore)]
         public string PriceLink { get; set; }
@@ -4938,10 +5054,10 @@ namespace GBookingCoreV2
         public List<string> Rooms { get; set; }
 
         [JsonProperty("showcaseItems", NullValueHandling = NullValueHandling.Ignore)]
-        public List<PurpleShowcaseItem> ShowcaseItems { get; set; }
+        public List<FluffyShowcaseItem> ShowcaseItems { get; set; }
 
         [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<PurpleTaxonomyShowcase> Showcases { get; set; }
+        public List<FluffyTaxonomyShowcase> Showcases { get; set; }
 
         /// <summary>
         /// Идентификатор услуги в витрине
@@ -4980,7 +5096,7 @@ namespace GBookingCoreV2
         public string VisitType { get; set; }
     }
 
-    public partial class PurpleAdditionalDuration
+    public partial class TentacledAdditionalDuration
     {
         [JsonProperty("duration")]
         public double? Duration { get; set; }
@@ -5022,7 +5138,7 @@ namespace GBookingCoreV2
         public AdditionalPriceType? Type { get; set; }
     }
 
-    public partial class PurpleBusinessTaxonomyProduct
+    public partial class FluffyBusinessTaxonomyProduct
     {
         /// <summary>
         /// Дополнительный ID товара
@@ -5043,7 +5159,7 @@ namespace GBookingCoreV2
         public bool BusinessTaxonomyProductRequired { get; set; }
     }
 
-    public partial class PurpleAdjacentTaxonomy
+    public partial class FluffyAdjacentTaxonomy
     {
         [JsonProperty("isAnyAvailable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsAnyAvailable { get; set; }
@@ -5058,7 +5174,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class PurpleDateLimit
+    public partial class FluffyDateLimit
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -5070,40 +5186,7 @@ namespace GBookingCoreV2
         public DateTimeOffset? DateLimitTo { get; set; }
     }
 
-    /// <summary>
-    /// Информация о скидке
-    /// </summary>
-    public partial class Discount
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("daysOfWeek", NullValueHandling = NullValueHandling.Ignore)]
-        public DaysOfWeek? DaysOfWeek { get; set; }
-
-        [JsonProperty("repeats", NullValueHandling = NullValueHandling.Ignore)]
-        public Repeats? Repeats { get; set; }
-
-        [JsonProperty("slots", NullValueHandling = NullValueHandling.Ignore)]
-        public Slots Slots { get; set; }
-
-        [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? Start { get; set; }
-
-        [JsonProperty("unlimWeeklyRepeat", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? UnlimWeeklyRepeat { get; set; }
-
-        [JsonProperty("weeklyRepeat", NullValueHandling = NullValueHandling.Ignore)]
-        public double? WeeklyRepeat { get; set; }
-    }
-
-    public partial class Slots
-    {
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public TimeFrame Time { get; set; }
-    }
-
-    public partial class FluffyPrice
+    public partial class TentacledPrice
     {
         /// <summary>
         /// Значение цены
@@ -5130,13 +5213,13 @@ namespace GBookingCoreV2
         public AdditionalPriceType Type { get; set; }
     }
 
-    public partial class PurpleShowcaseItem
+    public partial class FluffyShowcaseItem
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
         [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyAdditionalDuration> AdditionalDurations { get; set; }
+        public List<StickyAdditionalDuration> AdditionalDurations { get; set; }
 
         [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BusinessId { get; set; }
@@ -5151,7 +5234,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class FluffyAdditionalDuration
+    public partial class StickyAdditionalDuration
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -5166,7 +5249,7 @@ namespace GBookingCoreV2
         public double? Level { get; set; }
     }
 
-    public partial class PurpleTaxonomyShowcase
+    public partial class FluffyTaxonomyShowcase
     {
         [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BaseBusinessId { get; set; }
@@ -6466,13 +6549,13 @@ namespace GBookingCoreV2
         public bool? Active { get; set; }
 
         [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<TentacledAdditionalDuration> AdditionalDurations { get; set; }
+        public List<IndigoAdditionalDuration> AdditionalDurations { get; set; }
 
         [JsonProperty("additionalPrices", NullValueHandling = NullValueHandling.Ignore)]
         public List<FluffyBusinessTaxonomyPrice> AdditionalPrices { get; set; }
 
         [JsonProperty("additionalProducts", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyBusinessTaxonomyProduct> AdditionalProducts { get; set; }
+        public List<TentacledBusinessTaxonomyProduct> AdditionalProducts { get; set; }
 
         [JsonProperty("additionalTaxonomyExtraId", NullValueHandling = NullValueHandling.Ignore)]
         public List<Dictionary<string, object>> AdditionalTaxonomyExtraId { get; set; }
@@ -6481,7 +6564,7 @@ namespace GBookingCoreV2
         public bool? AdjacentSameTimeStart { get; set; }
 
         [JsonProperty("adjacentTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
+        public List<TentacledAdjacentTaxonomy> AdjacentTaxonomies { get; set; }
 
         [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Alias { get; set; }
@@ -6529,7 +6612,7 @@ namespace GBookingCoreV2
         public string ConfirmationSmsAlert { get; set; }
 
         [JsonProperty("dateLimits", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyDateLimit> DateLimits { get; set; }
+        public List<TentacledDateLimit> DateLimits { get; set; }
 
         [JsonProperty("dateLimitType", NullValueHandling = NullValueHandling.Ignore)]
         public DateLimitType? DateLimitType { get; set; }
@@ -6604,7 +6687,7 @@ namespace GBookingCoreV2
         public double? Popularity { get; set; }
 
         [JsonProperty("price", NullValueHandling = NullValueHandling.Ignore)]
-        public TentacledPrice Price { get; set; }
+        public StickyPrice Price { get; set; }
 
         [JsonProperty("priceLink", NullValueHandling = NullValueHandling.Ignore)]
         public string PriceLink { get; set; }
@@ -6619,10 +6702,10 @@ namespace GBookingCoreV2
         public List<string> Rooms { get; set; }
 
         [JsonProperty("showcaseItems", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyShowcaseItem> ShowcaseItems { get; set; }
+        public List<TentacledShowcaseItem> ShowcaseItems { get; set; }
 
         [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FluffyTaxonomyShowcase> Showcases { get; set; }
+        public List<TentacledTaxonomyShowcase> Showcases { get; set; }
 
         /// <summary>
         /// Идентификатор услуги в витрине
@@ -6661,7 +6744,7 @@ namespace GBookingCoreV2
         public string VisitType { get; set; }
     }
 
-    public partial class TentacledAdditionalDuration
+    public partial class IndigoAdditionalDuration
     {
         [JsonProperty("duration")]
         public double? Duration { get; set; }
@@ -6703,7 +6786,7 @@ namespace GBookingCoreV2
         public AdditionalPriceType? Type { get; set; }
     }
 
-    public partial class FluffyBusinessTaxonomyProduct
+    public partial class TentacledBusinessTaxonomyProduct
     {
         /// <summary>
         /// Дополнительный ID товара
@@ -6724,7 +6807,7 @@ namespace GBookingCoreV2
         public bool BusinessTaxonomyProductRequired { get; set; }
     }
 
-    public partial class FluffyAdjacentTaxonomy
+    public partial class TentacledAdjacentTaxonomy
     {
         [JsonProperty("isAnyAvailable", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsAnyAvailable { get; set; }
@@ -6739,7 +6822,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class FluffyDateLimit
+    public partial class TentacledDateLimit
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -6751,7 +6834,7 @@ namespace GBookingCoreV2
         public DateTimeOffset? DateLimitTo { get; set; }
     }
 
-    public partial class TentacledPrice
+    public partial class StickyPrice
     {
         /// <summary>
         /// Значение цены
@@ -6778,13 +6861,13 @@ namespace GBookingCoreV2
         public AdditionalPriceType Type { get; set; }
     }
 
-    public partial class FluffyShowcaseItem
+    public partial class TentacledShowcaseItem
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
 
         [JsonProperty("additionalDurations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<StickyAdditionalDuration> AdditionalDurations { get; set; }
+        public List<IndecentAdditionalDuration> AdditionalDurations { get; set; }
 
         [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BusinessId { get; set; }
@@ -6799,7 +6882,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class StickyAdditionalDuration
+    public partial class IndecentAdditionalDuration
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
@@ -6814,7 +6897,7 @@ namespace GBookingCoreV2
         public double? Level { get; set; }
     }
 
-    public partial class FluffyTaxonomyShowcase
+    public partial class TentacledTaxonomyShowcase
     {
         [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BaseBusinessId { get; set; }
@@ -9221,6 +9304,23 @@ namespace GBookingCoreV2
 
     public enum ResourceStatus { Active, Inactive };
 
+    /// <summary>
+    /// Тип цены
+    /// </summary>
+    public enum AdditionalPriceType { Average, BeginWith, Equal };
+
+    public enum ChildrenTaxonomyType { Child, None, Parent };
+
+    public enum DateLimitType { AllDates, FromDate, RangeDates, ToDate };
+
+    public enum DaysOfWeek { Fri, Mon, Sat, Sun, Thu, Tue, Wed };
+
+    public enum Repeats { Daily, None, Weekly };
+
+    public enum OnlineMode { OncallOnline, PlanClinic, PlanClinicOnline, PlanOnline };
+
+    public enum TaxonomyType { Category, Service, Subcategory };
+
     public enum Dir { Asc, Desc };
 
     public enum SortField { Created, Start };
@@ -9244,23 +9344,6 @@ namespace GBookingCoreV2
     public enum Group { French, General, Hungarian, Latvian };
 
     public enum FieldElement { Email, Name, Surname };
-
-    /// <summary>
-    /// Тип цены
-    /// </summary>
-    public enum AdditionalPriceType { Average, BeginWith, Equal };
-
-    public enum ChildrenTaxonomyType { Child, None, Parent };
-
-    public enum DateLimitType { AllDates, FromDate, RangeDates, ToDate };
-
-    public enum DaysOfWeek { Fri, Mon, Sat, Sun, Thu, Tue, Wed };
-
-    public enum Repeats { Daily, None, Weekly };
-
-    public enum OnlineMode { OncallOnline, PlanClinic, PlanClinicOnline, PlanOnline };
-
-    public enum TaxonomyType { Category, Service, Subcategory };
 
     public enum CracServer { Crac, CracProd3 };
 
@@ -9550,6 +9633,13 @@ namespace GBookingCoreV2
                 VerticalTranslationConverter.Singleton,
                 AccessTypeConverter.Singleton,
                 ResourceStatusConverter.Singleton,
+                AdditionalPriceTypeConverter.Singleton,
+                ChildrenTaxonomyTypeConverter.Singleton,
+                DateLimitTypeConverter.Singleton,
+                DaysOfWeekConverter.Singleton,
+                RepeatsConverter.Singleton,
+                OnlineModeConverter.Singleton,
+                TaxonomyTypeConverter.Singleton,
                 DirConverter.Singleton,
                 SortFieldConverter.Singleton,
                 ResourceIdConverter.Singleton,
@@ -9563,13 +9653,6 @@ namespace GBookingCoreV2
                 BackofficeTypeConverter.Singleton,
                 GroupConverter.Singleton,
                 FieldElementConverter.Singleton,
-                AdditionalPriceTypeConverter.Singleton,
-                ChildrenTaxonomyTypeConverter.Singleton,
-                DateLimitTypeConverter.Singleton,
-                DaysOfWeekConverter.Singleton,
-                RepeatsConverter.Singleton,
-                OnlineModeConverter.Singleton,
-                TaxonomyTypeConverter.Singleton,
                 CracServerConverter.Singleton,
                 RuleConverter.Singleton,
                 PaymentConverter.Singleton,
@@ -11374,6 +11457,358 @@ namespace GBookingCoreV2
         public static readonly ResourceStatusConverter Singleton = new ResourceStatusConverter();
     }
 
+    internal class AdditionalPriceTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AdditionalPriceType) || t == typeof(AdditionalPriceType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "average":
+                    return AdditionalPriceType.Average;
+                case "begin_with":
+                    return AdditionalPriceType.BeginWith;
+                case "equal":
+                    return AdditionalPriceType.Equal;
+            }
+            throw new Exception("Cannot unmarshal type AdditionalPriceType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (AdditionalPriceType)untypedValue;
+            switch (value)
+            {
+                case AdditionalPriceType.Average:
+                    serializer.Serialize(writer, "average");
+                    return;
+                case AdditionalPriceType.BeginWith:
+                    serializer.Serialize(writer, "begin_with");
+                    return;
+                case AdditionalPriceType.Equal:
+                    serializer.Serialize(writer, "equal");
+                    return;
+            }
+            throw new Exception("Cannot marshal type AdditionalPriceType");
+        }
+
+        public static readonly AdditionalPriceTypeConverter Singleton = new AdditionalPriceTypeConverter();
+    }
+
+    internal class ChildrenTaxonomyTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ChildrenTaxonomyType) || t == typeof(ChildrenTaxonomyType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "child":
+                    return ChildrenTaxonomyType.Child;
+                case "none":
+                    return ChildrenTaxonomyType.None;
+                case "parent":
+                    return ChildrenTaxonomyType.Parent;
+            }
+            throw new Exception("Cannot unmarshal type ChildrenTaxonomyType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (ChildrenTaxonomyType)untypedValue;
+            switch (value)
+            {
+                case ChildrenTaxonomyType.Child:
+                    serializer.Serialize(writer, "child");
+                    return;
+                case ChildrenTaxonomyType.None:
+                    serializer.Serialize(writer, "none");
+                    return;
+                case ChildrenTaxonomyType.Parent:
+                    serializer.Serialize(writer, "parent");
+                    return;
+            }
+            throw new Exception("Cannot marshal type ChildrenTaxonomyType");
+        }
+
+        public static readonly ChildrenTaxonomyTypeConverter Singleton = new ChildrenTaxonomyTypeConverter();
+    }
+
+    internal class DateLimitTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(DateLimitType) || t == typeof(DateLimitType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "all_dates":
+                    return DateLimitType.AllDates;
+                case "from_date":
+                    return DateLimitType.FromDate;
+                case "range_dates":
+                    return DateLimitType.RangeDates;
+                case "to_date":
+                    return DateLimitType.ToDate;
+            }
+            throw new Exception("Cannot unmarshal type DateLimitType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (DateLimitType)untypedValue;
+            switch (value)
+            {
+                case DateLimitType.AllDates:
+                    serializer.Serialize(writer, "all_dates");
+                    return;
+                case DateLimitType.FromDate:
+                    serializer.Serialize(writer, "from_date");
+                    return;
+                case DateLimitType.RangeDates:
+                    serializer.Serialize(writer, "range_dates");
+                    return;
+                case DateLimitType.ToDate:
+                    serializer.Serialize(writer, "to_date");
+                    return;
+            }
+            throw new Exception("Cannot marshal type DateLimitType");
+        }
+
+        public static readonly DateLimitTypeConverter Singleton = new DateLimitTypeConverter();
+    }
+
+    internal class DaysOfWeekConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(DaysOfWeek) || t == typeof(DaysOfWeek?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "fri":
+                    return DaysOfWeek.Fri;
+                case "mon":
+                    return DaysOfWeek.Mon;
+                case "sat":
+                    return DaysOfWeek.Sat;
+                case "sun":
+                    return DaysOfWeek.Sun;
+                case "thu":
+                    return DaysOfWeek.Thu;
+                case "tue":
+                    return DaysOfWeek.Tue;
+                case "wed":
+                    return DaysOfWeek.Wed;
+            }
+            throw new Exception("Cannot unmarshal type DaysOfWeek");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (DaysOfWeek)untypedValue;
+            switch (value)
+            {
+                case DaysOfWeek.Fri:
+                    serializer.Serialize(writer, "fri");
+                    return;
+                case DaysOfWeek.Mon:
+                    serializer.Serialize(writer, "mon");
+                    return;
+                case DaysOfWeek.Sat:
+                    serializer.Serialize(writer, "sat");
+                    return;
+                case DaysOfWeek.Sun:
+                    serializer.Serialize(writer, "sun");
+                    return;
+                case DaysOfWeek.Thu:
+                    serializer.Serialize(writer, "thu");
+                    return;
+                case DaysOfWeek.Tue:
+                    serializer.Serialize(writer, "tue");
+                    return;
+                case DaysOfWeek.Wed:
+                    serializer.Serialize(writer, "wed");
+                    return;
+            }
+            throw new Exception("Cannot marshal type DaysOfWeek");
+        }
+
+        public static readonly DaysOfWeekConverter Singleton = new DaysOfWeekConverter();
+    }
+
+    internal class RepeatsConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Repeats) || t == typeof(Repeats?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "daily":
+                    return Repeats.Daily;
+                case "none":
+                    return Repeats.None;
+                case "weekly":
+                    return Repeats.Weekly;
+            }
+            throw new Exception("Cannot unmarshal type Repeats");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Repeats)untypedValue;
+            switch (value)
+            {
+                case Repeats.Daily:
+                    serializer.Serialize(writer, "daily");
+                    return;
+                case Repeats.None:
+                    serializer.Serialize(writer, "none");
+                    return;
+                case Repeats.Weekly:
+                    serializer.Serialize(writer, "weekly");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Repeats");
+        }
+
+        public static readonly RepeatsConverter Singleton = new RepeatsConverter();
+    }
+
+    internal class OnlineModeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(OnlineMode) || t == typeof(OnlineMode?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "ONCALL_ONLINE":
+                    return OnlineMode.OncallOnline;
+                case "PLAN_CLINIC":
+                    return OnlineMode.PlanClinic;
+                case "PLAN_CLINIC_ONLINE":
+                    return OnlineMode.PlanClinicOnline;
+                case "PLAN_ONLINE":
+                    return OnlineMode.PlanOnline;
+            }
+            throw new Exception("Cannot unmarshal type OnlineMode");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (OnlineMode)untypedValue;
+            switch (value)
+            {
+                case OnlineMode.OncallOnline:
+                    serializer.Serialize(writer, "ONCALL_ONLINE");
+                    return;
+                case OnlineMode.PlanClinic:
+                    serializer.Serialize(writer, "PLAN_CLINIC");
+                    return;
+                case OnlineMode.PlanClinicOnline:
+                    serializer.Serialize(writer, "PLAN_CLINIC_ONLINE");
+                    return;
+                case OnlineMode.PlanOnline:
+                    serializer.Serialize(writer, "PLAN_ONLINE");
+                    return;
+            }
+            throw new Exception("Cannot marshal type OnlineMode");
+        }
+
+        public static readonly OnlineModeConverter Singleton = new OnlineModeConverter();
+    }
+
+    internal class TaxonomyTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(TaxonomyType) || t == typeof(TaxonomyType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "CATEGORY":
+                    return TaxonomyType.Category;
+                case "SERVICE":
+                    return TaxonomyType.Service;
+                case "SUBCATEGORY":
+                    return TaxonomyType.Subcategory;
+            }
+            throw new Exception("Cannot unmarshal type TaxonomyType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (TaxonomyType)untypedValue;
+            switch (value)
+            {
+                case TaxonomyType.Category:
+                    serializer.Serialize(writer, "CATEGORY");
+                    return;
+                case TaxonomyType.Service:
+                    serializer.Serialize(writer, "SERVICE");
+                    return;
+                case TaxonomyType.Subcategory:
+                    serializer.Serialize(writer, "SUBCATEGORY");
+                    return;
+            }
+            throw new Exception("Cannot marshal type TaxonomyType");
+        }
+
+        public static readonly TaxonomyTypeConverter Singleton = new TaxonomyTypeConverter();
+    }
+
     internal class DirConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Dir) || t == typeof(Dir?);
@@ -11967,358 +12402,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly FieldElementConverter Singleton = new FieldElementConverter();
-    }
-
-    internal class AdditionalPriceTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(AdditionalPriceType) || t == typeof(AdditionalPriceType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "average":
-                    return AdditionalPriceType.Average;
-                case "begin_with":
-                    return AdditionalPriceType.BeginWith;
-                case "equal":
-                    return AdditionalPriceType.Equal;
-            }
-            throw new Exception("Cannot unmarshal type AdditionalPriceType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (AdditionalPriceType)untypedValue;
-            switch (value)
-            {
-                case AdditionalPriceType.Average:
-                    serializer.Serialize(writer, "average");
-                    return;
-                case AdditionalPriceType.BeginWith:
-                    serializer.Serialize(writer, "begin_with");
-                    return;
-                case AdditionalPriceType.Equal:
-                    serializer.Serialize(writer, "equal");
-                    return;
-            }
-            throw new Exception("Cannot marshal type AdditionalPriceType");
-        }
-
-        public static readonly AdditionalPriceTypeConverter Singleton = new AdditionalPriceTypeConverter();
-    }
-
-    internal class ChildrenTaxonomyTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ChildrenTaxonomyType) || t == typeof(ChildrenTaxonomyType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "child":
-                    return ChildrenTaxonomyType.Child;
-                case "none":
-                    return ChildrenTaxonomyType.None;
-                case "parent":
-                    return ChildrenTaxonomyType.Parent;
-            }
-            throw new Exception("Cannot unmarshal type ChildrenTaxonomyType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (ChildrenTaxonomyType)untypedValue;
-            switch (value)
-            {
-                case ChildrenTaxonomyType.Child:
-                    serializer.Serialize(writer, "child");
-                    return;
-                case ChildrenTaxonomyType.None:
-                    serializer.Serialize(writer, "none");
-                    return;
-                case ChildrenTaxonomyType.Parent:
-                    serializer.Serialize(writer, "parent");
-                    return;
-            }
-            throw new Exception("Cannot marshal type ChildrenTaxonomyType");
-        }
-
-        public static readonly ChildrenTaxonomyTypeConverter Singleton = new ChildrenTaxonomyTypeConverter();
-    }
-
-    internal class DateLimitTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(DateLimitType) || t == typeof(DateLimitType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "all_dates":
-                    return DateLimitType.AllDates;
-                case "from_date":
-                    return DateLimitType.FromDate;
-                case "range_dates":
-                    return DateLimitType.RangeDates;
-                case "to_date":
-                    return DateLimitType.ToDate;
-            }
-            throw new Exception("Cannot unmarshal type DateLimitType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (DateLimitType)untypedValue;
-            switch (value)
-            {
-                case DateLimitType.AllDates:
-                    serializer.Serialize(writer, "all_dates");
-                    return;
-                case DateLimitType.FromDate:
-                    serializer.Serialize(writer, "from_date");
-                    return;
-                case DateLimitType.RangeDates:
-                    serializer.Serialize(writer, "range_dates");
-                    return;
-                case DateLimitType.ToDate:
-                    serializer.Serialize(writer, "to_date");
-                    return;
-            }
-            throw new Exception("Cannot marshal type DateLimitType");
-        }
-
-        public static readonly DateLimitTypeConverter Singleton = new DateLimitTypeConverter();
-    }
-
-    internal class DaysOfWeekConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(DaysOfWeek) || t == typeof(DaysOfWeek?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "fri":
-                    return DaysOfWeek.Fri;
-                case "mon":
-                    return DaysOfWeek.Mon;
-                case "sat":
-                    return DaysOfWeek.Sat;
-                case "sun":
-                    return DaysOfWeek.Sun;
-                case "thu":
-                    return DaysOfWeek.Thu;
-                case "tue":
-                    return DaysOfWeek.Tue;
-                case "wed":
-                    return DaysOfWeek.Wed;
-            }
-            throw new Exception("Cannot unmarshal type DaysOfWeek");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (DaysOfWeek)untypedValue;
-            switch (value)
-            {
-                case DaysOfWeek.Fri:
-                    serializer.Serialize(writer, "fri");
-                    return;
-                case DaysOfWeek.Mon:
-                    serializer.Serialize(writer, "mon");
-                    return;
-                case DaysOfWeek.Sat:
-                    serializer.Serialize(writer, "sat");
-                    return;
-                case DaysOfWeek.Sun:
-                    serializer.Serialize(writer, "sun");
-                    return;
-                case DaysOfWeek.Thu:
-                    serializer.Serialize(writer, "thu");
-                    return;
-                case DaysOfWeek.Tue:
-                    serializer.Serialize(writer, "tue");
-                    return;
-                case DaysOfWeek.Wed:
-                    serializer.Serialize(writer, "wed");
-                    return;
-            }
-            throw new Exception("Cannot marshal type DaysOfWeek");
-        }
-
-        public static readonly DaysOfWeekConverter Singleton = new DaysOfWeekConverter();
-    }
-
-    internal class RepeatsConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Repeats) || t == typeof(Repeats?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "daily":
-                    return Repeats.Daily;
-                case "none":
-                    return Repeats.None;
-                case "weekly":
-                    return Repeats.Weekly;
-            }
-            throw new Exception("Cannot unmarshal type Repeats");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Repeats)untypedValue;
-            switch (value)
-            {
-                case Repeats.Daily:
-                    serializer.Serialize(writer, "daily");
-                    return;
-                case Repeats.None:
-                    serializer.Serialize(writer, "none");
-                    return;
-                case Repeats.Weekly:
-                    serializer.Serialize(writer, "weekly");
-                    return;
-            }
-            throw new Exception("Cannot marshal type Repeats");
-        }
-
-        public static readonly RepeatsConverter Singleton = new RepeatsConverter();
-    }
-
-    internal class OnlineModeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(OnlineMode) || t == typeof(OnlineMode?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "ONCALL_ONLINE":
-                    return OnlineMode.OncallOnline;
-                case "PLAN_CLINIC":
-                    return OnlineMode.PlanClinic;
-                case "PLAN_CLINIC_ONLINE":
-                    return OnlineMode.PlanClinicOnline;
-                case "PLAN_ONLINE":
-                    return OnlineMode.PlanOnline;
-            }
-            throw new Exception("Cannot unmarshal type OnlineMode");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (OnlineMode)untypedValue;
-            switch (value)
-            {
-                case OnlineMode.OncallOnline:
-                    serializer.Serialize(writer, "ONCALL_ONLINE");
-                    return;
-                case OnlineMode.PlanClinic:
-                    serializer.Serialize(writer, "PLAN_CLINIC");
-                    return;
-                case OnlineMode.PlanClinicOnline:
-                    serializer.Serialize(writer, "PLAN_CLINIC_ONLINE");
-                    return;
-                case OnlineMode.PlanOnline:
-                    serializer.Serialize(writer, "PLAN_ONLINE");
-                    return;
-            }
-            throw new Exception("Cannot marshal type OnlineMode");
-        }
-
-        public static readonly OnlineModeConverter Singleton = new OnlineModeConverter();
-    }
-
-    internal class TaxonomyTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(TaxonomyType) || t == typeof(TaxonomyType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "CATEGORY":
-                    return TaxonomyType.Category;
-                case "SERVICE":
-                    return TaxonomyType.Service;
-                case "SUBCATEGORY":
-                    return TaxonomyType.Subcategory;
-            }
-            throw new Exception("Cannot unmarshal type TaxonomyType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (TaxonomyType)untypedValue;
-            switch (value)
-            {
-                case TaxonomyType.Category:
-                    serializer.Serialize(writer, "CATEGORY");
-                    return;
-                case TaxonomyType.Service:
-                    serializer.Serialize(writer, "SERVICE");
-                    return;
-                case TaxonomyType.Subcategory:
-                    serializer.Serialize(writer, "SUBCATEGORY");
-                    return;
-            }
-            throw new Exception("Cannot marshal type TaxonomyType");
-        }
-
-        public static readonly TaxonomyTypeConverter Singleton = new TaxonomyTypeConverter();
     }
 
     internal class CracServerConverter : JsonConverter

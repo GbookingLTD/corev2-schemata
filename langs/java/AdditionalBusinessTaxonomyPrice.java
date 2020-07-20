@@ -2,9 +2,10 @@ package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class PurplePrice {
+public class AdditionalBusinessTaxonomyPrice {
     private String amount;
     private CurrencyList currency;
+    private double resourceLevel;
     private String stockAmount;
     private AdditionalPriceType type;
 
@@ -17,12 +18,20 @@ public class PurplePrice {
     public void setAmount(String value) { this.amount = value; }
 
     /**
-     * Аббревиатура валюты (например, RUB - рубль)
+     * Аббревиатура валюты
      */
     @JsonProperty("currency")
     public CurrencyList getCurrency() { return currency; }
     @JsonProperty("currency")
     public void setCurrency(CurrencyList value) { this.currency = value; }
+
+    /**
+     * "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+     */
+    @JsonProperty("resourceLevel")
+    public double getResourceLevel() { return resourceLevel; }
+    @JsonProperty("resourceLevel")
+    public void setResourceLevel(double value) { this.resourceLevel = value; }
 
     /**
      * Значение цены, с учётом промо акций

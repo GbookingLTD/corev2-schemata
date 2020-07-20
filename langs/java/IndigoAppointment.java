@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class IndigoAppointment {
     private Double duration;
-    private PurplePrice price;
+    private FluffyPrice price;
     private String start;
 
     @JsonProperty("duration")
@@ -13,9 +13,9 @@ public class IndigoAppointment {
     public void setDuration(Double value) { this.duration = value; }
 
     @JsonProperty("price")
-    public PurplePrice getPrice() { return price; }
+    public FluffyPrice getPrice() { return price; }
     @JsonProperty("price")
-    public void setPrice(PurplePrice value) { this.price = value; }
+    public void setPrice(FluffyPrice value) { this.price = value; }
 
     @JsonProperty("start")
     public String getStart() { return start; }

@@ -2,7 +2,7 @@ package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class PurplePrice {
+public class StickyPrice {
     private String amount;
     private CurrencyList currency;
     private String stockAmount;

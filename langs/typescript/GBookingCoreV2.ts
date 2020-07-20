@@ -481,7 +481,7 @@ export interface Appointment {
     showcase:                       AppointmentShowcase;
     socialToken?:                   string;
     source:                         string;
-    taxonomy:                       TaxonomyClass;
+    taxonomy:                       ResultTaxonomy;
     /**
      * Данные для телемед конференции
      */
@@ -1432,12 +1432,12 @@ export interface TelemedDataObject {
 }
 
 export interface Review {
-    business: WorkerClass;
-    taxonomy: WorkerClass;
-    worker:   WorkerClass;
+    business: TaxonomyClass;
+    taxonomy: TaxonomyClass;
+    worker:   TaxonomyClass;
 }
 
-export interface WorkerClass {
+export interface TaxonomyClass {
     comment?: string;
     rate?:    number;
 }
@@ -1451,180 +1451,251 @@ export interface AppointmentShowcase {
 }
 
 /**
- * Данные о работнике бизнеса
+ * Данные о услуге бизнеса
  */
-export interface TaxonomyClass {
-    alias?: string;
+export interface ResultTaxonomy {
+    alias?:                         Data;
+    extraId?:                       string;
+    id:                             string;
+    active?:                        boolean;
+    additionalDurations?:           PurpleAdditionalDuration[];
+    additionalPrices?:              AdditionalBusinessTaxonomyPrice[];
+    additionalProducts?:            PurpleBusinessTaxonomyProduct[];
+    additionalTaxonomyExtraId?:     { [key: string]: any }[];
+    adjacentSameTimeStart?:         boolean;
+    adjacentTaxonomies?:            PurpleAdjacentTaxonomy[];
+    allowBookingInBO?:              boolean;
+    allowNextBookingCount?:         number;
+    allowNextBookingInDays?:        number;
+    allowNextBookingInDaysText?:    string;
+    cabinets?:                      string[];
+    cabinetsEnabled?:               boolean;
+    capacity?:                      number;
+    capacity_decrease?:             number;
+    chargeUnitsStep?:               number;
+    childrenTaxonomyTypes?:         ChildrenTaxonomyType[];
+    color?:                         string;
+    confirmationAlert?:             string;
+    confirmationEmailAlert?:        string;
+    confirmationSmsAlert?:          string;
+    dateLimits?:                    PurpleDateLimit[];
+    dateLimitType?:                 DateLimitType;
+    designs?:                       string[];
+    disableClientSmsNotifications?: boolean;
+    discounts?:                     Discount[];
+    displayInWidget?:               boolean;
+    duration?:                      number;
+    exceptions?:                    any[];
+    extraDescription?:              string;
+    extraLink?:                     string;
+    forPay?:                        boolean;
+    images?:                        string[];
+    isOther?:                       boolean;
+    isTelemed?:                     boolean;
+    lastModified?:                  Date;
+    leaves?:                        string[];
+    manualChanges?:                 boolean;
+    newTaxonomy?:                   boolean;
+    onlineMode?:                    OnlineMode;
+    onlyAfterTaxonomies?:           string[];
+    order?:                         number;
+    parallelTaxonomies?:            string[];
+    popularity?:                    number;
+    price?:                         PurplePrice;
+    priceLink?:                     string;
     /**
-     * информация из внешней информационной системы как есть (при интеграции)
+     * Список видов приема услуги
      */
-    extraId?: string;
+    receptionTypes?: string[];
+    rooms?:          string[];
+    showcaseItems?:  PurpleShowcaseItem[];
+    showcases?:      PurpleTaxonomyShowcase[];
     /**
-     * внутренний идентификатор работника; уникальный во всей системе GBooking
+     * Идентификатор услуги в витрине
+     */
+    showcaseTaxonomyID?: string;
+    /**
+     * Внешний идентификатор таксономии
+     */
+    siteId?:                  string;
+    specialCabinet?:          string;
+    taxonomyAppExtraID?:      string;
+    taxonomyCategoryExtraID?: string;
+    taxonomyParentID?:        string;
+    taxonomyType?:            TaxonomyType;
+    timetable?:               Timetable;
+    useConfirmationSmsAlert?: boolean;
+    visitType?:               string;
+}
+
+export interface PurpleAdditionalDuration {
+    duration?: number | null;
+    level?:    number;
+}
+
+export interface AdditionalBusinessTaxonomyPrice {
+    /**
+     * Значение цены
+     */
+    amount?: string;
+    /**
+     * Аббревиатура валюты
+     */
+    currency: CurrencyList;
+    /**
+     * "Уровень" цены. Работнику можно выставить его "уровень" (поле level в resources)
+     */
+    resourceLevel: number;
+    /**
+     * Значение цены, с учётом промо акций
+     */
+    stockAmount: null | string;
+    /**
+     * Тип цены
+     */
+    type?: AdditionalPriceType;
+}
+
+/**
+ * Тип цены
+ */
+export enum AdditionalPriceType {
+    Average = "average",
+    BeginWith = "begin_with",
+    Equal = "equal",
+}
+
+export interface PurpleBusinessTaxonomyProduct {
+    /**
+     * Дополнительный ID товара
+     */
+    extraID: string;
+    /**
+     * ID товара
      */
     id: string;
     /**
-     * информация из внешней информационной системы как есть (при интеграции)
+     * Является ли обязательным при выполнении данной услуги
      */
-    additionalExtraId?: string[];
-    badIconResolution?: boolean;
+    required: boolean;
+}
+
+export interface PurpleAdjacentTaxonomy {
+    isAnyAvailable?: boolean;
+    order?:          number;
+    slotDuration?:   number;
+    taxonomyID?:     string;
+}
+
+export enum ChildrenTaxonomyType {
+    Child = "child",
+    None = "none",
+    Parent = "parent",
+}
+
+export enum DateLimitType {
+    AllDates = "all_dates",
+    FromDate = "from_date",
+    RangeDates = "range_dates",
+    ToDate = "to_date",
+}
+
+export interface PurpleDateLimit {
+    _id?:           string;
+    dateLimitFrom?: Date;
+    dateLimitTo?:   Date;
+}
+
+/**
+ * Информация о скидке
+ */
+export interface Discount {
+    active?:            boolean;
+    daysOfWeek?:        DaysOfWeek;
+    repeats?:           Repeats;
+    slots?:             Slots;
+    start?:             Date;
+    unlimWeeklyRepeat?: boolean;
+    weeklyRepeat?:      number;
+}
+
+export enum DaysOfWeek {
+    Fri = "fri",
+    Mon = "mon",
+    Sat = "sat",
+    Sun = "sun",
+    Thu = "thu",
+    Tue = "tue",
+    Wed = "wed",
+}
+
+export enum Repeats {
+    Daily = "daily",
+    None = "none",
+    Weekly = "weekly",
+}
+
+export interface Slots {
+    time?: TimeFrame;
+}
+
+export enum OnlineMode {
+    OncallOnline = "ONCALL_ONLINE",
+    PlanClinic = "PLAN_CLINIC",
+    PlanClinicOnline = "PLAN_CLINIC_ONLINE",
+    PlanOnline = "PLAN_ONLINE",
+}
+
+export interface PurplePrice {
     /**
-     * Количество записей, которые может принимать работник единовременно
+     * Значение цены
      */
-    capacity?: number;
+    amount: string;
     /**
-     * цвет колонки с работником
+     * Аббревиатура валюты (например, RUB - рубль)
      */
-    color?:  string;
-    degree?: string;
+    currency: CurrencyList;
     /**
-     * идентификатор отделения, к которому привязан работник
+     * Значение цены, с учётом промо акций
      */
-    departmentId?: string;
+    stockAmount?: null | string;
     /**
-     * краткое описание работника
+     * Тип цены
      */
-    description?:       string;
-    displayInSchedule?: boolean;
+    type: AdditionalPriceType;
+}
+
+export interface PurpleShowcaseItem {
+    _id?:                 string;
+    additionalDurations?: FluffyAdditionalDuration[];
+    businessID?:          string;
     /**
-     * отображать ли данного работника на виджете или любом другом клиенте
+     * Список видов приема услуги
      */
-    displayInWidget?: boolean;
+    receptionTypes?: string[];
+    taxonomyID?:     string;
+}
+
+export interface FluffyAdditionalDuration {
+    _id?:      string;
+    duration?: number;
     /**
-     * e-mail работника
-     */
-    email?: string;
-    /**
-     * включена ли отправка e-mail уведомлений для данного работника
-     */
-    emailEnabled?:     boolean;
-    evenOddTimetable?: EvenOddTimetable;
-    exceptions?:       any[];
-    experience?:       Date;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    extraDescription?: string;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    extraLink?: string;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    extraMediaId?: string;
-    /**
-     * url изображения работника; Если указан относительный путь, то используйте
-     * http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
-     * WidgetConfiguration.defaultWorkerImgUrl)
-     */
-    icon_url?: null | string;
-    image?:    string;
-    lastSU?:   Date;
-    /**
-     * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+     * поддержка различной длительности услуг в зависимости от работника
      */
     level?: number;
-    /**
-     * не используется
-     */
-    loaned?: boolean;
-    /**
-     * не используется
-     */
-    loanedFrom?: string;
-    /**
-     * не используется
-     */
-    loanedTo?:      string;
-    location?:      ResourceLocation;
-    manualChanges?: boolean;
-    /**
-     * отчество работника
-     */
-    middleName?: string;
-    /**
-     * имя работника
-     */
-    name?: string;
-    /**
-     * внутреннее название работника в Бекофис
-     */
-    nickname?: string;
-    /**
-     * индекс сортировки работника
-     */
-    order?: number;
-    /**
-     * вес работника, в зависимости от указанного способа сортировки
-     */
-    orderWeight?: OrderWeight;
-    /**
-     * (только в витрине) объект с данными бизнеса-филиала
-     */
-    origin_general_info?: Info;
-    /**
-     * (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
-     */
+}
+
+export interface PurpleTaxonomyShowcase {
+    baseBusinessID?:   string;
+    isBaseNode?:       boolean;
     originBusinessID?: string;
-    /**
-     * (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
-     * работник
-     */
-    originTaxonomies?: string[];
-    /**
-     * особый навык
-     */
-    perk?:  string;
-    phone?: FaxElement[];
-    /**
-     * информация о профессии работника, используется в Бекофис
-     */
-    profession?: string;
-    profile?:    ИнформацияОПрофилеРаботника;
-    /**
-     * Рейтинг работника
-     */
-    rating?:             number;
-    readonlyTaxonomies?: string[];
-    /**
-     * Версия изменений документа
-     */
-    revisionVersion?: number;
-    scheduleIsEmpty?: boolean;
-    /**
-     * информация из внешней информационной системы как есть (при интеграции)
-     */
-    siteId?: string;
-    /**
-     * включена ли отправка смс уведомлений для данного работника
-     */
-    smsEnabled?: boolean;
-    status?:     ResourceStatus;
-    /**
-     * фамилия и отчество работника
-     */
-    surname?: string;
-    /**
-     * массив идентификаторов услуг, которые выполняет работник
-     */
-    taxonomies?: string[];
-    /**
-     * массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
-     * оба или не указаны вовсе для услуги)
-     */
-    taxonomyChildren?: ResourceTaxonomyChildren[];
-    /**
-     * массив уровня скорости выполнения услуги (см так же Resource level)
-     */
-    taxonomyLevels?: ResourceTaxonomyLevel[];
-    telemedData?:    TelemedDataObject;
-    timetable?:      Timetable;
-    userData?:       { [key: string]: any };
-    /**
-     * рабочее место, которое занимает работник
-     */
-    workPlace?: string;
+    showcaseItemID?:   string;
+}
+
+export enum TaxonomyType {
+    Category = "CATEGORY",
+    Service = "SERVICE",
+    Subcategory = "SUBCATEGORY",
 }
 
 /**
@@ -2196,11 +2267,11 @@ export interface AppointmentReserve {
 
 export interface AppointmentObject {
     duration?: number;
-    price?:    PurplePrice;
+    price?:    FluffyPrice;
     start:     string;
 }
 
-export interface PurplePrice {
+export interface FluffyPrice {
     additionalTaxonomyDiscount?: FluffyAdditionalTaxonomyDiscount[];
     amount?:                     number;
     currency:                    CurrencyList;
@@ -2926,12 +2997,12 @@ export interface Resource {
 
 export interface InfoTaxonomy {
     active?:                        boolean;
-    additionalDurations?:           PurpleAdditionalDuration[];
+    additionalDurations?:           TentacledAdditionalDuration[];
     additionalPrices?:              PurpleBusinessTaxonomyPrice[];
-    additionalProducts?:            PurpleBusinessTaxonomyProduct[];
+    additionalProducts?:            FluffyBusinessTaxonomyProduct[];
     additionalTaxonomyExtraId?:     { [key: string]: any }[];
     adjacentSameTimeStart?:         boolean;
-    adjacentTaxonomies?:            PurpleAdjacentTaxonomy[];
+    adjacentTaxonomies?:            FluffyAdjacentTaxonomy[];
     alias?:                         { [key: string]: any };
     allowBookingInBO?:              boolean;
     allowNextBookingCount?:         number;
@@ -2947,7 +3018,7 @@ export interface InfoTaxonomy {
     confirmationAlert?:             string;
     confirmationEmailAlert?:        string;
     confirmationSmsAlert?:          string;
-    dateLimits?:                    PurpleDateLimit[];
+    dateLimits?:                    FluffyDateLimit[];
     dateLimitType?:                 DateLimitType;
     designs?:                       string[];
     disableClientSmsNotifications?: boolean;
@@ -2972,15 +3043,15 @@ export interface InfoTaxonomy {
     order?:                         number;
     parallelTaxonomies?:            string[];
     popularity?:                    number;
-    price?:                         FluffyPrice;
+    price?:                         TentacledPrice;
     priceLink?:                     string;
     /**
      * Список видов приема услуги
      */
     receptionTypes?: string[];
     rooms?:          string[];
-    showcaseItems?:  PurpleShowcaseItem[];
-    showcases?:      PurpleTaxonomyShowcase[];
+    showcaseItems?:  FluffyShowcaseItem[];
+    showcases?:      FluffyTaxonomyShowcase[];
     /**
      * Идентификатор услуги в витрине
      */
@@ -2999,7 +3070,7 @@ export interface InfoTaxonomy {
     visitType?:               string;
 }
 
-export interface PurpleAdditionalDuration {
+export interface TentacledAdditionalDuration {
     duration?: number | null;
     level?:    number;
 }
@@ -3027,16 +3098,7 @@ export interface PurpleBusinessTaxonomyPrice {
     type?: AdditionalPriceType;
 }
 
-/**
- * Тип цены
- */
-export enum AdditionalPriceType {
-    Average = "average",
-    BeginWith = "begin_with",
-    Equal = "equal",
-}
-
-export interface PurpleBusinessTaxonomyProduct {
+export interface FluffyBusinessTaxonomyProduct {
     /**
      * Дополнительный ID товара
      */
@@ -3051,73 +3113,20 @@ export interface PurpleBusinessTaxonomyProduct {
     required: boolean;
 }
 
-export interface PurpleAdjacentTaxonomy {
+export interface FluffyAdjacentTaxonomy {
     isAnyAvailable?: boolean;
     order?:          number;
     slotDuration?:   number;
     taxonomyID?:     string;
 }
 
-export enum ChildrenTaxonomyType {
-    Child = "child",
-    None = "none",
-    Parent = "parent",
-}
-
-export enum DateLimitType {
-    AllDates = "all_dates",
-    FromDate = "from_date",
-    RangeDates = "range_dates",
-    ToDate = "to_date",
-}
-
-export interface PurpleDateLimit {
+export interface FluffyDateLimit {
     _id?:           string;
     dateLimitFrom?: Date;
     dateLimitTo?:   Date;
 }
 
-/**
- * Информация о скидке
- */
-export interface Discount {
-    active?:            boolean;
-    daysOfWeek?:        DaysOfWeek;
-    repeats?:           Repeats;
-    slots?:             Slots;
-    start?:             Date;
-    unlimWeeklyRepeat?: boolean;
-    weeklyRepeat?:      number;
-}
-
-export enum DaysOfWeek {
-    Fri = "fri",
-    Mon = "mon",
-    Sat = "sat",
-    Sun = "sun",
-    Thu = "thu",
-    Tue = "tue",
-    Wed = "wed",
-}
-
-export enum Repeats {
-    Daily = "daily",
-    None = "none",
-    Weekly = "weekly",
-}
-
-export interface Slots {
-    time?: TimeFrame;
-}
-
-export enum OnlineMode {
-    OncallOnline = "ONCALL_ONLINE",
-    PlanClinic = "PLAN_CLINIC",
-    PlanClinicOnline = "PLAN_CLINIC_ONLINE",
-    PlanOnline = "PLAN_ONLINE",
-}
-
-export interface FluffyPrice {
+export interface TentacledPrice {
     /**
      * Значение цены
      */
@@ -3136,9 +3145,9 @@ export interface FluffyPrice {
     type: AdditionalPriceType;
 }
 
-export interface PurpleShowcaseItem {
+export interface FluffyShowcaseItem {
     _id?:                 string;
-    additionalDurations?: FluffyAdditionalDuration[];
+    additionalDurations?: StickyAdditionalDuration[];
     businessID?:          string;
     /**
      * Список видов приема услуги
@@ -3147,7 +3156,7 @@ export interface PurpleShowcaseItem {
     taxonomyID?:     string;
 }
 
-export interface FluffyAdditionalDuration {
+export interface StickyAdditionalDuration {
     _id?:      string;
     duration?: number;
     /**
@@ -3156,17 +3165,11 @@ export interface FluffyAdditionalDuration {
     level?: number;
 }
 
-export interface PurpleTaxonomyShowcase {
+export interface FluffyTaxonomyShowcase {
     baseBusinessID?:   string;
     isBaseNode?:       boolean;
     originBusinessID?: string;
     showcaseItemID?:   string;
-}
-
-export enum TaxonomyType {
-    Category = "CATEGORY",
-    Service = "SERVICE",
-    Subcategory = "SUBCATEGORY",
 }
 
 export interface InfoTaxonomiesComplex {
@@ -3763,12 +3766,12 @@ export interface BusinessMiniWidgetConfiguration {
 
 export interface BusinessTaxonomy {
     active?:                        boolean;
-    additionalDurations?:           TentacledAdditionalDuration[];
+    additionalDurations?:           IndigoAdditionalDuration[];
     additionalPrices?:              FluffyBusinessTaxonomyPrice[];
-    additionalProducts?:            FluffyBusinessTaxonomyProduct[];
+    additionalProducts?:            TentacledBusinessTaxonomyProduct[];
     additionalTaxonomyExtraId?:     { [key: string]: any }[];
     adjacentSameTimeStart?:         boolean;
-    adjacentTaxonomies?:            FluffyAdjacentTaxonomy[];
+    adjacentTaxonomies?:            TentacledAdjacentTaxonomy[];
     alias?:                         { [key: string]: any };
     allowBookingInBO?:              boolean;
     allowNextBookingCount?:         number;
@@ -3784,7 +3787,7 @@ export interface BusinessTaxonomy {
     confirmationAlert?:             string;
     confirmationEmailAlert?:        string;
     confirmationSmsAlert?:          string;
-    dateLimits?:                    FluffyDateLimit[];
+    dateLimits?:                    TentacledDateLimit[];
     dateLimitType?:                 DateLimitType;
     designs?:                       string[];
     disableClientSmsNotifications?: boolean;
@@ -3809,15 +3812,15 @@ export interface BusinessTaxonomy {
     order?:                         number;
     parallelTaxonomies?:            string[];
     popularity?:                    number;
-    price?:                         TentacledPrice;
+    price?:                         StickyPrice;
     priceLink?:                     string;
     /**
      * Список видов приема услуги
      */
     receptionTypes?: string[];
     rooms?:          string[];
-    showcaseItems?:  FluffyShowcaseItem[];
-    showcases?:      FluffyTaxonomyShowcase[];
+    showcaseItems?:  TentacledShowcaseItem[];
+    showcases?:      TentacledTaxonomyShowcase[];
     /**
      * Идентификатор услуги в витрине
      */
@@ -3836,7 +3839,7 @@ export interface BusinessTaxonomy {
     visitType?:               string;
 }
 
-export interface TentacledAdditionalDuration {
+export interface IndigoAdditionalDuration {
     duration?: number | null;
     level?:    number;
 }
@@ -3864,7 +3867,7 @@ export interface FluffyBusinessTaxonomyPrice {
     type?: AdditionalPriceType;
 }
 
-export interface FluffyBusinessTaxonomyProduct {
+export interface TentacledBusinessTaxonomyProduct {
     /**
      * Дополнительный ID товара
      */
@@ -3879,20 +3882,20 @@ export interface FluffyBusinessTaxonomyProduct {
     required: boolean;
 }
 
-export interface FluffyAdjacentTaxonomy {
+export interface TentacledAdjacentTaxonomy {
     isAnyAvailable?: boolean;
     order?:          number;
     slotDuration?:   number;
     taxonomyID?:     string;
 }
 
-export interface FluffyDateLimit {
+export interface TentacledDateLimit {
     _id?:           string;
     dateLimitFrom?: Date;
     dateLimitTo?:   Date;
 }
 
-export interface TentacledPrice {
+export interface StickyPrice {
     /**
      * Значение цены
      */
@@ -3911,9 +3914,9 @@ export interface TentacledPrice {
     type: AdditionalPriceType;
 }
 
-export interface FluffyShowcaseItem {
+export interface TentacledShowcaseItem {
     _id?:                 string;
-    additionalDurations?: StickyAdditionalDuration[];
+    additionalDurations?: IndecentAdditionalDuration[];
     businessID?:          string;
     /**
      * Список видов приема услуги
@@ -3922,7 +3925,7 @@ export interface FluffyShowcaseItem {
     taxonomyID?:     string;
 }
 
-export interface StickyAdditionalDuration {
+export interface IndecentAdditionalDuration {
     _id?:      string;
     duration?: number;
     /**
@@ -3931,7 +3934,7 @@ export interface StickyAdditionalDuration {
     level?: number;
 }
 
-export interface FluffyTaxonomyShowcase {
+export interface TentacledTaxonomyShowcase {
     baseBusinessID?:   string;
     isBaseNode?:       boolean;
     originBusinessID?: string;
@@ -5608,7 +5611,7 @@ const typeMap: any = {
         { json: "showcase", js: "showcase", typ: r("AppointmentShowcase") },
         { json: "socialToken", js: "socialToken", typ: u(undefined, "") },
         { json: "source", js: "source", typ: "" },
-        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("ResultTaxonomy") },
         { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataClass")) },
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
         { json: "withCoSale", js: "withCoSale", typ: u(undefined, true) },
@@ -6072,11 +6075,11 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "Review": o([
-        { json: "business", js: "business", typ: r("WorkerClass") },
-        { json: "taxonomy", js: "taxonomy", typ: r("WorkerClass") },
-        { json: "worker", js: "worker", typ: r("WorkerClass") },
+        { json: "business", js: "business", typ: r("TaxonomyClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
+        { json: "worker", js: "worker", typ: r("TaxonomyClass") },
     ], false),
-    "WorkerClass": o([
+    "TaxonomyClass": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "rate", js: "rate", typ: u(undefined, 3.14) },
     ], false),
@@ -6086,63 +6089,133 @@ const typeMap: any = {
     "AppointmentShowcase": o([
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
     ], false),
-    "TaxonomyClass": o([
-        { json: "alias", js: "alias", typ: u(undefined, "") },
+    "ResultTaxonomy": o([
+        { json: "alias", js: "alias", typ: u(undefined, u(m("any"), "")) },
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
-        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
-        { json: "badIconResolution", js: "badIconResolution", typ: u(undefined, true) },
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
+        { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("AdditionalBusinessTaxonomyPrice"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("PurpleBusinessTaxonomyProduct"))) },
+        { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
+        { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("PurpleAdjacentTaxonomy"))) },
+        { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
+        { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
+        { json: "allowNextBookingInDays", js: "allowNextBookingInDays", typ: u(undefined, 3.14) },
+        { json: "allowNextBookingInDaysText", js: "allowNextBookingInDaysText", typ: u(undefined, "") },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a("")) },
+        { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "capacity_decrease", js: "capacity_decrease", typ: u(undefined, 3.14) },
+        { json: "chargeUnitsStep", js: "chargeUnitsStep", typ: u(undefined, 3.14) },
+        { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
-        { json: "degree", js: "degree", typ: u(undefined, "") },
-        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
+        { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
+        { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
+        { json: "designs", js: "designs", typ: u(undefined, a("")) },
+        { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
+        { json: "discounts", js: "discounts", typ: u(undefined, a(r("Discount"))) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
-        { json: "evenOddTimetable", js: "evenOddTimetable", typ: u(undefined, r("EvenOddTimetable")) },
+        { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
-        { json: "experience", js: "experience", typ: u(undefined, Date) },
         { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
         { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
-        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
-        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
-        { json: "image", js: "image", typ: u(undefined, "") },
-        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
-        { json: "level", js: "level", typ: u(undefined, 3.14) },
-        { json: "loaned", js: "loaned", typ: u(undefined, true) },
-        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
-        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
-        { json: "location", js: "location", typ: u(undefined, r("ResourceLocation")) },
+        { json: "forPay", js: "forPay", typ: u(undefined, true) },
+        { json: "images", js: "images", typ: u(undefined, a("")) },
+        { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "isTelemed", js: "isTelemed", typ: u(undefined, true) },
+        { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
+        { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
         { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
-        { json: "middleName", js: "middleName", typ: u(undefined, "") },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "newTaxonomy", js: "newTaxonomy", typ: u(undefined, true) },
+        { json: "onlineMode", js: "onlineMode", typ: u(undefined, r("OnlineMode")) },
+        { json: "onlyAfterTaxonomies", js: "onlyAfterTaxonomies", typ: u(undefined, a("")) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
-        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
-        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
-        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
-        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
-        { json: "perk", js: "perk", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "profession", js: "profession", typ: u(undefined, "") },
-        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
-        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
-        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
-        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
-        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
+        { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
+        { json: "price", js: "price", typ: u(undefined, r("PurplePrice")) },
+        { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("PurpleShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("PurpleTaxonomyShowcase"))) },
+        { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
-        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
-        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
-        { json: "surname", js: "surname", typ: u(undefined, "") },
-        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
-        { json: "taxonomyChildren", js: "taxonomyChildren", typ: u(undefined, a(r("ResourceTaxonomyChildren"))) },
-        { json: "taxonomyLevels", js: "taxonomyLevels", typ: u(undefined, a(r("ResourceTaxonomyLevel"))) },
-        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
+        { json: "taxonomyAppExtraID", js: "taxonomyAppExtraID", typ: u(undefined, "") },
+        { json: "taxonomyCategoryExtraID", js: "taxonomyCategoryExtraID", typ: u(undefined, "") },
+        { json: "taxonomyParentID", js: "taxonomyParentID", typ: u(undefined, "") },
+        { json: "taxonomyType", js: "taxonomyType", typ: u(undefined, r("TaxonomyType")) },
         { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
-        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
+        { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
+        { json: "visitType", js: "visitType", typ: u(undefined, "") },
+    ], false),
+    "PurpleAdditionalDuration": o([
+        { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+    ], false),
+    "AdditionalBusinessTaxonomyPrice": o([
+        { json: "amount", js: "amount", typ: u(undefined, "") },
+        { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "resourceLevel", js: "resourceLevel", typ: 3.14 },
+        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
+        { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
+    ], false),
+    "PurpleBusinessTaxonomyProduct": o([
+        { json: "extraID", js: "extraID", typ: "" },
+        { json: "id", js: "id", typ: "" },
+        { json: "required", js: "required", typ: true },
+    ], false),
+    "PurpleAdjacentTaxonomy": o([
+        { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], false),
+    "PurpleDateLimit": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
+        { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
+    ], false),
+    "Discount": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
+        { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
+        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
+        { json: "start", js: "start", typ: u(undefined, Date) },
+        { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
+        { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
+    ], false),
+    "Slots": o([
+        { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
+    ], "any"),
+    "PurplePrice": o([
+        { json: "amount", js: "amount", typ: "" },
+        { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "stockAmount", js: "stockAmount", typ: u(undefined, u(null, "")) },
+        { json: "type", js: "type", typ: r("AdditionalPriceType") },
+    ], false),
+    "PurpleShowcaseItem": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("FluffyAdditionalDuration"))) },
+        { json: "businessID", js: "businessID", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], false),
+    "FluffyAdditionalDuration": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "duration", js: "duration", typ: u(undefined, 3.14) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+    ], false),
+    "PurpleTaxonomyShowcase": o([
+        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
+        { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "showcaseItemID", js: "showcaseItemID", typ: u(undefined, "") },
     ], false),
     "TelemedDataClass": o([
         { json: "id", js: "id", typ: u(undefined, "") },
@@ -6431,10 +6504,10 @@ const typeMap: any = {
     ], "any"),
     "AppointmentObject": o([
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("PurplePrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("FluffyPrice")) },
         { json: "start", js: "start", typ: "" },
     ], "any"),
-    "PurplePrice": o([
+    "FluffyPrice": o([
         { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("FluffyAdditionalTaxonomyDiscount"))) },
         { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
@@ -6813,12 +6886,12 @@ const typeMap: any = {
     ], false),
     "InfoTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("TentacledAdditionalDuration"))) },
         { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("PurpleBusinessTaxonomyPrice"))) },
-        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("PurpleBusinessTaxonomyProduct"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("FluffyBusinessTaxonomyProduct"))) },
         { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
         { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
-        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("PurpleAdjacentTaxonomy"))) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("FluffyAdjacentTaxonomy"))) },
         { json: "alias", js: "alias", typ: u(undefined, m("any")) },
         { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
         { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
@@ -6834,7 +6907,7 @@ const typeMap: any = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
-        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
         { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
@@ -6859,12 +6932,12 @@ const typeMap: any = {
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
         { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("FluffyPrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("TentacledPrice")) },
         { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
-        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("PurpleShowcaseItem"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("PurpleTaxonomyShowcase"))) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("FluffyShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("FluffyTaxonomyShowcase"))) },
         { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
         { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
@@ -6876,7 +6949,7 @@ const typeMap: any = {
         { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
         { json: "visitType", js: "visitType", typ: u(undefined, "") },
     ], false),
-    "PurpleAdditionalDuration": o([
+    "TentacledAdditionalDuration": o([
         { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
@@ -6887,53 +6960,41 @@ const typeMap: any = {
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
     ], false),
-    "PurpleBusinessTaxonomyProduct": o([
+    "FluffyBusinessTaxonomyProduct": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "id", js: "id", typ: "" },
         { json: "required", js: "required", typ: true },
     ], false),
-    "PurpleAdjacentTaxonomy": o([
+    "FluffyAdjacentTaxonomy": o([
         { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "PurpleDateLimit": o([
+    "FluffyDateLimit": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
-    "Discount": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
-        { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
-        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
-        { json: "start", js: "start", typ: u(undefined, Date) },
-        { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
-        { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
-    ], false),
-    "Slots": o([
-        { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
-    ], "any"),
-    "FluffyPrice": o([
+    "TentacledPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
-    "PurpleShowcaseItem": o([
+    "FluffyShowcaseItem": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("FluffyAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("StickyAdditionalDuration"))) },
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "FluffyAdditionalDuration": o([
+    "StickyAdditionalDuration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
-    "PurpleTaxonomyShowcase": o([
+    "FluffyTaxonomyShowcase": o([
         { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
         { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
@@ -7362,12 +7423,12 @@ const typeMap: any = {
     ], "any"),
     "BusinessTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("TentacledAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("IndigoAdditionalDuration"))) },
         { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("FluffyBusinessTaxonomyPrice"))) },
-        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("FluffyBusinessTaxonomyProduct"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("TentacledBusinessTaxonomyProduct"))) },
         { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
         { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
-        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("FluffyAdjacentTaxonomy"))) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("TentacledAdjacentTaxonomy"))) },
         { json: "alias", js: "alias", typ: u(undefined, m("any")) },
         { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
         { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
@@ -7383,7 +7444,7 @@ const typeMap: any = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
-        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("TentacledDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
         { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
@@ -7408,12 +7469,12 @@ const typeMap: any = {
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
         { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("TentacledPrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("StickyPrice")) },
         { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
-        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("FluffyShowcaseItem"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("FluffyTaxonomyShowcase"))) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("TentacledShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("TentacledTaxonomyShowcase"))) },
         { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
         { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
@@ -7425,7 +7486,7 @@ const typeMap: any = {
         { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
         { json: "visitType", js: "visitType", typ: u(undefined, "") },
     ], false),
-    "TentacledAdditionalDuration": o([
+    "IndigoAdditionalDuration": o([
         { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
@@ -7436,41 +7497,41 @@ const typeMap: any = {
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
     ], false),
-    "FluffyBusinessTaxonomyProduct": o([
+    "TentacledBusinessTaxonomyProduct": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "id", js: "id", typ: "" },
         { json: "required", js: "required", typ: true },
     ], false),
-    "FluffyAdjacentTaxonomy": o([
+    "TentacledAdjacentTaxonomy": o([
         { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "FluffyDateLimit": o([
+    "TentacledDateLimit": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
-    "TentacledPrice": o([
+    "StickyPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "stockAmount", js: "stockAmount", typ: u(undefined, u(null, "")) },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
-    "FluffyShowcaseItem": o([
+    "TentacledShowcaseItem": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("StickyAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("IndecentAdditionalDuration"))) },
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "StickyAdditionalDuration": o([
+    "IndecentAdditionalDuration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
-    "FluffyTaxonomyShowcase": o([
+    "TentacledTaxonomyShowcase": o([
         { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
         { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
@@ -8403,6 +8464,47 @@ const typeMap: any = {
         "ACTIVE",
         "INACTIVE",
     ],
+    "AdditionalPriceType": [
+        "average",
+        "begin_with",
+        "equal",
+    ],
+    "ChildrenTaxonomyType": [
+        "child",
+        "none",
+        "parent",
+    ],
+    "DateLimitType": [
+        "all_dates",
+        "from_date",
+        "range_dates",
+        "to_date",
+    ],
+    "DaysOfWeek": [
+        "fri",
+        "mon",
+        "sat",
+        "sun",
+        "thu",
+        "tue",
+        "wed",
+    ],
+    "Repeats": [
+        "daily",
+        "none",
+        "weekly",
+    ],
+    "OnlineMode": [
+        "ONCALL_ONLINE",
+        "PLAN_CLINIC",
+        "PLAN_CLINIC_ONLINE",
+        "PLAN_ONLINE",
+    ],
+    "TaxonomyType": [
+        "CATEGORY",
+        "SERVICE",
+        "SUBCATEGORY",
+    ],
     "Dir": [
         "asc",
         "desc",
@@ -8463,47 +8565,6 @@ const typeMap: any = {
         "email",
         "name",
         "surname",
-    ],
-    "AdditionalPriceType": [
-        "average",
-        "begin_with",
-        "equal",
-    ],
-    "ChildrenTaxonomyType": [
-        "child",
-        "none",
-        "parent",
-    ],
-    "DateLimitType": [
-        "all_dates",
-        "from_date",
-        "range_dates",
-        "to_date",
-    ],
-    "DaysOfWeek": [
-        "fri",
-        "mon",
-        "sat",
-        "sun",
-        "thu",
-        "tue",
-        "wed",
-    ],
-    "Repeats": [
-        "daily",
-        "none",
-        "weekly",
-    ],
-    "OnlineMode": [
-        "ONCALL_ONLINE",
-        "PLAN_CLINIC",
-        "PLAN_CLINIC_ONLINE",
-        "PLAN_ONLINE",
-    ],
-    "TaxonomyType": [
-        "CATEGORY",
-        "SERVICE",
-        "SUBCATEGORY",
     ],
     "CracServer": [
         "CRAC",

@@ -5,15 +5,20 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 
-public class InfoTaxonomy {
+/**
+ * Данные о услуге бизнеса
+ */
+public class ResultTaxonomy {
+    private Data alias;
+    private String extraID;
+    private String id;
     private Boolean active;
-    private List<TentacledAdditionalDuration> additionalDurations;
-    private List<PurpleBusinessTaxonomyPrice> additionalPrices;
-    private List<FluffyBusinessTaxonomyProduct> additionalProducts;
+    private List<PurpleAdditionalDuration> additionalDurations;
+    private List<AdditionalBusinessTaxonomyPrice> additionalPrices;
+    private List<PurpleBusinessTaxonomyProduct> additionalProducts;
     private List<Map<String, Object>> additionalTaxonomyExtraID;
     private Boolean adjacentSameTimeStart;
-    private List<FluffyAdjacentTaxonomy> adjacentTaxonomies;
-    private Map<String, Object> alias;
+    private List<PurpleAdjacentTaxonomy> adjacentTaxonomies;
     private Boolean allowBookingInBO;
     private Double allowNextBookingCount;
     private Double allowNextBookingInDays;
@@ -28,7 +33,7 @@ public class InfoTaxonomy {
     private String confirmationAlert;
     private String confirmationEmailAlert;
     private String confirmationSMSAlert;
-    private List<FluffyDateLimit> dateLimits;
+    private List<PurpleDateLimit> dateLimits;
     private DateLimitType dateLimitType;
     private List<String> designs;
     private Boolean disableClientSMSNotifications;
@@ -37,10 +42,8 @@ public class InfoTaxonomy {
     private Double duration;
     private List<Object> exceptions;
     private String extraDescription;
-    private String extraID;
     private String extraLink;
     private Boolean forPay;
-    private String id;
     private List<String> images;
     private Boolean isOther;
     private Boolean isTelemed;
@@ -53,12 +56,12 @@ public class InfoTaxonomy {
     private Double order;
     private List<String> parallelTaxonomies;
     private Double popularity;
-    private TentacledPrice price;
+    private PurplePrice price;
     private String priceLink;
     private List<String> receptionTypes;
     private List<String> rooms;
-    private List<FluffyShowcaseItem> showcaseItems;
-    private List<FluffyTaxonomyShowcase> showcases;
+    private List<PurpleShowcaseItem> showcaseItems;
+    private List<PurpleTaxonomyShowcase> showcases;
     private String showcaseTaxonomyID;
     private String siteID;
     private String specialCabinet;
@@ -70,25 +73,40 @@ public class InfoTaxonomy {
     private Boolean useConfirmationSMSAlert;
     private String visitType;
 
+    @JsonProperty("alias")
+    public Data getAlias() { return alias; }
+    @JsonProperty("alias")
+    public void setAlias(Data value) { this.alias = value; }
+
+    @JsonProperty("extraId")
+    public String getExtraID() { return extraID; }
+    @JsonProperty("extraId")
+    public void setExtraID(String value) { this.extraID = value; }
+
+    @JsonProperty("id")
+    public String getID() { return id; }
+    @JsonProperty("id")
+    public void setID(String value) { this.id = value; }
+
     @JsonProperty("active")
     public Boolean getActive() { return active; }
     @JsonProperty("active")
     public void setActive(Boolean value) { this.active = value; }
 
     @JsonProperty("additionalDurations")
-    public List<TentacledAdditionalDuration> getAdditionalDurations() { return additionalDurations; }
+    public List<PurpleAdditionalDuration> getAdditionalDurations() { return additionalDurations; }
     @JsonProperty("additionalDurations")
-    public void setAdditionalDurations(List<TentacledAdditionalDuration> value) { this.additionalDurations = value; }
+    public void setAdditionalDurations(List<PurpleAdditionalDuration> value) { this.additionalDurations = value; }
 
     @JsonProperty("additionalPrices")
-    public List<PurpleBusinessTaxonomyPrice> getAdditionalPrices() { return additionalPrices; }
+    public List<AdditionalBusinessTaxonomyPrice> getAdditionalPrices() { return additionalPrices; }
     @JsonProperty("additionalPrices")
-    public void setAdditionalPrices(List<PurpleBusinessTaxonomyPrice> value) { this.additionalPrices = value; }
+    public void setAdditionalPrices(List<AdditionalBusinessTaxonomyPrice> value) { this.additionalPrices = value; }
 
     @JsonProperty("additionalProducts")
-    public List<FluffyBusinessTaxonomyProduct> getAdditionalProducts() { return additionalProducts; }
+    public List<PurpleBusinessTaxonomyProduct> getAdditionalProducts() { return additionalProducts; }
     @JsonProperty("additionalProducts")
-    public void setAdditionalProducts(List<FluffyBusinessTaxonomyProduct> value) { this.additionalProducts = value; }
+    public void setAdditionalProducts(List<PurpleBusinessTaxonomyProduct> value) { this.additionalProducts = value; }
 
     @JsonProperty("additionalTaxonomyExtraId")
     public List<Map<String, Object>> getAdditionalTaxonomyExtraID() { return additionalTaxonomyExtraID; }
@@ -101,14 +119,9 @@ public class InfoTaxonomy {
     public void setAdjacentSameTimeStart(Boolean value) { this.adjacentSameTimeStart = value; }
 
     @JsonProperty("adjacentTaxonomies")
-    public List<FluffyAdjacentTaxonomy> getAdjacentTaxonomies() { return adjacentTaxonomies; }
+    public List<PurpleAdjacentTaxonomy> getAdjacentTaxonomies() { return adjacentTaxonomies; }
     @JsonProperty("adjacentTaxonomies")
-    public void setAdjacentTaxonomies(List<FluffyAdjacentTaxonomy> value) { this.adjacentTaxonomies = value; }
-
-    @JsonProperty("alias")
-    public Map<String, Object> getAlias() { return alias; }
-    @JsonProperty("alias")
-    public void setAlias(Map<String, Object> value) { this.alias = value; }
+    public void setAdjacentTaxonomies(List<PurpleAdjacentTaxonomy> value) { this.adjacentTaxonomies = value; }
 
     @JsonProperty("allowBookingInBO")
     public Boolean getAllowBookingInBO() { return allowBookingInBO; }
@@ -181,9 +194,9 @@ public class InfoTaxonomy {
     public void setConfirmationSMSAlert(String value) { this.confirmationSMSAlert = value; }
 
     @JsonProperty("dateLimits")
-    public List<FluffyDateLimit> getDateLimits() { return dateLimits; }
+    public List<PurpleDateLimit> getDateLimits() { return dateLimits; }
     @JsonProperty("dateLimits")
-    public void setDateLimits(List<FluffyDateLimit> value) { this.dateLimits = value; }
+    public void setDateLimits(List<PurpleDateLimit> value) { this.dateLimits = value; }
 
     @JsonProperty("dateLimitType")
     public DateLimitType getDateLimitType() { return dateLimitType; }
@@ -225,11 +238,6 @@ public class InfoTaxonomy {
     @JsonProperty("extraDescription")
     public void setExtraDescription(String value) { this.extraDescription = value; }
 
-    @JsonProperty("extraId")
-    public String getExtraID() { return extraID; }
-    @JsonProperty("extraId")
-    public void setExtraID(String value) { this.extraID = value; }
-
     @JsonProperty("extraLink")
     public String getExtraLink() { return extraLink; }
     @JsonProperty("extraLink")
@@ -239,11 +247,6 @@ public class InfoTaxonomy {
     public Boolean getForPay() { return forPay; }
     @JsonProperty("forPay")
     public void setForPay(Boolean value) { this.forPay = value; }
-
-    @JsonProperty("id")
-    public String getID() { return id; }
-    @JsonProperty("id")
-    public void setID(String value) { this.id = value; }
 
     @JsonProperty("images")
     public List<String> getImages() { return images; }
@@ -306,9 +309,9 @@ public class InfoTaxonomy {
     public void setPopularity(Double value) { this.popularity = value; }
 
     @JsonProperty("price")
-    public TentacledPrice getPrice() { return price; }
+    public PurplePrice getPrice() { return price; }
     @JsonProperty("price")
-    public void setPrice(TentacledPrice value) { this.price = value; }
+    public void setPrice(PurplePrice value) { this.price = value; }
 
     @JsonProperty("priceLink")
     public String getPriceLink() { return priceLink; }
@@ -329,14 +332,14 @@ public class InfoTaxonomy {
     public void setRooms(List<String> value) { this.rooms = value; }
 
     @JsonProperty("showcaseItems")
-    public List<FluffyShowcaseItem> getShowcaseItems() { return showcaseItems; }
+    public List<PurpleShowcaseItem> getShowcaseItems() { return showcaseItems; }
     @JsonProperty("showcaseItems")
-    public void setShowcaseItems(List<FluffyShowcaseItem> value) { this.showcaseItems = value; }
+    public void setShowcaseItems(List<PurpleShowcaseItem> value) { this.showcaseItems = value; }
 
     @JsonProperty("showcases")
-    public List<FluffyTaxonomyShowcase> getShowcases() { return showcases; }
+    public List<PurpleTaxonomyShowcase> getShowcases() { return showcases; }
     @JsonProperty("showcases")
-    public void setShowcases(List<FluffyTaxonomyShowcase> value) { this.showcases = value; }
+    public void setShowcases(List<PurpleTaxonomyShowcase> value) { this.showcases = value; }
 
     /**
      * Идентификатор услуги в витрине

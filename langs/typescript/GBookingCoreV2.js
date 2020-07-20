@@ -203,6 +203,57 @@ var ResourceStatus;
     ResourceStatus["Active"] = "ACTIVE";
     ResourceStatus["Inactive"] = "INACTIVE";
 })(ResourceStatus = exports.ResourceStatus || (exports.ResourceStatus = {}));
+/**
+ * Тип цены
+ */
+var AdditionalPriceType;
+(function (AdditionalPriceType) {
+    AdditionalPriceType["Average"] = "average";
+    AdditionalPriceType["BeginWith"] = "begin_with";
+    AdditionalPriceType["Equal"] = "equal";
+})(AdditionalPriceType = exports.AdditionalPriceType || (exports.AdditionalPriceType = {}));
+var ChildrenTaxonomyType;
+(function (ChildrenTaxonomyType) {
+    ChildrenTaxonomyType["Child"] = "child";
+    ChildrenTaxonomyType["None"] = "none";
+    ChildrenTaxonomyType["Parent"] = "parent";
+})(ChildrenTaxonomyType = exports.ChildrenTaxonomyType || (exports.ChildrenTaxonomyType = {}));
+var DateLimitType;
+(function (DateLimitType) {
+    DateLimitType["AllDates"] = "all_dates";
+    DateLimitType["FromDate"] = "from_date";
+    DateLimitType["RangeDates"] = "range_dates";
+    DateLimitType["ToDate"] = "to_date";
+})(DateLimitType = exports.DateLimitType || (exports.DateLimitType = {}));
+var DaysOfWeek;
+(function (DaysOfWeek) {
+    DaysOfWeek["Fri"] = "fri";
+    DaysOfWeek["Mon"] = "mon";
+    DaysOfWeek["Sat"] = "sat";
+    DaysOfWeek["Sun"] = "sun";
+    DaysOfWeek["Thu"] = "thu";
+    DaysOfWeek["Tue"] = "tue";
+    DaysOfWeek["Wed"] = "wed";
+})(DaysOfWeek = exports.DaysOfWeek || (exports.DaysOfWeek = {}));
+var Repeats;
+(function (Repeats) {
+    Repeats["Daily"] = "daily";
+    Repeats["None"] = "none";
+    Repeats["Weekly"] = "weekly";
+})(Repeats = exports.Repeats || (exports.Repeats = {}));
+var OnlineMode;
+(function (OnlineMode) {
+    OnlineMode["OncallOnline"] = "ONCALL_ONLINE";
+    OnlineMode["PlanClinic"] = "PLAN_CLINIC";
+    OnlineMode["PlanClinicOnline"] = "PLAN_CLINIC_ONLINE";
+    OnlineMode["PlanOnline"] = "PLAN_ONLINE";
+})(OnlineMode = exports.OnlineMode || (exports.OnlineMode = {}));
+var TaxonomyType;
+(function (TaxonomyType) {
+    TaxonomyType["Category"] = "CATEGORY";
+    TaxonomyType["Service"] = "SERVICE";
+    TaxonomyType["Subcategory"] = "SUBCATEGORY";
+})(TaxonomyType = exports.TaxonomyType || (exports.TaxonomyType = {}));
 var Dir;
 (function (Dir) {
     Dir["Asc"] = "asc";
@@ -276,57 +327,6 @@ var FieldElement;
     FieldElement["Name"] = "name";
     FieldElement["Surname"] = "surname";
 })(FieldElement = exports.FieldElement || (exports.FieldElement = {}));
-/**
- * Тип цены
- */
-var AdditionalPriceType;
-(function (AdditionalPriceType) {
-    AdditionalPriceType["Average"] = "average";
-    AdditionalPriceType["BeginWith"] = "begin_with";
-    AdditionalPriceType["Equal"] = "equal";
-})(AdditionalPriceType = exports.AdditionalPriceType || (exports.AdditionalPriceType = {}));
-var ChildrenTaxonomyType;
-(function (ChildrenTaxonomyType) {
-    ChildrenTaxonomyType["Child"] = "child";
-    ChildrenTaxonomyType["None"] = "none";
-    ChildrenTaxonomyType["Parent"] = "parent";
-})(ChildrenTaxonomyType = exports.ChildrenTaxonomyType || (exports.ChildrenTaxonomyType = {}));
-var DateLimitType;
-(function (DateLimitType) {
-    DateLimitType["AllDates"] = "all_dates";
-    DateLimitType["FromDate"] = "from_date";
-    DateLimitType["RangeDates"] = "range_dates";
-    DateLimitType["ToDate"] = "to_date";
-})(DateLimitType = exports.DateLimitType || (exports.DateLimitType = {}));
-var DaysOfWeek;
-(function (DaysOfWeek) {
-    DaysOfWeek["Fri"] = "fri";
-    DaysOfWeek["Mon"] = "mon";
-    DaysOfWeek["Sat"] = "sat";
-    DaysOfWeek["Sun"] = "sun";
-    DaysOfWeek["Thu"] = "thu";
-    DaysOfWeek["Tue"] = "tue";
-    DaysOfWeek["Wed"] = "wed";
-})(DaysOfWeek = exports.DaysOfWeek || (exports.DaysOfWeek = {}));
-var Repeats;
-(function (Repeats) {
-    Repeats["Daily"] = "daily";
-    Repeats["None"] = "none";
-    Repeats["Weekly"] = "weekly";
-})(Repeats = exports.Repeats || (exports.Repeats = {}));
-var OnlineMode;
-(function (OnlineMode) {
-    OnlineMode["OncallOnline"] = "ONCALL_ONLINE";
-    OnlineMode["PlanClinic"] = "PLAN_CLINIC";
-    OnlineMode["PlanClinicOnline"] = "PLAN_CLINIC_ONLINE";
-    OnlineMode["PlanOnline"] = "PLAN_ONLINE";
-})(OnlineMode = exports.OnlineMode || (exports.OnlineMode = {}));
-var TaxonomyType;
-(function (TaxonomyType) {
-    TaxonomyType["Category"] = "CATEGORY";
-    TaxonomyType["Service"] = "SERVICE";
-    TaxonomyType["Subcategory"] = "SUBCATEGORY";
-})(TaxonomyType = exports.TaxonomyType || (exports.TaxonomyType = {}));
 var CracServer;
 (function (CracServer) {
     CracServer["Crac"] = "CRAC";
@@ -750,7 +750,7 @@ var typeMap = {
         { json: "showcase", js: "showcase", typ: r("AppointmentShowcase") },
         { json: "socialToken", js: "socialToken", typ: u(undefined, "") },
         { json: "source", js: "source", typ: "" },
-        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("ResultTaxonomy") },
         { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataClass")) },
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
         { json: "withCoSale", js: "withCoSale", typ: u(undefined, true) },
@@ -1214,11 +1214,11 @@ var typeMap = {
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "Review": o([
-        { json: "business", js: "business", typ: r("WorkerClass") },
-        { json: "taxonomy", js: "taxonomy", typ: r("WorkerClass") },
-        { json: "worker", js: "worker", typ: r("WorkerClass") },
+        { json: "business", js: "business", typ: r("TaxonomyClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
+        { json: "worker", js: "worker", typ: r("TaxonomyClass") },
     ], false),
-    "WorkerClass": o([
+    "TaxonomyClass": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "rate", js: "rate", typ: u(undefined, 3.14) },
     ], false),
@@ -1228,63 +1228,133 @@ var typeMap = {
     "AppointmentShowcase": o([
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
     ], false),
-    "TaxonomyClass": o([
-        { json: "alias", js: "alias", typ: u(undefined, "") },
+    "ResultTaxonomy": o([
+        { json: "alias", js: "alias", typ: u(undefined, u(m("any"), "")) },
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
-        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
-        { json: "badIconResolution", js: "badIconResolution", typ: u(undefined, true) },
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
+        { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("AdditionalBusinessTaxonomyPrice"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("PurpleBusinessTaxonomyProduct"))) },
+        { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
+        { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("PurpleAdjacentTaxonomy"))) },
+        { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
+        { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
+        { json: "allowNextBookingInDays", js: "allowNextBookingInDays", typ: u(undefined, 3.14) },
+        { json: "allowNextBookingInDaysText", js: "allowNextBookingInDaysText", typ: u(undefined, "") },
+        { json: "cabinets", js: "cabinets", typ: u(undefined, a("")) },
+        { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "capacity_decrease", js: "capacity_decrease", typ: u(undefined, 3.14) },
+        { json: "chargeUnitsStep", js: "chargeUnitsStep", typ: u(undefined, 3.14) },
+        { json: "childrenTaxonomyTypes", js: "childrenTaxonomyTypes", typ: u(undefined, a(r("ChildrenTaxonomyType"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
-        { json: "degree", js: "degree", typ: u(undefined, "") },
-        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
+        { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
+        { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
+        { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
+        { json: "designs", js: "designs", typ: u(undefined, a("")) },
+        { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
+        { json: "discounts", js: "discounts", typ: u(undefined, a(r("Discount"))) },
         { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
-        { json: "evenOddTimetable", js: "evenOddTimetable", typ: u(undefined, r("EvenOddTimetable")) },
+        { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
-        { json: "experience", js: "experience", typ: u(undefined, Date) },
         { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
         { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
-        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
-        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
-        { json: "image", js: "image", typ: u(undefined, "") },
-        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
-        { json: "level", js: "level", typ: u(undefined, 3.14) },
-        { json: "loaned", js: "loaned", typ: u(undefined, true) },
-        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
-        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
-        { json: "location", js: "location", typ: u(undefined, r("ResourceLocation")) },
+        { json: "forPay", js: "forPay", typ: u(undefined, true) },
+        { json: "images", js: "images", typ: u(undefined, a("")) },
+        { json: "isOther", js: "isOther", typ: u(undefined, true) },
+        { json: "isTelemed", js: "isTelemed", typ: u(undefined, true) },
+        { json: "lastModified", js: "lastModified", typ: u(undefined, Date) },
+        { json: "leaves", js: "leaves", typ: u(undefined, a("")) },
         { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
-        { json: "middleName", js: "middleName", typ: u(undefined, "") },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "newTaxonomy", js: "newTaxonomy", typ: u(undefined, true) },
+        { json: "onlineMode", js: "onlineMode", typ: u(undefined, r("OnlineMode")) },
+        { json: "onlyAfterTaxonomies", js: "onlyAfterTaxonomies", typ: u(undefined, a("")) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
-        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
-        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
-        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
-        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
-        { json: "perk", js: "perk", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "profession", js: "profession", typ: u(undefined, "") },
-        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
-        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
-        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
-        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
-        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
+        { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
+        { json: "price", js: "price", typ: u(undefined, r("PurplePrice")) },
+        { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("PurpleShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("PurpleTaxonomyShowcase"))) },
+        { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
-        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
-        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
-        { json: "surname", js: "surname", typ: u(undefined, "") },
-        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
-        { json: "taxonomyChildren", js: "taxonomyChildren", typ: u(undefined, a(r("ResourceTaxonomyChildren"))) },
-        { json: "taxonomyLevels", js: "taxonomyLevels", typ: u(undefined, a(r("ResourceTaxonomyLevel"))) },
-        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
+        { json: "taxonomyAppExtraID", js: "taxonomyAppExtraID", typ: u(undefined, "") },
+        { json: "taxonomyCategoryExtraID", js: "taxonomyCategoryExtraID", typ: u(undefined, "") },
+        { json: "taxonomyParentID", js: "taxonomyParentID", typ: u(undefined, "") },
+        { json: "taxonomyType", js: "taxonomyType", typ: u(undefined, r("TaxonomyType")) },
         { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
-        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
+        { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
+        { json: "visitType", js: "visitType", typ: u(undefined, "") },
+    ], false),
+    "PurpleAdditionalDuration": o([
+        { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+    ], false),
+    "AdditionalBusinessTaxonomyPrice": o([
+        { json: "amount", js: "amount", typ: u(undefined, "") },
+        { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "resourceLevel", js: "resourceLevel", typ: 3.14 },
+        { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
+        { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
+    ], false),
+    "PurpleBusinessTaxonomyProduct": o([
+        { json: "extraID", js: "extraID", typ: "" },
+        { json: "id", js: "id", typ: "" },
+        { json: "required", js: "required", typ: true },
+    ], false),
+    "PurpleAdjacentTaxonomy": o([
+        { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], false),
+    "PurpleDateLimit": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
+        { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
+    ], false),
+    "Discount": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
+        { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
+        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
+        { json: "start", js: "start", typ: u(undefined, Date) },
+        { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
+        { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
+    ], false),
+    "Slots": o([
+        { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
+    ], "any"),
+    "PurplePrice": o([
+        { json: "amount", js: "amount", typ: "" },
+        { json: "currency", js: "currency", typ: r("CurrencyList") },
+        { json: "stockAmount", js: "stockAmount", typ: u(undefined, u(null, "")) },
+        { json: "type", js: "type", typ: r("AdditionalPriceType") },
+    ], false),
+    "PurpleShowcaseItem": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("FluffyAdditionalDuration"))) },
+        { json: "businessID", js: "businessID", typ: u(undefined, "") },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], false),
+    "FluffyAdditionalDuration": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "duration", js: "duration", typ: u(undefined, 3.14) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+    ], false),
+    "PurpleTaxonomyShowcase": o([
+        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
+        { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "showcaseItemID", js: "showcaseItemID", typ: u(undefined, "") },
     ], false),
     "TelemedDataClass": o([
         { json: "id", js: "id", typ: u(undefined, "") },
@@ -1573,10 +1643,10 @@ var typeMap = {
     ], "any"),
     "AppointmentObject": o([
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("PurplePrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("FluffyPrice")) },
         { json: "start", js: "start", typ: "" },
     ], "any"),
-    "PurplePrice": o([
+    "FluffyPrice": o([
         { json: "additionalTaxonomyDiscount", js: "additionalTaxonomyDiscount", typ: u(undefined, a(r("FluffyAdditionalTaxonomyDiscount"))) },
         { json: "amount", js: "amount", typ: u(undefined, 3.14) },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
@@ -1955,12 +2025,12 @@ var typeMap = {
     ], false),
     "InfoTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("TentacledAdditionalDuration"))) },
         { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("PurpleBusinessTaxonomyPrice"))) },
-        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("PurpleBusinessTaxonomyProduct"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("FluffyBusinessTaxonomyProduct"))) },
         { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
         { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
-        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("PurpleAdjacentTaxonomy"))) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("FluffyAdjacentTaxonomy"))) },
         { json: "alias", js: "alias", typ: u(undefined, m("any")) },
         { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
         { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
@@ -1976,7 +2046,7 @@ var typeMap = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
-        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("PurpleDateLimit"))) },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
         { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
@@ -2001,12 +2071,12 @@ var typeMap = {
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
         { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("FluffyPrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("TentacledPrice")) },
         { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
-        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("PurpleShowcaseItem"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("PurpleTaxonomyShowcase"))) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("FluffyShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("FluffyTaxonomyShowcase"))) },
         { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
         { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
@@ -2018,7 +2088,7 @@ var typeMap = {
         { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
         { json: "visitType", js: "visitType", typ: u(undefined, "") },
     ], false),
-    "PurpleAdditionalDuration": o([
+    "TentacledAdditionalDuration": o([
         { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
@@ -2029,53 +2099,41 @@ var typeMap = {
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
     ], false),
-    "PurpleBusinessTaxonomyProduct": o([
+    "FluffyBusinessTaxonomyProduct": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "id", js: "id", typ: "" },
         { json: "required", js: "required", typ: true },
     ], false),
-    "PurpleAdjacentTaxonomy": o([
+    "FluffyAdjacentTaxonomy": o([
         { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "PurpleDateLimit": o([
+    "FluffyDateLimit": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
-    "Discount": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
-        { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
-        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
-        { json: "start", js: "start", typ: u(undefined, Date) },
-        { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
-        { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
-    ], false),
-    "Slots": o([
-        { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
-    ], "any"),
-    "FluffyPrice": o([
+    "TentacledPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
-    "PurpleShowcaseItem": o([
+    "FluffyShowcaseItem": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("FluffyAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("StickyAdditionalDuration"))) },
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "FluffyAdditionalDuration": o([
+    "StickyAdditionalDuration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
-    "PurpleTaxonomyShowcase": o([
+    "FluffyTaxonomyShowcase": o([
         { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
         { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
@@ -2504,12 +2562,12 @@ var typeMap = {
     ], "any"),
     "BusinessTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("TentacledAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("IndigoAdditionalDuration"))) },
         { json: "additionalPrices", js: "additionalPrices", typ: u(undefined, a(r("FluffyBusinessTaxonomyPrice"))) },
-        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("FluffyBusinessTaxonomyProduct"))) },
+        { json: "additionalProducts", js: "additionalProducts", typ: u(undefined, a(r("TentacledBusinessTaxonomyProduct"))) },
         { json: "additionalTaxonomyExtraId", js: "additionalTaxonomyExtraId", typ: u(undefined, a(m("any"))) },
         { json: "adjacentSameTimeStart", js: "adjacentSameTimeStart", typ: u(undefined, true) },
-        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("FluffyAdjacentTaxonomy"))) },
+        { json: "adjacentTaxonomies", js: "adjacentTaxonomies", typ: u(undefined, a(r("TentacledAdjacentTaxonomy"))) },
         { json: "alias", js: "alias", typ: u(undefined, m("any")) },
         { json: "allowBookingInBO", js: "allowBookingInBO", typ: u(undefined, true) },
         { json: "allowNextBookingCount", js: "allowNextBookingCount", typ: u(undefined, 3.14) },
@@ -2525,7 +2583,7 @@ var typeMap = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "confirmationEmailAlert", js: "confirmationEmailAlert", typ: u(undefined, "") },
         { json: "confirmationSmsAlert", js: "confirmationSmsAlert", typ: u(undefined, "") },
-        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("FluffyDateLimit"))) },
+        { json: "dateLimits", js: "dateLimits", typ: u(undefined, a(r("TentacledDateLimit"))) },
         { json: "dateLimitType", js: "dateLimitType", typ: u(undefined, r("DateLimitType")) },
         { json: "designs", js: "designs", typ: u(undefined, a("")) },
         { json: "disableClientSmsNotifications", js: "disableClientSmsNotifications", typ: u(undefined, true) },
@@ -2550,12 +2608,12 @@ var typeMap = {
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "parallelTaxonomies", js: "parallelTaxonomies", typ: u(undefined, a("")) },
         { json: "popularity", js: "popularity", typ: u(undefined, 3.14) },
-        { json: "price", js: "price", typ: u(undefined, r("TentacledPrice")) },
+        { json: "price", js: "price", typ: u(undefined, r("StickyPrice")) },
         { json: "priceLink", js: "priceLink", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "rooms", js: "rooms", typ: u(undefined, a("")) },
-        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("FluffyShowcaseItem"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("FluffyTaxonomyShowcase"))) },
+        { json: "showcaseItems", js: "showcaseItems", typ: u(undefined, a(r("TentacledShowcaseItem"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("TentacledTaxonomyShowcase"))) },
         { json: "showcaseTaxonomyID", js: "showcaseTaxonomyID", typ: u(undefined, "") },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
         { json: "specialCabinet", js: "specialCabinet", typ: u(undefined, "") },
@@ -2567,7 +2625,7 @@ var typeMap = {
         { json: "useConfirmationSmsAlert", js: "useConfirmationSmsAlert", typ: u(undefined, true) },
         { json: "visitType", js: "visitType", typ: u(undefined, "") },
     ], false),
-    "TentacledAdditionalDuration": o([
+    "IndigoAdditionalDuration": o([
         { json: "duration", js: "duration", typ: u(undefined, u(3.14, null)) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
@@ -2578,41 +2636,41 @@ var typeMap = {
         { json: "stockAmount", js: "stockAmount", typ: u(null, "") },
         { json: "type", js: "type", typ: u(undefined, r("AdditionalPriceType")) },
     ], false),
-    "FluffyBusinessTaxonomyProduct": o([
+    "TentacledBusinessTaxonomyProduct": o([
         { json: "extraID", js: "extraID", typ: "" },
         { json: "id", js: "id", typ: "" },
         { json: "required", js: "required", typ: true },
     ], false),
-    "FluffyAdjacentTaxonomy": o([
+    "TentacledAdjacentTaxonomy": o([
         { json: "isAnyAvailable", js: "isAnyAvailable", typ: u(undefined, true) },
         { json: "order", js: "order", typ: u(undefined, 3.14) },
         { json: "slotDuration", js: "slotDuration", typ: u(undefined, 3.14) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "FluffyDateLimit": o([
+    "TentacledDateLimit": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "dateLimitFrom", js: "dateLimitFrom", typ: u(undefined, Date) },
         { json: "dateLimitTo", js: "dateLimitTo", typ: u(undefined, Date) },
     ], false),
-    "TentacledPrice": o([
+    "StickyPrice": o([
         { json: "amount", js: "amount", typ: "" },
         { json: "currency", js: "currency", typ: r("CurrencyList") },
         { json: "stockAmount", js: "stockAmount", typ: u(undefined, u(null, "")) },
         { json: "type", js: "type", typ: r("AdditionalPriceType") },
     ], false),
-    "FluffyShowcaseItem": o([
+    "TentacledShowcaseItem": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("StickyAdditionalDuration"))) },
+        { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("IndecentAdditionalDuration"))) },
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
         { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "StickyAdditionalDuration": o([
+    "IndecentAdditionalDuration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "duration", js: "duration", typ: u(undefined, 3.14) },
         { json: "level", js: "level", typ: u(undefined, 3.14) },
     ], false),
-    "FluffyTaxonomyShowcase": o([
+    "TentacledTaxonomyShowcase": o([
         { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
         { json: "isBaseNode", js: "isBaseNode", typ: u(undefined, true) },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
@@ -3545,6 +3603,47 @@ var typeMap = {
         "ACTIVE",
         "INACTIVE",
     ],
+    "AdditionalPriceType": [
+        "average",
+        "begin_with",
+        "equal",
+    ],
+    "ChildrenTaxonomyType": [
+        "child",
+        "none",
+        "parent",
+    ],
+    "DateLimitType": [
+        "all_dates",
+        "from_date",
+        "range_dates",
+        "to_date",
+    ],
+    "DaysOfWeek": [
+        "fri",
+        "mon",
+        "sat",
+        "sun",
+        "thu",
+        "tue",
+        "wed",
+    ],
+    "Repeats": [
+        "daily",
+        "none",
+        "weekly",
+    ],
+    "OnlineMode": [
+        "ONCALL_ONLINE",
+        "PLAN_CLINIC",
+        "PLAN_CLINIC_ONLINE",
+        "PLAN_ONLINE",
+    ],
+    "TaxonomyType": [
+        "CATEGORY",
+        "SERVICE",
+        "SUBCATEGORY",
+    ],
     "Dir": [
         "asc",
         "desc",
@@ -3605,47 +3704,6 @@ var typeMap = {
         "email",
         "name",
         "surname",
-    ],
-    "AdditionalPriceType": [
-        "average",
-        "begin_with",
-        "equal",
-    ],
-    "ChildrenTaxonomyType": [
-        "child",
-        "none",
-        "parent",
-    ],
-    "DateLimitType": [
-        "all_dates",
-        "from_date",
-        "range_dates",
-        "to_date",
-    ],
-    "DaysOfWeek": [
-        "fri",
-        "mon",
-        "sat",
-        "sun",
-        "thu",
-        "tue",
-        "wed",
-    ],
-    "Repeats": [
-        "daily",
-        "none",
-        "weekly",
-    ],
-    "OnlineMode": [
-        "ONCALL_ONLINE",
-        "PLAN_CLINIC",
-        "PLAN_CLINIC_ONLINE",
-        "PLAN_ONLINE",
-    ],
-    "TaxonomyType": [
-        "CATEGORY",
-        "SERVICE",
-        "SUBCATEGORY",
     ],
     "CracServer": [
         "CRAC",
