@@ -114,7 +114,7 @@ properties:
     description: "Внешний идентификатор таксономии"
     type: "string"
   alias:
-    type: "object"
+    type: ["object", "string"]
   showcases:
     type: "array"
     items:
