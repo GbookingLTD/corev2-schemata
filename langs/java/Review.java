@@ -3,22 +3,22 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class Review {
-    private TaxonomyClass business;
-    private TaxonomyClass taxonomy;
-    private TaxonomyClass worker;
+    private WorkerClass business;
+    private WorkerClass taxonomy;
+    private WorkerClass worker;
 
     @JsonProperty("business")
-    public TaxonomyClass getBusiness() { return business; }
+    public WorkerClass getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(TaxonomyClass value) { this.business = value; }
+    public void setBusiness(WorkerClass value) { this.business = value; }
 
     @JsonProperty("taxonomy")
-    public TaxonomyClass getTaxonomy() { return taxonomy; }
+    public WorkerClass getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
-    public void setTaxonomy(TaxonomyClass value) { this.taxonomy = value; }
+    public void setTaxonomy(WorkerClass value) { this.taxonomy = value; }
 
     @JsonProperty("worker")
-    public TaxonomyClass getWorker() { return worker; }
+    public WorkerClass getWorker() { return worker; }
     @JsonProperty("worker")
-    public void setWorker(TaxonomyClass value) { this.worker = value; }
+    public void setWorker(WorkerClass value) { this.worker = value; }
 }

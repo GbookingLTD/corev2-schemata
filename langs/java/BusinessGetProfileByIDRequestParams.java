@@ -11,7 +11,7 @@ public class BusinessGetProfileByIDRequestParams {
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
-    private TaxiParkMemberCountUnion showcaseBusinessID;
+    private OrderWeight showcaseBusinessID;
     private Boolean skipWorkerSorting;
     private Boolean useOptimizedCache;
     private Boolean withBilling;
@@ -58,9 +58,9 @@ public class BusinessGetProfileByIDRequestParams {
      * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
      */
     @JsonProperty("showcase_business_id")
-    public TaxiParkMemberCountUnion getShowcaseBusinessID() { return showcaseBusinessID; }
+    public OrderWeight getShowcaseBusinessID() { return showcaseBusinessID; }
     @JsonProperty("showcase_business_id")
-    public void setShowcaseBusinessID(TaxiParkMemberCountUnion value) { this.showcaseBusinessID = value; }
+    public void setShowcaseBusinessID(OrderWeight value) { this.showcaseBusinessID = value; }
 
     /**
      * если указано true - не приминяет сортировку работников

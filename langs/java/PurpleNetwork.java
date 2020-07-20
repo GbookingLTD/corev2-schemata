@@ -3,10 +3,10 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class PurpleNetwork {
-    private TaxiParkMemberCountUnion id;
+    private OrderWeight id;
 
     @JsonProperty("id")
-    public TaxiParkMemberCountUnion getID() { return id; }
+    public OrderWeight getID() { return id; }
     @JsonProperty("id")
-    public void setID(TaxiParkMemberCountUnion value) { this.id = value; }
+    public void setID(OrderWeight value) { this.id = value; }
 }

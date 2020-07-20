@@ -343,6 +343,5 @@ properties:
             type: "string"
       additionalProperties: false
 
-
-    - "id"
-  
+required:
+  - "id"

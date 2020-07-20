@@ -5,12 +5,18 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 public class FluffyFilter {
+    private String appointmentID;
     private FluffyCreated created;
     private OffsetDateTime end;
     private List<String> services;
     private Boolean skipUpdated;
     private OffsetDateTime start;
     private List<String> workers;
+
+    @JsonProperty("appointmentId")
+    public String getAppointmentID() { return appointmentID; }
+    @JsonProperty("appointmentId")
+    public void setAppointmentID(String value) { this.appointmentID = value; }
 
     @JsonProperty("created")
     public FluffyCreated getCreated() { return created; }

@@ -1988,19 +1988,1147 @@ class RemovedClientsDatum:
         return result
 
 
-class AppointmentResource:
+class TimeFrame:
+    capacity: Optional[float]
+    """смещение в минутах от начала дня"""
+    end: float
+    end_date: Union[datetime, float, None]
     extra_id: Optional[str]
-    id: str
-    middle_name: Optional[str]
-    name: str
-    surname: str
+    """уникальный идентификатор временного слота"""
+    id: Optional[str]
+    resources: Optional[List[str]]
+    room_id: Optional[str]
+    """смещение в минутах от начала дня"""
+    start: float
+    start_date: Union[datetime, float, None]
 
-    def __init__(self, extra_id: Optional[str], id: str, middle_name: Optional[str], name: str, surname: str) -> None:
+    def __init__(self, capacity: Optional[float], end: float, end_date: Union[datetime, float, None], extra_id: Optional[str], id: Optional[str], resources: Optional[List[str]], room_id: Optional[str], start: float, start_date: Union[datetime, float, None]) -> None:
+        self.capacity = capacity
+        self.end = end
+        self.end_date = end_date
+        self.extra_id = extra_id
+        self.id = id
+        self.resources = resources
+        self.room_id = room_id
+        self.start = start
+        self.start_date = start_date
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TimeFrame':
+        assert isinstance(obj, dict)
+        capacity = from_union([from_float, from_none], obj.get("capacity"))
+        end = from_float(obj.get("end"))
+        end_date = from_union([from_float, from_datetime, from_none], obj.get("endDate"))
+        extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        id = from_union([from_str, from_none], obj.get("id"))
+        resources = from_union([lambda x: from_list(from_str, x), from_none], obj.get("resources"))
+        room_id = from_union([from_str, from_none], obj.get("roomID"))
+        start = from_float(obj.get("start"))
+        start_date = from_union([from_float, from_datetime, from_none], obj.get("startDate"))
+        return TimeFrame(capacity, end, end_date, extra_id, id, resources, room_id, start, start_date)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["capacity"] = from_union([to_float, from_none], self.capacity)
+        result["end"] = to_float(self.end)
+        result["endDate"] = from_union([to_float, lambda x: x.isoformat(), from_none], self.end_date)
+        result["extraId"] = from_union([from_str, from_none], self.extra_id)
+        result["id"] = from_union([from_str, from_none], self.id)
+        result["resources"] = from_union([lambda x: from_list(from_str, x), from_none], self.resources)
+        result["roomID"] = from_union([from_str, from_none], self.room_id)
+        result["start"] = to_float(self.start)
+        result["startDate"] = from_union([to_float, lambda x: x.isoformat(), from_none], self.start_date)
+        return result
+
+
+class StartPeriod(Enum):
+    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+    (понедельник считается нечётным)
+    """
+    MONTH = "month"
+    WEEK = "week"
+
+
+class EvenOddTimetable:
+    """расписание для чётных дней"""
+    even: List[TimeFrame]
+    """расписание для нечётных дней"""
+    odd: List[TimeFrame]
+    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+    (понедельник считается нечётным)
+    """
+    start_period: StartPeriod
+
+    def __init__(self, even: List[TimeFrame], odd: List[TimeFrame], start_period: StartPeriod) -> None:
+        self.even = even
+        self.odd = odd
+        self.start_period = start_period
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'EvenOddTimetable':
+        assert isinstance(obj, dict)
+        even = from_list(TimeFrame.from_dict, obj.get("even"))
+        odd = from_list(TimeFrame.from_dict, obj.get("odd"))
+        start_period = StartPeriod(obj.get("startPeriod"))
+        return EvenOddTimetable(even, odd, start_period)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["even"] = from_list(lambda x: to_class(TimeFrame, x), self.even)
+        result["odd"] = from_list(lambda x: to_class(TimeFrame, x), self.odd)
+        result["startPeriod"] = to_enum(StartPeriod, self.start_period)
+        return result
+
+
+class ResourceLocation:
+    latitude: Optional[float]
+    longitude: Optional[float]
+    """время последнего обновления координат"""
+    time: Optional[str]
+
+    def __init__(self, latitude: Optional[float], longitude: Optional[float], time: Optional[str]) -> None:
+        self.latitude = latitude
+        self.longitude = longitude
+        self.time = time
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceLocation':
+        assert isinstance(obj, dict)
+        latitude = from_union([from_float, from_none], obj.get("latitude"))
+        longitude = from_union([from_float, from_none], obj.get("longitude"))
+        time = from_union([from_str, from_none], obj.get("time"))
+        return ResourceLocation(latitude, longitude, time)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["latitude"] = from_union([to_float, from_none], self.latitude)
+        result["longitude"] = from_union([to_float, from_none], self.longitude)
+        result["time"] = from_union([from_str, from_none], self.time)
+        return result
+
+
+class AdditionalFields:
+    name: str
+    required_field: Optional[bool]
+    short_name: str
+    type: AdditionalFieldType
+    value: Optional[str]
+
+    def __init__(self, name: str, required_field: Optional[bool], short_name: str, type: AdditionalFieldType, value: Optional[str]) -> None:
+        self.name = name
+        self.required_field = required_field
+        self.short_name = short_name
+        self.type = type
+        self.value = value
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AdditionalFields':
+        assert isinstance(obj, dict)
+        name = from_str(obj.get("name"))
+        required_field = from_union([from_bool, from_none], obj.get("requiredField"))
+        short_name = from_str(obj.get("shortName"))
+        type = AdditionalFieldType(obj.get("type"))
+        value = from_union([from_str, from_none], obj.get("value"))
+        return AdditionalFields(name, required_field, short_name, type, value)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["name"] = from_str(self.name)
+        result["requiredField"] = from_union([from_bool, from_none], self.required_field)
+        result["shortName"] = from_str(self.short_name)
+        result["type"] = to_enum(AdditionalFieldType, self.type)
+        result["value"] = from_union([from_str, from_none], self.value)
+        return result
+
+
+class Country(Enum):
+    AM = "AM"
+    BLR = "BLR"
+    CH = "CH"
+    DE = "DE"
+    EMPTY = "_"
+    ES = "ES"
+    FI = "FI"
+    FR = "FR"
+    GE = "GE"
+    HU = "HU"
+    IL = "IL"
+    KZ = "KZ"
+    LI = "LI"
+    LT = "LT"
+    LV = "LV"
+    RU = "RU"
+    UA = "UA"
+    UK = "UK"
+    US = "US"
+    UZ = "UZ"
+
+
+class FullAddressMetroStation:
+    id: Optional[str]
+    description: Optional[str]
+    name: str
+
+    def __init__(self, id: Optional[str], description: Optional[str], name: str) -> None:
+        self.id = id
+        self.description = description
+        self.name = name
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FullAddressMetroStation':
+        assert isinstance(obj, dict)
+        id = from_union([from_str, from_none], obj.get("_id"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        name = from_str(obj.get("name"))
+        return FullAddressMetroStation(id, description, name)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["_id"] = from_union([from_str, from_none], self.id)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["name"] = from_str(self.name)
+        return result
+
+
+class AddressSchema:
+    address: Optional[str]
+    address_add: Optional[str]
+    admin_area: Optional[str]
+    admin_area_type: Optional[str]
+    building: Optional[str]
+    corps: Optional[str]
+    country: Country
+    group: Optional[str]
+    house_add: Optional[str]
+    kilometer: Optional[str]
+    latitude: Optional[str]
+    locality: Optional[str]
+    locality_type: Optional[str]
+    longitude: Optional[str]
+    metro_stations: Optional[List[FullAddressMetroStation]]
+    number: Optional[str]
+    office: Optional[str]
+    possesion: Optional[str]
+    street: Optional[str]
+    street_type: Optional[str]
+    sub_admin_area: Optional[str]
+    sub_admin_area_type: Optional[str]
+    sub_locality: Optional[str]
+    sub_locality_type: Optional[str]
+    way: Optional[str]
+    zip_code: Optional[str]
+
+    def __init__(self, address: Optional[str], address_add: Optional[str], admin_area: Optional[str], admin_area_type: Optional[str], building: Optional[str], corps: Optional[str], country: Country, group: Optional[str], house_add: Optional[str], kilometer: Optional[str], latitude: Optional[str], locality: Optional[str], locality_type: Optional[str], longitude: Optional[str], metro_stations: Optional[List[FullAddressMetroStation]], number: Optional[str], office: Optional[str], possesion: Optional[str], street: Optional[str], street_type: Optional[str], sub_admin_area: Optional[str], sub_admin_area_type: Optional[str], sub_locality: Optional[str], sub_locality_type: Optional[str], way: Optional[str], zip_code: Optional[str]) -> None:
+        self.address = address
+        self.address_add = address_add
+        self.admin_area = admin_area
+        self.admin_area_type = admin_area_type
+        self.building = building
+        self.corps = corps
+        self.country = country
+        self.group = group
+        self.house_add = house_add
+        self.kilometer = kilometer
+        self.latitude = latitude
+        self.locality = locality
+        self.locality_type = locality_type
+        self.longitude = longitude
+        self.metro_stations = metro_stations
+        self.number = number
+        self.office = office
+        self.possesion = possesion
+        self.street = street
+        self.street_type = street_type
+        self.sub_admin_area = sub_admin_area
+        self.sub_admin_area_type = sub_admin_area_type
+        self.sub_locality = sub_locality
+        self.sub_locality_type = sub_locality_type
+        self.way = way
+        self.zip_code = zip_code
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'AddressSchema':
+        assert isinstance(obj, dict)
+        address = from_union([from_str, from_none], obj.get("address"))
+        address_add = from_union([from_str, from_none], obj.get("address_add"))
+        admin_area = from_union([from_str, from_none], obj.get("admin_area"))
+        admin_area_type = from_union([from_str, from_none], obj.get("admin_area_type"))
+        building = from_union([from_str, from_none], obj.get("building"))
+        corps = from_union([from_str, from_none], obj.get("corps"))
+        country = Country(obj.get("country"))
+        group = from_union([from_str, from_none], obj.get("group"))
+        house_add = from_union([from_str, from_none], obj.get("house_add"))
+        kilometer = from_union([from_str, from_none], obj.get("kilometer"))
+        latitude = from_union([from_str, from_none], obj.get("latitude"))
+        locality = from_union([from_str, from_none], obj.get("locality"))
+        locality_type = from_union([from_str, from_none], obj.get("locality_type"))
+        longitude = from_union([from_str, from_none], obj.get("longitude"))
+        metro_stations = from_union([lambda x: from_list(FullAddressMetroStation.from_dict, x), from_none], obj.get("metroStations"))
+        number = from_union([from_str, from_none], obj.get("number"))
+        office = from_union([from_str, from_none], obj.get("office"))
+        possesion = from_union([from_str, from_none], obj.get("possesion"))
+        street = from_union([from_str, from_none], obj.get("street"))
+        street_type = from_union([from_str, from_none], obj.get("street_type"))
+        sub_admin_area = from_union([from_str, from_none], obj.get("sub_admin_area"))
+        sub_admin_area_type = from_union([from_str, from_none], obj.get("sub_admin_area_type"))
+        sub_locality = from_union([from_str, from_none], obj.get("sub_locality"))
+        sub_locality_type = from_union([from_str, from_none], obj.get("sub_locality_type"))
+        way = from_union([from_str, from_none], obj.get("way"))
+        zip_code = from_union([from_str, from_none], obj.get("zip_code"))
+        return AddressSchema(address, address_add, admin_area, admin_area_type, building, corps, country, group, house_add, kilometer, latitude, locality, locality_type, longitude, metro_stations, number, office, possesion, street, street_type, sub_admin_area, sub_admin_area_type, sub_locality, sub_locality_type, way, zip_code)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["address"] = from_union([from_str, from_none], self.address)
+        result["address_add"] = from_union([from_str, from_none], self.address_add)
+        result["admin_area"] = from_union([from_str, from_none], self.admin_area)
+        result["admin_area_type"] = from_union([from_str, from_none], self.admin_area_type)
+        result["building"] = from_union([from_str, from_none], self.building)
+        result["corps"] = from_union([from_str, from_none], self.corps)
+        result["country"] = to_enum(Country, self.country)
+        result["group"] = from_union([from_str, from_none], self.group)
+        result["house_add"] = from_union([from_str, from_none], self.house_add)
+        result["kilometer"] = from_union([from_str, from_none], self.kilometer)
+        result["latitude"] = from_union([from_str, from_none], self.latitude)
+        result["locality"] = from_union([from_str, from_none], self.locality)
+        result["locality_type"] = from_union([from_str, from_none], self.locality_type)
+        result["longitude"] = from_union([from_str, from_none], self.longitude)
+        result["metroStations"] = from_union([lambda x: from_list(lambda x: to_class(FullAddressMetroStation, x), x), from_none], self.metro_stations)
+        result["number"] = from_union([from_str, from_none], self.number)
+        result["office"] = from_union([from_str, from_none], self.office)
+        result["possesion"] = from_union([from_str, from_none], self.possesion)
+        result["street"] = from_union([from_str, from_none], self.street)
+        result["street_type"] = from_union([from_str, from_none], self.street_type)
+        result["sub_admin_area"] = from_union([from_str, from_none], self.sub_admin_area)
+        result["sub_admin_area_type"] = from_union([from_str, from_none], self.sub_admin_area_type)
+        result["sub_locality"] = from_union([from_str, from_none], self.sub_locality)
+        result["sub_locality_type"] = from_union([from_str, from_none], self.sub_locality_type)
+        result["way"] = from_union([from_str, from_none], self.way)
+        result["zip_code"] = from_union([from_str, from_none], self.zip_code)
+        return result
+
+
+class BusinessShowcaseAlias:
+    internal_id: Optional[str]
+
+    def __init__(self, internal_id: Optional[str]) -> None:
+        self.internal_id = internal_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'BusinessShowcaseAlias':
+        assert isinstance(obj, dict)
+        internal_id = from_union([from_str, from_none], obj.get("internalID"))
+        return BusinessShowcaseAlias(internal_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["internalID"] = from_union([from_str, from_none], self.internal_id)
+        return result
+
+
+class FaxElement:
+    area_code: str
+    country_code: str
+    number: str
+
+    def __init__(self, area_code: str, country_code: str, number: str) -> None:
+        self.area_code = area_code
+        self.country_code = country_code
+        self.number = number
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FaxElement':
+        assert isinstance(obj, dict)
+        area_code = from_str(obj.get("area_code"))
+        country_code = from_str(obj.get("country_code"))
+        number = from_str(obj.get("number"))
+        return FaxElement(area_code, country_code, number)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["area_code"] = from_str(self.area_code)
+        result["country_code"] = from_str(self.country_code)
+        result["number"] = from_str(self.number)
+        return result
+
+
+class LanguageList(Enum):
+    AM_AM = "am-am"
+    DE_DE = "de-de"
+    EE_EE = "ee-ee"
+    EN_US = "en-us"
+    ES_ES = "es-es"
+    FI_FI = "fi-fi"
+    FR_FR = "fr-fr"
+    GE_GE = "ge-ge"
+    HE_IL = "he-il"
+    HU_HU = "hu-hu"
+    LT_LT = "lt-lt"
+    LV_LV = "lv-lv"
+    RU_RU = "ru-ru"
+    UZ_UZ = "uz-uz"
+    ZH_CN = "zh-cn"
+
+
+class MarketingNotifications:
+    accepted: bool
+    active: bool
+    use_sms_alpha_name: bool
+
+    def __init__(self, accepted: bool, active: bool, use_sms_alpha_name: bool) -> None:
+        self.accepted = accepted
+        self.active = active
+        self.use_sms_alpha_name = use_sms_alpha_name
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'MarketingNotifications':
+        assert isinstance(obj, dict)
+        accepted = from_bool(obj.get("accepted"))
+        active = from_bool(obj.get("active"))
+        use_sms_alpha_name = from_bool(obj.get("useSmsAlphaName"))
+        return MarketingNotifications(accepted, active, use_sms_alpha_name)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["accepted"] = from_bool(self.accepted)
+        result["active"] = from_bool(self.active)
+        result["useSmsAlphaName"] = from_bool(self.use_sms_alpha_name)
+        return result
+
+
+class Metro:
+    color: Optional[str]
+    distance: Optional[float]
+    name: Optional[str]
+
+    def __init__(self, color: Optional[str], distance: Optional[float], name: Optional[str]) -> None:
+        self.color = color
+        self.distance = distance
+        self.name = name
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Metro':
+        assert isinstance(obj, dict)
+        color = from_union([from_str, from_none], obj.get("color"))
+        distance = from_union([from_float, from_none], obj.get("distance"))
+        name = from_union([from_str, from_none], obj.get("name"))
+        return Metro(color, distance, name)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["color"] = from_union([from_str, from_none], self.color)
+        result["distance"] = from_union([to_float, from_none], self.distance)
+        result["name"] = from_union([from_str, from_none], self.name)
+        return result
+
+
+class PaymentMethods(Enum):
+    AMEX = "Amex"
+    MASTERCARD = "Mastercard"
+    MONEY_BOOKERS = "MoneyBookers"
+    PAY_PAL = "PayPal"
+    VISA = "Visa"
+
+
+class PricingType(Enum):
+    DEFAULT = "DEFAULT"
+    MASTER_TOPMASTER = "MASTER_TOPMASTER"
+
+
+class ShowcaseBusinessDatum:
+    """Адреса компании или филиала"""
+    address: Optional[List[AddressSchema]]
+    """Список e-mail адресов компании или филиала"""
+    email: Optional[str]
+    internal_id: Optional[str]
+    language: Optional[LanguageList]
+    """Название бизнеса"""
+    name: Optional[str]
+    """Список телефонов бизнеса"""
+    phone: Optional[List[FaxElement]]
+    """Список видов приема филиала"""
+    reception_types: Optional[List[str]]
+    timezone: Optional[str]
+
+    def __init__(self, address: Optional[List[AddressSchema]], email: Optional[str], internal_id: Optional[str], language: Optional[LanguageList], name: Optional[str], phone: Optional[List[FaxElement]], reception_types: Optional[List[str]], timezone: Optional[str]) -> None:
+        self.address = address
+        self.email = email
+        self.internal_id = internal_id
+        self.language = language
+        self.name = name
+        self.phone = phone
+        self.reception_types = reception_types
+        self.timezone = timezone
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ShowcaseBusinessDatum':
+        assert isinstance(obj, dict)
+        address = from_union([lambda x: from_list(AddressSchema.from_dict, x), from_none], obj.get("address"))
+        email = from_union([from_str, from_none], obj.get("email"))
+        internal_id = from_union([from_str, from_none], obj.get("internalID"))
+        language = from_union([LanguageList, from_none], obj.get("language"))
+        name = from_union([from_str, from_none], obj.get("name"))
+        phone = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("phone"))
+        reception_types = from_union([lambda x: from_list(from_str, x), from_none], obj.get("receptionTypes"))
+        timezone = from_union([from_str, from_none], obj.get("timezone"))
+        return ShowcaseBusinessDatum(address, email, internal_id, language, name, phone, reception_types, timezone)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["address"] = from_union([lambda x: from_list(lambda x: to_class(AddressSchema, x), x), from_none], self.address)
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["internalID"] = from_union([from_str, from_none], self.internal_id)
+        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
+        result["name"] = from_union([from_str, from_none], self.name)
+        result["phone"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.phone)
+        result["receptionTypes"] = from_union([lambda x: from_list(from_str, x), from_none], self.reception_types)
+        result["timezone"] = from_union([from_str, from_none], self.timezone)
+        return result
+
+
+class ShowcaseElement:
+    base_business_id: Optional[str]
+
+    def __init__(self, base_business_id: Optional[str]) -> None:
+        self.base_business_id = base_business_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ShowcaseElement':
+        assert isinstance(obj, dict)
+        base_business_id = from_union([from_str, from_none], obj.get("baseBusinessID"))
+        return ShowcaseElement(base_business_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["baseBusinessID"] = from_union([from_str, from_none], self.base_business_id)
+        return result
+
+
+class SMSDuplicateFilter:
+    active: Optional[bool]
+
+    def __init__(self, active: Optional[bool]) -> None:
+        self.active = active
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'SMSDuplicateFilter':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        return SMSDuplicateFilter(active)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        return result
+
+
+class SocialNetwork(Enum):
+    FACEBOOK = "Facebook"
+    GOOGLE = "Google"
+    G_BOOKING = "GBooking"
+    LINKED_IN = "LinkedIn"
+    MAILRU = "Mailru"
+    ODNOKLASSNIKI = "Odnoklassniki"
+    TWITTER = "Twitter"
+    V_KONTAKTE = "VKontakte"
+    YAHOO = "Yahoo"
+    YANDEX = "Yandex"
+
+
+class SocialNetworkSchema:
+    handle: str
+    """network id"""
+    id: str
+    social_network: SocialNetwork
+    url: str
+
+    def __init__(self, handle: str, id: str, social_network: SocialNetwork, url: str) -> None:
+        self.handle = handle
+        self.id = id
+        self.social_network = social_network
+        self.url = url
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'SocialNetworkSchema':
+        assert isinstance(obj, dict)
+        handle = from_str(obj.get("handle"))
+        id = from_str(obj.get("id"))
+        social_network = SocialNetwork(obj.get("social_network"))
+        url = from_str(obj.get("url"))
+        return SocialNetworkSchema(handle, id, social_network, url)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["handle"] = from_str(self.handle)
+        result["id"] = from_str(self.id)
+        result["social_network"] = to_enum(SocialNetwork, self.social_network)
+        result["url"] = from_str(self.url)
+        return result
+
+
+class Week:
+    fri: List[TimeFrame]
+    mon: List[TimeFrame]
+    sat: List[TimeFrame]
+    sun: List[TimeFrame]
+    thu: List[TimeFrame]
+    tue: List[TimeFrame]
+    wed: List[TimeFrame]
+
+    def __init__(self, fri: List[TimeFrame], mon: List[TimeFrame], sat: List[TimeFrame], sun: List[TimeFrame], thu: List[TimeFrame], tue: List[TimeFrame], wed: List[TimeFrame]) -> None:
+        self.fri = fri
+        self.mon = mon
+        self.sat = sat
+        self.sun = sun
+        self.thu = thu
+        self.tue = tue
+        self.wed = wed
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Week':
+        assert isinstance(obj, dict)
+        fri = from_list(TimeFrame.from_dict, obj.get("fri"))
+        mon = from_list(TimeFrame.from_dict, obj.get("mon"))
+        sat = from_list(TimeFrame.from_dict, obj.get("sat"))
+        sun = from_list(TimeFrame.from_dict, obj.get("sun"))
+        thu = from_list(TimeFrame.from_dict, obj.get("thu"))
+        tue = from_list(TimeFrame.from_dict, obj.get("tue"))
+        wed = from_list(TimeFrame.from_dict, obj.get("wed"))
+        return Week(fri, mon, sat, sun, thu, tue, wed)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["fri"] = from_list(lambda x: to_class(TimeFrame, x), self.fri)
+        result["mon"] = from_list(lambda x: to_class(TimeFrame, x), self.mon)
+        result["sat"] = from_list(lambda x: to_class(TimeFrame, x), self.sat)
+        result["sun"] = from_list(lambda x: to_class(TimeFrame, x), self.sun)
+        result["thu"] = from_list(lambda x: to_class(TimeFrame, x), self.thu)
+        result["tue"] = from_list(lambda x: to_class(TimeFrame, x), self.tue)
+        result["wed"] = from_list(lambda x: to_class(TimeFrame, x), self.wed)
+        return result
+
+
+class Timetable:
+    """таблица регулярного недельного расписания"""
+    """установлено ли расписание для сущности"""
+    active: Optional[bool]
+    week: Optional[Week]
+
+    def __init__(self, active: Optional[bool], week: Optional[Week]) -> None:
+        self.active = active
+        self.week = week
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Timetable':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        week = from_union([Week.from_dict, from_none], obj.get("week"))
+        return Timetable(active, week)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        result["week"] = from_union([lambda x: to_class(Week, x), from_none], self.week)
+        return result
+
+
+class VerticalTranslation(Enum):
+    BEAUTY = "BEAUTY"
+    FITNESS = "FITNESS"
+    GENERIC = "GENERIC"
+    MEDICAL = "MEDICAL"
+    NONE = "NONE"
+    SPORT = "SPORT"
+    YOGA = "YOGA"
+
+
+class Info:
+    """(только в витрине) объект с данными бизнеса-филиала
+    
+    Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
+    """
+    accepted_currency: Optional[List[CurrencyList]]
+    additional_info: Optional[str]
+    additional_fields: Optional[List[AdditionalFields]]
+    """Адреса компании или филиала"""
+    address: Optional[List[AddressSchema]]
+    align_min_booking_time: Optional[bool]
+    auto_accept_appointment: Optional[bool]
+    """если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину"""
+    business_showcase_aliases: Optional[List[BusinessShowcaseAlias]]
+    contact_name: Optional[str]
+    date_joined: Optional[datetime]
+    description: Optional[str]
+    """Список e-mail адресов компании или филиала"""
+    email: Optional[str]
+    event_editor_minutes_tick: Optional[float]
+    fax: Optional[List[FaxElement]]
+    images: Optional[List[str]]
+    instant_messaging: Optional[List[Dict[str, Any]]]
+    """является ли данный бизнес витриной"""
+    is_showcase: Optional[bool]
+    language: Optional[LanguageList]
+    logo_url: Optional[str]
+    marketing_notifications: Optional[MarketingNotifications]
+    metro: Optional[Metro]
+    min_booking_time: Optional[float]
+    """Список телефонов бизнеса"""
+    mobile: Optional[List[FaxElement]]
+    """Название бизнеса"""
+    name: Optional[str]
+    network_id: Optional[float]
+    newbo_enabled_for: Optional[List[str]]
+    payment_methods: Optional[PaymentMethods]
+    """Список телефонов бизнеса"""
+    phone: Optional[List[FaxElement]]
+    phone_mask: Optional[str]
+    pricing_type: Optional[PricingType]
+    revision_version: Optional[float]
+    scheduler_tick: Optional[float]
+    """Короткое название филиала"""
+    short_name: Optional[str]
+    show_appointment_color: Optional[bool]
+    show_appointment_tooltip: Optional[bool]
+    """если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+    витрины
+    """
+    showcase_business_data: Optional[List[ShowcaseBusinessDatum]]
+    """идентификаторы витрин, в которых участвует данный бизнес"""
+    showcases: Optional[List[ShowcaseElement]]
+    show_resource_work_statistics: Optional[bool]
+    show_worker_profession: Optional[bool]
+    skip_billing: Optional[bool]
+    sms_duplicate_filter: Optional[SMSDuplicateFilter]
+    social_network: Optional[List[SocialNetworkSchema]]
+    timetable: Optional[Timetable]
+    timezone: Optional[str]
+    vertical_translation: Optional[VerticalTranslation]
+    website: Optional[str]
+
+    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[AdditionalFields]], address: Optional[List[AddressSchema]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], event_editor_minutes_tick: Optional[float], fax: Optional[List[FaxElement]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[float], mobile: Optional[List[FaxElement]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[FaxElement]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
+        self.accepted_currency = accepted_currency
+        self.additional_info = additional_info
+        self.additional_fields = additional_fields
+        self.address = address
+        self.align_min_booking_time = align_min_booking_time
+        self.auto_accept_appointment = auto_accept_appointment
+        self.business_showcase_aliases = business_showcase_aliases
+        self.contact_name = contact_name
+        self.date_joined = date_joined
+        self.description = description
+        self.email = email
+        self.event_editor_minutes_tick = event_editor_minutes_tick
+        self.fax = fax
+        self.images = images
+        self.instant_messaging = instant_messaging
+        self.is_showcase = is_showcase
+        self.language = language
+        self.logo_url = logo_url
+        self.marketing_notifications = marketing_notifications
+        self.metro = metro
+        self.min_booking_time = min_booking_time
+        self.mobile = mobile
+        self.name = name
+        self.network_id = network_id
+        self.newbo_enabled_for = newbo_enabled_for
+        self.payment_methods = payment_methods
+        self.phone = phone
+        self.phone_mask = phone_mask
+        self.pricing_type = pricing_type
+        self.revision_version = revision_version
+        self.scheduler_tick = scheduler_tick
+        self.short_name = short_name
+        self.show_appointment_color = show_appointment_color
+        self.show_appointment_tooltip = show_appointment_tooltip
+        self.showcase_business_data = showcase_business_data
+        self.showcases = showcases
+        self.show_resource_work_statistics = show_resource_work_statistics
+        self.show_worker_profession = show_worker_profession
+        self.skip_billing = skip_billing
+        self.sms_duplicate_filter = sms_duplicate_filter
+        self.social_network = social_network
+        self.timetable = timetable
+        self.timezone = timezone
+        self.vertical_translation = vertical_translation
+        self.website = website
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Info':
+        assert isinstance(obj, dict)
+        accepted_currency = from_union([lambda x: from_list(CurrencyList, x), from_none], obj.get("accepted_currency"))
+        additional_info = from_union([from_none, from_str], obj.get("additional_info"))
+        additional_fields = from_union([lambda x: from_list(AdditionalFields.from_dict, x), from_none], obj.get("additionalFields"))
+        address = from_union([lambda x: from_list(AddressSchema.from_dict, x), from_none], obj.get("address"))
+        align_min_booking_time = from_union([from_bool, from_none], obj.get("align_min_booking_time"))
+        auto_accept_appointment = from_union([from_bool, from_none], obj.get("autoAcceptAppointment"))
+        business_showcase_aliases = from_union([lambda x: from_list(BusinessShowcaseAlias.from_dict, x), from_none], obj.get("businessShowcaseAliases"))
+        contact_name = from_union([from_none, from_str], obj.get("contactName"))
+        date_joined = from_union([from_datetime, from_none], obj.get("date_joined"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        email = from_union([from_str, from_none], obj.get("email"))
+        event_editor_minutes_tick = from_union([from_float, from_none], obj.get("eventEditorMinutesTick"))
+        fax = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("fax"))
+        images = from_union([lambda x: from_list(from_str, x), from_none], obj.get("images"))
+        instant_messaging = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("instant_messaging"))
+        is_showcase = from_union([from_bool, from_none], obj.get("isShowcase"))
+        language = from_union([LanguageList, from_none], obj.get("language"))
+        logo_url = from_union([from_none, from_str], obj.get("logo_url"))
+        marketing_notifications = from_union([MarketingNotifications.from_dict, from_none], obj.get("marketingNotifications"))
+        metro = from_union([Metro.from_dict, from_none], obj.get("metro"))
+        min_booking_time = from_union([from_float, from_none], obj.get("min_booking_time"))
+        mobile = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("mobile"))
+        name = from_union([from_str, from_none], obj.get("name"))
+        network_id = from_union([from_float, from_none], obj.get("networkID"))
+        newbo_enabled_for = from_union([lambda x: from_list(from_str, x), from_none], obj.get("newboEnabledFor"))
+        payment_methods = from_union([PaymentMethods, from_none], obj.get("paymentMethods"))
+        phone = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("phone"))
+        phone_mask = from_union([from_none, from_str], obj.get("phone_mask"))
+        pricing_type = from_union([PricingType, from_none], obj.get("pricingType"))
+        revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
+        scheduler_tick = from_union([from_float, from_none], obj.get("schedulerTick"))
+        short_name = from_union([from_none, from_str], obj.get("shortName"))
+        show_appointment_color = from_union([from_bool, from_none], obj.get("showAppointmentColor"))
+        show_appointment_tooltip = from_union([from_bool, from_none], obj.get("showAppointmentTooltip"))
+        showcase_business_data = from_union([lambda x: from_list(ShowcaseBusinessDatum.from_dict, x), from_none], obj.get("showcaseBusinessData"))
+        showcases = from_union([lambda x: from_list(ShowcaseElement.from_dict, x), from_none], obj.get("showcases"))
+        show_resource_work_statistics = from_union([from_bool, from_none], obj.get("showResourceWorkStatistics"))
+        show_worker_profession = from_union([from_bool, from_none], obj.get("showWorkerProfession"))
+        skip_billing = from_union([from_bool, from_none], obj.get("skipBilling"))
+        sms_duplicate_filter = from_union([SMSDuplicateFilter.from_dict, from_none], obj.get("smsDuplicateFilter"))
+        social_network = from_union([lambda x: from_list(SocialNetworkSchema.from_dict, x), from_none], obj.get("social_network"))
+        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
+        timezone = from_union([from_none, from_str], obj.get("timezone"))
+        vertical_translation = from_union([VerticalTranslation, from_none], obj.get("verticalTranslation"))
+        website = from_union([from_none, from_str], obj.get("website"))
+        return Info(accepted_currency, additional_info, additional_fields, address, align_min_booking_time, auto_accept_appointment, business_showcase_aliases, contact_name, date_joined, description, email, event_editor_minutes_tick, fax, images, instant_messaging, is_showcase, language, logo_url, marketing_notifications, metro, min_booking_time, mobile, name, network_id, newbo_enabled_for, payment_methods, phone, phone_mask, pricing_type, revision_version, scheduler_tick, short_name, show_appointment_color, show_appointment_tooltip, showcase_business_data, showcases, show_resource_work_statistics, show_worker_profession, skip_billing, sms_duplicate_filter, social_network, timetable, timezone, vertical_translation, website)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["accepted_currency"] = from_union([lambda x: from_list(lambda x: to_enum(CurrencyList, x), x), from_none], self.accepted_currency)
+        result["additional_info"] = from_union([from_none, from_str], self.additional_info)
+        result["additionalFields"] = from_union([lambda x: from_list(lambda x: to_class(AdditionalFields, x), x), from_none], self.additional_fields)
+        result["address"] = from_union([lambda x: from_list(lambda x: to_class(AddressSchema, x), x), from_none], self.address)
+        result["align_min_booking_time"] = from_union([from_bool, from_none], self.align_min_booking_time)
+        result["autoAcceptAppointment"] = from_union([from_bool, from_none], self.auto_accept_appointment)
+        result["businessShowcaseAliases"] = from_union([lambda x: from_list(lambda x: to_class(BusinessShowcaseAlias, x), x), from_none], self.business_showcase_aliases)
+        result["contactName"] = from_union([from_none, from_str], self.contact_name)
+        result["date_joined"] = from_union([lambda x: x.isoformat(), from_none], self.date_joined)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["eventEditorMinutesTick"] = from_union([to_float, from_none], self.event_editor_minutes_tick)
+        result["fax"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.fax)
+        result["images"] = from_union([lambda x: from_list(from_str, x), from_none], self.images)
+        result["instant_messaging"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.instant_messaging)
+        result["isShowcase"] = from_union([from_bool, from_none], self.is_showcase)
+        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
+        result["logo_url"] = from_union([from_none, from_str], self.logo_url)
+        result["marketingNotifications"] = from_union([lambda x: to_class(MarketingNotifications, x), from_none], self.marketing_notifications)
+        result["metro"] = from_union([lambda x: to_class(Metro, x), from_none], self.metro)
+        result["min_booking_time"] = from_union([to_float, from_none], self.min_booking_time)
+        result["mobile"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.mobile)
+        result["name"] = from_union([from_str, from_none], self.name)
+        result["networkID"] = from_union([to_float, from_none], self.network_id)
+        result["newboEnabledFor"] = from_union([lambda x: from_list(from_str, x), from_none], self.newbo_enabled_for)
+        result["paymentMethods"] = from_union([lambda x: to_enum(PaymentMethods, x), from_none], self.payment_methods)
+        result["phone"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.phone)
+        result["phone_mask"] = from_union([from_none, from_str], self.phone_mask)
+        result["pricingType"] = from_union([lambda x: to_enum(PricingType, x), from_none], self.pricing_type)
+        result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
+        result["schedulerTick"] = from_union([to_float, from_none], self.scheduler_tick)
+        result["shortName"] = from_union([from_none, from_str], self.short_name)
+        result["showAppointmentColor"] = from_union([from_bool, from_none], self.show_appointment_color)
+        result["showAppointmentTooltip"] = from_union([from_bool, from_none], self.show_appointment_tooltip)
+        result["showcaseBusinessData"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseBusinessDatum, x), x), from_none], self.showcase_business_data)
+        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseElement, x), x), from_none], self.showcases)
+        result["showResourceWorkStatistics"] = from_union([from_bool, from_none], self.show_resource_work_statistics)
+        result["showWorkerProfession"] = from_union([from_bool, from_none], self.show_worker_profession)
+        result["skipBilling"] = from_union([from_bool, from_none], self.skip_billing)
+        result["smsDuplicateFilter"] = from_union([lambda x: to_class(SMSDuplicateFilter, x), from_none], self.sms_duplicate_filter)
+        result["social_network"] = from_union([lambda x: from_list(lambda x: to_class(SocialNetworkSchema, x), x), from_none], self.social_network)
+        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
+        result["timezone"] = from_union([from_none, from_str], self.timezone)
+        result["verticalTranslation"] = from_union([lambda x: to_enum(VerticalTranslation, x), from_none], self.vertical_translation)
+        result["website"] = from_union([from_none, from_str], self.website)
+        return result
+
+
+class AccessType(Enum):
+    """тип доступа работника в систему через его учётную запись"""
+    NONE = "NONE"
+    WORKER_EXTENDED = "WORKER_EXTENDED"
+    WORKER_SIMPLE = "WORKER_SIMPLE"
+
+
+class ИнформацияОПрофилеРаботника:
+    """Доступ имеют только пользователи с правами resource или admin"""
+    """тип доступа работника в систему через его учётную запись"""
+    access_type: AccessType
+    """e-mail профиля работника"""
+    email: str
+    """идентификатор профиля работника уникальный во всей системе"""
+    profile_id: str
+    """идентификатор работника"""
+    user_id: str
+
+    def __init__(self, access_type: AccessType, email: str, profile_id: str, user_id: str) -> None:
+        self.access_type = access_type
+        self.email = email
+        self.profile_id = profile_id
+        self.user_id = user_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ИнформацияОПрофилеРаботника':
+        assert isinstance(obj, dict)
+        access_type = AccessType(obj.get("accessType"))
+        email = from_str(obj.get("email"))
+        profile_id = from_str(obj.get("profileID"))
+        user_id = from_str(obj.get("userID"))
+        return ИнформацияОПрофилеРаботника(access_type, email, profile_id, user_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["accessType"] = to_enum(AccessType, self.access_type)
+        result["email"] = from_str(self.email)
+        result["profileID"] = from_str(self.profile_id)
+        result["userID"] = from_str(self.user_id)
+        return result
+
+
+class ResourceStatus(Enum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+
+class ResourceTaxonomyChildren:
+    """true - детская услуга; false - взрослая услуга"""
+    children: bool
+    """идентификатор услуги, для которой установлено свойство"""
+    taxonomy_id: str
+
+    def __init__(self, children: bool, taxonomy_id: str) -> None:
+        self.children = children
+        self.taxonomy_id = taxonomy_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceTaxonomyChildren':
+        assert isinstance(obj, dict)
+        children = from_bool(obj.get("children"))
+        taxonomy_id = from_str(obj.get("taxonomyID"))
+        return ResourceTaxonomyChildren(children, taxonomy_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["children"] = from_bool(self.children)
+        result["taxonomyID"] = from_str(self.taxonomy_id)
+        return result
+
+
+class ResourceTaxonomyLevel:
+    """идентификатор услуги, для которой установлено уровень скорости"""
+    id: str
+    """уровень скорости"""
+    level: float
+
+    def __init__(self, id: str, level: float) -> None:
+        self.id = id
+        self.level = level
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceTaxonomyLevel':
+        assert isinstance(obj, dict)
+        id = from_str(obj.get("id"))
+        level = from_float(obj.get("level"))
+        return ResourceTaxonomyLevel(id, level)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_str(self.id)
+        result["level"] = to_float(self.level)
+        return result
+
+
+class ResourceTelemedData:
+    active: Optional[bool]
+    id: Optional[str]
+
+    def __init__(self, active: Optional[bool], id: Optional[str]) -> None:
+        self.active = active
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResourceTelemedData':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        id = from_union([from_str, from_none], obj.get("id"))
+        return ResourceTelemedData(active, id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        result["id"] = from_union([from_str, from_none], self.id)
+        return result
+
+
+class AppointmentResource:
+    """Данные о работнике бизнеса"""
+    extra_id: Optional[str]
+    """внутренний идентификатор работника; уникальный во всей системе GBooking"""
+    id: str
+    """отчество работника"""
+    middle_name: Optional[str]
+    """имя работника"""
+    name: str
+    """фамилия и отчество работника"""
+    surname: str
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    additional_extra_id: Optional[List[str]]
+    bad_icon_resolution: Optional[bool]
+    """Количество записей, которые может принимать работник единовременно"""
+    capacity: Optional[float]
+    """цвет колонки с работником"""
+    color: Optional[str]
+    degree: Optional[str]
+    """идентификатор отделения, к которому привязан работник"""
+    department_id: Optional[str]
+    """краткое описание работника"""
+    description: Optional[str]
+    display_in_schedule: Optional[bool]
+    """отображать ли данного работника на виджете или любом другом клиенте"""
+    display_in_widget: Optional[bool]
+    """e-mail работника"""
+    email: Optional[str]
+    """включена ли отправка e-mail уведомлений для данного работника"""
+    email_enabled: Optional[bool]
+    even_odd_timetable: Optional[EvenOddTimetable]
+    exceptions: Optional[List[Any]]
+    experience: Optional[datetime]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_description: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    resource_extra_id: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_link: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_media_id: Optional[str]
+    """url изображения работника; Если указан относительный путь, то используйте
+    http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+    WidgetConfiguration.defaultWorkerImgUrl)
+    """
+    icon_url: Optional[str]
+    image: Optional[str]
+    last_su: Optional[datetime]
+    """уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)"""
+    level: Optional[float]
+    """не используется"""
+    loaned: Optional[bool]
+    """не используется"""
+    loaned_from: Optional[str]
+    """не используется"""
+    loaned_to: Optional[str]
+    location: Optional[ResourceLocation]
+    manual_changes: Optional[bool]
+    """внутреннее название работника в Бекофис"""
+    nickname: Optional[str]
+    """индекс сортировки работника"""
+    order: Optional[float]
+    """вес работника, в зависимости от указанного способа сортировки"""
+    order_weight: Union[float, None, str]
+    """(только в витрине) объект с данными бизнеса-филиала"""
+    origin_general_info: Optional[Info]
+    """(только в витрине) идентификатор бизнеса-филиала, откуда был взят работник"""
+    origin_business_id: Optional[str]
+    """(только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+    работник
+    """
+    origin_taxonomies: Optional[List[str]]
+    """особый навык"""
+    perk: Optional[str]
+    phone: Optional[List[FaxElement]]
+    """информация о профессии работника, используется в Бекофис"""
+    profession: Optional[str]
+    profile: Optional[ИнформацияОПрофилеРаботника]
+    """Рейтинг работника"""
+    rating: Optional[float]
+    readonly_taxonomies: Optional[List[str]]
+    """Версия изменений документа"""
+    revision_version: Optional[float]
+    schedule_is_empty: Optional[bool]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    site_id: Optional[str]
+    """включена ли отправка смс уведомлений для данного работника"""
+    sms_enabled: Optional[bool]
+    status: Optional[ResourceStatus]
+    """массив идентификаторов услуг, которые выполняет работник"""
+    taxonomies: Optional[List[str]]
+    """массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+    оба или не указаны вовсе для услуги)
+    """
+    taxonomy_children: Optional[List[ResourceTaxonomyChildren]]
+    """массив уровня скорости выполнения услуги (см так же Resource level)"""
+    taxonomy_levels: Optional[List[ResourceTaxonomyLevel]]
+    telemed_data: Optional[ResourceTelemedData]
+    timetable: Optional[Timetable]
+    user_data: Optional[Dict[str, Any]]
+    """рабочее место, которое занимает работник"""
+    work_place: Optional[str]
+
+    def __init__(self, extra_id: Optional[str], id: str, middle_name: Optional[str], name: str, surname: str, additional_extra_id: Optional[List[str]], bad_icon_resolution: Optional[bool], capacity: Optional[float], color: Optional[str], degree: Optional[str], department_id: Optional[str], description: Optional[str], display_in_schedule: Optional[bool], display_in_widget: Optional[bool], email: Optional[str], email_enabled: Optional[bool], even_odd_timetable: Optional[EvenOddTimetable], exceptions: Optional[List[Any]], experience: Optional[datetime], extra_description: Optional[str], resource_extra_id: Optional[str], extra_link: Optional[str], extra_media_id: Optional[str], icon_url: Optional[str], image: Optional[str], last_su: Optional[datetime], level: Optional[float], loaned: Optional[bool], loaned_from: Optional[str], loaned_to: Optional[str], location: Optional[ResourceLocation], manual_changes: Optional[bool], nickname: Optional[str], order: Optional[float], order_weight: Union[float, None, str], origin_general_info: Optional[Info], origin_business_id: Optional[str], origin_taxonomies: Optional[List[str]], perk: Optional[str], phone: Optional[List[FaxElement]], profession: Optional[str], profile: Optional[ИнформацияОПрофилеРаботника], rating: Optional[float], readonly_taxonomies: Optional[List[str]], revision_version: Optional[float], schedule_is_empty: Optional[bool], site_id: Optional[str], sms_enabled: Optional[bool], status: Optional[ResourceStatus], taxonomies: Optional[List[str]], taxonomy_children: Optional[List[ResourceTaxonomyChildren]], taxonomy_levels: Optional[List[ResourceTaxonomyLevel]], telemed_data: Optional[ResourceTelemedData], timetable: Optional[Timetable], user_data: Optional[Dict[str, Any]], work_place: Optional[str]) -> None:
         self.extra_id = extra_id
         self.id = id
         self.middle_name = middle_name
         self.name = name
         self.surname = surname
+        self.additional_extra_id = additional_extra_id
+        self.bad_icon_resolution = bad_icon_resolution
+        self.capacity = capacity
+        self.color = color
+        self.degree = degree
+        self.department_id = department_id
+        self.description = description
+        self.display_in_schedule = display_in_schedule
+        self.display_in_widget = display_in_widget
+        self.email = email
+        self.email_enabled = email_enabled
+        self.even_odd_timetable = even_odd_timetable
+        self.exceptions = exceptions
+        self.experience = experience
+        self.extra_description = extra_description
+        self.resource_extra_id = resource_extra_id
+        self.extra_link = extra_link
+        self.extra_media_id = extra_media_id
+        self.icon_url = icon_url
+        self.image = image
+        self.last_su = last_su
+        self.level = level
+        self.loaned = loaned
+        self.loaned_from = loaned_from
+        self.loaned_to = loaned_to
+        self.location = location
+        self.manual_changes = manual_changes
+        self.nickname = nickname
+        self.order = order
+        self.order_weight = order_weight
+        self.origin_general_info = origin_general_info
+        self.origin_business_id = origin_business_id
+        self.origin_taxonomies = origin_taxonomies
+        self.perk = perk
+        self.phone = phone
+        self.profession = profession
+        self.profile = profile
+        self.rating = rating
+        self.readonly_taxonomies = readonly_taxonomies
+        self.revision_version = revision_version
+        self.schedule_is_empty = schedule_is_empty
+        self.site_id = site_id
+        self.sms_enabled = sms_enabled
+        self.status = status
+        self.taxonomies = taxonomies
+        self.taxonomy_children = taxonomy_children
+        self.taxonomy_levels = taxonomy_levels
+        self.telemed_data = telemed_data
+        self.timetable = timetable
+        self.user_data = user_data
+        self.work_place = work_place
 
     @staticmethod
     def from_dict(obj: Any) -> 'AppointmentResource':
@@ -2010,7 +3138,58 @@ class AppointmentResource:
         middle_name = from_union([from_str, from_none], obj.get("middleName"))
         name = from_str(obj.get("name"))
         surname = from_str(obj.get("surname"))
-        return AppointmentResource(extra_id, id, middle_name, name, surname)
+        additional_extra_id = from_union([lambda x: from_list(from_str, x), from_none], obj.get("additionalExtraId"))
+        bad_icon_resolution = from_union([from_bool, from_none], obj.get("badIconResolution"))
+        capacity = from_union([from_float, from_none], obj.get("capacity"))
+        color = from_union([from_str, from_none], obj.get("color"))
+        degree = from_union([from_str, from_none], obj.get("degree"))
+        department_id = from_union([from_str, from_none], obj.get("departmentId"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        display_in_schedule = from_union([from_bool, from_none], obj.get("displayInSchedule"))
+        display_in_widget = from_union([from_bool, from_none], obj.get("displayInWidget"))
+        email = from_union([from_str, from_none], obj.get("email"))
+        email_enabled = from_union([from_bool, from_none], obj.get("emailEnabled"))
+        even_odd_timetable = from_union([EvenOddTimetable.from_dict, from_none], obj.get("evenOddTimetable"))
+        exceptions = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("exceptions"))
+        experience = from_union([from_datetime, from_none], obj.get("experience"))
+        extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
+        resource_extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        extra_link = from_union([from_str, from_none], obj.get("extraLink"))
+        extra_media_id = from_union([from_str, from_none], obj.get("extraMediaId"))
+        icon_url = from_union([from_none, from_str], obj.get("icon_url"))
+        image = from_union([from_str, from_none], obj.get("image"))
+        last_su = from_union([from_datetime, from_none], obj.get("lastSU"))
+        level = from_union([from_float, from_none], obj.get("level"))
+        loaned = from_union([from_bool, from_none], obj.get("loaned"))
+        loaned_from = from_union([from_str, from_none], obj.get("loanedFrom"))
+        loaned_to = from_union([from_str, from_none], obj.get("loanedTo"))
+        location = from_union([ResourceLocation.from_dict, from_none], obj.get("location"))
+        manual_changes = from_union([from_bool, from_none], obj.get("manualChanges"))
+        nickname = from_union([from_str, from_none], obj.get("nickname"))
+        order = from_union([from_float, from_none], obj.get("order"))
+        order_weight = from_union([from_none, from_float, from_str], obj.get("orderWeight"))
+        origin_general_info = from_union([Info.from_dict, from_none], obj.get("origin_general_info"))
+        origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
+        origin_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("originTaxonomies"))
+        perk = from_union([from_str, from_none], obj.get("perk"))
+        phone = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("phone"))
+        profession = from_union([from_str, from_none], obj.get("profession"))
+        profile = from_union([ИнформацияОПрофилеРаботника.from_dict, from_none], obj.get("profile"))
+        rating = from_union([from_float, from_none], obj.get("rating"))
+        readonly_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("readonlyTaxonomies"))
+        revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
+        schedule_is_empty = from_union([from_bool, from_none], obj.get("scheduleIsEmpty"))
+        site_id = from_union([from_str, from_none], obj.get("siteId"))
+        sms_enabled = from_union([from_bool, from_none], obj.get("smsEnabled"))
+        status = from_union([ResourceStatus, from_none], obj.get("status"))
+        taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("taxonomies"))
+        taxonomy_children = from_union([lambda x: from_list(ResourceTaxonomyChildren.from_dict, x), from_none], obj.get("taxonomyChildren"))
+        taxonomy_levels = from_union([lambda x: from_list(ResourceTaxonomyLevel.from_dict, x), from_none], obj.get("taxonomyLevels"))
+        telemed_data = from_union([ResourceTelemedData.from_dict, from_none], obj.get("telemedData"))
+        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
+        user_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("userData"))
+        work_place = from_union([from_str, from_none], obj.get("workPlace"))
+        return AppointmentResource(extra_id, id, middle_name, name, surname, additional_extra_id, bad_icon_resolution, capacity, color, degree, department_id, description, display_in_schedule, display_in_widget, email, email_enabled, even_odd_timetable, exceptions, experience, extra_description, resource_extra_id, extra_link, extra_media_id, icon_url, image, last_su, level, loaned, loaned_from, loaned_to, location, manual_changes, nickname, order, order_weight, origin_general_info, origin_business_id, origin_taxonomies, perk, phone, profession, profile, rating, readonly_taxonomies, revision_version, schedule_is_empty, site_id, sms_enabled, status, taxonomies, taxonomy_children, taxonomy_levels, telemed_data, timetable, user_data, work_place)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2019,10 +3198,61 @@ class AppointmentResource:
         result["middleName"] = from_union([from_str, from_none], self.middle_name)
         result["name"] = from_str(self.name)
         result["surname"] = from_str(self.surname)
+        result["additionalExtraId"] = from_union([lambda x: from_list(from_str, x), from_none], self.additional_extra_id)
+        result["badIconResolution"] = from_union([from_bool, from_none], self.bad_icon_resolution)
+        result["capacity"] = from_union([to_float, from_none], self.capacity)
+        result["color"] = from_union([from_str, from_none], self.color)
+        result["degree"] = from_union([from_str, from_none], self.degree)
+        result["departmentId"] = from_union([from_str, from_none], self.department_id)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["displayInSchedule"] = from_union([from_bool, from_none], self.display_in_schedule)
+        result["displayInWidget"] = from_union([from_bool, from_none], self.display_in_widget)
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["emailEnabled"] = from_union([from_bool, from_none], self.email_enabled)
+        result["evenOddTimetable"] = from_union([lambda x: to_class(EvenOddTimetable, x), from_none], self.even_odd_timetable)
+        result["exceptions"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.exceptions)
+        result["experience"] = from_union([lambda x: x.isoformat(), from_none], self.experience)
+        result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
+        result["extraId"] = from_union([from_str, from_none], self.resource_extra_id)
+        result["extraLink"] = from_union([from_str, from_none], self.extra_link)
+        result["extraMediaId"] = from_union([from_str, from_none], self.extra_media_id)
+        result["icon_url"] = from_union([from_none, from_str], self.icon_url)
+        result["image"] = from_union([from_str, from_none], self.image)
+        result["lastSU"] = from_union([lambda x: x.isoformat(), from_none], self.last_su)
+        result["level"] = from_union([to_float, from_none], self.level)
+        result["loaned"] = from_union([from_bool, from_none], self.loaned)
+        result["loanedFrom"] = from_union([from_str, from_none], self.loaned_from)
+        result["loanedTo"] = from_union([from_str, from_none], self.loaned_to)
+        result["location"] = from_union([lambda x: to_class(ResourceLocation, x), from_none], self.location)
+        result["manualChanges"] = from_union([from_bool, from_none], self.manual_changes)
+        result["nickname"] = from_union([from_str, from_none], self.nickname)
+        result["order"] = from_union([to_float, from_none], self.order)
+        result["orderWeight"] = from_union([from_none, to_float, from_str], self.order_weight)
+        result["origin_general_info"] = from_union([lambda x: to_class(Info, x), from_none], self.origin_general_info)
+        result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
+        result["originTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.origin_taxonomies)
+        result["perk"] = from_union([from_str, from_none], self.perk)
+        result["phone"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.phone)
+        result["profession"] = from_union([from_str, from_none], self.profession)
+        result["profile"] = from_union([lambda x: to_class(ИнформацияОПрофилеРаботника, x), from_none], self.profile)
+        result["rating"] = from_union([to_float, from_none], self.rating)
+        result["readonlyTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.readonly_taxonomies)
+        result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
+        result["scheduleIsEmpty"] = from_union([from_bool, from_none], self.schedule_is_empty)
+        result["siteId"] = from_union([from_str, from_none], self.site_id)
+        result["smsEnabled"] = from_union([from_bool, from_none], self.sms_enabled)
+        result["status"] = from_union([lambda x: to_enum(ResourceStatus, x), from_none], self.status)
+        result["taxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.taxonomies)
+        result["taxonomyChildren"] = from_union([lambda x: from_list(lambda x: to_class(ResourceTaxonomyChildren, x), x), from_none], self.taxonomy_children)
+        result["taxonomyLevels"] = from_union([lambda x: from_list(lambda x: to_class(ResourceTaxonomyLevel, x), x), from_none], self.taxonomy_levels)
+        result["telemedData"] = from_union([lambda x: to_class(ResourceTelemedData, x), from_none], self.telemed_data)
+        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
+        result["userData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.user_data)
+        result["workPlace"] = from_union([from_str, from_none], self.work_place)
         return result
 
 
-class TaxonomyClass:
+class WorkerClass:
     comment: Optional[str]
     rate: Optional[float]
 
@@ -2031,11 +3261,11 @@ class TaxonomyClass:
         self.rate = rate
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TaxonomyClass':
+    def from_dict(obj: Any) -> 'WorkerClass':
         assert isinstance(obj, dict)
         comment = from_union([from_str, from_none], obj.get("comment"))
         rate = from_union([from_float, from_none], obj.get("rate"))
-        return TaxonomyClass(comment, rate)
+        return WorkerClass(comment, rate)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2045,11 +3275,11 @@ class TaxonomyClass:
 
 
 class Review:
-    business: TaxonomyClass
-    taxonomy: TaxonomyClass
-    worker: TaxonomyClass
+    business: WorkerClass
+    taxonomy: WorkerClass
+    worker: WorkerClass
 
-    def __init__(self, business: TaxonomyClass, taxonomy: TaxonomyClass, worker: TaxonomyClass) -> None:
+    def __init__(self, business: WorkerClass, taxonomy: WorkerClass, worker: WorkerClass) -> None:
         self.business = business
         self.taxonomy = taxonomy
         self.worker = worker
@@ -2057,16 +3287,16 @@ class Review:
     @staticmethod
     def from_dict(obj: Any) -> 'Review':
         assert isinstance(obj, dict)
-        business = TaxonomyClass.from_dict(obj.get("business"))
-        taxonomy = TaxonomyClass.from_dict(obj.get("taxonomy"))
-        worker = TaxonomyClass.from_dict(obj.get("worker"))
+        business = WorkerClass.from_dict(obj.get("business"))
+        taxonomy = WorkerClass.from_dict(obj.get("taxonomy"))
+        worker = WorkerClass.from_dict(obj.get("worker"))
         return Review(business, taxonomy, worker)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(TaxonomyClass, self.business)
-        result["taxonomy"] = to_class(TaxonomyClass, self.taxonomy)
-        result["worker"] = to_class(TaxonomyClass, self.worker)
+        result["business"] = to_class(WorkerClass, self.business)
+        result["taxonomy"] = to_class(WorkerClass, self.taxonomy)
+        result["worker"] = to_class(WorkerClass, self.worker)
         return result
 
 
@@ -2103,6 +3333,289 @@ class AppointmentShowcase:
     def to_dict(self) -> dict:
         result: dict = {}
         result["businessID"] = from_union([from_str, from_none], self.business_id)
+        return result
+
+
+class TaxonomyClass:
+    """Данные о работнике бизнеса"""
+    alias: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_id: Optional[str]
+    """внутренний идентификатор работника; уникальный во всей системе GBooking"""
+    id: str
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    additional_extra_id: Optional[List[str]]
+    bad_icon_resolution: Optional[bool]
+    """Количество записей, которые может принимать работник единовременно"""
+    capacity: Optional[float]
+    """цвет колонки с работником"""
+    color: Optional[str]
+    degree: Optional[str]
+    """идентификатор отделения, к которому привязан работник"""
+    department_id: Optional[str]
+    """краткое описание работника"""
+    description: Optional[str]
+    display_in_schedule: Optional[bool]
+    """отображать ли данного работника на виджете или любом другом клиенте"""
+    display_in_widget: Optional[bool]
+    """e-mail работника"""
+    email: Optional[str]
+    """включена ли отправка e-mail уведомлений для данного работника"""
+    email_enabled: Optional[bool]
+    even_odd_timetable: Optional[EvenOddTimetable]
+    exceptions: Optional[List[Any]]
+    experience: Optional[datetime]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_description: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_link: Optional[str]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    extra_media_id: Optional[str]
+    """url изображения работника; Если указан относительный путь, то используйте
+    http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+    WidgetConfiguration.defaultWorkerImgUrl)
+    """
+    icon_url: Optional[str]
+    image: Optional[str]
+    last_su: Optional[datetime]
+    """уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)"""
+    level: Optional[float]
+    """не используется"""
+    loaned: Optional[bool]
+    """не используется"""
+    loaned_from: Optional[str]
+    """не используется"""
+    loaned_to: Optional[str]
+    location: Optional[ResourceLocation]
+    manual_changes: Optional[bool]
+    """отчество работника"""
+    middle_name: Optional[str]
+    """имя работника"""
+    name: Optional[str]
+    """внутреннее название работника в Бекофис"""
+    nickname: Optional[str]
+    """индекс сортировки работника"""
+    order: Optional[float]
+    """вес работника, в зависимости от указанного способа сортировки"""
+    order_weight: Union[float, None, str]
+    """(только в витрине) объект с данными бизнеса-филиала"""
+    origin_general_info: Optional[Info]
+    """(только в витрине) идентификатор бизнеса-филиала, откуда был взят работник"""
+    origin_business_id: Optional[str]
+    """(только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+    работник
+    """
+    origin_taxonomies: Optional[List[str]]
+    """особый навык"""
+    perk: Optional[str]
+    phone: Optional[List[FaxElement]]
+    """информация о профессии работника, используется в Бекофис"""
+    profession: Optional[str]
+    profile: Optional[ИнформацияОПрофилеРаботника]
+    """Рейтинг работника"""
+    rating: Optional[float]
+    readonly_taxonomies: Optional[List[str]]
+    """Версия изменений документа"""
+    revision_version: Optional[float]
+    schedule_is_empty: Optional[bool]
+    """информация из внешней информационной системы как есть (при интеграции)"""
+    site_id: Optional[str]
+    """включена ли отправка смс уведомлений для данного работника"""
+    sms_enabled: Optional[bool]
+    status: Optional[ResourceStatus]
+    """фамилия и отчество работника"""
+    surname: Optional[str]
+    """массив идентификаторов услуг, которые выполняет работник"""
+    taxonomies: Optional[List[str]]
+    """массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+    оба или не указаны вовсе для услуги)
+    """
+    taxonomy_children: Optional[List[ResourceTaxonomyChildren]]
+    """массив уровня скорости выполнения услуги (см так же Resource level)"""
+    taxonomy_levels: Optional[List[ResourceTaxonomyLevel]]
+    telemed_data: Optional[ResourceTelemedData]
+    timetable: Optional[Timetable]
+    user_data: Optional[Dict[str, Any]]
+    """рабочее место, которое занимает работник"""
+    work_place: Optional[str]
+
+    def __init__(self, alias: Optional[str], extra_id: Optional[str], id: str, additional_extra_id: Optional[List[str]], bad_icon_resolution: Optional[bool], capacity: Optional[float], color: Optional[str], degree: Optional[str], department_id: Optional[str], description: Optional[str], display_in_schedule: Optional[bool], display_in_widget: Optional[bool], email: Optional[str], email_enabled: Optional[bool], even_odd_timetable: Optional[EvenOddTimetable], exceptions: Optional[List[Any]], experience: Optional[datetime], extra_description: Optional[str], extra_link: Optional[str], extra_media_id: Optional[str], icon_url: Optional[str], image: Optional[str], last_su: Optional[datetime], level: Optional[float], loaned: Optional[bool], loaned_from: Optional[str], loaned_to: Optional[str], location: Optional[ResourceLocation], manual_changes: Optional[bool], middle_name: Optional[str], name: Optional[str], nickname: Optional[str], order: Optional[float], order_weight: Union[float, None, str], origin_general_info: Optional[Info], origin_business_id: Optional[str], origin_taxonomies: Optional[List[str]], perk: Optional[str], phone: Optional[List[FaxElement]], profession: Optional[str], profile: Optional[ИнформацияОПрофилеРаботника], rating: Optional[float], readonly_taxonomies: Optional[List[str]], revision_version: Optional[float], schedule_is_empty: Optional[bool], site_id: Optional[str], sms_enabled: Optional[bool], status: Optional[ResourceStatus], surname: Optional[str], taxonomies: Optional[List[str]], taxonomy_children: Optional[List[ResourceTaxonomyChildren]], taxonomy_levels: Optional[List[ResourceTaxonomyLevel]], telemed_data: Optional[ResourceTelemedData], timetable: Optional[Timetable], user_data: Optional[Dict[str, Any]], work_place: Optional[str]) -> None:
+        self.alias = alias
+        self.extra_id = extra_id
+        self.id = id
+        self.additional_extra_id = additional_extra_id
+        self.bad_icon_resolution = bad_icon_resolution
+        self.capacity = capacity
+        self.color = color
+        self.degree = degree
+        self.department_id = department_id
+        self.description = description
+        self.display_in_schedule = display_in_schedule
+        self.display_in_widget = display_in_widget
+        self.email = email
+        self.email_enabled = email_enabled
+        self.even_odd_timetable = even_odd_timetable
+        self.exceptions = exceptions
+        self.experience = experience
+        self.extra_description = extra_description
+        self.extra_link = extra_link
+        self.extra_media_id = extra_media_id
+        self.icon_url = icon_url
+        self.image = image
+        self.last_su = last_su
+        self.level = level
+        self.loaned = loaned
+        self.loaned_from = loaned_from
+        self.loaned_to = loaned_to
+        self.location = location
+        self.manual_changes = manual_changes
+        self.middle_name = middle_name
+        self.name = name
+        self.nickname = nickname
+        self.order = order
+        self.order_weight = order_weight
+        self.origin_general_info = origin_general_info
+        self.origin_business_id = origin_business_id
+        self.origin_taxonomies = origin_taxonomies
+        self.perk = perk
+        self.phone = phone
+        self.profession = profession
+        self.profile = profile
+        self.rating = rating
+        self.readonly_taxonomies = readonly_taxonomies
+        self.revision_version = revision_version
+        self.schedule_is_empty = schedule_is_empty
+        self.site_id = site_id
+        self.sms_enabled = sms_enabled
+        self.status = status
+        self.surname = surname
+        self.taxonomies = taxonomies
+        self.taxonomy_children = taxonomy_children
+        self.taxonomy_levels = taxonomy_levels
+        self.telemed_data = telemed_data
+        self.timetable = timetable
+        self.user_data = user_data
+        self.work_place = work_place
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TaxonomyClass':
+        assert isinstance(obj, dict)
+        alias = from_union([from_str, from_none], obj.get("alias"))
+        extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        id = from_str(obj.get("id"))
+        additional_extra_id = from_union([lambda x: from_list(from_str, x), from_none], obj.get("additionalExtraId"))
+        bad_icon_resolution = from_union([from_bool, from_none], obj.get("badIconResolution"))
+        capacity = from_union([from_float, from_none], obj.get("capacity"))
+        color = from_union([from_str, from_none], obj.get("color"))
+        degree = from_union([from_str, from_none], obj.get("degree"))
+        department_id = from_union([from_str, from_none], obj.get("departmentId"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        display_in_schedule = from_union([from_bool, from_none], obj.get("displayInSchedule"))
+        display_in_widget = from_union([from_bool, from_none], obj.get("displayInWidget"))
+        email = from_union([from_str, from_none], obj.get("email"))
+        email_enabled = from_union([from_bool, from_none], obj.get("emailEnabled"))
+        even_odd_timetable = from_union([EvenOddTimetable.from_dict, from_none], obj.get("evenOddTimetable"))
+        exceptions = from_union([lambda x: from_list(lambda x: x, x), from_none], obj.get("exceptions"))
+        experience = from_union([from_datetime, from_none], obj.get("experience"))
+        extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
+        extra_link = from_union([from_str, from_none], obj.get("extraLink"))
+        extra_media_id = from_union([from_str, from_none], obj.get("extraMediaId"))
+        icon_url = from_union([from_none, from_str], obj.get("icon_url"))
+        image = from_union([from_str, from_none], obj.get("image"))
+        last_su = from_union([from_datetime, from_none], obj.get("lastSU"))
+        level = from_union([from_float, from_none], obj.get("level"))
+        loaned = from_union([from_bool, from_none], obj.get("loaned"))
+        loaned_from = from_union([from_str, from_none], obj.get("loanedFrom"))
+        loaned_to = from_union([from_str, from_none], obj.get("loanedTo"))
+        location = from_union([ResourceLocation.from_dict, from_none], obj.get("location"))
+        manual_changes = from_union([from_bool, from_none], obj.get("manualChanges"))
+        middle_name = from_union([from_str, from_none], obj.get("middleName"))
+        name = from_union([from_str, from_none], obj.get("name"))
+        nickname = from_union([from_str, from_none], obj.get("nickname"))
+        order = from_union([from_float, from_none], obj.get("order"))
+        order_weight = from_union([from_none, from_float, from_str], obj.get("orderWeight"))
+        origin_general_info = from_union([Info.from_dict, from_none], obj.get("origin_general_info"))
+        origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
+        origin_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("originTaxonomies"))
+        perk = from_union([from_str, from_none], obj.get("perk"))
+        phone = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("phone"))
+        profession = from_union([from_str, from_none], obj.get("profession"))
+        profile = from_union([ИнформацияОПрофилеРаботника.from_dict, from_none], obj.get("profile"))
+        rating = from_union([from_float, from_none], obj.get("rating"))
+        readonly_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("readonlyTaxonomies"))
+        revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
+        schedule_is_empty = from_union([from_bool, from_none], obj.get("scheduleIsEmpty"))
+        site_id = from_union([from_str, from_none], obj.get("siteId"))
+        sms_enabled = from_union([from_bool, from_none], obj.get("smsEnabled"))
+        status = from_union([ResourceStatus, from_none], obj.get("status"))
+        surname = from_union([from_str, from_none], obj.get("surname"))
+        taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("taxonomies"))
+        taxonomy_children = from_union([lambda x: from_list(ResourceTaxonomyChildren.from_dict, x), from_none], obj.get("taxonomyChildren"))
+        taxonomy_levels = from_union([lambda x: from_list(ResourceTaxonomyLevel.from_dict, x), from_none], obj.get("taxonomyLevels"))
+        telemed_data = from_union([ResourceTelemedData.from_dict, from_none], obj.get("telemedData"))
+        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
+        user_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("userData"))
+        work_place = from_union([from_str, from_none], obj.get("workPlace"))
+        return TaxonomyClass(alias, extra_id, id, additional_extra_id, bad_icon_resolution, capacity, color, degree, department_id, description, display_in_schedule, display_in_widget, email, email_enabled, even_odd_timetable, exceptions, experience, extra_description, extra_link, extra_media_id, icon_url, image, last_su, level, loaned, loaned_from, loaned_to, location, manual_changes, middle_name, name, nickname, order, order_weight, origin_general_info, origin_business_id, origin_taxonomies, perk, phone, profession, profile, rating, readonly_taxonomies, revision_version, schedule_is_empty, site_id, sms_enabled, status, surname, taxonomies, taxonomy_children, taxonomy_levels, telemed_data, timetable, user_data, work_place)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["alias"] = from_union([from_str, from_none], self.alias)
+        result["extraId"] = from_union([from_str, from_none], self.extra_id)
+        result["id"] = from_str(self.id)
+        result["additionalExtraId"] = from_union([lambda x: from_list(from_str, x), from_none], self.additional_extra_id)
+        result["badIconResolution"] = from_union([from_bool, from_none], self.bad_icon_resolution)
+        result["capacity"] = from_union([to_float, from_none], self.capacity)
+        result["color"] = from_union([from_str, from_none], self.color)
+        result["degree"] = from_union([from_str, from_none], self.degree)
+        result["departmentId"] = from_union([from_str, from_none], self.department_id)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["displayInSchedule"] = from_union([from_bool, from_none], self.display_in_schedule)
+        result["displayInWidget"] = from_union([from_bool, from_none], self.display_in_widget)
+        result["email"] = from_union([from_str, from_none], self.email)
+        result["emailEnabled"] = from_union([from_bool, from_none], self.email_enabled)
+        result["evenOddTimetable"] = from_union([lambda x: to_class(EvenOddTimetable, x), from_none], self.even_odd_timetable)
+        result["exceptions"] = from_union([lambda x: from_list(lambda x: x, x), from_none], self.exceptions)
+        result["experience"] = from_union([lambda x: x.isoformat(), from_none], self.experience)
+        result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
+        result["extraLink"] = from_union([from_str, from_none], self.extra_link)
+        result["extraMediaId"] = from_union([from_str, from_none], self.extra_media_id)
+        result["icon_url"] = from_union([from_none, from_str], self.icon_url)
+        result["image"] = from_union([from_str, from_none], self.image)
+        result["lastSU"] = from_union([lambda x: x.isoformat(), from_none], self.last_su)
+        result["level"] = from_union([to_float, from_none], self.level)
+        result["loaned"] = from_union([from_bool, from_none], self.loaned)
+        result["loanedFrom"] = from_union([from_str, from_none], self.loaned_from)
+        result["loanedTo"] = from_union([from_str, from_none], self.loaned_to)
+        result["location"] = from_union([lambda x: to_class(ResourceLocation, x), from_none], self.location)
+        result["manualChanges"] = from_union([from_bool, from_none], self.manual_changes)
+        result["middleName"] = from_union([from_str, from_none], self.middle_name)
+        result["name"] = from_union([from_str, from_none], self.name)
+        result["nickname"] = from_union([from_str, from_none], self.nickname)
+        result["order"] = from_union([to_float, from_none], self.order)
+        result["orderWeight"] = from_union([from_none, to_float, from_str], self.order_weight)
+        result["origin_general_info"] = from_union([lambda x: to_class(Info, x), from_none], self.origin_general_info)
+        result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
+        result["originTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.origin_taxonomies)
+        result["perk"] = from_union([from_str, from_none], self.perk)
+        result["phone"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.phone)
+        result["profession"] = from_union([from_str, from_none], self.profession)
+        result["profile"] = from_union([lambda x: to_class(ИнформацияОПрофилеРаботника, x), from_none], self.profile)
+        result["rating"] = from_union([to_float, from_none], self.rating)
+        result["readonlyTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.readonly_taxonomies)
+        result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
+        result["scheduleIsEmpty"] = from_union([from_bool, from_none], self.schedule_is_empty)
+        result["siteId"] = from_union([from_str, from_none], self.site_id)
+        result["smsEnabled"] = from_union([from_bool, from_none], self.sms_enabled)
+        result["status"] = from_union([lambda x: to_enum(ResourceStatus, x), from_none], self.status)
+        result["surname"] = from_union([from_str, from_none], self.surname)
+        result["taxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.taxonomies)
+        result["taxonomyChildren"] = from_union([lambda x: from_list(lambda x: to_class(ResourceTaxonomyChildren, x), x), from_none], self.taxonomy_children)
+        result["taxonomyLevels"] = from_union([lambda x: from_list(lambda x: to_class(ResourceTaxonomyLevel, x), x), from_none], self.taxonomy_levels)
+        result["telemedData"] = from_union([lambda x: to_class(ResourceTelemedData, x), from_none], self.telemed_data)
+        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
+        result["userData"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.user_data)
+        result["workPlace"] = from_union([from_str, from_none], self.work_place)
         return result
 
 
@@ -2202,13 +3715,13 @@ class Appointment:
     showcase: AppointmentShowcase
     social_token: Optional[str]
     source: str
-    taxonomy: AppointmentTaxonomy
+    taxonomy: TaxonomyClass
     """Данные для телемед конференции"""
     telemed_data: Optional[AppointmentTelemedData]
     utm: Optional[Dict[str, Any]]
     with_co_sale: Optional[bool]
 
-    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_payment_transaction_id: Optional[str], client_comment: str, client_visitors: Optional[List[AppointmentClientVisitor]], color: Optional[str], created_user: Optional[CreatedUser], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: Optional[str], notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: ResultReminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Optional[Review], room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: AppointmentTaxonomy, telemed_data: Optional[AppointmentTelemedData], utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
+    def __init__(self, additional_info: Optional[Dict[str, Any]], additional_client_appears: List[AdditionalClientAppear], additional_client_payments: List[AdditionalClientPayment], additional_clients: List[AdditionalClientElement], additional_client_sources: List[AdditionalClientSource], additional_client_statuses: List[AdditionalClientStatus], additional_client_utms: List[AdditionalClientUtm], additional_fields: List[AdditionalField], additional_products: List[AdditionalProduct], additional_taxonomies: List[AppointmentTaxonomy], address: Optional[str], adjacent_id: Optional[str], appointment: AppointmentInfo, auto_phone_call_status: Optional[str], banned_clients: List[str], business: AppointmentBusiness, cabinet: Cabinet, capacity: Optional[float], change_reason: str, client: PurpleAppointmentClient, client_appear: AppointmentClientAppear, client_med_code: Optional[str], client_payment: AppointmentClientPayment, client_payment_invoice: Optional[str], client_payment_transaction_id: Optional[str], client_comment: str, client_visitors: Optional[List[AppointmentClientVisitor]], color: Optional[str], created_user: Optional[CreatedUser], destination_keyword: Optional[str], destination_link: Optional[str], extra_fields: List[ExtraField], gt: Optional[bool], gt_time_frame: Optional[str], location: Optional[Location], master_importance: Optional[bool], min_clients: Optional[float], move_counter: float, moved_by_robot: bool, moved_from_fired: Optional[bool], network_id: Optional[str], notes: str, order: Order, preferred_resource: Optional[bool], promo_code: Optional[str], referer_link: Optional[str], referrer: Optional[str], reminder: ResultReminder, removed_clients_data: List[RemovedClientsDatum], resource: AppointmentResource, review: Optional[Review], room: Optional[Room], showcase: AppointmentShowcase, social_token: Optional[str], source: str, taxonomy: TaxonomyClass, telemed_data: Optional[AppointmentTelemedData], utm: Optional[Dict[str, Any]], with_co_sale: Optional[bool]) -> None:
         self.additional_info = additional_info
         self.additional_client_appears = additional_client_appears
         self.additional_client_payments = additional_client_payments
@@ -2327,7 +3840,7 @@ class Appointment:
         showcase = AppointmentShowcase.from_dict(obj.get("showcase"))
         social_token = from_union([from_str, from_none], obj.get("socialToken"))
         source = from_str(obj.get("source"))
-        taxonomy = AppointmentTaxonomy.from_dict(obj.get("taxonomy"))
+        taxonomy = TaxonomyClass.from_dict(obj.get("taxonomy"))
         telemed_data = from_union([AppointmentTelemedData.from_dict, from_none], obj.get("telemedData"))
         utm = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("utm"))
         with_co_sale = from_union([from_bool, from_none], obj.get("withCoSale"))
@@ -2390,7 +3903,7 @@ class Appointment:
         result["showcase"] = to_class(AppointmentShowcase, self.showcase)
         result["socialToken"] = from_union([from_str, from_none], self.social_token)
         result["source"] = from_str(self.source)
-        result["taxonomy"] = to_class(AppointmentTaxonomy, self.taxonomy)
+        result["taxonomy"] = to_class(TaxonomyClass, self.taxonomy)
         result["telemedData"] = from_union([lambda x: to_class(AppointmentTelemedData, x), from_none], self.telemed_data)
         result["utm"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.utm)
         result["withCoSale"] = from_union([from_bool, from_none], self.with_co_sale)
@@ -2648,12 +4161,12 @@ class FluffyBusiness:
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyBusiness':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        id = from_union([from_none, from_float, from_str], obj.get("id"))
         return FluffyBusiness(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        result["id"] = from_union([from_none, to_float, from_str], self.id)
         return result
 
 
@@ -2776,12 +4289,12 @@ class PurpleNetwork:
     @staticmethod
     def from_dict(obj: Any) -> 'PurpleNetwork':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        id = from_union([from_none, from_float, from_str], obj.get("id"))
         return PurpleNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        result["id"] = from_union([from_none, to_float, from_str], self.id)
         return result
 
 
@@ -3285,6 +4798,7 @@ class FluffyCreated:
 
 
 class FluffyFilter:
+    appointment_id: Optional[str]
     created: Optional[FluffyCreated]
     end: Optional[datetime]
     services: Optional[List[str]]
@@ -3292,7 +4806,8 @@ class FluffyFilter:
     start: Optional[datetime]
     workers: Optional[List[str]]
 
-    def __init__(self, created: Optional[FluffyCreated], end: Optional[datetime], services: Optional[List[str]], skip_updated: Optional[bool], start: Optional[datetime], workers: Optional[List[str]]) -> None:
+    def __init__(self, appointment_id: Optional[str], created: Optional[FluffyCreated], end: Optional[datetime], services: Optional[List[str]], skip_updated: Optional[bool], start: Optional[datetime], workers: Optional[List[str]]) -> None:
+        self.appointment_id = appointment_id
         self.created = created
         self.end = end
         self.services = services
@@ -3303,16 +4818,18 @@ class FluffyFilter:
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyFilter':
         assert isinstance(obj, dict)
+        appointment_id = from_union([from_str, from_none], obj.get("appointmentId"))
         created = from_union([FluffyCreated.from_dict, from_none], obj.get("created"))
         end = from_union([from_datetime, from_none], obj.get("end"))
         services = from_union([lambda x: from_list(from_str, x), from_none], obj.get("services"))
         skip_updated = from_union([from_bool, from_none], obj.get("skipUpdated"))
         start = from_union([from_datetime, from_none], obj.get("start"))
         workers = from_union([lambda x: from_list(from_str, x), from_none], obj.get("workers"))
-        return FluffyFilter(created, end, services, skip_updated, start, workers)
+        return FluffyFilter(appointment_id, created, end, services, skip_updated, start, workers)
 
     def to_dict(self) -> dict:
         result: dict = {}
+        result["appointmentId"] = from_union([from_str, from_none], self.appointment_id)
         result["created"] = from_union([lambda x: to_class(FluffyCreated, x), from_none], self.created)
         result["end"] = from_union([lambda x: x.isoformat(), from_none], self.end)
         result["services"] = from_union([lambda x: from_list(from_str, x), from_none], self.services)
@@ -3331,12 +4848,12 @@ class FluffyNetwork:
     @staticmethod
     def from_dict(obj: Any) -> 'FluffyNetwork':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        id = from_union([from_none, from_float, from_str], obj.get("id"))
         return FluffyNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        result["id"] = from_union([from_none, to_float, from_str], self.id)
         return result
 
 
@@ -3663,27 +5180,29 @@ class TentacledNetwork:
     @staticmethod
     def from_dict(obj: Any) -> 'TentacledNetwork':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        id = from_union([from_none, from_float, from_str], obj.get("id"))
         return TentacledNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        result["id"] = from_union([from_none, to_float, from_str], self.id)
         return result
 
 
 class AppointmentGetAppointmentsByUserRequestParams:
     business: Optional[IndigoBusiness]
     extra_filters: Optional[TentacledExtraFilters]
+    fill_business_data: Optional[bool]
     filter: Optional[TentacledFilter]
     network: Optional[TentacledNetwork]
     page: float
     page_size: float
     skip_business_cancelled: Optional[bool]
 
-    def __init__(self, business: Optional[IndigoBusiness], extra_filters: Optional[TentacledExtraFilters], filter: Optional[TentacledFilter], network: Optional[TentacledNetwork], page: float, page_size: float, skip_business_cancelled: Optional[bool]) -> None:
+    def __init__(self, business: Optional[IndigoBusiness], extra_filters: Optional[TentacledExtraFilters], fill_business_data: Optional[bool], filter: Optional[TentacledFilter], network: Optional[TentacledNetwork], page: float, page_size: float, skip_business_cancelled: Optional[bool]) -> None:
         self.business = business
         self.extra_filters = extra_filters
+        self.fill_business_data = fill_business_data
         self.filter = filter
         self.network = network
         self.page = page
@@ -3695,17 +5214,19 @@ class AppointmentGetAppointmentsByUserRequestParams:
         assert isinstance(obj, dict)
         business = from_union([IndigoBusiness.from_dict, from_none], obj.get("business"))
         extra_filters = from_union([TentacledExtraFilters.from_dict, from_none], obj.get("extraFilters"))
+        fill_business_data = from_union([from_bool, from_none], obj.get("fill_business_data"))
         filter = from_union([TentacledFilter.from_dict, from_none], obj.get("filter"))
         network = from_union([TentacledNetwork.from_dict, from_none], obj.get("network"))
         page = from_float(obj.get("page"))
         page_size = from_float(obj.get("pageSize"))
         skip_business_cancelled = from_union([from_bool, from_none], obj.get("skipBusinessCancelled"))
-        return AppointmentGetAppointmentsByUserRequestParams(business, extra_filters, filter, network, page, page_size, skip_business_cancelled)
+        return AppointmentGetAppointmentsByUserRequestParams(business, extra_filters, fill_business_data, filter, network, page, page_size, skip_business_cancelled)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["business"] = from_union([lambda x: to_class(IndigoBusiness, x), from_none], self.business)
         result["extraFilters"] = from_union([lambda x: to_class(TentacledExtraFilters, x), from_none], self.extra_filters)
+        result["fill_business_data"] = from_union([from_bool, from_none], self.fill_business_data)
         result["filter"] = from_union([lambda x: to_class(TentacledFilter, x), from_none], self.filter)
         result["network"] = from_union([lambda x: to_class(TentacledNetwork, x), from_none], self.network)
         result["page"] = to_float(self.page)
@@ -5045,596 +6566,11 @@ class InfoDepartment:
         return result
 
 
-class AdditionalFields:
-    name: str
-    required_field: Optional[bool]
-    short_name: str
-    type: AdditionalFieldType
-    value: Optional[str]
-
-    def __init__(self, name: str, required_field: Optional[bool], short_name: str, type: AdditionalFieldType, value: Optional[str]) -> None:
-        self.name = name
-        self.required_field = required_field
-        self.short_name = short_name
-        self.type = type
-        self.value = value
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'AdditionalFields':
-        assert isinstance(obj, dict)
-        name = from_str(obj.get("name"))
-        required_field = from_union([from_bool, from_none], obj.get("requiredField"))
-        short_name = from_str(obj.get("shortName"))
-        type = AdditionalFieldType(obj.get("type"))
-        value = from_union([from_str, from_none], obj.get("value"))
-        return AdditionalFields(name, required_field, short_name, type, value)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["name"] = from_str(self.name)
-        result["requiredField"] = from_union([from_bool, from_none], self.required_field)
-        result["shortName"] = from_str(self.short_name)
-        result["type"] = to_enum(AdditionalFieldType, self.type)
-        result["value"] = from_union([from_str, from_none], self.value)
-        return result
-
-
-class Country(Enum):
-    AM = "AM"
-    BLR = "BLR"
-    CH = "CH"
-    DE = "DE"
-    EMPTY = "_"
-    ES = "ES"
-    FI = "FI"
-    FR = "FR"
-    GE = "GE"
-    HU = "HU"
-    IL = "IL"
-    KZ = "KZ"
-    LI = "LI"
-    LT = "LT"
-    LV = "LV"
-    RU = "RU"
-    UA = "UA"
-    UK = "UK"
-    US = "US"
-    UZ = "UZ"
-
-
-class FullAddressMetroStation:
-    id: Optional[str]
-    description: Optional[str]
-    name: str
-
-    def __init__(self, id: Optional[str], description: Optional[str], name: str) -> None:
-        self.id = id
-        self.description = description
-        self.name = name
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'FullAddressMetroStation':
-        assert isinstance(obj, dict)
-        id = from_union([from_str, from_none], obj.get("_id"))
-        description = from_union([from_str, from_none], obj.get("description"))
-        name = from_str(obj.get("name"))
-        return FullAddressMetroStation(id, description, name)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["_id"] = from_union([from_str, from_none], self.id)
-        result["description"] = from_union([from_str, from_none], self.description)
-        result["name"] = from_str(self.name)
-        return result
-
-
-class AddressSchema:
-    address: Optional[str]
-    address_add: Optional[str]
-    admin_area: Optional[str]
-    admin_area_type: Optional[str]
-    building: Optional[str]
-    corps: Optional[str]
-    country: Country
-    group: Optional[str]
-    house_add: Optional[str]
-    kilometer: Optional[str]
-    latitude: Optional[str]
-    locality: Optional[str]
-    locality_type: Optional[str]
-    longitude: Optional[str]
-    metro_stations: Optional[List[FullAddressMetroStation]]
-    number: Optional[str]
-    office: Optional[str]
-    possesion: Optional[str]
-    street: Optional[str]
-    street_type: Optional[str]
-    sub_admin_area: Optional[str]
-    sub_admin_area_type: Optional[str]
-    sub_locality: Optional[str]
-    sub_locality_type: Optional[str]
-    way: Optional[str]
-    zip_code: Optional[str]
-
-    def __init__(self, address: Optional[str], address_add: Optional[str], admin_area: Optional[str], admin_area_type: Optional[str], building: Optional[str], corps: Optional[str], country: Country, group: Optional[str], house_add: Optional[str], kilometer: Optional[str], latitude: Optional[str], locality: Optional[str], locality_type: Optional[str], longitude: Optional[str], metro_stations: Optional[List[FullAddressMetroStation]], number: Optional[str], office: Optional[str], possesion: Optional[str], street: Optional[str], street_type: Optional[str], sub_admin_area: Optional[str], sub_admin_area_type: Optional[str], sub_locality: Optional[str], sub_locality_type: Optional[str], way: Optional[str], zip_code: Optional[str]) -> None:
-        self.address = address
-        self.address_add = address_add
-        self.admin_area = admin_area
-        self.admin_area_type = admin_area_type
-        self.building = building
-        self.corps = corps
-        self.country = country
-        self.group = group
-        self.house_add = house_add
-        self.kilometer = kilometer
-        self.latitude = latitude
-        self.locality = locality
-        self.locality_type = locality_type
-        self.longitude = longitude
-        self.metro_stations = metro_stations
-        self.number = number
-        self.office = office
-        self.possesion = possesion
-        self.street = street
-        self.street_type = street_type
-        self.sub_admin_area = sub_admin_area
-        self.sub_admin_area_type = sub_admin_area_type
-        self.sub_locality = sub_locality
-        self.sub_locality_type = sub_locality_type
-        self.way = way
-        self.zip_code = zip_code
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'AddressSchema':
-        assert isinstance(obj, dict)
-        address = from_union([from_str, from_none], obj.get("address"))
-        address_add = from_union([from_str, from_none], obj.get("address_add"))
-        admin_area = from_union([from_str, from_none], obj.get("admin_area"))
-        admin_area_type = from_union([from_str, from_none], obj.get("admin_area_type"))
-        building = from_union([from_str, from_none], obj.get("building"))
-        corps = from_union([from_str, from_none], obj.get("corps"))
-        country = Country(obj.get("country"))
-        group = from_union([from_str, from_none], obj.get("group"))
-        house_add = from_union([from_str, from_none], obj.get("house_add"))
-        kilometer = from_union([from_str, from_none], obj.get("kilometer"))
-        latitude = from_union([from_str, from_none], obj.get("latitude"))
-        locality = from_union([from_str, from_none], obj.get("locality"))
-        locality_type = from_union([from_str, from_none], obj.get("locality_type"))
-        longitude = from_union([from_str, from_none], obj.get("longitude"))
-        metro_stations = from_union([lambda x: from_list(FullAddressMetroStation.from_dict, x), from_none], obj.get("metroStations"))
-        number = from_union([from_str, from_none], obj.get("number"))
-        office = from_union([from_str, from_none], obj.get("office"))
-        possesion = from_union([from_str, from_none], obj.get("possesion"))
-        street = from_union([from_str, from_none], obj.get("street"))
-        street_type = from_union([from_str, from_none], obj.get("street_type"))
-        sub_admin_area = from_union([from_str, from_none], obj.get("sub_admin_area"))
-        sub_admin_area_type = from_union([from_str, from_none], obj.get("sub_admin_area_type"))
-        sub_locality = from_union([from_str, from_none], obj.get("sub_locality"))
-        sub_locality_type = from_union([from_str, from_none], obj.get("sub_locality_type"))
-        way = from_union([from_str, from_none], obj.get("way"))
-        zip_code = from_union([from_str, from_none], obj.get("zip_code"))
-        return AddressSchema(address, address_add, admin_area, admin_area_type, building, corps, country, group, house_add, kilometer, latitude, locality, locality_type, longitude, metro_stations, number, office, possesion, street, street_type, sub_admin_area, sub_admin_area_type, sub_locality, sub_locality_type, way, zip_code)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["address"] = from_union([from_str, from_none], self.address)
-        result["address_add"] = from_union([from_str, from_none], self.address_add)
-        result["admin_area"] = from_union([from_str, from_none], self.admin_area)
-        result["admin_area_type"] = from_union([from_str, from_none], self.admin_area_type)
-        result["building"] = from_union([from_str, from_none], self.building)
-        result["corps"] = from_union([from_str, from_none], self.corps)
-        result["country"] = to_enum(Country, self.country)
-        result["group"] = from_union([from_str, from_none], self.group)
-        result["house_add"] = from_union([from_str, from_none], self.house_add)
-        result["kilometer"] = from_union([from_str, from_none], self.kilometer)
-        result["latitude"] = from_union([from_str, from_none], self.latitude)
-        result["locality"] = from_union([from_str, from_none], self.locality)
-        result["locality_type"] = from_union([from_str, from_none], self.locality_type)
-        result["longitude"] = from_union([from_str, from_none], self.longitude)
-        result["metroStations"] = from_union([lambda x: from_list(lambda x: to_class(FullAddressMetroStation, x), x), from_none], self.metro_stations)
-        result["number"] = from_union([from_str, from_none], self.number)
-        result["office"] = from_union([from_str, from_none], self.office)
-        result["possesion"] = from_union([from_str, from_none], self.possesion)
-        result["street"] = from_union([from_str, from_none], self.street)
-        result["street_type"] = from_union([from_str, from_none], self.street_type)
-        result["sub_admin_area"] = from_union([from_str, from_none], self.sub_admin_area)
-        result["sub_admin_area_type"] = from_union([from_str, from_none], self.sub_admin_area_type)
-        result["sub_locality"] = from_union([from_str, from_none], self.sub_locality)
-        result["sub_locality_type"] = from_union([from_str, from_none], self.sub_locality_type)
-        result["way"] = from_union([from_str, from_none], self.way)
-        result["zip_code"] = from_union([from_str, from_none], self.zip_code)
-        return result
-
-
-class BusinessShowcaseAlias:
-    internal_id: Optional[str]
-
-    def __init__(self, internal_id: Optional[str]) -> None:
-        self.internal_id = internal_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'BusinessShowcaseAlias':
-        assert isinstance(obj, dict)
-        internal_id = from_union([from_str, from_none], obj.get("internalID"))
-        return BusinessShowcaseAlias(internal_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["internalID"] = from_union([from_str, from_none], self.internal_id)
-        return result
-
-
-class FaxElement:
-    area_code: str
-    country_code: str
-    number: str
-
-    def __init__(self, area_code: str, country_code: str, number: str) -> None:
-        self.area_code = area_code
-        self.country_code = country_code
-        self.number = number
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'FaxElement':
-        assert isinstance(obj, dict)
-        area_code = from_str(obj.get("area_code"))
-        country_code = from_str(obj.get("country_code"))
-        number = from_str(obj.get("number"))
-        return FaxElement(area_code, country_code, number)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["area_code"] = from_str(self.area_code)
-        result["country_code"] = from_str(self.country_code)
-        result["number"] = from_str(self.number)
-        return result
-
-
-class LanguageList(Enum):
-    AM_AM = "am-am"
-    DE_DE = "de-de"
-    EE_EE = "ee-ee"
-    EN_US = "en-us"
-    ES_ES = "es-es"
-    FI_FI = "fi-fi"
-    FR_FR = "fr-fr"
-    GE_GE = "ge-ge"
-    HE_IL = "he-il"
-    HU_HU = "hu-hu"
-    LT_LT = "lt-lt"
-    LV_LV = "lv-lv"
-    RU_RU = "ru-ru"
-    UZ_UZ = "uz-uz"
-    ZH_CN = "zh-cn"
-
-
-class MarketingNotifications:
-    accepted: bool
-    active: bool
-    use_sms_alpha_name: bool
-
-    def __init__(self, accepted: bool, active: bool, use_sms_alpha_name: bool) -> None:
-        self.accepted = accepted
-        self.active = active
-        self.use_sms_alpha_name = use_sms_alpha_name
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'MarketingNotifications':
-        assert isinstance(obj, dict)
-        accepted = from_bool(obj.get("accepted"))
-        active = from_bool(obj.get("active"))
-        use_sms_alpha_name = from_bool(obj.get("useSmsAlphaName"))
-        return MarketingNotifications(accepted, active, use_sms_alpha_name)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["accepted"] = from_bool(self.accepted)
-        result["active"] = from_bool(self.active)
-        result["useSmsAlphaName"] = from_bool(self.use_sms_alpha_name)
-        return result
-
-
-class Metro:
-    color: Optional[str]
-    distance: Optional[float]
-    name: Optional[str]
-
-    def __init__(self, color: Optional[str], distance: Optional[float], name: Optional[str]) -> None:
-        self.color = color
-        self.distance = distance
-        self.name = name
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'Metro':
-        assert isinstance(obj, dict)
-        color = from_union([from_str, from_none], obj.get("color"))
-        distance = from_union([from_float, from_none], obj.get("distance"))
-        name = from_union([from_str, from_none], obj.get("name"))
-        return Metro(color, distance, name)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["color"] = from_union([from_str, from_none], self.color)
-        result["distance"] = from_union([to_float, from_none], self.distance)
-        result["name"] = from_union([from_str, from_none], self.name)
-        return result
-
-
-class PaymentMethods(Enum):
-    AMEX = "Amex"
-    MASTERCARD = "Mastercard"
-    MONEY_BOOKERS = "MoneyBookers"
-    PAY_PAL = "PayPal"
-    VISA = "Visa"
-
-
-class PricingType(Enum):
-    DEFAULT = "DEFAULT"
-    MASTER_TOPMASTER = "MASTER_TOPMASTER"
-
-
-class ShowcaseBusinessDatum:
-    """Адреса компании или филиала"""
-    address: Optional[List[AddressSchema]]
-    """Список e-mail адресов компании или филиала"""
-    email: Optional[str]
-    internal_id: Optional[str]
-    language: Optional[LanguageList]
-    """Название бизнеса"""
-    name: Optional[str]
-    """Список телефонов бизнеса"""
-    phone: Optional[List[FaxElement]]
-    """Список видов приема филиала"""
-    reception_types: Optional[List[str]]
-    timezone: Optional[str]
-
-    def __init__(self, address: Optional[List[AddressSchema]], email: Optional[str], internal_id: Optional[str], language: Optional[LanguageList], name: Optional[str], phone: Optional[List[FaxElement]], reception_types: Optional[List[str]], timezone: Optional[str]) -> None:
-        self.address = address
-        self.email = email
-        self.internal_id = internal_id
-        self.language = language
-        self.name = name
-        self.phone = phone
-        self.reception_types = reception_types
-        self.timezone = timezone
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ShowcaseBusinessDatum':
-        assert isinstance(obj, dict)
-        address = from_union([lambda x: from_list(AddressSchema.from_dict, x), from_none], obj.get("address"))
-        email = from_union([from_str, from_none], obj.get("email"))
-        internal_id = from_union([from_str, from_none], obj.get("internalID"))
-        language = from_union([LanguageList, from_none], obj.get("language"))
-        name = from_union([from_str, from_none], obj.get("name"))
-        phone = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("phone"))
-        reception_types = from_union([lambda x: from_list(from_str, x), from_none], obj.get("receptionTypes"))
-        timezone = from_union([from_str, from_none], obj.get("timezone"))
-        return ShowcaseBusinessDatum(address, email, internal_id, language, name, phone, reception_types, timezone)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["address"] = from_union([lambda x: from_list(lambda x: to_class(AddressSchema, x), x), from_none], self.address)
-        result["email"] = from_union([from_str, from_none], self.email)
-        result["internalID"] = from_union([from_str, from_none], self.internal_id)
-        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
-        result["name"] = from_union([from_str, from_none], self.name)
-        result["phone"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.phone)
-        result["receptionTypes"] = from_union([lambda x: from_list(from_str, x), from_none], self.reception_types)
-        result["timezone"] = from_union([from_str, from_none], self.timezone)
-        return result
-
-
-class ShowcaseElement:
-    base_business_id: Optional[str]
-
-    def __init__(self, base_business_id: Optional[str]) -> None:
-        self.base_business_id = base_business_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ShowcaseElement':
-        assert isinstance(obj, dict)
-        base_business_id = from_union([from_str, from_none], obj.get("baseBusinessID"))
-        return ShowcaseElement(base_business_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["baseBusinessID"] = from_union([from_str, from_none], self.base_business_id)
-        return result
-
-
-class SMSDuplicateFilter:
-    active: Optional[bool]
-
-    def __init__(self, active: Optional[bool]) -> None:
-        self.active = active
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'SMSDuplicateFilter':
-        assert isinstance(obj, dict)
-        active = from_union([from_bool, from_none], obj.get("active"))
-        return SMSDuplicateFilter(active)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["active"] = from_union([from_bool, from_none], self.active)
-        return result
-
-
-class SocialNetwork(Enum):
-    FACEBOOK = "Facebook"
-    GOOGLE = "Google"
-    G_BOOKING = "GBooking"
-    LINKED_IN = "LinkedIn"
-    MAILRU = "Mailru"
-    ODNOKLASSNIKI = "Odnoklassniki"
-    TWITTER = "Twitter"
-    V_KONTAKTE = "VKontakte"
-    YAHOO = "Yahoo"
-    YANDEX = "Yandex"
-
-
-class SocialNetworkSchema:
-    handle: str
-    """network id"""
-    id: str
-    social_network: SocialNetwork
-    url: str
-
-    def __init__(self, handle: str, id: str, social_network: SocialNetwork, url: str) -> None:
-        self.handle = handle
-        self.id = id
-        self.social_network = social_network
-        self.url = url
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'SocialNetworkSchema':
-        assert isinstance(obj, dict)
-        handle = from_str(obj.get("handle"))
-        id = from_str(obj.get("id"))
-        social_network = SocialNetwork(obj.get("social_network"))
-        url = from_str(obj.get("url"))
-        return SocialNetworkSchema(handle, id, social_network, url)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["handle"] = from_str(self.handle)
-        result["id"] = from_str(self.id)
-        result["social_network"] = to_enum(SocialNetwork, self.social_network)
-        result["url"] = from_str(self.url)
-        return result
-
-
-class TimeFrame:
-    capacity: Optional[float]
-    """смещение в минутах от начала дня"""
-    end: float
-    end_date: Union[datetime, float, None]
-    extra_id: Optional[str]
-    """уникальный идентификатор временного слота"""
-    id: Optional[str]
-    resources: Optional[List[str]]
-    room_id: Optional[str]
-    """смещение в минутах от начала дня"""
-    start: float
-    start_date: Union[datetime, float, None]
-
-    def __init__(self, capacity: Optional[float], end: float, end_date: Union[datetime, float, None], extra_id: Optional[str], id: Optional[str], resources: Optional[List[str]], room_id: Optional[str], start: float, start_date: Union[datetime, float, None]) -> None:
-        self.capacity = capacity
-        self.end = end
-        self.end_date = end_date
-        self.extra_id = extra_id
-        self.id = id
-        self.resources = resources
-        self.room_id = room_id
-        self.start = start
-        self.start_date = start_date
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'TimeFrame':
-        assert isinstance(obj, dict)
-        capacity = from_union([from_float, from_none], obj.get("capacity"))
-        end = from_float(obj.get("end"))
-        end_date = from_union([from_float, from_datetime, from_none], obj.get("endDate"))
-        extra_id = from_union([from_str, from_none], obj.get("extraId"))
-        id = from_union([from_str, from_none], obj.get("id"))
-        resources = from_union([lambda x: from_list(from_str, x), from_none], obj.get("resources"))
-        room_id = from_union([from_str, from_none], obj.get("roomID"))
-        start = from_float(obj.get("start"))
-        start_date = from_union([from_float, from_datetime, from_none], obj.get("startDate"))
-        return TimeFrame(capacity, end, end_date, extra_id, id, resources, room_id, start, start_date)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["capacity"] = from_union([to_float, from_none], self.capacity)
-        result["end"] = to_float(self.end)
-        result["endDate"] = from_union([to_float, lambda x: x.isoformat(), from_none], self.end_date)
-        result["extraId"] = from_union([from_str, from_none], self.extra_id)
-        result["id"] = from_union([from_str, from_none], self.id)
-        result["resources"] = from_union([lambda x: from_list(from_str, x), from_none], self.resources)
-        result["roomID"] = from_union([from_str, from_none], self.room_id)
-        result["start"] = to_float(self.start)
-        result["startDate"] = from_union([to_float, lambda x: x.isoformat(), from_none], self.start_date)
-        return result
-
-
-class Week:
-    fri: List[TimeFrame]
-    mon: List[TimeFrame]
-    sat: List[TimeFrame]
-    sun: List[TimeFrame]
-    thu: List[TimeFrame]
-    tue: List[TimeFrame]
-    wed: List[TimeFrame]
-
-    def __init__(self, fri: List[TimeFrame], mon: List[TimeFrame], sat: List[TimeFrame], sun: List[TimeFrame], thu: List[TimeFrame], tue: List[TimeFrame], wed: List[TimeFrame]) -> None:
-        self.fri = fri
-        self.mon = mon
-        self.sat = sat
-        self.sun = sun
-        self.thu = thu
-        self.tue = tue
-        self.wed = wed
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'Week':
-        assert isinstance(obj, dict)
-        fri = from_list(TimeFrame.from_dict, obj.get("fri"))
-        mon = from_list(TimeFrame.from_dict, obj.get("mon"))
-        sat = from_list(TimeFrame.from_dict, obj.get("sat"))
-        sun = from_list(TimeFrame.from_dict, obj.get("sun"))
-        thu = from_list(TimeFrame.from_dict, obj.get("thu"))
-        tue = from_list(TimeFrame.from_dict, obj.get("tue"))
-        wed = from_list(TimeFrame.from_dict, obj.get("wed"))
-        return Week(fri, mon, sat, sun, thu, tue, wed)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["fri"] = from_list(lambda x: to_class(TimeFrame, x), self.fri)
-        result["mon"] = from_list(lambda x: to_class(TimeFrame, x), self.mon)
-        result["sat"] = from_list(lambda x: to_class(TimeFrame, x), self.sat)
-        result["sun"] = from_list(lambda x: to_class(TimeFrame, x), self.sun)
-        result["thu"] = from_list(lambda x: to_class(TimeFrame, x), self.thu)
-        result["tue"] = from_list(lambda x: to_class(TimeFrame, x), self.tue)
-        result["wed"] = from_list(lambda x: to_class(TimeFrame, x), self.wed)
-        return result
-
-
-class Timetable:
-    """таблица регулярного недельного расписания"""
-    """установлено ли расписание для сущности"""
-    active: Optional[bool]
-    week: Optional[Week]
-
-    def __init__(self, active: Optional[bool], week: Optional[Week]) -> None:
-        self.active = active
-        self.week = week
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'Timetable':
-        assert isinstance(obj, dict)
-        active = from_union([from_bool, from_none], obj.get("active"))
-        week = from_union([Week.from_dict, from_none], obj.get("week"))
-        return Timetable(active, week)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["active"] = from_union([from_bool, from_none], self.active)
-        result["week"] = from_union([lambda x: to_class(Week, x), from_none], self.week)
-        return result
-
-
-class VerticalTranslation(Enum):
-    BEAUTY = "BEAUTY"
-    FITNESS = "FITNESS"
-    GENERIC = "GENERIC"
-    MEDICAL = "MEDICAL"
-    NONE = "NONE"
-    SPORT = "SPORT"
-    YOGA = "YOGA"
-
-
 class BusinessInfo:
-    """Содержит детальную информацию о бизнесе — название, адрес, график работы и другое"""
+    """(только в витрине) объект с данными бизнеса-филиала
+    
+    Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
+    """
     accepted_currency: Optional[List[CurrencyList]]
     additional_info: Optional[str]
     additional_fields: Optional[List[AdditionalFields]]
@@ -5879,399 +6815,6 @@ class InfoMiniWidgetConfiguration:
         return result
 
 
-class StartPeriod(Enum):
-    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-    (понедельник считается нечётным)
-    """
-    MONTH = "month"
-    WEEK = "week"
-
-
-class EvenOddTimetable:
-    """расписание для чётных дней"""
-    even: List[TimeFrame]
-    """расписание для нечётных дней"""
-    odd: List[TimeFrame]
-    """month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-    (понедельник считается нечётным)
-    """
-    start_period: StartPeriod
-
-    def __init__(self, even: List[TimeFrame], odd: List[TimeFrame], start_period: StartPeriod) -> None:
-        self.even = even
-        self.odd = odd
-        self.start_period = start_period
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'EvenOddTimetable':
-        assert isinstance(obj, dict)
-        even = from_list(TimeFrame.from_dict, obj.get("even"))
-        odd = from_list(TimeFrame.from_dict, obj.get("odd"))
-        start_period = StartPeriod(obj.get("startPeriod"))
-        return EvenOddTimetable(even, odd, start_period)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["even"] = from_list(lambda x: to_class(TimeFrame, x), self.even)
-        result["odd"] = from_list(lambda x: to_class(TimeFrame, x), self.odd)
-        result["startPeriod"] = to_enum(StartPeriod, self.start_period)
-        return result
-
-
-class ResourceLocation:
-    latitude: Optional[float]
-    longitude: Optional[float]
-    """время последнего обновления координат"""
-    time: Optional[str]
-
-    def __init__(self, latitude: Optional[float], longitude: Optional[float], time: Optional[str]) -> None:
-        self.latitude = latitude
-        self.longitude = longitude
-        self.time = time
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceLocation':
-        assert isinstance(obj, dict)
-        latitude = from_union([from_float, from_none], obj.get("latitude"))
-        longitude = from_union([from_float, from_none], obj.get("longitude"))
-        time = from_union([from_str, from_none], obj.get("time"))
-        return ResourceLocation(latitude, longitude, time)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["latitude"] = from_union([to_float, from_none], self.latitude)
-        result["longitude"] = from_union([to_float, from_none], self.longitude)
-        result["time"] = from_union([from_str, from_none], self.time)
-        return result
-
-
-class Info:
-    """(только в витрине) объект с данными бизнеса-филиала
-    
-    Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
-    """
-    accepted_currency: Optional[List[CurrencyList]]
-    additional_info: Optional[str]
-    additional_fields: Optional[List[AdditionalFields]]
-    """Адреса компании или филиала"""
-    address: Optional[List[AddressSchema]]
-    align_min_booking_time: Optional[bool]
-    auto_accept_appointment: Optional[bool]
-    """если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину"""
-    business_showcase_aliases: Optional[List[BusinessShowcaseAlias]]
-    contact_name: Optional[str]
-    date_joined: Optional[datetime]
-    description: Optional[str]
-    """Список e-mail адресов компании или филиала"""
-    email: Optional[str]
-    event_editor_minutes_tick: Optional[float]
-    fax: Optional[List[FaxElement]]
-    images: Optional[List[str]]
-    instant_messaging: Optional[List[Dict[str, Any]]]
-    """является ли данный бизнес витриной"""
-    is_showcase: Optional[bool]
-    language: Optional[LanguageList]
-    logo_url: Optional[str]
-    marketing_notifications: Optional[MarketingNotifications]
-    metro: Optional[Metro]
-    min_booking_time: Optional[float]
-    """Список телефонов бизнеса"""
-    mobile: Optional[List[FaxElement]]
-    """Название бизнеса"""
-    name: Optional[str]
-    network_id: Optional[float]
-    newbo_enabled_for: Optional[List[str]]
-    payment_methods: Optional[PaymentMethods]
-    """Список телефонов бизнеса"""
-    phone: Optional[List[FaxElement]]
-    phone_mask: Optional[str]
-    pricing_type: Optional[PricingType]
-    revision_version: Optional[float]
-    scheduler_tick: Optional[float]
-    """Короткое название филиала"""
-    short_name: Optional[str]
-    show_appointment_color: Optional[bool]
-    show_appointment_tooltip: Optional[bool]
-    """если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
-    витрины
-    """
-    showcase_business_data: Optional[List[ShowcaseBusinessDatum]]
-    """идентификаторы витрин, в которых участвует данный бизнес"""
-    showcases: Optional[List[ShowcaseElement]]
-    show_resource_work_statistics: Optional[bool]
-    show_worker_profession: Optional[bool]
-    skip_billing: Optional[bool]
-    sms_duplicate_filter: Optional[SMSDuplicateFilter]
-    social_network: Optional[List[SocialNetworkSchema]]
-    timetable: Optional[Timetable]
-    timezone: Optional[str]
-    vertical_translation: Optional[VerticalTranslation]
-    website: Optional[str]
-
-    def __init__(self, accepted_currency: Optional[List[CurrencyList]], additional_info: Optional[str], additional_fields: Optional[List[AdditionalFields]], address: Optional[List[AddressSchema]], align_min_booking_time: Optional[bool], auto_accept_appointment: Optional[bool], business_showcase_aliases: Optional[List[BusinessShowcaseAlias]], contact_name: Optional[str], date_joined: Optional[datetime], description: Optional[str], email: Optional[str], event_editor_minutes_tick: Optional[float], fax: Optional[List[FaxElement]], images: Optional[List[str]], instant_messaging: Optional[List[Dict[str, Any]]], is_showcase: Optional[bool], language: Optional[LanguageList], logo_url: Optional[str], marketing_notifications: Optional[MarketingNotifications], metro: Optional[Metro], min_booking_time: Optional[float], mobile: Optional[List[FaxElement]], name: Optional[str], network_id: Optional[float], newbo_enabled_for: Optional[List[str]], payment_methods: Optional[PaymentMethods], phone: Optional[List[FaxElement]], phone_mask: Optional[str], pricing_type: Optional[PricingType], revision_version: Optional[float], scheduler_tick: Optional[float], short_name: Optional[str], show_appointment_color: Optional[bool], show_appointment_tooltip: Optional[bool], showcase_business_data: Optional[List[ShowcaseBusinessDatum]], showcases: Optional[List[ShowcaseElement]], show_resource_work_statistics: Optional[bool], show_worker_profession: Optional[bool], skip_billing: Optional[bool], sms_duplicate_filter: Optional[SMSDuplicateFilter], social_network: Optional[List[SocialNetworkSchema]], timetable: Optional[Timetable], timezone: Optional[str], vertical_translation: Optional[VerticalTranslation], website: Optional[str]) -> None:
-        self.accepted_currency = accepted_currency
-        self.additional_info = additional_info
-        self.additional_fields = additional_fields
-        self.address = address
-        self.align_min_booking_time = align_min_booking_time
-        self.auto_accept_appointment = auto_accept_appointment
-        self.business_showcase_aliases = business_showcase_aliases
-        self.contact_name = contact_name
-        self.date_joined = date_joined
-        self.description = description
-        self.email = email
-        self.event_editor_minutes_tick = event_editor_minutes_tick
-        self.fax = fax
-        self.images = images
-        self.instant_messaging = instant_messaging
-        self.is_showcase = is_showcase
-        self.language = language
-        self.logo_url = logo_url
-        self.marketing_notifications = marketing_notifications
-        self.metro = metro
-        self.min_booking_time = min_booking_time
-        self.mobile = mobile
-        self.name = name
-        self.network_id = network_id
-        self.newbo_enabled_for = newbo_enabled_for
-        self.payment_methods = payment_methods
-        self.phone = phone
-        self.phone_mask = phone_mask
-        self.pricing_type = pricing_type
-        self.revision_version = revision_version
-        self.scheduler_tick = scheduler_tick
-        self.short_name = short_name
-        self.show_appointment_color = show_appointment_color
-        self.show_appointment_tooltip = show_appointment_tooltip
-        self.showcase_business_data = showcase_business_data
-        self.showcases = showcases
-        self.show_resource_work_statistics = show_resource_work_statistics
-        self.show_worker_profession = show_worker_profession
-        self.skip_billing = skip_billing
-        self.sms_duplicate_filter = sms_duplicate_filter
-        self.social_network = social_network
-        self.timetable = timetable
-        self.timezone = timezone
-        self.vertical_translation = vertical_translation
-        self.website = website
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'Info':
-        assert isinstance(obj, dict)
-        accepted_currency = from_union([lambda x: from_list(CurrencyList, x), from_none], obj.get("accepted_currency"))
-        additional_info = from_union([from_none, from_str], obj.get("additional_info"))
-        additional_fields = from_union([lambda x: from_list(AdditionalFields.from_dict, x), from_none], obj.get("additionalFields"))
-        address = from_union([lambda x: from_list(AddressSchema.from_dict, x), from_none], obj.get("address"))
-        align_min_booking_time = from_union([from_bool, from_none], obj.get("align_min_booking_time"))
-        auto_accept_appointment = from_union([from_bool, from_none], obj.get("autoAcceptAppointment"))
-        business_showcase_aliases = from_union([lambda x: from_list(BusinessShowcaseAlias.from_dict, x), from_none], obj.get("businessShowcaseAliases"))
-        contact_name = from_union([from_none, from_str], obj.get("contactName"))
-        date_joined = from_union([from_datetime, from_none], obj.get("date_joined"))
-        description = from_union([from_str, from_none], obj.get("description"))
-        email = from_union([from_str, from_none], obj.get("email"))
-        event_editor_minutes_tick = from_union([from_float, from_none], obj.get("eventEditorMinutesTick"))
-        fax = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("fax"))
-        images = from_union([lambda x: from_list(from_str, x), from_none], obj.get("images"))
-        instant_messaging = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("instant_messaging"))
-        is_showcase = from_union([from_bool, from_none], obj.get("isShowcase"))
-        language = from_union([LanguageList, from_none], obj.get("language"))
-        logo_url = from_union([from_none, from_str], obj.get("logo_url"))
-        marketing_notifications = from_union([MarketingNotifications.from_dict, from_none], obj.get("marketingNotifications"))
-        metro = from_union([Metro.from_dict, from_none], obj.get("metro"))
-        min_booking_time = from_union([from_float, from_none], obj.get("min_booking_time"))
-        mobile = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("mobile"))
-        name = from_union([from_str, from_none], obj.get("name"))
-        network_id = from_union([from_float, from_none], obj.get("networkID"))
-        newbo_enabled_for = from_union([lambda x: from_list(from_str, x), from_none], obj.get("newboEnabledFor"))
-        payment_methods = from_union([PaymentMethods, from_none], obj.get("paymentMethods"))
-        phone = from_union([lambda x: from_list(FaxElement.from_dict, x), from_none], obj.get("phone"))
-        phone_mask = from_union([from_none, from_str], obj.get("phone_mask"))
-        pricing_type = from_union([PricingType, from_none], obj.get("pricingType"))
-        revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
-        scheduler_tick = from_union([from_float, from_none], obj.get("schedulerTick"))
-        short_name = from_union([from_none, from_str], obj.get("shortName"))
-        show_appointment_color = from_union([from_bool, from_none], obj.get("showAppointmentColor"))
-        show_appointment_tooltip = from_union([from_bool, from_none], obj.get("showAppointmentTooltip"))
-        showcase_business_data = from_union([lambda x: from_list(ShowcaseBusinessDatum.from_dict, x), from_none], obj.get("showcaseBusinessData"))
-        showcases = from_union([lambda x: from_list(ShowcaseElement.from_dict, x), from_none], obj.get("showcases"))
-        show_resource_work_statistics = from_union([from_bool, from_none], obj.get("showResourceWorkStatistics"))
-        show_worker_profession = from_union([from_bool, from_none], obj.get("showWorkerProfession"))
-        skip_billing = from_union([from_bool, from_none], obj.get("skipBilling"))
-        sms_duplicate_filter = from_union([SMSDuplicateFilter.from_dict, from_none], obj.get("smsDuplicateFilter"))
-        social_network = from_union([lambda x: from_list(SocialNetworkSchema.from_dict, x), from_none], obj.get("social_network"))
-        timetable = from_union([Timetable.from_dict, from_none], obj.get("timetable"))
-        timezone = from_union([from_none, from_str], obj.get("timezone"))
-        vertical_translation = from_union([VerticalTranslation, from_none], obj.get("verticalTranslation"))
-        website = from_union([from_none, from_str], obj.get("website"))
-        return Info(accepted_currency, additional_info, additional_fields, address, align_min_booking_time, auto_accept_appointment, business_showcase_aliases, contact_name, date_joined, description, email, event_editor_minutes_tick, fax, images, instant_messaging, is_showcase, language, logo_url, marketing_notifications, metro, min_booking_time, mobile, name, network_id, newbo_enabled_for, payment_methods, phone, phone_mask, pricing_type, revision_version, scheduler_tick, short_name, show_appointment_color, show_appointment_tooltip, showcase_business_data, showcases, show_resource_work_statistics, show_worker_profession, skip_billing, sms_duplicate_filter, social_network, timetable, timezone, vertical_translation, website)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["accepted_currency"] = from_union([lambda x: from_list(lambda x: to_enum(CurrencyList, x), x), from_none], self.accepted_currency)
-        result["additional_info"] = from_union([from_none, from_str], self.additional_info)
-        result["additionalFields"] = from_union([lambda x: from_list(lambda x: to_class(AdditionalFields, x), x), from_none], self.additional_fields)
-        result["address"] = from_union([lambda x: from_list(lambda x: to_class(AddressSchema, x), x), from_none], self.address)
-        result["align_min_booking_time"] = from_union([from_bool, from_none], self.align_min_booking_time)
-        result["autoAcceptAppointment"] = from_union([from_bool, from_none], self.auto_accept_appointment)
-        result["businessShowcaseAliases"] = from_union([lambda x: from_list(lambda x: to_class(BusinessShowcaseAlias, x), x), from_none], self.business_showcase_aliases)
-        result["contactName"] = from_union([from_none, from_str], self.contact_name)
-        result["date_joined"] = from_union([lambda x: x.isoformat(), from_none], self.date_joined)
-        result["description"] = from_union([from_str, from_none], self.description)
-        result["email"] = from_union([from_str, from_none], self.email)
-        result["eventEditorMinutesTick"] = from_union([to_float, from_none], self.event_editor_minutes_tick)
-        result["fax"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.fax)
-        result["images"] = from_union([lambda x: from_list(from_str, x), from_none], self.images)
-        result["instant_messaging"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.instant_messaging)
-        result["isShowcase"] = from_union([from_bool, from_none], self.is_showcase)
-        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
-        result["logo_url"] = from_union([from_none, from_str], self.logo_url)
-        result["marketingNotifications"] = from_union([lambda x: to_class(MarketingNotifications, x), from_none], self.marketing_notifications)
-        result["metro"] = from_union([lambda x: to_class(Metro, x), from_none], self.metro)
-        result["min_booking_time"] = from_union([to_float, from_none], self.min_booking_time)
-        result["mobile"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.mobile)
-        result["name"] = from_union([from_str, from_none], self.name)
-        result["networkID"] = from_union([to_float, from_none], self.network_id)
-        result["newboEnabledFor"] = from_union([lambda x: from_list(from_str, x), from_none], self.newbo_enabled_for)
-        result["paymentMethods"] = from_union([lambda x: to_enum(PaymentMethods, x), from_none], self.payment_methods)
-        result["phone"] = from_union([lambda x: from_list(lambda x: to_class(FaxElement, x), x), from_none], self.phone)
-        result["phone_mask"] = from_union([from_none, from_str], self.phone_mask)
-        result["pricingType"] = from_union([lambda x: to_enum(PricingType, x), from_none], self.pricing_type)
-        result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
-        result["schedulerTick"] = from_union([to_float, from_none], self.scheduler_tick)
-        result["shortName"] = from_union([from_none, from_str], self.short_name)
-        result["showAppointmentColor"] = from_union([from_bool, from_none], self.show_appointment_color)
-        result["showAppointmentTooltip"] = from_union([from_bool, from_none], self.show_appointment_tooltip)
-        result["showcaseBusinessData"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseBusinessDatum, x), x), from_none], self.showcase_business_data)
-        result["showcases"] = from_union([lambda x: from_list(lambda x: to_class(ShowcaseElement, x), x), from_none], self.showcases)
-        result["showResourceWorkStatistics"] = from_union([from_bool, from_none], self.show_resource_work_statistics)
-        result["showWorkerProfession"] = from_union([from_bool, from_none], self.show_worker_profession)
-        result["skipBilling"] = from_union([from_bool, from_none], self.skip_billing)
-        result["smsDuplicateFilter"] = from_union([lambda x: to_class(SMSDuplicateFilter, x), from_none], self.sms_duplicate_filter)
-        result["social_network"] = from_union([lambda x: from_list(lambda x: to_class(SocialNetworkSchema, x), x), from_none], self.social_network)
-        result["timetable"] = from_union([lambda x: to_class(Timetable, x), from_none], self.timetable)
-        result["timezone"] = from_union([from_none, from_str], self.timezone)
-        result["verticalTranslation"] = from_union([lambda x: to_enum(VerticalTranslation, x), from_none], self.vertical_translation)
-        result["website"] = from_union([from_none, from_str], self.website)
-        return result
-
-
-class AccessType(Enum):
-    """тип доступа работника в систему через его учётную запись"""
-    NONE = "NONE"
-    WORKER_EXTENDED = "WORKER_EXTENDED"
-    WORKER_SIMPLE = "WORKER_SIMPLE"
-
-
-class ИнформацияОПрофилеРаботника:
-    """Доступ имеют только пользователи с правами resource или admin"""
-    """тип доступа работника в систему через его учётную запись"""
-    access_type: AccessType
-    """e-mail профиля работника"""
-    email: str
-    """идентификатор профиля работника уникальный во всей системе"""
-    profile_id: str
-    """идентификатор работника"""
-    user_id: str
-
-    def __init__(self, access_type: AccessType, email: str, profile_id: str, user_id: str) -> None:
-        self.access_type = access_type
-        self.email = email
-        self.profile_id = profile_id
-        self.user_id = user_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ИнформацияОПрофилеРаботника':
-        assert isinstance(obj, dict)
-        access_type = AccessType(obj.get("accessType"))
-        email = from_str(obj.get("email"))
-        profile_id = from_str(obj.get("profileID"))
-        user_id = from_str(obj.get("userID"))
-        return ИнформацияОПрофилеРаботника(access_type, email, profile_id, user_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["accessType"] = to_enum(AccessType, self.access_type)
-        result["email"] = from_str(self.email)
-        result["profileID"] = from_str(self.profile_id)
-        result["userID"] = from_str(self.user_id)
-        return result
-
-
-class ResourceStatus(Enum):
-    ACTIVE = "ACTIVE"
-    INACTIVE = "INACTIVE"
-
-
-class ResourceTaxonomyChildren:
-    """true - детская услуга; false - взрослая услуга"""
-    children: bool
-    """идентификатор услуги, для которой установлено свойство"""
-    taxonomy_id: str
-
-    def __init__(self, children: bool, taxonomy_id: str) -> None:
-        self.children = children
-        self.taxonomy_id = taxonomy_id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceTaxonomyChildren':
-        assert isinstance(obj, dict)
-        children = from_bool(obj.get("children"))
-        taxonomy_id = from_str(obj.get("taxonomyID"))
-        return ResourceTaxonomyChildren(children, taxonomy_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["children"] = from_bool(self.children)
-        result["taxonomyID"] = from_str(self.taxonomy_id)
-        return result
-
-
-class ResourceTaxonomyLevel:
-    """идентификатор услуги, для которой установлено уровень скорости"""
-    id: str
-    """уровень скорости"""
-    level: float
-
-    def __init__(self, id: str, level: float) -> None:
-        self.id = id
-        self.level = level
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceTaxonomyLevel':
-        assert isinstance(obj, dict)
-        id = from_str(obj.get("id"))
-        level = from_float(obj.get("level"))
-        return ResourceTaxonomyLevel(id, level)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = from_str(self.id)
-        result["level"] = to_float(self.level)
-        return result
-
-
-class ResourceTelemedData:
-    active: Optional[bool]
-    id: Optional[str]
-
-    def __init__(self, active: Optional[bool], id: Optional[str]) -> None:
-        self.active = active
-        self.id = id
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'ResourceTelemedData':
-        assert isinstance(obj, dict)
-        active = from_union([from_bool, from_none], obj.get("active"))
-        id = from_union([from_str, from_none], obj.get("id"))
-        return ResourceTelemedData(active, id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["active"] = from_union([from_bool, from_none], self.active)
-        result["id"] = from_union([from_str, from_none], self.id)
-        return result
-
-
 class Resource:
     """Данные о работнике бизнеса"""
     """информация из внешней информационной системы как есть (при интеграции)"""
@@ -6466,7 +7009,7 @@ class Resource:
         name = from_str(obj.get("name"))
         nickname = from_union([from_str, from_none], obj.get("nickname"))
         order = from_union([from_float, from_none], obj.get("order"))
-        order_weight = from_union([from_float, from_str, from_none], obj.get("orderWeight"))
+        order_weight = from_union([from_none, from_float, from_str], obj.get("orderWeight"))
         origin_general_info = from_union([Info.from_dict, from_none], obj.get("origin_general_info"))
         origin_business_id = from_union([from_str, from_none], obj.get("originBusinessID"))
         origin_taxonomies = from_union([lambda x: from_list(from_str, x), from_none], obj.get("originTaxonomies"))
@@ -6525,7 +7068,7 @@ class Resource:
         result["name"] = from_str(self.name)
         result["nickname"] = from_union([from_str, from_none], self.nickname)
         result["order"] = from_union([to_float, from_none], self.order)
-        result["orderWeight"] = from_union([to_float, from_str, from_none], self.order_weight)
+        result["orderWeight"] = from_union([from_none, to_float, from_str], self.order_weight)
         result["origin_general_info"] = from_union([lambda x: to_class(Info, x), from_none], self.origin_general_info)
         result["originBusinessID"] = from_union([from_str, from_none], self.origin_business_id)
         result["originTaxonomies"] = from_union([lambda x: from_list(from_str, x), from_none], self.origin_taxonomies)
@@ -8377,7 +8920,7 @@ class BusinessGetProfileByIDRequestParams:
         desktop_discounts = from_union([from_bool, from_none], obj.get("desktop_discounts"))
         only_active_workers = from_union([from_bool, from_none], obj.get("only_active_workers"))
         show_inactive_workers = from_union([from_bool, from_none], obj.get("show_inactive_workers"))
-        showcase_business_id = from_union([from_float, from_str, from_none], obj.get("showcase_business_id"))
+        showcase_business_id = from_union([from_none, from_float, from_str], obj.get("showcase_business_id"))
         skip_worker_sorting = from_union([from_bool, from_none], obj.get("skip_worker_sorting"))
         use_optimized_cache = from_union([from_bool, from_none], obj.get("use_optimized_cache"))
         with_billing = from_union([from_bool, from_none], obj.get("with_billing"))
@@ -8397,7 +8940,7 @@ class BusinessGetProfileByIDRequestParams:
         result["desktop_discounts"] = from_union([from_bool, from_none], self.desktop_discounts)
         result["only_active_workers"] = from_union([from_bool, from_none], self.only_active_workers)
         result["show_inactive_workers"] = from_union([from_bool, from_none], self.show_inactive_workers)
-        result["showcase_business_id"] = from_union([to_float, from_str, from_none], self.showcase_business_id)
+        result["showcase_business_id"] = from_union([from_none, to_float, from_str], self.showcase_business_id)
         result["skip_worker_sorting"] = from_union([from_bool, from_none], self.skip_worker_sorting)
         result["use_optimized_cache"] = from_union([from_bool, from_none], self.use_optimized_cache)
         result["with_billing"] = from_union([from_bool, from_none], self.with_billing)
@@ -11384,7 +11927,7 @@ class ClientClass:
         status = from_union([ResourceStatus, from_none], obj.get("status"))
         surname = from_str(obj.get("surname"))
         taxi_park = from_union([from_none, from_str], obj.get("taxiPark"))
-        taxi_park_member_count = from_union([from_float, from_str, from_none], obj.get("taxiParkMemberCount"))
+        taxi_park_member_count = from_union([from_none, from_float, from_str], obj.get("taxiParkMemberCount"))
         two_fa_user_id = from_union([from_str, from_none], obj.get("twoFAUserID"))
         updated = from_union([from_str, from_none], obj.get("updated"))
         work_place = from_union([from_str, from_none], obj.get("workPlace"))
@@ -11444,7 +11987,7 @@ class ClientClass:
         result["status"] = from_union([lambda x: to_enum(ResourceStatus, x), from_none], self.status)
         result["surname"] = from_str(self.surname)
         result["taxiPark"] = from_union([from_none, from_str], self.taxi_park)
-        result["taxiParkMemberCount"] = from_union([to_float, from_str, from_none], self.taxi_park_member_count)
+        result["taxiParkMemberCount"] = from_union([from_none, to_float, from_str], self.taxi_park_member_count)
         result["twoFAUserID"] = from_union([from_str, from_none], self.two_fa_user_id)
         result["updated"] = from_union([from_str, from_none], self.updated)
         result["workPlace"] = from_union([from_str, from_none], self.work_place)
@@ -11741,12 +12284,12 @@ class StickyNetwork:
     @staticmethod
     def from_dict(obj: Any) -> 'StickyNetwork':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        id = from_union([from_none, from_float, from_str], obj.get("id"))
         return StickyNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        result["id"] = from_union([from_none, to_float, from_str], self.id)
         return result
 
 
@@ -12010,12 +12553,12 @@ class IndigoNetwork:
     @staticmethod
     def from_dict(obj: Any) -> 'IndigoNetwork':
         assert isinstance(obj, dict)
-        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        id = from_union([from_none, from_float, from_str], obj.get("id"))
         return IndigoNetwork(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        result["id"] = from_union([from_none, to_float, from_str], self.id)
         return result
 
 

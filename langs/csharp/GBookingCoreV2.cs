@@ -765,7 +765,7 @@ namespace GBookingCoreV2
         public string Source { get; set; }
 
         [JsonProperty("taxonomy")]
-        public AppointmentTaxonomy Taxonomy { get; set; }
+        public TaxonomyClass Taxonomy { get; set; }
 
         /// <summary>
         /// Данные для телемед конференции
@@ -1365,37 +1365,891 @@ namespace GBookingCoreV2
         public AppointmentStatus? Status { get; set; }
     }
 
+    /// <summary>
+    /// Данные о работнике бизнеса
+    /// </summary>
     public partial class AppointmentResource
     {
         [JsonProperty("extraID")]
         public string ExtraId { get; set; }
 
+        /// <summary>
+        /// внутренний идентификатор работника; уникальный во всей системе GBooking
+        /// </summary>
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        /// <summary>
+        /// отчество работника
+        /// </summary>
         [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
 
+        /// <summary>
+        /// имя работника
+        /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// фамилия и отчество работника
+        /// </summary>
         [JsonProperty("surname")]
         public string Surname { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("additionalExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> AdditionalExtraId { get; set; }
+
+        [JsonProperty("badIconResolution", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? BadIconResolution { get; set; }
+
+        /// <summary>
+        /// Количество записей, которые может принимать работник единовременно
+        /// </summary>
+        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Capacity { get; set; }
+
+        /// <summary>
+        /// цвет колонки с работником
+        /// </summary>
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public string Color { get; set; }
+
+        [JsonProperty("degree", NullValueHandling = NullValueHandling.Ignore)]
+        public string Degree { get; set; }
+
+        /// <summary>
+        /// идентификатор отделения, к которому привязан работник
+        /// </summary>
+        [JsonProperty("departmentId", NullValueHandling = NullValueHandling.Ignore)]
+        public string DepartmentId { get; set; }
+
+        /// <summary>
+        /// краткое описание работника
+        /// </summary>
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("displayInSchedule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisplayInSchedule { get; set; }
+
+        /// <summary>
+        /// отображать ли данного работника на виджете или любом другом клиенте
+        /// </summary>
+        [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisplayInWidget { get; set; }
+
+        /// <summary>
+        /// e-mail работника
+        /// </summary>
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// включена ли отправка e-mail уведомлений для данного работника
+        /// </summary>
+        [JsonProperty("emailEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EmailEnabled { get; set; }
+
+        [JsonProperty("evenOddTimetable", NullValueHandling = NullValueHandling.Ignore)]
+        public EvenOddTimetable EvenOddTimetable { get; set; }
+
+        [JsonProperty("exceptions", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Exceptions { get; set; }
+
+        [JsonProperty("experience", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Experience { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraDescription", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraDescription { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ResourceExtraId { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraLink { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraMediaId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraMediaId { get; set; }
+
+        /// <summary>
+        /// url изображения работника; Если указан относительный путь, то используйте
+        /// http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+        /// WidgetConfiguration.defaultWorkerImgUrl)
+        /// </summary>
+        [JsonProperty("icon_url")]
+        public string IconUrl { get; set; }
+
+        [JsonProperty("image", NullValueHandling = NullValueHandling.Ignore)]
+        public string Image { get; set; }
+
+        [JsonProperty("lastSU", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? LastSu { get; set; }
+
+        /// <summary>
+        /// уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+        /// </summary>
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Level { get; set; }
+
+        /// <summary>
+        /// не используется
+        /// </summary>
+        [JsonProperty("loaned", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Loaned { get; set; }
+
+        /// <summary>
+        /// не используется
+        /// </summary>
+        [JsonProperty("loanedFrom", NullValueHandling = NullValueHandling.Ignore)]
+        public string LoanedFrom { get; set; }
+
+        /// <summary>
+        /// не используется
+        /// </summary>
+        [JsonProperty("loanedTo", NullValueHandling = NullValueHandling.Ignore)]
+        public string LoanedTo { get; set; }
+
+        [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceLocation Location { get; set; }
+
+        [JsonProperty("manualChanges", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ManualChanges { get; set; }
+
+        /// <summary>
+        /// внутреннее название работника в Бекофис
+        /// </summary>
+        [JsonProperty("nickname", NullValueHandling = NullValueHandling.Ignore)]
+        public string Nickname { get; set; }
+
+        /// <summary>
+        /// индекс сортировки работника
+        /// </summary>
+        [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Order { get; set; }
+
+        /// <summary>
+        /// вес работника, в зависимости от указанного способа сортировки
+        /// </summary>
+        [JsonProperty("orderWeight")]
+        public OrderWeight? OrderWeight { get; set; }
+
+        /// <summary>
+        /// (только в витрине) объект с данными бизнеса-филиала
+        /// </summary>
+        [JsonProperty("origin_general_info", NullValueHandling = NullValueHandling.Ignore)]
+        public Info OriginGeneralInfo { get; set; }
+
+        /// <summary>
+        /// (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+        /// </summary>
+        [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string OriginBusinessId { get; set; }
+
+        /// <summary>
+        /// (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+        /// работник
+        /// </summary>
+        [JsonProperty("originTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> OriginTaxonomies { get; set; }
+
+        /// <summary>
+        /// особый навык
+        /// </summary>
+        [JsonProperty("perk", NullValueHandling = NullValueHandling.Ignore)]
+        public string Perk { get; set; }
+
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Phone { get; set; }
+
+        /// <summary>
+        /// информация о профессии работника, используется в Бекофис
+        /// </summary>
+        [JsonProperty("profession", NullValueHandling = NullValueHandling.Ignore)]
+        public string Profession { get; set; }
+
+        [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
+        public ИнформацияОПрофилеРаботника Profile { get; set; }
+
+        /// <summary>
+        /// Рейтинг работника
+        /// </summary>
+        [JsonProperty("rating", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Rating { get; set; }
+
+        [JsonProperty("readonlyTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReadonlyTaxonomies { get; set; }
+
+        /// <summary>
+        /// Версия изменений документа
+        /// </summary>
+        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
+        public double? RevisionVersion { get; set; }
+
+        [JsonProperty("scheduleIsEmpty", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ScheduleIsEmpty { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("siteId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SiteId { get; set; }
+
+        /// <summary>
+        /// включена ли отправка смс уведомлений для данного работника
+        /// </summary>
+        [JsonProperty("smsEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SmsEnabled { get; set; }
+
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceStatus? Status { get; set; }
+
+        /// <summary>
+        /// массив идентификаторов услуг, которые выполняет работник
+        /// </summary>
+        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Taxonomies { get; set; }
+
+        /// <summary>
+        /// массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+        /// оба или не указаны вовсе для услуги)
+        /// </summary>
+        [JsonProperty("taxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ResourceTaxonomyChildren> TaxonomyChildren { get; set; }
+
+        /// <summary>
+        /// массив уровня скорости выполнения услуги (см так же Resource level)
+        /// </summary>
+        [JsonProperty("taxonomyLevels", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ResourceTaxonomyLevel> TaxonomyLevels { get; set; }
+
+        [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceTelemedData TelemedData { get; set; }
+
+        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
+        public Timetable Timetable { get; set; }
+
+        [JsonProperty("userData", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> UserData { get; set; }
+
+        /// <summary>
+        /// рабочее место, которое занимает работник
+        /// </summary>
+        [JsonProperty("workPlace", NullValueHandling = NullValueHandling.Ignore)]
+        public string WorkPlace { get; set; }
+    }
+
+    public partial class EvenOddTimetable
+    {
+        /// <summary>
+        /// расписание для чётных дней
+        /// </summary>
+        [JsonProperty("even")]
+        public List<TimeFrame> Even { get; set; }
+
+        /// <summary>
+        /// расписание для нечётных дней
+        /// </summary>
+        [JsonProperty("odd")]
+        public List<TimeFrame> Odd { get; set; }
+
+        /// <summary>
+        /// month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+        /// (понедельник считается нечётным)
+        /// </summary>
+        [JsonProperty("startPeriod")]
+        public StartPeriod StartPeriod { get; set; }
+    }
+
+    public partial class TimeFrame
+    {
+        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Capacity { get; set; }
+
+        /// <summary>
+        /// смещение в минутах от начала дня
+        /// </summary>
+        [JsonProperty("end")]
+        public double End { get; set; }
+
+        [JsonProperty("endDate", NullValueHandling = NullValueHandling.Ignore)]
+        public TimeFrameDate? EndDate { get; set; }
+
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        /// <summary>
+        /// уникальный идентификатор временного слота
+        /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("resources", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Resources { get; set; }
+
+        [JsonProperty("roomID", NullValueHandling = NullValueHandling.Ignore)]
+        public string RoomId { get; set; }
+
+        /// <summary>
+        /// смещение в минутах от начала дня
+        /// </summary>
+        [JsonProperty("start")]
+        public double Start { get; set; }
+
+        [JsonProperty("startDate", NullValueHandling = NullValueHandling.Ignore)]
+        public TimeFrameDate? StartDate { get; set; }
+    }
+
+    public partial class ResourceLocation
+    {
+        [JsonProperty("latitude", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Latitude { get; set; }
+
+        [JsonProperty("longitude", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Longitude { get; set; }
+
+        /// <summary>
+        /// время последнего обновления координат
+        /// </summary>
+        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
+        public string Time { get; set; }
+    }
+
+    /// <summary>
+    /// (только в витрине) объект с данными бизнеса-филиала
+    ///
+    /// Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
+    /// </summary>
+    public partial class Info
+    {
+        [JsonProperty("accepted_currency", NullValueHandling = NullValueHandling.Ignore)]
+        public List<CurrencyList> AcceptedCurrency { get; set; }
+
+        [JsonProperty("additional_info")]
+        public string AdditionalInfo { get; set; }
+
+        [JsonProperty("additionalFields", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AdditionalFields> AdditionalFields { get; set; }
+
+        /// <summary>
+        /// Адреса компании или филиала
+        /// </summary>
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AddressSchema> Address { get; set; }
+
+        [JsonProperty("align_min_booking_time")]
+        public bool? AlignMinBookingTime { get; set; }
+
+        [JsonProperty("autoAcceptAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AutoAcceptAppointment { get; set; }
+
+        /// <summary>
+        /// если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
+        /// </summary>
+        [JsonProperty("businessShowcaseAliases", NullValueHandling = NullValueHandling.Ignore)]
+        public List<BusinessShowcaseAlias> BusinessShowcaseAliases { get; set; }
+
+        [JsonProperty("contactName")]
+        public string ContactName { get; set; }
+
+        [JsonProperty("date_joined", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? DateJoined { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Список e-mail адресов компании или филиала
+        /// </summary>
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        [JsonProperty("eventEditorMinutesTick", NullValueHandling = NullValueHandling.Ignore)]
+        public double? EventEditorMinutesTick { get; set; }
+
+        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Fax { get; set; }
+
+        [JsonProperty("images", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Images { get; set; }
+
+        [JsonProperty("instant_messaging", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> InstantMessaging { get; set; }
+
+        /// <summary>
+        /// является ли данный бизнес витриной
+        /// </summary>
+        [JsonProperty("isShowcase", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsShowcase { get; set; }
+
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
+        public LanguageList? Language { get; set; }
+
+        [JsonProperty("logo_url")]
+        public string LogoUrl { get; set; }
+
+        [JsonProperty("marketingNotifications", NullValueHandling = NullValueHandling.Ignore)]
+        public MarketingNotifications MarketingNotifications { get; set; }
+
+        [JsonProperty("metro", NullValueHandling = NullValueHandling.Ignore)]
+        public Metro Metro { get; set; }
+
+        [JsonProperty("min_booking_time")]
+        public double? MinBookingTime { get; set; }
+
+        /// <summary>
+        /// Список телефонов бизнеса
+        /// </summary>
+        [JsonProperty("mobile", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Mobile { get; set; }
+
+        /// <summary>
+        /// Название бизнеса
+        /// </summary>
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [JsonProperty("networkID")]
+        public double? NetworkId { get; set; }
+
+        [JsonProperty("newboEnabledFor", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> NewboEnabledFor { get; set; }
+
+        [JsonProperty("paymentMethods", NullValueHandling = NullValueHandling.Ignore)]
+        public PaymentMethods? PaymentMethods { get; set; }
+
+        /// <summary>
+        /// Список телефонов бизнеса
+        /// </summary>
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Phone { get; set; }
+
+        [JsonProperty("phone_mask")]
+        public string PhoneMask { get; set; }
+
+        [JsonProperty("pricingType", NullValueHandling = NullValueHandling.Ignore)]
+        public PricingType? PricingType { get; set; }
+
+        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
+        public double? RevisionVersion { get; set; }
+
+        [JsonProperty("schedulerTick", NullValueHandling = NullValueHandling.Ignore)]
+        public double? SchedulerTick { get; set; }
+
+        /// <summary>
+        /// Короткое название филиала
+        /// </summary>
+        [JsonProperty("shortName")]
+        public string ShortName { get; set; }
+
+        [JsonProperty("showAppointmentColor", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowAppointmentColor { get; set; }
+
+        [JsonProperty("showAppointmentTooltip", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowAppointmentTooltip { get; set; }
+
+        /// <summary>
+        /// если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+        /// витрины
+        /// </summary>
+        [JsonProperty("showcaseBusinessData", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ShowcaseBusinessDatum> ShowcaseBusinessData { get; set; }
+
+        /// <summary>
+        /// идентификаторы витрин, в которых участвует данный бизнес
+        /// </summary>
+        [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ShowcaseElement> Showcases { get; set; }
+
+        [JsonProperty("showResourceWorkStatistics", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowResourceWorkStatistics { get; set; }
+
+        [JsonProperty("showWorkerProfession", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowWorkerProfession { get; set; }
+
+        [JsonProperty("skipBilling", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SkipBilling { get; set; }
+
+        [JsonProperty("smsDuplicateFilter", NullValueHandling = NullValueHandling.Ignore)]
+        public SmsDuplicateFilter SmsDuplicateFilter { get; set; }
+
+        [JsonProperty("social_network", NullValueHandling = NullValueHandling.Ignore)]
+        public List<SocialNetworkSchema> SocialNetwork { get; set; }
+
+        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
+        public Timetable Timetable { get; set; }
+
+        [JsonProperty("timezone")]
+        public string Timezone { get; set; }
+
+        [JsonProperty("verticalTranslation", NullValueHandling = NullValueHandling.Ignore)]
+        public VerticalTranslation? VerticalTranslation { get; set; }
+
+        [JsonProperty("website")]
+        public string Website { get; set; }
+    }
+
+    public partial class AdditionalFields
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("requiredField", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? RequiredField { get; set; }
+
+        [JsonProperty("shortName")]
+        public string ShortName { get; set; }
+
+        [JsonProperty("type")]
+        public AdditionalFieldType Type { get; set; }
+
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
+        public string Value { get; set; }
+    }
+
+    public partial class AddressSchema
+    {
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public string Address { get; set; }
+
+        [JsonProperty("address_add", NullValueHandling = NullValueHandling.Ignore)]
+        public string AddressAdd { get; set; }
+
+        [JsonProperty("admin_area", NullValueHandling = NullValueHandling.Ignore)]
+        public string AdminArea { get; set; }
+
+        [JsonProperty("admin_area_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string AdminAreaType { get; set; }
+
+        [JsonProperty("building", NullValueHandling = NullValueHandling.Ignore)]
+        public string Building { get; set; }
+
+        [JsonProperty("corps", NullValueHandling = NullValueHandling.Ignore)]
+        public string Corps { get; set; }
+
+        [JsonProperty("country")]
+        public Country Country { get; set; }
+
+        [JsonProperty("group", NullValueHandling = NullValueHandling.Ignore)]
+        public string Group { get; set; }
+
+        [JsonProperty("house_add", NullValueHandling = NullValueHandling.Ignore)]
+        public string HouseAdd { get; set; }
+
+        [JsonProperty("kilometer", NullValueHandling = NullValueHandling.Ignore)]
+        public string Kilometer { get; set; }
+
+        [JsonProperty("latitude", NullValueHandling = NullValueHandling.Ignore)]
+        public string Latitude { get; set; }
+
+        [JsonProperty("locality", NullValueHandling = NullValueHandling.Ignore)]
+        public string Locality { get; set; }
+
+        [JsonProperty("locality_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string LocalityType { get; set; }
+
+        [JsonProperty("longitude", NullValueHandling = NullValueHandling.Ignore)]
+        public string Longitude { get; set; }
+
+        [JsonProperty("metroStations", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FullAddressMetroStation> MetroStations { get; set; }
+
+        [JsonProperty("number", NullValueHandling = NullValueHandling.Ignore)]
+        public string Number { get; set; }
+
+        [JsonProperty("office", NullValueHandling = NullValueHandling.Ignore)]
+        public string Office { get; set; }
+
+        [JsonProperty("possesion", NullValueHandling = NullValueHandling.Ignore)]
+        public string Possesion { get; set; }
+
+        [JsonProperty("street", NullValueHandling = NullValueHandling.Ignore)]
+        public string Street { get; set; }
+
+        [JsonProperty("street_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string StreetType { get; set; }
+
+        [JsonProperty("sub_admin_area", NullValueHandling = NullValueHandling.Ignore)]
+        public string SubAdminArea { get; set; }
+
+        [JsonProperty("sub_admin_area_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string SubAdminAreaType { get; set; }
+
+        [JsonProperty("sub_locality", NullValueHandling = NullValueHandling.Ignore)]
+        public string SubLocality { get; set; }
+
+        [JsonProperty("sub_locality_type", NullValueHandling = NullValueHandling.Ignore)]
+        public string SubLocalityType { get; set; }
+
+        [JsonProperty("way", NullValueHandling = NullValueHandling.Ignore)]
+        public string Way { get; set; }
+
+        [JsonProperty("zip_code", NullValueHandling = NullValueHandling.Ignore)]
+        public string ZipCode { get; set; }
+    }
+
+    public partial class FullAddressMetroStation
+    {
+        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+    }
+
+    public partial class BusinessShowcaseAlias
+    {
+        [JsonProperty("internalID", NullValueHandling = NullValueHandling.Ignore)]
+        public string InternalId { get; set; }
+    }
+
+    public partial class FaxElement
+    {
+        [JsonProperty("area_code")]
+        public string AreaCode { get; set; }
+
+        [JsonProperty("country_code")]
+        public string CountryCode { get; set; }
+
+        [JsonProperty("number")]
+        public string Number { get; set; }
+    }
+
+    public partial class MarketingNotifications
+    {
+        [JsonProperty("accepted")]
+        public bool Accepted { get; set; }
+
+        [JsonProperty("active")]
+        public bool Active { get; set; }
+
+        [JsonProperty("useSmsAlphaName")]
+        public bool UseSmsAlphaName { get; set; }
+    }
+
+    public partial class Metro
+    {
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public string Color { get; set; }
+
+        [JsonProperty("distance", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Distance { get; set; }
+
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    }
+
+    public partial class ShowcaseBusinessDatum
+    {
+        /// <summary>
+        /// Адреса компании или филиала
+        /// </summary>
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public List<AddressSchema> Address { get; set; }
+
+        /// <summary>
+        /// Список e-mail адресов компании или филиала
+        /// </summary>
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        [JsonProperty("internalID", NullValueHandling = NullValueHandling.Ignore)]
+        public string InternalId { get; set; }
+
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
+        public LanguageList? Language { get; set; }
+
+        /// <summary>
+        /// Название бизнеса
+        /// </summary>
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Список телефонов бизнеса
+        /// </summary>
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Phone { get; set; }
+
+        /// <summary>
+        /// Список видов приема филиала
+        /// </summary>
+        [JsonProperty("receptionTypes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReceptionTypes { get; set; }
+
+        [JsonProperty("timezone", NullValueHandling = NullValueHandling.Ignore)]
+        public string Timezone { get; set; }
+    }
+
+    public partial class ShowcaseElement
+    {
+        [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BaseBusinessId { get; set; }
+    }
+
+    public partial class SmsDuplicateFilter
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+    }
+
+    public partial class SocialNetworkSchema
+    {
+        [JsonProperty("handle")]
+        public string Handle { get; set; }
+
+        /// <summary>
+        /// network id
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("social_network")]
+        public SocialNetwork SocialNetwork { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+    }
+
+    /// <summary>
+    /// таблица регулярного недельного расписания
+    /// </summary>
+    public partial class Timetable
+    {
+        /// <summary>
+        /// установлено ли расписание для сущности
+        /// </summary>
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("week", NullValueHandling = NullValueHandling.Ignore)]
+        public Week Week { get; set; }
+    }
+
+    public partial class Week
+    {
+        [JsonProperty("fri")]
+        public List<TimeFrame> Fri { get; set; }
+
+        [JsonProperty("mon")]
+        public List<TimeFrame> Mon { get; set; }
+
+        [JsonProperty("sat")]
+        public List<TimeFrame> Sat { get; set; }
+
+        [JsonProperty("sun")]
+        public List<TimeFrame> Sun { get; set; }
+
+        [JsonProperty("thu")]
+        public List<TimeFrame> Thu { get; set; }
+
+        [JsonProperty("tue")]
+        public List<TimeFrame> Tue { get; set; }
+
+        [JsonProperty("wed")]
+        public List<TimeFrame> Wed { get; set; }
+    }
+
+    /// <summary>
+    /// Доступ имеют только пользователи с правами resource или admin
+    /// </summary>
+    public partial class ИнформацияОПрофилеРаботника
+    {
+        /// <summary>
+        /// тип доступа работника в систему через его учётную запись
+        /// </summary>
+        [JsonProperty("accessType")]
+        public AccessType AccessType { get; set; }
+
+        /// <summary>
+        /// e-mail профиля работника
+        /// </summary>
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// идентификатор профиля работника уникальный во всей системе
+        /// </summary>
+        [JsonProperty("profileID")]
+        public string ProfileId { get; set; }
+
+        /// <summary>
+        /// идентификатор работника
+        /// </summary>
+        [JsonProperty("userID")]
+        public string UserId { get; set; }
+    }
+
+    public partial class ResourceTaxonomyChildren
+    {
+        /// <summary>
+        /// true - детская услуга; false - взрослая услуга
+        /// </summary>
+        [JsonProperty("children")]
+        public bool Children { get; set; }
+
+        /// <summary>
+        /// идентификатор услуги, для которой установлено свойство
+        /// </summary>
+        [JsonProperty("taxonomyID")]
+        public string TaxonomyId { get; set; }
+    }
+
+    public partial class ResourceTaxonomyLevel
+    {
+        /// <summary>
+        /// идентификатор услуги, для которой установлено уровень скорости
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// уровень скорости
+        /// </summary>
+        [JsonProperty("level")]
+        public double Level { get; set; }
+    }
+
+    public partial class ResourceTelemedData
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class Review
     {
         [JsonProperty("business")]
-        public TaxonomyClass Business { get; set; }
+        public WorkerClass Business { get; set; }
 
         [JsonProperty("taxonomy")]
-        public TaxonomyClass Taxonomy { get; set; }
+        public WorkerClass Taxonomy { get; set; }
 
         [JsonProperty("worker")]
-        public TaxonomyClass Worker { get; set; }
+        public WorkerClass Worker { get; set; }
     }
 
-    public partial class TaxonomyClass
+    public partial class WorkerClass
     {
         [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
         public string Comment { get; set; }
@@ -1414,6 +2268,295 @@ namespace GBookingCoreV2
     {
         [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
         public string BusinessId { get; set; }
+    }
+
+    /// <summary>
+    /// Данные о работнике бизнеса
+    /// </summary>
+    public partial class TaxonomyClass
+    {
+        [JsonProperty("alias", NullValueHandling = NullValueHandling.Ignore)]
+        public string Alias { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        /// <summary>
+        /// внутренний идентификатор работника; уникальный во всей системе GBooking
+        /// </summary>
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("additionalExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> AdditionalExtraId { get; set; }
+
+        [JsonProperty("badIconResolution", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? BadIconResolution { get; set; }
+
+        /// <summary>
+        /// Количество записей, которые может принимать работник единовременно
+        /// </summary>
+        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Capacity { get; set; }
+
+        /// <summary>
+        /// цвет колонки с работником
+        /// </summary>
+        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
+        public string Color { get; set; }
+
+        [JsonProperty("degree", NullValueHandling = NullValueHandling.Ignore)]
+        public string Degree { get; set; }
+
+        /// <summary>
+        /// идентификатор отделения, к которому привязан работник
+        /// </summary>
+        [JsonProperty("departmentId", NullValueHandling = NullValueHandling.Ignore)]
+        public string DepartmentId { get; set; }
+
+        /// <summary>
+        /// краткое описание работника
+        /// </summary>
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("displayInSchedule", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisplayInSchedule { get; set; }
+
+        /// <summary>
+        /// отображать ли данного работника на виджете или любом другом клиенте
+        /// </summary>
+        [JsonProperty("displayInWidget", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DisplayInWidget { get; set; }
+
+        /// <summary>
+        /// e-mail работника
+        /// </summary>
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// включена ли отправка e-mail уведомлений для данного работника
+        /// </summary>
+        [JsonProperty("emailEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EmailEnabled { get; set; }
+
+        [JsonProperty("evenOddTimetable", NullValueHandling = NullValueHandling.Ignore)]
+        public EvenOddTimetable EvenOddTimetable { get; set; }
+
+        [JsonProperty("exceptions", NullValueHandling = NullValueHandling.Ignore)]
+        public List<object> Exceptions { get; set; }
+
+        [JsonProperty("experience", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? Experience { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraDescription", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraDescription { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraLink", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraLink { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("extraMediaId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraMediaId { get; set; }
+
+        /// <summary>
+        /// url изображения работника; Если указан относительный путь, то используйте
+        /// http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+        /// WidgetConfiguration.defaultWorkerImgUrl)
+        /// </summary>
+        [JsonProperty("icon_url")]
+        public string IconUrl { get; set; }
+
+        [JsonProperty("image", NullValueHandling = NullValueHandling.Ignore)]
+        public string Image { get; set; }
+
+        [JsonProperty("lastSU", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTimeOffset? LastSu { get; set; }
+
+        /// <summary>
+        /// уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+        /// </summary>
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Level { get; set; }
+
+        /// <summary>
+        /// не используется
+        /// </summary>
+        [JsonProperty("loaned", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Loaned { get; set; }
+
+        /// <summary>
+        /// не используется
+        /// </summary>
+        [JsonProperty("loanedFrom", NullValueHandling = NullValueHandling.Ignore)]
+        public string LoanedFrom { get; set; }
+
+        /// <summary>
+        /// не используется
+        /// </summary>
+        [JsonProperty("loanedTo", NullValueHandling = NullValueHandling.Ignore)]
+        public string LoanedTo { get; set; }
+
+        [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceLocation Location { get; set; }
+
+        [JsonProperty("manualChanges", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ManualChanges { get; set; }
+
+        /// <summary>
+        /// отчество работника
+        /// </summary>
+        [JsonProperty("middleName", NullValueHandling = NullValueHandling.Ignore)]
+        public string MiddleName { get; set; }
+
+        /// <summary>
+        /// имя работника
+        /// </summary>
+        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// внутреннее название работника в Бекофис
+        /// </summary>
+        [JsonProperty("nickname", NullValueHandling = NullValueHandling.Ignore)]
+        public string Nickname { get; set; }
+
+        /// <summary>
+        /// индекс сортировки работника
+        /// </summary>
+        [JsonProperty("order", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Order { get; set; }
+
+        /// <summary>
+        /// вес работника, в зависимости от указанного способа сортировки
+        /// </summary>
+        [JsonProperty("orderWeight")]
+        public OrderWeight? OrderWeight { get; set; }
+
+        /// <summary>
+        /// (только в витрине) объект с данными бизнеса-филиала
+        /// </summary>
+        [JsonProperty("origin_general_info", NullValueHandling = NullValueHandling.Ignore)]
+        public Info OriginGeneralInfo { get; set; }
+
+        /// <summary>
+        /// (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+        /// </summary>
+        [JsonProperty("originBusinessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string OriginBusinessId { get; set; }
+
+        /// <summary>
+        /// (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+        /// работник
+        /// </summary>
+        [JsonProperty("originTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> OriginTaxonomies { get; set; }
+
+        /// <summary>
+        /// особый навык
+        /// </summary>
+        [JsonProperty("perk", NullValueHandling = NullValueHandling.Ignore)]
+        public string Perk { get; set; }
+
+        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        public List<FaxElement> Phone { get; set; }
+
+        /// <summary>
+        /// информация о профессии работника, используется в Бекофис
+        /// </summary>
+        [JsonProperty("profession", NullValueHandling = NullValueHandling.Ignore)]
+        public string Profession { get; set; }
+
+        [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
+        public ИнформацияОПрофилеРаботника Profile { get; set; }
+
+        /// <summary>
+        /// Рейтинг работника
+        /// </summary>
+        [JsonProperty("rating", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Rating { get; set; }
+
+        [JsonProperty("readonlyTaxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> ReadonlyTaxonomies { get; set; }
+
+        /// <summary>
+        /// Версия изменений документа
+        /// </summary>
+        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
+        public double? RevisionVersion { get; set; }
+
+        [JsonProperty("scheduleIsEmpty", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ScheduleIsEmpty { get; set; }
+
+        /// <summary>
+        /// информация из внешней информационной системы как есть (при интеграции)
+        /// </summary>
+        [JsonProperty("siteId", NullValueHandling = NullValueHandling.Ignore)]
+        public string SiteId { get; set; }
+
+        /// <summary>
+        /// включена ли отправка смс уведомлений для данного работника
+        /// </summary>
+        [JsonProperty("smsEnabled", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SmsEnabled { get; set; }
+
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceStatus? Status { get; set; }
+
+        /// <summary>
+        /// фамилия и отчество работника
+        /// </summary>
+        [JsonProperty("surname", NullValueHandling = NullValueHandling.Ignore)]
+        public string Surname { get; set; }
+
+        /// <summary>
+        /// массив идентификаторов услуг, которые выполняет работник
+        /// </summary>
+        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Taxonomies { get; set; }
+
+        /// <summary>
+        /// массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+        /// оба или не указаны вовсе для услуги)
+        /// </summary>
+        [JsonProperty("taxonomyChildren", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ResourceTaxonomyChildren> TaxonomyChildren { get; set; }
+
+        /// <summary>
+        /// массив уровня скорости выполнения услуги (см так же Resource level)
+        /// </summary>
+        [JsonProperty("taxonomyLevels", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ResourceTaxonomyLevel> TaxonomyLevels { get; set; }
+
+        [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
+        public ResourceTelemedData TelemedData { get; set; }
+
+        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
+        public Timetable Timetable { get; set; }
+
+        [JsonProperty("userData", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> UserData { get; set; }
+
+        /// <summary>
+        /// рабочее место, которое занимает работник
+        /// </summary>
+        [JsonProperty("workPlace", NullValueHandling = NullValueHandling.Ignore)]
+        public string WorkPlace { get; set; }
     }
 
     /// <summary>
@@ -1964,6 +3107,9 @@ namespace GBookingCoreV2
 
     public partial class FluffyFilter
     {
+        [JsonProperty("appointmentId", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppointmentId { get; set; }
+
         [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
         public FluffyCreated Created { get; set; }
 
@@ -2115,6 +3261,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
         public TentacledExtraFilters ExtraFilters { get; set; }
+
+        [JsonProperty("fill_business_data", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? FillBusinessData { get; set; }
 
         [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
         public TentacledFilter Filter { get; set; }
@@ -3159,6 +4308,8 @@ namespace GBookingCoreV2
     }
 
     /// <summary>
+    /// (только в витрине) объект с данными бизнеса-филиала
+    ///
     /// Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
     /// </summary>
     public partial class BusinessInfo
@@ -3328,309 +4479,6 @@ namespace GBookingCoreV2
 
         [JsonProperty("website")]
         public string Website { get; set; }
-    }
-
-    public partial class AdditionalFields
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("requiredField", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? RequiredField { get; set; }
-
-        [JsonProperty("shortName")]
-        public string ShortName { get; set; }
-
-        [JsonProperty("type")]
-        public AdditionalFieldType Type { get; set; }
-
-        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
-        public string Value { get; set; }
-    }
-
-    public partial class AddressSchema
-    {
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
-        public string Address { get; set; }
-
-        [JsonProperty("address_add", NullValueHandling = NullValueHandling.Ignore)]
-        public string AddressAdd { get; set; }
-
-        [JsonProperty("admin_area", NullValueHandling = NullValueHandling.Ignore)]
-        public string AdminArea { get; set; }
-
-        [JsonProperty("admin_area_type", NullValueHandling = NullValueHandling.Ignore)]
-        public string AdminAreaType { get; set; }
-
-        [JsonProperty("building", NullValueHandling = NullValueHandling.Ignore)]
-        public string Building { get; set; }
-
-        [JsonProperty("corps", NullValueHandling = NullValueHandling.Ignore)]
-        public string Corps { get; set; }
-
-        [JsonProperty("country")]
-        public Country Country { get; set; }
-
-        [JsonProperty("group", NullValueHandling = NullValueHandling.Ignore)]
-        public string Group { get; set; }
-
-        [JsonProperty("house_add", NullValueHandling = NullValueHandling.Ignore)]
-        public string HouseAdd { get; set; }
-
-        [JsonProperty("kilometer", NullValueHandling = NullValueHandling.Ignore)]
-        public string Kilometer { get; set; }
-
-        [JsonProperty("latitude", NullValueHandling = NullValueHandling.Ignore)]
-        public string Latitude { get; set; }
-
-        [JsonProperty("locality", NullValueHandling = NullValueHandling.Ignore)]
-        public string Locality { get; set; }
-
-        [JsonProperty("locality_type", NullValueHandling = NullValueHandling.Ignore)]
-        public string LocalityType { get; set; }
-
-        [JsonProperty("longitude", NullValueHandling = NullValueHandling.Ignore)]
-        public string Longitude { get; set; }
-
-        [JsonProperty("metroStations", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FullAddressMetroStation> MetroStations { get; set; }
-
-        [JsonProperty("number", NullValueHandling = NullValueHandling.Ignore)]
-        public string Number { get; set; }
-
-        [JsonProperty("office", NullValueHandling = NullValueHandling.Ignore)]
-        public string Office { get; set; }
-
-        [JsonProperty("possesion", NullValueHandling = NullValueHandling.Ignore)]
-        public string Possesion { get; set; }
-
-        [JsonProperty("street", NullValueHandling = NullValueHandling.Ignore)]
-        public string Street { get; set; }
-
-        [JsonProperty("street_type", NullValueHandling = NullValueHandling.Ignore)]
-        public string StreetType { get; set; }
-
-        [JsonProperty("sub_admin_area", NullValueHandling = NullValueHandling.Ignore)]
-        public string SubAdminArea { get; set; }
-
-        [JsonProperty("sub_admin_area_type", NullValueHandling = NullValueHandling.Ignore)]
-        public string SubAdminAreaType { get; set; }
-
-        [JsonProperty("sub_locality", NullValueHandling = NullValueHandling.Ignore)]
-        public string SubLocality { get; set; }
-
-        [JsonProperty("sub_locality_type", NullValueHandling = NullValueHandling.Ignore)]
-        public string SubLocalityType { get; set; }
-
-        [JsonProperty("way", NullValueHandling = NullValueHandling.Ignore)]
-        public string Way { get; set; }
-
-        [JsonProperty("zip_code", NullValueHandling = NullValueHandling.Ignore)]
-        public string ZipCode { get; set; }
-    }
-
-    public partial class FullAddressMetroStation
-    {
-        [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
-
-    public partial class BusinessShowcaseAlias
-    {
-        [JsonProperty("internalID", NullValueHandling = NullValueHandling.Ignore)]
-        public string InternalId { get; set; }
-    }
-
-    public partial class FaxElement
-    {
-        [JsonProperty("area_code")]
-        public string AreaCode { get; set; }
-
-        [JsonProperty("country_code")]
-        public string CountryCode { get; set; }
-
-        [JsonProperty("number")]
-        public string Number { get; set; }
-    }
-
-    public partial class MarketingNotifications
-    {
-        [JsonProperty("accepted")]
-        public bool Accepted { get; set; }
-
-        [JsonProperty("active")]
-        public bool Active { get; set; }
-
-        [JsonProperty("useSmsAlphaName")]
-        public bool UseSmsAlphaName { get; set; }
-    }
-
-    public partial class Metro
-    {
-        [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
-        public string Color { get; set; }
-
-        [JsonProperty("distance", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Distance { get; set; }
-
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
-    }
-
-    public partial class ShowcaseBusinessDatum
-    {
-        /// <summary>
-        /// Адреса компании или филиала
-        /// </summary>
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AddressSchema> Address { get; set; }
-
-        /// <summary>
-        /// Список e-mail адресов компании или филиала
-        /// </summary>
-        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; set; }
-
-        [JsonProperty("internalID", NullValueHandling = NullValueHandling.Ignore)]
-        public string InternalId { get; set; }
-
-        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
-        public LanguageList? Language { get; set; }
-
-        /// <summary>
-        /// Название бизнеса
-        /// </summary>
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Список телефонов бизнеса
-        /// </summary>
-        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FaxElement> Phone { get; set; }
-
-        /// <summary>
-        /// Список видов приема филиала
-        /// </summary>
-        [JsonProperty("receptionTypes", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> ReceptionTypes { get; set; }
-
-        [JsonProperty("timezone", NullValueHandling = NullValueHandling.Ignore)]
-        public string Timezone { get; set; }
-    }
-
-    public partial class ShowcaseElement
-    {
-        [JsonProperty("baseBusinessID", NullValueHandling = NullValueHandling.Ignore)]
-        public string BaseBusinessId { get; set; }
-    }
-
-    public partial class SmsDuplicateFilter
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-    }
-
-    public partial class SocialNetworkSchema
-    {
-        [JsonProperty("handle")]
-        public string Handle { get; set; }
-
-        /// <summary>
-        /// network id
-        /// </summary>
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        [JsonProperty("social_network")]
-        public SocialNetwork SocialNetwork { get; set; }
-
-        [JsonProperty("url")]
-        public string Url { get; set; }
-    }
-
-    /// <summary>
-    /// таблица регулярного недельного расписания
-    /// </summary>
-    public partial class Timetable
-    {
-        /// <summary>
-        /// установлено ли расписание для сущности
-        /// </summary>
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("week", NullValueHandling = NullValueHandling.Ignore)]
-        public Week Week { get; set; }
-    }
-
-    public partial class Week
-    {
-        [JsonProperty("fri")]
-        public List<TimeFrame> Fri { get; set; }
-
-        [JsonProperty("mon")]
-        public List<TimeFrame> Mon { get; set; }
-
-        [JsonProperty("sat")]
-        public List<TimeFrame> Sat { get; set; }
-
-        [JsonProperty("sun")]
-        public List<TimeFrame> Sun { get; set; }
-
-        [JsonProperty("thu")]
-        public List<TimeFrame> Thu { get; set; }
-
-        [JsonProperty("tue")]
-        public List<TimeFrame> Tue { get; set; }
-
-        [JsonProperty("wed")]
-        public List<TimeFrame> Wed { get; set; }
-    }
-
-    public partial class TimeFrame
-    {
-        [JsonProperty("capacity", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Capacity { get; set; }
-
-        /// <summary>
-        /// смещение в минутах от начала дня
-        /// </summary>
-        [JsonProperty("end")]
-        public double End { get; set; }
-
-        [JsonProperty("endDate", NullValueHandling = NullValueHandling.Ignore)]
-        public TimeFrameDate? EndDate { get; set; }
-
-        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
-        public string ExtraId { get; set; }
-
-        /// <summary>
-        /// уникальный идентификатор временного слота
-        /// </summary>
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [JsonProperty("resources", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Resources { get; set; }
-
-        [JsonProperty("roomID", NullValueHandling = NullValueHandling.Ignore)]
-        public string RoomId { get; set; }
-
-        /// <summary>
-        /// смещение в минутах от начала дня
-        /// </summary>
-        [JsonProperty("start")]
-        public double Start { get; set; }
-
-        [JsonProperty("startDate", NullValueHandling = NullValueHandling.Ignore)]
-        public TimeFrameDate? StartDate { get; set; }
     }
 
     public partial class InfoMiniWidgetConfiguration
@@ -3929,286 +4777,6 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("workPlace", NullValueHandling = NullValueHandling.Ignore)]
         public string WorkPlace { get; set; }
-    }
-
-    public partial class EvenOddTimetable
-    {
-        /// <summary>
-        /// расписание для чётных дней
-        /// </summary>
-        [JsonProperty("even")]
-        public List<TimeFrame> Even { get; set; }
-
-        /// <summary>
-        /// расписание для нечётных дней
-        /// </summary>
-        [JsonProperty("odd")]
-        public List<TimeFrame> Odd { get; set; }
-
-        /// <summary>
-        /// month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-        /// (понедельник считается нечётным)
-        /// </summary>
-        [JsonProperty("startPeriod")]
-        public StartPeriod StartPeriod { get; set; }
-    }
-
-    public partial class ResourceLocation
-    {
-        [JsonProperty("latitude", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Latitude { get; set; }
-
-        [JsonProperty("longitude", NullValueHandling = NullValueHandling.Ignore)]
-        public double? Longitude { get; set; }
-
-        /// <summary>
-        /// время последнего обновления координат
-        /// </summary>
-        [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
-        public string Time { get; set; }
-    }
-
-    /// <summary>
-    /// (только в витрине) объект с данными бизнеса-филиала
-    ///
-    /// Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
-    /// </summary>
-    public partial class Info
-    {
-        [JsonProperty("accepted_currency", NullValueHandling = NullValueHandling.Ignore)]
-        public List<CurrencyList> AcceptedCurrency { get; set; }
-
-        [JsonProperty("additional_info")]
-        public string AdditionalInfo { get; set; }
-
-        [JsonProperty("additionalFields", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AdditionalFields> AdditionalFields { get; set; }
-
-        /// <summary>
-        /// Адреса компании или филиала
-        /// </summary>
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
-        public List<AddressSchema> Address { get; set; }
-
-        [JsonProperty("align_min_booking_time")]
-        public bool? AlignMinBookingTime { get; set; }
-
-        [JsonProperty("autoAcceptAppointment", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? AutoAcceptAppointment { get; set; }
-
-        /// <summary>
-        /// если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
-        /// </summary>
-        [JsonProperty("businessShowcaseAliases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<BusinessShowcaseAlias> BusinessShowcaseAliases { get; set; }
-
-        [JsonProperty("contactName")]
-        public string ContactName { get; set; }
-
-        [JsonProperty("date_joined", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset? DateJoined { get; set; }
-
-        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Список e-mail адресов компании или филиала
-        /// </summary>
-        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
-        public string Email { get; set; }
-
-        [JsonProperty("eventEditorMinutesTick", NullValueHandling = NullValueHandling.Ignore)]
-        public double? EventEditorMinutesTick { get; set; }
-
-        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FaxElement> Fax { get; set; }
-
-        [JsonProperty("images", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Images { get; set; }
-
-        [JsonProperty("instant_messaging", NullValueHandling = NullValueHandling.Ignore)]
-        public List<Dictionary<string, object>> InstantMessaging { get; set; }
-
-        /// <summary>
-        /// является ли данный бизнес витриной
-        /// </summary>
-        [JsonProperty("isShowcase", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? IsShowcase { get; set; }
-
-        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
-        public LanguageList? Language { get; set; }
-
-        [JsonProperty("logo_url")]
-        public string LogoUrl { get; set; }
-
-        [JsonProperty("marketingNotifications", NullValueHandling = NullValueHandling.Ignore)]
-        public MarketingNotifications MarketingNotifications { get; set; }
-
-        [JsonProperty("metro", NullValueHandling = NullValueHandling.Ignore)]
-        public Metro Metro { get; set; }
-
-        [JsonProperty("min_booking_time")]
-        public double? MinBookingTime { get; set; }
-
-        /// <summary>
-        /// Список телефонов бизнеса
-        /// </summary>
-        [JsonProperty("mobile", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FaxElement> Mobile { get; set; }
-
-        /// <summary>
-        /// Название бизнеса
-        /// </summary>
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public string Name { get; set; }
-
-        [JsonProperty("networkID")]
-        public double? NetworkId { get; set; }
-
-        [JsonProperty("newboEnabledFor", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> NewboEnabledFor { get; set; }
-
-        [JsonProperty("paymentMethods", NullValueHandling = NullValueHandling.Ignore)]
-        public PaymentMethods? PaymentMethods { get; set; }
-
-        /// <summary>
-        /// Список телефонов бизнеса
-        /// </summary>
-        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FaxElement> Phone { get; set; }
-
-        [JsonProperty("phone_mask")]
-        public string PhoneMask { get; set; }
-
-        [JsonProperty("pricingType", NullValueHandling = NullValueHandling.Ignore)]
-        public PricingType? PricingType { get; set; }
-
-        [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
-        public double? RevisionVersion { get; set; }
-
-        [JsonProperty("schedulerTick", NullValueHandling = NullValueHandling.Ignore)]
-        public double? SchedulerTick { get; set; }
-
-        /// <summary>
-        /// Короткое название филиала
-        /// </summary>
-        [JsonProperty("shortName")]
-        public string ShortName { get; set; }
-
-        [JsonProperty("showAppointmentColor", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowAppointmentColor { get; set; }
-
-        [JsonProperty("showAppointmentTooltip", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowAppointmentTooltip { get; set; }
-
-        /// <summary>
-        /// если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
-        /// витрины
-        /// </summary>
-        [JsonProperty("showcaseBusinessData", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShowcaseBusinessDatum> ShowcaseBusinessData { get; set; }
-
-        /// <summary>
-        /// идентификаторы витрин, в которых участвует данный бизнес
-        /// </summary>
-        [JsonProperty("showcases", NullValueHandling = NullValueHandling.Ignore)]
-        public List<ShowcaseElement> Showcases { get; set; }
-
-        [JsonProperty("showResourceWorkStatistics", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowResourceWorkStatistics { get; set; }
-
-        [JsonProperty("showWorkerProfession", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? ShowWorkerProfession { get; set; }
-
-        [JsonProperty("skipBilling", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SkipBilling { get; set; }
-
-        [JsonProperty("smsDuplicateFilter", NullValueHandling = NullValueHandling.Ignore)]
-        public SmsDuplicateFilter SmsDuplicateFilter { get; set; }
-
-        [JsonProperty("social_network", NullValueHandling = NullValueHandling.Ignore)]
-        public List<SocialNetworkSchema> SocialNetwork { get; set; }
-
-        [JsonProperty("timetable", NullValueHandling = NullValueHandling.Ignore)]
-        public Timetable Timetable { get; set; }
-
-        [JsonProperty("timezone")]
-        public string Timezone { get; set; }
-
-        [JsonProperty("verticalTranslation", NullValueHandling = NullValueHandling.Ignore)]
-        public VerticalTranslation? VerticalTranslation { get; set; }
-
-        [JsonProperty("website")]
-        public string Website { get; set; }
-    }
-
-    /// <summary>
-    /// Доступ имеют только пользователи с правами resource или admin
-    /// </summary>
-    public partial class ИнформацияОПрофилеРаботника
-    {
-        /// <summary>
-        /// тип доступа работника в систему через его учётную запись
-        /// </summary>
-        [JsonProperty("accessType")]
-        public AccessType AccessType { get; set; }
-
-        /// <summary>
-        /// e-mail профиля работника
-        /// </summary>
-        [JsonProperty("email")]
-        public string Email { get; set; }
-
-        /// <summary>
-        /// идентификатор профиля работника уникальный во всей системе
-        /// </summary>
-        [JsonProperty("profileID")]
-        public string ProfileId { get; set; }
-
-        /// <summary>
-        /// идентификатор работника
-        /// </summary>
-        [JsonProperty("userID")]
-        public string UserId { get; set; }
-    }
-
-    public partial class ResourceTaxonomyChildren
-    {
-        /// <summary>
-        /// true - детская услуга; false - взрослая услуга
-        /// </summary>
-        [JsonProperty("children")]
-        public bool Children { get; set; }
-
-        /// <summary>
-        /// идентификатор услуги, для которой установлено свойство
-        /// </summary>
-        [JsonProperty("taxonomyID")]
-        public string TaxonomyId { get; set; }
-    }
-
-    public partial class ResourceTaxonomyLevel
-    {
-        /// <summary>
-        /// идентификатор услуги, для которой установлено уровень скорости
-        /// </summary>
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// уровень скорости
-        /// </summary>
-        [JsonProperty("level")]
-        public double Level { get; set; }
-    }
-
-    public partial class ResourceTelemedData
-    {
-        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Active { get; set; }
-
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public string Id { get; set; }
     }
 
     public partial class InfoTaxonomy
@@ -8628,6 +9196,31 @@ namespace GBookingCoreV2
 
     public enum TalkAnswer { NotImportant, NotTalk, Talk };
 
+    /// <summary>
+    /// month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+    /// (понедельник считается нечётным)
+    /// </summary>
+    public enum StartPeriod { Month, Week };
+
+    public enum Country { Am, Blr, Ch, De, Empty, Es, Fi, Fr, Ge, Hu, Il, Kz, Li, Lt, Lv, Ru, Ua, Uk, Us, Uz };
+
+    public enum LanguageList { AmAm, DeDe, EeEe, EnUs, EsEs, FiFi, FrFr, GeGe, HeIl, HuHu, LtLt, LvLv, RuRu, UzUz, ZhCn };
+
+    public enum PaymentMethods { Amex, Mastercard, MoneyBookers, PayPal, Visa };
+
+    public enum PricingType { Default, MasterTopmaster };
+
+    public enum SocialNetwork { Facebook, GBooking, Google, LinkedIn, Mailru, Odnoklassniki, Twitter, VKontakte, Yahoo, Yandex };
+
+    public enum VerticalTranslation { Beauty, Fitness, Generic, Medical, None, Sport, Yoga };
+
+    /// <summary>
+    /// тип доступа работника в систему через его учётную запись
+    /// </summary>
+    public enum AccessType { None, WorkerExtended, WorkerSimple };
+
+    public enum ResourceStatus { Active, Inactive };
+
     public enum Dir { Asc, Desc };
 
     public enum SortField { Created, Start };
@@ -8648,34 +9241,9 @@ namespace GBookingCoreV2
 
     public enum BackofficeType { Common, Gt, Ll, Mb, Mu };
 
-    public enum Country { Am, Blr, Ch, De, Empty, Es, Fi, Fr, Ge, Hu, Il, Kz, Li, Lt, Lv, Ru, Ua, Uk, Us, Uz };
-
-    public enum LanguageList { AmAm, DeDe, EeEe, EnUs, EsEs, FiFi, FrFr, GeGe, HeIl, HuHu, LtLt, LvLv, RuRu, UzUz, ZhCn };
-
-    public enum PaymentMethods { Amex, Mastercard, MoneyBookers, PayPal, Visa };
-
-    public enum PricingType { Default, MasterTopmaster };
-
-    public enum SocialNetwork { Facebook, GBooking, Google, LinkedIn, Mailru, Odnoklassniki, Twitter, VKontakte, Yahoo, Yandex };
-
-    public enum VerticalTranslation { Beauty, Fitness, Generic, Medical, None, Sport, Yoga };
-
     public enum Group { French, General, Hungarian, Latvian };
 
     public enum FieldElement { Email, Name, Surname };
-
-    /// <summary>
-    /// month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-    /// (понедельник считается нечётным)
-    /// </summary>
-    public enum StartPeriod { Month, Week };
-
-    /// <summary>
-    /// тип доступа работника в систему через его учётную запись
-    /// </summary>
-    public enum AccessType { None, WorkerExtended, WorkerSimple };
-
-    public enum ResourceStatus { Active, Inactive };
 
     /// <summary>
     /// Тип цены
@@ -8844,15 +9412,6 @@ namespace GBookingCoreV2
         public bool IsNull => AnythingArray == null && Bool == null && Double == null && AnythingMap == null && String == null;
     }
 
-    public partial struct ResourceId
-    {
-        public string String;
-        public List<string> StringArray;
-
-        public static implicit operator ResourceId(string String) => new ResourceId { String = String };
-        public static implicit operator ResourceId(List<string> StringArray) => new ResourceId { StringArray = StringArray };
-    }
-
     public partial struct TimeFrameDate
     {
         public DateTimeOffset? DateTime;
@@ -8873,6 +9432,15 @@ namespace GBookingCoreV2
         public static implicit operator OrderWeight(double Double) => new OrderWeight { Double = Double };
         public static implicit operator OrderWeight(string String) => new OrderWeight { String = String };
         public bool IsNull => Double == null && String == null;
+    }
+
+    public partial struct ResourceId
+    {
+        public string String;
+        public List<string> StringArray;
+
+        public static implicit operator ResourceId(string String) => new ResourceId { String = String };
+        public static implicit operator ResourceId(List<string> StringArray) => new ResourceId { StringArray = StringArray };
     }
 
     public partial struct FluffyValue
@@ -8971,6 +9539,17 @@ namespace GBookingCoreV2
                 DiscountProviderConverter.Singleton,
                 CurrencyListConverter.Singleton,
                 TalkAnswerConverter.Singleton,
+                TimeFrameDateConverter.Singleton,
+                StartPeriodConverter.Singleton,
+                OrderWeightConverter.Singleton,
+                CountryConverter.Singleton,
+                LanguageListConverter.Singleton,
+                PaymentMethodsConverter.Singleton,
+                PricingTypeConverter.Singleton,
+                SocialNetworkConverter.Singleton,
+                VerticalTranslationConverter.Singleton,
+                AccessTypeConverter.Singleton,
+                ResourceStatusConverter.Singleton,
                 DirConverter.Singleton,
                 SortFieldConverter.Singleton,
                 ResourceIdConverter.Singleton,
@@ -8982,19 +9561,8 @@ namespace GBookingCoreV2
                 SchedulerWeekViewTypeConverter.Singleton,
                 PurpleTelemedProviderConverter.Singleton,
                 BackofficeTypeConverter.Singleton,
-                CountryConverter.Singleton,
-                LanguageListConverter.Singleton,
-                PaymentMethodsConverter.Singleton,
-                PricingTypeConverter.Singleton,
-                SocialNetworkConverter.Singleton,
-                TimeFrameDateConverter.Singleton,
-                VerticalTranslationConverter.Singleton,
                 GroupConverter.Singleton,
                 FieldElementConverter.Singleton,
-                StartPeriodConverter.Singleton,
-                OrderWeightConverter.Singleton,
-                AccessTypeConverter.Singleton,
-                ResourceStatusConverter.Singleton,
                 AdditionalPriceTypeConverter.Singleton,
                 ChildrenTaxonomyTypeConverter.Singleton,
                 DateLimitTypeConverter.Singleton,
@@ -10107,6 +10675,705 @@ namespace GBookingCoreV2
         public static readonly TalkAnswerConverter Singleton = new TalkAnswerConverter();
     }
 
+    internal class TimeFrameDateConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(TimeFrameDate) || t == typeof(TimeFrameDate?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Integer:
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new TimeFrameDate { Double = doubleValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    DateTimeOffset dt;
+                    if (DateTimeOffset.TryParse(stringValue, out dt))
+                    {
+                        return new TimeFrameDate { DateTime = dt };
+                    }
+                    break;
+            }
+            throw new Exception("Cannot unmarshal type TimeFrameDate");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (TimeFrameDate)untypedValue;
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.DateTime != null)
+            {
+                serializer.Serialize(writer, value.DateTime.Value.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+                return;
+            }
+            throw new Exception("Cannot marshal type TimeFrameDate");
+        }
+
+        public static readonly TimeFrameDateConverter Singleton = new TimeFrameDateConverter();
+    }
+
+    internal class StartPeriodConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(StartPeriod) || t == typeof(StartPeriod?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "month":
+                    return StartPeriod.Month;
+                case "week":
+                    return StartPeriod.Week;
+            }
+            throw new Exception("Cannot unmarshal type StartPeriod");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (StartPeriod)untypedValue;
+            switch (value)
+            {
+                case StartPeriod.Month:
+                    serializer.Serialize(writer, "month");
+                    return;
+                case StartPeriod.Week:
+                    serializer.Serialize(writer, "week");
+                    return;
+            }
+            throw new Exception("Cannot marshal type StartPeriod");
+        }
+
+        public static readonly StartPeriodConverter Singleton = new StartPeriodConverter();
+    }
+
+    internal class OrderWeightConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(OrderWeight) || t == typeof(OrderWeight?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            switch (reader.TokenType)
+            {
+                case JsonToken.Null:
+                    return new OrderWeight { };
+                case JsonToken.Integer:
+                case JsonToken.Float:
+                    var doubleValue = serializer.Deserialize<double>(reader);
+                    return new OrderWeight { Double = doubleValue };
+                case JsonToken.String:
+                case JsonToken.Date:
+                    var stringValue = serializer.Deserialize<string>(reader);
+                    return new OrderWeight { String = stringValue };
+            }
+            throw new Exception("Cannot unmarshal type OrderWeight");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            var value = (OrderWeight)untypedValue;
+            if (value.IsNull)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            if (value.Double != null)
+            {
+                serializer.Serialize(writer, value.Double.Value);
+                return;
+            }
+            if (value.String != null)
+            {
+                serializer.Serialize(writer, value.String);
+                return;
+            }
+            throw new Exception("Cannot marshal type OrderWeight");
+        }
+
+        public static readonly OrderWeightConverter Singleton = new OrderWeightConverter();
+    }
+
+    internal class CountryConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Country) || t == typeof(Country?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "AM":
+                    return Country.Am;
+                case "BLR":
+                    return Country.Blr;
+                case "CH":
+                    return Country.Ch;
+                case "DE":
+                    return Country.De;
+                case "ES":
+                    return Country.Es;
+                case "FI":
+                    return Country.Fi;
+                case "FR":
+                    return Country.Fr;
+                case "GE":
+                    return Country.Ge;
+                case "HU":
+                    return Country.Hu;
+                case "IL":
+                    return Country.Il;
+                case "KZ":
+                    return Country.Kz;
+                case "LI":
+                    return Country.Li;
+                case "LT":
+                    return Country.Lt;
+                case "LV":
+                    return Country.Lv;
+                case "RU":
+                    return Country.Ru;
+                case "UA":
+                    return Country.Ua;
+                case "UK":
+                    return Country.Uk;
+                case "US":
+                    return Country.Us;
+                case "UZ":
+                    return Country.Uz;
+                case "_":
+                    return Country.Empty;
+            }
+            throw new Exception("Cannot unmarshal type Country");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Country)untypedValue;
+            switch (value)
+            {
+                case Country.Am:
+                    serializer.Serialize(writer, "AM");
+                    return;
+                case Country.Blr:
+                    serializer.Serialize(writer, "BLR");
+                    return;
+                case Country.Ch:
+                    serializer.Serialize(writer, "CH");
+                    return;
+                case Country.De:
+                    serializer.Serialize(writer, "DE");
+                    return;
+                case Country.Es:
+                    serializer.Serialize(writer, "ES");
+                    return;
+                case Country.Fi:
+                    serializer.Serialize(writer, "FI");
+                    return;
+                case Country.Fr:
+                    serializer.Serialize(writer, "FR");
+                    return;
+                case Country.Ge:
+                    serializer.Serialize(writer, "GE");
+                    return;
+                case Country.Hu:
+                    serializer.Serialize(writer, "HU");
+                    return;
+                case Country.Il:
+                    serializer.Serialize(writer, "IL");
+                    return;
+                case Country.Kz:
+                    serializer.Serialize(writer, "KZ");
+                    return;
+                case Country.Li:
+                    serializer.Serialize(writer, "LI");
+                    return;
+                case Country.Lt:
+                    serializer.Serialize(writer, "LT");
+                    return;
+                case Country.Lv:
+                    serializer.Serialize(writer, "LV");
+                    return;
+                case Country.Ru:
+                    serializer.Serialize(writer, "RU");
+                    return;
+                case Country.Ua:
+                    serializer.Serialize(writer, "UA");
+                    return;
+                case Country.Uk:
+                    serializer.Serialize(writer, "UK");
+                    return;
+                case Country.Us:
+                    serializer.Serialize(writer, "US");
+                    return;
+                case Country.Uz:
+                    serializer.Serialize(writer, "UZ");
+                    return;
+                case Country.Empty:
+                    serializer.Serialize(writer, "_");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Country");
+        }
+
+        public static readonly CountryConverter Singleton = new CountryConverter();
+    }
+
+    internal class LanguageListConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(LanguageList) || t == typeof(LanguageList?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "am-am":
+                    return LanguageList.AmAm;
+                case "de-de":
+                    return LanguageList.DeDe;
+                case "ee-ee":
+                    return LanguageList.EeEe;
+                case "en-us":
+                    return LanguageList.EnUs;
+                case "es-es":
+                    return LanguageList.EsEs;
+                case "fi-fi":
+                    return LanguageList.FiFi;
+                case "fr-fr":
+                    return LanguageList.FrFr;
+                case "ge-ge":
+                    return LanguageList.GeGe;
+                case "he-il":
+                    return LanguageList.HeIl;
+                case "hu-hu":
+                    return LanguageList.HuHu;
+                case "lt-lt":
+                    return LanguageList.LtLt;
+                case "lv-lv":
+                    return LanguageList.LvLv;
+                case "ru-ru":
+                    return LanguageList.RuRu;
+                case "uz-uz":
+                    return LanguageList.UzUz;
+                case "zh-cn":
+                    return LanguageList.ZhCn;
+            }
+            throw new Exception("Cannot unmarshal type LanguageList");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (LanguageList)untypedValue;
+            switch (value)
+            {
+                case LanguageList.AmAm:
+                    serializer.Serialize(writer, "am-am");
+                    return;
+                case LanguageList.DeDe:
+                    serializer.Serialize(writer, "de-de");
+                    return;
+                case LanguageList.EeEe:
+                    serializer.Serialize(writer, "ee-ee");
+                    return;
+                case LanguageList.EnUs:
+                    serializer.Serialize(writer, "en-us");
+                    return;
+                case LanguageList.EsEs:
+                    serializer.Serialize(writer, "es-es");
+                    return;
+                case LanguageList.FiFi:
+                    serializer.Serialize(writer, "fi-fi");
+                    return;
+                case LanguageList.FrFr:
+                    serializer.Serialize(writer, "fr-fr");
+                    return;
+                case LanguageList.GeGe:
+                    serializer.Serialize(writer, "ge-ge");
+                    return;
+                case LanguageList.HeIl:
+                    serializer.Serialize(writer, "he-il");
+                    return;
+                case LanguageList.HuHu:
+                    serializer.Serialize(writer, "hu-hu");
+                    return;
+                case LanguageList.LtLt:
+                    serializer.Serialize(writer, "lt-lt");
+                    return;
+                case LanguageList.LvLv:
+                    serializer.Serialize(writer, "lv-lv");
+                    return;
+                case LanguageList.RuRu:
+                    serializer.Serialize(writer, "ru-ru");
+                    return;
+                case LanguageList.UzUz:
+                    serializer.Serialize(writer, "uz-uz");
+                    return;
+                case LanguageList.ZhCn:
+                    serializer.Serialize(writer, "zh-cn");
+                    return;
+            }
+            throw new Exception("Cannot marshal type LanguageList");
+        }
+
+        public static readonly LanguageListConverter Singleton = new LanguageListConverter();
+    }
+
+    internal class PaymentMethodsConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(PaymentMethods) || t == typeof(PaymentMethods?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "Amex":
+                    return PaymentMethods.Amex;
+                case "Mastercard":
+                    return PaymentMethods.Mastercard;
+                case "MoneyBookers":
+                    return PaymentMethods.MoneyBookers;
+                case "PayPal":
+                    return PaymentMethods.PayPal;
+                case "Visa":
+                    return PaymentMethods.Visa;
+            }
+            throw new Exception("Cannot unmarshal type PaymentMethods");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (PaymentMethods)untypedValue;
+            switch (value)
+            {
+                case PaymentMethods.Amex:
+                    serializer.Serialize(writer, "Amex");
+                    return;
+                case PaymentMethods.Mastercard:
+                    serializer.Serialize(writer, "Mastercard");
+                    return;
+                case PaymentMethods.MoneyBookers:
+                    serializer.Serialize(writer, "MoneyBookers");
+                    return;
+                case PaymentMethods.PayPal:
+                    serializer.Serialize(writer, "PayPal");
+                    return;
+                case PaymentMethods.Visa:
+                    serializer.Serialize(writer, "Visa");
+                    return;
+            }
+            throw new Exception("Cannot marshal type PaymentMethods");
+        }
+
+        public static readonly PaymentMethodsConverter Singleton = new PaymentMethodsConverter();
+    }
+
+    internal class PricingTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(PricingType) || t == typeof(PricingType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "DEFAULT":
+                    return PricingType.Default;
+                case "MASTER_TOPMASTER":
+                    return PricingType.MasterTopmaster;
+            }
+            throw new Exception("Cannot unmarshal type PricingType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (PricingType)untypedValue;
+            switch (value)
+            {
+                case PricingType.Default:
+                    serializer.Serialize(writer, "DEFAULT");
+                    return;
+                case PricingType.MasterTopmaster:
+                    serializer.Serialize(writer, "MASTER_TOPMASTER");
+                    return;
+            }
+            throw new Exception("Cannot marshal type PricingType");
+        }
+
+        public static readonly PricingTypeConverter Singleton = new PricingTypeConverter();
+    }
+
+    internal class SocialNetworkConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(SocialNetwork) || t == typeof(SocialNetwork?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "Facebook":
+                    return SocialNetwork.Facebook;
+                case "GBooking":
+                    return SocialNetwork.GBooking;
+                case "Google":
+                    return SocialNetwork.Google;
+                case "LinkedIn":
+                    return SocialNetwork.LinkedIn;
+                case "Mailru":
+                    return SocialNetwork.Mailru;
+                case "Odnoklassniki":
+                    return SocialNetwork.Odnoklassniki;
+                case "Twitter":
+                    return SocialNetwork.Twitter;
+                case "VKontakte":
+                    return SocialNetwork.VKontakte;
+                case "Yahoo":
+                    return SocialNetwork.Yahoo;
+                case "Yandex":
+                    return SocialNetwork.Yandex;
+            }
+            throw new Exception("Cannot unmarshal type SocialNetwork");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (SocialNetwork)untypedValue;
+            switch (value)
+            {
+                case SocialNetwork.Facebook:
+                    serializer.Serialize(writer, "Facebook");
+                    return;
+                case SocialNetwork.GBooking:
+                    serializer.Serialize(writer, "GBooking");
+                    return;
+                case SocialNetwork.Google:
+                    serializer.Serialize(writer, "Google");
+                    return;
+                case SocialNetwork.LinkedIn:
+                    serializer.Serialize(writer, "LinkedIn");
+                    return;
+                case SocialNetwork.Mailru:
+                    serializer.Serialize(writer, "Mailru");
+                    return;
+                case SocialNetwork.Odnoklassniki:
+                    serializer.Serialize(writer, "Odnoklassniki");
+                    return;
+                case SocialNetwork.Twitter:
+                    serializer.Serialize(writer, "Twitter");
+                    return;
+                case SocialNetwork.VKontakte:
+                    serializer.Serialize(writer, "VKontakte");
+                    return;
+                case SocialNetwork.Yahoo:
+                    serializer.Serialize(writer, "Yahoo");
+                    return;
+                case SocialNetwork.Yandex:
+                    serializer.Serialize(writer, "Yandex");
+                    return;
+            }
+            throw new Exception("Cannot marshal type SocialNetwork");
+        }
+
+        public static readonly SocialNetworkConverter Singleton = new SocialNetworkConverter();
+    }
+
+    internal class VerticalTranslationConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(VerticalTranslation) || t == typeof(VerticalTranslation?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "BEAUTY":
+                    return VerticalTranslation.Beauty;
+                case "FITNESS":
+                    return VerticalTranslation.Fitness;
+                case "GENERIC":
+                    return VerticalTranslation.Generic;
+                case "MEDICAL":
+                    return VerticalTranslation.Medical;
+                case "NONE":
+                    return VerticalTranslation.None;
+                case "SPORT":
+                    return VerticalTranslation.Sport;
+                case "YOGA":
+                    return VerticalTranslation.Yoga;
+            }
+            throw new Exception("Cannot unmarshal type VerticalTranslation");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (VerticalTranslation)untypedValue;
+            switch (value)
+            {
+                case VerticalTranslation.Beauty:
+                    serializer.Serialize(writer, "BEAUTY");
+                    return;
+                case VerticalTranslation.Fitness:
+                    serializer.Serialize(writer, "FITNESS");
+                    return;
+                case VerticalTranslation.Generic:
+                    serializer.Serialize(writer, "GENERIC");
+                    return;
+                case VerticalTranslation.Medical:
+                    serializer.Serialize(writer, "MEDICAL");
+                    return;
+                case VerticalTranslation.None:
+                    serializer.Serialize(writer, "NONE");
+                    return;
+                case VerticalTranslation.Sport:
+                    serializer.Serialize(writer, "SPORT");
+                    return;
+                case VerticalTranslation.Yoga:
+                    serializer.Serialize(writer, "YOGA");
+                    return;
+            }
+            throw new Exception("Cannot marshal type VerticalTranslation");
+        }
+
+        public static readonly VerticalTranslationConverter Singleton = new VerticalTranslationConverter();
+    }
+
+    internal class AccessTypeConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(AccessType) || t == typeof(AccessType?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NONE":
+                    return AccessType.None;
+                case "WORKER_EXTENDED":
+                    return AccessType.WorkerExtended;
+                case "WORKER_SIMPLE":
+                    return AccessType.WorkerSimple;
+            }
+            throw new Exception("Cannot unmarshal type AccessType");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (AccessType)untypedValue;
+            switch (value)
+            {
+                case AccessType.None:
+                    serializer.Serialize(writer, "NONE");
+                    return;
+                case AccessType.WorkerExtended:
+                    serializer.Serialize(writer, "WORKER_EXTENDED");
+                    return;
+                case AccessType.WorkerSimple:
+                    serializer.Serialize(writer, "WORKER_SIMPLE");
+                    return;
+            }
+            throw new Exception("Cannot marshal type AccessType");
+        }
+
+        public static readonly AccessTypeConverter Singleton = new AccessTypeConverter();
+    }
+
+    internal class ResourceStatusConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ResourceStatus) || t == typeof(ResourceStatus?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "ACTIVE":
+                    return ResourceStatus.Active;
+                case "INACTIVE":
+                    return ResourceStatus.Inactive;
+            }
+            throw new Exception("Cannot unmarshal type ResourceStatus");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (ResourceStatus)untypedValue;
+            switch (value)
+            {
+                case ResourceStatus.Active:
+                    serializer.Serialize(writer, "ACTIVE");
+                    return;
+                case ResourceStatus.Inactive:
+                    serializer.Serialize(writer, "INACTIVE");
+                    return;
+            }
+            throw new Exception("Cannot marshal type ResourceStatus");
+        }
+
+        public static readonly ResourceStatusConverter Singleton = new ResourceStatusConverter();
+    }
+
     internal class DirConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Dir) || t == typeof(Dir?);
@@ -10605,531 +11872,6 @@ namespace GBookingCoreV2
         public static readonly BackofficeTypeConverter Singleton = new BackofficeTypeConverter();
     }
 
-    internal class CountryConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Country) || t == typeof(Country?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "AM":
-                    return Country.Am;
-                case "BLR":
-                    return Country.Blr;
-                case "CH":
-                    return Country.Ch;
-                case "DE":
-                    return Country.De;
-                case "ES":
-                    return Country.Es;
-                case "FI":
-                    return Country.Fi;
-                case "FR":
-                    return Country.Fr;
-                case "GE":
-                    return Country.Ge;
-                case "HU":
-                    return Country.Hu;
-                case "IL":
-                    return Country.Il;
-                case "KZ":
-                    return Country.Kz;
-                case "LI":
-                    return Country.Li;
-                case "LT":
-                    return Country.Lt;
-                case "LV":
-                    return Country.Lv;
-                case "RU":
-                    return Country.Ru;
-                case "UA":
-                    return Country.Ua;
-                case "UK":
-                    return Country.Uk;
-                case "US":
-                    return Country.Us;
-                case "UZ":
-                    return Country.Uz;
-                case "_":
-                    return Country.Empty;
-            }
-            throw new Exception("Cannot unmarshal type Country");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Country)untypedValue;
-            switch (value)
-            {
-                case Country.Am:
-                    serializer.Serialize(writer, "AM");
-                    return;
-                case Country.Blr:
-                    serializer.Serialize(writer, "BLR");
-                    return;
-                case Country.Ch:
-                    serializer.Serialize(writer, "CH");
-                    return;
-                case Country.De:
-                    serializer.Serialize(writer, "DE");
-                    return;
-                case Country.Es:
-                    serializer.Serialize(writer, "ES");
-                    return;
-                case Country.Fi:
-                    serializer.Serialize(writer, "FI");
-                    return;
-                case Country.Fr:
-                    serializer.Serialize(writer, "FR");
-                    return;
-                case Country.Ge:
-                    serializer.Serialize(writer, "GE");
-                    return;
-                case Country.Hu:
-                    serializer.Serialize(writer, "HU");
-                    return;
-                case Country.Il:
-                    serializer.Serialize(writer, "IL");
-                    return;
-                case Country.Kz:
-                    serializer.Serialize(writer, "KZ");
-                    return;
-                case Country.Li:
-                    serializer.Serialize(writer, "LI");
-                    return;
-                case Country.Lt:
-                    serializer.Serialize(writer, "LT");
-                    return;
-                case Country.Lv:
-                    serializer.Serialize(writer, "LV");
-                    return;
-                case Country.Ru:
-                    serializer.Serialize(writer, "RU");
-                    return;
-                case Country.Ua:
-                    serializer.Serialize(writer, "UA");
-                    return;
-                case Country.Uk:
-                    serializer.Serialize(writer, "UK");
-                    return;
-                case Country.Us:
-                    serializer.Serialize(writer, "US");
-                    return;
-                case Country.Uz:
-                    serializer.Serialize(writer, "UZ");
-                    return;
-                case Country.Empty:
-                    serializer.Serialize(writer, "_");
-                    return;
-            }
-            throw new Exception("Cannot marshal type Country");
-        }
-
-        public static readonly CountryConverter Singleton = new CountryConverter();
-    }
-
-    internal class LanguageListConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(LanguageList) || t == typeof(LanguageList?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "am-am":
-                    return LanguageList.AmAm;
-                case "de-de":
-                    return LanguageList.DeDe;
-                case "ee-ee":
-                    return LanguageList.EeEe;
-                case "en-us":
-                    return LanguageList.EnUs;
-                case "es-es":
-                    return LanguageList.EsEs;
-                case "fi-fi":
-                    return LanguageList.FiFi;
-                case "fr-fr":
-                    return LanguageList.FrFr;
-                case "ge-ge":
-                    return LanguageList.GeGe;
-                case "he-il":
-                    return LanguageList.HeIl;
-                case "hu-hu":
-                    return LanguageList.HuHu;
-                case "lt-lt":
-                    return LanguageList.LtLt;
-                case "lv-lv":
-                    return LanguageList.LvLv;
-                case "ru-ru":
-                    return LanguageList.RuRu;
-                case "uz-uz":
-                    return LanguageList.UzUz;
-                case "zh-cn":
-                    return LanguageList.ZhCn;
-            }
-            throw new Exception("Cannot unmarshal type LanguageList");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (LanguageList)untypedValue;
-            switch (value)
-            {
-                case LanguageList.AmAm:
-                    serializer.Serialize(writer, "am-am");
-                    return;
-                case LanguageList.DeDe:
-                    serializer.Serialize(writer, "de-de");
-                    return;
-                case LanguageList.EeEe:
-                    serializer.Serialize(writer, "ee-ee");
-                    return;
-                case LanguageList.EnUs:
-                    serializer.Serialize(writer, "en-us");
-                    return;
-                case LanguageList.EsEs:
-                    serializer.Serialize(writer, "es-es");
-                    return;
-                case LanguageList.FiFi:
-                    serializer.Serialize(writer, "fi-fi");
-                    return;
-                case LanguageList.FrFr:
-                    serializer.Serialize(writer, "fr-fr");
-                    return;
-                case LanguageList.GeGe:
-                    serializer.Serialize(writer, "ge-ge");
-                    return;
-                case LanguageList.HeIl:
-                    serializer.Serialize(writer, "he-il");
-                    return;
-                case LanguageList.HuHu:
-                    serializer.Serialize(writer, "hu-hu");
-                    return;
-                case LanguageList.LtLt:
-                    serializer.Serialize(writer, "lt-lt");
-                    return;
-                case LanguageList.LvLv:
-                    serializer.Serialize(writer, "lv-lv");
-                    return;
-                case LanguageList.RuRu:
-                    serializer.Serialize(writer, "ru-ru");
-                    return;
-                case LanguageList.UzUz:
-                    serializer.Serialize(writer, "uz-uz");
-                    return;
-                case LanguageList.ZhCn:
-                    serializer.Serialize(writer, "zh-cn");
-                    return;
-            }
-            throw new Exception("Cannot marshal type LanguageList");
-        }
-
-        public static readonly LanguageListConverter Singleton = new LanguageListConverter();
-    }
-
-    internal class PaymentMethodsConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(PaymentMethods) || t == typeof(PaymentMethods?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "Amex":
-                    return PaymentMethods.Amex;
-                case "Mastercard":
-                    return PaymentMethods.Mastercard;
-                case "MoneyBookers":
-                    return PaymentMethods.MoneyBookers;
-                case "PayPal":
-                    return PaymentMethods.PayPal;
-                case "Visa":
-                    return PaymentMethods.Visa;
-            }
-            throw new Exception("Cannot unmarshal type PaymentMethods");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (PaymentMethods)untypedValue;
-            switch (value)
-            {
-                case PaymentMethods.Amex:
-                    serializer.Serialize(writer, "Amex");
-                    return;
-                case PaymentMethods.Mastercard:
-                    serializer.Serialize(writer, "Mastercard");
-                    return;
-                case PaymentMethods.MoneyBookers:
-                    serializer.Serialize(writer, "MoneyBookers");
-                    return;
-                case PaymentMethods.PayPal:
-                    serializer.Serialize(writer, "PayPal");
-                    return;
-                case PaymentMethods.Visa:
-                    serializer.Serialize(writer, "Visa");
-                    return;
-            }
-            throw new Exception("Cannot marshal type PaymentMethods");
-        }
-
-        public static readonly PaymentMethodsConverter Singleton = new PaymentMethodsConverter();
-    }
-
-    internal class PricingTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(PricingType) || t == typeof(PricingType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "DEFAULT":
-                    return PricingType.Default;
-                case "MASTER_TOPMASTER":
-                    return PricingType.MasterTopmaster;
-            }
-            throw new Exception("Cannot unmarshal type PricingType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (PricingType)untypedValue;
-            switch (value)
-            {
-                case PricingType.Default:
-                    serializer.Serialize(writer, "DEFAULT");
-                    return;
-                case PricingType.MasterTopmaster:
-                    serializer.Serialize(writer, "MASTER_TOPMASTER");
-                    return;
-            }
-            throw new Exception("Cannot marshal type PricingType");
-        }
-
-        public static readonly PricingTypeConverter Singleton = new PricingTypeConverter();
-    }
-
-    internal class SocialNetworkConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(SocialNetwork) || t == typeof(SocialNetwork?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "Facebook":
-                    return SocialNetwork.Facebook;
-                case "GBooking":
-                    return SocialNetwork.GBooking;
-                case "Google":
-                    return SocialNetwork.Google;
-                case "LinkedIn":
-                    return SocialNetwork.LinkedIn;
-                case "Mailru":
-                    return SocialNetwork.Mailru;
-                case "Odnoklassniki":
-                    return SocialNetwork.Odnoklassniki;
-                case "Twitter":
-                    return SocialNetwork.Twitter;
-                case "VKontakte":
-                    return SocialNetwork.VKontakte;
-                case "Yahoo":
-                    return SocialNetwork.Yahoo;
-                case "Yandex":
-                    return SocialNetwork.Yandex;
-            }
-            throw new Exception("Cannot unmarshal type SocialNetwork");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (SocialNetwork)untypedValue;
-            switch (value)
-            {
-                case SocialNetwork.Facebook:
-                    serializer.Serialize(writer, "Facebook");
-                    return;
-                case SocialNetwork.GBooking:
-                    serializer.Serialize(writer, "GBooking");
-                    return;
-                case SocialNetwork.Google:
-                    serializer.Serialize(writer, "Google");
-                    return;
-                case SocialNetwork.LinkedIn:
-                    serializer.Serialize(writer, "LinkedIn");
-                    return;
-                case SocialNetwork.Mailru:
-                    serializer.Serialize(writer, "Mailru");
-                    return;
-                case SocialNetwork.Odnoklassniki:
-                    serializer.Serialize(writer, "Odnoklassniki");
-                    return;
-                case SocialNetwork.Twitter:
-                    serializer.Serialize(writer, "Twitter");
-                    return;
-                case SocialNetwork.VKontakte:
-                    serializer.Serialize(writer, "VKontakte");
-                    return;
-                case SocialNetwork.Yahoo:
-                    serializer.Serialize(writer, "Yahoo");
-                    return;
-                case SocialNetwork.Yandex:
-                    serializer.Serialize(writer, "Yandex");
-                    return;
-            }
-            throw new Exception("Cannot marshal type SocialNetwork");
-        }
-
-        public static readonly SocialNetworkConverter Singleton = new SocialNetworkConverter();
-    }
-
-    internal class TimeFrameDateConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(TimeFrameDate) || t == typeof(TimeFrameDate?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            switch (reader.TokenType)
-            {
-                case JsonToken.Integer:
-                case JsonToken.Float:
-                    var doubleValue = serializer.Deserialize<double>(reader);
-                    return new TimeFrameDate { Double = doubleValue };
-                case JsonToken.String:
-                case JsonToken.Date:
-                    var stringValue = serializer.Deserialize<string>(reader);
-                    DateTimeOffset dt;
-                    if (DateTimeOffset.TryParse(stringValue, out dt))
-                    {
-                        return new TimeFrameDate { DateTime = dt };
-                    }
-                    break;
-            }
-            throw new Exception("Cannot unmarshal type TimeFrameDate");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            var value = (TimeFrameDate)untypedValue;
-            if (value.Double != null)
-            {
-                serializer.Serialize(writer, value.Double.Value);
-                return;
-            }
-            if (value.DateTime != null)
-            {
-                serializer.Serialize(writer, value.DateTime.Value.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
-                return;
-            }
-            throw new Exception("Cannot marshal type TimeFrameDate");
-        }
-
-        public static readonly TimeFrameDateConverter Singleton = new TimeFrameDateConverter();
-    }
-
-    internal class VerticalTranslationConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(VerticalTranslation) || t == typeof(VerticalTranslation?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "BEAUTY":
-                    return VerticalTranslation.Beauty;
-                case "FITNESS":
-                    return VerticalTranslation.Fitness;
-                case "GENERIC":
-                    return VerticalTranslation.Generic;
-                case "MEDICAL":
-                    return VerticalTranslation.Medical;
-                case "NONE":
-                    return VerticalTranslation.None;
-                case "SPORT":
-                    return VerticalTranslation.Sport;
-                case "YOGA":
-                    return VerticalTranslation.Yoga;
-            }
-            throw new Exception("Cannot unmarshal type VerticalTranslation");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (VerticalTranslation)untypedValue;
-            switch (value)
-            {
-                case VerticalTranslation.Beauty:
-                    serializer.Serialize(writer, "BEAUTY");
-                    return;
-                case VerticalTranslation.Fitness:
-                    serializer.Serialize(writer, "FITNESS");
-                    return;
-                case VerticalTranslation.Generic:
-                    serializer.Serialize(writer, "GENERIC");
-                    return;
-                case VerticalTranslation.Medical:
-                    serializer.Serialize(writer, "MEDICAL");
-                    return;
-                case VerticalTranslation.None:
-                    serializer.Serialize(writer, "NONE");
-                    return;
-                case VerticalTranslation.Sport:
-                    serializer.Serialize(writer, "SPORT");
-                    return;
-                case VerticalTranslation.Yoga:
-                    serializer.Serialize(writer, "YOGA");
-                    return;
-            }
-            throw new Exception("Cannot marshal type VerticalTranslation");
-        }
-
-        public static readonly VerticalTranslationConverter Singleton = new VerticalTranslationConverter();
-    }
-
     internal class GroupConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(Group) || t == typeof(Group?);
@@ -11225,180 +11967,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly FieldElementConverter Singleton = new FieldElementConverter();
-    }
-
-    internal class StartPeriodConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(StartPeriod) || t == typeof(StartPeriod?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "month":
-                    return StartPeriod.Month;
-                case "week":
-                    return StartPeriod.Week;
-            }
-            throw new Exception("Cannot unmarshal type StartPeriod");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (StartPeriod)untypedValue;
-            switch (value)
-            {
-                case StartPeriod.Month:
-                    serializer.Serialize(writer, "month");
-                    return;
-                case StartPeriod.Week:
-                    serializer.Serialize(writer, "week");
-                    return;
-            }
-            throw new Exception("Cannot marshal type StartPeriod");
-        }
-
-        public static readonly StartPeriodConverter Singleton = new StartPeriodConverter();
-    }
-
-    internal class OrderWeightConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(OrderWeight) || t == typeof(OrderWeight?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            switch (reader.TokenType)
-            {
-                case JsonToken.Null:
-                    return new OrderWeight { };
-                case JsonToken.Integer:
-                case JsonToken.Float:
-                    var doubleValue = serializer.Deserialize<double>(reader);
-                    return new OrderWeight { Double = doubleValue };
-                case JsonToken.String:
-                case JsonToken.Date:
-                    var stringValue = serializer.Deserialize<string>(reader);
-                    return new OrderWeight { String = stringValue };
-            }
-            throw new Exception("Cannot unmarshal type OrderWeight");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            var value = (OrderWeight)untypedValue;
-            if (value.IsNull)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            if (value.Double != null)
-            {
-                serializer.Serialize(writer, value.Double.Value);
-                return;
-            }
-            if (value.String != null)
-            {
-                serializer.Serialize(writer, value.String);
-                return;
-            }
-            throw new Exception("Cannot marshal type OrderWeight");
-        }
-
-        public static readonly OrderWeightConverter Singleton = new OrderWeightConverter();
-    }
-
-    internal class AccessTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(AccessType) || t == typeof(AccessType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "NONE":
-                    return AccessType.None;
-                case "WORKER_EXTENDED":
-                    return AccessType.WorkerExtended;
-                case "WORKER_SIMPLE":
-                    return AccessType.WorkerSimple;
-            }
-            throw new Exception("Cannot unmarshal type AccessType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (AccessType)untypedValue;
-            switch (value)
-            {
-                case AccessType.None:
-                    serializer.Serialize(writer, "NONE");
-                    return;
-                case AccessType.WorkerExtended:
-                    serializer.Serialize(writer, "WORKER_EXTENDED");
-                    return;
-                case AccessType.WorkerSimple:
-                    serializer.Serialize(writer, "WORKER_SIMPLE");
-                    return;
-            }
-            throw new Exception("Cannot marshal type AccessType");
-        }
-
-        public static readonly AccessTypeConverter Singleton = new AccessTypeConverter();
-    }
-
-    internal class ResourceStatusConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ResourceStatus) || t == typeof(ResourceStatus?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "ACTIVE":
-                    return ResourceStatus.Active;
-                case "INACTIVE":
-                    return ResourceStatus.Inactive;
-            }
-            throw new Exception("Cannot unmarshal type ResourceStatus");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (ResourceStatus)untypedValue;
-            switch (value)
-            {
-                case ResourceStatus.Active:
-                    serializer.Serialize(writer, "ACTIVE");
-                    return;
-                case ResourceStatus.Inactive:
-                    serializer.Serialize(writer, "INACTIVE");
-                    return;
-            }
-            throw new Exception("Cannot marshal type ResourceStatus");
-        }
-
-        public static readonly ResourceStatusConverter Singleton = new ResourceStatusConverter();
     }
 
     internal class AdditionalPriceTypeConverter : JsonConverter

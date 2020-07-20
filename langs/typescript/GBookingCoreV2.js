@@ -103,66 +103,15 @@ var TalkAnswer;
     TalkAnswer["NotTalk"] = "NOT_TALK";
     TalkAnswer["Talk"] = "TALK";
 })(TalkAnswer = exports.TalkAnswer || (exports.TalkAnswer = {}));
-var Dir;
-(function (Dir) {
-    Dir["Asc"] = "asc";
-    Dir["Desc"] = "desc";
-})(Dir = exports.Dir || (exports.Dir = {}));
-var SortField;
-(function (SortField) {
-    SortField["Created"] = "created";
-    SortField["Start"] = "start";
-})(SortField = exports.SortField || (exports.SortField = {}));
-var AppointmentExtensionType;
-(function (AppointmentExtensionType) {
-    AppointmentExtensionType["Minutes"] = "MINUTES";
-    AppointmentExtensionType["Percent"] = "PERCENT";
-})(AppointmentExtensionType = exports.AppointmentExtensionType || (exports.AppointmentExtensionType = {}));
-var FeedBackMinRating;
-(function (FeedBackMinRating) {
-    FeedBackMinRating["The1"] = "1";
-    FeedBackMinRating["The2"] = "2";
-    FeedBackMinRating["The3"] = "3";
-    FeedBackMinRating["The4"] = "4";
-    FeedBackMinRating["The5"] = "5";
-})(FeedBackMinRating = exports.FeedBackMinRating || (exports.FeedBackMinRating = {}));
-var InvoiceProvider;
-(function (InvoiceProvider) {
-    InvoiceProvider["Disable"] = "DISABLE";
-    InvoiceProvider["Icount"] = "icount";
-})(InvoiceProvider = exports.InvoiceProvider || (exports.InvoiceProvider = {}));
-var PaymentProvider;
-(function (PaymentProvider) {
-    PaymentProvider["Cloudpayments"] = "cloudpayments";
-    PaymentProvider["DeltaProcessing"] = "deltaProcessing";
-    PaymentProvider["Disable"] = "DISABLE";
-    PaymentProvider["Pelecard"] = "pelecard";
-    PaymentProvider["YandexMoney"] = "yandexMoney";
-    PaymentProvider["YandexMoneyv3"] = "yandexMoneyv3";
-})(PaymentProvider = exports.PaymentProvider || (exports.PaymentProvider = {}));
-var ResourceTimetableType;
-(function (ResourceTimetableType) {
-    ResourceTimetableType["Default"] = "DEFAULT";
-    ResourceTimetableType["Evenodd"] = "EVENODD";
-})(ResourceTimetableType = exports.ResourceTimetableType || (exports.ResourceTimetableType = {}));
-var SchedulerWeekViewType;
-(function (SchedulerWeekViewType) {
-    SchedulerWeekViewType["Week"] = "week";
-    SchedulerWeekViewType["WorkWeek"] = "workWeek";
-})(SchedulerWeekViewType = exports.SchedulerWeekViewType || (exports.SchedulerWeekViewType = {}));
-var PurpleTelemedProvider;
-(function (PurpleTelemedProvider) {
-    PurpleTelemedProvider["Disable"] = "DISABLE";
-    PurpleTelemedProvider["Zoom"] = "zoom";
-})(PurpleTelemedProvider = exports.PurpleTelemedProvider || (exports.PurpleTelemedProvider = {}));
-var BackofficeType;
-(function (BackofficeType) {
-    BackofficeType["Common"] = "COMMON";
-    BackofficeType["Gt"] = "GT";
-    BackofficeType["Ll"] = "LL";
-    BackofficeType["Mb"] = "MB";
-    BackofficeType["Mu"] = "MU";
-})(BackofficeType = exports.BackofficeType || (exports.BackofficeType = {}));
+/**
+ * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+ * (понедельник считается нечётным)
+ */
+var StartPeriod;
+(function (StartPeriod) {
+    StartPeriod["Month"] = "month";
+    StartPeriod["Week"] = "week";
+})(StartPeriod = exports.StartPeriod || (exports.StartPeriod = {}));
 var Country;
 (function (Country) {
     Country["Am"] = "AM";
@@ -240,28 +189,6 @@ var VerticalTranslation;
     VerticalTranslation["Sport"] = "SPORT";
     VerticalTranslation["Yoga"] = "YOGA";
 })(VerticalTranslation = exports.VerticalTranslation || (exports.VerticalTranslation = {}));
-var Group;
-(function (Group) {
-    Group["French"] = "FRENCH";
-    Group["General"] = "GENERAL";
-    Group["Hungarian"] = "HUNGARIAN";
-    Group["Latvian"] = "LATVIAN";
-})(Group = exports.Group || (exports.Group = {}));
-var FieldElement;
-(function (FieldElement) {
-    FieldElement["Email"] = "email";
-    FieldElement["Name"] = "name";
-    FieldElement["Surname"] = "surname";
-})(FieldElement = exports.FieldElement || (exports.FieldElement = {}));
-/**
- * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
- * (понедельник считается нечётным)
- */
-var StartPeriod;
-(function (StartPeriod) {
-    StartPeriod["Month"] = "month";
-    StartPeriod["Week"] = "week";
-})(StartPeriod = exports.StartPeriod || (exports.StartPeriod = {}));
 /**
  * тип доступа работника в систему через его учётную запись
  */
@@ -276,6 +203,79 @@ var ResourceStatus;
     ResourceStatus["Active"] = "ACTIVE";
     ResourceStatus["Inactive"] = "INACTIVE";
 })(ResourceStatus = exports.ResourceStatus || (exports.ResourceStatus = {}));
+var Dir;
+(function (Dir) {
+    Dir["Asc"] = "asc";
+    Dir["Desc"] = "desc";
+})(Dir = exports.Dir || (exports.Dir = {}));
+var SortField;
+(function (SortField) {
+    SortField["Created"] = "created";
+    SortField["Start"] = "start";
+})(SortField = exports.SortField || (exports.SortField = {}));
+var AppointmentExtensionType;
+(function (AppointmentExtensionType) {
+    AppointmentExtensionType["Minutes"] = "MINUTES";
+    AppointmentExtensionType["Percent"] = "PERCENT";
+})(AppointmentExtensionType = exports.AppointmentExtensionType || (exports.AppointmentExtensionType = {}));
+var FeedBackMinRating;
+(function (FeedBackMinRating) {
+    FeedBackMinRating["The1"] = "1";
+    FeedBackMinRating["The2"] = "2";
+    FeedBackMinRating["The3"] = "3";
+    FeedBackMinRating["The4"] = "4";
+    FeedBackMinRating["The5"] = "5";
+})(FeedBackMinRating = exports.FeedBackMinRating || (exports.FeedBackMinRating = {}));
+var InvoiceProvider;
+(function (InvoiceProvider) {
+    InvoiceProvider["Disable"] = "DISABLE";
+    InvoiceProvider["Icount"] = "icount";
+})(InvoiceProvider = exports.InvoiceProvider || (exports.InvoiceProvider = {}));
+var PaymentProvider;
+(function (PaymentProvider) {
+    PaymentProvider["Cloudpayments"] = "cloudpayments";
+    PaymentProvider["DeltaProcessing"] = "deltaProcessing";
+    PaymentProvider["Disable"] = "DISABLE";
+    PaymentProvider["Pelecard"] = "pelecard";
+    PaymentProvider["YandexMoney"] = "yandexMoney";
+    PaymentProvider["YandexMoneyv3"] = "yandexMoneyv3";
+})(PaymentProvider = exports.PaymentProvider || (exports.PaymentProvider = {}));
+var ResourceTimetableType;
+(function (ResourceTimetableType) {
+    ResourceTimetableType["Default"] = "DEFAULT";
+    ResourceTimetableType["Evenodd"] = "EVENODD";
+})(ResourceTimetableType = exports.ResourceTimetableType || (exports.ResourceTimetableType = {}));
+var SchedulerWeekViewType;
+(function (SchedulerWeekViewType) {
+    SchedulerWeekViewType["Week"] = "week";
+    SchedulerWeekViewType["WorkWeek"] = "workWeek";
+})(SchedulerWeekViewType = exports.SchedulerWeekViewType || (exports.SchedulerWeekViewType = {}));
+var PurpleTelemedProvider;
+(function (PurpleTelemedProvider) {
+    PurpleTelemedProvider["Disable"] = "DISABLE";
+    PurpleTelemedProvider["Zoom"] = "zoom";
+})(PurpleTelemedProvider = exports.PurpleTelemedProvider || (exports.PurpleTelemedProvider = {}));
+var BackofficeType;
+(function (BackofficeType) {
+    BackofficeType["Common"] = "COMMON";
+    BackofficeType["Gt"] = "GT";
+    BackofficeType["Ll"] = "LL";
+    BackofficeType["Mb"] = "MB";
+    BackofficeType["Mu"] = "MU";
+})(BackofficeType = exports.BackofficeType || (exports.BackofficeType = {}));
+var Group;
+(function (Group) {
+    Group["French"] = "FRENCH";
+    Group["General"] = "GENERAL";
+    Group["Hungarian"] = "HUNGARIAN";
+    Group["Latvian"] = "LATVIAN";
+})(Group = exports.Group || (exports.Group = {}));
+var FieldElement;
+(function (FieldElement) {
+    FieldElement["Email"] = "email";
+    FieldElement["Name"] = "name";
+    FieldElement["Surname"] = "surname";
+})(FieldElement = exports.FieldElement || (exports.FieldElement = {}));
 /**
  * Тип цены
  */
@@ -750,7 +750,7 @@ var typeMap = {
         { json: "showcase", js: "showcase", typ: r("AppointmentShowcase") },
         { json: "socialToken", js: "socialToken", typ: u(undefined, "") },
         { json: "source", js: "source", typ: "" },
-        { json: "taxonomy", js: "taxonomy", typ: r("AppointmentTaxonomy") },
+        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
         { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataClass")) },
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
         { json: "withCoSale", js: "withCoSale", typ: u(undefined, true) },
@@ -982,13 +982,243 @@ var typeMap = {
         { json: "middleName", js: "middleName", typ: u(undefined, "") },
         { json: "name", js: "name", typ: "" },
         { json: "surname", js: "surname", typ: "" },
+        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
+        { json: "badIconResolution", js: "badIconResolution", typ: u(undefined, true) },
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
+        { json: "evenOddTimetable", js: "evenOddTimetable", typ: u(undefined, r("EvenOddTimetable")) },
+        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
+        { json: "experience", js: "experience", typ: u(undefined, Date) },
+        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
+        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
+        { json: "image", js: "image", typ: u(undefined, "") },
+        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+        { json: "loaned", js: "loaned", typ: u(undefined, true) },
+        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
+        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
+        { json: "location", js: "location", typ: u(undefined, r("ResourceLocation")) },
+        { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
+        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
+        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
+        { json: "perk", js: "perk", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "profession", js: "profession", typ: u(undefined, "") },
+        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
+        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
+        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "siteId", js: "siteId", typ: u(undefined, "") },
+        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
+        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
+        { json: "taxonomyChildren", js: "taxonomyChildren", typ: u(undefined, a(r("ResourceTaxonomyChildren"))) },
+        { json: "taxonomyLevels", js: "taxonomyLevels", typ: u(undefined, a(r("ResourceTaxonomyLevel"))) },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
+        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
+    "EvenOddTimetable": o([
+        { json: "even", js: "even", typ: a(r("TimeFrame")) },
+        { json: "odd", js: "odd", typ: a(r("TimeFrame")) },
+        { json: "startPeriod", js: "startPeriod", typ: r("StartPeriod") },
+    ], "any"),
+    "TimeFrame": o([
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "end", js: "end", typ: 3.14 },
+        { json: "endDate", js: "endDate", typ: u(undefined, u(Date, 3.14)) },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "resources", js: "resources", typ: u(undefined, a("")) },
+        { json: "roomID", js: "roomID", typ: u(undefined, "") },
+        { json: "start", js: "start", typ: 3.14 },
+        { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
+    ], false),
+    "ResourceLocation": o([
+        { json: "latitude", js: "latitude", typ: u(undefined, 3.14) },
+        { json: "longitude", js: "longitude", typ: u(undefined, 3.14) },
+        { json: "time", js: "time", typ: u(undefined, "") },
+    ], "any"),
+    "Info": o([
+        { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
+        { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
+        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(r("AdditionalFields"))) },
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
+        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
+        { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
+        { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
+        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
+        { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "eventEditorMinutesTick", js: "eventEditorMinutesTick", typ: u(undefined, 3.14) },
+        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "images", js: "images", typ: u(undefined, a("")) },
+        { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
+        { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
+        { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
+        { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
+        { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
+        { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
+        { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
+        { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
+        { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
+        { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
+        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
+        { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
+        { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
+        { json: "skipBilling", js: "skipBilling", typ: u(undefined, true) },
+        { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
+        { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
+        { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
+    ], false),
+    "AdditionalFields": o([
+        { json: "name", js: "name", typ: "" },
+        { json: "requiredField", js: "requiredField", typ: u(undefined, true) },
+        { json: "shortName", js: "shortName", typ: "" },
+        { json: "type", js: "type", typ: r("AdditionalFieldType") },
+        { json: "value", js: "value", typ: u(undefined, "") },
+    ], "any"),
+    "AddressSchema": o([
+        { json: "address", js: "address", typ: u(undefined, "") },
+        { json: "address_add", js: "address_add", typ: u(undefined, "") },
+        { json: "admin_area", js: "admin_area", typ: u(undefined, "") },
+        { json: "admin_area_type", js: "admin_area_type", typ: u(undefined, "") },
+        { json: "building", js: "building", typ: u(undefined, "") },
+        { json: "corps", js: "corps", typ: u(undefined, "") },
+        { json: "country", js: "country", typ: r("Country") },
+        { json: "group", js: "group", typ: u(undefined, "") },
+        { json: "house_add", js: "house_add", typ: u(undefined, "") },
+        { json: "kilometer", js: "kilometer", typ: u(undefined, "") },
+        { json: "latitude", js: "latitude", typ: u(undefined, "") },
+        { json: "locality", js: "locality", typ: u(undefined, "") },
+        { json: "locality_type", js: "locality_type", typ: u(undefined, "") },
+        { json: "longitude", js: "longitude", typ: u(undefined, "") },
+        { json: "metroStations", js: "metroStations", typ: u(undefined, a(r("FullAddressMetroStation"))) },
+        { json: "number", js: "number", typ: u(undefined, "") },
+        { json: "office", js: "office", typ: u(undefined, "") },
+        { json: "possesion", js: "possesion", typ: u(undefined, "") },
+        { json: "street", js: "street", typ: u(undefined, "") },
+        { json: "street_type", js: "street_type", typ: u(undefined, "") },
+        { json: "sub_admin_area", js: "sub_admin_area", typ: u(undefined, "") },
+        { json: "sub_admin_area_type", js: "sub_admin_area_type", typ: u(undefined, "") },
+        { json: "sub_locality", js: "sub_locality", typ: u(undefined, "") },
+        { json: "sub_locality_type", js: "sub_locality_type", typ: u(undefined, "") },
+        { json: "way", js: "way", typ: u(undefined, "") },
+        { json: "zip_code", js: "zip_code", typ: u(undefined, "") },
+    ], false),
+    "FullAddressMetroStation": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: "" },
+    ], false),
+    "BusinessShowcaseAlias": o([
+        { json: "internalID", js: "internalID", typ: u(undefined, "") },
+    ], "any"),
+    "FaxElement": o([
+        { json: "area_code", js: "area_code", typ: "" },
+        { json: "country_code", js: "country_code", typ: "" },
+        { json: "number", js: "number", typ: "" },
+    ], false),
+    "MarketingNotifications": o([
+        { json: "accepted", js: "accepted", typ: true },
+        { json: "active", js: "active", typ: true },
+        { json: "useSmsAlphaName", js: "useSmsAlphaName", typ: true },
+    ], false),
+    "Metro": o([
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "distance", js: "distance", typ: u(undefined, 3.14) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+    ], false),
+    "ShowcaseBusinessDatum": o([
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "internalID", js: "internalID", typ: u(undefined, "") },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "timezone", js: "timezone", typ: u(undefined, "") },
+    ], "any"),
+    "ShowcaseElement": o([
+        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
+    ], false),
+    "SmsDuplicateFilter": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+    ], false),
+    "SocialNetworkSchema": o([
+        { json: "handle", js: "handle", typ: "" },
+        { json: "id", js: "id", typ: "" },
+        { json: "social_network", js: "social_network", typ: r("SocialNetwork") },
+        { json: "url", js: "url", typ: "" },
+    ], "any"),
+    "Timetable": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "week", js: "week", typ: u(undefined, r("Week")) },
+    ], false),
+    "Week": o([
+        { json: "fri", js: "fri", typ: a(r("TimeFrame")) },
+        { json: "mon", js: "mon", typ: a(r("TimeFrame")) },
+        { json: "sat", js: "sat", typ: a(r("TimeFrame")) },
+        { json: "sun", js: "sun", typ: a(r("TimeFrame")) },
+        { json: "thu", js: "thu", typ: a(r("TimeFrame")) },
+        { json: "tue", js: "tue", typ: a(r("TimeFrame")) },
+        { json: "wed", js: "wed", typ: a(r("TimeFrame")) },
+    ], false),
+    "ИнформацияОПрофилеРаботника": o([
+        { json: "accessType", js: "accessType", typ: r("AccessType") },
+        { json: "email", js: "email", typ: "" },
+        { json: "profileID", js: "profileID", typ: "" },
+        { json: "userID", js: "userID", typ: "" },
+    ], "any"),
+    "ResourceTaxonomyChildren": o([
+        { json: "children", js: "children", typ: true },
+        { json: "taxonomyID", js: "taxonomyID", typ: "" },
+    ], "any"),
+    "ResourceTaxonomyLevel": o([
+        { json: "id", js: "id", typ: "" },
+        { json: "level", js: "level", typ: 3.14 },
+    ], "any"),
+    "TelemedDataObject": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "Review": o([
-        { json: "business", js: "business", typ: r("TaxonomyClass") },
-        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
-        { json: "worker", js: "worker", typ: r("TaxonomyClass") },
+        { json: "business", js: "business", typ: r("WorkerClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("WorkerClass") },
+        { json: "worker", js: "worker", typ: r("WorkerClass") },
     ], false),
-    "TaxonomyClass": o([
+    "WorkerClass": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "rate", js: "rate", typ: u(undefined, 3.14) },
     ], false),
@@ -997,6 +1227,64 @@ var typeMap = {
     ], false),
     "AppointmentShowcase": o([
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
+    ], false),
+    "TaxonomyClass": o([
+        { json: "alias", js: "alias", typ: u(undefined, "") },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: "" },
+        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
+        { json: "badIconResolution", js: "badIconResolution", typ: u(undefined, true) },
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
+        { json: "evenOddTimetable", js: "evenOddTimetable", typ: u(undefined, r("EvenOddTimetable")) },
+        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
+        { json: "experience", js: "experience", typ: u(undefined, Date) },
+        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
+        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
+        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
+        { json: "image", js: "image", typ: u(undefined, "") },
+        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+        { json: "loaned", js: "loaned", typ: u(undefined, true) },
+        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
+        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
+        { json: "location", js: "location", typ: u(undefined, r("ResourceLocation")) },
+        { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
+        { json: "middleName", js: "middleName", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
+        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
+        { json: "perk", js: "perk", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "profession", js: "profession", typ: u(undefined, "") },
+        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
+        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
+        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "siteId", js: "siteId", typ: u(undefined, "") },
+        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
+        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
+        { json: "surname", js: "surname", typ: u(undefined, "") },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
+        { json: "taxonomyChildren", js: "taxonomyChildren", typ: u(undefined, a(r("ResourceTaxonomyChildren"))) },
+        { json: "taxonomyLevels", js: "taxonomyLevels", typ: u(undefined, a(r("ResourceTaxonomyLevel"))) },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
+        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
     "TelemedDataClass": o([
         { json: "id", js: "id", typ: u(undefined, "") },
@@ -1169,6 +1457,7 @@ var typeMap = {
         { json: "field", js: "field", typ: r("SortField") },
     ], false),
     "FluffyFilter": o([
+        { json: "appointmentId", js: "appointmentId", typ: u(undefined, "") },
         { json: "created", js: "created", typ: u(undefined, r("FluffyCreated")) },
         { json: "end", js: "end", typ: u(undefined, Date) },
         { json: "services", js: "services", typ: u(undefined, a("")) },
@@ -1214,6 +1503,7 @@ var typeMap = {
     "AppointmentGetAppointmentsByUserRequestParams": o([
         { json: "business", js: "business", typ: u(undefined, r("IndigoBusiness")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
+        { json: "fill_business_data", js: "fill_business_data", typ: u(undefined, true) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("TentacledNetwork")) },
         { json: "page", js: "page", typ: 3.14 },
@@ -1601,110 +1891,6 @@ var typeMap = {
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
         { json: "website", js: "website", typ: u(undefined, u(null, "")) },
     ], false),
-    "AdditionalFields": o([
-        { json: "name", js: "name", typ: "" },
-        { json: "requiredField", js: "requiredField", typ: u(undefined, true) },
-        { json: "shortName", js: "shortName", typ: "" },
-        { json: "type", js: "type", typ: r("AdditionalFieldType") },
-        { json: "value", js: "value", typ: u(undefined, "") },
-    ], "any"),
-    "AddressSchema": o([
-        { json: "address", js: "address", typ: u(undefined, "") },
-        { json: "address_add", js: "address_add", typ: u(undefined, "") },
-        { json: "admin_area", js: "admin_area", typ: u(undefined, "") },
-        { json: "admin_area_type", js: "admin_area_type", typ: u(undefined, "") },
-        { json: "building", js: "building", typ: u(undefined, "") },
-        { json: "corps", js: "corps", typ: u(undefined, "") },
-        { json: "country", js: "country", typ: r("Country") },
-        { json: "group", js: "group", typ: u(undefined, "") },
-        { json: "house_add", js: "house_add", typ: u(undefined, "") },
-        { json: "kilometer", js: "kilometer", typ: u(undefined, "") },
-        { json: "latitude", js: "latitude", typ: u(undefined, "") },
-        { json: "locality", js: "locality", typ: u(undefined, "") },
-        { json: "locality_type", js: "locality_type", typ: u(undefined, "") },
-        { json: "longitude", js: "longitude", typ: u(undefined, "") },
-        { json: "metroStations", js: "metroStations", typ: u(undefined, a(r("FullAddressMetroStation"))) },
-        { json: "number", js: "number", typ: u(undefined, "") },
-        { json: "office", js: "office", typ: u(undefined, "") },
-        { json: "possesion", js: "possesion", typ: u(undefined, "") },
-        { json: "street", js: "street", typ: u(undefined, "") },
-        { json: "street_type", js: "street_type", typ: u(undefined, "") },
-        { json: "sub_admin_area", js: "sub_admin_area", typ: u(undefined, "") },
-        { json: "sub_admin_area_type", js: "sub_admin_area_type", typ: u(undefined, "") },
-        { json: "sub_locality", js: "sub_locality", typ: u(undefined, "") },
-        { json: "sub_locality_type", js: "sub_locality_type", typ: u(undefined, "") },
-        { json: "way", js: "way", typ: u(undefined, "") },
-        { json: "zip_code", js: "zip_code", typ: u(undefined, "") },
-    ], false),
-    "FullAddressMetroStation": o([
-        { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "name", js: "name", typ: "" },
-    ], false),
-    "BusinessShowcaseAlias": o([
-        { json: "internalID", js: "internalID", typ: u(undefined, "") },
-    ], "any"),
-    "FaxElement": o([
-        { json: "area_code", js: "area_code", typ: "" },
-        { json: "country_code", js: "country_code", typ: "" },
-        { json: "number", js: "number", typ: "" },
-    ], false),
-    "MarketingNotifications": o([
-        { json: "accepted", js: "accepted", typ: true },
-        { json: "active", js: "active", typ: true },
-        { json: "useSmsAlphaName", js: "useSmsAlphaName", typ: true },
-    ], false),
-    "Metro": o([
-        { json: "color", js: "color", typ: u(undefined, "") },
-        { json: "distance", js: "distance", typ: u(undefined, 3.14) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-    ], false),
-    "ShowcaseBusinessDatum": o([
-        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "internalID", js: "internalID", typ: u(undefined, "") },
-        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, "") },
-    ], "any"),
-    "ShowcaseElement": o([
-        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
-    ], false),
-    "SmsDuplicateFilter": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-    ], false),
-    "SocialNetworkSchema": o([
-        { json: "handle", js: "handle", typ: "" },
-        { json: "id", js: "id", typ: "" },
-        { json: "social_network", js: "social_network", typ: r("SocialNetwork") },
-        { json: "url", js: "url", typ: "" },
-    ], "any"),
-    "Timetable": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "week", js: "week", typ: u(undefined, r("Week")) },
-    ], false),
-    "Week": o([
-        { json: "fri", js: "fri", typ: a(r("TimeFrame")) },
-        { json: "mon", js: "mon", typ: a(r("TimeFrame")) },
-        { json: "sat", js: "sat", typ: a(r("TimeFrame")) },
-        { json: "sun", js: "sun", typ: a(r("TimeFrame")) },
-        { json: "thu", js: "thu", typ: a(r("TimeFrame")) },
-        { json: "tue", js: "tue", typ: a(r("TimeFrame")) },
-        { json: "wed", js: "wed", typ: a(r("TimeFrame")) },
-    ], false),
-    "TimeFrame": o([
-        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
-        { json: "end", js: "end", typ: 3.14 },
-        { json: "endDate", js: "endDate", typ: u(undefined, u(Date, 3.14)) },
-        { json: "extraId", js: "extraId", typ: u(undefined, "") },
-        { json: "id", js: "id", typ: u(undefined, "") },
-        { json: "resources", js: "resources", typ: u(undefined, a("")) },
-        { json: "roomID", js: "roomID", typ: u(undefined, "") },
-        { json: "start", js: "start", typ: 3.14 },
-        { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
-    ], false),
     "InfoMiniWidgetConfiguration": o([
         { json: "fields", js: "fields", typ: u(undefined, a(r("FieldElement"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
@@ -1767,81 +1953,6 @@ var typeMap = {
         { json: "userData", js: "userData", typ: u(undefined, m("any")) },
         { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
-    "EvenOddTimetable": o([
-        { json: "even", js: "even", typ: a(r("TimeFrame")) },
-        { json: "odd", js: "odd", typ: a(r("TimeFrame")) },
-        { json: "startPeriod", js: "startPeriod", typ: r("StartPeriod") },
-    ], "any"),
-    "ResourceLocation": o([
-        { json: "latitude", js: "latitude", typ: u(undefined, 3.14) },
-        { json: "longitude", js: "longitude", typ: u(undefined, 3.14) },
-        { json: "time", js: "time", typ: u(undefined, "") },
-    ], "any"),
-    "Info": o([
-        { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
-        { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
-        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(r("AdditionalFields"))) },
-        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
-        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
-        { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
-        { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
-        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
-        { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "eventEditorMinutesTick", js: "eventEditorMinutesTick", typ: u(undefined, 3.14) },
-        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "images", js: "images", typ: u(undefined, a("")) },
-        { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
-        { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
-        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
-        { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
-        { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
-        { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
-        { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
-        { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
-        { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
-        { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
-        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
-        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
-        { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
-        { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
-        { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
-        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
-        { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
-        { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
-        { json: "skipBilling", js: "skipBilling", typ: u(undefined, true) },
-        { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
-        { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
-        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
-        { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
-        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
-    ], false),
-    "ИнформацияОПрофилеРаботника": o([
-        { json: "accessType", js: "accessType", typ: r("AccessType") },
-        { json: "email", js: "email", typ: "" },
-        { json: "profileID", js: "profileID", typ: "" },
-        { json: "userID", js: "userID", typ: "" },
-    ], "any"),
-    "ResourceTaxonomyChildren": o([
-        { json: "children", js: "children", typ: true },
-        { json: "taxonomyID", js: "taxonomyID", typ: "" },
-    ], "any"),
-    "ResourceTaxonomyLevel": o([
-        { json: "id", js: "id", typ: "" },
-        { json: "level", js: "level", typ: 3.14 },
-    ], "any"),
-    "TelemedDataObject": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "id", js: "id", typ: u(undefined, "") },
-    ], "any"),
     "InfoTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
@@ -3350,55 +3461,9 @@ var typeMap = {
         "NOT_TALK",
         "TALK",
     ],
-    "Dir": [
-        "asc",
-        "desc",
-    ],
-    "SortField": [
-        "created",
-        "start",
-    ],
-    "AppointmentExtensionType": [
-        "MINUTES",
-        "PERCENT",
-    ],
-    "FeedBackMinRating": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-    ],
-    "InvoiceProvider": [
-        "DISABLE",
-        "icount",
-    ],
-    "PaymentProvider": [
-        "cloudpayments",
-        "deltaProcessing",
-        "DISABLE",
-        "pelecard",
-        "yandexMoney",
-        "yandexMoneyv3",
-    ],
-    "ResourceTimetableType": [
-        "DEFAULT",
-        "EVENODD",
-    ],
-    "SchedulerWeekViewType": [
+    "StartPeriod": [
+        "month",
         "week",
-        "workWeek",
-    ],
-    "PurpleTelemedProvider": [
-        "DISABLE",
-        "zoom",
-    ],
-    "BackofficeType": [
-        "COMMON",
-        "GT",
-        "LL",
-        "MB",
-        "MU",
     ],
     "Country": [
         "AM",
@@ -3471,6 +3536,65 @@ var typeMap = {
         "SPORT",
         "YOGA",
     ],
+    "AccessType": [
+        "NONE",
+        "WORKER_EXTENDED",
+        "WORKER_SIMPLE",
+    ],
+    "ResourceStatus": [
+        "ACTIVE",
+        "INACTIVE",
+    ],
+    "Dir": [
+        "asc",
+        "desc",
+    ],
+    "SortField": [
+        "created",
+        "start",
+    ],
+    "AppointmentExtensionType": [
+        "MINUTES",
+        "PERCENT",
+    ],
+    "FeedBackMinRating": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+    ],
+    "InvoiceProvider": [
+        "DISABLE",
+        "icount",
+    ],
+    "PaymentProvider": [
+        "cloudpayments",
+        "deltaProcessing",
+        "DISABLE",
+        "pelecard",
+        "yandexMoney",
+        "yandexMoneyv3",
+    ],
+    "ResourceTimetableType": [
+        "DEFAULT",
+        "EVENODD",
+    ],
+    "SchedulerWeekViewType": [
+        "week",
+        "workWeek",
+    ],
+    "PurpleTelemedProvider": [
+        "DISABLE",
+        "zoom",
+    ],
+    "BackofficeType": [
+        "COMMON",
+        "GT",
+        "LL",
+        "MB",
+        "MU",
+    ],
     "Group": [
         "FRENCH",
         "GENERAL",
@@ -3481,19 +3605,6 @@ var typeMap = {
         "email",
         "name",
         "surname",
-    ],
-    "StartPeriod": [
-        "month",
-        "week",
-    ],
-    "AccessType": [
-        "NONE",
-        "WORKER_EXTENDED",
-        "WORKER_SIMPLE",
-    ],
-    "ResourceStatus": [
-        "ACTIVE",
-        "INACTIVE",
     ],
     "AdditionalPriceType": [
         "average",

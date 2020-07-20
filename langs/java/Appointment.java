@@ -63,7 +63,7 @@ public class Appointment {
     private AppointmentShowcase showcase;
     private String socialToken;
     private String source;
-    private AppointmentTaxonomy taxonomy;
+    private TaxonomyClass taxonomy;
     private AppointmentTelemedData telemedData;
     private Map<String, Object> utm;
     private Boolean withCoSale;
@@ -344,9 +344,9 @@ public class Appointment {
     public void setSource(String value) { this.source = value; }
 
     @JsonProperty("taxonomy")
-    public AppointmentTaxonomy getTaxonomy() { return taxonomy; }
+    public TaxonomyClass getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
-    public void setTaxonomy(AppointmentTaxonomy value) { this.taxonomy = value; }
+    public void setTaxonomy(TaxonomyClass value) { this.taxonomy = value; }
 
     /**
      * Данные для телемед конференции

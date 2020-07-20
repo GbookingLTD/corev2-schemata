@@ -441,7 +441,7 @@ export interface Appointment {
     showcase: AppointmentShowcase;
     socialToken?: string;
     source: string;
-    taxonomy: AppointmentTaxonomy;
+    taxonomy: TaxonomyClass;
     /**
      * Данные для телемед конференции
      */
@@ -771,19 +771,576 @@ export interface RemovedClientsDatum {
     source?: string;
     status?: AppointmentStatus;
 }
+/**
+ * Данные о работнике бизнеса
+ */
 export interface AppointmentResource {
     extraID?: null | string;
+    /**
+     * внутренний идентификатор работника; уникальный во всей системе GBooking
+     */
     id: string;
+    /**
+     * отчество работника
+     */
     middleName?: string;
+    /**
+     * имя работника
+     */
     name: string;
+    /**
+     * фамилия и отчество работника
+     */
     surname: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    additionalExtraId?: string[];
+    badIconResolution?: boolean;
+    /**
+     * Количество записей, которые может принимать работник единовременно
+     */
+    capacity?: number;
+    /**
+     * цвет колонки с работником
+     */
+    color?: string;
+    degree?: string;
+    /**
+     * идентификатор отделения, к которому привязан работник
+     */
+    departmentId?: string;
+    /**
+     * краткое описание работника
+     */
+    description?: string;
+    displayInSchedule?: boolean;
+    /**
+     * отображать ли данного работника на виджете или любом другом клиенте
+     */
+    displayInWidget?: boolean;
+    /**
+     * e-mail работника
+     */
+    email?: string;
+    /**
+     * включена ли отправка e-mail уведомлений для данного работника
+     */
+    emailEnabled?: boolean;
+    evenOddTimetable?: EvenOddTimetable;
+    exceptions?: any[];
+    experience?: Date;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraDescription?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraId?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraLink?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraMediaId?: string;
+    /**
+     * url изображения работника; Если указан относительный путь, то используйте
+     * http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+     * WidgetConfiguration.defaultWorkerImgUrl)
+     */
+    icon_url?: null | string;
+    image?: string;
+    lastSU?: Date;
+    /**
+     * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+     */
+    level?: number;
+    /**
+     * не используется
+     */
+    loaned?: boolean;
+    /**
+     * не используется
+     */
+    loanedFrom?: string;
+    /**
+     * не используется
+     */
+    loanedTo?: string;
+    location?: ResourceLocation;
+    manualChanges?: boolean;
+    /**
+     * внутреннее название работника в Бекофис
+     */
+    nickname?: string;
+    /**
+     * индекс сортировки работника
+     */
+    order?: number;
+    /**
+     * вес работника, в зависимости от указанного способа сортировки
+     */
+    orderWeight?: OrderWeight;
+    /**
+     * (только в витрине) объект с данными бизнеса-филиала
+     */
+    origin_general_info?: Info;
+    /**
+     * (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+     */
+    originBusinessID?: string;
+    /**
+     * (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+     * работник
+     */
+    originTaxonomies?: string[];
+    /**
+     * особый навык
+     */
+    perk?: string;
+    phone?: FaxElement[];
+    /**
+     * информация о профессии работника, используется в Бекофис
+     */
+    profession?: string;
+    profile?: ИнформацияОПрофилеРаботника;
+    /**
+     * Рейтинг работника
+     */
+    rating?: number;
+    readonlyTaxonomies?: string[];
+    /**
+     * Версия изменений документа
+     */
+    revisionVersion?: number;
+    scheduleIsEmpty?: boolean;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    siteId?: string;
+    /**
+     * включена ли отправка смс уведомлений для данного работника
+     */
+    smsEnabled?: boolean;
+    status?: ResourceStatus;
+    /**
+     * массив идентификаторов услуг, которые выполняет работник
+     */
+    taxonomies?: string[];
+    /**
+     * массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+     * оба или не указаны вовсе для услуги)
+     */
+    taxonomyChildren?: ResourceTaxonomyChildren[];
+    /**
+     * массив уровня скорости выполнения услуги (см так же Resource level)
+     */
+    taxonomyLevels?: ResourceTaxonomyLevel[];
+    telemedData?: TelemedDataObject;
+    timetable?: Timetable;
+    userData?: {
+        [key: string]: any;
+    };
+    /**
+     * рабочее место, которое занимает работник
+     */
+    workPlace?: string;
+}
+export interface EvenOddTimetable {
+    /**
+     * расписание для чётных дней
+     */
+    even: TimeFrame[];
+    /**
+     * расписание для нечётных дней
+     */
+    odd: TimeFrame[];
+    /**
+     * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+     * (понедельник считается нечётным)
+     */
+    startPeriod: StartPeriod;
+}
+export interface TimeFrame {
+    capacity?: number;
+    /**
+     * смещение в минутах от начала дня
+     */
+    end: number;
+    endDate?: TimeFrameDate;
+    extraId?: string;
+    /**
+     * уникальный идентификатор временного слота
+     */
+    id?: string;
+    resources?: string[];
+    roomID?: string;
+    /**
+     * смещение в минутах от начала дня
+     */
+    start: number;
+    startDate?: TimeFrameDate;
+}
+export declare type TimeFrameDate = Date | number;
+/**
+ * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+ * (понедельник считается нечётным)
+ */
+export declare enum StartPeriod {
+    Month = "month",
+    Week = "week"
+}
+export interface ResourceLocation {
+    latitude?: number;
+    longitude?: number;
+    /**
+     * время последнего обновления координат
+     */
+    time?: string;
+}
+/**
+ * вес работника, в зависимости от указанного способа сортировки
+ */
+export declare type OrderWeight = number | null | string;
+/**
+ * (только в витрине) объект с данными бизнеса-филиала
+ *
+ * Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
+ */
+export interface Info {
+    accepted_currency?: CurrencyList[];
+    additional_info?: null | string;
+    additionalFields?: AdditionalFields[];
+    /**
+     * Адреса компании или филиала
+     */
+    address?: AddressSchema[];
+    align_min_booking_time?: boolean | null;
+    autoAcceptAppointment?: boolean;
+    /**
+     * если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
+     */
+    businessShowcaseAliases?: BusinessShowcaseAlias[];
+    contactName?: null | string;
+    date_joined?: Date;
+    description?: string;
+    /**
+     * Список e-mail адресов компании или филиала
+     */
+    email?: string;
+    eventEditorMinutesTick?: number;
+    fax?: FaxElement[];
+    images?: string[];
+    instant_messaging?: {
+        [key: string]: any;
+    }[];
+    /**
+     * является ли данный бизнес витриной
+     */
+    isShowcase?: boolean;
+    language?: LanguageList;
+    logo_url?: null | string;
+    marketingNotifications?: MarketingNotifications;
+    metro?: Metro;
+    min_booking_time?: number | null;
+    /**
+     * Список телефонов бизнеса
+     */
+    mobile?: FaxElement[];
+    /**
+     * Название бизнеса
+     */
+    name?: string;
+    networkID?: number | null;
+    newboEnabledFor?: string[];
+    paymentMethods?: PaymentMethods;
+    /**
+     * Список телефонов бизнеса
+     */
+    phone?: FaxElement[];
+    phone_mask?: null | string;
+    pricingType?: PricingType;
+    revisionVersion?: number;
+    schedulerTick?: number;
+    /**
+     * Короткое название филиала
+     */
+    shortName?: null | string;
+    showAppointmentColor?: boolean;
+    showAppointmentTooltip?: boolean;
+    /**
+     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+     * витрины
+     */
+    showcaseBusinessData?: ShowcaseBusinessDatum[];
+    /**
+     * идентификаторы витрин, в которых участвует данный бизнес
+     */
+    showcases?: ShowcaseElement[];
+    showResourceWorkStatistics?: boolean;
+    showWorkerProfession?: boolean;
+    skipBilling?: boolean;
+    smsDuplicateFilter?: SmsDuplicateFilter;
+    social_network?: SocialNetworkSchema[];
+    timetable?: Timetable;
+    timezone?: null | string;
+    verticalTranslation?: VerticalTranslation;
+    website?: null | string;
+}
+export interface AdditionalFields {
+    name: string;
+    requiredField?: boolean;
+    shortName: string;
+    type: AdditionalFieldType;
+    value?: string;
+}
+export interface AddressSchema {
+    address?: string;
+    address_add?: string;
+    admin_area?: string;
+    admin_area_type?: string;
+    building?: string;
+    corps?: string;
+    country: Country;
+    group?: string;
+    house_add?: string;
+    kilometer?: string;
+    latitude?: string;
+    locality?: string;
+    locality_type?: string;
+    longitude?: string;
+    metroStations?: FullAddressMetroStation[];
+    number?: string;
+    office?: string;
+    possesion?: string;
+    street?: string;
+    street_type?: string;
+    sub_admin_area?: string;
+    sub_admin_area_type?: string;
+    sub_locality?: string;
+    sub_locality_type?: string;
+    way?: string;
+    zip_code?: string;
+}
+export declare enum Country {
+    Am = "AM",
+    Blr = "BLR",
+    Ch = "CH",
+    De = "DE",
+    Empty = "_",
+    Es = "ES",
+    Fi = "FI",
+    Fr = "FR",
+    Ge = "GE",
+    Hu = "HU",
+    Il = "IL",
+    Kz = "KZ",
+    Li = "LI",
+    Lt = "LT",
+    Lv = "LV",
+    Ru = "RU",
+    Ua = "UA",
+    Uk = "UK",
+    Us = "US",
+    Uz = "UZ"
+}
+export interface FullAddressMetroStation {
+    _id?: string;
+    description?: string;
+    name: string;
+}
+export interface BusinessShowcaseAlias {
+    internalID?: string;
+}
+export interface FaxElement {
+    area_code: string;
+    country_code: string;
+    number: string;
+}
+export declare enum LanguageList {
+    AmAm = "am-am",
+    DeDe = "de-de",
+    EeEe = "ee-ee",
+    EnUs = "en-us",
+    EsEs = "es-es",
+    FiFi = "fi-fi",
+    FrFr = "fr-fr",
+    GeGe = "ge-ge",
+    HeIl = "he-il",
+    HuHu = "hu-hu",
+    LtLt = "lt-lt",
+    LvLv = "lv-lv",
+    RuRu = "ru-ru",
+    UzUz = "uz-uz",
+    ZhCn = "zh-cn"
+}
+export interface MarketingNotifications {
+    accepted: boolean;
+    active: boolean;
+    useSmsAlphaName: boolean;
+}
+export interface Metro {
+    color?: string;
+    distance?: number;
+    name?: string;
+}
+export declare enum PaymentMethods {
+    Amex = "Amex",
+    Mastercard = "Mastercard",
+    MoneyBookers = "MoneyBookers",
+    PayPal = "PayPal",
+    Visa = "Visa"
+}
+export declare enum PricingType {
+    Default = "DEFAULT",
+    MasterTopmaster = "MASTER_TOPMASTER"
+}
+export interface ShowcaseBusinessDatum {
+    /**
+     * Адреса компании или филиала
+     */
+    address?: AddressSchema[];
+    /**
+     * Список e-mail адресов компании или филиала
+     */
+    email?: string;
+    internalID?: string;
+    language?: LanguageList;
+    /**
+     * Название бизнеса
+     */
+    name?: string;
+    /**
+     * Список телефонов бизнеса
+     */
+    phone?: FaxElement[];
+    /**
+     * Список видов приема филиала
+     */
+    receptionTypes?: string[];
+    timezone?: string;
+}
+export interface ShowcaseElement {
+    baseBusinessID?: string;
+}
+export interface SmsDuplicateFilter {
+    active?: boolean;
+}
+export interface SocialNetworkSchema {
+    handle: string;
+    /**
+     * network id
+     */
+    id: string;
+    social_network: SocialNetwork;
+    url: string;
+}
+export declare enum SocialNetwork {
+    Facebook = "Facebook",
+    GBooking = "GBooking",
+    Google = "Google",
+    LinkedIn = "LinkedIn",
+    Mailru = "Mailru",
+    Odnoklassniki = "Odnoklassniki",
+    Twitter = "Twitter",
+    VKontakte = "VKontakte",
+    Yahoo = "Yahoo",
+    Yandex = "Yandex"
+}
+/**
+ * таблица регулярного недельного расписания
+ */
+export interface Timetable {
+    /**
+     * установлено ли расписание для сущности
+     */
+    active?: boolean;
+    week?: Week;
+}
+export interface Week {
+    fri: TimeFrame[];
+    mon: TimeFrame[];
+    sat: TimeFrame[];
+    sun: TimeFrame[];
+    thu: TimeFrame[];
+    tue: TimeFrame[];
+    wed: TimeFrame[];
+}
+export declare enum VerticalTranslation {
+    Beauty = "BEAUTY",
+    Fitness = "FITNESS",
+    Generic = "GENERIC",
+    Medical = "MEDICAL",
+    None = "NONE",
+    Sport = "SPORT",
+    Yoga = "YOGA"
+}
+/**
+ * Доступ имеют только пользователи с правами resource или admin
+ */
+export interface ИнформацияОПрофилеРаботника {
+    /**
+     * тип доступа работника в систему через его учётную запись
+     */
+    accessType: AccessType;
+    /**
+     * e-mail профиля работника
+     */
+    email: string;
+    /**
+     * идентификатор профиля работника уникальный во всей системе
+     */
+    profileID: string;
+    /**
+     * идентификатор работника
+     */
+    userID: string;
+}
+/**
+ * тип доступа работника в систему через его учётную запись
+ */
+export declare enum AccessType {
+    None = "NONE",
+    WorkerExtended = "WORKER_EXTENDED",
+    WorkerSimple = "WORKER_SIMPLE"
+}
+export declare enum ResourceStatus {
+    Active = "ACTIVE",
+    Inactive = "INACTIVE"
+}
+export interface ResourceTaxonomyChildren {
+    /**
+     * true - детская услуга; false - взрослая услуга
+     */
+    children: boolean;
+    /**
+     * идентификатор услуги, для которой установлено свойство
+     */
+    taxonomyID: string;
+}
+export interface ResourceTaxonomyLevel {
+    /**
+     * идентификатор услуги, для которой установлено уровень скорости
+     */
+    id: string;
+    /**
+     * уровень скорости
+     */
+    level: number;
+}
+export interface TelemedDataObject {
+    active?: boolean;
+    id?: string;
 }
 export interface Review {
-    business: TaxonomyClass;
-    taxonomy: TaxonomyClass;
-    worker: TaxonomyClass;
+    business: WorkerClass;
+    taxonomy: WorkerClass;
+    worker: WorkerClass;
 }
-export interface TaxonomyClass {
+export interface WorkerClass {
     comment?: string;
     rate?: number;
 }
@@ -792,6 +1349,184 @@ export interface Room {
 }
 export interface AppointmentShowcase {
     businessID?: string;
+}
+/**
+ * Данные о работнике бизнеса
+ */
+export interface TaxonomyClass {
+    alias?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraId?: string;
+    /**
+     * внутренний идентификатор работника; уникальный во всей системе GBooking
+     */
+    id: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    additionalExtraId?: string[];
+    badIconResolution?: boolean;
+    /**
+     * Количество записей, которые может принимать работник единовременно
+     */
+    capacity?: number;
+    /**
+     * цвет колонки с работником
+     */
+    color?: string;
+    degree?: string;
+    /**
+     * идентификатор отделения, к которому привязан работник
+     */
+    departmentId?: string;
+    /**
+     * краткое описание работника
+     */
+    description?: string;
+    displayInSchedule?: boolean;
+    /**
+     * отображать ли данного работника на виджете или любом другом клиенте
+     */
+    displayInWidget?: boolean;
+    /**
+     * e-mail работника
+     */
+    email?: string;
+    /**
+     * включена ли отправка e-mail уведомлений для данного работника
+     */
+    emailEnabled?: boolean;
+    evenOddTimetable?: EvenOddTimetable;
+    exceptions?: any[];
+    experience?: Date;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraDescription?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraLink?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraMediaId?: string;
+    /**
+     * url изображения работника; Если указан относительный путь, то используйте
+     * http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+     * WidgetConfiguration.defaultWorkerImgUrl)
+     */
+    icon_url?: null | string;
+    image?: string;
+    lastSU?: Date;
+    /**
+     * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+     */
+    level?: number;
+    /**
+     * не используется
+     */
+    loaned?: boolean;
+    /**
+     * не используется
+     */
+    loanedFrom?: string;
+    /**
+     * не используется
+     */
+    loanedTo?: string;
+    location?: ResourceLocation;
+    manualChanges?: boolean;
+    /**
+     * отчество работника
+     */
+    middleName?: string;
+    /**
+     * имя работника
+     */
+    name?: string;
+    /**
+     * внутреннее название работника в Бекофис
+     */
+    nickname?: string;
+    /**
+     * индекс сортировки работника
+     */
+    order?: number;
+    /**
+     * вес работника, в зависимости от указанного способа сортировки
+     */
+    orderWeight?: OrderWeight;
+    /**
+     * (только в витрине) объект с данными бизнеса-филиала
+     */
+    origin_general_info?: Info;
+    /**
+     * (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+     */
+    originBusinessID?: string;
+    /**
+     * (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+     * работник
+     */
+    originTaxonomies?: string[];
+    /**
+     * особый навык
+     */
+    perk?: string;
+    phone?: FaxElement[];
+    /**
+     * информация о профессии работника, используется в Бекофис
+     */
+    profession?: string;
+    profile?: ИнформацияОПрофилеРаботника;
+    /**
+     * Рейтинг работника
+     */
+    rating?: number;
+    readonlyTaxonomies?: string[];
+    /**
+     * Версия изменений документа
+     */
+    revisionVersion?: number;
+    scheduleIsEmpty?: boolean;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    siteId?: string;
+    /**
+     * включена ли отправка смс уведомлений для данного работника
+     */
+    smsEnabled?: boolean;
+    status?: ResourceStatus;
+    /**
+     * фамилия и отчество работника
+     */
+    surname?: string;
+    /**
+     * массив идентификаторов услуг, которые выполняет работник
+     */
+    taxonomies?: string[];
+    /**
+     * массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+     * оба или не указаны вовсе для услуги)
+     */
+    taxonomyChildren?: ResourceTaxonomyChildren[];
+    /**
+     * массив уровня скорости выполнения услуги (см так же Resource level)
+     */
+    taxonomyLevels?: ResourceTaxonomyLevel[];
+    telemedData?: TelemedDataObject;
+    timetable?: Timetable;
+    userData?: {
+        [key: string]: any;
+    };
+    /**
+     * рабочее место, которое занимает работник
+     */
+    workPlace?: string;
 }
 /**
  * Данные для телемед конференции
@@ -1110,6 +1845,7 @@ export interface FluffySort {
     field: SortField;
 }
 export interface FluffyFilter {
+    appointmentId?: string;
     created?: FluffyCreated;
     end?: Date;
     services?: string[];
@@ -1196,6 +1932,7 @@ export interface AppointmentGetAppointmentsByUserRequest {
 export interface AppointmentGetAppointmentsByUserRequestParams {
     business?: IndigoBusiness;
     extraFilters?: TentacledExtraFilters;
+    fill_business_data?: boolean;
     filter?: TentacledFilter;
     network?: TentacledNetwork;
     page: number;
@@ -1732,6 +2469,8 @@ export interface InfoDepartment {
     name: string;
 }
 /**
+ * (только в витрине) объект с данными бизнеса-филиала
+ *
  * Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
  */
 export interface BusinessInfo {
@@ -1813,215 +2552,6 @@ export interface BusinessInfo {
     timezone?: null | string;
     verticalTranslation?: VerticalTranslation;
     website?: null | string;
-}
-export interface AdditionalFields {
-    name: string;
-    requiredField?: boolean;
-    shortName: string;
-    type: AdditionalFieldType;
-    value?: string;
-}
-export interface AddressSchema {
-    address?: string;
-    address_add?: string;
-    admin_area?: string;
-    admin_area_type?: string;
-    building?: string;
-    corps?: string;
-    country: Country;
-    group?: string;
-    house_add?: string;
-    kilometer?: string;
-    latitude?: string;
-    locality?: string;
-    locality_type?: string;
-    longitude?: string;
-    metroStations?: FullAddressMetroStation[];
-    number?: string;
-    office?: string;
-    possesion?: string;
-    street?: string;
-    street_type?: string;
-    sub_admin_area?: string;
-    sub_admin_area_type?: string;
-    sub_locality?: string;
-    sub_locality_type?: string;
-    way?: string;
-    zip_code?: string;
-}
-export declare enum Country {
-    Am = "AM",
-    Blr = "BLR",
-    Ch = "CH",
-    De = "DE",
-    Empty = "_",
-    Es = "ES",
-    Fi = "FI",
-    Fr = "FR",
-    Ge = "GE",
-    Hu = "HU",
-    Il = "IL",
-    Kz = "KZ",
-    Li = "LI",
-    Lt = "LT",
-    Lv = "LV",
-    Ru = "RU",
-    Ua = "UA",
-    Uk = "UK",
-    Us = "US",
-    Uz = "UZ"
-}
-export interface FullAddressMetroStation {
-    _id?: string;
-    description?: string;
-    name: string;
-}
-export interface BusinessShowcaseAlias {
-    internalID?: string;
-}
-export interface FaxElement {
-    area_code: string;
-    country_code: string;
-    number: string;
-}
-export declare enum LanguageList {
-    AmAm = "am-am",
-    DeDe = "de-de",
-    EeEe = "ee-ee",
-    EnUs = "en-us",
-    EsEs = "es-es",
-    FiFi = "fi-fi",
-    FrFr = "fr-fr",
-    GeGe = "ge-ge",
-    HeIl = "he-il",
-    HuHu = "hu-hu",
-    LtLt = "lt-lt",
-    LvLv = "lv-lv",
-    RuRu = "ru-ru",
-    UzUz = "uz-uz",
-    ZhCn = "zh-cn"
-}
-export interface MarketingNotifications {
-    accepted: boolean;
-    active: boolean;
-    useSmsAlphaName: boolean;
-}
-export interface Metro {
-    color?: string;
-    distance?: number;
-    name?: string;
-}
-export declare enum PaymentMethods {
-    Amex = "Amex",
-    Mastercard = "Mastercard",
-    MoneyBookers = "MoneyBookers",
-    PayPal = "PayPal",
-    Visa = "Visa"
-}
-export declare enum PricingType {
-    Default = "DEFAULT",
-    MasterTopmaster = "MASTER_TOPMASTER"
-}
-export interface ShowcaseBusinessDatum {
-    /**
-     * Адреса компании или филиала
-     */
-    address?: AddressSchema[];
-    /**
-     * Список e-mail адресов компании или филиала
-     */
-    email?: string;
-    internalID?: string;
-    language?: LanguageList;
-    /**
-     * Название бизнеса
-     */
-    name?: string;
-    /**
-     * Список телефонов бизнеса
-     */
-    phone?: FaxElement[];
-    /**
-     * Список видов приема филиала
-     */
-    receptionTypes?: string[];
-    timezone?: string;
-}
-export interface ShowcaseElement {
-    baseBusinessID?: string;
-}
-export interface SmsDuplicateFilter {
-    active?: boolean;
-}
-export interface SocialNetworkSchema {
-    handle: string;
-    /**
-     * network id
-     */
-    id: string;
-    social_network: SocialNetwork;
-    url: string;
-}
-export declare enum SocialNetwork {
-    Facebook = "Facebook",
-    GBooking = "GBooking",
-    Google = "Google",
-    LinkedIn = "LinkedIn",
-    Mailru = "Mailru",
-    Odnoklassniki = "Odnoklassniki",
-    Twitter = "Twitter",
-    VKontakte = "VKontakte",
-    Yahoo = "Yahoo",
-    Yandex = "Yandex"
-}
-/**
- * таблица регулярного недельного расписания
- */
-export interface Timetable {
-    /**
-     * установлено ли расписание для сущности
-     */
-    active?: boolean;
-    week?: Week;
-}
-export interface Week {
-    fri: TimeFrame[];
-    mon: TimeFrame[];
-    sat: TimeFrame[];
-    sun: TimeFrame[];
-    thu: TimeFrame[];
-    tue: TimeFrame[];
-    wed: TimeFrame[];
-}
-export interface TimeFrame {
-    capacity?: number;
-    /**
-     * смещение в минутах от начала дня
-     */
-    end: number;
-    endDate?: TimeFrameDate;
-    extraId?: string;
-    /**
-     * уникальный идентификатор временного слота
-     */
-    id?: string;
-    resources?: string[];
-    roomID?: string;
-    /**
-     * смещение в минутах от начала дня
-     */
-    start: number;
-    startDate?: TimeFrameDate;
-}
-export declare type TimeFrameDate = Date | number;
-export declare enum VerticalTranslation {
-    Beauty = "BEAUTY",
-    Fitness = "FITNESS",
-    Generic = "GENERIC",
-    Medical = "MEDICAL",
-    None = "NONE",
-    Sport = "SPORT",
-    Yoga = "YOGA"
 }
 export declare enum Group {
     French = "FRENCH",
@@ -2215,183 +2745,6 @@ export interface Resource {
      * рабочее место, которое занимает работник
      */
     workPlace?: string;
-}
-export interface EvenOddTimetable {
-    /**
-     * расписание для чётных дней
-     */
-    even: TimeFrame[];
-    /**
-     * расписание для нечётных дней
-     */
-    odd: TimeFrame[];
-    /**
-     * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-     * (понедельник считается нечётным)
-     */
-    startPeriod: StartPeriod;
-}
-/**
- * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
- * (понедельник считается нечётным)
- */
-export declare enum StartPeriod {
-    Month = "month",
-    Week = "week"
-}
-export interface ResourceLocation {
-    latitude?: number;
-    longitude?: number;
-    /**
-     * время последнего обновления координат
-     */
-    time?: string;
-}
-/**
- * вес работника, в зависимости от указанного способа сортировки
- */
-export declare type OrderWeight = number | null | string;
-/**
- * (только в витрине) объект с данными бизнеса-филиала
- *
- * Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
- */
-export interface Info {
-    accepted_currency?: CurrencyList[];
-    additional_info?: null | string;
-    additionalFields?: AdditionalFields[];
-    /**
-     * Адреса компании или филиала
-     */
-    address?: AddressSchema[];
-    align_min_booking_time?: boolean | null;
-    autoAcceptAppointment?: boolean;
-    /**
-     * если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
-     */
-    businessShowcaseAliases?: BusinessShowcaseAlias[];
-    contactName?: null | string;
-    date_joined?: Date;
-    description?: string;
-    /**
-     * Список e-mail адресов компании или филиала
-     */
-    email?: string;
-    eventEditorMinutesTick?: number;
-    fax?: FaxElement[];
-    images?: string[];
-    instant_messaging?: {
-        [key: string]: any;
-    }[];
-    /**
-     * является ли данный бизнес витриной
-     */
-    isShowcase?: boolean;
-    language?: LanguageList;
-    logo_url?: null | string;
-    marketingNotifications?: MarketingNotifications;
-    metro?: Metro;
-    min_booking_time?: number | null;
-    /**
-     * Список телефонов бизнеса
-     */
-    mobile?: FaxElement[];
-    /**
-     * Название бизнеса
-     */
-    name?: string;
-    networkID?: number | null;
-    newboEnabledFor?: string[];
-    paymentMethods?: PaymentMethods;
-    /**
-     * Список телефонов бизнеса
-     */
-    phone?: FaxElement[];
-    phone_mask?: null | string;
-    pricingType?: PricingType;
-    revisionVersion?: number;
-    schedulerTick?: number;
-    /**
-     * Короткое название филиала
-     */
-    shortName?: null | string;
-    showAppointmentColor?: boolean;
-    showAppointmentTooltip?: boolean;
-    /**
-     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
-     * витрины
-     */
-    showcaseBusinessData?: ShowcaseBusinessDatum[];
-    /**
-     * идентификаторы витрин, в которых участвует данный бизнес
-     */
-    showcases?: ShowcaseElement[];
-    showResourceWorkStatistics?: boolean;
-    showWorkerProfession?: boolean;
-    skipBilling?: boolean;
-    smsDuplicateFilter?: SmsDuplicateFilter;
-    social_network?: SocialNetworkSchema[];
-    timetable?: Timetable;
-    timezone?: null | string;
-    verticalTranslation?: VerticalTranslation;
-    website?: null | string;
-}
-/**
- * Доступ имеют только пользователи с правами resource или admin
- */
-export interface ИнформацияОПрофилеРаботника {
-    /**
-     * тип доступа работника в систему через его учётную запись
-     */
-    accessType: AccessType;
-    /**
-     * e-mail профиля работника
-     */
-    email: string;
-    /**
-     * идентификатор профиля работника уникальный во всей системе
-     */
-    profileID: string;
-    /**
-     * идентификатор работника
-     */
-    userID: string;
-}
-/**
- * тип доступа работника в систему через его учётную запись
- */
-export declare enum AccessType {
-    None = "NONE",
-    WorkerExtended = "WORKER_EXTENDED",
-    WorkerSimple = "WORKER_SIMPLE"
-}
-export declare enum ResourceStatus {
-    Active = "ACTIVE",
-    Inactive = "INACTIVE"
-}
-export interface ResourceTaxonomyChildren {
-    /**
-     * true - детская услуга; false - взрослая услуга
-     */
-    children: boolean;
-    /**
-     * идентификатор услуги, для которой установлено свойство
-     */
-    taxonomyID: string;
-}
-export interface ResourceTaxonomyLevel {
-    /**
-     * идентификатор услуги, для которой установлено уровень скорости
-     */
-    id: string;
-    /**
-     * уровень скорости
-     */
-    level: number;
-}
-export interface TelemedDataObject {
-    active?: boolean;
-    id?: string;
 }
 export interface InfoTaxonomy {
     active?: boolean;

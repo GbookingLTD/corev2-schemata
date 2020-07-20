@@ -938,7 +938,14 @@
             }
         },
         "taxonomy": {
-            "$ref": "#/definitions/AppointmentTaxonomy"
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/AppointmentTaxonomy"
+                },
+                {
+                    "$ref": "./resource.schema.json"
+                }
+            ]
         },
         "additionalTaxonomies": {
             "type": "array",
@@ -966,7 +973,14 @@
             }
         },
         "resource": {
-            "$ref": "#/definitions/AppointmentResource"
+            "oneOf": [
+                {
+                    "$ref": "#/definitions/AppointmentResource"
+                },
+                {
+                    "$ref": "./resource.schema.json"
+                }
+            ]
         },
         "business": {
             "type": "object",

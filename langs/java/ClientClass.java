@@ -60,7 +60,7 @@ public class ClientClass {
     private ResourceStatus status;
     private String surname;
     private String taxiPark;
-    private TaxiParkMemberCountUnion taxiParkMemberCount;
+    private OrderWeight taxiParkMemberCount;
     private String twoFAUserID;
     private String updated;
     private String workPlace;
@@ -326,9 +326,9 @@ public class ClientClass {
     public void setTaxiPark(String value) { this.taxiPark = value; }
 
     @JsonProperty("taxiParkMemberCount")
-    public TaxiParkMemberCountUnion getTaxiParkMemberCount() { return taxiParkMemberCount; }
+    public OrderWeight getTaxiParkMemberCount() { return taxiParkMemberCount; }
     @JsonProperty("taxiParkMemberCount")
-    public void setTaxiParkMemberCount(TaxiParkMemberCountUnion value) { this.taxiParkMemberCount = value; }
+    public void setTaxiParkMemberCount(OrderWeight value) { this.taxiParkMemberCount = value; }
 
     @JsonProperty("twoFAUserID")
     public String getTwoFAUserID() { return twoFAUserID; }

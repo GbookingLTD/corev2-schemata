@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 public class AppointmentGetAppointmentsByUserRequestParams {
     private IndigoBusiness business;
     private TentacledExtraFilters extraFilters;
+    private Boolean fillBusinessData;
     private TentacledFilter filter;
     private TentacledNetwork network;
     private double page;
@@ -20,6 +21,11 @@ public class AppointmentGetAppointmentsByUserRequestParams {
     public TentacledExtraFilters getExtraFilters() { return extraFilters; }
     @JsonProperty("extraFilters")
     public void setExtraFilters(TentacledExtraFilters value) { this.extraFilters = value; }
+
+    @JsonProperty("fill_business_data")
+    public Boolean getFillBusinessData() { return fillBusinessData; }
+    @JsonProperty("fill_business_data")
+    public void setFillBusinessData(Boolean value) { this.fillBusinessData = value; }
 
     @JsonProperty("filter")
     public TentacledFilter getFilter() { return filter; }

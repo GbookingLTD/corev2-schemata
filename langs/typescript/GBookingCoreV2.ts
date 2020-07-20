@@ -481,7 +481,7 @@ export interface Appointment {
     showcase:                       AppointmentShowcase;
     socialToken?:                   string;
     source:                         string;
-    taxonomy:                       AppointmentTaxonomy;
+    taxonomy:                       TaxonomyClass;
     /**
      * Данные для телемед конференции
      */
@@ -838,21 +838,606 @@ export interface RemovedClientsDatum {
     status?:                 AppointmentStatus;
 }
 
+/**
+ * Данные о работнике бизнеса
+ */
 export interface AppointmentResource {
-    extraID?:    null | string;
-    id:          string;
+    extraID?: null | string;
+    /**
+     * внутренний идентификатор работника; уникальный во всей системе GBooking
+     */
+    id: string;
+    /**
+     * отчество работника
+     */
     middleName?: string;
-    name:        string;
-    surname:     string;
+    /**
+     * имя работника
+     */
+    name: string;
+    /**
+     * фамилия и отчество работника
+     */
+    surname: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    additionalExtraId?: string[];
+    badIconResolution?: boolean;
+    /**
+     * Количество записей, которые может принимать работник единовременно
+     */
+    capacity?: number;
+    /**
+     * цвет колонки с работником
+     */
+    color?:  string;
+    degree?: string;
+    /**
+     * идентификатор отделения, к которому привязан работник
+     */
+    departmentId?: string;
+    /**
+     * краткое описание работника
+     */
+    description?:       string;
+    displayInSchedule?: boolean;
+    /**
+     * отображать ли данного работника на виджете или любом другом клиенте
+     */
+    displayInWidget?: boolean;
+    /**
+     * e-mail работника
+     */
+    email?: string;
+    /**
+     * включена ли отправка e-mail уведомлений для данного работника
+     */
+    emailEnabled?:     boolean;
+    evenOddTimetable?: EvenOddTimetable;
+    exceptions?:       any[];
+    experience?:       Date;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraDescription?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraId?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraLink?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraMediaId?: string;
+    /**
+     * url изображения работника; Если указан относительный путь, то используйте
+     * http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+     * WidgetConfiguration.defaultWorkerImgUrl)
+     */
+    icon_url?: null | string;
+    image?:    string;
+    lastSU?:   Date;
+    /**
+     * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+     */
+    level?: number;
+    /**
+     * не используется
+     */
+    loaned?: boolean;
+    /**
+     * не используется
+     */
+    loanedFrom?: string;
+    /**
+     * не используется
+     */
+    loanedTo?:      string;
+    location?:      ResourceLocation;
+    manualChanges?: boolean;
+    /**
+     * внутреннее название работника в Бекофис
+     */
+    nickname?: string;
+    /**
+     * индекс сортировки работника
+     */
+    order?: number;
+    /**
+     * вес работника, в зависимости от указанного способа сортировки
+     */
+    orderWeight?: OrderWeight;
+    /**
+     * (только в витрине) объект с данными бизнеса-филиала
+     */
+    origin_general_info?: Info;
+    /**
+     * (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+     */
+    originBusinessID?: string;
+    /**
+     * (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+     * работник
+     */
+    originTaxonomies?: string[];
+    /**
+     * особый навык
+     */
+    perk?:  string;
+    phone?: FaxElement[];
+    /**
+     * информация о профессии работника, используется в Бекофис
+     */
+    profession?: string;
+    profile?:    ИнформацияОПрофилеРаботника;
+    /**
+     * Рейтинг работника
+     */
+    rating?:             number;
+    readonlyTaxonomies?: string[];
+    /**
+     * Версия изменений документа
+     */
+    revisionVersion?: number;
+    scheduleIsEmpty?: boolean;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    siteId?: string;
+    /**
+     * включена ли отправка смс уведомлений для данного работника
+     */
+    smsEnabled?: boolean;
+    status?:     ResourceStatus;
+    /**
+     * массив идентификаторов услуг, которые выполняет работник
+     */
+    taxonomies?: string[];
+    /**
+     * массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+     * оба или не указаны вовсе для услуги)
+     */
+    taxonomyChildren?: ResourceTaxonomyChildren[];
+    /**
+     * массив уровня скорости выполнения услуги (см так же Resource level)
+     */
+    taxonomyLevels?: ResourceTaxonomyLevel[];
+    telemedData?:    TelemedDataObject;
+    timetable?:      Timetable;
+    userData?:       { [key: string]: any };
+    /**
+     * рабочее место, которое занимает работник
+     */
+    workPlace?: string;
+}
+
+export interface EvenOddTimetable {
+    /**
+     * расписание для чётных дней
+     */
+    even: TimeFrame[];
+    /**
+     * расписание для нечётных дней
+     */
+    odd: TimeFrame[];
+    /**
+     * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+     * (понедельник считается нечётным)
+     */
+    startPeriod: StartPeriod;
+}
+
+export interface TimeFrame {
+    capacity?: number;
+    /**
+     * смещение в минутах от начала дня
+     */
+    end:      number;
+    endDate?: TimeFrameDate;
+    extraId?: string;
+    /**
+     * уникальный идентификатор временного слота
+     */
+    id?:        string;
+    resources?: string[];
+    roomID?:    string;
+    /**
+     * смещение в минутах от начала дня
+     */
+    start:      number;
+    startDate?: TimeFrameDate;
+}
+
+export type TimeFrameDate = Date | number;
+
+/**
+ * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
+ * (понедельник считается нечётным)
+ */
+export enum StartPeriod {
+    Month = "month",
+    Week = "week",
+}
+
+export interface ResourceLocation {
+    latitude?:  number;
+    longitude?: number;
+    /**
+     * время последнего обновления координат
+     */
+    time?: string;
+}
+
+/**
+ * вес работника, в зависимости от указанного способа сортировки
+ */
+export type OrderWeight = number | null | string;
+
+/**
+ * (только в витрине) объект с данными бизнеса-филиала
+ *
+ * Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
+ */
+export interface Info {
+    accepted_currency?: CurrencyList[];
+    additional_info?:   null | string;
+    additionalFields?:  AdditionalFields[];
+    /**
+     * Адреса компании или филиала
+     */
+    address?:                AddressSchema[];
+    align_min_booking_time?: boolean | null;
+    autoAcceptAppointment?:  boolean;
+    /**
+     * если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
+     */
+    businessShowcaseAliases?: BusinessShowcaseAlias[];
+    contactName?:             null | string;
+    date_joined?:             Date;
+    description?:             string;
+    /**
+     * Список e-mail адресов компании или филиала
+     */
+    email?:                  string;
+    eventEditorMinutesTick?: number;
+    fax?:                    FaxElement[];
+    images?:                 string[];
+    instant_messaging?:      { [key: string]: any }[];
+    /**
+     * является ли данный бизнес витриной
+     */
+    isShowcase?:             boolean;
+    language?:               LanguageList;
+    logo_url?:               null | string;
+    marketingNotifications?: MarketingNotifications;
+    metro?:                  Metro;
+    min_booking_time?:       number | null;
+    /**
+     * Список телефонов бизнеса
+     */
+    mobile?: FaxElement[];
+    /**
+     * Название бизнеса
+     */
+    name?:            string;
+    networkID?:       number | null;
+    newboEnabledFor?: string[];
+    paymentMethods?:  PaymentMethods;
+    /**
+     * Список телефонов бизнеса
+     */
+    phone?:           FaxElement[];
+    phone_mask?:      null | string;
+    pricingType?:     PricingType;
+    revisionVersion?: number;
+    schedulerTick?:   number;
+    /**
+     * Короткое название филиала
+     */
+    shortName?:              null | string;
+    showAppointmentColor?:   boolean;
+    showAppointmentTooltip?: boolean;
+    /**
+     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
+     * витрины
+     */
+    showcaseBusinessData?: ShowcaseBusinessDatum[];
+    /**
+     * идентификаторы витрин, в которых участвует данный бизнес
+     */
+    showcases?:                  ShowcaseElement[];
+    showResourceWorkStatistics?: boolean;
+    showWorkerProfession?:       boolean;
+    skipBilling?:                boolean;
+    smsDuplicateFilter?:         SmsDuplicateFilter;
+    social_network?:             SocialNetworkSchema[];
+    timetable?:                  Timetable;
+    timezone?:                   null | string;
+    verticalTranslation?:        VerticalTranslation;
+    website?:                    null | string;
+}
+
+export interface AdditionalFields {
+    name:           string;
+    requiredField?: boolean;
+    shortName:      string;
+    type:           AdditionalFieldType;
+    value?:         string;
+}
+
+export interface AddressSchema {
+    address?:             string;
+    address_add?:         string;
+    admin_area?:          string;
+    admin_area_type?:     string;
+    building?:            string;
+    corps?:               string;
+    country:              Country;
+    group?:               string;
+    house_add?:           string;
+    kilometer?:           string;
+    latitude?:            string;
+    locality?:            string;
+    locality_type?:       string;
+    longitude?:           string;
+    metroStations?:       FullAddressMetroStation[];
+    number?:              string;
+    office?:              string;
+    possesion?:           string;
+    street?:              string;
+    street_type?:         string;
+    sub_admin_area?:      string;
+    sub_admin_area_type?: string;
+    sub_locality?:        string;
+    sub_locality_type?:   string;
+    way?:                 string;
+    zip_code?:            string;
+}
+
+export enum Country {
+    Am = "AM",
+    Blr = "BLR",
+    Ch = "CH",
+    De = "DE",
+    Empty = "_",
+    Es = "ES",
+    Fi = "FI",
+    Fr = "FR",
+    Ge = "GE",
+    Hu = "HU",
+    Il = "IL",
+    Kz = "KZ",
+    Li = "LI",
+    Lt = "LT",
+    Lv = "LV",
+    Ru = "RU",
+    Ua = "UA",
+    Uk = "UK",
+    Us = "US",
+    Uz = "UZ",
+}
+
+export interface FullAddressMetroStation {
+    _id?:         string;
+    description?: string;
+    name:         string;
+}
+
+export interface BusinessShowcaseAlias {
+    internalID?: string;
+}
+
+export interface FaxElement {
+    area_code:    string;
+    country_code: string;
+    number:       string;
+}
+
+export enum LanguageList {
+    AmAm = "am-am",
+    DeDe = "de-de",
+    EeEe = "ee-ee",
+    EnUs = "en-us",
+    EsEs = "es-es",
+    FiFi = "fi-fi",
+    FrFr = "fr-fr",
+    GeGe = "ge-ge",
+    HeIl = "he-il",
+    HuHu = "hu-hu",
+    LtLt = "lt-lt",
+    LvLv = "lv-lv",
+    RuRu = "ru-ru",
+    UzUz = "uz-uz",
+    ZhCn = "zh-cn",
+}
+
+export interface MarketingNotifications {
+    accepted:        boolean;
+    active:          boolean;
+    useSmsAlphaName: boolean;
+}
+
+export interface Metro {
+    color?:    string;
+    distance?: number;
+    name?:     string;
+}
+
+export enum PaymentMethods {
+    Amex = "Amex",
+    Mastercard = "Mastercard",
+    MoneyBookers = "MoneyBookers",
+    PayPal = "PayPal",
+    Visa = "Visa",
+}
+
+export enum PricingType {
+    Default = "DEFAULT",
+    MasterTopmaster = "MASTER_TOPMASTER",
+}
+
+export interface ShowcaseBusinessDatum {
+    /**
+     * Адреса компании или филиала
+     */
+    address?: AddressSchema[];
+    /**
+     * Список e-mail адресов компании или филиала
+     */
+    email?:      string;
+    internalID?: string;
+    language?:   LanguageList;
+    /**
+     * Название бизнеса
+     */
+    name?: string;
+    /**
+     * Список телефонов бизнеса
+     */
+    phone?: FaxElement[];
+    /**
+     * Список видов приема филиала
+     */
+    receptionTypes?: string[];
+    timezone?:       string;
+}
+
+export interface ShowcaseElement {
+    baseBusinessID?: string;
+}
+
+export interface SmsDuplicateFilter {
+    active?: boolean;
+}
+
+export interface SocialNetworkSchema {
+    handle: string;
+    /**
+     * network id
+     */
+    id:             string;
+    social_network: SocialNetwork;
+    url:            string;
+}
+
+export enum SocialNetwork {
+    Facebook = "Facebook",
+    GBooking = "GBooking",
+    Google = "Google",
+    LinkedIn = "LinkedIn",
+    Mailru = "Mailru",
+    Odnoklassniki = "Odnoklassniki",
+    Twitter = "Twitter",
+    VKontakte = "VKontakte",
+    Yahoo = "Yahoo",
+    Yandex = "Yandex",
+}
+
+/**
+ * таблица регулярного недельного расписания
+ */
+export interface Timetable {
+    /**
+     * установлено ли расписание для сущности
+     */
+    active?: boolean;
+    week?:   Week;
+}
+
+export interface Week {
+    fri: TimeFrame[];
+    mon: TimeFrame[];
+    sat: TimeFrame[];
+    sun: TimeFrame[];
+    thu: TimeFrame[];
+    tue: TimeFrame[];
+    wed: TimeFrame[];
+}
+
+export enum VerticalTranslation {
+    Beauty = "BEAUTY",
+    Fitness = "FITNESS",
+    Generic = "GENERIC",
+    Medical = "MEDICAL",
+    None = "NONE",
+    Sport = "SPORT",
+    Yoga = "YOGA",
+}
+
+/**
+ * Доступ имеют только пользователи с правами resource или admin
+ */
+export interface ИнформацияОПрофилеРаботника {
+    /**
+     * тип доступа работника в систему через его учётную запись
+     */
+    accessType: AccessType;
+    /**
+     * e-mail профиля работника
+     */
+    email: string;
+    /**
+     * идентификатор профиля работника уникальный во всей системе
+     */
+    profileID: string;
+    /**
+     * идентификатор работника
+     */
+    userID: string;
+}
+
+/**
+ * тип доступа работника в систему через его учётную запись
+ */
+export enum AccessType {
+    None = "NONE",
+    WorkerExtended = "WORKER_EXTENDED",
+    WorkerSimple = "WORKER_SIMPLE",
+}
+
+export enum ResourceStatus {
+    Active = "ACTIVE",
+    Inactive = "INACTIVE",
+}
+
+export interface ResourceTaxonomyChildren {
+    /**
+     * true - детская услуга; false - взрослая услуга
+     */
+    children: boolean;
+    /**
+     * идентификатор услуги, для которой установлено свойство
+     */
+    taxonomyID: string;
+}
+
+export interface ResourceTaxonomyLevel {
+    /**
+     * идентификатор услуги, для которой установлено уровень скорости
+     */
+    id: string;
+    /**
+     * уровень скорости
+     */
+    level: number;
+}
+
+export interface TelemedDataObject {
+    active?: boolean;
+    id?:     string;
 }
 
 export interface Review {
-    business: TaxonomyClass;
-    taxonomy: TaxonomyClass;
-    worker:   TaxonomyClass;
+    business: WorkerClass;
+    taxonomy: WorkerClass;
+    worker:   WorkerClass;
 }
 
-export interface TaxonomyClass {
+export interface WorkerClass {
     comment?: string;
     rate?:    number;
 }
@@ -863,6 +1448,183 @@ export interface Room {
 
 export interface AppointmentShowcase {
     businessID?: string;
+}
+
+/**
+ * Данные о работнике бизнеса
+ */
+export interface TaxonomyClass {
+    alias?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraId?: string;
+    /**
+     * внутренний идентификатор работника; уникальный во всей системе GBooking
+     */
+    id: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    additionalExtraId?: string[];
+    badIconResolution?: boolean;
+    /**
+     * Количество записей, которые может принимать работник единовременно
+     */
+    capacity?: number;
+    /**
+     * цвет колонки с работником
+     */
+    color?:  string;
+    degree?: string;
+    /**
+     * идентификатор отделения, к которому привязан работник
+     */
+    departmentId?: string;
+    /**
+     * краткое описание работника
+     */
+    description?:       string;
+    displayInSchedule?: boolean;
+    /**
+     * отображать ли данного работника на виджете или любом другом клиенте
+     */
+    displayInWidget?: boolean;
+    /**
+     * e-mail работника
+     */
+    email?: string;
+    /**
+     * включена ли отправка e-mail уведомлений для данного работника
+     */
+    emailEnabled?:     boolean;
+    evenOddTimetable?: EvenOddTimetable;
+    exceptions?:       any[];
+    experience?:       Date;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraDescription?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraLink?: string;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    extraMediaId?: string;
+    /**
+     * url изображения работника; Если указан относительный путь, то используйте
+     * http://cdn.gbooking.ru (см. так же Business WidgetConfiguration.useDefaultWorkerImg и
+     * WidgetConfiguration.defaultWorkerImgUrl)
+     */
+    icon_url?: null | string;
+    image?:    string;
+    lastSU?:   Date;
+    /**
+     * уровень скорости выполнения услуги по-умолчанию (если не найдено в taxonomyLevels)
+     */
+    level?: number;
+    /**
+     * не используется
+     */
+    loaned?: boolean;
+    /**
+     * не используется
+     */
+    loanedFrom?: string;
+    /**
+     * не используется
+     */
+    loanedTo?:      string;
+    location?:      ResourceLocation;
+    manualChanges?: boolean;
+    /**
+     * отчество работника
+     */
+    middleName?: string;
+    /**
+     * имя работника
+     */
+    name?: string;
+    /**
+     * внутреннее название работника в Бекофис
+     */
+    nickname?: string;
+    /**
+     * индекс сортировки работника
+     */
+    order?: number;
+    /**
+     * вес работника, в зависимости от указанного способа сортировки
+     */
+    orderWeight?: OrderWeight;
+    /**
+     * (только в витрине) объект с данными бизнеса-филиала
+     */
+    origin_general_info?: Info;
+    /**
+     * (только в витрине) идентификатор бизнеса-филиала, откуда был взят работник
+     */
+    originBusinessID?: string;
+    /**
+     * (только в витрине) список идентификаторов услуг на бизнесе-филиале, которые выполняет
+     * работник
+     */
+    originTaxonomies?: string[];
+    /**
+     * особый навык
+     */
+    perk?:  string;
+    phone?: FaxElement[];
+    /**
+     * информация о профессии работника, используется в Бекофис
+     */
+    profession?: string;
+    profile?:    ИнформацияОПрофилеРаботника;
+    /**
+     * Рейтинг работника
+     */
+    rating?:             number;
+    readonlyTaxonomies?: string[];
+    /**
+     * Версия изменений документа
+     */
+    revisionVersion?: number;
+    scheduleIsEmpty?: boolean;
+    /**
+     * информация из внешней информационной системы как есть (при интеграции)
+     */
+    siteId?: string;
+    /**
+     * включена ли отправка смс уведомлений для данного работника
+     */
+    smsEnabled?: boolean;
+    status?:     ResourceStatus;
+    /**
+     * фамилия и отчество работника
+     */
+    surname?: string;
+    /**
+     * массив идентификаторов услуг, которые выполняет работник
+     */
+    taxonomies?: string[];
+    /**
+     * массив свойств выполнения услуги как детской, как взрослой или как общей (если указаны
+     * оба или не указаны вовсе для услуги)
+     */
+    taxonomyChildren?: ResourceTaxonomyChildren[];
+    /**
+     * массив уровня скорости выполнения услуги (см так же Resource level)
+     */
+    taxonomyLevels?: ResourceTaxonomyLevel[];
+    telemedData?:    TelemedDataObject;
+    timetable?:      Timetable;
+    userData?:       { [key: string]: any };
+    /**
+     * рабочее место, которое занимает работник
+     */
+    workPlace?: string;
 }
 
 /**
@@ -1218,12 +1980,13 @@ export interface FluffySort {
 }
 
 export interface FluffyFilter {
-    created?:     FluffyCreated;
-    end?:         Date;
-    services?:    string[];
-    skipUpdated?: boolean;
-    start?:       Date;
-    workers?:     string[];
+    appointmentId?: string;
+    created?:       FluffyCreated;
+    end?:           Date;
+    services?:      string[];
+    skipUpdated?:   boolean;
+    start?:         Date;
+    workers?:       string[];
 }
 
 export interface FluffyCreated {
@@ -1312,6 +2075,7 @@ export interface AppointmentGetAppointmentsByUserRequest {
 export interface AppointmentGetAppointmentsByUserRequestParams {
     business?:              IndigoBusiness;
     extraFilters?:          TentacledExtraFilters;
+    fill_business_data?:    boolean;
     filter?:                TentacledFilter;
     network?:               TentacledNetwork;
     page:                   number;
@@ -1882,6 +2646,8 @@ export interface InfoDepartment {
 }
 
 /**
+ * (только в витрине) объект с данными бизнеса-филиала
+ *
  * Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
  */
 export interface BusinessInfo {
@@ -1961,236 +2727,6 @@ export interface BusinessInfo {
     timezone?:                   null | string;
     verticalTranslation?:        VerticalTranslation;
     website?:                    null | string;
-}
-
-export interface AdditionalFields {
-    name:           string;
-    requiredField?: boolean;
-    shortName:      string;
-    type:           AdditionalFieldType;
-    value?:         string;
-}
-
-export interface AddressSchema {
-    address?:             string;
-    address_add?:         string;
-    admin_area?:          string;
-    admin_area_type?:     string;
-    building?:            string;
-    corps?:               string;
-    country:              Country;
-    group?:               string;
-    house_add?:           string;
-    kilometer?:           string;
-    latitude?:            string;
-    locality?:            string;
-    locality_type?:       string;
-    longitude?:           string;
-    metroStations?:       FullAddressMetroStation[];
-    number?:              string;
-    office?:              string;
-    possesion?:           string;
-    street?:              string;
-    street_type?:         string;
-    sub_admin_area?:      string;
-    sub_admin_area_type?: string;
-    sub_locality?:        string;
-    sub_locality_type?:   string;
-    way?:                 string;
-    zip_code?:            string;
-}
-
-export enum Country {
-    Am = "AM",
-    Blr = "BLR",
-    Ch = "CH",
-    De = "DE",
-    Empty = "_",
-    Es = "ES",
-    Fi = "FI",
-    Fr = "FR",
-    Ge = "GE",
-    Hu = "HU",
-    Il = "IL",
-    Kz = "KZ",
-    Li = "LI",
-    Lt = "LT",
-    Lv = "LV",
-    Ru = "RU",
-    Ua = "UA",
-    Uk = "UK",
-    Us = "US",
-    Uz = "UZ",
-}
-
-export interface FullAddressMetroStation {
-    _id?:         string;
-    description?: string;
-    name:         string;
-}
-
-export interface BusinessShowcaseAlias {
-    internalID?: string;
-}
-
-export interface FaxElement {
-    area_code:    string;
-    country_code: string;
-    number:       string;
-}
-
-export enum LanguageList {
-    AmAm = "am-am",
-    DeDe = "de-de",
-    EeEe = "ee-ee",
-    EnUs = "en-us",
-    EsEs = "es-es",
-    FiFi = "fi-fi",
-    FrFr = "fr-fr",
-    GeGe = "ge-ge",
-    HeIl = "he-il",
-    HuHu = "hu-hu",
-    LtLt = "lt-lt",
-    LvLv = "lv-lv",
-    RuRu = "ru-ru",
-    UzUz = "uz-uz",
-    ZhCn = "zh-cn",
-}
-
-export interface MarketingNotifications {
-    accepted:        boolean;
-    active:          boolean;
-    useSmsAlphaName: boolean;
-}
-
-export interface Metro {
-    color?:    string;
-    distance?: number;
-    name?:     string;
-}
-
-export enum PaymentMethods {
-    Amex = "Amex",
-    Mastercard = "Mastercard",
-    MoneyBookers = "MoneyBookers",
-    PayPal = "PayPal",
-    Visa = "Visa",
-}
-
-export enum PricingType {
-    Default = "DEFAULT",
-    MasterTopmaster = "MASTER_TOPMASTER",
-}
-
-export interface ShowcaseBusinessDatum {
-    /**
-     * Адреса компании или филиала
-     */
-    address?: AddressSchema[];
-    /**
-     * Список e-mail адресов компании или филиала
-     */
-    email?:      string;
-    internalID?: string;
-    language?:   LanguageList;
-    /**
-     * Название бизнеса
-     */
-    name?: string;
-    /**
-     * Список телефонов бизнеса
-     */
-    phone?: FaxElement[];
-    /**
-     * Список видов приема филиала
-     */
-    receptionTypes?: string[];
-    timezone?:       string;
-}
-
-export interface ShowcaseElement {
-    baseBusinessID?: string;
-}
-
-export interface SmsDuplicateFilter {
-    active?: boolean;
-}
-
-export interface SocialNetworkSchema {
-    handle: string;
-    /**
-     * network id
-     */
-    id:             string;
-    social_network: SocialNetwork;
-    url:            string;
-}
-
-export enum SocialNetwork {
-    Facebook = "Facebook",
-    GBooking = "GBooking",
-    Google = "Google",
-    LinkedIn = "LinkedIn",
-    Mailru = "Mailru",
-    Odnoklassniki = "Odnoklassniki",
-    Twitter = "Twitter",
-    VKontakte = "VKontakte",
-    Yahoo = "Yahoo",
-    Yandex = "Yandex",
-}
-
-/**
- * таблица регулярного недельного расписания
- */
-export interface Timetable {
-    /**
-     * установлено ли расписание для сущности
-     */
-    active?: boolean;
-    week?:   Week;
-}
-
-export interface Week {
-    fri: TimeFrame[];
-    mon: TimeFrame[];
-    sat: TimeFrame[];
-    sun: TimeFrame[];
-    thu: TimeFrame[];
-    tue: TimeFrame[];
-    wed: TimeFrame[];
-}
-
-export interface TimeFrame {
-    capacity?: number;
-    /**
-     * смещение в минутах от начала дня
-     */
-    end:      number;
-    endDate?: TimeFrameDate;
-    extraId?: string;
-    /**
-     * уникальный идентификатор временного слота
-     */
-    id?:        string;
-    resources?: string[];
-    roomID?:    string;
-    /**
-     * смещение в минутах от начала дня
-     */
-    start:      number;
-    startDate?: TimeFrameDate;
-}
-
-export type TimeFrameDate = Date | number;
-
-export enum VerticalTranslation {
-    Beauty = "BEAUTY",
-    Fitness = "FITNESS",
-    Generic = "GENERIC",
-    Medical = "MEDICAL",
-    None = "NONE",
-    Sport = "SPORT",
-    Yoga = "YOGA",
 }
 
 export enum Group {
@@ -2386,192 +2922,6 @@ export interface Resource {
      * рабочее место, которое занимает работник
      */
     workPlace?: string;
-}
-
-export interface EvenOddTimetable {
-    /**
-     * расписание для чётных дней
-     */
-    even: TimeFrame[];
-    /**
-     * расписание для нечётных дней
-     */
-    odd: TimeFrame[];
-    /**
-     * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
-     * (понедельник считается нечётным)
-     */
-    startPeriod: StartPeriod;
-}
-
-/**
- * month - по дням месяца (1-е число каждого месяца - нечётно), week - по дням недели
- * (понедельник считается нечётным)
- */
-export enum StartPeriod {
-    Month = "month",
-    Week = "week",
-}
-
-export interface ResourceLocation {
-    latitude?:  number;
-    longitude?: number;
-    /**
-     * время последнего обновления координат
-     */
-    time?: string;
-}
-
-/**
- * вес работника, в зависимости от указанного способа сортировки
- */
-export type OrderWeight = number | null | string;
-
-/**
- * (только в витрине) объект с данными бизнеса-филиала
- *
- * Содержит детальную информацию о бизнесе — название, адрес, график работы и другое
- */
-export interface Info {
-    accepted_currency?: CurrencyList[];
-    additional_info?:   null | string;
-    additionalFields?:  AdditionalFields[];
-    /**
-     * Адреса компании или филиала
-     */
-    address?:                AddressSchema[];
-    align_min_booking_time?: boolean | null;
-    autoAcceptAppointment?:  boolean;
-    /**
-     * если данный бизнес является витриной, идентификаторы бизнесов, которые входят в витрину
-     */
-    businessShowcaseAliases?: BusinessShowcaseAlias[];
-    contactName?:             null | string;
-    date_joined?:             Date;
-    description?:             string;
-    /**
-     * Список e-mail адресов компании или филиала
-     */
-    email?:                  string;
-    eventEditorMinutesTick?: number;
-    fax?:                    FaxElement[];
-    images?:                 string[];
-    instant_messaging?:      { [key: string]: any }[];
-    /**
-     * является ли данный бизнес витриной
-     */
-    isShowcase?:             boolean;
-    language?:               LanguageList;
-    logo_url?:               null | string;
-    marketingNotifications?: MarketingNotifications;
-    metro?:                  Metro;
-    min_booking_time?:       number | null;
-    /**
-     * Список телефонов бизнеса
-     */
-    mobile?: FaxElement[];
-    /**
-     * Название бизнеса
-     */
-    name?:            string;
-    networkID?:       number | null;
-    newboEnabledFor?: string[];
-    paymentMethods?:  PaymentMethods;
-    /**
-     * Список телефонов бизнеса
-     */
-    phone?:           FaxElement[];
-    phone_mask?:      null | string;
-    pricingType?:     PricingType;
-    revisionVersion?: number;
-    schedulerTick?:   number;
-    /**
-     * Короткое название филиала
-     */
-    shortName?:              null | string;
-    showAppointmentColor?:   boolean;
-    showAppointmentTooltip?: boolean;
-    /**
-     * если данный бизнес является витриной, здесь будет содержаться информация по бизнесам из
-     * витрины
-     */
-    showcaseBusinessData?: ShowcaseBusinessDatum[];
-    /**
-     * идентификаторы витрин, в которых участвует данный бизнес
-     */
-    showcases?:                  ShowcaseElement[];
-    showResourceWorkStatistics?: boolean;
-    showWorkerProfession?:       boolean;
-    skipBilling?:                boolean;
-    smsDuplicateFilter?:         SmsDuplicateFilter;
-    social_network?:             SocialNetworkSchema[];
-    timetable?:                  Timetable;
-    timezone?:                   null | string;
-    verticalTranslation?:        VerticalTranslation;
-    website?:                    null | string;
-}
-
-/**
- * Доступ имеют только пользователи с правами resource или admin
- */
-export interface ИнформацияОПрофилеРаботника {
-    /**
-     * тип доступа работника в систему через его учётную запись
-     */
-    accessType: AccessType;
-    /**
-     * e-mail профиля работника
-     */
-    email: string;
-    /**
-     * идентификатор профиля работника уникальный во всей системе
-     */
-    profileID: string;
-    /**
-     * идентификатор работника
-     */
-    userID: string;
-}
-
-/**
- * тип доступа работника в систему через его учётную запись
- */
-export enum AccessType {
-    None = "NONE",
-    WorkerExtended = "WORKER_EXTENDED",
-    WorkerSimple = "WORKER_SIMPLE",
-}
-
-export enum ResourceStatus {
-    Active = "ACTIVE",
-    Inactive = "INACTIVE",
-}
-
-export interface ResourceTaxonomyChildren {
-    /**
-     * true - детская услуга; false - взрослая услуга
-     */
-    children: boolean;
-    /**
-     * идентификатор услуги, для которой установлено свойство
-     */
-    taxonomyID: string;
-}
-
-export interface ResourceTaxonomyLevel {
-    /**
-     * идентификатор услуги, для которой установлено уровень скорости
-     */
-    id: string;
-    /**
-     * уровень скорости
-     */
-    level: number;
-}
-
-export interface TelemedDataObject {
-    active?: boolean;
-    id?:     string;
 }
 
 export interface InfoTaxonomy {
@@ -5258,7 +5608,7 @@ const typeMap: any = {
         { json: "showcase", js: "showcase", typ: r("AppointmentShowcase") },
         { json: "socialToken", js: "socialToken", typ: u(undefined, "") },
         { json: "source", js: "source", typ: "" },
-        { json: "taxonomy", js: "taxonomy", typ: r("AppointmentTaxonomy") },
+        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
         { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataClass")) },
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
         { json: "withCoSale", js: "withCoSale", typ: u(undefined, true) },
@@ -5490,13 +5840,243 @@ const typeMap: any = {
         { json: "middleName", js: "middleName", typ: u(undefined, "") },
         { json: "name", js: "name", typ: "" },
         { json: "surname", js: "surname", typ: "" },
+        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
+        { json: "badIconResolution", js: "badIconResolution", typ: u(undefined, true) },
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
+        { json: "evenOddTimetable", js: "evenOddTimetable", typ: u(undefined, r("EvenOddTimetable")) },
+        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
+        { json: "experience", js: "experience", typ: u(undefined, Date) },
+        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
+        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
+        { json: "image", js: "image", typ: u(undefined, "") },
+        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+        { json: "loaned", js: "loaned", typ: u(undefined, true) },
+        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
+        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
+        { json: "location", js: "location", typ: u(undefined, r("ResourceLocation")) },
+        { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
+        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
+        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
+        { json: "perk", js: "perk", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "profession", js: "profession", typ: u(undefined, "") },
+        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
+        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
+        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "siteId", js: "siteId", typ: u(undefined, "") },
+        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
+        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
+        { json: "taxonomyChildren", js: "taxonomyChildren", typ: u(undefined, a(r("ResourceTaxonomyChildren"))) },
+        { json: "taxonomyLevels", js: "taxonomyLevels", typ: u(undefined, a(r("ResourceTaxonomyLevel"))) },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
+        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
+    "EvenOddTimetable": o([
+        { json: "even", js: "even", typ: a(r("TimeFrame")) },
+        { json: "odd", js: "odd", typ: a(r("TimeFrame")) },
+        { json: "startPeriod", js: "startPeriod", typ: r("StartPeriod") },
+    ], "any"),
+    "TimeFrame": o([
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "end", js: "end", typ: 3.14 },
+        { json: "endDate", js: "endDate", typ: u(undefined, u(Date, 3.14)) },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "resources", js: "resources", typ: u(undefined, a("")) },
+        { json: "roomID", js: "roomID", typ: u(undefined, "") },
+        { json: "start", js: "start", typ: 3.14 },
+        { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
+    ], false),
+    "ResourceLocation": o([
+        { json: "latitude", js: "latitude", typ: u(undefined, 3.14) },
+        { json: "longitude", js: "longitude", typ: u(undefined, 3.14) },
+        { json: "time", js: "time", typ: u(undefined, "") },
+    ], "any"),
+    "Info": o([
+        { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
+        { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
+        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(r("AdditionalFields"))) },
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
+        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
+        { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
+        { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
+        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
+        { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "eventEditorMinutesTick", js: "eventEditorMinutesTick", typ: u(undefined, 3.14) },
+        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "images", js: "images", typ: u(undefined, a("")) },
+        { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
+        { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
+        { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
+        { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
+        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
+        { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
+        { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
+        { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
+        { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
+        { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
+        { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
+        { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
+        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
+        { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
+        { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
+        { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
+        { json: "skipBilling", js: "skipBilling", typ: u(undefined, true) },
+        { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
+        { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
+        { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
+        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
+    ], false),
+    "AdditionalFields": o([
+        { json: "name", js: "name", typ: "" },
+        { json: "requiredField", js: "requiredField", typ: u(undefined, true) },
+        { json: "shortName", js: "shortName", typ: "" },
+        { json: "type", js: "type", typ: r("AdditionalFieldType") },
+        { json: "value", js: "value", typ: u(undefined, "") },
+    ], "any"),
+    "AddressSchema": o([
+        { json: "address", js: "address", typ: u(undefined, "") },
+        { json: "address_add", js: "address_add", typ: u(undefined, "") },
+        { json: "admin_area", js: "admin_area", typ: u(undefined, "") },
+        { json: "admin_area_type", js: "admin_area_type", typ: u(undefined, "") },
+        { json: "building", js: "building", typ: u(undefined, "") },
+        { json: "corps", js: "corps", typ: u(undefined, "") },
+        { json: "country", js: "country", typ: r("Country") },
+        { json: "group", js: "group", typ: u(undefined, "") },
+        { json: "house_add", js: "house_add", typ: u(undefined, "") },
+        { json: "kilometer", js: "kilometer", typ: u(undefined, "") },
+        { json: "latitude", js: "latitude", typ: u(undefined, "") },
+        { json: "locality", js: "locality", typ: u(undefined, "") },
+        { json: "locality_type", js: "locality_type", typ: u(undefined, "") },
+        { json: "longitude", js: "longitude", typ: u(undefined, "") },
+        { json: "metroStations", js: "metroStations", typ: u(undefined, a(r("FullAddressMetroStation"))) },
+        { json: "number", js: "number", typ: u(undefined, "") },
+        { json: "office", js: "office", typ: u(undefined, "") },
+        { json: "possesion", js: "possesion", typ: u(undefined, "") },
+        { json: "street", js: "street", typ: u(undefined, "") },
+        { json: "street_type", js: "street_type", typ: u(undefined, "") },
+        { json: "sub_admin_area", js: "sub_admin_area", typ: u(undefined, "") },
+        { json: "sub_admin_area_type", js: "sub_admin_area_type", typ: u(undefined, "") },
+        { json: "sub_locality", js: "sub_locality", typ: u(undefined, "") },
+        { json: "sub_locality_type", js: "sub_locality_type", typ: u(undefined, "") },
+        { json: "way", js: "way", typ: u(undefined, "") },
+        { json: "zip_code", js: "zip_code", typ: u(undefined, "") },
+    ], false),
+    "FullAddressMetroStation": o([
+        { json: "_id", js: "_id", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: "" },
+    ], false),
+    "BusinessShowcaseAlias": o([
+        { json: "internalID", js: "internalID", typ: u(undefined, "") },
+    ], "any"),
+    "FaxElement": o([
+        { json: "area_code", js: "area_code", typ: "" },
+        { json: "country_code", js: "country_code", typ: "" },
+        { json: "number", js: "number", typ: "" },
+    ], false),
+    "MarketingNotifications": o([
+        { json: "accepted", js: "accepted", typ: true },
+        { json: "active", js: "active", typ: true },
+        { json: "useSmsAlphaName", js: "useSmsAlphaName", typ: true },
+    ], false),
+    "Metro": o([
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "distance", js: "distance", typ: u(undefined, 3.14) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+    ], false),
+    "ShowcaseBusinessDatum": o([
+        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "internalID", js: "internalID", typ: u(undefined, "") },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
+        { json: "timezone", js: "timezone", typ: u(undefined, "") },
+    ], "any"),
+    "ShowcaseElement": o([
+        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
+    ], false),
+    "SmsDuplicateFilter": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+    ], false),
+    "SocialNetworkSchema": o([
+        { json: "handle", js: "handle", typ: "" },
+        { json: "id", js: "id", typ: "" },
+        { json: "social_network", js: "social_network", typ: r("SocialNetwork") },
+        { json: "url", js: "url", typ: "" },
+    ], "any"),
+    "Timetable": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "week", js: "week", typ: u(undefined, r("Week")) },
+    ], false),
+    "Week": o([
+        { json: "fri", js: "fri", typ: a(r("TimeFrame")) },
+        { json: "mon", js: "mon", typ: a(r("TimeFrame")) },
+        { json: "sat", js: "sat", typ: a(r("TimeFrame")) },
+        { json: "sun", js: "sun", typ: a(r("TimeFrame")) },
+        { json: "thu", js: "thu", typ: a(r("TimeFrame")) },
+        { json: "tue", js: "tue", typ: a(r("TimeFrame")) },
+        { json: "wed", js: "wed", typ: a(r("TimeFrame")) },
+    ], false),
+    "ИнформацияОПрофилеРаботника": o([
+        { json: "accessType", js: "accessType", typ: r("AccessType") },
+        { json: "email", js: "email", typ: "" },
+        { json: "profileID", js: "profileID", typ: "" },
+        { json: "userID", js: "userID", typ: "" },
+    ], "any"),
+    "ResourceTaxonomyChildren": o([
+        { json: "children", js: "children", typ: true },
+        { json: "taxonomyID", js: "taxonomyID", typ: "" },
+    ], "any"),
+    "ResourceTaxonomyLevel": o([
+        { json: "id", js: "id", typ: "" },
+        { json: "level", js: "level", typ: 3.14 },
+    ], "any"),
+    "TelemedDataObject": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "Review": o([
-        { json: "business", js: "business", typ: r("TaxonomyClass") },
-        { json: "taxonomy", js: "taxonomy", typ: r("TaxonomyClass") },
-        { json: "worker", js: "worker", typ: r("TaxonomyClass") },
+        { json: "business", js: "business", typ: r("WorkerClass") },
+        { json: "taxonomy", js: "taxonomy", typ: r("WorkerClass") },
+        { json: "worker", js: "worker", typ: r("WorkerClass") },
     ], false),
-    "TaxonomyClass": o([
+    "WorkerClass": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "rate", js: "rate", typ: u(undefined, 3.14) },
     ], false),
@@ -5505,6 +6085,64 @@ const typeMap: any = {
     ], false),
     "AppointmentShowcase": o([
         { json: "businessID", js: "businessID", typ: u(undefined, "") },
+    ], false),
+    "TaxonomyClass": o([
+        { json: "alias", js: "alias", typ: u(undefined, "") },
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: "" },
+        { json: "additionalExtraId", js: "additionalExtraId", typ: u(undefined, a("")) },
+        { json: "badIconResolution", js: "badIconResolution", typ: u(undefined, true) },
+        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
+        { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
+        { json: "displayInWidget", js: "displayInWidget", typ: u(undefined, true) },
+        { json: "email", js: "email", typ: u(undefined, "") },
+        { json: "emailEnabled", js: "emailEnabled", typ: u(undefined, true) },
+        { json: "evenOddTimetable", js: "evenOddTimetable", typ: u(undefined, r("EvenOddTimetable")) },
+        { json: "exceptions", js: "exceptions", typ: u(undefined, a("any")) },
+        { json: "experience", js: "experience", typ: u(undefined, Date) },
+        { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
+        { json: "extraLink", js: "extraLink", typ: u(undefined, "") },
+        { json: "extraMediaId", js: "extraMediaId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, u(null, "")) },
+        { json: "image", js: "image", typ: u(undefined, "") },
+        { json: "lastSU", js: "lastSU", typ: u(undefined, Date) },
+        { json: "level", js: "level", typ: u(undefined, 3.14) },
+        { json: "loaned", js: "loaned", typ: u(undefined, true) },
+        { json: "loanedFrom", js: "loanedFrom", typ: u(undefined, "") },
+        { json: "loanedTo", js: "loanedTo", typ: u(undefined, "") },
+        { json: "location", js: "location", typ: u(undefined, r("ResourceLocation")) },
+        { json: "manualChanges", js: "manualChanges", typ: u(undefined, true) },
+        { json: "middleName", js: "middleName", typ: u(undefined, "") },
+        { json: "name", js: "name", typ: u(undefined, "") },
+        { json: "nickname", js: "nickname", typ: u(undefined, "") },
+        { json: "order", js: "order", typ: u(undefined, 3.14) },
+        { json: "orderWeight", js: "orderWeight", typ: u(undefined, u(3.14, null, "")) },
+        { json: "origin_general_info", js: "origin_general_info", typ: u(undefined, r("Info")) },
+        { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, "") },
+        { json: "originTaxonomies", js: "originTaxonomies", typ: u(undefined, a("")) },
+        { json: "perk", js: "perk", typ: u(undefined, "") },
+        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
+        { json: "profession", js: "profession", typ: u(undefined, "") },
+        { json: "profile", js: "profile", typ: u(undefined, r("ИнформацияОПрофилеРаботника")) },
+        { json: "rating", js: "rating", typ: u(undefined, 3.14) },
+        { json: "readonlyTaxonomies", js: "readonlyTaxonomies", typ: u(undefined, a("")) },
+        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "scheduleIsEmpty", js: "scheduleIsEmpty", typ: u(undefined, true) },
+        { json: "siteId", js: "siteId", typ: u(undefined, "") },
+        { json: "smsEnabled", js: "smsEnabled", typ: u(undefined, true) },
+        { json: "status", js: "status", typ: u(undefined, r("ResourceStatus")) },
+        { json: "surname", js: "surname", typ: u(undefined, "") },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a("")) },
+        { json: "taxonomyChildren", js: "taxonomyChildren", typ: u(undefined, a(r("ResourceTaxonomyChildren"))) },
+        { json: "taxonomyLevels", js: "taxonomyLevels", typ: u(undefined, a(r("ResourceTaxonomyLevel"))) },
+        { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
+        { json: "userData", js: "userData", typ: u(undefined, m("any")) },
+        { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
     "TelemedDataClass": o([
         { json: "id", js: "id", typ: u(undefined, "") },
@@ -5677,6 +6315,7 @@ const typeMap: any = {
         { json: "field", js: "field", typ: r("SortField") },
     ], false),
     "FluffyFilter": o([
+        { json: "appointmentId", js: "appointmentId", typ: u(undefined, "") },
         { json: "created", js: "created", typ: u(undefined, r("FluffyCreated")) },
         { json: "end", js: "end", typ: u(undefined, Date) },
         { json: "services", js: "services", typ: u(undefined, a("")) },
@@ -5722,6 +6361,7 @@ const typeMap: any = {
     "AppointmentGetAppointmentsByUserRequestParams": o([
         { json: "business", js: "business", typ: u(undefined, r("IndigoBusiness")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
+        { json: "fill_business_data", js: "fill_business_data", typ: u(undefined, true) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("TentacledNetwork")) },
         { json: "page", js: "page", typ: 3.14 },
@@ -6109,110 +6749,6 @@ const typeMap: any = {
         { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
         { json: "website", js: "website", typ: u(undefined, u(null, "")) },
     ], false),
-    "AdditionalFields": o([
-        { json: "name", js: "name", typ: "" },
-        { json: "requiredField", js: "requiredField", typ: u(undefined, true) },
-        { json: "shortName", js: "shortName", typ: "" },
-        { json: "type", js: "type", typ: r("AdditionalFieldType") },
-        { json: "value", js: "value", typ: u(undefined, "") },
-    ], "any"),
-    "AddressSchema": o([
-        { json: "address", js: "address", typ: u(undefined, "") },
-        { json: "address_add", js: "address_add", typ: u(undefined, "") },
-        { json: "admin_area", js: "admin_area", typ: u(undefined, "") },
-        { json: "admin_area_type", js: "admin_area_type", typ: u(undefined, "") },
-        { json: "building", js: "building", typ: u(undefined, "") },
-        { json: "corps", js: "corps", typ: u(undefined, "") },
-        { json: "country", js: "country", typ: r("Country") },
-        { json: "group", js: "group", typ: u(undefined, "") },
-        { json: "house_add", js: "house_add", typ: u(undefined, "") },
-        { json: "kilometer", js: "kilometer", typ: u(undefined, "") },
-        { json: "latitude", js: "latitude", typ: u(undefined, "") },
-        { json: "locality", js: "locality", typ: u(undefined, "") },
-        { json: "locality_type", js: "locality_type", typ: u(undefined, "") },
-        { json: "longitude", js: "longitude", typ: u(undefined, "") },
-        { json: "metroStations", js: "metroStations", typ: u(undefined, a(r("FullAddressMetroStation"))) },
-        { json: "number", js: "number", typ: u(undefined, "") },
-        { json: "office", js: "office", typ: u(undefined, "") },
-        { json: "possesion", js: "possesion", typ: u(undefined, "") },
-        { json: "street", js: "street", typ: u(undefined, "") },
-        { json: "street_type", js: "street_type", typ: u(undefined, "") },
-        { json: "sub_admin_area", js: "sub_admin_area", typ: u(undefined, "") },
-        { json: "sub_admin_area_type", js: "sub_admin_area_type", typ: u(undefined, "") },
-        { json: "sub_locality", js: "sub_locality", typ: u(undefined, "") },
-        { json: "sub_locality_type", js: "sub_locality_type", typ: u(undefined, "") },
-        { json: "way", js: "way", typ: u(undefined, "") },
-        { json: "zip_code", js: "zip_code", typ: u(undefined, "") },
-    ], false),
-    "FullAddressMetroStation": o([
-        { json: "_id", js: "_id", typ: u(undefined, "") },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "name", js: "name", typ: "" },
-    ], false),
-    "BusinessShowcaseAlias": o([
-        { json: "internalID", js: "internalID", typ: u(undefined, "") },
-    ], "any"),
-    "FaxElement": o([
-        { json: "area_code", js: "area_code", typ: "" },
-        { json: "country_code", js: "country_code", typ: "" },
-        { json: "number", js: "number", typ: "" },
-    ], false),
-    "MarketingNotifications": o([
-        { json: "accepted", js: "accepted", typ: true },
-        { json: "active", js: "active", typ: true },
-        { json: "useSmsAlphaName", js: "useSmsAlphaName", typ: true },
-    ], false),
-    "Metro": o([
-        { json: "color", js: "color", typ: u(undefined, "") },
-        { json: "distance", js: "distance", typ: u(undefined, 3.14) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-    ], false),
-    "ShowcaseBusinessDatum": o([
-        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "internalID", js: "internalID", typ: u(undefined, "") },
-        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "receptionTypes", js: "receptionTypes", typ: u(undefined, a("")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, "") },
-    ], "any"),
-    "ShowcaseElement": o([
-        { json: "baseBusinessID", js: "baseBusinessID", typ: u(undefined, "") },
-    ], false),
-    "SmsDuplicateFilter": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-    ], false),
-    "SocialNetworkSchema": o([
-        { json: "handle", js: "handle", typ: "" },
-        { json: "id", js: "id", typ: "" },
-        { json: "social_network", js: "social_network", typ: r("SocialNetwork") },
-        { json: "url", js: "url", typ: "" },
-    ], "any"),
-    "Timetable": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "week", js: "week", typ: u(undefined, r("Week")) },
-    ], false),
-    "Week": o([
-        { json: "fri", js: "fri", typ: a(r("TimeFrame")) },
-        { json: "mon", js: "mon", typ: a(r("TimeFrame")) },
-        { json: "sat", js: "sat", typ: a(r("TimeFrame")) },
-        { json: "sun", js: "sun", typ: a(r("TimeFrame")) },
-        { json: "thu", js: "thu", typ: a(r("TimeFrame")) },
-        { json: "tue", js: "tue", typ: a(r("TimeFrame")) },
-        { json: "wed", js: "wed", typ: a(r("TimeFrame")) },
-    ], false),
-    "TimeFrame": o([
-        { json: "capacity", js: "capacity", typ: u(undefined, 3.14) },
-        { json: "end", js: "end", typ: 3.14 },
-        { json: "endDate", js: "endDate", typ: u(undefined, u(Date, 3.14)) },
-        { json: "extraId", js: "extraId", typ: u(undefined, "") },
-        { json: "id", js: "id", typ: u(undefined, "") },
-        { json: "resources", js: "resources", typ: u(undefined, a("")) },
-        { json: "roomID", js: "roomID", typ: u(undefined, "") },
-        { json: "start", js: "start", typ: 3.14 },
-        { json: "startDate", js: "startDate", typ: u(undefined, u(Date, 3.14)) },
-    ], false),
     "InfoMiniWidgetConfiguration": o([
         { json: "fields", js: "fields", typ: u(undefined, a(r("FieldElement"))) },
         { json: "title1", js: "title1", typ: u(undefined, "") },
@@ -6275,81 +6811,6 @@ const typeMap: any = {
         { json: "userData", js: "userData", typ: u(undefined, m("any")) },
         { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
     ], false),
-    "EvenOddTimetable": o([
-        { json: "even", js: "even", typ: a(r("TimeFrame")) },
-        { json: "odd", js: "odd", typ: a(r("TimeFrame")) },
-        { json: "startPeriod", js: "startPeriod", typ: r("StartPeriod") },
-    ], "any"),
-    "ResourceLocation": o([
-        { json: "latitude", js: "latitude", typ: u(undefined, 3.14) },
-        { json: "longitude", js: "longitude", typ: u(undefined, 3.14) },
-        { json: "time", js: "time", typ: u(undefined, "") },
-    ], "any"),
-    "Info": o([
-        { json: "accepted_currency", js: "accepted_currency", typ: u(undefined, a(r("CurrencyList"))) },
-        { json: "additional_info", js: "additional_info", typ: u(undefined, u(null, "")) },
-        { json: "additionalFields", js: "additionalFields", typ: u(undefined, a(r("AdditionalFields"))) },
-        { json: "address", js: "address", typ: u(undefined, a(r("AddressSchema"))) },
-        { json: "align_min_booking_time", js: "align_min_booking_time", typ: u(undefined, u(true, null)) },
-        { json: "autoAcceptAppointment", js: "autoAcceptAppointment", typ: u(undefined, true) },
-        { json: "businessShowcaseAliases", js: "businessShowcaseAliases", typ: u(undefined, a(r("BusinessShowcaseAlias"))) },
-        { json: "contactName", js: "contactName", typ: u(undefined, u(null, "")) },
-        { json: "date_joined", js: "date_joined", typ: u(undefined, Date) },
-        { json: "description", js: "description", typ: u(undefined, "") },
-        { json: "email", js: "email", typ: u(undefined, "") },
-        { json: "eventEditorMinutesTick", js: "eventEditorMinutesTick", typ: u(undefined, 3.14) },
-        { json: "fax", js: "fax", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "images", js: "images", typ: u(undefined, a("")) },
-        { json: "instant_messaging", js: "instant_messaging", typ: u(undefined, a(m("any"))) },
-        { json: "isShowcase", js: "isShowcase", typ: u(undefined, true) },
-        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
-        { json: "logo_url", js: "logo_url", typ: u(undefined, u(null, "")) },
-        { json: "marketingNotifications", js: "marketingNotifications", typ: u(undefined, r("MarketingNotifications")) },
-        { json: "metro", js: "metro", typ: u(undefined, r("Metro")) },
-        { json: "min_booking_time", js: "min_booking_time", typ: u(undefined, u(3.14, null)) },
-        { json: "mobile", js: "mobile", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "name", js: "name", typ: u(undefined, "") },
-        { json: "networkID", js: "networkID", typ: u(undefined, u(3.14, null)) },
-        { json: "newboEnabledFor", js: "newboEnabledFor", typ: u(undefined, a("")) },
-        { json: "paymentMethods", js: "paymentMethods", typ: u(undefined, r("PaymentMethods")) },
-        { json: "phone", js: "phone", typ: u(undefined, a(r("FaxElement"))) },
-        { json: "phone_mask", js: "phone_mask", typ: u(undefined, u(null, "")) },
-        { json: "pricingType", js: "pricingType", typ: u(undefined, r("PricingType")) },
-        { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
-        { json: "schedulerTick", js: "schedulerTick", typ: u(undefined, 3.14) },
-        { json: "shortName", js: "shortName", typ: u(undefined, u(null, "")) },
-        { json: "showAppointmentColor", js: "showAppointmentColor", typ: u(undefined, true) },
-        { json: "showAppointmentTooltip", js: "showAppointmentTooltip", typ: u(undefined, true) },
-        { json: "showcaseBusinessData", js: "showcaseBusinessData", typ: u(undefined, a(r("ShowcaseBusinessDatum"))) },
-        { json: "showcases", js: "showcases", typ: u(undefined, a(r("ShowcaseElement"))) },
-        { json: "showResourceWorkStatistics", js: "showResourceWorkStatistics", typ: u(undefined, true) },
-        { json: "showWorkerProfession", js: "showWorkerProfession", typ: u(undefined, true) },
-        { json: "skipBilling", js: "skipBilling", typ: u(undefined, true) },
-        { json: "smsDuplicateFilter", js: "smsDuplicateFilter", typ: u(undefined, r("SmsDuplicateFilter")) },
-        { json: "social_network", js: "social_network", typ: u(undefined, a(r("SocialNetworkSchema"))) },
-        { json: "timetable", js: "timetable", typ: u(undefined, r("Timetable")) },
-        { json: "timezone", js: "timezone", typ: u(undefined, u(null, "")) },
-        { json: "verticalTranslation", js: "verticalTranslation", typ: u(undefined, r("VerticalTranslation")) },
-        { json: "website", js: "website", typ: u(undefined, u(null, "")) },
-    ], false),
-    "ИнформацияОПрофилеРаботника": o([
-        { json: "accessType", js: "accessType", typ: r("AccessType") },
-        { json: "email", js: "email", typ: "" },
-        { json: "profileID", js: "profileID", typ: "" },
-        { json: "userID", js: "userID", typ: "" },
-    ], "any"),
-    "ResourceTaxonomyChildren": o([
-        { json: "children", js: "children", typ: true },
-        { json: "taxonomyID", js: "taxonomyID", typ: "" },
-    ], "any"),
-    "ResourceTaxonomyLevel": o([
-        { json: "id", js: "id", typ: "" },
-        { json: "level", js: "level", typ: 3.14 },
-    ], "any"),
-    "TelemedDataObject": o([
-        { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "id", js: "id", typ: u(undefined, "") },
-    ], "any"),
     "InfoTaxonomy": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "additionalDurations", js: "additionalDurations", typ: u(undefined, a(r("PurpleAdditionalDuration"))) },
@@ -7858,55 +8319,9 @@ const typeMap: any = {
         "NOT_TALK",
         "TALK",
     ],
-    "Dir": [
-        "asc",
-        "desc",
-    ],
-    "SortField": [
-        "created",
-        "start",
-    ],
-    "AppointmentExtensionType": [
-        "MINUTES",
-        "PERCENT",
-    ],
-    "FeedBackMinRating": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-    ],
-    "InvoiceProvider": [
-        "DISABLE",
-        "icount",
-    ],
-    "PaymentProvider": [
-        "cloudpayments",
-        "deltaProcessing",
-        "DISABLE",
-        "pelecard",
-        "yandexMoney",
-        "yandexMoneyv3",
-    ],
-    "ResourceTimetableType": [
-        "DEFAULT",
-        "EVENODD",
-    ],
-    "SchedulerWeekViewType": [
+    "StartPeriod": [
+        "month",
         "week",
-        "workWeek",
-    ],
-    "PurpleTelemedProvider": [
-        "DISABLE",
-        "zoom",
-    ],
-    "BackofficeType": [
-        "COMMON",
-        "GT",
-        "LL",
-        "MB",
-        "MU",
     ],
     "Country": [
         "AM",
@@ -7979,6 +8394,65 @@ const typeMap: any = {
         "SPORT",
         "YOGA",
     ],
+    "AccessType": [
+        "NONE",
+        "WORKER_EXTENDED",
+        "WORKER_SIMPLE",
+    ],
+    "ResourceStatus": [
+        "ACTIVE",
+        "INACTIVE",
+    ],
+    "Dir": [
+        "asc",
+        "desc",
+    ],
+    "SortField": [
+        "created",
+        "start",
+    ],
+    "AppointmentExtensionType": [
+        "MINUTES",
+        "PERCENT",
+    ],
+    "FeedBackMinRating": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+    ],
+    "InvoiceProvider": [
+        "DISABLE",
+        "icount",
+    ],
+    "PaymentProvider": [
+        "cloudpayments",
+        "deltaProcessing",
+        "DISABLE",
+        "pelecard",
+        "yandexMoney",
+        "yandexMoneyv3",
+    ],
+    "ResourceTimetableType": [
+        "DEFAULT",
+        "EVENODD",
+    ],
+    "SchedulerWeekViewType": [
+        "week",
+        "workWeek",
+    ],
+    "PurpleTelemedProvider": [
+        "DISABLE",
+        "zoom",
+    ],
+    "BackofficeType": [
+        "COMMON",
+        "GT",
+        "LL",
+        "MB",
+        "MU",
+    ],
     "Group": [
         "FRENCH",
         "GENERAL",
@@ -7989,19 +8463,6 @@ const typeMap: any = {
         "email",
         "name",
         "surname",
-    ],
-    "StartPeriod": [
-        "month",
-        "week",
-    ],
-    "AccessType": [
-        "NONE",
-        "WORKER_EXTENDED",
-        "WORKER_SIMPLE",
-    ],
-    "ResourceStatus": [
-        "ACTIVE",
-        "INACTIVE",
     ],
     "AdditionalPriceType": [
         "average",

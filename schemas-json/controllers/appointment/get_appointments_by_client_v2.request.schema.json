@@ -104,6 +104,9 @@
                             "type": "string",
                             "format": "date-time"
                         },
+                        "appointmentId": {
+                            "type": "string"
+                        },
                         "created": {
                             "type": "object",
                             "required": [
