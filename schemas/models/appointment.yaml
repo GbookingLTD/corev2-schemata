@@ -17,6 +17,8 @@ definitions:
         type: "string"
       siteId:
         type: "string"
+      icon_url:
+        type: "string"
       confirmationAlert:
         type: "string"
       extraDescription:
