@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.List;
 
 public class PurpleResource {
-    private ResourceID id;
+    private PurpleID id;
 
     @JsonProperty("id")
-    public ResourceID getID() { return id; }
+    public PurpleID getID() { return id; }
     @JsonProperty("id")
-    public void setID(ResourceID value) { this.id = value; }
+    public void setID(PurpleID value) { this.id = value; }
 }

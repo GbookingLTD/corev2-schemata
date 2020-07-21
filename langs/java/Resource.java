@@ -41,7 +41,7 @@ public class Resource {
     private String name;
     private String nickname;
     private Double order;
-    private OrderWeight orderWeight;
+    private TaxiParkMemberCountUnion orderWeight;
     private Info originGeneralInfo;
     private String originBusinessID;
     private List<String> originTaxonomies;
@@ -297,9 +297,9 @@ public class Resource {
      * вес работника, в зависимости от указанного способа сортировки
      */
     @JsonProperty("orderWeight")
-    public OrderWeight getOrderWeight() { return orderWeight; }
+    public TaxiParkMemberCountUnion getOrderWeight() { return orderWeight; }
     @JsonProperty("orderWeight")
-    public void setOrderWeight(OrderWeight value) { this.orderWeight = value; }
+    public void setOrderWeight(TaxiParkMemberCountUnion value) { this.orderWeight = value; }
 
     /**
      * (только в витрине) объект с данными бизнеса-филиала

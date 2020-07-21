@@ -1,49 +1,42 @@
 package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
 
 public class FluffyPrice {
-    private List<FluffyAdditionalTaxonomyDiscount> additionalTaxonomyDiscount;
-    private Double amount;
+    private String amount;
     private CurrencyList currency;
-    private Double discount;
-    private DiscountProvider discountProvider;
-    private String discountType;
-    private Double originalAmount;
+    private String stockAmount;
+    private AdditionalPriceType type;
 
-    @JsonProperty("additionalTaxonomyDiscount")
-    public List<FluffyAdditionalTaxonomyDiscount> getAdditionalTaxonomyDiscount() { return additionalTaxonomyDiscount; }
-    @JsonProperty("additionalTaxonomyDiscount")
-    public void setAdditionalTaxonomyDiscount(List<FluffyAdditionalTaxonomyDiscount> value) { this.additionalTaxonomyDiscount = value; }
-
+    /**
+     * Значение цены
+     */
     @JsonProperty("amount")
-    public Double getAmount() { return amount; }
+    public String getAmount() { return amount; }
     @JsonProperty("amount")
-    public void setAmount(Double value) { this.amount = value; }
+    public void setAmount(String value) { this.amount = value; }
 
+    /**
+     * Аббревиатура валюты (например, RUB - рубль)
+     */
     @JsonProperty("currency")
     public CurrencyList getCurrency() { return currency; }
     @JsonProperty("currency")
     public void setCurrency(CurrencyList value) { this.currency = value; }
 
-    @JsonProperty("discount")
-    public Double getDiscount() { return discount; }
-    @JsonProperty("discount")
-    public void setDiscount(Double value) { this.discount = value; }
+    /**
+     * Значение цены, с учётом промо акций
+     */
+    @JsonProperty("stockAmount")
+    public String getStockAmount() { return stockAmount; }
+    @JsonProperty("stockAmount")
+    public void setStockAmount(String value) { this.stockAmount = value; }
 
-    @JsonProperty("discountProvider")
-    public DiscountProvider getDiscountProvider() { return discountProvider; }
-    @JsonProperty("discountProvider")
-    public void setDiscountProvider(DiscountProvider value) { this.discountProvider = value; }
-
-    @JsonProperty("discountType")
-    public String getDiscountType() { return discountType; }
-    @JsonProperty("discountType")
-    public void setDiscountType(String value) { this.discountType = value; }
-
-    @JsonProperty("originalAmount")
-    public Double getOriginalAmount() { return originalAmount; }
-    @JsonProperty("originalAmount")
-    public void setOriginalAmount(Double value) { this.originalAmount = value; }
+    /**
+     * Тип цены
+     */
+    @JsonProperty("type")
+    public AdditionalPriceType getType() { return type; }
+    @JsonProperty("type")
+    public void setType(AdditionalPriceType value) { this.type = value; }
 }

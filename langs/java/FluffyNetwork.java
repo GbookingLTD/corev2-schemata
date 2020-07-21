@@ -3,10 +3,10 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyNetwork {
-    private OrderWeight id;
+    private TaxiParkMemberCountUnion id;
 
     @JsonProperty("id")
-    public OrderWeight getID() { return id; }
+    public TaxiParkMemberCountUnion getID() { return id; }
     @JsonProperty("id")
-    public void setID(OrderWeight value) { this.id = value; }
+    public void setID(TaxiParkMemberCountUnion value) { this.id = value; }
 }
