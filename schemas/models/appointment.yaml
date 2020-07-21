@@ -15,7 +15,13 @@ definitions:
         type: "string"
       extraId:
         type: "string"
-
+      siteId:
+        type: "string"
+      confirmationAlert:
+        type: "string"
+      extraDescription:
+        type: "string"
+      
   AppointmentResource:
     type: "object"
     additionalProperties: false
@@ -31,6 +37,16 @@ definitions:
         type: "string"
       extraID:
         type: ["string", "null"]
+      siteId:
+        type: "string"
+      profession:
+        type: "string"
+      description:
+        type: "string"
+      degree:
+        type: "string"
+      experience:
+        type: "string"
 
   CamelPhone:
     type: "object"
@@ -569,9 +585,7 @@ properties:
           type: "string"
 
   taxonomy:
-    oneOf:
-      - $ref: "#/definitions/AppointmentTaxonomy"
-      - $ref: "./taxonomy.schema.json"
+    $ref: "#/definitions/AppointmentTaxonomy"
   additionalTaxonomies:
     type: "array"
     items:
@@ -588,9 +602,7 @@ properties:
         price:
           type: "number"
   resource:
-    oneOf:
-      - $ref: "#/definitions/AppointmentResource"
-      - $ref: "./resource.schema.json"
+    $ref: "#/definitions/AppointmentResource"
   business:
     type: "object"
     additionalProperties: false
