@@ -17,8 +17,6 @@ definitions:
         type: "string"
       siteId:
         type: "string"
-      icon_url:
-        type: "string"
       confirmationAlert:
         type: "string"
       extraDescription:
@@ -48,6 +46,8 @@ definitions:
       degree:
         type: "string"
       experience:
+        type: "string"
+      icon_url:
         type: "string"
 
   CamelPhone:
