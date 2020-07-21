@@ -7,6 +7,7 @@ public class AppointmentTaxonomy {
     private String confirmationAlert;
     private String extraDescription;
     private String extraID;
+    private String iconURL;
     private String id;
     private String siteID;
 
@@ -29,6 +30,11 @@ public class AppointmentTaxonomy {
     public String getExtraID() { return extraID; }
     @JsonProperty("extraId")
     public void setExtraID(String value) { this.extraID = value; }
+
+    @JsonProperty("icon_url")
+    public String getIconURL() { return iconURL; }
+    @JsonProperty("icon_url")
+    public void setIconURL(String value) { this.iconURL = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }

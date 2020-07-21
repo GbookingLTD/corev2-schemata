@@ -671,6 +671,7 @@ export interface AppointmentTaxonomy {
     confirmationAlert?: string;
     extraDescription?:  string;
     extraId?:           string;
+    icon_url?:          string;
     id:                 string;
     siteId?:            string;
 }
@@ -5380,6 +5381,7 @@ const typeMap: any = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
     ], false),

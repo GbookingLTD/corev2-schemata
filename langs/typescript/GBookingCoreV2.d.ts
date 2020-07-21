@@ -620,6 +620,7 @@ export interface AppointmentTaxonomy {
     confirmationAlert?: string;
     extraDescription?: string;
     extraId?: string;
+    icon_url?: string;
     id: string;
     siteId?: string;
 }

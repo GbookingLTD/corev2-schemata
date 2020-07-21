@@ -25,6 +25,9 @@
                 "siteId": {
                     "type": "string"
                 },
+                "icon_url": {
+                    "type": "string"
+                },
                 "confirmationAlert": {
                     "type": "string"
                 },

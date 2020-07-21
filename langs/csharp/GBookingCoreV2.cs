@@ -1061,6 +1061,9 @@ namespace GBookingCoreV2
         [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
         public string ExtraId { get; set; }
 
+        [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
+        public string IconUrl { get; set; }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 

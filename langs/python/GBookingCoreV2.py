@@ -1397,14 +1397,16 @@ class AppointmentTaxonomy:
     confirmation_alert: Optional[str]
     extra_description: Optional[str]
     extra_id: Optional[str]
+    icon_url: Optional[str]
     id: str
     site_id: Optional[str]
 
-    def __init__(self, alias: str, confirmation_alert: Optional[str], extra_description: Optional[str], extra_id: Optional[str], id: str, site_id: Optional[str]) -> None:
+    def __init__(self, alias: str, confirmation_alert: Optional[str], extra_description: Optional[str], extra_id: Optional[str], icon_url: Optional[str], id: str, site_id: Optional[str]) -> None:
         self.alias = alias
         self.confirmation_alert = confirmation_alert
         self.extra_description = extra_description
         self.extra_id = extra_id
+        self.icon_url = icon_url
         self.id = id
         self.site_id = site_id
 
@@ -1415,9 +1417,10 @@ class AppointmentTaxonomy:
         confirmation_alert = from_union([from_str, from_none], obj.get("confirmationAlert"))
         extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
         extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        icon_url = from_union([from_str, from_none], obj.get("icon_url"))
         id = from_str(obj.get("id"))
         site_id = from_union([from_str, from_none], obj.get("siteId"))
-        return AppointmentTaxonomy(alias, confirmation_alert, extra_description, extra_id, id, site_id)
+        return AppointmentTaxonomy(alias, confirmation_alert, extra_description, extra_id, icon_url, id, site_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -1425,6 +1428,7 @@ class AppointmentTaxonomy:
         result["confirmationAlert"] = from_union([from_str, from_none], self.confirmation_alert)
         result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
         result["extraId"] = from_union([from_str, from_none], self.extra_id)
+        result["icon_url"] = from_union([from_str, from_none], self.icon_url)
         result["id"] = from_str(self.id)
         result["siteId"] = from_union([from_str, from_none], self.site_id)
         return result

@@ -862,6 +862,7 @@ var typeMap = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
     ], false),
