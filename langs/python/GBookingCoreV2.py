@@ -1397,16 +1397,14 @@ class AppointmentTaxonomy:
     confirmation_alert: Optional[str]
     extra_description: Optional[str]
     extra_id: Optional[str]
-    icon_url: Optional[str]
     id: str
     site_id: Optional[str]
 
-    def __init__(self, alias: str, confirmation_alert: Optional[str], extra_description: Optional[str], extra_id: Optional[str], icon_url: Optional[str], id: str, site_id: Optional[str]) -> None:
+    def __init__(self, alias: str, confirmation_alert: Optional[str], extra_description: Optional[str], extra_id: Optional[str], id: str, site_id: Optional[str]) -> None:
         self.alias = alias
         self.confirmation_alert = confirmation_alert
         self.extra_description = extra_description
         self.extra_id = extra_id
-        self.icon_url = icon_url
         self.id = id
         self.site_id = site_id
 
@@ -1417,10 +1415,9 @@ class AppointmentTaxonomy:
         confirmation_alert = from_union([from_str, from_none], obj.get("confirmationAlert"))
         extra_description = from_union([from_str, from_none], obj.get("extraDescription"))
         extra_id = from_union([from_str, from_none], obj.get("extraId"))
-        icon_url = from_union([from_str, from_none], obj.get("icon_url"))
         id = from_str(obj.get("id"))
         site_id = from_union([from_str, from_none], obj.get("siteId"))
-        return AppointmentTaxonomy(alias, confirmation_alert, extra_description, extra_id, icon_url, id, site_id)
+        return AppointmentTaxonomy(alias, confirmation_alert, extra_description, extra_id, id, site_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -1428,7 +1425,6 @@ class AppointmentTaxonomy:
         result["confirmationAlert"] = from_union([from_str, from_none], self.confirmation_alert)
         result["extraDescription"] = from_union([from_str, from_none], self.extra_description)
         result["extraId"] = from_union([from_str, from_none], self.extra_id)
-        result["icon_url"] = from_union([from_str, from_none], self.icon_url)
         result["id"] = from_str(self.id)
         result["siteId"] = from_union([from_str, from_none], self.site_id)
         return result
@@ -2009,6 +2005,7 @@ class AppointmentResource:
     description: Optional[str]
     experience: Optional[str]
     extra_id: Optional[str]
+    icon_url: Optional[str]
     id: str
     middle_name: Optional[str]
     name: str
@@ -2016,11 +2013,12 @@ class AppointmentResource:
     site_id: Optional[str]
     surname: str
 
-    def __init__(self, degree: Optional[str], description: Optional[str], experience: Optional[str], extra_id: Optional[str], id: str, middle_name: Optional[str], name: str, profession: Optional[str], site_id: Optional[str], surname: str) -> None:
+    def __init__(self, degree: Optional[str], description: Optional[str], experience: Optional[str], extra_id: Optional[str], icon_url: Optional[str], id: str, middle_name: Optional[str], name: str, profession: Optional[str], site_id: Optional[str], surname: str) -> None:
         self.degree = degree
         self.description = description
         self.experience = experience
         self.extra_id = extra_id
+        self.icon_url = icon_url
         self.id = id
         self.middle_name = middle_name
         self.name = name
@@ -2035,13 +2033,14 @@ class AppointmentResource:
         description = from_union([from_str, from_none], obj.get("description"))
         experience = from_union([from_str, from_none], obj.get("experience"))
         extra_id = from_union([from_none, from_str], obj.get("extraID"))
+        icon_url = from_union([from_str, from_none], obj.get("icon_url"))
         id = from_str(obj.get("id"))
         middle_name = from_union([from_str, from_none], obj.get("middleName"))
         name = from_str(obj.get("name"))
         profession = from_union([from_str, from_none], obj.get("profession"))
         site_id = from_union([from_str, from_none], obj.get("siteId"))
         surname = from_str(obj.get("surname"))
-        return AppointmentResource(degree, description, experience, extra_id, id, middle_name, name, profession, site_id, surname)
+        return AppointmentResource(degree, description, experience, extra_id, icon_url, id, middle_name, name, profession, site_id, surname)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2049,6 +2048,7 @@ class AppointmentResource:
         result["description"] = from_union([from_str, from_none], self.description)
         result["experience"] = from_union([from_str, from_none], self.experience)
         result["extraID"] = from_union([from_none, from_str], self.extra_id)
+        result["icon_url"] = from_union([from_str, from_none], self.icon_url)
         result["id"] = from_str(self.id)
         result["middleName"] = from_union([from_str, from_none], self.middle_name)
         result["name"] = from_str(self.name)

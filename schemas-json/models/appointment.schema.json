@@ -25,9 +25,6 @@
                 "siteId": {
                     "type": "string"
                 },
-                "icon_url": {
-                    "type": "string"
-                },
                 "confirmationAlert": {
                     "type": "string"
                 },
@@ -76,6 +73,9 @@
                     "type": "string"
                 },
                 "experience": {
+                    "type": "string"
+                },
+                "icon_url": {
                     "type": "string"
                 }
             }

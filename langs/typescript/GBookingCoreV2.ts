@@ -671,7 +671,6 @@ export interface AppointmentTaxonomy {
     confirmationAlert?: string;
     extraDescription?:  string;
     extraId?:           string;
-    icon_url?:          string;
     id:                 string;
     siteId?:            string;
 }
@@ -847,6 +846,7 @@ export interface AppointmentResource {
     description?: string;
     experience?:  string;
     extraID?:     null | string;
+    icon_url?:    string;
     id:           string;
     middleName?:  string;
     name:         string;
@@ -5381,7 +5381,6 @@ const typeMap: any = {
         { json: "confirmationAlert", js: "confirmationAlert", typ: u(undefined, "") },
         { json: "extraDescription", js: "extraDescription", typ: u(undefined, "") },
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
-        { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
         { json: "siteId", js: "siteId", typ: u(undefined, "") },
     ], false),
@@ -5504,6 +5503,7 @@ const typeMap: any = {
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "experience", js: "experience", typ: u(undefined, "") },
         { json: "extraID", js: "extraID", typ: u(undefined, u(null, "")) },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
         { json: "middleName", js: "middleName", typ: u(undefined, "") },
         { json: "name", js: "name", typ: "" },

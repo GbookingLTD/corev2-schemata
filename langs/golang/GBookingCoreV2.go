@@ -414,7 +414,6 @@ type AppointmentTaxonomy struct {
 	ConfirmationAlert *string `json:"confirmationAlert,omitempty"`
 	ExtraDescription  *string `json:"extraDescription,omitempty"` 
 	ExtraID           *string `json:"extraId,omitempty"`          
-	IconURL           *string `json:"icon_url,omitempty"`         
 	ID                string  `json:"id"`                         
 	SiteID            *string `json:"siteId,omitempty"`           
 }
@@ -552,6 +551,7 @@ type AppointmentResource struct {
 	Description *string `json:"description,omitempty"`
 	Experience  *string `json:"experience,omitempty"` 
 	ExtraID     *string `json:"extraID"`              
+	IconURL     *string `json:"icon_url,omitempty"`   
 	ID          string  `json:"id"`                   
 	MiddleName  *string `json:"middleName,omitempty"` 
 	Name        string  `json:"name"`                 

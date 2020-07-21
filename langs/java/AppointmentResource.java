@@ -7,6 +7,7 @@ public class AppointmentResource {
     private String description;
     private String experience;
     private String extraID;
+    private String iconURL;
     private String id;
     private String middleName;
     private String name;
@@ -33,6 +34,11 @@ public class AppointmentResource {
     public String getExtraID() { return extraID; }
     @JsonProperty("extraID")
     public void setExtraID(String value) { this.extraID = value; }
+
+    @JsonProperty("icon_url")
+    public String getIconURL() { return iconURL; }
+    @JsonProperty("icon_url")
+    public void setIconURL(String value) { this.iconURL = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }
