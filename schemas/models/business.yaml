@@ -583,6 +583,9 @@ definitions:
       enableExtendedRecordsClientStatistics:
         type: "boolean"
         default: false
+      resoureLoginHideCancelledAppointment:
+        type: "boolean"
+        default: false
       pastTimeEdit:
         type: "number"
         default: 1
