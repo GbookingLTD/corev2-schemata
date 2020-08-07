@@ -1,0 +1,37 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/client/update_client_info.request.schema.json"
+title: "client.update_client_info.request"
+type: "object"
+definitions:
+  Request:
+    type: "object"
+    required: ["params"]
+    properties:
+      params:
+        description: "параметры запроса"
+        type: "object"
+        additionalProperties: false
+        required: ["client"]
+        properties:
+          business:
+            type: "object"
+            additionalProperties: false
+            required: ["id"]
+            properties:
+              id:
+                type: ["string", "number"]
+                description: "идентификатор бизнеса"
+          network:
+            type: "object"
+            additionalProperties: false
+            properties:
+              id:
+                type: ["string", "number"]
+                description: "идентификатор нетворка"
+          client:
+            $ref: "../../models/clientInfo.schema.json"
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+

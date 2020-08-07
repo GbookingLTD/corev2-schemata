@@ -1,0 +1,60 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/models/clientInfo.schema.json"
+type: "object"
+description: "Данные клиента доступные для обновления клиентом"
+required: ["name", "surname", "phone"]
+additionalProperties: false
+properties:
+  id:
+    type: "string"
+  name:
+    type: "string"
+  surname:
+    type: "string"
+  middleName:
+    type: ["string", "null"]
+  birthday:
+    type: ["string", "object", "null"]
+  description:
+    type: "string"
+  sex:
+    type: "string"
+    enum: ['',"MALE", "FEMALE", "NOT_SPECIFIED"]
+  insuranceNumber:
+    type: "string"
+  language:
+    $ref: "./partials/language.schema.json#/definitions/LanguageList"
+  icon_url:
+    type: "string"
+  passportId:
+    type: "string"
+  address:
+    type: "string"
+    default: ""
+  extraFields:
+    type: "array"
+    items:
+      type: "object"
+      required: ["fieldID", "fieldName"]
+      additionalProperties: false
+      properties:
+        fieldID:
+          type: "string"
+        fieldName:
+          type: "string"
+        value:
+          type: ["null", "number", "boolean", "string", "object"]
+  favResources:
+    type: "array"
+    items:
+      type: "object"
+      required: ["businessID", "networkID", "resourceID"]
+      additionalProperties: false
+      properties:
+        businessID:
+          type: "number"
+        networkID:
+          type: "string"
+        resourceID:
+          type: "string"
+  
