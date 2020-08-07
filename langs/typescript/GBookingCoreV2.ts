@@ -1254,7 +1254,7 @@ export interface AppointmentGetAppointmentsByClientV2Response {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByClientV2ResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1279,16 +1279,6 @@ export interface AppointmentGetAppointmentsByClientV2ResponseError {
      * текстовая информация об ошибке
      */
     message: string;
-}
-
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByClientV2ResponseResult {
-    data:        Appointment[];
-    page:        number;
-    total:       number;
-    unconfirmed: number;
 }
 
 export interface GetAppointmentsByUser {
@@ -1754,6 +1744,7 @@ export interface InfoBackofficeConfiguration {
     readonlyResourceSchedule?:                        boolean;
     resourceSurnameFirst?:                            boolean;
     resourceTimetableType?:                           ResourceTimetableType;
+    resoureLoginHideCancelledAppointment?:            boolean;
     revisionVersion?:                                 number;
     schduleWeekViewIsDefault?:                        boolean;
     scheduleDefaultWorkersLimit?:                     number;
@@ -3303,6 +3294,7 @@ export interface BusinessBackofficeConfiguration {
     readonlyResourceSchedule?:                        boolean;
     resourceSurnameFirst?:                            boolean;
     resourceTimetableType?:                           ResourceTimetableType;
+    resoureLoginHideCancelledAppointment?:            boolean;
     revisionVersion?:                                 number;
     schduleWeekViewIsDefault?:                        boolean;
     scheduleDefaultWorkersLimit?:                     number;
@@ -3825,6 +3817,7 @@ export interface ClientController {
     add_client:            AddClient;
     find_or_create_client: FindOrCreateClient;
     update_client:         UpdateClient;
+    update_client_info:    UpdateClientInfo;
 }
 
 export interface AddClient {
@@ -3893,7 +3886,7 @@ export interface ClientClass {
     email?:                      string[];
     extraFields?:                ClientExtraField[];
     extraID?:                    string;
-    favResources?:               FavResource[];
+    favResources?:               ClientFavResource[];
     fax?:                        string;
     fromSms?:                    FromSms;
     fullAddress?:                AddressSchema[];
@@ -3951,7 +3944,7 @@ export interface ClientExtraField {
 
 export type FluffyValue = boolean | number | { [key: string]: any } | null | string;
 
-export interface FavResource {
+export interface ClientFavResource {
     businessID: number;
     networkID:  string;
     resourceID: string;
@@ -4285,6 +4278,132 @@ export interface ClientUpdateClientResponseResult {
     success:         boolean;
 }
 
+export interface UpdateClientInfo {
+    request:  ClientUpdateClientInfoRequest;
+    response: ClientUpdateClientInfoResponse;
+}
+
+export interface ClientUpdateClientInfoRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: ClientUpdateClientInfoRequestParams;
+}
+
+/**
+ * параметры запроса
+ */
+export interface ClientUpdateClientInfoRequestParams {
+    business?: BraggadociousBusiness;
+    client:    StickyClient;
+    network?:  IndecentNetwork;
+}
+
+export interface BraggadociousBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: BackofficeIdUnion;
+}
+
+/**
+ * Данные клиента доступные для обновления клиентом
+ */
+export interface StickyClient {
+    address?:         string;
+    birthday?:        Birthday;
+    description?:     string;
+    extraFields?:     PurpleExtraField[];
+    favResources?:    PurpleFavResource[];
+    icon_url?:        string;
+    id?:              string;
+    insuranceNumber?: string;
+    language?:        LanguageList;
+    middleName?:      null | string;
+    name:             string;
+    passportId?:      string;
+    sex?:             Sex;
+    surname:          string;
+}
+
+export interface PurpleExtraField {
+    fieldID:   string;
+    fieldName: string;
+    value?:    FluffyValue;
+}
+
+export interface PurpleFavResource {
+    businessID: number;
+    networkID:  string;
+    resourceID: string;
+}
+
+export interface IndecentNetwork {
+    /**
+     * идентификатор нетворка
+     */
+    id?: BackofficeIdUnion;
+}
+
+export interface ClientUpdateClientInfoResponse {
+    result?: ClientUpdateClientInfoResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: ClientUpdateClientInfoResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id?: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface ClientUpdateClientInfoResponseError {
+    /**
+     * код ошибки
+     *
+     * код ошибки создания клиента
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+
+export interface ClientUpdateClientInfoResponseResult {
+    added_document?: { [key: string]: any };
+    success:         boolean;
+}
+
 export interface CracSlotsController {
     CRACDistributedResourcesFreeByDate?: CracDistributedResourcesFreeByDate;
     CRACResourcesFreeByDate?:            CracResourcesFreeByDate;
@@ -4323,12 +4442,12 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
 }
 
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business:  BraggadociousBusiness;
+    business:  Business1;
     resources: string[];
     taxonomy:  PurpleTaxonomy;
 }
 
-export interface BraggadociousBusiness {
+export interface Business1 {
     id: string;
 }
 
@@ -4497,14 +4616,14 @@ export interface CracCracResourcesFreeByDateV2Request {
 }
 
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business:  Business1;
+    business:  Business2;
     duration:  number;
     durations: number[];
     resources: string[];
     taxonomy:  TentacledTaxonomy;
 }
 
-export interface Business1 {
+export interface Business2 {
     id: string;
 }
 
@@ -5715,7 +5834,7 @@ const typeMap: any = {
     "AppointmentGetAppointmentsByClientV2Response": o([
         { json: "id", js: "id", typ: 3.14 },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
-        { json: "result", js: "result", typ: u(undefined, r("AppointmentGetAppointmentsByClientV2ResponseResult")) },
+        { json: "result", js: "result", typ: u(undefined, a(r("Appointment"))) },
         { json: "error", js: "error", typ: u(undefined, r("AppointmentGetAppointmentsByClientV2ResponseError")) },
     ], false),
     "AppointmentGetAppointmentsByClientV2ResponseError": o([
@@ -5723,12 +5842,6 @@ const typeMap: any = {
         { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
-    "AppointmentGetAppointmentsByClientV2ResponseResult": o([
-        { json: "data", js: "data", typ: a(r("Appointment")) },
-        { json: "page", js: "page", typ: 3.14 },
-        { json: "total", js: "total", typ: 3.14 },
-        { json: "unconfirmed", js: "unconfirmed", typ: 3.14 },
-    ], false),
     "GetAppointmentsByUser": o([
         { json: "request", js: "request", typ: r("AppointmentGetAppointmentsByUserRequest") },
         { json: "response", js: "response", typ: r("AppointmentGetAppointmentsByUserResponse") },
@@ -5997,6 +6110,7 @@ const typeMap: any = {
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+        { json: "resoureLoginHideCancelledAppointment", js: "resoureLoginHideCancelledAppointment", typ: u(undefined, true) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
         { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
         { json: "scheduleDefaultWorkersLimit", js: "scheduleDefaultWorkersLimit", typ: u(undefined, 3.14) },
@@ -6816,6 +6930,7 @@ const typeMap: any = {
         { json: "readonlyResourceSchedule", js: "readonlyResourceSchedule", typ: u(undefined, true) },
         { json: "resourceSurnameFirst", js: "resourceSurnameFirst", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+        { json: "resoureLoginHideCancelledAppointment", js: "resoureLoginHideCancelledAppointment", typ: u(undefined, true) },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
         { json: "schduleWeekViewIsDefault", js: "schduleWeekViewIsDefault", typ: u(undefined, true) },
         { json: "scheduleDefaultWorkersLimit", js: "scheduleDefaultWorkersLimit", typ: u(undefined, 3.14) },
@@ -7243,6 +7358,7 @@ const typeMap: any = {
         { json: "add_client", js: "add_client", typ: r("AddClient") },
         { json: "find_or_create_client", js: "find_or_create_client", typ: r("FindOrCreateClient") },
         { json: "update_client", js: "update_client", typ: r("UpdateClient") },
+        { json: "update_client_info", js: "update_client_info", typ: r("UpdateClientInfo") },
     ], false),
     "AddClient": o([
         { json: "request", js: "request", typ: r("ClientAddClientRequest") },
@@ -7282,7 +7398,7 @@ const typeMap: any = {
         { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraFields", js: "extraFields", typ: u(undefined, a(r("ClientExtraField"))) },
         { json: "extraID", js: "extraID", typ: u(undefined, "") },
-        { json: "favResources", js: "favResources", typ: u(undefined, a(r("FavResource"))) },
+        { json: "favResources", js: "favResources", typ: u(undefined, a(r("ClientFavResource"))) },
         { json: "fax", js: "fax", typ: u(undefined, "") },
         { json: "fromSms", js: "fromSms", typ: u(undefined, u(true, "")) },
         { json: "fullAddress", js: "fullAddress", typ: u(undefined, a(r("AddressSchema"))) },
@@ -7335,7 +7451,7 @@ const typeMap: any = {
         { json: "fieldName", js: "fieldName", typ: "" },
         { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
     ], false),
-    "FavResource": o([
+    "ClientFavResource": o([
         { json: "businessID", js: "businessID", typ: 3.14 },
         { json: "networkID", js: "networkID", typ: "" },
         { json: "resourceID", js: "resourceID", typ: "" },
@@ -7493,6 +7609,69 @@ const typeMap: any = {
         { json: "added_document", js: "added_document", typ: u(undefined, m("any")) },
         { json: "success", js: "success", typ: true },
     ], "any"),
+    "UpdateClientInfo": o([
+        { json: "request", js: "request", typ: r("ClientUpdateClientInfoRequest") },
+        { json: "response", js: "response", typ: r("ClientUpdateClientInfoResponse") },
+    ], false),
+    "ClientUpdateClientInfoRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("ClientUpdateClientInfoRequestParams") },
+    ], false),
+    "ClientUpdateClientInfoRequestParams": o([
+        { json: "business", js: "business", typ: u(undefined, r("BraggadociousBusiness")) },
+        { json: "client", js: "client", typ: r("StickyClient") },
+        { json: "network", js: "network", typ: u(undefined, r("IndecentNetwork")) },
+    ], false),
+    "BraggadociousBusiness": o([
+        { json: "id", js: "id", typ: u(3.14, "") },
+    ], false),
+    "StickyClient": o([
+        { json: "address", js: "address", typ: u(undefined, "") },
+        { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
+        { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "extraFields", js: "extraFields", typ: u(undefined, a(r("PurpleExtraField"))) },
+        { json: "favResources", js: "favResources", typ: u(undefined, a(r("PurpleFavResource"))) },
+        { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+        { json: "insuranceNumber", js: "insuranceNumber", typ: u(undefined, "") },
+        { json: "language", js: "language", typ: u(undefined, r("LanguageList")) },
+        { json: "middleName", js: "middleName", typ: u(undefined, u(null, "")) },
+        { json: "name", js: "name", typ: "" },
+        { json: "passportId", js: "passportId", typ: u(undefined, "") },
+        { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
+        { json: "surname", js: "surname", typ: "" },
+    ], false),
+    "PurpleExtraField": o([
+        { json: "fieldID", js: "fieldID", typ: "" },
+        { json: "fieldName", js: "fieldName", typ: "" },
+        { json: "value", js: "value", typ: u(undefined, u(true, 3.14, m("any"), null, "")) },
+    ], false),
+    "PurpleFavResource": o([
+        { json: "businessID", js: "businessID", typ: 3.14 },
+        { json: "networkID", js: "networkID", typ: "" },
+        { json: "resourceID", js: "resourceID", typ: "" },
+    ], false),
+    "IndecentNetwork": o([
+        { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
+    ], false),
+    "ClientUpdateClientInfoResponse": o([
+        { json: "result", js: "result", typ: u(undefined, r("ClientUpdateClientInfoResponseResult")) },
+        { json: "error", js: "error", typ: u(undefined, r("ClientUpdateClientInfoResponseError")) },
+        { json: "id", js: "id", typ: u(undefined, 3.14) },
+        { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },
+    ], "any"),
+    "ClientUpdateClientInfoResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
+    "ClientUpdateClientInfoResponseResult": o([
+        { json: "added_document", js: "added_document", typ: u(undefined, m("any")) },
+        { json: "success", js: "success", typ: true },
+    ], "any"),
     "CracSlotsController": o([
         { json: "CRACDistributedResourcesFreeByDate", js: "CRACDistributedResourcesFreeByDate", typ: u(undefined, r("CracDistributedResourcesFreeByDate")) },
         { json: "CRACResourcesFreeByDate", js: "CRACResourcesFreeByDate", typ: u(undefined, r("CracResourcesFreeByDate")) },
@@ -7513,11 +7692,11 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "BraggadociousBusiness": o([
+    "Business1": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -7594,13 +7773,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("Business1") },
+        { json: "business", js: "business", typ: r("Business2") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "Business1": o([
+    "Business2": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([

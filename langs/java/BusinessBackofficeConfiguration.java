@@ -54,6 +54,7 @@ public class BusinessBackofficeConfiguration {
     private Boolean readonlyResourceSchedule;
     private Boolean resourceSurnameFirst;
     private ResourceTimetableType resourceTimetableType;
+    private Boolean resoureLoginHideCancelledAppointment;
     private Double revisionVersion;
     private Boolean schduleWeekViewIsDefault;
     private Double scheduleDefaultWorkersLimit;
@@ -365,6 +366,11 @@ public class BusinessBackofficeConfiguration {
     public ResourceTimetableType getResourceTimetableType() { return resourceTimetableType; }
     @JsonProperty("resourceTimetableType")
     public void setResourceTimetableType(ResourceTimetableType value) { this.resourceTimetableType = value; }
+
+    @JsonProperty("resoureLoginHideCancelledAppointment")
+    public Boolean getResoureLoginHideCancelledAppointment() { return resoureLoginHideCancelledAppointment; }
+    @JsonProperty("resoureLoginHideCancelledAppointment")
+    public void setResoureLoginHideCancelledAppointment(Boolean value) { this.resoureLoginHideCancelledAppointment = value; }
 
     @JsonProperty("revisionVersion")
     public Double getRevisionVersion() { return revisionVersion; }

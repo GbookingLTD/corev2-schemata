@@ -814,10 +814,10 @@ type FluffyNetwork struct {
 }
 
 type AppointmentGetAppointmentsByClientV2Response struct {
-	ID      float64                                             `json:"id"`              // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                                              `json:"jsonrpc"`         // версия протокола (2.0)
-	Result  *AppointmentGetAppointmentsByClientV2ResponseResult `json:"result,omitempty"`
-	Error   *AppointmentGetAppointmentsByClientV2ResponseError  `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+	ID      float64                                            `json:"id"`             // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                             `json:"jsonrpc"`        // версия протокола (2.0)
+	Result  []Appointment                                      `json:"result"`         
+	Error   *AppointmentGetAppointmentsByClientV2ResponseError `json:"error,omitempty"`// объект, содержащий информацию об ошибке
 }
 
 // объект, содержащий информацию об ошибке
@@ -827,14 +827,6 @@ type AppointmentGetAppointmentsByClientV2ResponseError struct {
 	Code    float64 `json:"code"`   // код ошибки
 	Data    *Data   `json:"data"`   // дополнительные данные об ошибке
 	Message string  `json:"message"`// текстовая информация об ошибке
-}
-
-// данные, передаваемые в ответ
-type AppointmentGetAppointmentsByClientV2ResponseResult struct {
-	Data        []Appointment `json:"data"`       
-	Page        float64       `json:"page"`       
-	Total       float64       `json:"total"`      
-	Unconfirmed float64       `json:"unconfirmed"`
 }
 
 type GetAppointmentsByUser struct {
@@ -1151,6 +1143,7 @@ type InfoBackofficeConfiguration struct {
 	ReadonlyResourceSchedule                        *bool                      `json:"readonlyResourceSchedule,omitempty"`                       
 	ResourceSurnameFirst                            *bool                      `json:"resourceSurnameFirst,omitempty"`                           
 	ResourceTimetableType                           *ResourceTimetableType     `json:"resourceTimetableType,omitempty"`                          
+	ResoureLoginHideCancelledAppointment            *bool                      `json:"resoureLoginHideCancelledAppointment,omitempty"`           
 	RevisionVersion                                 *float64                   `json:"revisionVersion,omitempty"`                                
 	SchduleWeekViewIsDefault                        *bool                      `json:"schduleWeekViewIsDefault,omitempty"`                       
 	ScheduleDefaultWorkersLimit                     *float64                   `json:"scheduleDefaultWorkersLimit,omitempty"`                    
@@ -2045,6 +2038,7 @@ type BusinessBackofficeConfiguration struct {
 	ReadonlyResourceSchedule                        *bool                          `json:"readonlyResourceSchedule,omitempty"`                       
 	ResourceSurnameFirst                            *bool                          `json:"resourceSurnameFirst,omitempty"`                           
 	ResourceTimetableType                           *ResourceTimetableType         `json:"resourceTimetableType,omitempty"`                          
+	ResoureLoginHideCancelledAppointment            *bool                          `json:"resoureLoginHideCancelledAppointment,omitempty"`           
 	RevisionVersion                                 *float64                       `json:"revisionVersion,omitempty"`                                
 	SchduleWeekViewIsDefault                        *bool                          `json:"schduleWeekViewIsDefault,omitempty"`                       
 	ScheduleDefaultWorkersLimit                     *float64                       `json:"scheduleDefaultWorkersLimit,omitempty"`                    
@@ -2503,6 +2497,7 @@ type ClientController struct {
 	AddClient          AddClient          `json:"add_client"`           
 	FindOrCreateClient FindOrCreateClient `json:"find_or_create_client"`
 	UpdateClient       UpdateClient       `json:"update_client"`        
+	UpdateClientInfo   UpdateClientInfo   `json:"update_client_info"`   
 }
 
 type AddClient struct {
@@ -2549,7 +2544,7 @@ type ClientClass struct {
 	Email                      []string               `json:"email"`                               
 	ExtraFields                []ClientExtraField     `json:"extraFields"`                         
 	ExtraID                    *string                `json:"extraID,omitempty"`                   
-	FavResources               []FavResource          `json:"favResources"`                        
+	FavResources               []ClientFavResource    `json:"favResources"`                        
 	Fax                        *string                `json:"fax,omitempty"`                       
 	FromSMS                    *FromSMS               `json:"fromSms"`                             
 	FullAddress                []AddressSchema        `json:"fullAddress"`                         
@@ -2605,7 +2600,7 @@ type ClientExtraField struct {
 	Value     *FluffyValue `json:"value"`    
 }
 
-type FavResource struct {
+type ClientFavResource struct {
 	BusinessID float64 `json:"businessID"`
 	NetworkID  string  `json:"networkID"` 
 	ResourceID string  `json:"resourceID"`
@@ -2806,6 +2801,85 @@ type ClientUpdateClientResponseResult struct {
 	Success       bool                   `json:"success"`                 
 }
 
+type UpdateClientInfo struct {
+	Request  ClientUpdateClientInfoRequest  `json:"request"` 
+	Response ClientUpdateClientInfoResponse `json:"response"`
+}
+
+type ClientUpdateClientInfoRequest struct {
+	Cred    *Cred                               `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                      `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                              `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                              `json:"method"`        // название jsonrpc метода
+	Params  ClientUpdateClientInfoRequestParams `json:"params"`        // параметры запроса
+}
+
+// параметры запроса
+type ClientUpdateClientInfoRequestParams struct {
+	Business *BraggadociousBusiness `json:"business,omitempty"`
+	Client   IndigoClient           `json:"client"`            
+	Network  *IndecentNetwork       `json:"network,omitempty"` 
+}
+
+type BraggadociousBusiness struct {
+	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
+}
+
+// Данные клиента доступные для обновления клиентом
+type IndigoClient struct {
+	Address         *string             `json:"address,omitempty"`        
+	Birthday        *Birthday           `json:"birthday"`                 
+	Description     *string             `json:"description,omitempty"`    
+	ExtraFields     []PurpleExtraField  `json:"extraFields"`              
+	FavResources    []PurpleFavResource `json:"favResources"`             
+	IconURL         *string             `json:"icon_url,omitempty"`       
+	ID              *string             `json:"id,omitempty"`             
+	InsuranceNumber *string             `json:"insuranceNumber,omitempty"`
+	Language        *LanguageList       `json:"language,omitempty"`       
+	MiddleName      *string             `json:"middleName"`               
+	Name            string              `json:"name"`                     
+	PassportID      *string             `json:"passportId,omitempty"`     
+	Sex             *Sex                `json:"sex,omitempty"`            
+	Surname         string              `json:"surname"`                  
+}
+
+type PurpleExtraField struct {
+	FieldID   string       `json:"fieldID"`  
+	FieldName string       `json:"fieldName"`
+	Value     *FluffyValue `json:"value"`    
+}
+
+type PurpleFavResource struct {
+	BusinessID float64 `json:"businessID"`
+	NetworkID  string  `json:"networkID"` 
+	ResourceID string  `json:"resourceID"`
+}
+
+type IndecentNetwork struct {
+	ID *TimeFrameDate `json:"id"`// идентификатор нетворка
+}
+
+type ClientUpdateClientInfoResponse struct {
+	Result  *ClientUpdateClientInfoResponseResult `json:"result,omitempty"` 
+	Error   *ClientUpdateClientInfoResponseError  `json:"error,omitempty"`  // объект, содержащий информацию об ошибке
+	ID      *float64                              `json:"id,omitempty"`     // значение числового типа для идентификации запроса на сервере
+	Jsonrpc *string                               `json:"jsonrpc,omitempty"`// версия протокола (2.0)
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type ClientUpdateClientInfoResponseError struct {
+	Code    float64 `json:"code"`   // код ошибки; ; код ошибки создания клиента
+	Data    *Data   `json:"data"`   // дополнительные данные об ошибке
+	Message string  `json:"message"`// текстовая информация об ошибке
+}
+
+type ClientUpdateClientInfoResponseResult struct {
+	AddedDocument map[string]interface{} `json:"added_document,omitempty"`
+	Success       bool                   `json:"success"`                 
+}
+
 type CracSlotsController struct {
 	CRACDistributedResourcesFreeByDate  *CRACDistributedResourcesFreeByDate `json:"CRACDistributedResourcesFreeByDate,omitempty"`
 	CRACResourcesFreeByDate             *CRACResourcesFreeByDate            `json:"CRACResourcesFreeByDate,omitempty"`           
@@ -2829,12 +2903,12 @@ type CracCRACDistributedResourcesFreeByDateRequest struct {
 }
 
 type CracCRACDistributedResourcesFreeByDateRequestParam struct {
-	Business  BraggadociousBusiness `json:"business"` 
-	Resources []string              `json:"resources"`
-	Taxonomy  TentacledTaxonomy     `json:"taxonomy"` 
+	Business  Business1         `json:"business"` 
+	Resources []string          `json:"resources"`
+	Taxonomy  TentacledTaxonomy `json:"taxonomy"` 
 }
 
-type BraggadociousBusiness struct {
+type Business1 struct {
 	ID string `json:"id"`
 }
 
@@ -2933,14 +3007,14 @@ type CracCRACResourcesFreeByDateV2Request struct {
 }
 
 type CracCRACResourcesFreeByDateV2RequestParam struct {
-	Business  Business1      `json:"business"` 
+	Business  Business2      `json:"business"` 
 	Duration  float64        `json:"duration"` 
 	Durations []float64      `json:"durations"`
 	Resources []string       `json:"resources"`
 	Taxonomy  IndigoTaxonomy `json:"taxonomy"` 
 }
 
-type Business1 struct {
+type Business2 struct {
 	ID string `json:"id"`
 }
 

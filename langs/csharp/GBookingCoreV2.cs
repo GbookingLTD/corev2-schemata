@@ -2043,7 +2043,7 @@ namespace GBookingCoreV2
         public string Jsonrpc { get; set; }
 
         [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
-        public AppointmentGetAppointmentsByClientV2ResponseResult Result { get; set; }
+        public List<Appointment> Result { get; set; }
 
         /// <summary>
         /// объект, содержащий информацию об ошибке
@@ -2076,24 +2076,6 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
-    }
-
-    /// <summary>
-    /// данные, передаваемые в ответ
-    /// </summary>
-    public partial class AppointmentGetAppointmentsByClientV2ResponseResult
-    {
-        [JsonProperty("data")]
-        public List<Appointment> Data { get; set; }
-
-        [JsonProperty("page")]
-        public double Page { get; set; }
-
-        [JsonProperty("total")]
-        public double Total { get; set; }
-
-        [JsonProperty("unconfirmed")]
-        public double Unconfirmed { get; set; }
     }
 
     public partial class GetAppointmentsByUser
@@ -2946,6 +2928,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
+
+        [JsonProperty("resoureLoginHideCancelledAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ResoureLoginHideCancelledAppointment { get; set; }
 
         [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
         public double? RevisionVersion { get; set; }
@@ -5633,6 +5618,9 @@ namespace GBookingCoreV2
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
 
+        [JsonProperty("resoureLoginHideCancelledAppointment", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ResoureLoginHideCancelledAppointment { get; set; }
+
         [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
         public double? RevisionVersion { get; set; }
 
@@ -6871,6 +6859,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("update_client")]
         public UpdateClient UpdateClient { get; set; }
+
+        [JsonProperty("update_client_info")]
+        public UpdateClientInfo UpdateClientInfo { get; set; }
     }
 
     public partial class AddClient
@@ -6999,7 +6990,7 @@ namespace GBookingCoreV2
         public string ExtraId { get; set; }
 
         [JsonProperty("favResources", NullValueHandling = NullValueHandling.Ignore)]
-        public List<FavResource> FavResources { get; set; }
+        public List<ClientFavResource> FavResources { get; set; }
 
         [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
         public string Fax { get; set; }
@@ -7149,7 +7140,7 @@ namespace GBookingCoreV2
         public FluffyValue? Value { get; set; }
     }
 
-    public partial class FavResource
+    public partial class ClientFavResource
     {
         [JsonProperty("businessID")]
         public double BusinessId { get; set; }
@@ -7653,6 +7644,214 @@ namespace GBookingCoreV2
         public bool Success { get; set; }
     }
 
+    public partial class UpdateClientInfo
+    {
+        [JsonProperty("request")]
+        public ClientUpdateClientInfoRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public ClientUpdateClientInfoResponse Response { get; set; }
+    }
+
+    public partial class ClientUpdateClientInfoRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public ClientUpdateClientInfoRequestParams Params { get; set; }
+    }
+
+    /// <summary>
+    /// параметры запроса
+    /// </summary>
+    public partial class ClientUpdateClientInfoRequestParams
+    {
+        [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
+        public BraggadociousBusiness Business { get; set; }
+
+        [JsonProperty("client")]
+        public IndigoClient Client { get; set; }
+
+        [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
+        public IndecentNetwork Network { get; set; }
+    }
+
+    public partial class BraggadociousBusiness
+    {
+        /// <summary>
+        /// идентификатор бизнеса
+        /// </summary>
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+    }
+
+    /// <summary>
+    /// Данные клиента доступные для обновления клиентом
+    /// </summary>
+    public partial class IndigoClient
+    {
+        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        public string Address { get; set; }
+
+        [JsonProperty("birthday")]
+        public Birthday? Birthday { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("extraFields", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleExtraField> ExtraFields { get; set; }
+
+        [JsonProperty("favResources", NullValueHandling = NullValueHandling.Ignore)]
+        public List<PurpleFavResource> FavResources { get; set; }
+
+        [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
+        public string IconUrl { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
+
+        [JsonProperty("insuranceNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string InsuranceNumber { get; set; }
+
+        [JsonProperty("language", NullValueHandling = NullValueHandling.Ignore)]
+        public LanguageList? Language { get; set; }
+
+        [JsonProperty("middleName")]
+        public string MiddleName { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("passportId", NullValueHandling = NullValueHandling.Ignore)]
+        public string PassportId { get; set; }
+
+        [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
+        public Sex? Sex { get; set; }
+
+        [JsonProperty("surname")]
+        public string Surname { get; set; }
+    }
+
+    public partial class PurpleExtraField
+    {
+        [JsonProperty("fieldID")]
+        public string FieldId { get; set; }
+
+        [JsonProperty("fieldName")]
+        public string FieldName { get; set; }
+
+        [JsonProperty("value")]
+        public FluffyValue? Value { get; set; }
+    }
+
+    public partial class PurpleFavResource
+    {
+        [JsonProperty("businessID")]
+        public double BusinessId { get; set; }
+
+        [JsonProperty("networkID")]
+        public string NetworkId { get; set; }
+
+        [JsonProperty("resourceID")]
+        public string ResourceId { get; set; }
+    }
+
+    public partial class IndecentNetwork
+    {
+        /// <summary>
+        /// идентификатор нетворка
+        /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeIdUnion? Id { get; set; }
+    }
+
+    public partial class ClientUpdateClientInfoResponse
+    {
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public ClientUpdateClientInfoResponseResult Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public ClientUpdateClientInfoResponseError Error { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc", NullValueHandling = NullValueHandling.Ignore)]
+        public string Jsonrpc { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class ClientUpdateClientInfoResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        ///
+        /// код ошибки создания клиента
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public Data? Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class ClientUpdateClientInfoResponseResult
+    {
+        [JsonProperty("added_document", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> AddedDocument { get; set; }
+
+        [JsonProperty("success")]
+        public bool Success { get; set; }
+    }
+
     public partial class CracSlotsController
     {
         [JsonProperty("CRACDistributedResourcesFreeByDate", NullValueHandling = NullValueHandling.Ignore)]
@@ -7719,7 +7918,7 @@ namespace GBookingCoreV2
     public partial class CracCracDistributedResourcesFreeByDateRequestParam
     {
         [JsonProperty("business")]
-        public BraggadociousBusiness Business { get; set; }
+        public Business1 Business { get; set; }
 
         [JsonProperty("resources")]
         public List<string> Resources { get; set; }
@@ -7728,7 +7927,7 @@ namespace GBookingCoreV2
         public TentacledTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class BraggadociousBusiness
+    public partial class Business1
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -7987,7 +8186,7 @@ namespace GBookingCoreV2
     public partial class CracCracResourcesFreeByDateV2RequestParam
     {
         [JsonProperty("business")]
-        public Business1 Business { get; set; }
+        public Business2 Business { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -8002,7 +8201,7 @@ namespace GBookingCoreV2
         public IndigoTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class Business1
+    public partial class Business2
     {
         [JsonProperty("id")]
         public string Id { get; set; }

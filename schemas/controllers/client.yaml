@@ -47,4 +47,5 @@ required:
   - add_client
   - find_or_create_client
   - update_client
+  - update_client_info
 additionalProperties: false

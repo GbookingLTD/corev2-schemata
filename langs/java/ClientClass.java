@@ -24,7 +24,7 @@ public class ClientClass {
     private List<String> email;
     private List<ClientExtraField> extraFields;
     private String extraID;
-    private List<FavResource> favResources;
+    private List<ClientFavResource> favResources;
     private String fax;
     private FromSMS fromSMS;
     private List<AddressSchema> fullAddress;
@@ -146,9 +146,9 @@ public class ClientClass {
     public void setExtraID(String value) { this.extraID = value; }
 
     @JsonProperty("favResources")
-    public List<FavResource> getFavResources() { return favResources; }
+    public List<ClientFavResource> getFavResources() { return favResources; }
     @JsonProperty("favResources")
-    public void setFavResources(List<FavResource> value) { this.favResources = value; }
+    public void setFavResources(List<ClientFavResource> value) { this.favResources = value; }
 
     @JsonProperty("fax")
     public String getFax() { return fax; }

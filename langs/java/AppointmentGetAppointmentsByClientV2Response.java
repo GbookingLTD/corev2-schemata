@@ -1,11 +1,12 @@
 package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
 
 public class AppointmentGetAppointmentsByClientV2Response {
     private double id;
     private String jsonrpc;
-    private AppointmentGetAppointmentsByClientV2ResponseResult result;
+    private List<Appointment> result;
     private AppointmentGetAppointmentsByClientV2ResponseError error;
 
     /**
@@ -25,9 +26,9 @@ public class AppointmentGetAppointmentsByClientV2Response {
     public void setJsonrpc(String value) { this.jsonrpc = value; }
 
     @JsonProperty("result")
-    public AppointmentGetAppointmentsByClientV2ResponseResult getResult() { return result; }
+    public List<Appointment> getResult() { return result; }
     @JsonProperty("result")
-    public void setResult(AppointmentGetAppointmentsByClientV2ResponseResult value) { this.result = value; }
+    public void setResult(List<Appointment> value) { this.result = value; }
 
     /**
      * объект, содержащий информацию об ошибке

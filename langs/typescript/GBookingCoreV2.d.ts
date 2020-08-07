@@ -1143,7 +1143,7 @@ export interface AppointmentGetAppointmentsByClientV2Response {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByClientV2ResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1167,15 +1167,6 @@ export interface AppointmentGetAppointmentsByClientV2ResponseError {
      * текстовая информация об ошибке
      */
     message: string;
-}
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByClientV2ResponseResult {
-    data: Appointment[];
-    page: number;
-    total: number;
-    unconfirmed: number;
 }
 export interface GetAppointmentsByUser {
     request: AppointmentGetAppointmentsByUserRequest;
@@ -1615,6 +1606,7 @@ export interface InfoBackofficeConfiguration {
     readonlyResourceSchedule?: boolean;
     resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
+    resoureLoginHideCancelledAppointment?: boolean;
     revisionVersion?: number;
     schduleWeekViewIsDefault?: boolean;
     scheduleDefaultWorkersLimit?: number;
@@ -3091,6 +3083,7 @@ export interface BusinessBackofficeConfiguration {
     readonlyResourceSchedule?: boolean;
     resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
+    resoureLoginHideCancelledAppointment?: boolean;
     revisionVersion?: number;
     schduleWeekViewIsDefault?: boolean;
     scheduleDefaultWorkersLimit?: number;
@@ -3588,6 +3581,7 @@ export interface ClientController {
     add_client: AddClient;
     find_or_create_client: FindOrCreateClient;
     update_client: UpdateClient;
+    update_client_info: UpdateClientInfo;
 }
 export interface AddClient {
     request: ClientAddClientRequest;
@@ -3651,7 +3645,7 @@ export interface ClientClass {
     email?: string[];
     extraFields?: ClientExtraField[];
     extraID?: string;
-    favResources?: FavResource[];
+    favResources?: ClientFavResource[];
     fax?: string;
     fromSms?: FromSms;
     fullAddress?: AddressSchema[];
@@ -3711,7 +3705,7 @@ export interface ClientExtraField {
 export declare type FluffyValue = boolean | number | {
     [key: string]: any;
 } | null | string;
-export interface FavResource {
+export interface ClientFavResource {
     businessID: number;
     networkID: string;
     resourceID: string;
@@ -4014,6 +4008,123 @@ export interface ClientUpdateClientResponseResult {
     };
     success: boolean;
 }
+export interface UpdateClientInfo {
+    request: ClientUpdateClientInfoRequest;
+    response: ClientUpdateClientInfoResponse;
+}
+export interface ClientUpdateClientInfoRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: ClientUpdateClientInfoRequestParams;
+}
+/**
+ * параметры запроса
+ */
+export interface ClientUpdateClientInfoRequestParams {
+    business?: BraggadociousBusiness;
+    client: StickyClient;
+    network?: IndecentNetwork;
+}
+export interface BraggadociousBusiness {
+    /**
+     * идентификатор бизнеса
+     */
+    id: BackofficeIdUnion;
+}
+/**
+ * Данные клиента доступные для обновления клиентом
+ */
+export interface StickyClient {
+    address?: string;
+    birthday?: Birthday;
+    description?: string;
+    extraFields?: PurpleExtraField[];
+    favResources?: PurpleFavResource[];
+    icon_url?: string;
+    id?: string;
+    insuranceNumber?: string;
+    language?: LanguageList;
+    middleName?: null | string;
+    name: string;
+    passportId?: string;
+    sex?: Sex;
+    surname: string;
+}
+export interface PurpleExtraField {
+    fieldID: string;
+    fieldName: string;
+    value?: FluffyValue;
+}
+export interface PurpleFavResource {
+    businessID: number;
+    networkID: string;
+    resourceID: string;
+}
+export interface IndecentNetwork {
+    /**
+     * идентификатор нетворка
+     */
+    id?: BackofficeIdUnion;
+}
+export interface ClientUpdateClientInfoResponse {
+    result?: ClientUpdateClientInfoResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: ClientUpdateClientInfoResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id?: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface ClientUpdateClientInfoResponseError {
+    /**
+     * код ошибки
+     *
+     * код ошибки создания клиента
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+export interface ClientUpdateClientInfoResponseResult {
+    added_document?: {
+        [key: string]: any;
+    };
+    success: boolean;
+}
 export interface CracSlotsController {
     CRACDistributedResourcesFreeByDate?: CracDistributedResourcesFreeByDate;
     CRACResourcesFreeByDate?: CracResourcesFreeByDate;
@@ -4049,11 +4160,11 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
     params: CracCracDistributedResourcesFreeByDateRequestParam[];
 }
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business: BraggadociousBusiness;
+    business: Business1;
     resources: string[];
     taxonomy: PurpleTaxonomy;
 }
-export interface BraggadociousBusiness {
+export interface Business1 {
     id: string;
 }
 export interface PurpleTaxonomy {
@@ -4206,13 +4317,13 @@ export interface CracCracResourcesFreeByDateV2Request {
     params: CracCracResourcesFreeByDateV2RequestParam[];
 }
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business: Business1;
+    business: Business2;
     duration: number;
     durations: number[];
     resources: string[];
     taxonomy: TentacledTaxonomy;
 }
-export interface Business1 {
+export interface Business2 {
     id: string;
 }
 export interface TentacledTaxonomy {

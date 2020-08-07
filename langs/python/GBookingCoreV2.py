@@ -3490,47 +3490,16 @@ class AppointmentGetAppointmentsByClientV2ResponseError:
         return result
 
 
-class AppointmentGetAppointmentsByClientV2ResponseResult:
-    """данные, передаваемые в ответ"""
-    data: List[Appointment]
-    page: float
-    total: float
-    unconfirmed: float
-
-    def __init__(self, data: List[Appointment], page: float, total: float, unconfirmed: float) -> None:
-        self.data = data
-        self.page = page
-        self.total = total
-        self.unconfirmed = unconfirmed
-
-    @staticmethod
-    def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByClientV2ResponseResult':
-        assert isinstance(obj, dict)
-        data = from_list(Appointment.from_dict, obj.get("data"))
-        page = from_float(obj.get("page"))
-        total = from_float(obj.get("total"))
-        unconfirmed = from_float(obj.get("unconfirmed"))
-        return AppointmentGetAppointmentsByClientV2ResponseResult(data, page, total, unconfirmed)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = from_list(lambda x: to_class(Appointment, x), self.data)
-        result["page"] = to_float(self.page)
-        result["total"] = to_float(self.total)
-        result["unconfirmed"] = to_float(self.unconfirmed)
-        return result
-
-
 class AppointmentGetAppointmentsByClientV2Response:
     """значение числового типа для идентификации запроса на сервере"""
     id: float
     """версия протокола (2.0)"""
     jsonrpc: str
-    result: Optional[AppointmentGetAppointmentsByClientV2ResponseResult]
+    result: Optional[List[Appointment]]
     """объект, содержащий информацию об ошибке"""
     error: Optional[AppointmentGetAppointmentsByClientV2ResponseError]
 
-    def __init__(self, id: float, jsonrpc: str, result: Optional[AppointmentGetAppointmentsByClientV2ResponseResult], error: Optional[AppointmentGetAppointmentsByClientV2ResponseError]) -> None:
+    def __init__(self, id: float, jsonrpc: str, result: Optional[List[Appointment]], error: Optional[AppointmentGetAppointmentsByClientV2ResponseError]) -> None:
         self.id = id
         self.jsonrpc = jsonrpc
         self.result = result
@@ -3541,7 +3510,7 @@ class AppointmentGetAppointmentsByClientV2Response:
         assert isinstance(obj, dict)
         id = from_float(obj.get("id"))
         jsonrpc = from_str(obj.get("jsonrpc"))
-        result = from_union([AppointmentGetAppointmentsByClientV2ResponseResult.from_dict, from_none], obj.get("result"))
+        result = from_union([lambda x: from_list(Appointment.from_dict, x), from_none], obj.get("result"))
         error = from_union([AppointmentGetAppointmentsByClientV2ResponseError.from_dict, from_none], obj.get("error"))
         return AppointmentGetAppointmentsByClientV2Response(id, jsonrpc, result, error)
 
@@ -3549,7 +3518,7 @@ class AppointmentGetAppointmentsByClientV2Response:
         result: dict = {}
         result["id"] = to_float(self.id)
         result["jsonrpc"] = from_str(self.jsonrpc)
-        result["result"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByClientV2ResponseResult, x), from_none], self.result)
+        result["result"] = from_union([lambda x: from_list(lambda x: to_class(Appointment, x), x), from_none], self.result)
         result["error"] = from_union([lambda x: to_class(AppointmentGetAppointmentsByClientV2ResponseError, x), from_none], self.error)
         return result
 
@@ -4547,6 +4516,7 @@ class InfoBackofficeConfiguration:
     readonly_resource_schedule: Optional[bool]
     resource_surname_first: Optional[bool]
     resource_timetable_type: Optional[ResourceTimetableType]
+    resoure_login_hide_cancelled_appointment: Optional[bool]
     revision_version: Optional[float]
     schdule_week_view_is_default: Optional[bool]
     schedule_default_workers_limit: Optional[float]
@@ -4611,7 +4581,7 @@ class InfoBackofficeConfiguration:
     work_week_end: Optional[float]
     work_week_start: Optional[float]
 
-    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_provider: Optional[PurpleTelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
+    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], resoure_login_hide_cancelled_appointment: Optional[bool], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_provider: Optional[PurpleTelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
         self.adjacent_taxonomies_treshold = adjacent_taxonomies_treshold
         self.allow_hide_service_for_booking = allow_hide_service_for_booking
         self.allow_hide_workers_from_schdeule = allow_hide_workers_from_schdeule
@@ -4661,6 +4631,7 @@ class InfoBackofficeConfiguration:
         self.readonly_resource_schedule = readonly_resource_schedule
         self.resource_surname_first = resource_surname_first
         self.resource_timetable_type = resource_timetable_type
+        self.resoure_login_hide_cancelled_appointment = resoure_login_hide_cancelled_appointment
         self.revision_version = revision_version
         self.schdule_week_view_is_default = schdule_week_view_is_default
         self.schedule_default_workers_limit = schedule_default_workers_limit
@@ -4777,6 +4748,7 @@ class InfoBackofficeConfiguration:
         readonly_resource_schedule = from_union([from_bool, from_none], obj.get("readonlyResourceSchedule"))
         resource_surname_first = from_union([from_bool, from_none], obj.get("resourceSurnameFirst"))
         resource_timetable_type = from_union([ResourceTimetableType, from_none], obj.get("resourceTimetableType"))
+        resoure_login_hide_cancelled_appointment = from_union([from_bool, from_none], obj.get("resoureLoginHideCancelledAppointment"))
         revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
         schdule_week_view_is_default = from_union([from_bool, from_none], obj.get("schduleWeekViewIsDefault"))
         schedule_default_workers_limit = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimit"))
@@ -4840,7 +4812,7 @@ class InfoBackofficeConfiguration:
         use_gt_app_method = from_union([from_bool, from_none], obj.get("useGtAppMethod"))
         work_week_end = from_union([from_float, from_none], obj.get("workWeekEnd"))
         work_week_start = from_union([from_float, from_none], obj.get("workWeekStart"))
-        return InfoBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
+        return InfoBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, resoure_login_hide_cancelled_appointment, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -4893,6 +4865,7 @@ class InfoBackofficeConfiguration:
         result["readonlyResourceSchedule"] = from_union([from_bool, from_none], self.readonly_resource_schedule)
         result["resourceSurnameFirst"] = from_union([from_bool, from_none], self.resource_surname_first)
         result["resourceTimetableType"] = from_union([lambda x: to_enum(ResourceTimetableType, x), from_none], self.resource_timetable_type)
+        result["resoureLoginHideCancelledAppointment"] = from_union([from_bool, from_none], self.resoure_login_hide_cancelled_appointment)
         result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
         result["schduleWeekViewIsDefault"] = from_union([from_bool, from_none], self.schdule_week_view_is_default)
         result["scheduleDefaultWorkersLimit"] = from_union([to_float, from_none], self.schedule_default_workers_limit)
@@ -8655,6 +8628,7 @@ class BusinessBackofficeConfiguration:
     readonly_resource_schedule: Optional[bool]
     resource_surname_first: Optional[bool]
     resource_timetable_type: Optional[ResourceTimetableType]
+    resoure_login_hide_cancelled_appointment: Optional[bool]
     revision_version: Optional[float]
     schdule_week_view_is_default: Optional[bool]
     schedule_default_workers_limit: Optional[float]
@@ -8722,7 +8696,7 @@ class BusinessBackofficeConfiguration:
     work_week_end: Optional[float]
     work_week_start: Optional[float]
 
-    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], schedule_enable_day_intervals: Optional[bool], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_split_day_time_intervals: Optional[List[ScheduleSplitDayTimeInterval]], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_name_extra_id: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_provider: Optional[FluffyTelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
+    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], resoure_login_hide_cancelled_appointment: Optional[bool], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], schedule_enable_day_intervals: Optional[bool], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_split_day_time_intervals: Optional[List[ScheduleSplitDayTimeInterval]], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_name_extra_id: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_provider: Optional[FluffyTelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
         self.adjacent_taxonomies_treshold = adjacent_taxonomies_treshold
         self.allow_hide_service_for_booking = allow_hide_service_for_booking
         self.allow_hide_workers_from_schdeule = allow_hide_workers_from_schdeule
@@ -8772,6 +8746,7 @@ class BusinessBackofficeConfiguration:
         self.readonly_resource_schedule = readonly_resource_schedule
         self.resource_surname_first = resource_surname_first
         self.resource_timetable_type = resource_timetable_type
+        self.resoure_login_hide_cancelled_appointment = resoure_login_hide_cancelled_appointment
         self.revision_version = revision_version
         self.schdule_week_view_is_default = schdule_week_view_is_default
         self.schedule_default_workers_limit = schedule_default_workers_limit
@@ -8891,6 +8866,7 @@ class BusinessBackofficeConfiguration:
         readonly_resource_schedule = from_union([from_bool, from_none], obj.get("readonlyResourceSchedule"))
         resource_surname_first = from_union([from_bool, from_none], obj.get("resourceSurnameFirst"))
         resource_timetable_type = from_union([ResourceTimetableType, from_none], obj.get("resourceTimetableType"))
+        resoure_login_hide_cancelled_appointment = from_union([from_bool, from_none], obj.get("resoureLoginHideCancelledAppointment"))
         revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
         schdule_week_view_is_default = from_union([from_bool, from_none], obj.get("schduleWeekViewIsDefault"))
         schedule_default_workers_limit = from_union([from_float, from_none], obj.get("scheduleDefaultWorkersLimit"))
@@ -8957,7 +8933,7 @@ class BusinessBackofficeConfiguration:
         use_gt_app_method = from_union([from_bool, from_none], obj.get("useGtAppMethod"))
         work_week_end = from_union([from_float, from_none], obj.get("workWeekEnd"))
         work_week_start = from_union([from_float, from_none], obj.get("workWeekStart"))
-        return BusinessBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, schedule_enable_day_intervals, scheduler_week_view_type, schedule_split_day_time_intervals, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_name_extra_id, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
+        return BusinessBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, resoure_login_hide_cancelled_appointment, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, schedule_enable_day_intervals, scheduler_week_view_type, schedule_split_day_time_intervals, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_name_extra_id, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9010,6 +8986,7 @@ class BusinessBackofficeConfiguration:
         result["readonlyResourceSchedule"] = from_union([from_bool, from_none], self.readonly_resource_schedule)
         result["resourceSurnameFirst"] = from_union([from_bool, from_none], self.resource_surname_first)
         result["resourceTimetableType"] = from_union([lambda x: to_enum(ResourceTimetableType, x), from_none], self.resource_timetable_type)
+        result["resoureLoginHideCancelledAppointment"] = from_union([from_bool, from_none], self.resoure_login_hide_cancelled_appointment)
         result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
         result["schduleWeekViewIsDefault"] = from_union([from_bool, from_none], self.schdule_week_view_is_default)
         result["scheduleDefaultWorkersLimit"] = from_union([to_float, from_none], self.schedule_default_workers_limit)
@@ -11015,7 +10992,7 @@ class ClientExtraField:
         return result
 
 
-class FavResource:
+class ClientFavResource:
     business_id: float
     network_id: str
     resource_id: str
@@ -11026,12 +11003,12 @@ class FavResource:
         self.resource_id = resource_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'FavResource':
+    def from_dict(obj: Any) -> 'ClientFavResource':
         assert isinstance(obj, dict)
         business_id = from_float(obj.get("businessID"))
         network_id = from_str(obj.get("networkID"))
         resource_id = from_str(obj.get("resourceID"))
-        return FavResource(business_id, network_id, resource_id)
+        return ClientFavResource(business_id, network_id, resource_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -11274,7 +11251,7 @@ class ClientClass:
     email: Optional[List[str]]
     extra_fields: Optional[List[ClientExtraField]]
     extra_id: Optional[str]
-    fav_resources: Optional[List[FavResource]]
+    fav_resources: Optional[List[ClientFavResource]]
     fax: Optional[str]
     from_sms: Union[bool, None, str]
     full_address: Optional[List[AddressSchema]]
@@ -11315,7 +11292,7 @@ class ClientClass:
     updated: Optional[str]
     work_place: Optional[str]
 
-    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], black_list: Optional[bool], children_clients: Optional[List[ChildrenClient]], client_card_creation_date: Optional[str], client_card_number: Optional[str], client_contract_number: Optional[str], created: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], description: Optional[str], discount_code: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[ClientExtraField]], extra_id: Optional[str], fav_resources: Optional[List[FavResource]], fax: Optional[str], from_sms: Union[bool, None, str], full_address: Optional[List[AddressSchema]], house_number: Optional[str], icon_url: Optional[str], id: Optional[str], insurance_company: Optional[str], insurance_number: Optional[str], integration_data: Optional[IntegrationDataClass], is_lazy: Optional[bool], israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str], is_vip: Optional[bool], kupat_holim: Union[List[Any], bool, KupatHolimKupatHolim, float, int, None, str], language: Optional[LanguageList], last_created_appointment: Optional[Dict[str, Any]], last_visited_appointment: Optional[Dict[str, Any]], lazy_resolved_date: Optional[str], locality: Optional[str], loyalty_info: Optional[LoyaltyInfo], middle_name: Optional[str], name: str, passport_date: Optional[str], passport_id: Optional[str], passport_issued: Optional[str], passport_series: Optional[str], phone: List[FaxElement], receive_sms_after_service: Optional[bool], sex: Optional[Sex], skip_marketing_notifications: Optional[bool], skip_notifications: Optional[bool], snils: Optional[str], statistics: Optional[Statistics], status: Optional[ResourceStatus], surname: str, taxi_park: Optional[str], taxi_park_member_count: Union[float, None, str], two_fa_user_id: Optional[str], updated: Optional[str], work_place: Optional[str]) -> None:
+    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], black_list: Optional[bool], children_clients: Optional[List[ChildrenClient]], client_card_creation_date: Optional[str], client_card_number: Optional[str], client_contract_number: Optional[str], created: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], description: Optional[str], discount_code: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[ClientExtraField]], extra_id: Optional[str], fav_resources: Optional[List[ClientFavResource]], fax: Optional[str], from_sms: Union[bool, None, str], full_address: Optional[List[AddressSchema]], house_number: Optional[str], icon_url: Optional[str], id: Optional[str], insurance_company: Optional[str], insurance_number: Optional[str], integration_data: Optional[IntegrationDataClass], is_lazy: Optional[bool], israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str], is_vip: Optional[bool], kupat_holim: Union[List[Any], bool, KupatHolimKupatHolim, float, int, None, str], language: Optional[LanguageList], last_created_appointment: Optional[Dict[str, Any]], last_visited_appointment: Optional[Dict[str, Any]], lazy_resolved_date: Optional[str], locality: Optional[str], loyalty_info: Optional[LoyaltyInfo], middle_name: Optional[str], name: str, passport_date: Optional[str], passport_id: Optional[str], passport_issued: Optional[str], passport_series: Optional[str], phone: List[FaxElement], receive_sms_after_service: Optional[bool], sex: Optional[Sex], skip_marketing_notifications: Optional[bool], skip_notifications: Optional[bool], snils: Optional[str], statistics: Optional[Statistics], status: Optional[ResourceStatus], surname: str, taxi_park: Optional[str], taxi_park_member_count: Union[float, None, str], two_fa_user_id: Optional[str], updated: Optional[str], work_place: Optional[str]) -> None:
         self.address = address
         self.birthday = birthday
         self.black_list = black_list
@@ -11392,7 +11369,7 @@ class ClientClass:
         email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         extra_fields = from_union([lambda x: from_list(ClientExtraField.from_dict, x), from_none], obj.get("extraFields"))
         extra_id = from_union([from_str, from_none], obj.get("extraID"))
-        fav_resources = from_union([lambda x: from_list(FavResource.from_dict, x), from_none], obj.get("favResources"))
+        fav_resources = from_union([lambda x: from_list(ClientFavResource.from_dict, x), from_none], obj.get("favResources"))
         fax = from_union([from_str, from_none], obj.get("fax"))
         from_sms = from_union([from_bool, from_str, from_none], obj.get("fromSms"))
         full_address = from_union([lambda x: from_list(AddressSchema.from_dict, x), from_none], obj.get("fullAddress"))
@@ -11452,7 +11429,7 @@ class ClientClass:
         result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["extraFields"] = from_union([lambda x: from_list(lambda x: to_class(ClientExtraField, x), x), from_none], self.extra_fields)
         result["extraID"] = from_union([from_str, from_none], self.extra_id)
-        result["favResources"] = from_union([lambda x: from_list(lambda x: to_class(FavResource, x), x), from_none], self.fav_resources)
+        result["favResources"] = from_union([lambda x: from_list(lambda x: to_class(ClientFavResource, x), x), from_none], self.fav_resources)
         result["fax"] = from_union([from_str, from_none], self.fax)
         result["fromSms"] = from_union([from_bool, from_str, from_none], self.from_sms)
         result["fullAddress"] = from_union([lambda x: from_list(lambda x: to_class(AddressSchema, x), x), from_none], self.full_address)
@@ -12242,15 +12219,357 @@ class UpdateClient:
         return result
 
 
+class BraggadociousBusiness:
+    """идентификатор бизнеса"""
+    id: Union[float, str]
+
+    def __init__(self, id: Union[float, str]) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'BraggadociousBusiness':
+        assert isinstance(obj, dict)
+        id = from_union([from_float, from_str], obj.get("id"))
+        return BraggadociousBusiness(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_union([to_float, from_str], self.id)
+        return result
+
+
+class PurpleExtraField:
+    field_id: str
+    field_name: str
+    value: Union[bool, float, Dict[str, Any], None, str]
+
+    def __init__(self, field_id: str, field_name: str, value: Union[bool, float, Dict[str, Any], None, str]) -> None:
+        self.field_id = field_id
+        self.field_name = field_name
+        self.value = value
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleExtraField':
+        assert isinstance(obj, dict)
+        field_id = from_str(obj.get("fieldID"))
+        field_name = from_str(obj.get("fieldName"))
+        value = from_union([from_none, from_float, from_bool, from_str, lambda x: from_dict(lambda x: x, x)], obj.get("value"))
+        return PurpleExtraField(field_id, field_name, value)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["fieldID"] = from_str(self.field_id)
+        result["fieldName"] = from_str(self.field_name)
+        result["value"] = from_union([from_none, to_float, from_bool, from_str, lambda x: from_dict(lambda x: x, x)], self.value)
+        return result
+
+
+class PurpleFavResource:
+    business_id: float
+    network_id: str
+    resource_id: str
+
+    def __init__(self, business_id: float, network_id: str, resource_id: str) -> None:
+        self.business_id = business_id
+        self.network_id = network_id
+        self.resource_id = resource_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleFavResource':
+        assert isinstance(obj, dict)
+        business_id = from_float(obj.get("businessID"))
+        network_id = from_str(obj.get("networkID"))
+        resource_id = from_str(obj.get("resourceID"))
+        return PurpleFavResource(business_id, network_id, resource_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["businessID"] = to_float(self.business_id)
+        result["networkID"] = from_str(self.network_id)
+        result["resourceID"] = from_str(self.resource_id)
+        return result
+
+
+class IndigoClient:
+    """Данные клиента доступные для обновления клиентом"""
+    address: Optional[str]
+    birthday: Union[Dict[str, Any], None, str]
+    description: Optional[str]
+    extra_fields: Optional[List[PurpleExtraField]]
+    fav_resources: Optional[List[PurpleFavResource]]
+    icon_url: Optional[str]
+    id: Optional[str]
+    insurance_number: Optional[str]
+    language: Optional[LanguageList]
+    middle_name: Optional[str]
+    name: str
+    passport_id: Optional[str]
+    sex: Optional[Sex]
+    surname: str
+
+    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], description: Optional[str], extra_fields: Optional[List[PurpleExtraField]], fav_resources: Optional[List[PurpleFavResource]], icon_url: Optional[str], id: Optional[str], insurance_number: Optional[str], language: Optional[LanguageList], middle_name: Optional[str], name: str, passport_id: Optional[str], sex: Optional[Sex], surname: str) -> None:
+        self.address = address
+        self.birthday = birthday
+        self.description = description
+        self.extra_fields = extra_fields
+        self.fav_resources = fav_resources
+        self.icon_url = icon_url
+        self.id = id
+        self.insurance_number = insurance_number
+        self.language = language
+        self.middle_name = middle_name
+        self.name = name
+        self.passport_id = passport_id
+        self.sex = sex
+        self.surname = surname
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'IndigoClient':
+        assert isinstance(obj, dict)
+        address = from_union([from_str, from_none], obj.get("address"))
+        birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
+        description = from_union([from_str, from_none], obj.get("description"))
+        extra_fields = from_union([lambda x: from_list(PurpleExtraField.from_dict, x), from_none], obj.get("extraFields"))
+        fav_resources = from_union([lambda x: from_list(PurpleFavResource.from_dict, x), from_none], obj.get("favResources"))
+        icon_url = from_union([from_str, from_none], obj.get("icon_url"))
+        id = from_union([from_str, from_none], obj.get("id"))
+        insurance_number = from_union([from_str, from_none], obj.get("insuranceNumber"))
+        language = from_union([LanguageList, from_none], obj.get("language"))
+        middle_name = from_union([from_none, from_str], obj.get("middleName"))
+        name = from_str(obj.get("name"))
+        passport_id = from_union([from_str, from_none], obj.get("passportId"))
+        sex = from_union([Sex, from_none], obj.get("sex"))
+        surname = from_str(obj.get("surname"))
+        return IndigoClient(address, birthday, description, extra_fields, fav_resources, icon_url, id, insurance_number, language, middle_name, name, passport_id, sex, surname)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["address"] = from_union([from_str, from_none], self.address)
+        result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
+        result["description"] = from_union([from_str, from_none], self.description)
+        result["extraFields"] = from_union([lambda x: from_list(lambda x: to_class(PurpleExtraField, x), x), from_none], self.extra_fields)
+        result["favResources"] = from_union([lambda x: from_list(lambda x: to_class(PurpleFavResource, x), x), from_none], self.fav_resources)
+        result["icon_url"] = from_union([from_str, from_none], self.icon_url)
+        result["id"] = from_union([from_str, from_none], self.id)
+        result["insuranceNumber"] = from_union([from_str, from_none], self.insurance_number)
+        result["language"] = from_union([lambda x: to_enum(LanguageList, x), from_none], self.language)
+        result["middleName"] = from_union([from_none, from_str], self.middle_name)
+        result["name"] = from_str(self.name)
+        result["passportId"] = from_union([from_str, from_none], self.passport_id)
+        result["sex"] = from_union([lambda x: to_enum(Sex, x), from_none], self.sex)
+        result["surname"] = from_str(self.surname)
+        return result
+
+
+class IndecentNetwork:
+    """идентификатор нетворка"""
+    id: Union[float, None, str]
+
+    def __init__(self, id: Union[float, None, str]) -> None:
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'IndecentNetwork':
+        assert isinstance(obj, dict)
+        id = from_union([from_float, from_str, from_none], obj.get("id"))
+        return IndecentNetwork(id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["id"] = from_union([to_float, from_str, from_none], self.id)
+        return result
+
+
+class ClientUpdateClientInfoRequestParams:
+    """параметры запроса"""
+    business: Optional[BraggadociousBusiness]
+    client: IndigoClient
+    network: Optional[IndecentNetwork]
+
+    def __init__(self, business: Optional[BraggadociousBusiness], client: IndigoClient, network: Optional[IndecentNetwork]) -> None:
+        self.business = business
+        self.client = client
+        self.network = network
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ClientUpdateClientInfoRequestParams':
+        assert isinstance(obj, dict)
+        business = from_union([BraggadociousBusiness.from_dict, from_none], obj.get("business"))
+        client = IndigoClient.from_dict(obj.get("client"))
+        network = from_union([IndecentNetwork.from_dict, from_none], obj.get("network"))
+        return ClientUpdateClientInfoRequestParams(business, client, network)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["business"] = from_union([lambda x: to_class(BraggadociousBusiness, x), from_none], self.business)
+        result["client"] = to_class(IndigoClient, self.client)
+        result["network"] = from_union([lambda x: to_class(IndecentNetwork, x), from_none], self.network)
+        return result
+
+
+class ClientUpdateClientInfoRequest:
+    """авторизационные параметры"""
+    cred: Optional[Cred]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Union[float, str]
+    """версия протокола - 2.0"""
+    jsonrpc: str
+    """название jsonrpc метода"""
+    method: str
+    """параметры запроса"""
+    params: ClientUpdateClientInfoRequestParams
+
+    def __init__(self, cred: Optional[Cred], id: Union[float, str], jsonrpc: str, method: str, params: ClientUpdateClientInfoRequestParams) -> None:
+        self.cred = cred
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
+        self.params = params
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ClientUpdateClientInfoRequest':
+        assert isinstance(obj, dict)
+        cred = from_union([Cred.from_dict, from_none], obj.get("cred"))
+        id = from_union([from_float, from_str], obj.get("id"))
+        jsonrpc = from_str(obj.get("jsonrpc"))
+        method = from_str(obj.get("method"))
+        params = ClientUpdateClientInfoRequestParams.from_dict(obj.get("params"))
+        return ClientUpdateClientInfoRequest(cred, id, jsonrpc, method, params)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["cred"] = from_union([lambda x: to_class(Cred, x), from_none], self.cred)
+        result["id"] = from_union([to_float, from_str], self.id)
+        result["jsonrpc"] = from_str(self.jsonrpc)
+        result["method"] = from_str(self.method)
+        result["params"] = to_class(ClientUpdateClientInfoRequestParams, self.params)
+        return result
+
+
+class ClientUpdateClientInfoResponseError:
+    """объект, содержащий информацию об ошибке
+    
+    Код ошибки авторизации
+    """
+    """код ошибки
+    
+    код ошибки создания клиента
+    """
+    code: float
+    """дополнительные данные об ошибке"""
+    data: Union[Dict[str, Any], None, str]
+    """текстовая информация об ошибке"""
+    message: str
+
+    def __init__(self, code: float, data: Union[Dict[str, Any], None, str], message: str) -> None:
+        self.code = code
+        self.data = data
+        self.message = message
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ClientUpdateClientInfoResponseError':
+        assert isinstance(obj, dict)
+        code = from_float(obj.get("code"))
+        data = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("data"))
+        message = from_str(obj.get("message"))
+        return ClientUpdateClientInfoResponseError(code, data, message)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["code"] = to_float(self.code)
+        result["data"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.data)
+        result["message"] = from_str(self.message)
+        return result
+
+
+class ClientUpdateClientInfoResponseResult:
+    added_document: Optional[Dict[str, Any]]
+    success: bool
+
+    def __init__(self, added_document: Optional[Dict[str, Any]], success: bool) -> None:
+        self.added_document = added_document
+        self.success = success
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ClientUpdateClientInfoResponseResult':
+        assert isinstance(obj, dict)
+        added_document = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("added_document"))
+        success = from_bool(obj.get("success"))
+        return ClientUpdateClientInfoResponseResult(added_document, success)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["added_document"] = from_union([lambda x: from_dict(lambda x: x, x), from_none], self.added_document)
+        result["success"] = from_bool(self.success)
+        return result
+
+
+class ClientUpdateClientInfoResponse:
+    result: Optional[ClientUpdateClientInfoResponseResult]
+    """объект, содержащий информацию об ошибке"""
+    error: Optional[ClientUpdateClientInfoResponseError]
+    """значение числового типа для идентификации запроса на сервере"""
+    id: Optional[float]
+    """версия протокола (2.0)"""
+    jsonrpc: Optional[str]
+
+    def __init__(self, result: Optional[ClientUpdateClientInfoResponseResult], error: Optional[ClientUpdateClientInfoResponseError], id: Optional[float], jsonrpc: Optional[str]) -> None:
+        self.result = result
+        self.error = error
+        self.id = id
+        self.jsonrpc = jsonrpc
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ClientUpdateClientInfoResponse':
+        assert isinstance(obj, dict)
+        result = from_union([ClientUpdateClientInfoResponseResult.from_dict, from_none], obj.get("result"))
+        error = from_union([ClientUpdateClientInfoResponseError.from_dict, from_none], obj.get("error"))
+        id = from_union([from_float, from_none], obj.get("id"))
+        jsonrpc = from_union([from_str, from_none], obj.get("jsonrpc"))
+        return ClientUpdateClientInfoResponse(result, error, id, jsonrpc)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["result"] = from_union([lambda x: to_class(ClientUpdateClientInfoResponseResult, x), from_none], self.result)
+        result["error"] = from_union([lambda x: to_class(ClientUpdateClientInfoResponseError, x), from_none], self.error)
+        result["id"] = from_union([to_float, from_none], self.id)
+        result["jsonrpc"] = from_union([from_str, from_none], self.jsonrpc)
+        return result
+
+
+class UpdateClientInfo:
+    request: ClientUpdateClientInfoRequest
+    response: ClientUpdateClientInfoResponse
+
+    def __init__(self, request: ClientUpdateClientInfoRequest, response: ClientUpdateClientInfoResponse) -> None:
+        self.request = request
+        self.response = response
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'UpdateClientInfo':
+        assert isinstance(obj, dict)
+        request = ClientUpdateClientInfoRequest.from_dict(obj.get("request"))
+        response = ClientUpdateClientInfoResponse.from_dict(obj.get("response"))
+        return UpdateClientInfo(request, response)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["request"] = to_class(ClientUpdateClientInfoRequest, self.request)
+        result["response"] = to_class(ClientUpdateClientInfoResponse, self.response)
+        return result
+
+
 class ClientController:
     add_client: AddClient
     find_or_create_client: FindOrCreateClient
     update_client: UpdateClient
+    update_client_info: UpdateClientInfo
 
-    def __init__(self, add_client: AddClient, find_or_create_client: FindOrCreateClient, update_client: UpdateClient) -> None:
+    def __init__(self, add_client: AddClient, find_or_create_client: FindOrCreateClient, update_client: UpdateClient, update_client_info: UpdateClientInfo) -> None:
         self.add_client = add_client
         self.find_or_create_client = find_or_create_client
         self.update_client = update_client
+        self.update_client_info = update_client_info
 
     @staticmethod
     def from_dict(obj: Any) -> 'ClientController':
@@ -12258,27 +12577,29 @@ class ClientController:
         add_client = AddClient.from_dict(obj.get("add_client"))
         find_or_create_client = FindOrCreateClient.from_dict(obj.get("find_or_create_client"))
         update_client = UpdateClient.from_dict(obj.get("update_client"))
-        return ClientController(add_client, find_or_create_client, update_client)
+        update_client_info = UpdateClientInfo.from_dict(obj.get("update_client_info"))
+        return ClientController(add_client, find_or_create_client, update_client, update_client_info)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["add_client"] = to_class(AddClient, self.add_client)
         result["find_or_create_client"] = to_class(FindOrCreateClient, self.find_or_create_client)
         result["update_client"] = to_class(UpdateClient, self.update_client)
+        result["update_client_info"] = to_class(UpdateClientInfo, self.update_client_info)
         return result
 
 
-class BraggadociousBusiness:
+class Business1:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'BraggadociousBusiness':
+    def from_dict(obj: Any) -> 'Business1':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return BraggadociousBusiness(id)
+        return Business1(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -12305,11 +12626,11 @@ class TentacledTaxonomy:
 
 
 class CracCRACDistributedResourcesFreeByDateRequestParam:
-    business: BraggadociousBusiness
+    business: Business1
     resources: List[str]
     taxonomy: TentacledTaxonomy
 
-    def __init__(self, business: BraggadociousBusiness, resources: List[str], taxonomy: TentacledTaxonomy) -> None:
+    def __init__(self, business: Business1, resources: List[str], taxonomy: TentacledTaxonomy) -> None:
         self.business = business
         self.resources = resources
         self.taxonomy = taxonomy
@@ -12317,14 +12638,14 @@ class CracCRACDistributedResourcesFreeByDateRequestParam:
     @staticmethod
     def from_dict(obj: Any) -> 'CracCRACDistributedResourcesFreeByDateRequestParam':
         assert isinstance(obj, dict)
-        business = BraggadociousBusiness.from_dict(obj.get("business"))
+        business = Business1.from_dict(obj.get("business"))
         resources = from_list(from_str, obj.get("resources"))
         taxonomy = TentacledTaxonomy.from_dict(obj.get("taxonomy"))
         return CracCRACDistributedResourcesFreeByDateRequestParam(business, resources, taxonomy)
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(BraggadociousBusiness, self.business)
+        result["business"] = to_class(Business1, self.business)
         result["resources"] = from_list(from_str, self.resources)
         result["taxonomy"] = to_class(TentacledTaxonomy, self.taxonomy)
         return result
@@ -12724,17 +13045,17 @@ class CRACResourcesFreeByDate:
         return result
 
 
-class Business1:
+class Business2:
     id: str
 
     def __init__(self, id: str) -> None:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Business1':
+    def from_dict(obj: Any) -> 'Business2':
         assert isinstance(obj, dict)
         id = from_str(obj.get("id"))
-        return Business1(id)
+        return Business2(id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -12761,13 +13082,13 @@ class IndigoTaxonomy:
 
 
 class CracCRACResourcesFreeByDateV2RequestParam:
-    business: Business1
+    business: Business2
     duration: float
     durations: List[float]
     resources: List[str]
     taxonomy: IndigoTaxonomy
 
-    def __init__(self, business: Business1, duration: float, durations: List[float], resources: List[str], taxonomy: IndigoTaxonomy) -> None:
+    def __init__(self, business: Business2, duration: float, durations: List[float], resources: List[str], taxonomy: IndigoTaxonomy) -> None:
         self.business = business
         self.duration = duration
         self.durations = durations
@@ -12777,7 +13098,7 @@ class CracCRACResourcesFreeByDateV2RequestParam:
     @staticmethod
     def from_dict(obj: Any) -> 'CracCRACResourcesFreeByDateV2RequestParam':
         assert isinstance(obj, dict)
-        business = Business1.from_dict(obj.get("business"))
+        business = Business2.from_dict(obj.get("business"))
         duration = from_float(obj.get("duration"))
         durations = from_list(from_float, obj.get("durations"))
         resources = from_list(from_str, obj.get("resources"))
@@ -12786,7 +13107,7 @@ class CracCRACResourcesFreeByDateV2RequestParam:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["business"] = to_class(Business1, self.business)
+        result["business"] = to_class(Business2, self.business)
         result["duration"] = to_float(self.duration)
         result["durations"] = from_list(to_float, self.durations)
         result["resources"] = from_list(from_str, self.resources)
