@@ -20,6 +20,10 @@ properties:
   sex:
     type: "string"
     enum: ['',"MALE", "FEMALE", "NOT_SPECIFIED"]
+  email:
+    type: "array"
+    items:
+      type: "string"
   insuranceNumber:
     type: "string"
   language:
