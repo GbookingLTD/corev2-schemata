@@ -20,7 +20,7 @@ properties:
   unlimWeeklyRepeat:
     type: "boolean"
     default: false
-  daysOfWeek:
+  days:
     type: "string"
     enum: ["sun","mon","tue","wed","thu","fri","sat"]
   slots:
