@@ -21,10 +21,14 @@ properties:
     type: "boolean"
     default: false
   days:
-    type: "string"
-    enum: ["sun","mon","tue","wed","thu","fri","sat"]
+    type: "array"
+    items:
+      type: "string"
+      enum: ["sun","mon","tue","wed","thu","fri","sat"]
   slots:
-    type: "object"
-    properties:
-      time:
-        $ref: "./partials/timeframe.schema.json"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        time:
+          $ref: "./partials/timeframe.schema.json"
