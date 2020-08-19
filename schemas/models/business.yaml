@@ -1287,6 +1287,10 @@ definitions:
         additionalProperties: true
       worker_unavailability_text:
         type: "string"
+      service_unavailability_text:
+        type: "string"
+      worker_widget_unavailability_text:
+        type: "string"
       middleNameSupport:
         type: "boolean"
       analyticsGoogle:
