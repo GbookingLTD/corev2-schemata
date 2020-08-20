@@ -276,6 +276,16 @@ definitions:
         type: "string"
         enum: ["DISABLE", "zoom"]
         default: "DISABLE"
+      telemedApplication:
+        type: "object"
+        properies:
+          urlAppSchema: 
+            type: "string"
+          googleAppName: 
+            type: "string"
+          appleAppName: 
+            type: "string"
+        additionalProperties: false
       enablePhoneNationalMode:
         type: "boolean"
         default: false

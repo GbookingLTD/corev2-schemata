@@ -620,6 +620,16 @@ definitions:
         type: "string"
         enum: ["DISABLE", "zoom", "mmconf"]
         default: "DISABLE"
+      telemedApplication:
+        type: "object"
+        properies:
+          urlAppSchema: 
+            type: "string"
+          googleAppName: 
+            type: "string"
+          appleAppName: 
+            type: "string"
+        additionalProperties: false
       showGapWindow:
         type: "boolean"
         default: false
