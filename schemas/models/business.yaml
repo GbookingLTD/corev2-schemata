@@ -917,6 +917,16 @@ definitions:
       showClientBirthdayFilter:
         type: "boolean"
         default: false
+      telemedApplication:
+        type: "object"
+        additionalProperties: false
+        properties:
+          urlAppSchema:
+            type: "string"
+          googleAppName:
+            type: "string"
+          appleAppName:
+            type: "string"
 
     additionalProperties: false
     
