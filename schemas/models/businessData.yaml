@@ -274,11 +274,11 @@ definitions:
         default: false
       telemedProvider:
         type: "string"
-        enum: ["DISABLE", "zoom"]
+        enum: ["DISABLE", "zoom", "mmconf"]
         default: "DISABLE"
       telemedApplication:
         type: "object"
-        properies:
+        properties:
           urlAppSchema: 
             type: "string"
           googleAppName: 
