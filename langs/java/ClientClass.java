@@ -33,7 +33,7 @@ public class ClientClass {
     private String id;
     private String insuranceCompany;
     private String insuranceNumber;
-    private IntegrationDataClass integrationData;
+    private ClientIntegrationData integrationData;
     private Boolean isLazy;
     private IsraelCityUnion israelCity;
     private Boolean isVIP;
@@ -191,9 +191,9 @@ public class ClientClass {
     public void setInsuranceNumber(String value) { this.insuranceNumber = value; }
 
     @JsonProperty("integrationData")
-    public IntegrationDataClass getIntegrationData() { return integrationData; }
+    public ClientIntegrationData getIntegrationData() { return integrationData; }
     @JsonProperty("integrationData")
-    public void setIntegrationData(IntegrationDataClass value) { this.integrationData = value; }
+    public void setIntegrationData(ClientIntegrationData value) { this.integrationData = value; }
 
     @JsonProperty("isLazy")
     public Boolean getIsLazy() { return isLazy; }

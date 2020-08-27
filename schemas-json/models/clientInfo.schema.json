@@ -43,6 +43,12 @@
                 "NOT_SPECIFIED"
             ]
         },
+        "email": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "insuranceNumber": {
             "type": "string"
         },

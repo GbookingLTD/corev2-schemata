@@ -30,23 +30,29 @@
             "type": "boolean",
             "default": false
         },
-        "daysOfWeek": {
-            "type": "string",
-            "enum": [
-                "sun",
-                "mon",
-                "tue",
-                "wed",
-                "thu",
-                "fri",
-                "sat"
-            ]
+        "days": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "sun",
+                    "mon",
+                    "tue",
+                    "wed",
+                    "thu",
+                    "fri",
+                    "sat"
+                ]
+            }
         },
         "slots": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "$ref": "./partials/timeframe.schema.json"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "time": {
+                        "$ref": "./partials/timeframe.schema.json"
+                    }
                 }
             }
         }

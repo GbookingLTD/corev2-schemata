@@ -2618,6 +2618,9 @@ namespace GBookingCoreV2
         [JsonProperty("grantGroups")]
         public List<Dictionary<string, object>> GrantGroups { get; set; }
 
+        [JsonProperty("integrationData", NullValueHandling = NullValueHandling.Ignore)]
+        public ResultIntegrationData IntegrationData { get; set; }
+
         [JsonProperty("networkID")]
         public string NetworkId { get; set; }
 
@@ -3100,8 +3103,11 @@ namespace GBookingCoreV2
         [JsonProperty("taxonomyChildrenMaxAge", NullValueHandling = NullValueHandling.Ignore)]
         public double? TaxonomyChildrenMaxAge { get; set; }
 
+        [JsonProperty("telemedApplication", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleTelemedApplication TelemedApplication { get; set; }
+
         [JsonProperty("telemedProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public PurpleTelemedProvider? TelemedProvider { get; set; }
+        public TelemedProvider? TelemedProvider { get; set; }
 
         [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAdditionalDurations { get; set; }
@@ -3120,6 +3126,18 @@ namespace GBookingCoreV2
 
         [JsonProperty("workWeekStart", NullValueHandling = NullValueHandling.Ignore)]
         public double? WorkWeekStart { get; set; }
+    }
+
+    public partial class PurpleTelemedApplication
+    {
+        [JsonProperty("appleAppName", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppleAppName { get; set; }
+
+        [JsonProperty("googleAppName", NullValueHandling = NullValueHandling.Ignore)]
+        public string GoogleAppName { get; set; }
+
+        [JsonProperty("urlAppSchema", NullValueHandling = NullValueHandling.Ignore)]
+        public string UrlAppSchema { get; set; }
     }
 
     public partial class InfoBackofficeConfigurationClass
@@ -3691,6 +3709,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("degree", NullValueHandling = NullValueHandling.Ignore)]
         public string Degree { get; set; }
+
+        [JsonProperty("denyWidgetBooking", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? DenyWidgetBooking { get; set; }
 
         /// <summary>
         /// идентификатор отделения, к которому привязан работник
@@ -4528,14 +4549,14 @@ namespace GBookingCoreV2
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
 
-        [JsonProperty("daysOfWeek", NullValueHandling = NullValueHandling.Ignore)]
-        public DaysOfWeek? DaysOfWeek { get; set; }
+        [JsonProperty("days", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Day> Days { get; set; }
 
         [JsonProperty("repeats", NullValueHandling = NullValueHandling.Ignore)]
         public Repeats? Repeats { get; set; }
 
         [JsonProperty("slots", NullValueHandling = NullValueHandling.Ignore)]
-        public Slots Slots { get; set; }
+        public List<DiscountSlot> Slots { get; set; }
 
         [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? Start { get; set; }
@@ -4547,7 +4568,7 @@ namespace GBookingCoreV2
         public double? WeeklyRepeat { get; set; }
     }
 
-    public partial class Slots
+    public partial class DiscountSlot
     {
         [JsonProperty("time", NullValueHandling = NullValueHandling.Ignore)]
         public TimeFrame Time { get; set; }
@@ -4840,6 +4861,9 @@ namespace GBookingCoreV2
         [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
         public double? RevisionVersion { get; set; }
 
+        [JsonProperty("service_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
+        public string ServiceUnavailabilityText { get; set; }
+
         [JsonProperty("shortLink", NullValueHandling = NullValueHandling.Ignore)]
         public string ShortLink { get; set; }
 
@@ -4993,6 +5017,9 @@ namespace GBookingCoreV2
         [JsonProperty("worker_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
         public string WorkerUnavailabilityText { get; set; }
 
+        [JsonProperty("worker_widget_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
+        public string WorkerWidgetUnavailabilityText { get; set; }
+
         [JsonProperty("workerNameReverse", NullValueHandling = NullValueHandling.Ignore)]
         public bool? WorkerNameReverse { get; set; }
     }
@@ -5079,6 +5106,18 @@ namespace GBookingCoreV2
 
         [JsonProperty("widgetText")]
         public string WidgetText { get; set; }
+    }
+
+    public partial class ResultIntegrationData
+    {
+        [JsonProperty("ehr", NullValueHandling = NullValueHandling.Ignore)]
+        public Ehr Ehr { get; set; }
+    }
+
+    public partial class Ehr
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
     }
 
     public partial class NetworkWidgetConfiguration
@@ -5798,8 +5837,11 @@ namespace GBookingCoreV2
         [JsonProperty("taxonomyChildrenMaxAge", NullValueHandling = NullValueHandling.Ignore)]
         public double? TaxonomyChildrenMaxAge { get; set; }
 
+        [JsonProperty("telemedApplication", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyTelemedApplication TelemedApplication { get; set; }
+
         [JsonProperty("telemedProvider", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyTelemedProvider? TelemedProvider { get; set; }
+        public TelemedProvider? TelemedProvider { get; set; }
 
         [JsonProperty("useAdditionalDurations", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseAdditionalDurations { get; set; }
@@ -5845,6 +5887,18 @@ namespace GBookingCoreV2
 
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }
+    }
+
+    public partial class FluffyTelemedApplication
+    {
+        [JsonProperty("appleAppName", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppleAppName { get; set; }
+
+        [JsonProperty("googleAppName", NullValueHandling = NullValueHandling.Ignore)]
+        public string GoogleAppName { get; set; }
+
+        [JsonProperty("urlAppSchema", NullValueHandling = NullValueHandling.Ignore)]
+        public string UrlAppSchema { get; set; }
     }
 
     public partial class BusinessBackofficeConfigurationClass
@@ -6491,6 +6545,9 @@ namespace GBookingCoreV2
         [JsonProperty("revisionVersion", NullValueHandling = NullValueHandling.Ignore)]
         public double? RevisionVersion { get; set; }
 
+        [JsonProperty("service_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
+        public string ServiceUnavailabilityText { get; set; }
+
         [JsonProperty("shortLink", NullValueHandling = NullValueHandling.Ignore)]
         public string ShortLink { get; set; }
 
@@ -6643,6 +6700,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("worker_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
         public string WorkerUnavailabilityText { get; set; }
+
+        [JsonProperty("worker_widget_unavailability_text", NullValueHandling = NullValueHandling.Ignore)]
+        public string WorkerWidgetUnavailabilityText { get; set; }
 
         [JsonProperty("workerNameReverse", NullValueHandling = NullValueHandling.Ignore)]
         public bool? WorkerNameReverse { get; set; }
@@ -7017,7 +7077,7 @@ namespace GBookingCoreV2
         public string InsuranceNumber { get; set; }
 
         [JsonProperty("integrationData", NullValueHandling = NullValueHandling.Ignore)]
-        public IntegrationDataClass IntegrationData { get; set; }
+        public ClientIntegrationData IntegrationData { get; set; }
 
         [JsonProperty("isLazy", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsLazy { get; set; }
@@ -7152,7 +7212,7 @@ namespace GBookingCoreV2
         public string ResourceId { get; set; }
     }
 
-    public partial class IntegrationDataClass
+    public partial class ClientIntegrationData
     {
         [JsonProperty("transactionID", NullValueHandling = NullValueHandling.Ignore)]
         public string TransactionId { get; set; }
@@ -7723,6 +7783,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
         public string Description { get; set; }
+
+        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Email { get; set; }
 
         [JsonProperty("extraFields", NullValueHandling = NullValueHandling.Ignore)]
         public List<PurpleExtraField> ExtraFields { get; set; }
@@ -8876,7 +8939,7 @@ namespace GBookingCoreV2
 
     public enum SchedulerWeekViewType { Week, WorkWeek };
 
-    public enum PurpleTelemedProvider { Disable, Zoom };
+    public enum TelemedProvider { Disable, Mmconf, Zoom };
 
     public enum BackofficeType { Common, Gt, Ll, Mb, Mu };
 
@@ -8918,7 +8981,7 @@ namespace GBookingCoreV2
 
     public enum DateLimitType { AllDates, FromDate, RangeDates, ToDate };
 
-    public enum DaysOfWeek { Fri, Mon, Sat, Sun, Thu, Tue, Wed };
+    public enum Day { Fri, Mon, Sat, Sun, Thu, Tue, Wed };
 
     public enum Repeats { Daily, None, Weekly };
 
@@ -8940,8 +9003,6 @@ namespace GBookingCoreV2
     /// тип сортировки работника
     /// </summary>
     public enum WorkerSortingType { MostFree, None, Workload };
-
-    public enum FluffyTelemedProvider { Disable, Mmconf, Zoom };
 
     public enum YandexFeedType { Dynamic, No, Static, StaticServiceOnly };
 
@@ -9212,7 +9273,7 @@ namespace GBookingCoreV2
                 PaymentProviderConverter.Singleton,
                 ResourceTimetableTypeConverter.Singleton,
                 SchedulerWeekViewTypeConverter.Singleton,
-                PurpleTelemedProviderConverter.Singleton,
+                TelemedProviderConverter.Singleton,
                 BackofficeTypeConverter.Singleton,
                 CountryConverter.Singleton,
                 LanguageListConverter.Singleton,
@@ -9230,7 +9291,7 @@ namespace GBookingCoreV2
                 AdditionalPriceTypeConverter.Singleton,
                 ChildrenTaxonomyTypeConverter.Singleton,
                 DateLimitTypeConverter.Singleton,
-                DaysOfWeekConverter.Singleton,
+                DayConverter.Singleton,
                 RepeatsConverter.Singleton,
                 OnlineModeConverter.Singleton,
                 TaxonomyTypeConverter.Singleton,
@@ -9240,7 +9301,6 @@ namespace GBookingCoreV2
                 DiscountTypeConverter.Singleton,
                 UseDirectScheduleReadConverter.Singleton,
                 WorkerSortingTypeConverter.Singleton,
-                FluffyTelemedProviderConverter.Singleton,
                 YandexFeedTypeConverter.Singleton,
                 FluffyValueConverter.Singleton,
                 FromSmsConverter.Singleton,
@@ -10740,9 +10800,9 @@ namespace GBookingCoreV2
         public static readonly SchedulerWeekViewTypeConverter Singleton = new SchedulerWeekViewTypeConverter();
     }
 
-    internal class PurpleTelemedProviderConverter : JsonConverter
+    internal class TelemedProviderConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(PurpleTelemedProvider) || t == typeof(PurpleTelemedProvider?);
+        public override bool CanConvert(Type t) => t == typeof(TelemedProvider) || t == typeof(TelemedProvider?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -10751,11 +10811,13 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "DISABLE":
-                    return PurpleTelemedProvider.Disable;
+                    return TelemedProvider.Disable;
+                case "mmconf":
+                    return TelemedProvider.Mmconf;
                 case "zoom":
-                    return PurpleTelemedProvider.Zoom;
+                    return TelemedProvider.Zoom;
             }
-            throw new Exception("Cannot unmarshal type PurpleTelemedProvider");
+            throw new Exception("Cannot unmarshal type TelemedProvider");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -10765,20 +10827,23 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (PurpleTelemedProvider)untypedValue;
+            var value = (TelemedProvider)untypedValue;
             switch (value)
             {
-                case PurpleTelemedProvider.Disable:
+                case TelemedProvider.Disable:
                     serializer.Serialize(writer, "DISABLE");
                     return;
-                case PurpleTelemedProvider.Zoom:
+                case TelemedProvider.Mmconf:
+                    serializer.Serialize(writer, "mmconf");
+                    return;
+                case TelemedProvider.Zoom:
                     serializer.Serialize(writer, "zoom");
                     return;
             }
-            throw new Exception("Cannot marshal type PurpleTelemedProvider");
+            throw new Exception("Cannot marshal type TelemedProvider");
         }
 
-        public static readonly PurpleTelemedProviderConverter Singleton = new PurpleTelemedProviderConverter();
+        public static readonly TelemedProviderConverter Singleton = new TelemedProviderConverter();
     }
 
     internal class BackofficeTypeConverter : JsonConverter
@@ -11776,9 +11841,9 @@ namespace GBookingCoreV2
         public static readonly DateLimitTypeConverter Singleton = new DateLimitTypeConverter();
     }
 
-    internal class DaysOfWeekConverter : JsonConverter
+    internal class DayConverter : JsonConverter
     {
-        public override bool CanConvert(Type t) => t == typeof(DaysOfWeek) || t == typeof(DaysOfWeek?);
+        public override bool CanConvert(Type t) => t == typeof(Day) || t == typeof(Day?);
 
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
@@ -11787,21 +11852,21 @@ namespace GBookingCoreV2
             switch (value)
             {
                 case "fri":
-                    return DaysOfWeek.Fri;
+                    return Day.Fri;
                 case "mon":
-                    return DaysOfWeek.Mon;
+                    return Day.Mon;
                 case "sat":
-                    return DaysOfWeek.Sat;
+                    return Day.Sat;
                 case "sun":
-                    return DaysOfWeek.Sun;
+                    return Day.Sun;
                 case "thu":
-                    return DaysOfWeek.Thu;
+                    return Day.Thu;
                 case "tue":
-                    return DaysOfWeek.Tue;
+                    return Day.Tue;
                 case "wed":
-                    return DaysOfWeek.Wed;
+                    return Day.Wed;
             }
-            throw new Exception("Cannot unmarshal type DaysOfWeek");
+            throw new Exception("Cannot unmarshal type Day");
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -11811,35 +11876,35 @@ namespace GBookingCoreV2
                 serializer.Serialize(writer, null);
                 return;
             }
-            var value = (DaysOfWeek)untypedValue;
+            var value = (Day)untypedValue;
             switch (value)
             {
-                case DaysOfWeek.Fri:
+                case Day.Fri:
                     serializer.Serialize(writer, "fri");
                     return;
-                case DaysOfWeek.Mon:
+                case Day.Mon:
                     serializer.Serialize(writer, "mon");
                     return;
-                case DaysOfWeek.Sat:
+                case Day.Sat:
                     serializer.Serialize(writer, "sat");
                     return;
-                case DaysOfWeek.Sun:
+                case Day.Sun:
                     serializer.Serialize(writer, "sun");
                     return;
-                case DaysOfWeek.Thu:
+                case Day.Thu:
                     serializer.Serialize(writer, "thu");
                     return;
-                case DaysOfWeek.Tue:
+                case Day.Tue:
                     serializer.Serialize(writer, "tue");
                     return;
-                case DaysOfWeek.Wed:
+                case Day.Wed:
                     serializer.Serialize(writer, "wed");
                     return;
             }
-            throw new Exception("Cannot marshal type DaysOfWeek");
+            throw new Exception("Cannot marshal type Day");
         }
 
-        public static readonly DaysOfWeekConverter Singleton = new DaysOfWeekConverter();
+        public static readonly DayConverter Singleton = new DayConverter();
     }
 
     internal class RepeatsConverter : JsonConverter
@@ -12247,52 +12312,6 @@ namespace GBookingCoreV2
         }
 
         public static readonly WorkerSortingTypeConverter Singleton = new WorkerSortingTypeConverter();
-    }
-
-    internal class FluffyTelemedProviderConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(FluffyTelemedProvider) || t == typeof(FluffyTelemedProvider?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "DISABLE":
-                    return FluffyTelemedProvider.Disable;
-                case "mmconf":
-                    return FluffyTelemedProvider.Mmconf;
-                case "zoom":
-                    return FluffyTelemedProvider.Zoom;
-            }
-            throw new Exception("Cannot unmarshal type FluffyTelemedProvider");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (FluffyTelemedProvider)untypedValue;
-            switch (value)
-            {
-                case FluffyTelemedProvider.Disable:
-                    serializer.Serialize(writer, "DISABLE");
-                    return;
-                case FluffyTelemedProvider.Mmconf:
-                    serializer.Serialize(writer, "mmconf");
-                    return;
-                case FluffyTelemedProvider.Zoom:
-                    serializer.Serialize(writer, "zoom");
-                    return;
-            }
-            throw new Exception("Cannot marshal type FluffyTelemedProvider");
-        }
-
-        public static readonly FluffyTelemedProviderConverter Singleton = new FluffyTelemedProviderConverter();
     }
 
     internal class YandexFeedTypeConverter : JsonConverter

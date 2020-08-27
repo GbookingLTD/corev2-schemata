@@ -199,6 +199,19 @@
                             "items": {
                                 "type": "object"
                             }
+                        },
+                        "integrationData": {
+                            "type": "object",
+                            "properties": {
+                                "ehr": {
+                                    "type": "object",
+                                    "properties": {
+                                        "active": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     "required": [

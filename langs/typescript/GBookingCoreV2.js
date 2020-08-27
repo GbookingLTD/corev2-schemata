@@ -150,11 +150,12 @@ var SchedulerWeekViewType;
     SchedulerWeekViewType["Week"] = "week";
     SchedulerWeekViewType["WorkWeek"] = "workWeek";
 })(SchedulerWeekViewType = exports.SchedulerWeekViewType || (exports.SchedulerWeekViewType = {}));
-var PurpleTelemedProvider;
-(function (PurpleTelemedProvider) {
-    PurpleTelemedProvider["Disable"] = "DISABLE";
-    PurpleTelemedProvider["Zoom"] = "zoom";
-})(PurpleTelemedProvider = exports.PurpleTelemedProvider || (exports.PurpleTelemedProvider = {}));
+var TelemedProvider;
+(function (TelemedProvider) {
+    TelemedProvider["Disable"] = "DISABLE";
+    TelemedProvider["Mmconf"] = "mmconf";
+    TelemedProvider["Zoom"] = "zoom";
+})(TelemedProvider = exports.TelemedProvider || (exports.TelemedProvider = {}));
 var BackofficeType;
 (function (BackofficeType) {
     BackofficeType["Common"] = "COMMON";
@@ -298,16 +299,16 @@ var DateLimitType;
     DateLimitType["RangeDates"] = "range_dates";
     DateLimitType["ToDate"] = "to_date";
 })(DateLimitType = exports.DateLimitType || (exports.DateLimitType = {}));
-var DaysOfWeek;
-(function (DaysOfWeek) {
-    DaysOfWeek["Fri"] = "fri";
-    DaysOfWeek["Mon"] = "mon";
-    DaysOfWeek["Sat"] = "sat";
-    DaysOfWeek["Sun"] = "sun";
-    DaysOfWeek["Thu"] = "thu";
-    DaysOfWeek["Tue"] = "tue";
-    DaysOfWeek["Wed"] = "wed";
-})(DaysOfWeek = exports.DaysOfWeek || (exports.DaysOfWeek = {}));
+var Day;
+(function (Day) {
+    Day["Fri"] = "fri";
+    Day["Mon"] = "mon";
+    Day["Sat"] = "sat";
+    Day["Sun"] = "sun";
+    Day["Thu"] = "thu";
+    Day["Tue"] = "tue";
+    Day["Wed"] = "wed";
+})(Day = exports.Day || (exports.Day = {}));
 var Repeats;
 (function (Repeats) {
     Repeats["Daily"] = "daily";
@@ -364,12 +365,6 @@ var WorkerSortingType;
     WorkerSortingType["None"] = "none";
     WorkerSortingType["Workload"] = "workload";
 })(WorkerSortingType = exports.WorkerSortingType || (exports.WorkerSortingType = {}));
-var FluffyTelemedProvider;
-(function (FluffyTelemedProvider) {
-    FluffyTelemedProvider["Disable"] = "DISABLE";
-    FluffyTelemedProvider["Mmconf"] = "mmconf";
-    FluffyTelemedProvider["Zoom"] = "zoom";
-})(FluffyTelemedProvider = exports.FluffyTelemedProvider || (exports.FluffyTelemedProvider = {}));
 var YandexFeedType;
 (function (YandexFeedType) {
     YandexFeedType["Dynamic"] = "dynamic";
@@ -1369,6 +1364,7 @@ var typeMap = {
         { json: "businesses", js: "businesses", typ: a(r("BusinessRefInNetwork")) },
         { json: "clientVIPPhones", js: "clientVIPPhones", typ: a("") },
         { json: "grantGroups", js: "grantGroups", typ: a(m("any")) },
+        { json: "integrationData", js: "integrationData", typ: u(undefined, r("IntegrationDataObject")) },
         { json: "networkID", js: "networkID", typ: "" },
         { json: "networkInfo", js: "networkInfo", typ: m("any") },
         { json: "networkName", js: "networkName", typ: u(undefined, "") },
@@ -1529,13 +1525,19 @@ var typeMap = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("PurpleTelemedProvider")) },
+        { json: "telemedApplication", js: "telemedApplication", typ: u(undefined, r("PurpleTelemedApplication")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
         { json: "useGtAppMethod", js: "useGtAppMethod", typ: u(undefined, true) },
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
+    ], false),
+    "PurpleTelemedApplication": o([
+        { json: "appleAppName", js: "appleAppName", typ: u(undefined, "") },
+        { json: "googleAppName", js: "googleAppName", typ: u(undefined, "") },
+        { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
@@ -1722,6 +1724,7 @@ var typeMap = {
         { json: "capacity", js: "capacity", typ: 3.14 },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "denyWidgetBooking", js: "denyWidgetBooking", typ: u(undefined, true) },
         { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
@@ -1942,14 +1945,14 @@ var typeMap = {
     ], false),
     "Discount": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
+        { json: "days", js: "days", typ: u(undefined, a(r("Day"))) },
         { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
-        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
+        { json: "slots", js: "slots", typ: u(undefined, a(r("SlotObject"))) },
         { json: "start", js: "start", typ: u(undefined, Date) },
         { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
         { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
     ], false),
-    "Slots": o([
+    "SlotObject": o([
         { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
     ], "any"),
     "FluffyPrice": o([
@@ -2048,6 +2051,7 @@ var typeMap = {
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "service_unavailability_text", js: "service_unavailability_text", typ: u(undefined, "") },
         { json: "shortLink", js: "shortLink", typ: u(undefined, "") },
         { json: "showAllWorkers", js: "showAllWorkers", typ: u(undefined, true) },
         { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
@@ -2099,6 +2103,7 @@ var typeMap = {
         { json: "widgetUseCRAC", js: "widgetUseCRAC", typ: u(undefined, true) },
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
+        { json: "worker_widget_unavailability_text", js: "worker_widget_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
     ], false),
     "PurpleAnalyticsGoogle": o([
@@ -2134,6 +2139,12 @@ var typeMap = {
         { json: "discountType", js: "discountType", typ: u(undefined, r("DiscountType")) },
         { json: "text", js: "text", typ: u(undefined, u(null, "")) },
         { json: "widgetText", js: "widgetText", typ: u(undefined, u(null, "")) },
+    ], "any"),
+    "IntegrationDataObject": o([
+        { json: "ehr", js: "ehr", typ: u(undefined, r("Ehr")) },
+    ], "any"),
+    "Ehr": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
     ], "any"),
     "NetworkWidgetConfiguration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
@@ -2352,7 +2363,8 @@ var typeMap = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, u(a(m("any")), null)) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("FluffyTelemedProvider")) },
+        { json: "telemedApplication", js: "telemedApplication", typ: u(undefined, r("FluffyTelemedApplication")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -2369,6 +2381,11 @@ var typeMap = {
         { json: "startHour", js: "startHour", typ: u(undefined, 3.14) },
         { json: "startMinute", js: "startMinute", typ: u(undefined, 3.14) },
         { json: "title", js: "title", typ: u(undefined, "") },
+    ], false),
+    "FluffyTelemedApplication": o([
+        { json: "appleAppName", js: "appleAppName", typ: u(undefined, "") },
+        { json: "googleAppName", js: "googleAppName", typ: u(undefined, "") },
+        { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
@@ -2586,6 +2603,7 @@ var typeMap = {
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "service_unavailability_text", js: "service_unavailability_text", typ: u(undefined, "") },
         { json: "shortLink", js: "shortLink", typ: u(undefined, "") },
         { json: "showAllWorkers", js: "showAllWorkers", typ: u(undefined, true) },
         { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
@@ -2637,6 +2655,7 @@ var typeMap = {
         { json: "widgetUseCRAC", js: "widgetUseCRAC", typ: u(undefined, true) },
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
+        { json: "worker_widget_unavailability_text", js: "worker_widget_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
     ], false),
     "FluffyAnalyticsGoogle": o([
@@ -2994,6 +3013,7 @@ var typeMap = {
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
         { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraFields", js: "extraFields", typ: u(undefined, a(r("PurpleExtraField"))) },
         { json: "favResources", js: "favResources", typ: u(undefined, a(r("PurpleFavResource"))) },
         { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
@@ -3460,8 +3480,9 @@ var typeMap = {
         "week",
         "workWeek",
     ],
-    "PurpleTelemedProvider": [
+    "TelemedProvider": [
         "DISABLE",
+        "mmconf",
         "zoom",
     ],
     "BackofficeType": [
@@ -3582,7 +3603,7 @@ var typeMap = {
         "range_dates",
         "to_date",
     ],
-    "DaysOfWeek": [
+    "Day": [
         "fri",
         "mon",
         "sat",
@@ -3634,11 +3655,6 @@ var typeMap = {
         "most_free",
         "none",
         "workload",
-    ],
-    "FluffyTelemedProvider": [
-        "DISABLE",
-        "mmconf",
-        "zoom",
     ],
     "YandexFeedType": [
         "dynamic",

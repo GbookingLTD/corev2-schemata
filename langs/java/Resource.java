@@ -14,6 +14,7 @@ public class Resource {
     private double capacity;
     private String color;
     private String degree;
+    private Boolean denyWidgetBooking;
     private String departmentID;
     private String description;
     private Boolean displayInSchedule;
@@ -98,6 +99,11 @@ public class Resource {
     public String getDegree() { return degree; }
     @JsonProperty("degree")
     public void setDegree(String value) { this.degree = value; }
+
+    @JsonProperty("denyWidgetBooking")
+    public Boolean getDenyWidgetBooking() { return denyWidgetBooking; }
+    @JsonProperty("denyWidgetBooking")
+    public void setDenyWidgetBooking(Boolean value) { this.denyWidgetBooking = value; }
 
     /**
      * идентификатор отделения, к которому привязан работник

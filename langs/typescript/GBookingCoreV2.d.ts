@@ -1477,6 +1477,7 @@ export interface ResultClass {
     grantGroups: {
         [key: string]: any;
     }[];
+    integrationData?: IntegrationDataObject;
     networkID: string;
     networkInfo: {
         [key: string]: any;
@@ -1665,7 +1666,8 @@ export interface InfoBackofficeConfiguration {
     }[];
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
-    telemedProvider?: PurpleTelemedProvider;
+    telemedApplication?: PurpleTelemedApplication;
+    telemedProvider?: TelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -1700,8 +1702,14 @@ export declare enum SchedulerWeekViewType {
     Week = "week",
     WorkWeek = "workWeek"
 }
-export declare enum PurpleTelemedProvider {
+export interface PurpleTelemedApplication {
+    appleAppName?: string;
+    googleAppName?: string;
+    urlAppSchema?: string;
+}
+export declare enum TelemedProvider {
     Disable = "DISABLE",
+    Mmconf = "mmconf",
     Zoom = "zoom"
 }
 export declare enum BackofficeType {
@@ -2060,6 +2068,7 @@ export interface Resource {
      */
     color?: string;
     degree?: string;
+    denyWidgetBooking?: boolean;
     /**
      * идентификатор отделения, к которому привязан работник
      */
@@ -2549,14 +2558,14 @@ export interface PurpleDateLimit {
  */
 export interface Discount {
     active?: boolean;
-    daysOfWeek?: DaysOfWeek;
+    days?: Day[];
     repeats?: Repeats;
-    slots?: Slots;
+    slots?: SlotObject[];
     start?: Date;
     unlimWeeklyRepeat?: boolean;
     weeklyRepeat?: number;
 }
-export declare enum DaysOfWeek {
+export declare enum Day {
     Fri = "fri",
     Mon = "mon",
     Sat = "sat",
@@ -2570,7 +2579,7 @@ export declare enum Repeats {
     None = "none",
     Weekly = "weekly"
 }
-export interface Slots {
+export interface SlotObject {
     time?: TimeFrame;
 }
 export declare enum OnlineMode {
@@ -2700,6 +2709,7 @@ export interface InfoWidgetConfiguration {
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
+    service_unavailability_text?: string;
     shortLink?: string;
     showAllWorkers?: boolean;
     showClientAddress?: boolean;
@@ -2751,6 +2761,7 @@ export interface InfoWidgetConfiguration {
     widgetUseCRAC?: boolean;
     withoutWorkers?: boolean;
     worker_unavailability_text?: string;
+    worker_widget_unavailability_text?: string;
     workerNameReverse?: boolean;
 }
 export interface PurpleAnalyticsGoogle {
@@ -2809,6 +2820,12 @@ export declare enum UseDirectScheduleRead {
     Authenticated = "AUTHENTICATED",
     Guest = "GUEST",
     None = "NONE"
+}
+export interface IntegrationDataObject {
+    ehr?: Ehr;
+}
+export interface Ehr {
+    active?: boolean;
 }
 export interface NetworkWidgetConfiguration {
     _id?: string;
@@ -3145,7 +3162,8 @@ export interface BusinessBackofficeConfiguration {
     }[] | null;
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
-    telemedProvider?: FluffyTelemedProvider;
+    telemedApplication?: FluffyTelemedApplication;
+    telemedProvider?: TelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -3163,10 +3181,10 @@ export interface ScheduleSplitDayTimeInterval {
     startMinute?: number;
     title?: string;
 }
-export declare enum FluffyTelemedProvider {
-    Disable = "DISABLE",
-    Mmconf = "mmconf",
-    Zoom = "zoom"
+export interface FluffyTelemedApplication {
+    appleAppName?: string;
+    googleAppName?: string;
+    urlAppSchema?: string;
 }
 export interface BusinessBackofficeConfigurationObject {
     enableMasterImportance?: boolean;
@@ -3441,6 +3459,7 @@ export interface BusinessWidgetConfiguration {
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
+    service_unavailability_text?: string;
     shortLink?: string;
     showAllWorkers?: boolean;
     showClientAddress?: boolean;
@@ -3492,6 +3511,7 @@ export interface BusinessWidgetConfiguration {
     widgetUseCRAC?: boolean;
     withoutWorkers?: boolean;
     worker_unavailability_text?: string;
+    worker_widget_unavailability_text?: string;
     workerNameReverse?: boolean;
 }
 export interface FluffyAnalyticsGoogle {
@@ -4055,6 +4075,7 @@ export interface StickyClient {
     address?: string;
     birthday?: Birthday;
     description?: string;
+    email?: string[];
     extraFields?: PurpleExtraField[];
     favResources?: PurpleFavResource[];
     icon_url?: string;

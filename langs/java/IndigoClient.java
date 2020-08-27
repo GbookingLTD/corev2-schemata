@@ -11,6 +11,7 @@ public class IndigoClient {
     private String address;
     private Data birthday;
     private String description;
+    private List<String> email;
     private List<PurpleExtraField> extraFields;
     private List<PurpleFavResource> favResources;
     private String iconURL;
@@ -37,6 +38,11 @@ public class IndigoClient {
     public String getDescription() { return description; }
     @JsonProperty("description")
     public void setDescription(String value) { this.description = value; }
+
+    @JsonProperty("email")
+    public List<String> getEmail() { return email; }
+    @JsonProperty("email")
+    public void setEmail(List<String> value) { this.email = value; }
 
     @JsonProperty("extraFields")
     public List<PurpleExtraField> getExtraFields() { return extraFields; }

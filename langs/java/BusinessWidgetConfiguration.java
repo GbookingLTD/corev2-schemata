@@ -68,6 +68,7 @@ public class BusinessWidgetConfiguration {
     private Boolean requireAgreement;
     private String requireAgreementLink;
     private Double revisionVersion;
+    private String serviceUnavailabilityText;
     private String shortLink;
     private Boolean showAllWorkers;
     private Boolean showClientAddress;
@@ -119,6 +120,7 @@ public class BusinessWidgetConfiguration {
     private Boolean widgetUseCRAC;
     private Boolean withoutWorkers;
     private String workerUnavailabilityText;
+    private String workerWidgetUnavailabilityText;
     private Boolean workerNameReverse;
 
     @JsonProperty("additionalName")
@@ -436,6 +438,11 @@ public class BusinessWidgetConfiguration {
     @JsonProperty("revisionVersion")
     public void setRevisionVersion(Double value) { this.revisionVersion = value; }
 
+    @JsonProperty("service_unavailability_text")
+    public String getServiceUnavailabilityText() { return serviceUnavailabilityText; }
+    @JsonProperty("service_unavailability_text")
+    public void setServiceUnavailabilityText(String value) { this.serviceUnavailabilityText = value; }
+
     @JsonProperty("shortLink")
     public String getShortLink() { return shortLink; }
     @JsonProperty("shortLink")
@@ -690,6 +697,11 @@ public class BusinessWidgetConfiguration {
     public String getWorkerUnavailabilityText() { return workerUnavailabilityText; }
     @JsonProperty("worker_unavailability_text")
     public void setWorkerUnavailabilityText(String value) { this.workerUnavailabilityText = value; }
+
+    @JsonProperty("worker_widget_unavailability_text")
+    public String getWorkerWidgetUnavailabilityText() { return workerWidgetUnavailabilityText; }
+    @JsonProperty("worker_widget_unavailability_text")
+    public void setWorkerWidgetUnavailabilityText(String value) { this.workerWidgetUnavailabilityText = value; }
 
     @JsonProperty("workerNameReverse")
     public Boolean getWorkerNameReverse() { return workerNameReverse; }

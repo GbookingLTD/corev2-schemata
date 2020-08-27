@@ -1035,6 +1035,7 @@ type BusinessGetNetworkDataResponseResult struct {
 	Businesses                 []BusinessRefInNetwork       `json:"businesses"`                
 	ClientVIPPhones            []string                     `json:"clientVIPPhones"`           
 	GrantGroups                []map[string]interface{}     `json:"grantGroups"`               
+	IntegrationData            *ResultIntegrationData       `json:"integrationData,omitempty"` 
 	NetworkID                  string                       `json:"networkID"`                 
 	NetworkInfo                map[string]interface{}       `json:"networkInfo"`               
 	NetworkName                *string                      `json:"networkName,omitempty"`     
@@ -1200,13 +1201,20 @@ type InfoBackofficeConfiguration struct {
 	StateLevelHolidays                              []map[string]interface{}   `json:"stateLevelHolidays"`                                       
 	StateLevelHolidaysNotWorking                    *bool                      `json:"stateLevelHolidaysNotWorking,omitempty"`                   
 	TaxonomyChildrenMaxAge                          *float64                   `json:"taxonomyChildrenMaxAge,omitempty"`                         
-	TelemedProvider                                 *PurpleTelemedProvider     `json:"telemedProvider,omitempty"`                                
+	TelemedApplication                              *PurpleTelemedApplication  `json:"telemedApplication,omitempty"`                             
+	TelemedProvider                                 *TelemedProvider           `json:"telemedProvider,omitempty"`                                
 	UseAdditionalDurations                          *bool                      `json:"useAdditionalDurations,omitempty"`                         
 	UseAdjacentTaxonomies                           *bool                      `json:"useAdjacentTaxonomies,omitempty"`                          
 	UseAdjacentTaxonomiesSlotSplitting              *bool                      `json:"useAdjacentTaxonomiesSlotSplitting,omitempty"`             
 	UseGtAppMethod                                  *bool                      `json:"useGtAppMethod,omitempty"`                                 
 	WorkWeekEnd                                     *float64                   `json:"workWeekEnd,omitempty"`                                    
 	WorkWeekStart                                   *float64                   `json:"workWeekStart,omitempty"`                                  
+}
+
+type PurpleTelemedApplication struct {
+	AppleAppName  *string `json:"appleAppName,omitempty"` 
+	GoogleAppName *string `json:"googleAppName,omitempty"`
+	URLAppSchema  *string `json:"urlAppSchema,omitempty"` 
 }
 
 type InfoBackofficeConfigurationClass struct {
@@ -1418,6 +1426,7 @@ type Resource struct {
 	Capacity           float64                      `json:"capacity"`                     // Количество записей, которые может принимать работник единовременно
 	Color              *string                      `json:"color,omitempty"`              // цвет колонки с работником
 	Degree             *string                      `json:"degree,omitempty"`             
+	DenyWidgetBooking  *bool                        `json:"denyWidgetBooking,omitempty"`  
 	DepartmentID       *string                      `json:"departmentId,omitempty"`       // идентификатор отделения, к которому привязан работник
 	Description        *string                      `json:"description,omitempty"`        // краткое описание работника
 	DisplayInSchedule  *bool                        `json:"displayInSchedule,omitempty"`  
@@ -1656,16 +1665,16 @@ type PurpleDateLimit struct {
 
 // Информация о скидке
 type Discount struct {
-	Active            *bool       `json:"active,omitempty"`           
-	DaysOfWeek        *DaysOfWeek `json:"daysOfWeek,omitempty"`       
-	Repeats           *Repeats    `json:"repeats,omitempty"`          
-	Slots             *Slots      `json:"slots,omitempty"`            
-	Start             *string     `json:"start,omitempty"`            
-	UnlimWeeklyRepeat *bool       `json:"unlimWeeklyRepeat,omitempty"`
-	WeeklyRepeat      *float64    `json:"weeklyRepeat,omitempty"`     
+	Active            *bool          `json:"active,omitempty"`           
+	Days              []Day          `json:"days"`                       
+	Repeats           *Repeats       `json:"repeats,omitempty"`          
+	Slots             []DiscountSlot `json:"slots"`                      
+	Start             *string        `json:"start,omitempty"`            
+	UnlimWeeklyRepeat *bool          `json:"unlimWeeklyRepeat,omitempty"`
+	WeeklyRepeat      *float64       `json:"weeklyRepeat,omitempty"`     
 }
 
-type Slots struct {
+type DiscountSlot struct {
 	Time *TimeFrame `json:"time,omitempty"`
 }
 
@@ -1771,6 +1780,7 @@ type InfoWidgetConfiguration struct {
 	RequireAgreement                       *bool                          `json:"requireAgreement,omitempty"`                      
 	RequireAgreementLink                   *string                        `json:"requireAgreementLink,omitempty"`                  
 	RevisionVersion                        *float64                       `json:"revisionVersion,omitempty"`                       
+	ServiceUnavailabilityText              *string                        `json:"service_unavailability_text,omitempty"`           
 	ShortLink                              *string                        `json:"shortLink,omitempty"`                             
 	ShowAllWorkers                         *bool                          `json:"showAllWorkers,omitempty"`                        
 	ShowClientAddress                      *bool                          `json:"showClientAddress,omitempty"`                     
@@ -1822,6 +1832,7 @@ type InfoWidgetConfiguration struct {
 	WidgetUseCRAC                          *bool                          `json:"widgetUseCRAC,omitempty"`                         
 	WithoutWorkers                         *bool                          `json:"withoutWorkers,omitempty"`                        
 	WorkerUnavailabilityText               *string                        `json:"worker_unavailability_text,omitempty"`            
+	WorkerWidgetUnavailabilityText         *string                        `json:"worker_widget_unavailability_text,omitempty"`     
 	WorkerNameReverse                      *bool                          `json:"workerNameReverse,omitempty"`                     
 }
 
@@ -1863,6 +1874,14 @@ type PurpleSocialSharing struct {
 	DiscountType    *DiscountType `json:"discountType,omitempty"`   
 	Text            *string       `json:"text"`                     
 	WidgetText      *string       `json:"widgetText"`               
+}
+
+type ResultIntegrationData struct {
+	Ehr *Ehr `json:"ehr,omitempty"`
+}
+
+type Ehr struct {
+	Active *bool `json:"active,omitempty"`
 }
 
 type NetworkWidgetConfiguration struct {
@@ -2098,7 +2117,8 @@ type BusinessBackofficeConfiguration struct {
 	StateLevelHolidays                              []map[string]interface{}       `json:"stateLevelHolidays"`                                       
 	StateLevelHolidaysNotWorking                    *bool                          `json:"stateLevelHolidaysNotWorking,omitempty"`                   
 	TaxonomyChildrenMaxAge                          *float64                       `json:"taxonomyChildrenMaxAge,omitempty"`                         
-	TelemedProvider                                 *FluffyTelemedProvider         `json:"telemedProvider,omitempty"`                                
+	TelemedApplication                              *FluffyTelemedApplication      `json:"telemedApplication,omitempty"`                             
+	TelemedProvider                                 *TelemedProvider               `json:"telemedProvider,omitempty"`                                
 	UseAdditionalDurations                          *bool                          `json:"useAdditionalDurations,omitempty"`                         
 	UseAdjacentTaxonomies                           *bool                          `json:"useAdjacentTaxonomies,omitempty"`                          
 	UseAdjacentTaxonomiesSlotSplitting              *bool                          `json:"useAdjacentTaxonomiesSlotSplitting,omitempty"`             
@@ -2116,6 +2136,12 @@ type ScheduleSplitDayTimeInterval struct {
 	StartHour     *float64 `json:"startHour,omitempty"`    
 	StartMinute   *float64 `json:"startMinute,omitempty"`  
 	Title         *string  `json:"title,omitempty"`        
+}
+
+type FluffyTelemedApplication struct {
+	AppleAppName  *string `json:"appleAppName,omitempty"` 
+	GoogleAppName *string `json:"googleAppName,omitempty"`
+	URLAppSchema  *string `json:"urlAppSchema,omitempty"` 
 }
 
 type BusinessBackofficeConfigurationClass struct {
@@ -2352,6 +2378,7 @@ type BusinessWidgetConfiguration struct {
 	RequireAgreement                       *bool                          `json:"requireAgreement,omitempty"`                      
 	RequireAgreementLink                   *string                        `json:"requireAgreementLink,omitempty"`                  
 	RevisionVersion                        *float64                       `json:"revisionVersion,omitempty"`                       
+	ServiceUnavailabilityText              *string                        `json:"service_unavailability_text,omitempty"`           
 	ShortLink                              *string                        `json:"shortLink,omitempty"`                             
 	ShowAllWorkers                         *bool                          `json:"showAllWorkers,omitempty"`                        
 	ShowClientAddress                      *bool                          `json:"showClientAddress,omitempty"`                     
@@ -2403,6 +2430,7 @@ type BusinessWidgetConfiguration struct {
 	WidgetUseCRAC                          *bool                          `json:"widgetUseCRAC,omitempty"`                         
 	WithoutWorkers                         *bool                          `json:"withoutWorkers,omitempty"`                        
 	WorkerUnavailabilityText               *string                        `json:"worker_unavailability_text,omitempty"`            
+	WorkerWidgetUnavailabilityText         *string                        `json:"worker_widget_unavailability_text,omitempty"`     
 	WorkerNameReverse                      *bool                          `json:"workerNameReverse,omitempty"`                     
 }
 
@@ -2553,7 +2581,7 @@ type ClientClass struct {
 	ID                         *string                `json:"id,omitempty"`                        
 	InsuranceCompany           *string                `json:"insuranceCompany,omitempty"`          
 	InsuranceNumber            *string                `json:"insuranceNumber,omitempty"`           
-	IntegrationData            *IntegrationDataClass  `json:"integrationData,omitempty"`           
+	IntegrationData            *ClientIntegrationData `json:"integrationData,omitempty"`           
 	IsLazy                     *bool                  `json:"isLazy,omitempty"`                    
 	IsraelCity                 *IsraelCityUnion       `json:"israelCity"`                          
 	IsVIP                      *bool                  `json:"isVIP,omitempty"`                     
@@ -2606,7 +2634,7 @@ type ClientFavResource struct {
 	ResourceID string  `json:"resourceID"`
 }
 
-type IntegrationDataClass struct {
+type ClientIntegrationData struct {
 	TransactionID *string `json:"transactionID,omitempty"`
 }
 
@@ -2830,6 +2858,7 @@ type IndigoClient struct {
 	Address         *string             `json:"address,omitempty"`        
 	Birthday        *Birthday           `json:"birthday"`                 
 	Description     *string             `json:"description,omitempty"`    
+	Email           []string            `json:"email"`                    
 	ExtraFields     []PurpleExtraField  `json:"extraFields"`              
 	FavResources    []PurpleFavResource `json:"favResources"`             
 	IconURL         *string             `json:"icon_url,omitempty"`       
@@ -3432,10 +3461,11 @@ const (
 	WorkWeek SchedulerWeekViewType = "workWeek"
 )
 
-type PurpleTelemedProvider string
+type TelemedProvider string
 const (
-	PurpleDISABLE PurpleTelemedProvider = "DISABLE"
-	PurpleZoom PurpleTelemedProvider = "zoom"
+	Mmconf TelemedProvider = "mmconf"
+	TelemedProviderDISABLE TelemedProvider = "DISABLE"
+	Zoom TelemedProvider = "zoom"
 )
 
 type BackofficeType string
@@ -3590,15 +3620,15 @@ const (
 	ToDate DateLimitType = "to_date"
 )
 
-type DaysOfWeek string
+type Day string
 const (
-	Fri DaysOfWeek = "fri"
-	Mon DaysOfWeek = "mon"
-	Sat DaysOfWeek = "sat"
-	Sun DaysOfWeek = "sun"
-	Thu DaysOfWeek = "thu"
-	Tue DaysOfWeek = "tue"
-	Wed DaysOfWeek = "wed"
+	Fri Day = "fri"
+	Mon Day = "mon"
+	Sat Day = "sat"
+	Sun Day = "sun"
+	Thu Day = "thu"
+	Tue Day = "tue"
+	Wed Day = "wed"
 )
 
 type Repeats string
@@ -3662,13 +3692,6 @@ const (
 	MostFree WorkerSortingType = "most_free"
 	WorkerSortingTypeNone WorkerSortingType = "none"
 	Workload WorkerSortingType = "workload"
-)
-
-type FluffyTelemedProvider string
-const (
-	FluffyDISABLE FluffyTelemedProvider = "DISABLE"
-	FluffyZoom FluffyTelemedProvider = "zoom"
-	Mmconf FluffyTelemedProvider = "mmconf"
 )
 
 type YandexFeedType string

@@ -4461,8 +4461,35 @@ class SchedulerWeekViewType(Enum):
     WORK_WEEK = "workWeek"
 
 
-class PurpleTelemedProvider(Enum):
+class PurpleTelemedApplication:
+    apple_app_name: Optional[str]
+    google_app_name: Optional[str]
+    url_app_schema: Optional[str]
+
+    def __init__(self, apple_app_name: Optional[str], google_app_name: Optional[str], url_app_schema: Optional[str]) -> None:
+        self.apple_app_name = apple_app_name
+        self.google_app_name = google_app_name
+        self.url_app_schema = url_app_schema
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'PurpleTelemedApplication':
+        assert isinstance(obj, dict)
+        apple_app_name = from_union([from_str, from_none], obj.get("appleAppName"))
+        google_app_name = from_union([from_str, from_none], obj.get("googleAppName"))
+        url_app_schema = from_union([from_str, from_none], obj.get("urlAppSchema"))
+        return PurpleTelemedApplication(apple_app_name, google_app_name, url_app_schema)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["appleAppName"] = from_union([from_str, from_none], self.apple_app_name)
+        result["googleAppName"] = from_union([from_str, from_none], self.google_app_name)
+        result["urlAppSchema"] = from_union([from_str, from_none], self.url_app_schema)
+        return result
+
+
+class TelemedProvider(Enum):
     DISABLE = "DISABLE"
+    MMCONF = "mmconf"
     ZOOM = "zoom"
 
 
@@ -4573,7 +4600,8 @@ class InfoBackofficeConfiguration:
     state_level_holidays: Optional[List[Dict[str, Any]]]
     state_level_holidays_not_working: Optional[bool]
     taxonomy_children_max_age: Optional[float]
-    telemed_provider: Optional[PurpleTelemedProvider]
+    telemed_application: Optional[PurpleTelemedApplication]
+    telemed_provider: Optional[TelemedProvider]
     use_additional_durations: Optional[bool]
     use_adjacent_taxonomies: Optional[bool]
     use_adjacent_taxonomies_slot_splitting: Optional[bool]
@@ -4581,7 +4609,7 @@ class InfoBackofficeConfiguration:
     work_week_end: Optional[float]
     work_week_start: Optional[float]
 
-    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], resoure_login_hide_cancelled_appointment: Optional[bool], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_provider: Optional[PurpleTelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
+    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], resoure_login_hide_cancelled_appointment: Optional[bool], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_application: Optional[PurpleTelemedApplication], telemed_provider: Optional[TelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
         self.adjacent_taxonomies_treshold = adjacent_taxonomies_treshold
         self.allow_hide_service_for_booking = allow_hide_service_for_booking
         self.allow_hide_workers_from_schdeule = allow_hide_workers_from_schdeule
@@ -4688,6 +4716,7 @@ class InfoBackofficeConfiguration:
         self.state_level_holidays = state_level_holidays
         self.state_level_holidays_not_working = state_level_holidays_not_working
         self.taxonomy_children_max_age = taxonomy_children_max_age
+        self.telemed_application = telemed_application
         self.telemed_provider = telemed_provider
         self.use_additional_durations = use_additional_durations
         self.use_adjacent_taxonomies = use_adjacent_taxonomies
@@ -4805,14 +4834,15 @@ class InfoBackofficeConfiguration:
         state_level_holidays = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("stateLevelHolidays"))
         state_level_holidays_not_working = from_union([from_bool, from_none], obj.get("stateLevelHolidaysNotWorking"))
         taxonomy_children_max_age = from_union([from_float, from_none], obj.get("taxonomyChildrenMaxAge"))
-        telemed_provider = from_union([PurpleTelemedProvider, from_none], obj.get("telemedProvider"))
+        telemed_application = from_union([PurpleTelemedApplication.from_dict, from_none], obj.get("telemedApplication"))
+        telemed_provider = from_union([TelemedProvider, from_none], obj.get("telemedProvider"))
         use_additional_durations = from_union([from_bool, from_none], obj.get("useAdditionalDurations"))
         use_adjacent_taxonomies = from_union([from_bool, from_none], obj.get("useAdjacentTaxonomies"))
         use_adjacent_taxonomies_slot_splitting = from_union([from_bool, from_none], obj.get("useAdjacentTaxonomiesSlotSplitting"))
         use_gt_app_method = from_union([from_bool, from_none], obj.get("useGtAppMethod"))
         work_week_end = from_union([from_float, from_none], obj.get("workWeekEnd"))
         work_week_start = from_union([from_float, from_none], obj.get("workWeekStart"))
-        return InfoBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, resoure_login_hide_cancelled_appointment, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
+        return InfoBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, resoure_login_hide_cancelled_appointment, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, scheduler_week_view_type, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_application, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -4922,7 +4952,8 @@ class InfoBackofficeConfiguration:
         result["stateLevelHolidays"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.state_level_holidays)
         result["stateLevelHolidaysNotWorking"] = from_union([from_bool, from_none], self.state_level_holidays_not_working)
         result["taxonomyChildrenMaxAge"] = from_union([to_float, from_none], self.taxonomy_children_max_age)
-        result["telemedProvider"] = from_union([lambda x: to_enum(PurpleTelemedProvider, x), from_none], self.telemed_provider)
+        result["telemedApplication"] = from_union([lambda x: to_class(PurpleTelemedApplication, x), from_none], self.telemed_application)
+        result["telemedProvider"] = from_union([lambda x: to_enum(TelemedProvider, x), from_none], self.telemed_provider)
         result["useAdditionalDurations"] = from_union([from_bool, from_none], self.use_additional_durations)
         result["useAdjacentTaxonomies"] = from_union([from_bool, from_none], self.use_adjacent_taxonomies)
         result["useAdjacentTaxonomiesSlotSplitting"] = from_union([from_bool, from_none], self.use_adjacent_taxonomies_slot_splitting)
@@ -6299,6 +6330,7 @@ class Resource:
     """цвет колонки с работником"""
     color: Optional[str]
     degree: Optional[str]
+    deny_widget_booking: Optional[bool]
     """идентификатор отделения, к которому привязан работник"""
     department_id: Optional[str]
     """краткое описание работника"""
@@ -6391,12 +6423,13 @@ class Resource:
     """рабочее место, которое занимает работник"""
     work_place: Optional[str]
 
-    def __init__(self, additional_extra_id: Optional[List[str]], bad_icon_resolution: Optional[bool], capacity: float, color: Optional[str], degree: Optional[str], department_id: Optional[str], description: Optional[str], display_in_schedule: Optional[bool], display_in_widget: bool, email: Optional[str], email_enabled: Optional[bool], even_odd_timetable: EvenOddTimetable, exceptions: Optional[List[Any]], experience: Optional[datetime], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], extra_media_id: Optional[str], icon_url: Optional[str], id: str, image: Optional[str], last_su: Optional[datetime], level: float, loaned: bool, loaned_from: Optional[str], loaned_to: Optional[str], location: ResourceLocation, manual_changes: bool, middle_name: Optional[str], name: str, nickname: Optional[str], order: Optional[float], order_weight: Union[float, None, str], origin_general_info: Optional[Info], origin_business_id: Optional[str], origin_taxonomies: Optional[List[str]], perk: Optional[str], phone: Optional[List[FaxElement]], profession: Optional[str], profile: Optional[ИнформацияОПрофилеРаботника], rating: Optional[float], readonly_taxonomies: Optional[List[str]], revision_version: float, schedule_is_empty: Optional[bool], site_id: Optional[str], sms_enabled: Optional[bool], status: Optional[ResourceStatus], surname: str, taxonomies: List[str], taxonomy_children: List[ResourceTaxonomyChildren], taxonomy_levels: List[ResourceTaxonomyLevel], telemed_data: Optional[ResourceTelemedData], timetable: Timetable, user_data: Optional[Dict[str, Any]], work_place: Optional[str]) -> None:
+    def __init__(self, additional_extra_id: Optional[List[str]], bad_icon_resolution: Optional[bool], capacity: float, color: Optional[str], degree: Optional[str], deny_widget_booking: Optional[bool], department_id: Optional[str], description: Optional[str], display_in_schedule: Optional[bool], display_in_widget: bool, email: Optional[str], email_enabled: Optional[bool], even_odd_timetable: EvenOddTimetable, exceptions: Optional[List[Any]], experience: Optional[datetime], extra_description: Optional[str], extra_id: Optional[str], extra_link: Optional[str], extra_media_id: Optional[str], icon_url: Optional[str], id: str, image: Optional[str], last_su: Optional[datetime], level: float, loaned: bool, loaned_from: Optional[str], loaned_to: Optional[str], location: ResourceLocation, manual_changes: bool, middle_name: Optional[str], name: str, nickname: Optional[str], order: Optional[float], order_weight: Union[float, None, str], origin_general_info: Optional[Info], origin_business_id: Optional[str], origin_taxonomies: Optional[List[str]], perk: Optional[str], phone: Optional[List[FaxElement]], profession: Optional[str], profile: Optional[ИнформацияОПрофилеРаботника], rating: Optional[float], readonly_taxonomies: Optional[List[str]], revision_version: float, schedule_is_empty: Optional[bool], site_id: Optional[str], sms_enabled: Optional[bool], status: Optional[ResourceStatus], surname: str, taxonomies: List[str], taxonomy_children: List[ResourceTaxonomyChildren], taxonomy_levels: List[ResourceTaxonomyLevel], telemed_data: Optional[ResourceTelemedData], timetable: Timetable, user_data: Optional[Dict[str, Any]], work_place: Optional[str]) -> None:
         self.additional_extra_id = additional_extra_id
         self.bad_icon_resolution = bad_icon_resolution
         self.capacity = capacity
         self.color = color
         self.degree = degree
+        self.deny_widget_booking = deny_widget_booking
         self.department_id = department_id
         self.description = description
         self.display_in_schedule = display_in_schedule
@@ -6456,6 +6489,7 @@ class Resource:
         capacity = from_float(obj.get("capacity"))
         color = from_union([from_str, from_none], obj.get("color"))
         degree = from_union([from_str, from_none], obj.get("degree"))
+        deny_widget_booking = from_union([from_bool, from_none], obj.get("denyWidgetBooking"))
         department_id = from_union([from_str, from_none], obj.get("departmentId"))
         description = from_union([from_str, from_none], obj.get("description"))
         display_in_schedule = from_union([from_bool, from_none], obj.get("displayInSchedule"))
@@ -6506,7 +6540,7 @@ class Resource:
         timetable = Timetable.from_dict(obj.get("timetable"))
         user_data = from_union([lambda x: from_dict(lambda x: x, x), from_none], obj.get("userData"))
         work_place = from_union([from_str, from_none], obj.get("workPlace"))
-        return Resource(additional_extra_id, bad_icon_resolution, capacity, color, degree, department_id, description, display_in_schedule, display_in_widget, email, email_enabled, even_odd_timetable, exceptions, experience, extra_description, extra_id, extra_link, extra_media_id, icon_url, id, image, last_su, level, loaned, loaned_from, loaned_to, location, manual_changes, middle_name, name, nickname, order, order_weight, origin_general_info, origin_business_id, origin_taxonomies, perk, phone, profession, profile, rating, readonly_taxonomies, revision_version, schedule_is_empty, site_id, sms_enabled, status, surname, taxonomies, taxonomy_children, taxonomy_levels, telemed_data, timetable, user_data, work_place)
+        return Resource(additional_extra_id, bad_icon_resolution, capacity, color, degree, deny_widget_booking, department_id, description, display_in_schedule, display_in_widget, email, email_enabled, even_odd_timetable, exceptions, experience, extra_description, extra_id, extra_link, extra_media_id, icon_url, id, image, last_su, level, loaned, loaned_from, loaned_to, location, manual_changes, middle_name, name, nickname, order, order_weight, origin_general_info, origin_business_id, origin_taxonomies, perk, phone, profession, profile, rating, readonly_taxonomies, revision_version, schedule_is_empty, site_id, sms_enabled, status, surname, taxonomies, taxonomy_children, taxonomy_levels, telemed_data, timetable, user_data, work_place)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -6515,6 +6549,7 @@ class Resource:
         result["capacity"] = to_float(self.capacity)
         result["color"] = from_union([from_str, from_none], self.color)
         result["degree"] = from_union([from_str, from_none], self.degree)
+        result["denyWidgetBooking"] = from_union([from_bool, from_none], self.deny_widget_booking)
         result["departmentId"] = from_union([from_str, from_none], self.department_id)
         result["description"] = from_union([from_str, from_none], self.description)
         result["displayInSchedule"] = from_union([from_bool, from_none], self.display_in_schedule)
@@ -6734,7 +6769,7 @@ class PurpleDateLimit:
         return result
 
 
-class DaysOfWeek(Enum):
+class Day(Enum):
     FRI = "fri"
     MON = "mon"
     SAT = "sat"
@@ -6750,17 +6785,17 @@ class Repeats(Enum):
     WEEKLY = "weekly"
 
 
-class Slots:
+class DiscountSlot:
     time: Optional[TimeFrame]
 
     def __init__(self, time: Optional[TimeFrame]) -> None:
         self.time = time
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Slots':
+    def from_dict(obj: Any) -> 'DiscountSlot':
         assert isinstance(obj, dict)
         time = from_union([TimeFrame.from_dict, from_none], obj.get("time"))
-        return Slots(time)
+        return DiscountSlot(time)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -6771,16 +6806,16 @@ class Slots:
 class Discount:
     """Информация о скидке"""
     active: Optional[bool]
-    days_of_week: Optional[DaysOfWeek]
+    days: Optional[List[Day]]
     repeats: Optional[Repeats]
-    slots: Optional[Slots]
+    slots: Optional[List[DiscountSlot]]
     start: Optional[datetime]
     unlim_weekly_repeat: Optional[bool]
     weekly_repeat: Optional[float]
 
-    def __init__(self, active: Optional[bool], days_of_week: Optional[DaysOfWeek], repeats: Optional[Repeats], slots: Optional[Slots], start: Optional[datetime], unlim_weekly_repeat: Optional[bool], weekly_repeat: Optional[float]) -> None:
+    def __init__(self, active: Optional[bool], days: Optional[List[Day]], repeats: Optional[Repeats], slots: Optional[List[DiscountSlot]], start: Optional[datetime], unlim_weekly_repeat: Optional[bool], weekly_repeat: Optional[float]) -> None:
         self.active = active
-        self.days_of_week = days_of_week
+        self.days = days
         self.repeats = repeats
         self.slots = slots
         self.start = start
@@ -6791,20 +6826,20 @@ class Discount:
     def from_dict(obj: Any) -> 'Discount':
         assert isinstance(obj, dict)
         active = from_union([from_bool, from_none], obj.get("active"))
-        days_of_week = from_union([DaysOfWeek, from_none], obj.get("daysOfWeek"))
+        days = from_union([lambda x: from_list(Day, x), from_none], obj.get("days"))
         repeats = from_union([Repeats, from_none], obj.get("repeats"))
-        slots = from_union([Slots.from_dict, from_none], obj.get("slots"))
+        slots = from_union([lambda x: from_list(DiscountSlot.from_dict, x), from_none], obj.get("slots"))
         start = from_union([from_datetime, from_none], obj.get("start"))
         unlim_weekly_repeat = from_union([from_bool, from_none], obj.get("unlimWeeklyRepeat"))
         weekly_repeat = from_union([from_float, from_none], obj.get("weeklyRepeat"))
-        return Discount(active, days_of_week, repeats, slots, start, unlim_weekly_repeat, weekly_repeat)
+        return Discount(active, days, repeats, slots, start, unlim_weekly_repeat, weekly_repeat)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["active"] = from_union([from_bool, from_none], self.active)
-        result["daysOfWeek"] = from_union([lambda x: to_enum(DaysOfWeek, x), from_none], self.days_of_week)
+        result["days"] = from_union([lambda x: from_list(lambda x: to_enum(Day, x), x), from_none], self.days)
         result["repeats"] = from_union([lambda x: to_enum(Repeats, x), from_none], self.repeats)
-        result["slots"] = from_union([lambda x: to_class(Slots, x), from_none], self.slots)
+        result["slots"] = from_union([lambda x: from_list(lambda x: to_class(DiscountSlot, x), x), from_none], self.slots)
         result["start"] = from_union([lambda x: x.isoformat(), from_none], self.start)
         result["unlimWeeklyRepeat"] = from_union([from_bool, from_none], self.unlim_weekly_repeat)
         result["weeklyRepeat"] = from_union([to_float, from_none], self.weekly_repeat)
@@ -7527,6 +7562,7 @@ class InfoWidgetConfiguration:
     require_agreement: Optional[bool]
     require_agreement_link: Optional[str]
     revision_version: Optional[float]
+    service_unavailability_text: Optional[str]
     short_link: Optional[str]
     show_all_workers: Optional[bool]
     show_client_address: Optional[bool]
@@ -7578,9 +7614,10 @@ class InfoWidgetConfiguration:
     widget_use_crac: Optional[bool]
     without_workers: Optional[bool]
     worker_unavailability_text: Optional[str]
+    worker_widget_unavailability_text: Optional[str]
     worker_name_reverse: Optional[bool]
 
-    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], analytics_google: Optional[PurpleAnalyticsGoogle], analytics_yandex: Optional[PurpleAnalyticsYandex], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], ask_client_passport_id: Optional[bool], bookable_date_ranges: Optional[PurpleBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[PurpleClientBlockingSettings], client_comment_title: Optional[str], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[PurpleDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[FaxElement]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], middle_name_support: Optional[bool], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_start_text: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[PurpleSocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], start_text_button: Optional[str], start_text_message: Optional[str], strict_slot_cutting: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], toggle_reminder: Optional[bool], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
+    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], analytics_google: Optional[PurpleAnalyticsGoogle], analytics_yandex: Optional[PurpleAnalyticsYandex], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], ask_client_passport_id: Optional[bool], bookable_date_ranges: Optional[PurpleBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[PurpleClientBlockingSettings], client_comment_title: Optional[str], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[PurpleDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[FaxElement]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], middle_name_support: Optional[bool], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], service_unavailability_text: Optional[str], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_start_text: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[PurpleSocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], start_text_button: Optional[str], start_text_message: Optional[str], strict_slot_cutting: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], toggle_reminder: Optional[bool], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_widget_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
         self.additional_name = additional_name
         self.alignment_taxonomy_slots = alignment_taxonomy_slots
         self.allow_auto_select = allow_auto_select
@@ -7644,6 +7681,7 @@ class InfoWidgetConfiguration:
         self.require_agreement = require_agreement
         self.require_agreement_link = require_agreement_link
         self.revision_version = revision_version
+        self.service_unavailability_text = service_unavailability_text
         self.short_link = short_link
         self.show_all_workers = show_all_workers
         self.show_client_address = show_client_address
@@ -7695,6 +7733,7 @@ class InfoWidgetConfiguration:
         self.widget_use_crac = widget_use_crac
         self.without_workers = without_workers
         self.worker_unavailability_text = worker_unavailability_text
+        self.worker_widget_unavailability_text = worker_widget_unavailability_text
         self.worker_name_reverse = worker_name_reverse
 
     @staticmethod
@@ -7763,6 +7802,7 @@ class InfoWidgetConfiguration:
         require_agreement = from_union([from_bool, from_none], obj.get("requireAgreement"))
         require_agreement_link = from_union([from_str, from_none], obj.get("requireAgreementLink"))
         revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
+        service_unavailability_text = from_union([from_str, from_none], obj.get("service_unavailability_text"))
         short_link = from_union([from_str, from_none], obj.get("shortLink"))
         show_all_workers = from_union([from_bool, from_none], obj.get("showAllWorkers"))
         show_client_address = from_union([from_bool, from_none], obj.get("showClientAddress"))
@@ -7814,8 +7854,9 @@ class InfoWidgetConfiguration:
         widget_use_crac = from_union([from_bool, from_none], obj.get("widgetUseCRAC"))
         without_workers = from_union([from_bool, from_none], obj.get("withoutWorkers"))
         worker_unavailability_text = from_union([from_str, from_none], obj.get("worker_unavailability_text"))
+        worker_widget_unavailability_text = from_union([from_str, from_none], obj.get("worker_widget_unavailability_text"))
         worker_name_reverse = from_union([from_bool, from_none], obj.get("workerNameReverse"))
-        return InfoWidgetConfiguration(additional_name, alignment_taxonomy_slots, allow_auto_select, allow_book_visitor, allow_skip_time_check, analytics_google, analytics_yandex, appointment_confirmation_text, appointment_confirmation_title, ask_client_birthday, ask_client_gender, ask_client_passport_id, bookable_date_ranges, bookable_months_count, calendar_mode, calendar_mode_hide_time, client_blocking_settings, client_comment_title, crac_server, crac_slot_size, crunchv2, day_off_label, days_forward, day_unavailable_label, default_service_img_url, default_worker_img_url, deny_same_time_records, disabled_taxonomies_text, disable_mobile_widget, disable_widget, disable_widget_message, discounted_price_rounding, display_slot_size, dont_require_email, email_is_mandatory, enable_override_footer, enable_warning_contact_data, extra_visitors, filter_non_insurance_schedule, hide_any_worker_booking, hide_call_button, hide_empty_days, hide_g_booking_logo, hide_gray_slots, hide_new_appointment_button, hide_prices, hide_social_networks_authentication, insurance_client_support_phone, max_service_booking, max_timeslot_booking, middle_name_support, most_free_enable, multi_service_booking, multi_timeslot_booking, multi_timeslot_booking_all_days, new_widget_theme, no_default_images, override_footer, payment, payment_provider, require_agreement, require_agreement_link, revision_version, short_link, show_all_workers, show_client_address, show_client_comment, show_disabled_taxonomies, show_drink_question, show_map, show_start_text, show_surname_first, show_talk_question, show_taxonomy_confirmation_alert, skip_authentication, skip_days_forward, skip_mobile_map, skip_service_duration_alignment, skip_service_selection, skip_time_selection, skip_time_selection_service_i_ds, skip_worker_selected_service_i_ds, skip_worker_services_selection, social_network_image, social_sharing, sort_by_most_free, sort_workers_by_workload, split_insurance_client, split_name, start_text_button, start_text_message, strict_slot_cutting, tentative_ttl, theme, toggle_reminder, use_appointment_reminder, use_business_schedule_for_unavailable_label, use_clusters_map, use_coupon, use_crac, use_default_service_img, use_default_worker_img, use_direct_schedule_read, use_insurance_guarantee_letter, use_insurance_select, use_med_auth, use_middle_name, use_new_reserve_api, use_resource_page_loading, use_sort_by_name, warning_contact_data_text, widget_use_crac, without_workers, worker_unavailability_text, worker_name_reverse)
+        return InfoWidgetConfiguration(additional_name, alignment_taxonomy_slots, allow_auto_select, allow_book_visitor, allow_skip_time_check, analytics_google, analytics_yandex, appointment_confirmation_text, appointment_confirmation_title, ask_client_birthday, ask_client_gender, ask_client_passport_id, bookable_date_ranges, bookable_months_count, calendar_mode, calendar_mode_hide_time, client_blocking_settings, client_comment_title, crac_server, crac_slot_size, crunchv2, day_off_label, days_forward, day_unavailable_label, default_service_img_url, default_worker_img_url, deny_same_time_records, disabled_taxonomies_text, disable_mobile_widget, disable_widget, disable_widget_message, discounted_price_rounding, display_slot_size, dont_require_email, email_is_mandatory, enable_override_footer, enable_warning_contact_data, extra_visitors, filter_non_insurance_schedule, hide_any_worker_booking, hide_call_button, hide_empty_days, hide_g_booking_logo, hide_gray_slots, hide_new_appointment_button, hide_prices, hide_social_networks_authentication, insurance_client_support_phone, max_service_booking, max_timeslot_booking, middle_name_support, most_free_enable, multi_service_booking, multi_timeslot_booking, multi_timeslot_booking_all_days, new_widget_theme, no_default_images, override_footer, payment, payment_provider, require_agreement, require_agreement_link, revision_version, service_unavailability_text, short_link, show_all_workers, show_client_address, show_client_comment, show_disabled_taxonomies, show_drink_question, show_map, show_start_text, show_surname_first, show_talk_question, show_taxonomy_confirmation_alert, skip_authentication, skip_days_forward, skip_mobile_map, skip_service_duration_alignment, skip_service_selection, skip_time_selection, skip_time_selection_service_i_ds, skip_worker_selected_service_i_ds, skip_worker_services_selection, social_network_image, social_sharing, sort_by_most_free, sort_workers_by_workload, split_insurance_client, split_name, start_text_button, start_text_message, strict_slot_cutting, tentative_ttl, theme, toggle_reminder, use_appointment_reminder, use_business_schedule_for_unavailable_label, use_clusters_map, use_coupon, use_crac, use_default_service_img, use_default_worker_img, use_direct_schedule_read, use_insurance_guarantee_letter, use_insurance_select, use_med_auth, use_middle_name, use_new_reserve_api, use_resource_page_loading, use_sort_by_name, warning_contact_data_text, widget_use_crac, without_workers, worker_unavailability_text, worker_widget_unavailability_text, worker_name_reverse)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -7882,6 +7923,7 @@ class InfoWidgetConfiguration:
         result["requireAgreement"] = from_union([from_bool, from_none], self.require_agreement)
         result["requireAgreementLink"] = from_union([from_str, from_none], self.require_agreement_link)
         result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
+        result["service_unavailability_text"] = from_union([from_str, from_none], self.service_unavailability_text)
         result["shortLink"] = from_union([from_str, from_none], self.short_link)
         result["showAllWorkers"] = from_union([from_bool, from_none], self.show_all_workers)
         result["showClientAddress"] = from_union([from_bool, from_none], self.show_client_address)
@@ -7933,6 +7975,7 @@ class InfoWidgetConfiguration:
         result["widgetUseCRAC"] = from_union([from_bool, from_none], self.widget_use_crac)
         result["withoutWorkers"] = from_union([from_bool, from_none], self.without_workers)
         result["worker_unavailability_text"] = from_union([from_str, from_none], self.worker_unavailability_text)
+        result["worker_widget_unavailability_text"] = from_union([from_str, from_none], self.worker_widget_unavailability_text)
         result["workerNameReverse"] = from_union([from_bool, from_none], self.worker_name_reverse)
         return result
 
@@ -8132,6 +8175,42 @@ class BusinessRefInNetwork:
         return result
 
 
+class Ehr:
+    active: Optional[bool]
+
+    def __init__(self, active: Optional[bool]) -> None:
+        self.active = active
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'Ehr':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        return Ehr(active)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        return result
+
+
+class ResultIntegrationData:
+    ehr: Optional[Ehr]
+
+    def __init__(self, ehr: Optional[Ehr]) -> None:
+        self.ehr = ehr
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ResultIntegrationData':
+        assert isinstance(obj, dict)
+        ehr = from_union([Ehr.from_dict, from_none], obj.get("ehr"))
+        return ResultIntegrationData(ehr)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["ehr"] = from_union([lambda x: to_class(Ehr, x), from_none], self.ehr)
+        return result
+
+
 class NetworkConfigurationBusiness:
     id: Optional[str]
     active: bool
@@ -8205,17 +8284,19 @@ class BusinessGetNetworkDataResponseResult:
     businesses: List[BusinessRefInNetwork]
     client_vip_phones: List[str]
     grant_groups: List[Dict[str, Any]]
+    integration_data: Optional[ResultIntegrationData]
     network_id: str
     network_info: Dict[str, Any]
     network_name: Optional[str]
     """настройки показа сети в зависимости от источника, на котором размещено приложение"""
     network_widget_configuration: List[NetworkWidgetConfiguration]
 
-    def __init__(self, business_configuration: Dict[str, Any], businesses: List[BusinessRefInNetwork], client_vip_phones: List[str], grant_groups: List[Dict[str, Any]], network_id: str, network_info: Dict[str, Any], network_name: Optional[str], network_widget_configuration: List[NetworkWidgetConfiguration]) -> None:
+    def __init__(self, business_configuration: Dict[str, Any], businesses: List[BusinessRefInNetwork], client_vip_phones: List[str], grant_groups: List[Dict[str, Any]], integration_data: Optional[ResultIntegrationData], network_id: str, network_info: Dict[str, Any], network_name: Optional[str], network_widget_configuration: List[NetworkWidgetConfiguration]) -> None:
         self.business_configuration = business_configuration
         self.businesses = businesses
         self.client_vip_phones = client_vip_phones
         self.grant_groups = grant_groups
+        self.integration_data = integration_data
         self.network_id = network_id
         self.network_info = network_info
         self.network_name = network_name
@@ -8228,11 +8309,12 @@ class BusinessGetNetworkDataResponseResult:
         businesses = from_list(BusinessRefInNetwork.from_dict, obj.get("businesses"))
         client_vip_phones = from_list(from_str, obj.get("clientVIPPhones"))
         grant_groups = from_list(lambda x: from_dict(lambda x: x, x), obj.get("grantGroups"))
+        integration_data = from_union([ResultIntegrationData.from_dict, from_none], obj.get("integrationData"))
         network_id = from_str(obj.get("networkID"))
         network_info = from_dict(lambda x: x, obj.get("networkInfo"))
         network_name = from_union([from_str, from_none], obj.get("networkName"))
         network_widget_configuration = from_list(NetworkWidgetConfiguration.from_dict, obj.get("networkWidgetConfiguration"))
-        return BusinessGetNetworkDataResponseResult(business_configuration, businesses, client_vip_phones, grant_groups, network_id, network_info, network_name, network_widget_configuration)
+        return BusinessGetNetworkDataResponseResult(business_configuration, businesses, client_vip_phones, grant_groups, integration_data, network_id, network_info, network_name, network_widget_configuration)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -8240,6 +8322,7 @@ class BusinessGetNetworkDataResponseResult:
         result["businesses"] = from_list(lambda x: to_class(BusinessRefInNetwork, x), self.businesses)
         result["clientVIPPhones"] = from_list(from_str, self.client_vip_phones)
         result["grantGroups"] = from_list(lambda x: from_dict(lambda x: x, x), self.grant_groups)
+        result["integrationData"] = from_union([lambda x: to_class(ResultIntegrationData, x), from_none], self.integration_data)
         result["networkID"] = from_str(self.network_id)
         result["networkInfo"] = from_dict(lambda x: x, self.network_info)
         result["networkName"] = from_union([from_str, from_none], self.network_name)
@@ -8572,10 +8655,30 @@ class ScheduleSplitDayTimeInterval:
         return result
 
 
-class FluffyTelemedProvider(Enum):
-    DISABLE = "DISABLE"
-    MMCONF = "mmconf"
-    ZOOM = "zoom"
+class FluffyTelemedApplication:
+    apple_app_name: Optional[str]
+    google_app_name: Optional[str]
+    url_app_schema: Optional[str]
+
+    def __init__(self, apple_app_name: Optional[str], google_app_name: Optional[str], url_app_schema: Optional[str]) -> None:
+        self.apple_app_name = apple_app_name
+        self.google_app_name = google_app_name
+        self.url_app_schema = url_app_schema
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'FluffyTelemedApplication':
+        assert isinstance(obj, dict)
+        apple_app_name = from_union([from_str, from_none], obj.get("appleAppName"))
+        google_app_name = from_union([from_str, from_none], obj.get("googleAppName"))
+        url_app_schema = from_union([from_str, from_none], obj.get("urlAppSchema"))
+        return FluffyTelemedApplication(apple_app_name, google_app_name, url_app_schema)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["appleAppName"] = from_union([from_str, from_none], self.apple_app_name)
+        result["googleAppName"] = from_union([from_str, from_none], self.google_app_name)
+        result["urlAppSchema"] = from_union([from_str, from_none], self.url_app_schema)
+        return result
 
 
 class BusinessBackofficeConfiguration:
@@ -8688,7 +8791,8 @@ class BusinessBackofficeConfiguration:
     state_level_holidays: Optional[List[Dict[str, Any]]]
     state_level_holidays_not_working: Optional[bool]
     taxonomy_children_max_age: Optional[float]
-    telemed_provider: Optional[FluffyTelemedProvider]
+    telemed_application: Optional[FluffyTelemedApplication]
+    telemed_provider: Optional[TelemedProvider]
     use_additional_durations: Optional[bool]
     use_adjacent_taxonomies: Optional[bool]
     use_adjacent_taxonomies_slot_splitting: Optional[bool]
@@ -8696,7 +8800,7 @@ class BusinessBackofficeConfiguration:
     work_week_end: Optional[float]
     work_week_start: Optional[float]
 
-    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], resoure_login_hide_cancelled_appointment: Optional[bool], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], schedule_enable_day_intervals: Optional[bool], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_split_day_time_intervals: Optional[List[ScheduleSplitDayTimeInterval]], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_name_extra_id: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_provider: Optional[FluffyTelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
+    def __init__(self, adjacent_taxonomies_treshold: Optional[float], allow_hide_service_for_booking: Optional[bool], allow_hide_workers_from_schdeule: Optional[bool], allow_sms_translit: Optional[bool], appointment_future_moving: Optional[bool], block_notification_for_any_available_adjacent_service: Optional[bool], cabinets_enabled: Optional[bool], check_client_overlapping: Optional[bool], custom_online_payment_confirmation_template: Optional[str], default_gt_schedule_day_view: Optional[bool], disable_appointment_client_inline_editor: Optional[bool], edit_app_extra_id: Optional[bool], edit_taxonomy_children: Optional[bool], edit_taxonomy_visit_type: Optional[bool], enable_black_list: Optional[bool], enable_calculate_shedule: Optional[bool], enable_client_card: Optional[bool], enable_client_language: Optional[bool], enable_client_medical_card_report: Optional[bool], enable_custom_online_payment_confirmation: Optional[bool], enable_extended_phone: Optional[bool], enable_extended_records_client_statistics: Optional[bool], enable_invoice: Optional[bool], enable_master_importance: Optional[bool], enable_phone_national_mode: Optional[bool], enable_printing_report_records_screen: Optional[bool], enable_service_or_mode_filter: Optional[bool], enable_service_time_limit: Optional[bool], enable_source_choice: Optional[bool], enable_taxonomy_children_age_check: Optional[bool], enable_telemed: Optional[bool], export_to_excel_removed_clients: Optional[bool], feedback_customer_portal_message: Optional[str], feedback_customer_portal_thank_you_message: Optional[str], feedback_customer_portal_title: Optional[str], feed_back_min_rating: Optional[FeedBackMinRating], fin_id: Optional[str], fin_name: Optional[str], hide_customer_portal_footer: Optional[bool], highlighted_resource: Optional[bool], invoice_condition: Optional[List[AppointmentClientPayment]], invoice_provider: Optional[InvoiceProvider], manual_exception_support: Optional[bool], no_internet_alert: Optional[bool], past_time_edit: Optional[float], payment_provider: Optional[PaymentProvider], readonly_resource_schedule: Optional[bool], resource_surname_first: Optional[bool], resource_timetable_type: Optional[ResourceTimetableType], resoure_login_hide_cancelled_appointment: Optional[bool], revision_version: Optional[float], schdule_week_view_is_default: Optional[bool], schedule_default_workers_limit: Optional[float], schedule_default_workers_limit_day: Optional[float], schedule_default_workers_limit_week: Optional[float], schedule_enable_day_intervals: Optional[bool], scheduler_week_view_type: Optional[SchedulerWeekViewType], schedule_split_day_time_intervals: Optional[List[ScheduleSplitDayTimeInterval]], schedule_worker_hours: Optional[bool], show_additional_fields: Optional[bool], show_address: Optional[bool], show_birth_date: Optional[bool], show_client_address: Optional[bool], show_client_appear: Optional[bool], show_client_appear_on_schedule: Optional[bool], show_client_birthday_filter: Optional[bool], show_client_contract_number: Optional[bool], show_client_image: Optional[bool], show_client_payment: Optional[bool], show_created_username: Optional[bool], show_defaulter_blockscreen: Optional[bool], show_delivery_status: Optional[bool], show_department_filter: Optional[bool], show_departments: Optional[bool], show_departments_configuration: Optional[bool], show_email: Optional[bool], show_extra_client_info: Optional[bool], show_fax: Optional[bool], show_fired_worker_appointment_alert: Optional[bool], show_first_available_slot: Optional[bool], show_gap_window: Optional[bool], show_gender: Optional[bool], show_gender_in_records: Optional[bool], show_generatable_reports_screen: Optional[bool], show_house_number: Optional[bool], show_israel_city: Optional[bool], show_kupat_holim: Optional[bool], show_leads_screen: Optional[bool], show_manual_changes: Optional[bool], show_passport_id: Optional[bool], show_rooms: Optional[bool], show_season_tickets: Optional[bool], show_taxonomy_children: Optional[bool], show_taxonomy_localization: Optional[bool], show_taxonomy_name_extra_id: Optional[bool], show_taxonomy_visit_type: Optional[bool], show_test_record: Optional[bool], show_utm: Optional[bool], show_widget_color_theme: Optional[bool], show_worker_description_in_event: Optional[bool], show_worker_extra_id: Optional[bool], show_worker_status: Optional[bool], skip_appointment_price_update: Optional[bool], skip_cancel_if_client_not_appear: Optional[bool], skip_service_filtering: Optional[bool], split_full_name_xls_export: Optional[bool], state_level_holidays: Optional[List[Dict[str, Any]]], state_level_holidays_not_working: Optional[bool], taxonomy_children_max_age: Optional[float], telemed_application: Optional[FluffyTelemedApplication], telemed_provider: Optional[TelemedProvider], use_additional_durations: Optional[bool], use_adjacent_taxonomies: Optional[bool], use_adjacent_taxonomies_slot_splitting: Optional[bool], use_gt_app_method: Optional[bool], work_week_end: Optional[float], work_week_start: Optional[float]) -> None:
         self.adjacent_taxonomies_treshold = adjacent_taxonomies_treshold
         self.allow_hide_service_for_booking = allow_hide_service_for_booking
         self.allow_hide_workers_from_schdeule = allow_hide_workers_from_schdeule
@@ -8806,6 +8910,7 @@ class BusinessBackofficeConfiguration:
         self.state_level_holidays = state_level_holidays
         self.state_level_holidays_not_working = state_level_holidays_not_working
         self.taxonomy_children_max_age = taxonomy_children_max_age
+        self.telemed_application = telemed_application
         self.telemed_provider = telemed_provider
         self.use_additional_durations = use_additional_durations
         self.use_adjacent_taxonomies = use_adjacent_taxonomies
@@ -8926,14 +9031,15 @@ class BusinessBackofficeConfiguration:
         state_level_holidays = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], obj.get("stateLevelHolidays"))
         state_level_holidays_not_working = from_union([from_bool, from_none], obj.get("stateLevelHolidaysNotWorking"))
         taxonomy_children_max_age = from_union([from_float, from_none], obj.get("taxonomyChildrenMaxAge"))
-        telemed_provider = from_union([FluffyTelemedProvider, from_none], obj.get("telemedProvider"))
+        telemed_application = from_union([FluffyTelemedApplication.from_dict, from_none], obj.get("telemedApplication"))
+        telemed_provider = from_union([TelemedProvider, from_none], obj.get("telemedProvider"))
         use_additional_durations = from_union([from_bool, from_none], obj.get("useAdditionalDurations"))
         use_adjacent_taxonomies = from_union([from_bool, from_none], obj.get("useAdjacentTaxonomies"))
         use_adjacent_taxonomies_slot_splitting = from_union([from_bool, from_none], obj.get("useAdjacentTaxonomiesSlotSplitting"))
         use_gt_app_method = from_union([from_bool, from_none], obj.get("useGtAppMethod"))
         work_week_end = from_union([from_float, from_none], obj.get("workWeekEnd"))
         work_week_start = from_union([from_float, from_none], obj.get("workWeekStart"))
-        return BusinessBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, resoure_login_hide_cancelled_appointment, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, schedule_enable_day_intervals, scheduler_week_view_type, schedule_split_day_time_intervals, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_name_extra_id, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
+        return BusinessBackofficeConfiguration(adjacent_taxonomies_treshold, allow_hide_service_for_booking, allow_hide_workers_from_schdeule, allow_sms_translit, appointment_future_moving, block_notification_for_any_available_adjacent_service, cabinets_enabled, check_client_overlapping, custom_online_payment_confirmation_template, default_gt_schedule_day_view, disable_appointment_client_inline_editor, edit_app_extra_id, edit_taxonomy_children, edit_taxonomy_visit_type, enable_black_list, enable_calculate_shedule, enable_client_card, enable_client_language, enable_client_medical_card_report, enable_custom_online_payment_confirmation, enable_extended_phone, enable_extended_records_client_statistics, enable_invoice, enable_master_importance, enable_phone_national_mode, enable_printing_report_records_screen, enable_service_or_mode_filter, enable_service_time_limit, enable_source_choice, enable_taxonomy_children_age_check, enable_telemed, export_to_excel_removed_clients, feedback_customer_portal_message, feedback_customer_portal_thank_you_message, feedback_customer_portal_title, feed_back_min_rating, fin_id, fin_name, hide_customer_portal_footer, highlighted_resource, invoice_condition, invoice_provider, manual_exception_support, no_internet_alert, past_time_edit, payment_provider, readonly_resource_schedule, resource_surname_first, resource_timetable_type, resoure_login_hide_cancelled_appointment, revision_version, schdule_week_view_is_default, schedule_default_workers_limit, schedule_default_workers_limit_day, schedule_default_workers_limit_week, schedule_enable_day_intervals, scheduler_week_view_type, schedule_split_day_time_intervals, schedule_worker_hours, show_additional_fields, show_address, show_birth_date, show_client_address, show_client_appear, show_client_appear_on_schedule, show_client_birthday_filter, show_client_contract_number, show_client_image, show_client_payment, show_created_username, show_defaulter_blockscreen, show_delivery_status, show_department_filter, show_departments, show_departments_configuration, show_email, show_extra_client_info, show_fax, show_fired_worker_appointment_alert, show_first_available_slot, show_gap_window, show_gender, show_gender_in_records, show_generatable_reports_screen, show_house_number, show_israel_city, show_kupat_holim, show_leads_screen, show_manual_changes, show_passport_id, show_rooms, show_season_tickets, show_taxonomy_children, show_taxonomy_localization, show_taxonomy_name_extra_id, show_taxonomy_visit_type, show_test_record, show_utm, show_widget_color_theme, show_worker_description_in_event, show_worker_extra_id, show_worker_status, skip_appointment_price_update, skip_cancel_if_client_not_appear, skip_service_filtering, split_full_name_xls_export, state_level_holidays, state_level_holidays_not_working, taxonomy_children_max_age, telemed_application, telemed_provider, use_additional_durations, use_adjacent_taxonomies, use_adjacent_taxonomies_slot_splitting, use_gt_app_method, work_week_end, work_week_start)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9046,7 +9152,8 @@ class BusinessBackofficeConfiguration:
         result["stateLevelHolidays"] = from_union([lambda x: from_list(lambda x: from_dict(lambda x: x, x), x), from_none], self.state_level_holidays)
         result["stateLevelHolidaysNotWorking"] = from_union([from_bool, from_none], self.state_level_holidays_not_working)
         result["taxonomyChildrenMaxAge"] = from_union([to_float, from_none], self.taxonomy_children_max_age)
-        result["telemedProvider"] = from_union([lambda x: to_enum(FluffyTelemedProvider, x), from_none], self.telemed_provider)
+        result["telemedApplication"] = from_union([lambda x: to_class(FluffyTelemedApplication, x), from_none], self.telemed_application)
+        result["telemedProvider"] = from_union([lambda x: to_enum(TelemedProvider, x), from_none], self.telemed_provider)
         result["useAdditionalDurations"] = from_union([from_bool, from_none], self.use_additional_durations)
         result["useAdjacentTaxonomies"] = from_union([from_bool, from_none], self.use_adjacent_taxonomies)
         result["useAdjacentTaxonomiesSlotSplitting"] = from_union([from_bool, from_none], self.use_adjacent_taxonomies_slot_splitting)
@@ -10025,6 +10132,7 @@ class BusinessWidgetConfiguration:
     require_agreement: Optional[bool]
     require_agreement_link: Optional[str]
     revision_version: Optional[float]
+    service_unavailability_text: Optional[str]
     short_link: Optional[str]
     show_all_workers: Optional[bool]
     show_client_address: Optional[bool]
@@ -10076,9 +10184,10 @@ class BusinessWidgetConfiguration:
     widget_use_crac: Optional[bool]
     without_workers: Optional[bool]
     worker_unavailability_text: Optional[str]
+    worker_widget_unavailability_text: Optional[str]
     worker_name_reverse: Optional[bool]
 
-    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], analytics_google: Optional[FluffyAnalyticsGoogle], analytics_yandex: Optional[FluffyAnalyticsYandex], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], ask_client_passport_id: Optional[bool], bookable_date_ranges: Optional[FluffyBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[FluffyClientBlockingSettings], client_comment_title: Optional[str], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[FluffyDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[FaxElement]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], middle_name_support: Optional[bool], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_start_text: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[FluffySocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], start_text_button: Optional[str], start_text_message: Optional[str], strict_slot_cutting: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], toggle_reminder: Optional[bool], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
+    def __init__(self, additional_name: Optional[str], alignment_taxonomy_slots: Optional[bool], allow_auto_select: Optional[bool], allow_book_visitor: Optional[bool], allow_skip_time_check: Optional[bool], analytics_google: Optional[FluffyAnalyticsGoogle], analytics_yandex: Optional[FluffyAnalyticsYandex], appointment_confirmation_text: Optional[str], appointment_confirmation_title: Optional[str], ask_client_birthday: Optional[bool], ask_client_gender: Optional[bool], ask_client_passport_id: Optional[bool], bookable_date_ranges: Optional[FluffyBookableDateRanges], bookable_months_count: Optional[float], calendar_mode: Optional[bool], calendar_mode_hide_time: Optional[bool], client_blocking_settings: Optional[FluffyClientBlockingSettings], client_comment_title: Optional[str], crac_server: Optional[CracServer], crac_slot_size: Optional[float], crunchv2: Optional[bool], day_off_label: Optional[str], days_forward: Optional[float], day_unavailable_label: Optional[str], default_service_img_url: Optional[str], default_worker_img_url: Optional[str], deny_same_time_records: Optional[bool], disabled_taxonomies_text: Optional[str], disable_mobile_widget: Optional[bool], disable_widget: Optional[bool], disable_widget_message: Optional[str], discounted_price_rounding: Optional[FluffyDiscountedPriceRounding], display_slot_size: Optional[float], dont_require_email: Optional[bool], email_is_mandatory: Optional[bool], enable_override_footer: Optional[bool], enable_warning_contact_data: Optional[bool], extra_visitors: Optional[bool], filter_non_insurance_schedule: Optional[bool], hide_any_worker_booking: Optional[bool], hide_call_button: Optional[bool], hide_empty_days: Optional[bool], hide_g_booking_logo: Optional[bool], hide_gray_slots: Optional[bool], hide_new_appointment_button: Optional[bool], hide_prices: Optional[bool], hide_social_networks_authentication: Optional[bool], insurance_client_support_phone: Optional[List[FaxElement]], max_service_booking: Optional[float], max_timeslot_booking: Optional[float], middle_name_support: Optional[bool], most_free_enable: Optional[bool], multi_service_booking: Optional[bool], multi_timeslot_booking: Optional[bool], multi_timeslot_booking_all_days: Optional[bool], new_widget_theme: Optional[Dict[str, Any]], no_default_images: Optional[bool], override_footer: Optional[str], payment: Optional[Payment], payment_provider: Optional[PaymentProvider], require_agreement: Optional[bool], require_agreement_link: Optional[str], revision_version: Optional[float], service_unavailability_text: Optional[str], short_link: Optional[str], show_all_workers: Optional[bool], show_client_address: Optional[bool], show_client_comment: Optional[bool], show_disabled_taxonomies: Optional[bool], show_drink_question: Optional[bool], show_map: Optional[bool], show_start_text: Optional[bool], show_surname_first: Optional[bool], show_talk_question: Optional[bool], show_taxonomy_confirmation_alert: Optional[bool], skip_authentication: Optional[bool], skip_days_forward: Optional[bool], skip_mobile_map: Optional[bool], skip_service_duration_alignment: Optional[bool], skip_service_selection: Optional[bool], skip_time_selection: Optional[bool], skip_time_selection_service_i_ds: Optional[List[str]], skip_worker_selected_service_i_ds: Optional[List[str]], skip_worker_services_selection: Optional[bool], social_network_image: Optional[str], social_sharing: Optional[FluffySocialSharing], sort_by_most_free: Optional[bool], sort_workers_by_workload: Optional[bool], split_insurance_client: Optional[bool], split_name: Optional[bool], start_text_button: Optional[str], start_text_message: Optional[str], strict_slot_cutting: Optional[bool], tentative_ttl: Optional[float], theme: Optional[str], toggle_reminder: Optional[bool], use_appointment_reminder: Optional[bool], use_business_schedule_for_unavailable_label: Optional[bool], use_clusters_map: Optional[bool], use_coupon: Optional[bool], use_crac: Optional[bool], use_default_service_img: Optional[bool], use_default_worker_img: Optional[bool], use_direct_schedule_read: Optional[UseDirectScheduleRead], use_insurance_guarantee_letter: Optional[bool], use_insurance_select: Optional[bool], use_med_auth: Optional[bool], use_middle_name: Optional[bool], use_new_reserve_api: Optional[bool], use_resource_page_loading: Optional[bool], use_sort_by_name: Optional[bool], warning_contact_data_text: Optional[str], widget_use_crac: Optional[bool], without_workers: Optional[bool], worker_unavailability_text: Optional[str], worker_widget_unavailability_text: Optional[str], worker_name_reverse: Optional[bool]) -> None:
         self.additional_name = additional_name
         self.alignment_taxonomy_slots = alignment_taxonomy_slots
         self.allow_auto_select = allow_auto_select
@@ -10142,6 +10251,7 @@ class BusinessWidgetConfiguration:
         self.require_agreement = require_agreement
         self.require_agreement_link = require_agreement_link
         self.revision_version = revision_version
+        self.service_unavailability_text = service_unavailability_text
         self.short_link = short_link
         self.show_all_workers = show_all_workers
         self.show_client_address = show_client_address
@@ -10193,6 +10303,7 @@ class BusinessWidgetConfiguration:
         self.widget_use_crac = widget_use_crac
         self.without_workers = without_workers
         self.worker_unavailability_text = worker_unavailability_text
+        self.worker_widget_unavailability_text = worker_widget_unavailability_text
         self.worker_name_reverse = worker_name_reverse
 
     @staticmethod
@@ -10261,6 +10372,7 @@ class BusinessWidgetConfiguration:
         require_agreement = from_union([from_bool, from_none], obj.get("requireAgreement"))
         require_agreement_link = from_union([from_str, from_none], obj.get("requireAgreementLink"))
         revision_version = from_union([from_float, from_none], obj.get("revisionVersion"))
+        service_unavailability_text = from_union([from_str, from_none], obj.get("service_unavailability_text"))
         short_link = from_union([from_str, from_none], obj.get("shortLink"))
         show_all_workers = from_union([from_bool, from_none], obj.get("showAllWorkers"))
         show_client_address = from_union([from_bool, from_none], obj.get("showClientAddress"))
@@ -10312,8 +10424,9 @@ class BusinessWidgetConfiguration:
         widget_use_crac = from_union([from_bool, from_none], obj.get("widgetUseCRAC"))
         without_workers = from_union([from_bool, from_none], obj.get("withoutWorkers"))
         worker_unavailability_text = from_union([from_str, from_none], obj.get("worker_unavailability_text"))
+        worker_widget_unavailability_text = from_union([from_str, from_none], obj.get("worker_widget_unavailability_text"))
         worker_name_reverse = from_union([from_bool, from_none], obj.get("workerNameReverse"))
-        return BusinessWidgetConfiguration(additional_name, alignment_taxonomy_slots, allow_auto_select, allow_book_visitor, allow_skip_time_check, analytics_google, analytics_yandex, appointment_confirmation_text, appointment_confirmation_title, ask_client_birthday, ask_client_gender, ask_client_passport_id, bookable_date_ranges, bookable_months_count, calendar_mode, calendar_mode_hide_time, client_blocking_settings, client_comment_title, crac_server, crac_slot_size, crunchv2, day_off_label, days_forward, day_unavailable_label, default_service_img_url, default_worker_img_url, deny_same_time_records, disabled_taxonomies_text, disable_mobile_widget, disable_widget, disable_widget_message, discounted_price_rounding, display_slot_size, dont_require_email, email_is_mandatory, enable_override_footer, enable_warning_contact_data, extra_visitors, filter_non_insurance_schedule, hide_any_worker_booking, hide_call_button, hide_empty_days, hide_g_booking_logo, hide_gray_slots, hide_new_appointment_button, hide_prices, hide_social_networks_authentication, insurance_client_support_phone, max_service_booking, max_timeslot_booking, middle_name_support, most_free_enable, multi_service_booking, multi_timeslot_booking, multi_timeslot_booking_all_days, new_widget_theme, no_default_images, override_footer, payment, payment_provider, require_agreement, require_agreement_link, revision_version, short_link, show_all_workers, show_client_address, show_client_comment, show_disabled_taxonomies, show_drink_question, show_map, show_start_text, show_surname_first, show_talk_question, show_taxonomy_confirmation_alert, skip_authentication, skip_days_forward, skip_mobile_map, skip_service_duration_alignment, skip_service_selection, skip_time_selection, skip_time_selection_service_i_ds, skip_worker_selected_service_i_ds, skip_worker_services_selection, social_network_image, social_sharing, sort_by_most_free, sort_workers_by_workload, split_insurance_client, split_name, start_text_button, start_text_message, strict_slot_cutting, tentative_ttl, theme, toggle_reminder, use_appointment_reminder, use_business_schedule_for_unavailable_label, use_clusters_map, use_coupon, use_crac, use_default_service_img, use_default_worker_img, use_direct_schedule_read, use_insurance_guarantee_letter, use_insurance_select, use_med_auth, use_middle_name, use_new_reserve_api, use_resource_page_loading, use_sort_by_name, warning_contact_data_text, widget_use_crac, without_workers, worker_unavailability_text, worker_name_reverse)
+        return BusinessWidgetConfiguration(additional_name, alignment_taxonomy_slots, allow_auto_select, allow_book_visitor, allow_skip_time_check, analytics_google, analytics_yandex, appointment_confirmation_text, appointment_confirmation_title, ask_client_birthday, ask_client_gender, ask_client_passport_id, bookable_date_ranges, bookable_months_count, calendar_mode, calendar_mode_hide_time, client_blocking_settings, client_comment_title, crac_server, crac_slot_size, crunchv2, day_off_label, days_forward, day_unavailable_label, default_service_img_url, default_worker_img_url, deny_same_time_records, disabled_taxonomies_text, disable_mobile_widget, disable_widget, disable_widget_message, discounted_price_rounding, display_slot_size, dont_require_email, email_is_mandatory, enable_override_footer, enable_warning_contact_data, extra_visitors, filter_non_insurance_schedule, hide_any_worker_booking, hide_call_button, hide_empty_days, hide_g_booking_logo, hide_gray_slots, hide_new_appointment_button, hide_prices, hide_social_networks_authentication, insurance_client_support_phone, max_service_booking, max_timeslot_booking, middle_name_support, most_free_enable, multi_service_booking, multi_timeslot_booking, multi_timeslot_booking_all_days, new_widget_theme, no_default_images, override_footer, payment, payment_provider, require_agreement, require_agreement_link, revision_version, service_unavailability_text, short_link, show_all_workers, show_client_address, show_client_comment, show_disabled_taxonomies, show_drink_question, show_map, show_start_text, show_surname_first, show_talk_question, show_taxonomy_confirmation_alert, skip_authentication, skip_days_forward, skip_mobile_map, skip_service_duration_alignment, skip_service_selection, skip_time_selection, skip_time_selection_service_i_ds, skip_worker_selected_service_i_ds, skip_worker_services_selection, social_network_image, social_sharing, sort_by_most_free, sort_workers_by_workload, split_insurance_client, split_name, start_text_button, start_text_message, strict_slot_cutting, tentative_ttl, theme, toggle_reminder, use_appointment_reminder, use_business_schedule_for_unavailable_label, use_clusters_map, use_coupon, use_crac, use_default_service_img, use_default_worker_img, use_direct_schedule_read, use_insurance_guarantee_letter, use_insurance_select, use_med_auth, use_middle_name, use_new_reserve_api, use_resource_page_loading, use_sort_by_name, warning_contact_data_text, widget_use_crac, without_workers, worker_unavailability_text, worker_widget_unavailability_text, worker_name_reverse)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -10380,6 +10493,7 @@ class BusinessWidgetConfiguration:
         result["requireAgreement"] = from_union([from_bool, from_none], self.require_agreement)
         result["requireAgreementLink"] = from_union([from_str, from_none], self.require_agreement_link)
         result["revisionVersion"] = from_union([to_float, from_none], self.revision_version)
+        result["service_unavailability_text"] = from_union([from_str, from_none], self.service_unavailability_text)
         result["shortLink"] = from_union([from_str, from_none], self.short_link)
         result["showAllWorkers"] = from_union([from_bool, from_none], self.show_all_workers)
         result["showClientAddress"] = from_union([from_bool, from_none], self.show_client_address)
@@ -10431,6 +10545,7 @@ class BusinessWidgetConfiguration:
         result["widgetUseCRAC"] = from_union([from_bool, from_none], self.widget_use_crac)
         result["withoutWorkers"] = from_union([from_bool, from_none], self.without_workers)
         result["worker_unavailability_text"] = from_union([from_str, from_none], self.worker_unavailability_text)
+        result["worker_widget_unavailability_text"] = from_union([from_str, from_none], self.worker_widget_unavailability_text)
         result["workerNameReverse"] = from_union([from_bool, from_none], self.worker_name_reverse)
         return result
 
@@ -11018,17 +11133,17 @@ class ClientFavResource:
         return result
 
 
-class IntegrationDataClass:
+class ClientIntegrationData:
     transaction_id: Optional[str]
 
     def __init__(self, transaction_id: Optional[str]) -> None:
         self.transaction_id = transaction_id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'IntegrationDataClass':
+    def from_dict(obj: Any) -> 'ClientIntegrationData':
         assert isinstance(obj, dict)
         transaction_id = from_union([from_str, from_none], obj.get("transactionID"))
-        return IntegrationDataClass(transaction_id)
+        return ClientIntegrationData(transaction_id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -11260,7 +11375,7 @@ class ClientClass:
     id: Optional[str]
     insurance_company: Optional[str]
     insurance_number: Optional[str]
-    integration_data: Optional[IntegrationDataClass]
+    integration_data: Optional[ClientIntegrationData]
     is_lazy: Optional[bool]
     israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str]
     is_vip: Optional[bool]
@@ -11292,7 +11407,7 @@ class ClientClass:
     updated: Optional[str]
     work_place: Optional[str]
 
-    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], black_list: Optional[bool], children_clients: Optional[List[ChildrenClient]], client_card_creation_date: Optional[str], client_card_number: Optional[str], client_contract_number: Optional[str], created: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], description: Optional[str], discount_code: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[ClientExtraField]], extra_id: Optional[str], fav_resources: Optional[List[ClientFavResource]], fax: Optional[str], from_sms: Union[bool, None, str], full_address: Optional[List[AddressSchema]], house_number: Optional[str], icon_url: Optional[str], id: Optional[str], insurance_company: Optional[str], insurance_number: Optional[str], integration_data: Optional[IntegrationDataClass], is_lazy: Optional[bool], israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str], is_vip: Optional[bool], kupat_holim: Union[List[Any], bool, KupatHolimKupatHolim, float, int, None, str], language: Optional[LanguageList], last_created_appointment: Optional[Dict[str, Any]], last_visited_appointment: Optional[Dict[str, Any]], lazy_resolved_date: Optional[str], locality: Optional[str], loyalty_info: Optional[LoyaltyInfo], middle_name: Optional[str], name: str, passport_date: Optional[str], passport_id: Optional[str], passport_issued: Optional[str], passport_series: Optional[str], phone: List[FaxElement], receive_sms_after_service: Optional[bool], sex: Optional[Sex], skip_marketing_notifications: Optional[bool], skip_notifications: Optional[bool], snils: Optional[str], statistics: Optional[Statistics], status: Optional[ResourceStatus], surname: str, taxi_park: Optional[str], taxi_park_member_count: Union[float, None, str], two_fa_user_id: Optional[str], updated: Optional[str], work_place: Optional[str]) -> None:
+    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], black_list: Optional[bool], children_clients: Optional[List[ChildrenClient]], client_card_creation_date: Optional[str], client_card_number: Optional[str], client_contract_number: Optional[str], created: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], description: Optional[str], discount_code: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[ClientExtraField]], extra_id: Optional[str], fav_resources: Optional[List[ClientFavResource]], fax: Optional[str], from_sms: Union[bool, None, str], full_address: Optional[List[AddressSchema]], house_number: Optional[str], icon_url: Optional[str], id: Optional[str], insurance_company: Optional[str], insurance_number: Optional[str], integration_data: Optional[ClientIntegrationData], is_lazy: Optional[bool], israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str], is_vip: Optional[bool], kupat_holim: Union[List[Any], bool, KupatHolimKupatHolim, float, int, None, str], language: Optional[LanguageList], last_created_appointment: Optional[Dict[str, Any]], last_visited_appointment: Optional[Dict[str, Any]], lazy_resolved_date: Optional[str], locality: Optional[str], loyalty_info: Optional[LoyaltyInfo], middle_name: Optional[str], name: str, passport_date: Optional[str], passport_id: Optional[str], passport_issued: Optional[str], passport_series: Optional[str], phone: List[FaxElement], receive_sms_after_service: Optional[bool], sex: Optional[Sex], skip_marketing_notifications: Optional[bool], skip_notifications: Optional[bool], snils: Optional[str], statistics: Optional[Statistics], status: Optional[ResourceStatus], surname: str, taxi_park: Optional[str], taxi_park_member_count: Union[float, None, str], two_fa_user_id: Optional[str], updated: Optional[str], work_place: Optional[str]) -> None:
         self.address = address
         self.birthday = birthday
         self.black_list = black_list
@@ -11378,7 +11493,7 @@ class ClientClass:
         id = from_union([from_str, from_none], obj.get("id"))
         insurance_company = from_union([from_str, from_none], obj.get("insuranceCompany"))
         insurance_number = from_union([from_str, from_none], obj.get("insuranceNumber"))
-        integration_data = from_union([IntegrationDataClass.from_dict, from_none], obj.get("integrationData"))
+        integration_data = from_union([ClientIntegrationData.from_dict, from_none], obj.get("integrationData"))
         is_lazy = from_union([from_bool, from_none], obj.get("isLazy"))
         israel_city = from_union([from_none, from_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), IsraelCityIsraelCity.from_dict], obj.get("israelCity"))
         is_vip = from_union([from_bool, from_none], obj.get("isVIP"))
@@ -11438,7 +11553,7 @@ class ClientClass:
         result["id"] = from_union([from_str, from_none], self.id)
         result["insuranceCompany"] = from_union([from_str, from_none], self.insurance_company)
         result["insuranceNumber"] = from_union([from_str, from_none], self.insurance_number)
-        result["integrationData"] = from_union([lambda x: to_class(IntegrationDataClass, x), from_none], self.integration_data)
+        result["integrationData"] = from_union([lambda x: to_class(ClientIntegrationData, x), from_none], self.integration_data)
         result["isLazy"] = from_union([from_bool, from_none], self.is_lazy)
         result["israelCity"] = from_union([from_none, to_float, from_int, from_bool, from_str, lambda x: from_list(lambda x: x, x), lambda x: to_class(IsraelCityIsraelCity, x)], self.israel_city)
         result["isVIP"] = from_union([from_bool, from_none], self.is_vip)
@@ -12295,6 +12410,7 @@ class IndigoClient:
     address: Optional[str]
     birthday: Union[Dict[str, Any], None, str]
     description: Optional[str]
+    email: Optional[List[str]]
     extra_fields: Optional[List[PurpleExtraField]]
     fav_resources: Optional[List[PurpleFavResource]]
     icon_url: Optional[str]
@@ -12307,10 +12423,11 @@ class IndigoClient:
     sex: Optional[Sex]
     surname: str
 
-    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], description: Optional[str], extra_fields: Optional[List[PurpleExtraField]], fav_resources: Optional[List[PurpleFavResource]], icon_url: Optional[str], id: Optional[str], insurance_number: Optional[str], language: Optional[LanguageList], middle_name: Optional[str], name: str, passport_id: Optional[str], sex: Optional[Sex], surname: str) -> None:
+    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], description: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[PurpleExtraField]], fav_resources: Optional[List[PurpleFavResource]], icon_url: Optional[str], id: Optional[str], insurance_number: Optional[str], language: Optional[LanguageList], middle_name: Optional[str], name: str, passport_id: Optional[str], sex: Optional[Sex], surname: str) -> None:
         self.address = address
         self.birthday = birthday
         self.description = description
+        self.email = email
         self.extra_fields = extra_fields
         self.fav_resources = fav_resources
         self.icon_url = icon_url
@@ -12329,6 +12446,7 @@ class IndigoClient:
         address = from_union([from_str, from_none], obj.get("address"))
         birthday = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], obj.get("birthday"))
         description = from_union([from_str, from_none], obj.get("description"))
+        email = from_union([lambda x: from_list(from_str, x), from_none], obj.get("email"))
         extra_fields = from_union([lambda x: from_list(PurpleExtraField.from_dict, x), from_none], obj.get("extraFields"))
         fav_resources = from_union([lambda x: from_list(PurpleFavResource.from_dict, x), from_none], obj.get("favResources"))
         icon_url = from_union([from_str, from_none], obj.get("icon_url"))
@@ -12340,13 +12458,14 @@ class IndigoClient:
         passport_id = from_union([from_str, from_none], obj.get("passportId"))
         sex = from_union([Sex, from_none], obj.get("sex"))
         surname = from_str(obj.get("surname"))
-        return IndigoClient(address, birthday, description, extra_fields, fav_resources, icon_url, id, insurance_number, language, middle_name, name, passport_id, sex, surname)
+        return IndigoClient(address, birthday, description, email, extra_fields, fav_resources, icon_url, id, insurance_number, language, middle_name, name, passport_id, sex, surname)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["address"] = from_union([from_str, from_none], self.address)
         result["birthday"] = from_union([from_str, lambda x: from_dict(lambda x: x, x), from_none], self.birthday)
         result["description"] = from_union([from_str, from_none], self.description)
+        result["email"] = from_union([lambda x: from_list(from_str, x), from_none], self.email)
         result["extraFields"] = from_union([lambda x: from_list(lambda x: to_class(PurpleExtraField, x), x), from_none], self.extra_fields)
         result["favResources"] = from_union([lambda x: from_list(lambda x: to_class(PurpleFavResource, x), x), from_none], self.fav_resources)
         result["icon_url"] = from_union([from_str, from_none], self.icon_url)

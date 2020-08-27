@@ -1618,6 +1618,7 @@ export interface ResultClass {
     businesses:            BusinessRefInNetwork[];
     clientVIPPhones:       string[];
     grantGroups:           { [key: string]: any }[];
+    integrationData?:      IntegrationDataObject;
     networkID:             string;
     networkInfo:           { [key: string]: any };
     networkName?:          string;
@@ -1801,7 +1802,8 @@ export interface InfoBackofficeConfiguration {
     stateLevelHolidays?:                              { [key: string]: any }[];
     stateLevelHolidaysNotWorking?:                    boolean;
     taxonomyChildrenMaxAge?:                          number;
-    telemedProvider?:                                 PurpleTelemedProvider;
+    telemedApplication?:                              PurpleTelemedApplication;
+    telemedProvider?:                                 TelemedProvider;
     useAdditionalDurations?:                          boolean;
     useAdjacentTaxonomies?:                           boolean;
     useAdjacentTaxonomiesSlotSplitting?:              boolean;
@@ -1842,8 +1844,15 @@ export enum SchedulerWeekViewType {
     WorkWeek = "workWeek",
 }
 
-export enum PurpleTelemedProvider {
+export interface PurpleTelemedApplication {
+    appleAppName?:  string;
+    googleAppName?: string;
+    urlAppSchema?:  string;
+}
+
+export enum TelemedProvider {
     Disable = "DISABLE",
+    Mmconf = "mmconf",
     Zoom = "zoom",
 }
 
@@ -2230,8 +2239,9 @@ export interface Resource {
     /**
      * цвет колонки с работником
      */
-    color?:  string;
-    degree?: string;
+    color?:             string;
+    degree?:            string;
+    denyWidgetBooking?: boolean;
     /**
      * идентификатор отделения, к которому привязан работник
      */
@@ -2734,15 +2744,15 @@ export interface PurpleDateLimit {
  */
 export interface Discount {
     active?:            boolean;
-    daysOfWeek?:        DaysOfWeek;
+    days?:              Day[];
     repeats?:           Repeats;
-    slots?:             Slots;
+    slots?:             SlotObject[];
     start?:             Date;
     unlimWeeklyRepeat?: boolean;
     weeklyRepeat?:      number;
 }
 
-export enum DaysOfWeek {
+export enum Day {
     Fri = "fri",
     Mon = "mon",
     Sat = "sat",
@@ -2758,7 +2768,7 @@ export enum Repeats {
     Weekly = "weekly",
 }
 
-export interface Slots {
+export interface SlotObject {
     time?: TimeFrame;
 }
 
@@ -2895,6 +2905,7 @@ export interface InfoWidgetConfiguration {
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
+    service_unavailability_text?:            string;
     shortLink?:                              string;
     showAllWorkers?:                         boolean;
     showClientAddress?:                      boolean;
@@ -2946,6 +2957,7 @@ export interface InfoWidgetConfiguration {
     widgetUseCRAC?:                          boolean;
     withoutWorkers?:                         boolean;
     worker_unavailability_text?:             string;
+    worker_widget_unavailability_text?:      string;
     workerNameReverse?:                      boolean;
 }
 
@@ -3015,6 +3027,14 @@ export enum UseDirectScheduleRead {
     Authenticated = "AUTHENTICATED",
     Guest = "GUEST",
     None = "NONE",
+}
+
+export interface IntegrationDataObject {
+    ehr?: Ehr;
+}
+
+export interface Ehr {
+    active?: boolean;
 }
 
 export interface NetworkWidgetConfiguration {
@@ -3354,7 +3374,8 @@ export interface BusinessBackofficeConfiguration {
     stateLevelHolidays?:                              { [key: string]: any }[] | null;
     stateLevelHolidaysNotWorking?:                    boolean;
     taxonomyChildrenMaxAge?:                          number;
-    telemedProvider?:                                 FluffyTelemedProvider;
+    telemedApplication?:                              FluffyTelemedApplication;
+    telemedProvider?:                                 TelemedProvider;
     useAdditionalDurations?:                          boolean;
     useAdjacentTaxonomies?:                           boolean;
     useAdjacentTaxonomiesSlotSplitting?:              boolean;
@@ -3374,10 +3395,10 @@ export interface ScheduleSplitDayTimeInterval {
     title?:         string;
 }
 
-export enum FluffyTelemedProvider {
-    Disable = "DISABLE",
-    Mmconf = "mmconf",
-    Zoom = "zoom",
+export interface FluffyTelemedApplication {
+    appleAppName?:  string;
+    googleAppName?: string;
+    urlAppSchema?:  string;
 }
 
 export interface BusinessBackofficeConfigurationObject {
@@ -3665,6 +3686,7 @@ export interface BusinessWidgetConfiguration {
     requireAgreement?:                       boolean;
     requireAgreementLink?:                   string;
     revisionVersion?:                        number;
+    service_unavailability_text?:            string;
     shortLink?:                              string;
     showAllWorkers?:                         boolean;
     showClientAddress?:                      boolean;
@@ -3716,6 +3738,7 @@ export interface BusinessWidgetConfiguration {
     widgetUseCRAC?:                          boolean;
     withoutWorkers?:                         boolean;
     worker_unavailability_text?:             string;
+    worker_widget_unavailability_text?:      string;
     workerNameReverse?:                      boolean;
 }
 
@@ -4329,6 +4352,7 @@ export interface StickyClient {
     address?:         string;
     birthday?:        Birthday;
     description?:     string;
+    email?:           string[];
     extraFields?:     PurpleExtraField[];
     favResources?:    PurpleFavResource[];
     icon_url?:        string;
@@ -6007,6 +6031,7 @@ const typeMap: any = {
         { json: "businesses", js: "businesses", typ: a(r("BusinessRefInNetwork")) },
         { json: "clientVIPPhones", js: "clientVIPPhones", typ: a("") },
         { json: "grantGroups", js: "grantGroups", typ: a(m("any")) },
+        { json: "integrationData", js: "integrationData", typ: u(undefined, r("IntegrationDataObject")) },
         { json: "networkID", js: "networkID", typ: "" },
         { json: "networkInfo", js: "networkInfo", typ: m("any") },
         { json: "networkName", js: "networkName", typ: u(undefined, "") },
@@ -6167,13 +6192,19 @@ const typeMap: any = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, a(m("any"))) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("PurpleTelemedProvider")) },
+        { json: "telemedApplication", js: "telemedApplication", typ: u(undefined, r("PurpleTelemedApplication")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
         { json: "useGtAppMethod", js: "useGtAppMethod", typ: u(undefined, true) },
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
+    ], false),
+    "PurpleTelemedApplication": o([
+        { json: "appleAppName", js: "appleAppName", typ: u(undefined, "") },
+        { json: "googleAppName", js: "googleAppName", typ: u(undefined, "") },
+        { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
@@ -6360,6 +6391,7 @@ const typeMap: any = {
         { json: "capacity", js: "capacity", typ: 3.14 },
         { json: "color", js: "color", typ: u(undefined, "") },
         { json: "degree", js: "degree", typ: u(undefined, "") },
+        { json: "denyWidgetBooking", js: "denyWidgetBooking", typ: u(undefined, true) },
         { json: "departmentId", js: "departmentId", typ: u(undefined, "") },
         { json: "description", js: "description", typ: u(undefined, "") },
         { json: "displayInSchedule", js: "displayInSchedule", typ: u(undefined, true) },
@@ -6580,14 +6612,14 @@ const typeMap: any = {
     ], false),
     "Discount": o([
         { json: "active", js: "active", typ: u(undefined, true) },
-        { json: "daysOfWeek", js: "daysOfWeek", typ: u(undefined, r("DaysOfWeek")) },
+        { json: "days", js: "days", typ: u(undefined, a(r("Day"))) },
         { json: "repeats", js: "repeats", typ: u(undefined, r("Repeats")) },
-        { json: "slots", js: "slots", typ: u(undefined, r("Slots")) },
+        { json: "slots", js: "slots", typ: u(undefined, a(r("SlotObject"))) },
         { json: "start", js: "start", typ: u(undefined, Date) },
         { json: "unlimWeeklyRepeat", js: "unlimWeeklyRepeat", typ: u(undefined, true) },
         { json: "weeklyRepeat", js: "weeklyRepeat", typ: u(undefined, 3.14) },
     ], false),
-    "Slots": o([
+    "SlotObject": o([
         { json: "time", js: "time", typ: u(undefined, r("TimeFrame")) },
     ], "any"),
     "FluffyPrice": o([
@@ -6686,6 +6718,7 @@ const typeMap: any = {
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "service_unavailability_text", js: "service_unavailability_text", typ: u(undefined, "") },
         { json: "shortLink", js: "shortLink", typ: u(undefined, "") },
         { json: "showAllWorkers", js: "showAllWorkers", typ: u(undefined, true) },
         { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
@@ -6737,6 +6770,7 @@ const typeMap: any = {
         { json: "widgetUseCRAC", js: "widgetUseCRAC", typ: u(undefined, true) },
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
+        { json: "worker_widget_unavailability_text", js: "worker_widget_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
     ], false),
     "PurpleAnalyticsGoogle": o([
@@ -6772,6 +6806,12 @@ const typeMap: any = {
         { json: "discountType", js: "discountType", typ: u(undefined, r("DiscountType")) },
         { json: "text", js: "text", typ: u(undefined, u(null, "")) },
         { json: "widgetText", js: "widgetText", typ: u(undefined, u(null, "")) },
+    ], "any"),
+    "IntegrationDataObject": o([
+        { json: "ehr", js: "ehr", typ: u(undefined, r("Ehr")) },
+    ], "any"),
+    "Ehr": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
     ], "any"),
     "NetworkWidgetConfiguration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
@@ -6990,7 +7030,8 @@ const typeMap: any = {
         { json: "stateLevelHolidays", js: "stateLevelHolidays", typ: u(undefined, u(a(m("any")), null)) },
         { json: "stateLevelHolidaysNotWorking", js: "stateLevelHolidaysNotWorking", typ: u(undefined, true) },
         { json: "taxonomyChildrenMaxAge", js: "taxonomyChildrenMaxAge", typ: u(undefined, 3.14) },
-        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("FluffyTelemedProvider")) },
+        { json: "telemedApplication", js: "telemedApplication", typ: u(undefined, r("FluffyTelemedApplication")) },
+        { json: "telemedProvider", js: "telemedProvider", typ: u(undefined, r("TelemedProvider")) },
         { json: "useAdditionalDurations", js: "useAdditionalDurations", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomies", js: "useAdjacentTaxonomies", typ: u(undefined, true) },
         { json: "useAdjacentTaxonomiesSlotSplitting", js: "useAdjacentTaxonomiesSlotSplitting", typ: u(undefined, true) },
@@ -7007,6 +7048,11 @@ const typeMap: any = {
         { json: "startHour", js: "startHour", typ: u(undefined, 3.14) },
         { json: "startMinute", js: "startMinute", typ: u(undefined, 3.14) },
         { json: "title", js: "title", typ: u(undefined, "") },
+    ], false),
+    "FluffyTelemedApplication": o([
+        { json: "appleAppName", js: "appleAppName", typ: u(undefined, "") },
+        { json: "googleAppName", js: "googleAppName", typ: u(undefined, "") },
+        { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
@@ -7224,6 +7270,7 @@ const typeMap: any = {
         { json: "requireAgreement", js: "requireAgreement", typ: u(undefined, true) },
         { json: "requireAgreementLink", js: "requireAgreementLink", typ: u(undefined, "") },
         { json: "revisionVersion", js: "revisionVersion", typ: u(undefined, 3.14) },
+        { json: "service_unavailability_text", js: "service_unavailability_text", typ: u(undefined, "") },
         { json: "shortLink", js: "shortLink", typ: u(undefined, "") },
         { json: "showAllWorkers", js: "showAllWorkers", typ: u(undefined, true) },
         { json: "showClientAddress", js: "showClientAddress", typ: u(undefined, true) },
@@ -7275,6 +7322,7 @@ const typeMap: any = {
         { json: "widgetUseCRAC", js: "widgetUseCRAC", typ: u(undefined, true) },
         { json: "withoutWorkers", js: "withoutWorkers", typ: u(undefined, true) },
         { json: "worker_unavailability_text", js: "worker_unavailability_text", typ: u(undefined, "") },
+        { json: "worker_widget_unavailability_text", js: "worker_widget_unavailability_text", typ: u(undefined, "") },
         { json: "workerNameReverse", js: "workerNameReverse", typ: u(undefined, true) },
     ], false),
     "FluffyAnalyticsGoogle": o([
@@ -7632,6 +7680,7 @@ const typeMap: any = {
         { json: "address", js: "address", typ: u(undefined, "") },
         { json: "birthday", js: "birthday", typ: u(undefined, u(m("any"), null, "")) },
         { json: "description", js: "description", typ: u(undefined, "") },
+        { json: "email", js: "email", typ: u(undefined, a("")) },
         { json: "extraFields", js: "extraFields", typ: u(undefined, a(r("PurpleExtraField"))) },
         { json: "favResources", js: "favResources", typ: u(undefined, a(r("PurpleFavResource"))) },
         { json: "icon_url", js: "icon_url", typ: u(undefined, "") },
@@ -8098,8 +8147,9 @@ const typeMap: any = {
         "week",
         "workWeek",
     ],
-    "PurpleTelemedProvider": [
+    "TelemedProvider": [
         "DISABLE",
+        "mmconf",
         "zoom",
     ],
     "BackofficeType": [
@@ -8220,7 +8270,7 @@ const typeMap: any = {
         "range_dates",
         "to_date",
     ],
-    "DaysOfWeek": [
+    "Day": [
         "fri",
         "mon",
         "sat",
@@ -8272,11 +8322,6 @@ const typeMap: any = {
         "most_free",
         "none",
         "workload",
-    ],
-    "FluffyTelemedProvider": [
-        "DISABLE",
-        "mmconf",
-        "zoom",
     ],
     "YandexFeedType": [
         "dynamic",

@@ -114,7 +114,8 @@ public class BusinessBackofficeConfiguration {
     private List<Map<String, Object>> stateLevelHolidays;
     private Boolean stateLevelHolidaysNotWorking;
     private Double taxonomyChildrenMaxAge;
-    private FluffyTelemedProvider telemedProvider;
+    private FluffyTelemedApplication telemedApplication;
+    private TelemedProvider telemedProvider;
     private Boolean useAdditionalDurations;
     private Boolean useAdjacentTaxonomies;
     private Boolean useAdjacentTaxonomiesSlotSplitting;
@@ -667,10 +668,15 @@ public class BusinessBackofficeConfiguration {
     @JsonProperty("taxonomyChildrenMaxAge")
     public void setTaxonomyChildrenMaxAge(Double value) { this.taxonomyChildrenMaxAge = value; }
 
+    @JsonProperty("telemedApplication")
+    public FluffyTelemedApplication getTelemedApplication() { return telemedApplication; }
+    @JsonProperty("telemedApplication")
+    public void setTelemedApplication(FluffyTelemedApplication value) { this.telemedApplication = value; }
+
     @JsonProperty("telemedProvider")
-    public FluffyTelemedProvider getTelemedProvider() { return telemedProvider; }
+    public TelemedProvider getTelemedProvider() { return telemedProvider; }
     @JsonProperty("telemedProvider")
-    public void setTelemedProvider(FluffyTelemedProvider value) { this.telemedProvider = value; }
+    public void setTelemedProvider(TelemedProvider value) { this.telemedProvider = value; }
 
     @JsonProperty("useAdditionalDurations")
     public Boolean getUseAdditionalDurations() { return useAdditionalDurations; }

@@ -418,9 +418,25 @@
                     "type": "string",
                     "enum": [
                         "DISABLE",
-                        "zoom"
+                        "zoom",
+                        "mmconf"
                     ],
                     "default": "DISABLE"
+                },
+                "telemedApplication": {
+                    "type": "object",
+                    "properties": {
+                        "urlAppSchema": {
+                            "type": "string"
+                        },
+                        "googleAppName": {
+                            "type": "string"
+                        },
+                        "appleAppName": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
                 },
                 "enablePhoneNationalMode": {
                     "type": "boolean",
@@ -1384,6 +1400,12 @@
                     "additionalProperties": true
                 },
                 "worker_unavailability_text": {
+                    "type": "string"
+                },
+                "service_unavailability_text": {
+                    "type": "string"
+                },
+                "worker_widget_unavailability_text": {
                     "type": "string"
                 },
                 "middleNameSupport": {
