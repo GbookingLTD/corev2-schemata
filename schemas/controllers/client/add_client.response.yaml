@@ -54,7 +54,6 @@ definitions:
             type: "string"
       profile:
         type: "object"
-        required: ["id"]
         additionalProperties: false
         properties:
           id:
