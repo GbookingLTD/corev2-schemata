@@ -406,6 +406,9 @@ definitions:
       showGeneratableReportsScreen:
         type: "boolean"
         default: false
+      showGuaranteeLettersScreen:
+        type: "boolean"
+        default: false
       schedulerWeekViewType:
         type: "string"
         enum: ["week", "workWeek"]
