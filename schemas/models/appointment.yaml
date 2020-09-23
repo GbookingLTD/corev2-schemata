@@ -21,7 +21,7 @@ definitions:
         type: "string"
       extraDescription:
         type: "string"
-      
+
   AppointmentResource:
     type: "object"
     additionalProperties: false
@@ -266,7 +266,7 @@ definitions:
           - $ref: "#/definitions/Phone"
           - type: "object"
             description: "пустой объект в момент резервирования"
-            required: []        
+            required: []
       shortId:
         type: "string"
       phone:
@@ -377,7 +377,7 @@ definitions:
           extraId:
             type: ["string", "null"]
 
-  AppointmentClientVisitor:           
+  AppointmentClientVisitor:
     type: "object"
     additionalProperties: true
     properties:
@@ -747,7 +747,7 @@ properties:
         type: "string"
       shortJoinUrl:
         type: "string"
-      password: 
+      password:
         type: "string"
 
   clientVisitors:
@@ -773,4 +773,7 @@ properties:
       middleName:
         type: "string"
 
-
+  third_party:
+    type: "array"
+    items:
+      type: "object"
