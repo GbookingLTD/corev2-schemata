@@ -1,10 +1,12 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentController {
     private CancelAppointmentByBusiness cancelAppointmentByBusiness;
     private CancelAppointmentByClient cancelAppointmentByClient;
+    private ClientAppear clientAppear;
     private ClientConfirmAppointment clientConfirmAppointment;
     private ClientRemoveEmptyAppointment clientRemoveEmptyAppointment;
     private GetAppointmentByFilter getAppointmentByFilter;
@@ -22,6 +24,11 @@ public class AppointmentController {
     public CancelAppointmentByClient getCancelAppointmentByClient() { return cancelAppointmentByClient; }
     @JsonProperty("cancel_appointment_by_client")
     public void setCancelAppointmentByClient(CancelAppointmentByClient value) { this.cancelAppointmentByClient = value; }
+
+    @JsonProperty("client_appear")
+    public ClientAppear getClientAppear() { return clientAppear; }
+    @JsonProperty("client_appear")
+    public void setClientAppear(ClientAppear value) { this.clientAppear = value; }
 
     @JsonProperty("client_confirm_appointment")
     public ClientConfirmAppointment getClientConfirmAppointment() { return clientConfirmAppointment; }

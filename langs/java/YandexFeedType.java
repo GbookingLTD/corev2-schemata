@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,10 +10,10 @@ public enum YandexFeedType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case DYNAMIC: return "dynamic";
-            case NO: return "no";
-            case STATIC: return "static";
-            case STATIC_SERVICE_ONLY: return "static-service-only";
+        case DYNAMIC: return "dynamic";
+        case NO: return "no";
+        case STATIC: return "static";
+        case STATIC_SERVICE_ONLY: return "static-service-only";
         }
         return null;
     }

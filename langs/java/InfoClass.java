@@ -1,9 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Map;
 
 public class InfoClass {
     private Boolean active;
@@ -18,7 +16,7 @@ public class InfoClass {
     private Boolean cabinetsEnabled;
     private InfoCallbackWidgetConfiguration callbackWidgetConfiguration;
     private List<InfoConsumable> consumables;
-    private OffsetDateTime createdOn;
+    private String createdOn;
     private List<String> defaultFilteredWorkers;
     private List<InfoDepartment> departments;
     private List<Map<String, Object>> designs;
@@ -110,9 +108,9 @@ public class InfoClass {
     public void setConsumables(List<InfoConsumable> value) { this.consumables = value; }
 
     @JsonProperty("created_on")
-    public OffsetDateTime getCreatedOn() { return createdOn; }
+    public String getCreatedOn() { return createdOn; }
     @JsonProperty("created_on")
-    public void setCreatedOn(OffsetDateTime value) { this.createdOn = value; }
+    public void setCreatedOn(String value) { this.createdOn = value; }
 
     @JsonProperty("defaultFilteredWorkers")
     public List<String> getDefaultFilteredWorkers() { return defaultFilteredWorkers; }

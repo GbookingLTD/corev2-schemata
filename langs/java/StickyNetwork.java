@@ -1,15 +1,16 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class StickyNetwork {
-    private TaxiParkMemberCountUnion id;
+    private FluffyTimeFrameDate id;
 
     /**
      * идентификатор нетворка
      */
     @JsonProperty("id")
-    public TaxiParkMemberCountUnion getID() { return id; }
+    public FluffyTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(TaxiParkMemberCountUnion value) { this.id = value; }
+    public void setID(FluffyTimeFrameDate value) { this.id = value; }
 }

@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,12 +10,12 @@ public enum ComplaintStatus {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case CHECKING: return "CHECKING";
-            case CLOSED: return "CLOSED";
-            case ENTERED: return "ENTERED";
-            case INVALID: return "INVALID";
-            case INVESTIGATION: return "INVESTIGATION";
-            case NOT_ENTERED: return "NOT_ENTERED";
+        case CHECKING: return "CHECKING";
+        case CLOSED: return "CLOSED";
+        case ENTERED: return "ENTERED";
+        case INVALID: return "INVALID";
+        case INVESTIGATION: return "INVESTIGATION";
+        case NOT_ENTERED: return "NOT_ENTERED";
         }
         return null;
     }

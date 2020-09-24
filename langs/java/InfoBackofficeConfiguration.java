@@ -1,8 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
-import java.util.Map;
 
 public class InfoBackofficeConfiguration {
     private Double adjacentTaxonomiesTreshold;
@@ -87,6 +86,7 @@ public class InfoBackofficeConfiguration {
     private Boolean showGender;
     private Boolean showGenderInRecords;
     private Boolean showGeneratableReportsScreen;
+    private Boolean showGuaranteeLettersScreen;
     private Boolean showHouseNumber;
     private Boolean showIsraelCity;
     private Boolean showKupatHolim;
@@ -529,6 +529,11 @@ public class InfoBackofficeConfiguration {
     public Boolean getShowGeneratableReportsScreen() { return showGeneratableReportsScreen; }
     @JsonProperty("showGeneratableReportsScreen")
     public void setShowGeneratableReportsScreen(Boolean value) { this.showGeneratableReportsScreen = value; }
+
+    @JsonProperty("showGuaranteeLettersScreen")
+    public Boolean getShowGuaranteeLettersScreen() { return showGuaranteeLettersScreen; }
+    @JsonProperty("showGuaranteeLettersScreen")
+    public void setShowGuaranteeLettersScreen(Boolean value) { this.showGuaranteeLettersScreen = value; }
 
     @JsonProperty("showHouseNumber")
     public Boolean getShowHouseNumber() { return showHouseNumber; }

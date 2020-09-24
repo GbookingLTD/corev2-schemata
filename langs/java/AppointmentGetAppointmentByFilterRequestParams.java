@@ -1,9 +1,10 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentByFilterRequestParams {
-    private FluffyBusiness business;
+    private TentacledBusiness business;
     private PurpleExtraFilters extraFilters;
     private PurpleFilter filter;
     private PurpleNetwork network;
@@ -12,9 +13,9 @@ public class AppointmentGetAppointmentByFilterRequestParams {
     private Boolean skipBusinessCancelled;
 
     @JsonProperty("business")
-    public FluffyBusiness getBusiness() { return business; }
+    public TentacledBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(FluffyBusiness value) { this.business = value; }
+    public void setBusiness(TentacledBusiness value) { this.business = value; }
 
     @JsonProperty("extraFilters")
     public PurpleExtraFilters getExtraFilters() { return extraFilters; }

@@ -191,6 +191,9 @@ namespace GBookingCoreV2
         [JsonProperty("cancel_appointment_by_client", NullValueHandling = NullValueHandling.Ignore)]
         public CancelAppointmentByClient CancelAppointmentByClient { get; set; }
 
+        [JsonProperty("client_appear", NullValueHandling = NullValueHandling.Ignore)]
+        public ClientAppear ClientAppear { get; set; }
+
         [JsonProperty("client_confirm_appointment", NullValueHandling = NullValueHandling.Ignore)]
         public ClientConfirmAppointment ClientConfirmAppointment { get; set; }
 
@@ -460,6 +463,125 @@ namespace GBookingCoreV2
         public string Message { get; set; }
     }
 
+    public partial class ClientAppear
+    {
+        [JsonProperty("request")]
+        public AppointmentClientAppearRequest Request { get; set; }
+
+        [JsonProperty("response")]
+        public AppointmentClientAppearResponse Response { get; set; }
+    }
+
+    public partial class AppointmentClientAppearRequest
+    {
+        /// <summary>
+        /// авторизационные параметры
+        /// </summary>
+        [JsonProperty("cred", NullValueHandling = NullValueHandling.Ignore)]
+        public Cred Cred { get; set; }
+
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public BackofficeIdUnion Id { get; set; }
+
+        /// <summary>
+        /// версия протокола - 2.0
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// название jsonrpc метода
+        /// </summary>
+        [JsonProperty("method")]
+        public string Method { get; set; }
+
+        /// <summary>
+        /// параметры запроса
+        /// </summary>
+        [JsonProperty("params")]
+        public AppointmentClientAppearRequestParams Params { get; set; }
+    }
+
+    public partial class AppointmentClientAppearRequestParams
+    {
+        [JsonProperty("appointment")]
+        public TentacledAppointment Appointment { get; set; }
+
+        [JsonProperty("business")]
+        public PurpleBusiness Business { get; set; }
+    }
+
+    public partial class TentacledAppointment
+    {
+        [JsonProperty("client_appear")]
+        public AppointmentClientAppear ClientAppear { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class PurpleBusiness
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class AppointmentClientAppearResponse
+    {
+        /// <summary>
+        /// значение числового типа для идентификации запроса на сервере
+        /// </summary>
+        [JsonProperty("id")]
+        public double Id { get; set; }
+
+        /// <summary>
+        /// версия протокола (2.0)
+        /// </summary>
+        [JsonProperty("jsonrpc")]
+        public string Jsonrpc { get; set; }
+
+        /// <summary>
+        /// данные, передаваемые в ответ
+        /// </summary>
+        [JsonProperty("result", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Result { get; set; }
+
+        /// <summary>
+        /// объект, содержащий информацию об ошибке
+        /// </summary>
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentClientAppearResponseError Error { get; set; }
+    }
+
+    /// <summary>
+    /// объект, содержащий информацию об ошибке
+    ///
+    /// Код ошибки авторизации
+    /// </summary>
+    public partial class AppointmentClientAppearResponseError
+    {
+        /// <summary>
+        /// код ошибки
+        /// </summary>
+        [JsonProperty("code")]
+        public double Code { get; set; }
+
+        /// <summary>
+        /// дополнительные данные об ошибке
+        /// </summary>
+        [JsonProperty("data", NullValueHandling = NullValueHandling.Ignore)]
+        public Data? Data { get; set; }
+
+        /// <summary>
+        /// текстовая информация об ошибке
+        /// </summary>
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
     public partial class ClientConfirmAppointment
     {
         [JsonProperty("request")]
@@ -505,13 +627,13 @@ namespace GBookingCoreV2
     public partial class ConfirmAppointment
     {
         [JsonProperty("appointment")]
-        public TentacledAppointment Appointment { get; set; }
+        public StickyAppointment Appointment { get; set; }
 
         [JsonProperty("client")]
         public TentacledClient Client { get; set; }
     }
 
-    public partial class TentacledAppointment
+    public partial class StickyAppointment
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -772,6 +894,9 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
         public AppointmentTelemedData TelemedData { get; set; }
+
+        [JsonProperty("third_party", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Dictionary<string, object>> ThirdParty { get; set; }
 
         [JsonProperty("utm", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, object> Utm { get; set; }
@@ -1512,19 +1637,19 @@ namespace GBookingCoreV2
     public partial class RemoveEmptyAppointment
     {
         [JsonProperty("appointment")]
-        public StickyAppointment Appointment { get; set; }
+        public IndigoAppointment Appointment { get; set; }
 
         [JsonProperty("business")]
-        public PurpleBusiness Business { get; set; }
+        public FluffyBusiness Business { get; set; }
     }
 
-    public partial class StickyAppointment
+    public partial class IndigoAppointment
     {
         [JsonProperty("id")]
         public string Id { get; set; }
     }
 
-    public partial class PurpleBusiness
+    public partial class FluffyBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -1628,7 +1753,7 @@ namespace GBookingCoreV2
     public partial class AppointmentGetAppointmentByFilterRequestParams
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public FluffyBusiness Business { get; set; }
+        public TentacledBusiness Business { get; set; }
 
         [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleExtraFilters ExtraFilters { get; set; }
@@ -1649,7 +1774,7 @@ namespace GBookingCoreV2
         public bool? SkipBusinessCancelled { get; set; }
     }
 
-    public partial class FluffyBusiness
+    public partial class TentacledBusiness
     {
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public BackofficeIdUnion? Id { get; set; }
@@ -1819,7 +1944,7 @@ namespace GBookingCoreV2
     public partial class AppointmentGetAppointmentByShowcaseRequestParams
     {
         [JsonProperty("business")]
-        public TentacledBusiness Business { get; set; }
+        public StickyBusiness Business { get; set; }
 
         [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
         public ParamsCreated Created { get; set; }
@@ -1834,7 +1959,7 @@ namespace GBookingCoreV2
         public string Source { get; set; }
     }
 
-    public partial class TentacledBusiness
+    public partial class StickyBusiness
     {
         [JsonProperty("id")]
         public BackofficeIdUnion Id { get; set; }
@@ -1944,7 +2069,7 @@ namespace GBookingCoreV2
     public partial class AppointmentGetAppointmentsByClientV2RequestParams
     {
         [JsonProperty("business")]
-        public StickyBusiness Business { get; set; }
+        public IndigoBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public StickyClient Client { get; set; }
@@ -1962,7 +2087,7 @@ namespace GBookingCoreV2
         public bool? SkipBusinessCancelled { get; set; }
     }
 
-    public partial class StickyBusiness
+    public partial class IndigoBusiness
     {
         [JsonProperty("id")]
         public BackofficeIdUnion Id { get; set; }
@@ -2123,7 +2248,7 @@ namespace GBookingCoreV2
     public partial class AppointmentGetAppointmentsByUserRequestParams
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public IndigoBusiness Business { get; set; }
+        public IndecentBusiness Business { get; set; }
 
         [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
         public TentacledExtraFilters ExtraFilters { get; set; }
@@ -2147,7 +2272,7 @@ namespace GBookingCoreV2
         public bool? SkipBusinessCancelled { get; set; }
     }
 
-    public partial class IndigoBusiness
+    public partial class IndecentBusiness
     {
         [JsonProperty("id")]
         public BackofficeIdUnion Id { get; set; }
@@ -2314,10 +2439,10 @@ namespace GBookingCoreV2
     public partial class AppointmentReserve
     {
         [JsonProperty("appointment")]
-        public IndigoAppointment Appointment { get; set; }
+        public IndecentAppointment Appointment { get; set; }
 
         [JsonProperty("business")]
-        public IndecentBusiness Business { get; set; }
+        public HilariousBusiness Business { get; set; }
 
         [JsonProperty("originBusinessID")]
         public string OriginBusinessId { get; set; }
@@ -2332,7 +2457,7 @@ namespace GBookingCoreV2
         public PurpleTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class IndigoAppointment
+    public partial class IndecentAppointment
     {
         [JsonProperty("duration", NullValueHandling = NullValueHandling.Ignore)]
         public double? Duration { get; set; }
@@ -2383,7 +2508,7 @@ namespace GBookingCoreV2
         public string TaxonomyId { get; set; }
     }
 
-    public partial class IndecentBusiness
+    public partial class HilariousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -2620,6 +2745,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("integrationData", NullValueHandling = NullValueHandling.Ignore)]
         public ResultIntegrationData IntegrationData { get; set; }
+
+        [JsonProperty("networkClientBlockingSettings", NullValueHandling = NullValueHandling.Ignore)]
+        public NetworkClientBlockingSettings NetworkClientBlockingSettings { get; set; }
 
         [JsonProperty("networkID")]
         public string NetworkId { get; set; }
@@ -3030,6 +3158,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("showGeneratableReportsScreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowGeneratableReportsScreen { get; set; }
+
+        [JsonProperty("showGuaranteeLettersScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowGuaranteeLettersScreen { get; set; }
 
         [JsonProperty("showHouseNumber", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowHouseNumber { get; set; }
@@ -3956,6 +4087,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("telemedData", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTelemedData TelemedData { get; set; }
+
+        [JsonProperty("telemedWorker", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? TelemedWorker { get; set; }
 
         [JsonProperty("timetable")]
         public Timetable Timetable { get; set; }
@@ -4933,6 +5067,12 @@ namespace GBookingCoreV2
         [JsonProperty("sortByMostFree", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SortByMostFree { get; set; }
 
+        [JsonProperty("sortWorkers", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> SortWorkers { get; set; }
+
+        [JsonProperty("sortWorkersByName", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SortWorkersByName { get; set; }
+
         [JsonProperty("sortWorkersByWorkload", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SortWorkersByWorkload { get; set; }
 
@@ -5120,6 +5260,30 @@ namespace GBookingCoreV2
         public bool? Active { get; set; }
     }
 
+    public partial class NetworkClientBlockingSettings
+    {
+        [JsonProperty("appointmentClientBlock", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? AppointmentClientBlock { get; set; }
+
+        [JsonProperty("appointmentClientBlockDays", NullValueHandling = NullValueHandling.Ignore)]
+        public double? AppointmentClientBlockDays { get; set; }
+
+        [JsonProperty("appointmentClientBlockText", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppointmentClientBlockText { get; set; }
+
+        [JsonProperty("blockIfFutureRecordExists", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? BlockIfFutureRecordExists { get; set; }
+
+        [JsonProperty("blockRepeatedRecordsCount", NullValueHandling = NullValueHandling.Ignore)]
+        public double? BlockRepeatedRecordsCount { get; set; }
+
+        [JsonProperty("blockRepeatedRecordsRange", NullValueHandling = NullValueHandling.Ignore)]
+        public double? BlockRepeatedRecordsRange { get; set; }
+
+        [JsonProperty("blockRepeatedRecordsText", NullValueHandling = NullValueHandling.Ignore)]
+        public string BlockRepeatedRecordsText { get; set; }
+    }
+
     public partial class NetworkWidgetConfiguration
     {
         [JsonProperty("_id", NullValueHandling = NullValueHandling.Ignore)]
@@ -5206,7 +5370,7 @@ namespace GBookingCoreV2
     public partial class BusinessGetProfileByIdRequestParams
     {
         [JsonProperty("business")]
-        public HilariousBusiness Business { get; set; }
+        public AmbitiousBusiness Business { get; set; }
 
         /// <summary>
         /// если указано true - меняет формат представления discounts
@@ -5302,7 +5466,7 @@ namespace GBookingCoreV2
         public WorkerSortingType? WorkerSortingType { get; set; }
     }
 
-    public partial class HilariousBusiness
+    public partial class AmbitiousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -5761,6 +5925,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("showGeneratableReportsScreen", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowGeneratableReportsScreen { get; set; }
+
+        [JsonProperty("showGuaranteeLettersScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowGuaranteeLettersScreen { get; set; }
 
         [JsonProperty("showHouseNumber", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowHouseNumber { get; set; }
@@ -6617,6 +6784,12 @@ namespace GBookingCoreV2
         [JsonProperty("sortByMostFree", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SortByMostFree { get; set; }
 
+        [JsonProperty("sortWorkers", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> SortWorkers { get; set; }
+
+        [JsonProperty("sortWorkersByName", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? SortWorkersByName { get; set; }
+
         [JsonProperty("sortWorkersByWorkload", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SortWorkersByWorkload { get; set; }
 
@@ -6972,7 +7145,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientRequestParams
     {
         [JsonProperty("business")]
-        public AmbitiousBusiness Business { get; set; }
+        public CunningBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -6987,7 +7160,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class AmbitiousBusiness
+    public partial class CunningBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -7381,7 +7554,7 @@ namespace GBookingCoreV2
     public partial class ClientAddClientResponseResult
     {
         [JsonProperty("business")]
-        public CunningBusiness Business { get; set; }
+        public MagentaBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -7396,7 +7569,7 @@ namespace GBookingCoreV2
         public Source? Source { get; set; }
     }
 
-    public partial class CunningBusiness
+    public partial class MagentaBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -7404,7 +7577,7 @@ namespace GBookingCoreV2
 
     public partial class PurpleProfile
     {
-        [JsonProperty("id")]
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
     }
 
@@ -7456,7 +7629,7 @@ namespace GBookingCoreV2
     public partial class ClientFindOrCreateClientRequestParams
     {
         [JsonProperty("business")]
-        public MagentaBusiness Business { get; set; }
+        public FriskyBusiness Business { get; set; }
 
         [JsonProperty("client", NullValueHandling = NullValueHandling.Ignore)]
         public ClientClass Client { get; set; }
@@ -7471,7 +7644,7 @@ namespace GBookingCoreV2
         public bool? SkipProfileUpdate { get; set; }
     }
 
-    public partial class MagentaBusiness
+    public partial class FriskyBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -7544,7 +7717,7 @@ namespace GBookingCoreV2
     public partial class ClientFindOfCreateClientResponseResult
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public FriskyBusiness Business { get; set; }
+        public MischievousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -7556,7 +7729,7 @@ namespace GBookingCoreV2
         public FluffyProfile Profile { get; set; }
     }
 
-    public partial class FriskyBusiness
+    public partial class MischievousBusiness
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -7616,7 +7789,7 @@ namespace GBookingCoreV2
     public partial class ClientUpdateClientRequestParams
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public MischievousBusiness Business { get; set; }
+        public BraggadociousBusiness Business { get; set; }
 
         [JsonProperty("client")]
         public ClientClass Client { get; set; }
@@ -7625,7 +7798,7 @@ namespace GBookingCoreV2
         public IndigoNetwork Network { get; set; }
     }
 
-    public partial class MischievousBusiness
+    public partial class BraggadociousBusiness
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -7752,7 +7925,7 @@ namespace GBookingCoreV2
     public partial class ClientUpdateClientInfoRequestParams
     {
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
-        public BraggadociousBusiness Business { get; set; }
+        public Business1 Business { get; set; }
 
         [JsonProperty("client")]
         public IndigoClient Client { get; set; }
@@ -7761,7 +7934,7 @@ namespace GBookingCoreV2
         public IndecentNetwork Network { get; set; }
     }
 
-    public partial class BraggadociousBusiness
+    public partial class Business1
     {
         /// <summary>
         /// идентификатор бизнеса
@@ -7981,7 +8154,7 @@ namespace GBookingCoreV2
     public partial class CracCracDistributedResourcesFreeByDateRequestParam
     {
         [JsonProperty("business")]
-        public Business1 Business { get; set; }
+        public Business2 Business { get; set; }
 
         [JsonProperty("resources")]
         public List<string> Resources { get; set; }
@@ -7990,7 +8163,7 @@ namespace GBookingCoreV2
         public TentacledTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class Business1
+    public partial class Business2
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -8249,7 +8422,7 @@ namespace GBookingCoreV2
     public partial class CracCracResourcesFreeByDateV2RequestParam
     {
         [JsonProperty("business")]
-        public Business2 Business { get; set; }
+        public Business3 Business { get; set; }
 
         [JsonProperty("duration")]
         public double Duration { get; set; }
@@ -8264,7 +8437,7 @@ namespace GBookingCoreV2
         public IndigoTaxonomy Taxonomy { get; set; }
     }
 
-    public partial class Business2
+    public partial class Business3
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -8896,9 +9069,9 @@ namespace GBookingCoreV2
         public ClientClass Client { get; set; }
     }
 
-    public enum ReminderStatus { NotSet, Off, On };
-
     public enum AppointmentClientAppear { NoAppear, None, YesAppear };
+
+    public enum ReminderStatus { NotSet, Off, On };
 
     public enum AppointmentClientPayment { NoPayment, None, YesPayedFull, YesPayedOnline, YesPayedPart };
 
@@ -9251,8 +9424,8 @@ namespace GBookingCoreV2
                 BackofficeIdUnionConverter.Singleton,
                 ParamsUnionConverter.Singleton,
                 SuccessResponseConverter.Singleton,
-                ReminderStatusConverter.Singleton,
                 AppointmentClientAppearConverter.Singleton,
+                ReminderStatusConverter.Singleton,
                 AppointmentClientPaymentConverter.Singleton,
                 AppointmentStatusConverter.Singleton,
                 BirthdayConverter.Singleton,
@@ -9658,52 +9831,6 @@ namespace GBookingCoreV2
         public static readonly SuccessResponseConverter Singleton = new SuccessResponseConverter();
     }
 
-    internal class ReminderStatusConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ReminderStatus) || t == typeof(ReminderStatus?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "NOT_SET":
-                    return ReminderStatus.NotSet;
-                case "OFF":
-                    return ReminderStatus.Off;
-                case "ON":
-                    return ReminderStatus.On;
-            }
-            throw new Exception("Cannot unmarshal type ReminderStatus");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (ReminderStatus)untypedValue;
-            switch (value)
-            {
-                case ReminderStatus.NotSet:
-                    serializer.Serialize(writer, "NOT_SET");
-                    return;
-                case ReminderStatus.Off:
-                    serializer.Serialize(writer, "OFF");
-                    return;
-                case ReminderStatus.On:
-                    serializer.Serialize(writer, "ON");
-                    return;
-            }
-            throw new Exception("Cannot marshal type ReminderStatus");
-        }
-
-        public static readonly ReminderStatusConverter Singleton = new ReminderStatusConverter();
-    }
-
     internal class AppointmentClientAppearConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(AppointmentClientAppear) || t == typeof(AppointmentClientAppear?);
@@ -9748,6 +9875,52 @@ namespace GBookingCoreV2
         }
 
         public static readonly AppointmentClientAppearConverter Singleton = new AppointmentClientAppearConverter();
+    }
+
+    internal class ReminderStatusConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(ReminderStatus) || t == typeof(ReminderStatus?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "NOT_SET":
+                    return ReminderStatus.NotSet;
+                case "OFF":
+                    return ReminderStatus.Off;
+                case "ON":
+                    return ReminderStatus.On;
+            }
+            throw new Exception("Cannot unmarshal type ReminderStatus");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (ReminderStatus)untypedValue;
+            switch (value)
+            {
+                case ReminderStatus.NotSet:
+                    serializer.Serialize(writer, "NOT_SET");
+                    return;
+                case ReminderStatus.Off:
+                    serializer.Serialize(writer, "OFF");
+                    return;
+                case ReminderStatus.On:
+                    serializer.Serialize(writer, "ON");
+                    return;
+            }
+            throw new Exception("Cannot marshal type ReminderStatus");
+        }
+
+        public static readonly ReminderStatusConverter Singleton = new ReminderStatusConverter();
     }
 
     internal class AppointmentClientPaymentConverter : JsonConverter

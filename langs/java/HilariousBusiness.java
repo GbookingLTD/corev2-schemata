@@ -1,13 +1,11 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class HilariousBusiness {
     private String id;
 
-    /**
-     * идентификатор бизнеса
-     */
     @JsonProperty("id")
     public String getID() { return id; }
     @JsonProperty("id")

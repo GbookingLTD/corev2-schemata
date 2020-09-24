@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,9 +10,9 @@ public enum TaxonomyType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case CATEGORY: return "CATEGORY";
-            case SERVICE: return "SERVICE";
-            case SUBCATEGORY: return "SUBCATEGORY";
+        case CATEGORY: return "CATEGORY";
+        case SERVICE: return "SERVICE";
+        case SUBCATEGORY: return "SUBCATEGORY";
         }
         return null;
     }

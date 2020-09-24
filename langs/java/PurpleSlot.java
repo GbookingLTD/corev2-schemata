@@ -1,19 +1,17 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Map;
 
 public class PurpleSlot {
-    private OffsetDateTime date;
+    private String date;
     private List<Object> resources;
     private List<Map<String, Object>> rooms;
 
     @JsonProperty("date")
-    public OffsetDateTime getDate() { return date; }
+    public String getDate() { return date; }
     @JsonProperty("date")
-    public void setDate(OffsetDateTime value) { this.date = value; }
+    public void setDate(String value) { this.date = value; }
 
     @JsonProperty("resources")
     public List<Object> getResources() { return resources; }

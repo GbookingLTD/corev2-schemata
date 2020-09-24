@@ -1,8 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
-import java.util.Map;
 
 /**
  * данные, передаваемые в ответ
@@ -65,6 +64,7 @@ public class Appointment {
     private String source;
     private AppointmentTaxonomy taxonomy;
     private AppointmentTelemedData telemedData;
+    private List<Map<String, Object>> thirdParty;
     private Map<String, Object> utm;
     private Boolean withCoSale;
 
@@ -355,6 +355,11 @@ public class Appointment {
     public AppointmentTelemedData getTelemedData() { return telemedData; }
     @JsonProperty("telemedData")
     public void setTelemedData(AppointmentTelemedData value) { this.telemedData = value; }
+
+    @JsonProperty("third_party")
+    public List<Map<String, Object>> getThirdParty() { return thirdParty; }
+    @JsonProperty("third_party")
+    public void setThirdParty(List<Map<String, Object>> value) { this.thirdParty = value; }
 
     @JsonProperty("utm")
     public Map<String, Object> getUtm() { return utm; }

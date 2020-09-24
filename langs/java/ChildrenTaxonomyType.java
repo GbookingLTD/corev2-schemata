@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,9 +10,9 @@ public enum ChildrenTaxonomyType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case CHILD: return "child";
-            case NONE: return "none";
-            case PARENT: return "parent";
+        case CHILD: return "child";
+        case NONE: return "none";
+        case PARENT: return "parent";
         }
         return null;
     }

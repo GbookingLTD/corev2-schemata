@@ -1,12 +1,13 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyBusiness {
-    private TaxiParkMemberCountUnion id;
+    private String id;
 
     @JsonProperty("id")
-    public TaxiParkMemberCountUnion getID() { return id; }
+    public String getID() { return id; }
     @JsonProperty("id")
-    public void setID(TaxiParkMemberCountUnion value) { this.id = value; }
+    public void setID(String value) { this.id = value; }
 }

@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,18 +10,18 @@ public enum AppointmentStatus {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case ACTIVE: return "ACTIVE";
-            case CANCELLED_BY_ADMIN: return "CANCELLED_BY_ADMIN";
-            case CANCELLED_BY_BUSINESS: return "CANCELLED_BY_BUSINESS";
-            case CANCELLED_BY_CLIENT: return "CANCELLED_BY_CLIENT";
-            case CONFIRMED_BY_ADMIN: return "CONFIRMED_BY_ADMIN";
-            case CONFIRMED_BY_BUSINESS: return "CONFIRMED_BY_BUSINESS";
-            case CONFIRMED_BY_CLIENT: return "CONFIRMED_BY_CLIENT";
-            case CONFIRMED_MOVED: return "CONFIRMED_MOVED";
-            case DENIED: return "DENIED";
-            case DONE: return "DONE";
-            case TENTATIVE: return "TENTATIVE";
-            case TIMED_OUT: return "TIMED_OUT";
+        case ACTIVE: return "ACTIVE";
+        case CANCELLED_BY_ADMIN: return "CANCELLED_BY_ADMIN";
+        case CANCELLED_BY_BUSINESS: return "CANCELLED_BY_BUSINESS";
+        case CANCELLED_BY_CLIENT: return "CANCELLED_BY_CLIENT";
+        case CONFIRMED_BY_ADMIN: return "CONFIRMED_BY_ADMIN";
+        case CONFIRMED_BY_BUSINESS: return "CONFIRMED_BY_BUSINESS";
+        case CONFIRMED_BY_CLIENT: return "CONFIRMED_BY_CLIENT";
+        case CONFIRMED_MOVED: return "CONFIRMED_MOVED";
+        case DENIED: return "DENIED";
+        case DONE: return "DONE";
+        case TENTATIVE: return "TENTATIVE";
+        case TIMED_OUT: return "TIMED_OUT";
         }
         return null;
     }

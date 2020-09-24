@@ -1,17 +1,17 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
 
 public class CracCRACDistributedResourcesFreeByDateRequestParam {
-    private Business1 business;
+    private Business2 business;
     private List<String> resources;
     private TentacledTaxonomy taxonomy;
 
     @JsonProperty("business")
-    public Business1 getBusiness() { return business; }
+    public Business2 getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(Business1 value) { this.business = value; }
+    public void setBusiness(Business2 value) { this.business = value; }
 
     @JsonProperty("resources")
     public List<String> getResources() { return resources; }

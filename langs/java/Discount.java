@@ -1,8 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
-import java.util.List;
 
 /**
  * Информация о скидке
@@ -12,7 +11,7 @@ public class Discount {
     private List<Day> days;
     private Repeats repeats;
     private List<DiscountSlot> slots;
-    private OffsetDateTime start;
+    private String start;
     private Boolean unlimWeeklyRepeat;
     private Double weeklyRepeat;
 
@@ -37,9 +36,9 @@ public class Discount {
     public void setSlots(List<DiscountSlot> value) { this.slots = value; }
 
     @JsonProperty("start")
-    public OffsetDateTime getStart() { return start; }
+    public String getStart() { return start; }
     @JsonProperty("start")
-    public void setStart(OffsetDateTime value) { this.start = value; }
+    public void setStart(String value) { this.start = value; }
 
     @JsonProperty("unlimWeeklyRepeat")
     public Boolean getUnlimWeeklyRepeat() { return unlimWeeklyRepeat; }

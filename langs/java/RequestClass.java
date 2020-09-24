@@ -1,12 +1,11 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
-import java.util.Map;
 
 public class RequestClass {
     private Cred cred;
-    private BackofficeIDUnion id;
+    private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
     private ParamsUnion params;
@@ -23,9 +22,9 @@ public class RequestClass {
      * значение числового типа для идентификации запроса на сервере
      */
     @JsonProperty("id")
-    public BackofficeIDUnion getID() { return id; }
+    public PurpleTimeFrameDate getID() { return id; }
     @JsonProperty("id")
-    public void setID(BackofficeIDUnion value) { this.id = value; }
+    public void setID(PurpleTimeFrameDate value) { this.id = value; }
 
     /**
      * версия протокола - 2.0

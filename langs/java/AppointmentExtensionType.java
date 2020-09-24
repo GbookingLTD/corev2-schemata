@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,8 +10,8 @@ public enum AppointmentExtensionType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case MINUTES: return "MINUTES";
-            case PERCENT: return "PERCENT";
+        case MINUTES: return "MINUTES";
+        case PERCENT: return "PERCENT";
         }
         return null;
     }

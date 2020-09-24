@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,10 +10,10 @@ public enum OnlineMode {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case ONCALL_ONLINE: return "ONCALL_ONLINE";
-            case PLAN_CLINIC: return "PLAN_CLINIC";
-            case PLAN_CLINIC_ONLINE: return "PLAN_CLINIC_ONLINE";
-            case PLAN_ONLINE: return "PLAN_ONLINE";
+        case ONCALL_ONLINE: return "ONCALL_ONLINE";
+        case PLAN_CLINIC: return "PLAN_CLINIC";
+        case PLAN_CLINIC_ONLINE: return "PLAN_CLINIC_ONLINE";
+        case PLAN_ONLINE: return "PLAN_ONLINE";
         }
         return null;
     }

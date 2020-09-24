@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -12,9 +13,9 @@ public enum WorkerSortingType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case MOST_FREE: return "most_free";
-            case NONE: return "none";
-            case WORKLOAD: return "workload";
+        case MOST_FREE: return "most_free";
+        case NONE: return "none";
+        case WORKLOAD: return "workload";
         }
         return null;
     }

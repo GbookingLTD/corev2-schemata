@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,7 +10,7 @@ public enum DiscountType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case PERCENT: return "PERCENT";
+        case PERCENT: return "PERCENT";
         }
         return null;
     }

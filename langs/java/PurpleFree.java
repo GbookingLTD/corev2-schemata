@@ -1,18 +1,18 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
 
 public class PurpleFree {
-    private OffsetDateTime date;
+    private String date;
     private double maxFreeMinutes;
     private String resource;
     private String taxonomy;
 
     @JsonProperty("date")
-    public OffsetDateTime getDate() { return date; }
+    public String getDate() { return date; }
     @JsonProperty("date")
-    public void setDate(OffsetDateTime value) { this.date = value; }
+    public void setDate(String value) { this.date = value; }
 
     @JsonProperty("maxFreeMinutes")
     public double getMaxFreeMinutes() { return maxFreeMinutes; }

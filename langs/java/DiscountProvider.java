@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,9 +10,9 @@ public enum DiscountProvider {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case GROUPON: return "GROUPON";
-            case LOCAL: return "LOCAL";
-            case YANDEX: return "YANDEX";
+        case GROUPON: return "GROUPON";
+        case LOCAL: return "LOCAL";
+        case YANDEX: return "YANDEX";
         }
         return null;
     }

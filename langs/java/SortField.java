@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,8 +10,8 @@ public enum SortField {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case CREATED: return "created";
-            case START: return "start";
+        case CREATED: return "created";
+        case START: return "start";
         }
         return null;
     }

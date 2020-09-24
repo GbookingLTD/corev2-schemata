@@ -1,12 +1,12 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
 
 public class AppointmentInfo {
-    private BackofficeIDUnion backofficeID;
+    private PurpleTimeFrameDate backofficeID;
     private boolean blockSMS;
-    private OffsetDateTime created;
+    private String created;
     private DrinkAnswer drinkAnswer;
     private double duration;
     private boolean hideAppointmentTime;
@@ -14,16 +14,16 @@ public class AppointmentInfo {
     private IntegrationData integrationData;
     private Price price;
     private String shortID;
-    private OffsetDateTime start;
+    private String start;
     private AppointmentStatus status;
     private TalkAnswer talkAnswer;
     private boolean testRecord;
-    private OffsetDateTime updated;
+    private String updated;
 
     @JsonProperty("backofficeID")
-    public BackofficeIDUnion getBackofficeID() { return backofficeID; }
+    public PurpleTimeFrameDate getBackofficeID() { return backofficeID; }
     @JsonProperty("backofficeID")
-    public void setBackofficeID(BackofficeIDUnion value) { this.backofficeID = value; }
+    public void setBackofficeID(PurpleTimeFrameDate value) { this.backofficeID = value; }
 
     @JsonProperty("blockSMS")
     public boolean getBlockSMS() { return blockSMS; }
@@ -31,9 +31,9 @@ public class AppointmentInfo {
     public void setBlockSMS(boolean value) { this.blockSMS = value; }
 
     @JsonProperty("created")
-    public OffsetDateTime getCreated() { return created; }
+    public String getCreated() { return created; }
     @JsonProperty("created")
-    public void setCreated(OffsetDateTime value) { this.created = value; }
+    public void setCreated(String value) { this.created = value; }
 
     @JsonProperty("drinkAnswer")
     public DrinkAnswer getDrinkAnswer() { return drinkAnswer; }
@@ -71,9 +71,9 @@ public class AppointmentInfo {
     public void setShortID(String value) { this.shortID = value; }
 
     @JsonProperty("start")
-    public OffsetDateTime getStart() { return start; }
+    public String getStart() { return start; }
     @JsonProperty("start")
-    public void setStart(OffsetDateTime value) { this.start = value; }
+    public void setStart(String value) { this.start = value; }
 
     @JsonProperty("status")
     public AppointmentStatus getStatus() { return status; }
@@ -91,7 +91,7 @@ public class AppointmentInfo {
     public void setTestRecord(boolean value) { this.testRecord = value; }
 
     @JsonProperty("updated")
-    public OffsetDateTime getUpdated() { return updated; }
+    public String getUpdated() { return updated; }
     @JsonProperty("updated")
-    public void setUpdated(OffsetDateTime value) { this.updated = value; }
+    public void setUpdated(String value) { this.updated = value; }
 }

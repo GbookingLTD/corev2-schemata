@@ -1,7 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
 
 public class EvenOddTimetable {
     private List<TimeFrame> even;

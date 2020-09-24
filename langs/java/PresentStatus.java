@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,8 +10,8 @@ public enum PresentStatus {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case READY: return "READY";
-            case RECEIVED: return "RECEIVED";
+        case READY: return "READY";
+        case RECEIVED: return "RECEIVED";
         }
         return null;
     }

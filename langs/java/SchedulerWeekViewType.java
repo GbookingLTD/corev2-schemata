@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,8 +10,8 @@ public enum SchedulerWeekViewType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case WEEK: return "week";
-            case WORK_WEEK: return "workWeek";
+        case WEEK: return "week";
+        case WORK_WEEK: return "workWeek";
         }
         return null;
     }

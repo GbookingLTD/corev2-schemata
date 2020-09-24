@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,8 +10,8 @@ public enum CracServer {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case CRAC: return "CRAC";
-            case CRAC_PROD3: return "CRAC_PROD3";
+        case CRAC: return "CRAC";
+        case CRAC_PROD3: return "CRAC_PROD3";
         }
         return null;
     }

@@ -1,8 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
-import java.util.Map;
 
 public class BusinessGetNetworkDataResponseResult {
     private Map<String, Object> businessConfiguration;
@@ -10,6 +9,7 @@ public class BusinessGetNetworkDataResponseResult {
     private List<String> clientVIPPhones;
     private List<Map<String, Object>> grantGroups;
     private ResultIntegrationData integrationData;
+    private NetworkClientBlockingSettings networkClientBlockingSettings;
     private String networkID;
     private Map<String, Object> networkInfo;
     private String networkName;
@@ -39,6 +39,11 @@ public class BusinessGetNetworkDataResponseResult {
     public ResultIntegrationData getIntegrationData() { return integrationData; }
     @JsonProperty("integrationData")
     public void setIntegrationData(ResultIntegrationData value) { this.integrationData = value; }
+
+    @JsonProperty("networkClientBlockingSettings")
+    public NetworkClientBlockingSettings getNetworkClientBlockingSettings() { return networkClientBlockingSettings; }
+    @JsonProperty("networkClientBlockingSettings")
+    public void setNetworkClientBlockingSettings(NetworkClientBlockingSettings value) { this.networkClientBlockingSettings = value; }
 
     @JsonProperty("networkID")
     public String getNetworkID() { return networkID; }

@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,9 +10,9 @@ public enum Payment {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case OPTIONAL: return "OPTIONAL";
-            case REQUIRED: return "REQUIRED";
-            case WITHOUT: return "WITHOUT";
+        case OPTIONAL: return "OPTIONAL";
+        case REQUIRED: return "REQUIRED";
+        case WITHOUT: return "WITHOUT";
         }
         return null;
     }

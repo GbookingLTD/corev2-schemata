@@ -1,13 +1,13 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
 
 public class PurpleResource {
-    private PurpleID id;
+    private ID id;
 
     @JsonProperty("id")
-    public PurpleID getID() { return id; }
+    public ID getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleID value) { this.id = value; }
+    public void setID(ID value) { this.id = value; }
 }

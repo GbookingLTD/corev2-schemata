@@ -1,12 +1,12 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
 
 public class FluffyDateLimit {
     private String id;
-    private OffsetDateTime dateLimitFrom;
-    private OffsetDateTime dateLimitTo;
+    private String dateLimitFrom;
+    private String dateLimitTo;
 
     @JsonProperty("_id")
     public String getID() { return id; }
@@ -14,12 +14,12 @@ public class FluffyDateLimit {
     public void setID(String value) { this.id = value; }
 
     @JsonProperty("dateLimitFrom")
-    public OffsetDateTime getDateLimitFrom() { return dateLimitFrom; }
+    public String getDateLimitFrom() { return dateLimitFrom; }
     @JsonProperty("dateLimitFrom")
-    public void setDateLimitFrom(OffsetDateTime value) { this.dateLimitFrom = value; }
+    public void setDateLimitFrom(String value) { this.dateLimitFrom = value; }
 
     @JsonProperty("dateLimitTo")
-    public OffsetDateTime getDateLimitTo() { return dateLimitTo; }
+    public String getDateLimitTo() { return dateLimitTo; }
     @JsonProperty("dateLimitTo")
-    public void setDateLimitTo(OffsetDateTime value) { this.dateLimitTo = value; }
+    public void setDateLimitTo(String value) { this.dateLimitTo = value; }
 }

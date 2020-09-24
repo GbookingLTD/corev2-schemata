@@ -1,8 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
-import java.util.Map;
 
 public class InfoWidgetConfiguration {
     private String additionalName;
@@ -92,6 +91,8 @@ public class InfoWidgetConfiguration {
     private String socialNetworkImage;
     private PurpleSocialSharing socialSharing;
     private Boolean sortByMostFree;
+    private Map<String, Object> sortWorkers;
+    private Boolean sortWorkersByName;
     private Boolean sortWorkersByWorkload;
     private Boolean splitInsuranceClient;
     private Boolean splitName;
@@ -557,6 +558,16 @@ public class InfoWidgetConfiguration {
     public Boolean getSortByMostFree() { return sortByMostFree; }
     @JsonProperty("sortByMostFree")
     public void setSortByMostFree(Boolean value) { this.sortByMostFree = value; }
+
+    @JsonProperty("sortWorkers")
+    public Map<String, Object> getSortWorkers() { return sortWorkers; }
+    @JsonProperty("sortWorkers")
+    public void setSortWorkers(Map<String, Object> value) { this.sortWorkers = value; }
+
+    @JsonProperty("sortWorkersByName")
+    public Boolean getSortWorkersByName() { return sortWorkersByName; }
+    @JsonProperty("sortWorkersByName")
+    public void setSortWorkersByName(Boolean value) { this.sortWorkersByName = value; }
 
     @JsonProperty("sortWorkersByWorkload")
     public Boolean getSortWorkersByWorkload() { return sortWorkersByWorkload; }

@@ -1,19 +1,19 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
 
 public class TentacledDate {
-    private OffsetDateTime from;
-    private OffsetDateTime to;
+    private String from;
+    private String to;
 
     @JsonProperty("from")
-    public OffsetDateTime getFrom() { return from; }
+    public String getFrom() { return from; }
     @JsonProperty("from")
-    public void setFrom(OffsetDateTime value) { this.from = value; }
+    public void setFrom(String value) { this.from = value; }
 
     @JsonProperty("to")
-    public OffsetDateTime getTo() { return to; }
+    public String getTo() { return to; }
     @JsonProperty("to")
-    public void setTo(OffsetDateTime value) { this.to = value; }
+    public void setTo(String value) { this.to = value; }
 }

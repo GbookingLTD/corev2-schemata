@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -14,16 +15,16 @@ public enum CurrencyList {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case CNY: return "CNY";
-            case EUR: return "EUR";
-            case GBP: return "GBP";
-            case HUF: return "HUF";
-            case ILS: return "ILS";
-            case KZT: return "KZT";
-            case RUB: return "RUB";
-            case UAH: return "UAH";
-            case USD: return "USD";
-            case UZS: return "UZS";
+        case CNY: return "CNY";
+        case EUR: return "EUR";
+        case GBP: return "GBP";
+        case HUF: return "HUF";
+        case ILS: return "ILS";
+        case KZT: return "KZT";
+        case RUB: return "RUB";
+        case UAH: return "UAH";
+        case USD: return "USD";
+        case UZS: return "UZS";
         }
         return null;
     }

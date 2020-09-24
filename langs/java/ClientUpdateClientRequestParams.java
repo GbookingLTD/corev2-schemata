@@ -1,19 +1,20 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 /**
  * параметры запроса
  */
 public class ClientUpdateClientRequestParams {
-    private MischievousBusiness business;
+    private BraggadociousBusiness business;
     private ClientClass client;
     private IndigoNetwork network;
 
     @JsonProperty("business")
-    public MischievousBusiness getBusiness() { return business; }
+    public BraggadociousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(MischievousBusiness value) { this.business = value; }
+    public void setBusiness(BraggadociousBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public ClientClass getClient() { return client; }

@@ -1,19 +1,19 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
 
 public class FluffyCreated {
-    private OffsetDateTime end;
-    private OffsetDateTime start;
+    private String end;
+    private String start;
 
     @JsonProperty("end")
-    public OffsetDateTime getEnd() { return end; }
+    public String getEnd() { return end; }
     @JsonProperty("end")
-    public void setEnd(OffsetDateTime value) { this.end = value; }
+    public void setEnd(String value) { this.end = value; }
 
     @JsonProperty("start")
-    public OffsetDateTime getStart() { return start; }
+    public String getStart() { return start; }
     @JsonProperty("start")
-    public void setStart(OffsetDateTime value) { this.start = value; }
+    public void setStart(String value) { this.start = value; }
 }

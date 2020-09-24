@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,9 +10,9 @@ public enum Repeats {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case DAILY: return "daily";
-            case NONE: return "none";
-            case WEEKLY: return "weekly";
+        case DAILY: return "daily";
+        case NONE: return "none";
+        case WEEKLY: return "weekly";
         }
         return null;
     }

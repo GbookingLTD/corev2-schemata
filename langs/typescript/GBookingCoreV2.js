@@ -8,18 +8,19 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
-var ReminderStatus;
-(function (ReminderStatus) {
-    ReminderStatus["NotSet"] = "NOT_SET";
-    ReminderStatus["Off"] = "OFF";
-    ReminderStatus["On"] = "ON";
-})(ReminderStatus = exports.ReminderStatus || (exports.ReminderStatus = {}));
+exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.Day = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.ReminderStatus = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
     AppointmentClientAppear["None"] = "NONE";
     AppointmentClientAppear["YesAppear"] = "YES_APPEAR";
 })(AppointmentClientAppear = exports.AppointmentClientAppear || (exports.AppointmentClientAppear = {}));
+var ReminderStatus;
+(function (ReminderStatus) {
+    ReminderStatus["NotSet"] = "NOT_SET";
+    ReminderStatus["Off"] = "OFF";
+    ReminderStatus["On"] = "ON";
+})(ReminderStatus = exports.ReminderStatus || (exports.ReminderStatus = {}));
 var AppointmentClientPayment;
 (function (AppointmentClientPayment) {
     AppointmentClientPayment["NoPayment"] = "NO_PAYMENT";
@@ -403,17 +404,17 @@ function invalidValue(typ, val) {
 }
 function jsonToJSProps(typ) {
     if (typ.jsonToJS === undefined) {
-        var map_1 = {};
-        typ.props.forEach(function (p) { return map_1[p.json] = { key: p.js, typ: p.typ }; });
-        typ.jsonToJS = map_1;
+        var map = {};
+        typ.props.forEach(function (p) { return map[p.json] = { key: p.js, typ: p.typ }; });
+        typ.jsonToJS = map;
     }
     return typ.jsonToJS;
 }
 function jsToJSONProps(typ) {
     if (typ.jsToJSON === undefined) {
-        var map_2 = {};
-        typ.props.forEach(function (p) { return map_2[p.js] = { key: p.json, typ: p.typ }; });
-        typ.jsToJSON = map_2;
+        var map = {};
+        typ.props.forEach(function (p) { return map[p.js] = { key: p.json, typ: p.typ }; });
+        typ.jsToJSON = map;
     }
     return typ.jsToJSON;
 }
@@ -427,9 +428,9 @@ function transform(val, typ, getProps) {
         // val must validate against one typ in typs
         var l = typs.length;
         for (var i = 0; i < l; i++) {
-            var typ_1 = typs[i];
+            var typ = typs[i];
             try {
-                return transform(val, typ_1, getProps);
+                return transform(val, typ, getProps);
             }
             catch (_) { }
         }
@@ -446,7 +447,7 @@ function transform(val, typ, getProps) {
             return invalidValue("array", val);
         return val.map(function (el) { return transform(el, typ, getProps); });
     }
-    function transformDate(val) {
+    function transformDate(typ, val) {
         if (val === null) {
             return null;
         }
@@ -495,7 +496,7 @@ function transform(val, typ, getProps) {
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number")
-        return transformDate(val);
+        return transformDate(typ, val);
     return transformPrimitive(typ, val);
 }
 function cast(val, typ) {
@@ -573,6 +574,7 @@ var typeMap = {
     "AppointmentController": o([
         { json: "cancel_appointment_by_business", js: "cancel_appointment_by_business", typ: u(undefined, r("CancelAppointmentByBusiness")) },
         { json: "cancel_appointment_by_client", js: "cancel_appointment_by_client", typ: u(undefined, r("CancelAppointmentByClient")) },
+        { json: "client_appear", js: "client_appear", typ: u(undefined, r("ClientAppear")) },
         { json: "client_confirm_appointment", js: "client_confirm_appointment", typ: u(undefined, r("ClientConfirmAppointment")) },
         { json: "client_remove_empty_appointment", js: "client_remove_empty_appointment", typ: r("ClientRemoveEmptyAppointment") },
         { json: "get_appointment_by_filter", js: "get_appointment_by_filter", typ: u(undefined, r("GetAppointmentByFilter")) },
@@ -650,6 +652,39 @@ var typeMap = {
         { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
         { json: "message", js: "message", typ: "" },
     ], "any"),
+    "ClientAppear": o([
+        { json: "request", js: "request", typ: r("AppointmentClientAppearRequest") },
+        { json: "response", js: "response", typ: r("AppointmentClientAppearResponse") },
+    ], false),
+    "AppointmentClientAppearRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("AppointmentClientAppearRequestParams") },
+    ], false),
+    "AppointmentClientAppearRequestParams": o([
+        { json: "appointment", js: "appointment", typ: r("TentacledAppointment") },
+        { json: "business", js: "business", typ: r("PurpleBusiness") },
+    ], "any"),
+    "TentacledAppointment": o([
+        { json: "client_appear", js: "client_appear", typ: r("AppointmentClientAppear") },
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "PurpleBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "AppointmentClientAppearResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, true) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentClientAppearResponseError")) },
+    ], false),
+    "AppointmentClientAppearResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
     "ClientConfirmAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentClientConfirmAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentClientConfirmAppointmentResponse") },
@@ -662,10 +697,10 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ConfirmAppointment") },
     ], false),
     "ConfirmAppointment": o([
-        { json: "appointment", js: "appointment", typ: r("TentacledAppointment") },
+        { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
     ], "any"),
-    "TentacledAppointment": o([
+    "StickyAppointment": o([
         { json: "id", js: "id", typ: "" },
         { json: "reminder", js: "reminder", typ: u(undefined, r("AppointmentReminder")) },
         { json: "source", js: "source", typ: u(undefined, "") },
@@ -747,6 +782,7 @@ var typeMap = {
         { json: "source", js: "source", typ: "" },
         { json: "taxonomy", js: "taxonomy", typ: r("AppointmentTaxonomy") },
         { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataClass")) },
+        { json: "third_party", js: "third_party", typ: u(undefined, a(m("any"))) },
         { json: "utm", js: "utm", typ: u(undefined, m("any")) },
         { json: "withCoSale", js: "withCoSale", typ: u(undefined, true) },
     ], false),
@@ -1022,13 +1058,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("RemoveEmptyAppointment") },
     ], false),
     "RemoveEmptyAppointment": o([
-        { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
-        { json: "business", js: "business", typ: r("PurpleBusiness") },
+        { json: "appointment", js: "appointment", typ: r("IndigoAppointment") },
+        { json: "business", js: "business", typ: r("FluffyBusiness") },
     ], "any"),
-    "StickyAppointment": o([
+    "IndigoAppointment": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "PurpleBusiness": o([
+    "FluffyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "AppointmentClientRemoveEmptyAppointmentResponse": o([
@@ -1054,7 +1090,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("AppointmentGetAppointmentByFilterRequestParams") },
     ], false),
     "AppointmentGetAppointmentByFilterRequestParams": o([
-        { json: "business", js: "business", typ: u(undefined, r("FluffyBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("TentacledBusiness")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("PurpleExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("PurpleFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("PurpleNetwork")) },
@@ -1062,7 +1098,7 @@ var typeMap = {
         { json: "pageSize", js: "pageSize", typ: 3.14 },
         { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
     ], "any"),
-    "FluffyBusiness": o([
+    "TentacledBusiness": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
     "PurpleExtraFilters": o([
@@ -1116,13 +1152,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("AppointmentGetAppointmentByShowcaseRequestParams") },
     ], false),
     "AppointmentGetAppointmentByShowcaseRequestParams": o([
-        { json: "business", js: "business", typ: r("TentacledBusiness") },
+        { json: "business", js: "business", typ: r("StickyBusiness") },
         { json: "created", js: "created", typ: u(undefined, r("ParamsCreated")) },
         { json: "page", js: "page", typ: 3.14 },
         { json: "pageSize", js: "pageSize", typ: 3.14 },
         { json: "source", js: "source", typ: u(undefined, "") },
     ], "any"),
-    "TentacledBusiness": o([
+    "StickyBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ParamsCreated": o([
@@ -1152,14 +1188,14 @@ var typeMap = {
         { json: "params", js: "params", typ: r("AppointmentGetAppointmentsByClientV2RequestParams") },
     ], false),
     "AppointmentGetAppointmentsByClientV2RequestParams": o([
-        { json: "business", js: "business", typ: r("StickyBusiness") },
+        { json: "business", js: "business", typ: r("IndigoBusiness") },
         { json: "client", js: "client", typ: r("TentacledClient") },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("FluffyExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("FluffyFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("FluffyNetwork")) },
         { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
     ], "any"),
-    "StickyBusiness": o([
+    "IndigoBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "TentacledClient": o([
@@ -1211,7 +1247,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("AppointmentGetAppointmentsByUserRequestParams") },
     ], false),
     "AppointmentGetAppointmentsByUserRequestParams": o([
-        { json: "business", js: "business", typ: u(undefined, r("IndigoBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("IndecentBusiness")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
         { json: "fill_business_data", js: "fill_business_data", typ: u(undefined, true) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
@@ -1220,7 +1256,7 @@ var typeMap = {
         { json: "pageSize", js: "pageSize", typ: 3.14 },
         { json: "skipBusinessCancelled", js: "skipBusinessCancelled", typ: u(undefined, true) },
     ], "any"),
-    "IndigoBusiness": o([
+    "IndecentBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "TentacledExtraFilters": o([
@@ -1275,7 +1311,7 @@ var typeMap = {
     ], false),
     "AppointmentReserve": o([
         { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
-        { json: "business", js: "business", typ: r("IndecentBusiness") },
+        { json: "business", js: "business", typ: r("HilariousBusiness") },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, u(null, "")) },
         { json: "resource", js: "resource", typ: r("ParamsResourceClass") },
         { json: "source", js: "source", typ: "" },
@@ -1301,7 +1337,7 @@ var typeMap = {
         { json: "discountType", js: "discountType", typ: u(undefined, "") },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "IndecentBusiness": o([
+    "HilariousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ParamsResourceClass": o([
@@ -1365,6 +1401,7 @@ var typeMap = {
         { json: "clientVIPPhones", js: "clientVIPPhones", typ: a("") },
         { json: "grantGroups", js: "grantGroups", typ: a(m("any")) },
         { json: "integrationData", js: "integrationData", typ: u(undefined, r("IntegrationDataObject")) },
+        { json: "networkClientBlockingSettings", js: "networkClientBlockingSettings", typ: u(undefined, r("NetworkClientBlockingSettings")) },
         { json: "networkID", js: "networkID", typ: "" },
         { json: "networkInfo", js: "networkInfo", typ: m("any") },
         { json: "networkName", js: "networkName", typ: u(undefined, "") },
@@ -1501,6 +1538,7 @@ var typeMap = {
         { json: "showGender", js: "showGender", typ: u(undefined, true) },
         { json: "showGenderInRecords", js: "showGenderInRecords", typ: u(undefined, true) },
         { json: "showGeneratableReportsScreen", js: "showGeneratableReportsScreen", typ: u(undefined, true) },
+        { json: "showGuaranteeLettersScreen", js: "showGuaranteeLettersScreen", typ: u(undefined, true) },
         { json: "showHouseNumber", js: "showHouseNumber", typ: u(undefined, true) },
         { json: "showIsraelCity", js: "showIsraelCity", typ: u(undefined, true) },
         { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
@@ -1772,6 +1810,7 @@ var typeMap = {
         { json: "taxonomyChildren", js: "taxonomyChildren", typ: a(r("ResourceTaxonomyChildren")) },
         { json: "taxonomyLevels", js: "taxonomyLevels", typ: a(r("ResourceTaxonomyLevel")) },
         { json: "telemedData", js: "telemedData", typ: u(undefined, r("TelemedDataObject")) },
+        { json: "telemedWorker", js: "telemedWorker", typ: u(undefined, true) },
         { json: "timetable", js: "timetable", typ: r("Timetable") },
         { json: "userData", js: "userData", typ: u(undefined, m("any")) },
         { json: "workPlace", js: "workPlace", typ: u(undefined, "") },
@@ -2075,6 +2114,8 @@ var typeMap = {
         { json: "socialNetworkImage", js: "socialNetworkImage", typ: u(undefined, "") },
         { json: "socialSharing", js: "socialSharing", typ: u(undefined, r("PurpleSocialSharing")) },
         { json: "sortByMostFree", js: "sortByMostFree", typ: u(undefined, true) },
+        { json: "sortWorkers", js: "sortWorkers", typ: u(undefined, m("any")) },
+        { json: "sortWorkersByName", js: "sortWorkersByName", typ: u(undefined, true) },
         { json: "sortWorkersByWorkload", js: "sortWorkersByWorkload", typ: u(undefined, true) },
         { json: "splitInsuranceClient", js: "splitInsuranceClient", typ: u(undefined, true) },
         { json: "splitName", js: "splitName", typ: u(undefined, true) },
@@ -2146,6 +2187,15 @@ var typeMap = {
     "Ehr": o([
         { json: "active", js: "active", typ: u(undefined, true) },
     ], "any"),
+    "NetworkClientBlockingSettings": o([
+        { json: "appointmentClientBlock", js: "appointmentClientBlock", typ: u(undefined, true) },
+        { json: "appointmentClientBlockDays", js: "appointmentClientBlockDays", typ: u(undefined, 3.14) },
+        { json: "appointmentClientBlockText", js: "appointmentClientBlockText", typ: u(undefined, "") },
+        { json: "blockIfFutureRecordExists", js: "blockIfFutureRecordExists", typ: u(undefined, true) },
+        { json: "blockRepeatedRecordsCount", js: "blockRepeatedRecordsCount", typ: u(undefined, 3.14) },
+        { json: "blockRepeatedRecordsRange", js: "blockRepeatedRecordsRange", typ: u(undefined, 3.14) },
+        { json: "blockRepeatedRecordsText", js: "blockRepeatedRecordsText", typ: u(undefined, "") },
+    ], false),
     "NetworkWidgetConfiguration": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "businesses", js: "businesses", typ: a(r("NetworkConfigurationBusiness")) },
@@ -2172,7 +2222,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("HilariousBusiness") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -2189,7 +2239,7 @@ var typeMap = {
         { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
         { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
     ], false),
-    "HilariousBusiness": o([
+    "AmbitiousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "BusinessGetProfileByIdResponse": o([
@@ -2338,6 +2388,7 @@ var typeMap = {
         { json: "showGender", js: "showGender", typ: u(undefined, true) },
         { json: "showGenderInRecords", js: "showGenderInRecords", typ: u(undefined, true) },
         { json: "showGeneratableReportsScreen", js: "showGeneratableReportsScreen", typ: u(undefined, true) },
+        { json: "showGuaranteeLettersScreen", js: "showGuaranteeLettersScreen", typ: u(undefined, true) },
         { json: "showHouseNumber", js: "showHouseNumber", typ: u(undefined, true) },
         { json: "showIsraelCity", js: "showIsraelCity", typ: u(undefined, true) },
         { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
@@ -2627,6 +2678,8 @@ var typeMap = {
         { json: "socialNetworkImage", js: "socialNetworkImage", typ: u(undefined, "") },
         { json: "socialSharing", js: "socialSharing", typ: u(undefined, r("FluffySocialSharing")) },
         { json: "sortByMostFree", js: "sortByMostFree", typ: u(undefined, true) },
+        { json: "sortWorkers", js: "sortWorkers", typ: u(undefined, m("any")) },
+        { json: "sortWorkersByName", js: "sortWorkersByName", typ: u(undefined, true) },
         { json: "sortWorkersByWorkload", js: "sortWorkersByWorkload", typ: u(undefined, true) },
         { json: "splitInsuranceClient", js: "splitInsuranceClient", typ: u(undefined, true) },
         { json: "splitName", js: "splitName", typ: u(undefined, true) },
@@ -2753,13 +2806,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "business", js: "business", typ: r("CunningBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "AmbitiousBusiness": o([
+    "CunningBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientClass": o([
@@ -2894,17 +2947,17 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "documents", js: "documents", typ: u(undefined, a("")) },
         { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
         { json: "source", js: "source", typ: u(undefined, r("Source")) },
     ], "any"),
-    "CunningBusiness": o([
+    "MagentaBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleProfile": o([
-        { json: "id", js: "id", typ: "" },
+        { json: "id", js: "id", typ: u(undefined, "") },
     ], false),
     "FindOrCreateClient": o([
         { json: "request", js: "request", typ: r("ClientFindOrCreateClientRequest") },
@@ -2918,13 +2971,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "business", js: "business", typ: r("FriskyBusiness") },
         { json: "client", js: "client", typ: u(undefined, r("ClientClass")) },
         { json: "network", js: "network", typ: u(undefined, r("StickyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "MagentaBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "StickyNetwork": o([
@@ -2942,12 +2995,12 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("FriskyBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("MischievousBusiness")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
-    "FriskyBusiness": o([
+    "MischievousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "FluffyProfile": o([
@@ -2965,11 +3018,11 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientUpdateClientRequestParams") },
     ], false),
     "ClientUpdateClientRequestParams": o([
-        { json: "business", js: "business", typ: u(undefined, r("MischievousBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("BraggadociousBusiness")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "network", js: "network", typ: u(undefined, r("IndigoNetwork")) },
     ], false),
-    "MischievousBusiness": o([
+    "BraggadociousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "IndigoNetwork": o([
@@ -3002,11 +3055,11 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientUpdateClientInfoRequestParams") },
     ], false),
     "ClientUpdateClientInfoRequestParams": o([
-        { json: "business", js: "business", typ: u(undefined, r("BraggadociousBusiness")) },
+        { json: "business", js: "business", typ: u(undefined, r("Business1")) },
         { json: "client", js: "client", typ: r("StickyClient") },
         { json: "network", js: "network", typ: u(undefined, r("IndecentNetwork")) },
     ], false),
-    "BraggadociousBusiness": o([
+    "Business1": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "StickyClient": o([
@@ -3074,11 +3127,11 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("Business1") },
+        { json: "business", js: "business", typ: r("Business2") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "Business1": o([
+    "Business2": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -3155,13 +3208,13 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("Business2") },
+        { json: "business", js: "business", typ: r("Business3") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "Business2": o([
+    "Business3": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([
@@ -3362,15 +3415,15 @@ var typeMap = {
         { json: "Business", js: "Business", typ: r("BusinessClass") },
         { json: "Client", js: "Client", typ: r("ClientClass") },
     ], false),
-    "ReminderStatus": [
-        "NOT_SET",
-        "OFF",
-        "ON",
-    ],
     "AppointmentClientAppear": [
         "NO_APPEAR",
         "NONE",
         "YES_APPEAR",
+    ],
+    "ReminderStatus": [
+        "NOT_SET",
+        "OFF",
+        "ON",
     ],
     "AppointmentClientPayment": [
         "NO_PAYMENT",

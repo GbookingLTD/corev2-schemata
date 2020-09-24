@@ -1,9 +1,7 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Map;
 
 public class InfoTaxonomy {
     private Boolean active;
@@ -44,7 +42,7 @@ public class InfoTaxonomy {
     private List<String> images;
     private Boolean isOther;
     private Boolean isTelemed;
-    private OffsetDateTime lastModified;
+    private String lastModified;
     private List<String> leaves;
     private Boolean manualChanges;
     private Boolean newTaxonomy;
@@ -261,9 +259,9 @@ public class InfoTaxonomy {
     public void setIsTelemed(Boolean value) { this.isTelemed = value; }
 
     @JsonProperty("lastModified")
-    public OffsetDateTime getLastModified() { return lastModified; }
+    public String getLastModified() { return lastModified; }
     @JsonProperty("lastModified")
-    public void setLastModified(OffsetDateTime value) { this.lastModified = value; }
+    public void setLastModified(String value) { this.lastModified = value; }
 
     @JsonProperty("leaves")
     public List<String> getLeaves() { return leaves; }

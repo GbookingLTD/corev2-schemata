@@ -1,12 +1,12 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.time.OffsetDateTime;
 
 public class RemovedClientsDatum {
     private AppointmentClientAppear appear;
     private AdditionalClientElement client;
-    private OffsetDateTime created;
+    private String created;
     private AppointmentClientPayment payment;
     private String paymentInvoice;
     private String paymentTransactionID;
@@ -24,9 +24,9 @@ public class RemovedClientsDatum {
     public void setClient(AdditionalClientElement value) { this.client = value; }
 
     @JsonProperty("created")
-    public OffsetDateTime getCreated() { return created; }
+    public String getCreated() { return created; }
     @JsonProperty("created")
-    public void setCreated(OffsetDateTime value) { this.created = value; }
+    public void setCreated(String value) { this.created = value; }
 
     @JsonProperty("payment")
     public AppointmentClientPayment getPayment() { return payment; }

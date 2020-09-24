@@ -1,18 +1,18 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import java.util.List;
 
 public class ClientFindOfCreateClientResponseResult {
-    private FriskyBusiness business;
+    private MischievousBusiness business;
     private ClientClass client;
     private List<Object> documents;
     private FluffyProfile profile;
 
     @JsonProperty("business")
-    public FriskyBusiness getBusiness() { return business; }
+    public MischievousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(FriskyBusiness value) { this.business = value; }
+    public void setBusiness(MischievousBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public ClientClass getClient() { return client; }

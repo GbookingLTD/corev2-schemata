@@ -1,12 +1,13 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 /**
  * параметры запроса business.get_network_data
  */
 public class BusinessGetNetworkDataRequestParams {
-    private BackofficeIDUnion networkID;
+    private PurpleTimeFrameDate networkID;
     private FluffyResource resource;
     private FluffyTaxonomy taxonomy;
     private Boolean withBusinessInfo;
@@ -15,9 +16,9 @@ public class BusinessGetNetworkDataRequestParams {
      * идентификатор сети
      */
     @JsonProperty("networkID")
-    public BackofficeIDUnion getNetworkID() { return networkID; }
+    public PurpleTimeFrameDate getNetworkID() { return networkID; }
     @JsonProperty("networkID")
-    public void setNetworkID(BackofficeIDUnion value) { this.networkID = value; }
+    public void setNetworkID(PurpleTimeFrameDate value) { this.networkID = value; }
 
     @JsonProperty("resource")
     public FluffyResource getResource() { return resource; }

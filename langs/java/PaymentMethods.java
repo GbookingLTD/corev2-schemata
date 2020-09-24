@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -9,11 +10,11 @@ public enum PaymentMethods {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case AMEX: return "Amex";
-            case MASTERCARD: return "Mastercard";
-            case MONEY_BOOKERS: return "MoneyBookers";
-            case PAY_PAL: return "PayPal";
-            case VISA: return "Visa";
+        case AMEX: return "Amex";
+        case MASTERCARD: return "Mastercard";
+        case MONEY_BOOKERS: return "MoneyBookers";
+        case PAY_PAL: return "PayPal";
+        case VISA: return "Visa";
         }
         return null;
     }

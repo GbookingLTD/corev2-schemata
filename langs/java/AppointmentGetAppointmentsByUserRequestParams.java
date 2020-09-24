@@ -1,9 +1,10 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentsByUserRequestParams {
-    private IndigoBusiness business;
+    private IndecentBusiness business;
     private TentacledExtraFilters extraFilters;
     private Boolean fillBusinessData;
     private TentacledFilter filter;
@@ -13,9 +14,9 @@ public class AppointmentGetAppointmentsByUserRequestParams {
     private Boolean skipBusinessCancelled;
 
     @JsonProperty("business")
-    public IndigoBusiness getBusiness() { return business; }
+    public IndecentBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(IndigoBusiness value) { this.business = value; }
+    public void setBusiness(IndecentBusiness value) { this.business = value; }
 
     @JsonProperty("extraFilters")
     public TentacledExtraFilters getExtraFilters() { return extraFilters; }

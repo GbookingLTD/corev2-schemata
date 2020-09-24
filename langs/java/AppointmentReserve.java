@@ -1,24 +1,25 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentReserve {
-    private IndigoAppointment appointment;
-    private IndecentBusiness business;
+    private IndecentAppointment appointment;
+    private HilariousBusiness business;
     private String originBusinessID;
     private PurpleResource resource;
     private String source;
     private PurpleTaxonomy taxonomy;
 
     @JsonProperty("appointment")
-    public IndigoAppointment getAppointment() { return appointment; }
+    public IndecentAppointment getAppointment() { return appointment; }
     @JsonProperty("appointment")
-    public void setAppointment(IndigoAppointment value) { this.appointment = value; }
+    public void setAppointment(IndecentAppointment value) { this.appointment = value; }
 
     @JsonProperty("business")
-    public IndecentBusiness getBusiness() { return business; }
+    public HilariousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(IndecentBusiness value) { this.business = value; }
+    public void setBusiness(HilariousBusiness value) { this.business = value; }
 
     @JsonProperty("originBusinessID")
     public String getOriginBusinessID() { return originBusinessID; }

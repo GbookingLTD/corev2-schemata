@@ -1,5 +1,6 @@
 package ru.gbooking.apiv2;
 
+import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -12,9 +13,9 @@ public enum AdditionalPriceType {
     @JsonValue
     public String toValue() {
         switch (this) {
-            case AVERAGE: return "average";
-            case BEGIN_WITH: return "begin_with";
-            case EQUAL: return "equal";
+        case AVERAGE: return "average";
+        case BEGIN_WITH: return "begin_with";
+        case EQUAL: return "equal";
         }
         return null;
     }
