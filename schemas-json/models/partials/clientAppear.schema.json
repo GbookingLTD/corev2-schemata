@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "schemas-json/models/partials/clientAppear.schema.json",
+    "title": "AppointmentClientAppear",
+    "type": "string",
+    "enum": [
+        "YES_APPEAR",
+        "NO_APPEAR",
+        "NONE"
+    ]
+}

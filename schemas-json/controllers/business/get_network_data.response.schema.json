@@ -212,6 +212,38 @@
                                     }
                                 }
                             }
+                        },
+                        "networkClientBlockingSettings": {
+                            "type": "object",
+                            "properties": {
+                                "blockIfFutureRecordExists": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "blockRepeatedRecordsRange": {
+                                    "type": "number",
+                                    "default": 0
+                                },
+                                "blockRepeatedRecordsCount": {
+                                    "type": "number",
+                                    "default": 1
+                                },
+                                "blockRepeatedRecordsText": {
+                                    "type": "string"
+                                },
+                                "appointmentClientBlock": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "appointmentClientBlockDays": {
+                                    "type": "number",
+                                    "default": 30
+                                },
+                                "appointmentClientBlockText": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false
                         }
                     },
                     "required": [

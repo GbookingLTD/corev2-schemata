@@ -125,11 +125,7 @@ definitions:
       - "NONE"
 
   AppointmentClientAppear:
-    type: "string"
-    enum:
-      - "YES_APPEAR"
-      - "NO_APPEAR"
-      - "NONE"
+    $ref: "./partials/clientAppear.schema.json"
 
   Review:
     type: "object"

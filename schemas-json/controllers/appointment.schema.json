@@ -147,6 +147,22 @@
                 "response"
             ],
             "additionalProperties": false
+        },
+        "client_appear": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/client_appear.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/client_appear.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
         }
     },
     "required": [

@@ -187,12 +187,7 @@
             ]
         },
         "AppointmentClientAppear": {
-            "type": "string",
-            "enum": [
-                "YES_APPEAR",
-                "NO_APPEAR",
-                "NONE"
-            ]
+            "$ref": "./partials/clientAppear.schema.json"
         },
         "Review": {
             "type": "object",
@@ -1240,6 +1235,12 @@
                 "middleName": {
                     "type": "string"
                 }
+            }
+        },
+        "third_party": {
+            "type": "array",
+            "items": {
+                "type": "object"
             }
         }
     }

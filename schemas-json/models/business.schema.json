@@ -1092,6 +1092,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "showGuaranteeLettersScreen": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "schedulerWeekViewType": {
                     "type": "string",
                     "enum": [
@@ -1813,6 +1817,23 @@
                 "sortWorkersByWorkload": {
                     "type": "boolean",
                     "default": false
+                },
+                "sortWorkersByName": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "sortWorkers": {
+                    "type": "object",
+                    "properies": {
+                        "field": {
+                            "type": "string",
+                            "default": "name"
+                        },
+                        "dir": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    }
                 },
                 "mostFreeEnable": {
                     "type": "boolean",

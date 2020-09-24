@@ -84,6 +84,15 @@ properties:
         $ref: "./appointment/get_appointment_by_showcase.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
+  client_appear:
+    type: "object"
+    properties:
+      request:
+        $ref: "./appointment/client_appear.request.schema.json"
+      response:
+        $ref: "./appointment/client_appear.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
 required:
   - reserve_appointment
   - client_remove_empty_appointment
