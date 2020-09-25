@@ -3,7 +3,7 @@ $id: "schemas-json/controllers/appointment/client_appear.schema.json"
 title: "appointment.client_appear.request"
 type: "object"
 definitions:
-  ClientAppear:
+  ClientAppearParams:
     type: "object"
     required:
       - business
@@ -30,7 +30,7 @@ definitions:
     required: ["params"]
     properties:
       params:
-        $ref: '#/definitions/ClientAppear'
+        $ref: '#/definitions/ClientAppearParams'
 
 allOf:
   - $ref: "../../common/request.schema.json"

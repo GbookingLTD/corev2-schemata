@@ -3,7 +3,7 @@ $id: "schemas-json/controllers/appointment/client_confirm_appointment.request.sc
 title: "appointment.client_confirm_appointment.request"
 type: "object"
 definitions:
-  ConfirmAppointment:
+  ConfirmAppointmentParams:
     type: "object"
     required:
       - appointment
@@ -42,7 +42,7 @@ definitions:
     required: ["params"]
     properties:
       params:
-        $ref: '#/definitions/ConfirmAppointment'
+        $ref: '#/definitions/ConfirmAppointmentParams'
 
 allOf:
   - $ref: "../../common/request.schema.json"

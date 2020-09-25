@@ -3,7 +3,7 @@ $id: "schemas-json/controllers/appointment/cancel_appointment_by_client.request.
 title: "appointment.cancel_appointment_by_client.request"
 type: "object"
 definitions:
-  CancelAppointmentByClient:
+  CancelAppointmentByClientParams:
     type: "object"
     required:
       - appointment
@@ -35,7 +35,7 @@ definitions:
     required: ["params"]
     properties:
       params:
-        $ref: '#/definitions/CancelAppointmentByClient'
+        $ref: '#/definitions/CancelAppointmentByClientParams'
 
 allOf:
   - $ref: "../../common/request.schema.json"
