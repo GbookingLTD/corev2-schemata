@@ -93,6 +93,24 @@ properties:
         $ref: "./appointment/client_appear.response.schema.json"
     required: ['request', 'response']
     additionalProperties: false
+  start_appointment:
+    type: "object"
+    properties:
+      request:
+        $ref: "./appointment/start_appointment.request.schema.json"
+      response:
+        $ref: "./appointment/start_appointment.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
+  finish_appointment:
+    type: "object"
+    properties:
+      request:
+        $ref: "./appointment/finish_appointment.request.schema.json"
+      response:
+        $ref: "./appointment/finish_appointment.response.schema.json"
+    required: ['request', 'response']
+    additionalProperties: false
 required:
   - reserve_appointment
   - client_remove_empty_appointment
