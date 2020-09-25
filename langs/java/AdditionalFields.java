@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class AdditionalFields {
     private String name;
-    private boolean requiredField;
+    private Boolean requiredField;
     private String shortName;
     private AdditionalFieldType type;
     private String value;
@@ -16,9 +16,9 @@ public class AdditionalFields {
     public void setName(String value) { this.name = value; }
 
     @JsonProperty("requiredField")
-    public boolean getRequiredField() { return requiredField; }
+    public Boolean getRequiredField() { return requiredField; }
     @JsonProperty("requiredField")
-    public void setRequiredField(boolean value) { this.requiredField = value; }
+    public void setRequiredField(Boolean value) { this.requiredField = value; }
 
     @JsonProperty("shortName")
     public String getShortName() { return shortName; }

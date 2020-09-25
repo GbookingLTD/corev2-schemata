@@ -9,10 +9,13 @@ public class InfoWidgetConfiguration {
     private Boolean allowAutoSelect;
     private Boolean allowBookVisitor;
     private Boolean allowSkipTimeCheck;
+    private PurpleAnalyticsGoogle analyticsGoogle;
+    private PurpleAnalyticsYandex analyticsYandex;
     private String appointmentConfirmationText;
     private String appointmentConfirmationTitle;
     private Boolean askClientBirthday;
     private Boolean askClientGender;
+    private Boolean askClientPassportID;
     private PurpleBookableDateRanges bookableDateRanges;
     private Double bookableMonthsCount;
     private Boolean calendarMode;
@@ -60,10 +63,11 @@ public class InfoWidgetConfiguration {
     private Boolean noDefaultImages;
     private String overrideFooter;
     private Payment payment;
-    private PurplePaymentProvider paymentProvider;
+    private PaymentProvider paymentProvider;
     private Boolean requireAgreement;
     private String requireAgreementLink;
     private Double revisionVersion;
+    private String serviceUnavailabilityText;
     private String shortLink;
     private Boolean showAllWorkers;
     private Boolean showClientAddress;
@@ -87,6 +91,8 @@ public class InfoWidgetConfiguration {
     private String socialNetworkImage;
     private PurpleSocialSharing socialSharing;
     private Boolean sortByMostFree;
+    private Map<String, Object> sortWorkers;
+    private Boolean sortWorkersByName;
     private Boolean sortWorkersByWorkload;
     private Boolean splitInsuranceClient;
     private Boolean splitName;
@@ -95,6 +101,7 @@ public class InfoWidgetConfiguration {
     private Boolean strictSlotCutting;
     private Double tentativeTTL;
     private String theme;
+    private Boolean toggleReminder;
     private Boolean useAppointmentReminder;
     private Boolean useBusinessScheduleForUnavailableLabel;
     private Boolean useClustersMap;
@@ -114,6 +121,7 @@ public class InfoWidgetConfiguration {
     private Boolean widgetUseCRAC;
     private Boolean withoutWorkers;
     private String workerUnavailabilityText;
+    private String workerWidgetUnavailabilityText;
     private Boolean workerNameReverse;
 
     @JsonProperty("additionalName")
@@ -141,6 +149,16 @@ public class InfoWidgetConfiguration {
     @JsonProperty("allowSkipTimeCheck")
     public void setAllowSkipTimeCheck(Boolean value) { this.allowSkipTimeCheck = value; }
 
+    @JsonProperty("analyticsGoogle")
+    public PurpleAnalyticsGoogle getAnalyticsGoogle() { return analyticsGoogle; }
+    @JsonProperty("analyticsGoogle")
+    public void setAnalyticsGoogle(PurpleAnalyticsGoogle value) { this.analyticsGoogle = value; }
+
+    @JsonProperty("analyticsYandex")
+    public PurpleAnalyticsYandex getAnalyticsYandex() { return analyticsYandex; }
+    @JsonProperty("analyticsYandex")
+    public void setAnalyticsYandex(PurpleAnalyticsYandex value) { this.analyticsYandex = value; }
+
     @JsonProperty("appointment_confirmation_text")
     public String getAppointmentConfirmationText() { return appointmentConfirmationText; }
     @JsonProperty("appointment_confirmation_text")
@@ -160,6 +178,11 @@ public class InfoWidgetConfiguration {
     public Boolean getAskClientGender() { return askClientGender; }
     @JsonProperty("askClientGender")
     public void setAskClientGender(Boolean value) { this.askClientGender = value; }
+
+    @JsonProperty("askClientPassportID")
+    public Boolean getAskClientPassportID() { return askClientPassportID; }
+    @JsonProperty("askClientPassportID")
+    public void setAskClientPassportID(Boolean value) { this.askClientPassportID = value; }
 
     @JsonProperty("bookableDateRanges")
     public PurpleBookableDateRanges getBookableDateRanges() { return bookableDateRanges; }
@@ -397,9 +420,9 @@ public class InfoWidgetConfiguration {
     public void setPayment(Payment value) { this.payment = value; }
 
     @JsonProperty("paymentProvider")
-    public PurplePaymentProvider getPaymentProvider() { return paymentProvider; }
+    public PaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(PurplePaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(PaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("requireAgreement")
     public Boolean getRequireAgreement() { return requireAgreement; }
@@ -415,6 +438,11 @@ public class InfoWidgetConfiguration {
     public Double getRevisionVersion() { return revisionVersion; }
     @JsonProperty("revisionVersion")
     public void setRevisionVersion(Double value) { this.revisionVersion = value; }
+
+    @JsonProperty("service_unavailability_text")
+    public String getServiceUnavailabilityText() { return serviceUnavailabilityText; }
+    @JsonProperty("service_unavailability_text")
+    public void setServiceUnavailabilityText(String value) { this.serviceUnavailabilityText = value; }
 
     @JsonProperty("shortLink")
     public String getShortLink() { return shortLink; }
@@ -531,6 +559,16 @@ public class InfoWidgetConfiguration {
     @JsonProperty("sortByMostFree")
     public void setSortByMostFree(Boolean value) { this.sortByMostFree = value; }
 
+    @JsonProperty("sortWorkers")
+    public Map<String, Object> getSortWorkers() { return sortWorkers; }
+    @JsonProperty("sortWorkers")
+    public void setSortWorkers(Map<String, Object> value) { this.sortWorkers = value; }
+
+    @JsonProperty("sortWorkersByName")
+    public Boolean getSortWorkersByName() { return sortWorkersByName; }
+    @JsonProperty("sortWorkersByName")
+    public void setSortWorkersByName(Boolean value) { this.sortWorkersByName = value; }
+
     @JsonProperty("sortWorkersByWorkload")
     public Boolean getSortWorkersByWorkload() { return sortWorkersByWorkload; }
     @JsonProperty("sortWorkersByWorkload")
@@ -570,6 +608,11 @@ public class InfoWidgetConfiguration {
     public String getTheme() { return theme; }
     @JsonProperty("theme")
     public void setTheme(String value) { this.theme = value; }
+
+    @JsonProperty("toggleReminder")
+    public Boolean getToggleReminder() { return toggleReminder; }
+    @JsonProperty("toggleReminder")
+    public void setToggleReminder(Boolean value) { this.toggleReminder = value; }
 
     @JsonProperty("useAppointmentReminder")
     public Boolean getUseAppointmentReminder() { return useAppointmentReminder; }
@@ -665,6 +708,11 @@ public class InfoWidgetConfiguration {
     public String getWorkerUnavailabilityText() { return workerUnavailabilityText; }
     @JsonProperty("worker_unavailability_text")
     public void setWorkerUnavailabilityText(String value) { this.workerUnavailabilityText = value; }
+
+    @JsonProperty("worker_widget_unavailability_text")
+    public String getWorkerWidgetUnavailabilityText() { return workerWidgetUnavailabilityText; }
+    @JsonProperty("worker_widget_unavailability_text")
+    public void setWorkerWidgetUnavailabilityText(String value) { this.workerWidgetUnavailabilityText = value; }
 
     @JsonProperty("workerNameReverse")
     public Boolean getWorkerNameReverse() { return workerNameReverse; }

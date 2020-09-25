@@ -8,7 +8,7 @@ public class AppointmentClientConfirmAppointmentRequest {
     private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
-    private ConfirmAppointment params;
+    private ConfirmAppointmentParams params;
 
     /**
      * авторизационные параметры
@@ -46,7 +46,7 @@ public class AppointmentClientConfirmAppointmentRequest {
      * параметры запроса
      */
     @JsonProperty("params")
-    public ConfirmAppointment getParams() { return params; }
+    public ConfirmAppointmentParams getParams() { return params; }
     @JsonProperty("params")
-    public void setParams(ConfirmAppointment value) { this.params = value; }
+    public void setParams(ConfirmAppointmentParams value) { this.params = value; }
 }

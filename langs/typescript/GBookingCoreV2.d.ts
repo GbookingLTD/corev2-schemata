@@ -41,12 +41,18 @@ export interface Error {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
+/**
+ * дополнительные данные об ошибке
+ */
+export declare type Data = {
+    [key: string]: any;
+} | string;
 /**
  * jsonrpc2 запрос
  */
@@ -130,13 +136,16 @@ export interface Controllers {
 export interface AppointmentController {
     cancel_appointment_by_business?: CancelAppointmentByBusiness;
     cancel_appointment_by_client?: CancelAppointmentByClient;
+    client_appear?: ClientAppear;
     client_confirm_appointment?: ClientConfirmAppointment;
     client_remove_empty_appointment: ClientRemoveEmptyAppointment;
+    finish_appointment?: FinishAppointment;
     get_appointment_by_filter?: GetAppointmentByFilter;
     get_appointment_by_showcase?: GetAppointmentByShowcase;
     get_appointments_by_client_v2?: GetAppointmentsByClientV2;
     get_appointments_by_user?: GetAppointmentsByUser;
     reserve_appointment: ReserveAppointment;
+    start_appointment?: StartAppointment;
 }
 export interface CancelAppointmentByBusiness {
     request: AppointmentCancelAppointmentByBusinessRequest;
@@ -162,11 +171,11 @@ export interface AppointmentCancelAppointmentByBusinessRequest {
     /**
      * параметры запроса
      */
-    params: ParamsObject;
+    params: CancelAppointmentByBusinessParams;
 }
-export interface ParamsObject {
+export interface CancelAppointmentByBusinessParams {
     appointment: PurpleAppointment;
-    client: PurpleClient;
+    client?: PurpleClient;
 }
 export interface PurpleAppointment {
     id: string;
@@ -206,7 +215,7 @@ export interface AppointmentCancelAppointmentByBusinessResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -236,17 +245,19 @@ export interface AppointmentCancelAppointmentByClientRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentCancelAppointmentByClientRequestParams;
+    params: CancelAppointmentByClientParams;
 }
-export interface AppointmentCancelAppointmentByClientRequestParams {
+export interface CancelAppointmentByClientParams {
     appointment: FluffyAppointment;
-    client: FluffyClient;
+    client?: FluffyClient;
 }
 export interface FluffyAppointment {
+    clientID?: string;
     id: string;
     shortId?: string;
 }
 export interface FluffyClient {
+    clientID?: string;
     comment?: string;
     id: string;
 }
@@ -281,7 +292,86 @@ export interface AppointmentCancelAppointmentByClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+export interface ClientAppear {
+    request: AppointmentClientAppearRequest;
+    response: AppointmentClientAppearResponse;
+}
+export interface AppointmentClientAppearRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: ClientAppearParams;
+}
+export interface ClientAppearParams {
+    appointment: TentacledAppointment;
+    business: PurpleBusiness;
+}
+export interface TentacledAppointment {
+    client_appear: AppointmentClientAppear;
+    id: string;
+}
+export declare enum AppointmentClientAppear {
+    NoAppear = "NO_APPEAR",
+    None = "NONE",
+    YesAppear = "YES_APPEAR"
+}
+export interface PurpleBusiness {
+    id: string;
+}
+export interface AppointmentClientAppearResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: boolean;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentClientAppearResponseError;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentClientAppearResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -311,15 +401,25 @@ export interface AppointmentClientConfirmAppointmentRequest {
     /**
      * параметры запроса
      */
-    params: ConfirmAppointment;
+    params: ConfirmAppointmentParams;
 }
-export interface ConfirmAppointment {
-    appointment: TentacledAppointment;
+export interface ConfirmAppointmentParams {
+    appointment: StickyAppointment;
     client: ClientObject;
 }
-export interface TentacledAppointment {
+export interface StickyAppointment {
     id: string;
+    reminder?: AppointmentReminder;
     source?: string;
+}
+export interface AppointmentReminder {
+    status?: ReminderStatus;
+    time_reminder?: number;
+}
+export declare enum ReminderStatus {
+    NotSet = "NOT_SET",
+    Off = "OFF",
+    On = "ON"
 }
 export interface ClientObject {
     comment?: string;
@@ -356,7 +456,7 @@ export interface AppointmentClientConfirmAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -396,6 +496,7 @@ export interface Appointment {
     clientComment: string;
     clientVisitors?: AppointmentClientVisitor[];
     color?: string;
+    createdUser?: CreatedUser;
     destinationKeyword?: string;
     destinationLink?: string;
     extraFields: ExtraField[];
@@ -414,7 +515,7 @@ export interface Appointment {
     promoCode?: string;
     refererLink?: string;
     referrer?: string;
-    reminder: Reminder;
+    reminder: ResultReminder;
     removedClientsData: RemovedClientsDatum[];
     resource: AppointmentResource;
     review?: Review;
@@ -423,6 +524,13 @@ export interface Appointment {
     socialToken?: string;
     source: string;
     taxonomy: AppointmentTaxonomy;
+    /**
+     * Данные для телемед конференции
+     */
+    telemedData?: TelemedDataClass;
+    third_party?: {
+        [key: string]: any;
+    }[];
     utm?: {
         [key: string]: any;
     };
@@ -431,11 +539,6 @@ export interface Appointment {
 export interface AdditionalClientAppear {
     appear: AppointmentClientAppear;
     clientID: string;
-}
-export declare enum AppointmentClientAppear {
-    NoAppear = "NO_APPEAR",
-    None = "NONE",
-    YesAppear = "YES_APPEAR"
 }
 export interface AdditionalClientPayment {
     clientID: string;
@@ -502,15 +605,15 @@ export interface AdditionalClientElement {
     GAClientID?: null | string;
     houseNumber?: null | string;
     id: string;
-    incomingPhone?: IncomingPhoneElement[];
-    israelCity?: IsraelCity | null;
+    incomingPhone?: IncomingPhoneObject;
+    israelCity?: IsraelCityClass | null;
     isVIP?: boolean;
-    kupatHolim?: KupatHolim | null;
+    kupatHolim?: KupatHolimClass | null;
     language?: string;
     middleName?: null | string;
     name: string;
     passportId?: null | string;
-    phone?: IncomingPhoneElement[];
+    phone?: AdditionalClientPhone[];
     seasonTicketId?: null | string;
     seasonTicketNumber?: null | string;
     sex?: Sex;
@@ -544,21 +647,29 @@ export interface ExtraField {
     fieldName: string;
     value?: PurpleValue;
 }
-export declare type PurpleValue = number | {
+export declare type PurpleValue = any[] | boolean | number | {
     [key: string]: any;
 } | null | string;
-export interface IncomingPhoneElement {
-    area_code: string;
-    country_code: string;
-    number: string;
+/**
+ * пустой объект в момент резервирования
+ */
+export interface IncomingPhoneObject {
+    area_code?: string;
+    country_code?: string;
+    number?: string;
 }
-export interface IsraelCity {
+export interface IsraelCityClass {
     cityId?: string;
     name?: string;
 }
-export interface KupatHolim {
+export interface KupatHolimClass {
     kupatHolimId?: string;
     name?: string;
+}
+export interface AdditionalClientPhone {
+    area_code: string;
+    country_code: string;
+    number: string;
 }
 export declare enum Sex {
     Empty = "",
@@ -586,8 +697,11 @@ export interface AdditionalProduct {
 }
 export interface AppointmentTaxonomy {
     alias: string;
+    confirmationAlert?: string;
+    extraDescription?: string;
     extraId?: string;
     id: string;
+    siteId?: string;
 }
 export interface AppointmentInfo {
     backofficeID: BackofficeIdUnion;
@@ -615,15 +729,15 @@ export interface IntegrationData {
     extraId: null | string;
 }
 export interface Price {
-    additionalTaxonomyDiscount: AdditionalTaxonomyDiscount[];
-    amount: number;
+    additionalTaxonomyDiscount?: PurpleAdditionalTaxonomyDiscount[];
+    amount?: number;
     currency: CurrencyList;
     discount?: number;
     discountProvider?: DiscountProvider;
     discountType?: string;
     originalAmount?: number | null;
 }
-export interface AdditionalTaxonomyDiscount {
+export interface PurpleAdditionalTaxonomyDiscount {
     discount?: number;
     discountProvider?: DiscountProvider;
     discountType?: string;
@@ -685,15 +799,15 @@ export interface PurpleAppointmentClient {
     GAClientID?: null | string;
     houseNumber?: null | string;
     id?: string;
-    incomingPhone?: IncomingPhoneElement[];
-    israelCity?: IsraelCity | null;
+    incomingPhone?: IncomingPhoneObject;
+    israelCity?: IsraelCityClass | null;
     isVIP?: boolean;
-    kupatHolim?: KupatHolim | null;
+    kupatHolim?: KupatHolimClass | null;
     language?: string;
     middleName?: null | string;
     name?: string;
     passportId?: null | string;
-    phone?: IncomingPhoneElement[];
+    phone?: AdditionalClientPhone[];
     seasonTicketId?: null | string;
     seasonTicketNumber?: null | string;
     sex?: Sex;
@@ -709,8 +823,15 @@ export interface AppointmentClientVisitor {
     name?: string;
     parentClientID?: string;
     parentProfileID?: string;
-    phone?: IncomingPhoneElement[];
+    phone?: AdditionalClientPhone[];
     sex?: Sex;
+}
+export interface CreatedUser {
+    email?: string;
+    id: string;
+    middleName?: string;
+    name: string;
+    surname?: string;
 }
 export interface Location {
     latitude: number;
@@ -719,14 +840,9 @@ export interface Location {
 export interface Order {
     id: string;
 }
-export interface Reminder {
+export interface ResultReminder {
     status: ReminderStatus;
-    time_reminder: number;
-}
-export declare enum ReminderStatus {
-    NotSet = "NOT_SET",
-    Off = "OFF",
-    On = "ON"
+    time_reminder?: number;
 }
 export interface RemovedClientsDatum {
     appear?: AppointmentClientAppear;
@@ -739,10 +855,16 @@ export interface RemovedClientsDatum {
     status?: AppointmentStatus;
 }
 export interface AppointmentResource {
+    degree?: string;
+    description?: string;
+    experience?: string;
     extraID?: null | string;
+    icon_url?: string;
     id: string;
     middleName?: string;
     name: string;
+    profession?: string;
+    siteId?: string;
     surname: string;
 }
 export interface Review {
@@ -759,6 +881,17 @@ export interface Room {
 }
 export interface AppointmentShowcase {
     businessID?: string;
+}
+/**
+ * Данные для телемед конференции
+ */
+export interface TelemedDataClass {
+    id?: string;
+    joinUrl?: string;
+    password?: string;
+    shortJoinUrl?: string;
+    shortStartUrl?: string;
+    startUrl?: string;
 }
 export interface ClientRemoveEmptyAppointment {
     request: AppointmentClientRemoveEmptyAppointmentRequest;
@@ -787,13 +920,13 @@ export interface AppointmentClientRemoveEmptyAppointmentRequest {
     params: RemoveEmptyAppointment;
 }
 export interface RemoveEmptyAppointment {
-    appointment: StickyAppointment;
-    business: PurpleBusiness;
+    appointment: IndigoAppointment;
+    business: FluffyBusiness;
 }
-export interface StickyAppointment {
+export interface IndigoAppointment {
     id: string;
 }
-export interface PurpleBusiness {
+export interface FluffyBusiness {
     id: string;
 }
 export interface AppointmentClientRemoveEmptyAppointmentResponse {
@@ -827,7 +960,81 @@ export interface AppointmentClientRemoveEmptyAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+export interface FinishAppointment {
+    request: AppointmentFinishAppointmentRequest;
+    response: AppointmentFinishAppointmentResponse;
+}
+export interface AppointmentFinishAppointmentRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: FinishAppointmentParams;
+}
+export interface FinishAppointmentParams {
+    appointment: IndecentAppointment;
+    business: TentacledBusiness;
+}
+export interface IndecentAppointment {
+    finish?: string;
+    id: string;
+}
+export interface TentacledBusiness {
+    id: string;
+}
+export interface AppointmentFinishAppointmentResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: boolean;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentFinishAppointmentResponseError;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentFinishAppointmentResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -860,7 +1067,7 @@ export interface AppointmentGetAppointmentByFilterRequest {
     params: AppointmentGetAppointmentByFilterRequestParams;
 }
 export interface AppointmentGetAppointmentByFilterRequestParams {
-    business?: FluffyBusiness;
+    business?: StickyBusiness;
     extraFilters?: PurpleExtraFilters;
     filter?: PurpleFilter;
     network?: PurpleNetwork;
@@ -868,7 +1075,7 @@ export interface AppointmentGetAppointmentByFilterRequestParams {
     pageSize: number;
     skipBusinessCancelled?: boolean;
 }
-export interface FluffyBusiness {
+export interface StickyBusiness {
     id?: BackofficeIdUnion;
 }
 export interface PurpleExtraFilters {
@@ -929,7 +1136,7 @@ export interface AppointmentGetAppointmentByFilterResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -971,13 +1178,13 @@ export interface AppointmentGetAppointmentByShowcaseRequest {
     params: AppointmentGetAppointmentByShowcaseRequestParams;
 }
 export interface AppointmentGetAppointmentByShowcaseRequestParams {
-    business: TentacledBusiness;
+    business: IndigoBusiness;
     created?: ParamsCreated;
     page: number;
     pageSize: number;
     source?: string;
 }
-export interface TentacledBusiness {
+export interface IndigoBusiness {
     id: BackofficeIdUnion;
 }
 export interface ParamsCreated {
@@ -1012,7 +1219,7 @@ export interface AppointmentGetAppointmentByShowcaseResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1045,14 +1252,14 @@ export interface AppointmentGetAppointmentsByClientV2Request {
     params: AppointmentGetAppointmentsByClientV2RequestParams;
 }
 export interface AppointmentGetAppointmentsByClientV2RequestParams {
-    business: StickyBusiness;
+    business: IndecentBusiness;
     client: TentacledClient;
     extraFilters?: FluffyExtraFilters;
     filter?: FluffyFilter;
     network?: FluffyNetwork;
     skipBusinessCancelled?: boolean;
 }
-export interface StickyBusiness {
+export interface IndecentBusiness {
     id: BackofficeIdUnion;
 }
 export interface TentacledClient {
@@ -1066,6 +1273,7 @@ export interface FluffySort {
     field: SortField;
 }
 export interface FluffyFilter {
+    appointmentId?: string;
     created?: FluffyCreated;
     end?: Date;
     services?: string[];
@@ -1089,7 +1297,7 @@ export interface AppointmentGetAppointmentsByClientV2Response {
      * версия протокола (2.0)
      */
     jsonrpc: string;
-    result?: AppointmentGetAppointmentsByClientV2ResponseResult;
+    result?: Appointment[];
     /**
      * объект, содержащий информацию об ошибке
      */
@@ -1108,20 +1316,11 @@ export interface AppointmentGetAppointmentsByClientV2ResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
-}
-/**
- * данные, передаваемые в ответ
- */
-export interface AppointmentGetAppointmentsByClientV2ResponseResult {
-    data: Appointment[];
-    page: number;
-    total: number;
-    unconfirmed: number;
 }
 export interface GetAppointmentsByUser {
     request: AppointmentGetAppointmentsByUserRequest;
@@ -1150,13 +1349,16 @@ export interface AppointmentGetAppointmentsByUserRequest {
     params: AppointmentGetAppointmentsByUserRequestParams;
 }
 export interface AppointmentGetAppointmentsByUserRequestParams {
-    business?: IndigoBusiness;
+    business?: HilariousBusiness;
     extraFilters?: TentacledExtraFilters;
+    fill_business_data?: boolean;
     filter?: TentacledFilter;
     network?: TentacledNetwork;
+    page: number;
+    pageSize: number;
     skipBusinessCancelled?: boolean;
 }
-export interface IndigoBusiness {
+export interface HilariousBusiness {
     id: BackofficeIdUnion;
 }
 export interface TentacledExtraFilters {
@@ -1209,20 +1411,17 @@ export interface AppointmentGetAppointmentsByUserResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
-/**
- * данные, передаваемые в ответ
- */
 export interface AppointmentGetAppointmentsByUserResponseResult {
     data: Appointment[];
     page: number;
     total: number;
-    unconfirmed: number;
+    unconfirmed?: number;
 }
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;
@@ -1252,7 +1451,7 @@ export interface AppointmentReserveAppointmentRequest {
 }
 export interface AppointmentReserve {
     appointment: AppointmentObject;
-    business: IndecentBusiness;
+    business: AmbitiousBusiness;
     originBusinessID?: null | string;
     resource: ParamsResourceClass;
     source: string;
@@ -1264,10 +1463,21 @@ export interface AppointmentObject {
     start: string;
 }
 export interface PurplePrice {
-    amount: number;
+    additionalTaxonomyDiscount?: FluffyAdditionalTaxonomyDiscount[];
+    amount?: number;
     currency: CurrencyList;
+    discount?: number;
+    discountProvider?: DiscountProvider;
+    discountType?: string;
+    originalAmount?: number;
 }
-export interface IndecentBusiness {
+export interface FluffyAdditionalTaxonomyDiscount {
+    discount?: number;
+    discountProvider?: DiscountProvider;
+    discountType?: string;
+    taxonomyID?: string;
+}
+export interface AmbitiousBusiness {
     id: string;
 }
 export interface ParamsResourceClass {
@@ -1308,7 +1518,80 @@ export interface AppointmentReserveAppointmentResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+export interface StartAppointment {
+    request: AppointmentStartAppointmentRequest;
+    response: AppointmentStartAppointmentResponse;
+}
+export interface AppointmentStartAppointmentRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: StartAppointmentParams;
+}
+export interface StartAppointmentParams {
+    appointment: HilariousAppointment;
+    business: CunningBusiness;
+}
+export interface HilariousAppointment {
+    id: string;
+}
+export interface CunningBusiness {
+    id: string;
+}
+export interface AppointmentStartAppointmentResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: boolean;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentStartAppointmentResponseError;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentStartAppointmentResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1406,7 +1689,7 @@ export interface BusinessGetNetworkDataResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -1421,6 +1704,8 @@ export interface ResultClass {
     grantGroups: {
         [key: string]: any;
     }[];
+    integrationData?: IntegrationDataObject;
+    networkClientBlockingSettings?: NetworkClientBlockingSettings;
     networkID: string;
     networkInfo: {
         [key: string]: any;
@@ -1523,11 +1808,15 @@ export interface InfoBackofficeConfiguration {
     enableCustomOnlinePaymentConfirmation?: boolean;
     enableExtendedPhone?: boolean;
     enableExtendedRecordsClientStatistics?: boolean;
+    enableInvoice?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
     enablePrintingReportRecordsScreen?: boolean;
+    enableServiceOrModeFilter?: boolean;
     enableServiceTimeLimit?: boolean;
     enableSourceChoice?: boolean;
     enableTaxonomyChildrenAgeCheck?: boolean;
+    enableTelemed?: boolean;
     exportToExcelRemovedClients?: boolean;
     feedbackCustomerPortalMessage?: string;
     feedbackCustomerPortalThankYouMessage?: string;
@@ -1537,12 +1826,16 @@ export interface InfoBackofficeConfiguration {
     finName?: string;
     hideCustomerPortalFooter?: boolean;
     highlightedResource?: boolean;
+    invoiceCondition?: AppointmentClientPayment[];
+    invoiceProvider?: InvoiceProvider;
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
-    paymentProvider?: PurplePaymentProvider;
+    paymentProvider?: PaymentProvider;
     readonlyResourceSchedule?: boolean;
+    resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
+    resoureLoginHideCancelledAppointment?: boolean;
     revisionVersion?: number;
     schduleWeekViewIsDefault?: boolean;
     scheduleDefaultWorkersLimit?: number;
@@ -1553,12 +1846,14 @@ export interface InfoBackofficeConfiguration {
     showAdditionalFields?: boolean;
     showAddress?: boolean;
     showBirthDate?: boolean;
+    showClientAddress?: boolean;
     showClientAppear?: boolean;
     showClientAppearOnSchedule?: boolean;
     showClientBirthdayFilter?: boolean;
     showClientContractNumber?: boolean;
     showClientImage?: boolean;
     showClientPayment?: boolean;
+    showCreatedUsername?: boolean;
     showDefaulterBlockscreen?: boolean;
     showDeliveryStatus?: boolean;
     showDepartmentFilter?: boolean;
@@ -1573,6 +1868,7 @@ export interface InfoBackofficeConfiguration {
     showGender?: boolean;
     showGenderInRecords?: boolean;
     showGeneratableReportsScreen?: boolean;
+    showGuaranteeLettersScreen?: boolean;
     showHouseNumber?: boolean;
     showIsraelCity?: boolean;
     showKupatHolim?: boolean;
@@ -1599,6 +1895,8 @@ export interface InfoBackofficeConfiguration {
     }[];
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
+    telemedApplication?: PurpleTelemedApplication;
+    telemedProvider?: TelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -1613,10 +1911,17 @@ export declare enum FeedBackMinRating {
     The4 = "4",
     The5 = "5"
 }
-export declare enum PurplePaymentProvider {
+export declare enum InvoiceProvider {
+    Disable = "DISABLE",
+    Icount = "icount"
+}
+export declare enum PaymentProvider {
+    Cloudpayments = "cloudpayments",
     DeltaProcessing = "deltaProcessing",
     Disable = "DISABLE",
-    YandexMoney = "yandexMoney"
+    Pelecard = "pelecard",
+    YandexMoney = "yandexMoney",
+    YandexMoneyv3 = "yandexMoneyv3"
 }
 export declare enum ResourceTimetableType {
     Default = "DEFAULT",
@@ -1625,6 +1930,16 @@ export declare enum ResourceTimetableType {
 export declare enum SchedulerWeekViewType {
     Week = "week",
     WorkWeek = "workWeek"
+}
+export interface PurpleTelemedApplication {
+    appleAppName?: string;
+    googleAppName?: string;
+    urlAppSchema?: string;
+}
+export declare enum TelemedProvider {
+    Disable = "DISABLE",
+    Mmconf = "mmconf",
+    Zoom = "zoom"
 }
 export declare enum BackofficeType {
     Common = "COMMON",
@@ -1741,10 +2056,10 @@ export interface BusinessInfo {
 }
 export interface AdditionalFields {
     name: string;
-    requiredField: boolean;
+    requiredField?: boolean;
     shortName: string;
     type: AdditionalFieldType;
-    value: string;
+    value?: string;
 }
 export interface AddressSchema {
     address?: string;
@@ -1982,6 +2297,7 @@ export interface Resource {
      */
     color?: string;
     degree?: string;
+    denyWidgetBooking?: boolean;
     /**
      * идентификатор отделения, к которому привязан работник
      */
@@ -2131,6 +2447,8 @@ export interface Resource {
      * массив уровня скорости выполнения услуги (см так же Resource level)
      */
     taxonomyLevels: ResourceTaxonomyLevel[];
+    telemedData?: TelemedDataObject;
+    telemedWorker?: boolean;
     timetable: Timetable;
     userData?: {
         [key: string]: any;
@@ -2313,6 +2631,10 @@ export interface ResourceTaxonomyLevel {
      */
     level: number;
 }
+export interface TelemedDataObject {
+    active?: boolean;
+    id?: string;
+}
 export interface InfoTaxonomy {
     active?: boolean;
     additionalDurations?: PurpleAdditionalDuration[];
@@ -2338,11 +2660,13 @@ export interface InfoTaxonomy {
     childrenTaxonomyTypes?: ChildrenTaxonomyType[];
     color?: string;
     confirmationAlert?: string;
+    confirmationEmailAlert?: string;
     confirmationSmsAlert?: string;
     dateLimits?: PurpleDateLimit[];
     dateLimitType?: DateLimitType;
     designs?: string[];
-    discounts?: Discount;
+    disableClientSmsNotifications?: boolean;
+    discounts?: Discount[];
     displayInWidget?: boolean;
     duration?: number;
     exceptions?: any[];
@@ -2353,6 +2677,7 @@ export interface InfoTaxonomy {
     id?: string;
     images?: string[];
     isOther?: boolean;
+    isTelemed?: boolean;
     lastModified?: Date;
     leaves?: string[];
     manualChanges?: boolean;
@@ -2463,14 +2788,14 @@ export interface PurpleDateLimit {
  */
 export interface Discount {
     active?: boolean;
-    daysOfWeek?: DaysOfWeek;
+    days?: Day[];
     repeats?: Repeats;
-    slots?: Slots;
+    slots?: SlotObject[];
     start?: Date;
     unlimWeeklyRepeat?: boolean;
     weeklyRepeat?: number;
 }
-export declare enum DaysOfWeek {
+export declare enum Day {
     Fri = "fri",
     Mon = "mon",
     Sat = "sat",
@@ -2484,7 +2809,7 @@ export declare enum Repeats {
     None = "none",
     Weekly = "weekly"
 }
-export interface Slots {
+export interface SlotObject {
     time?: TimeFrame;
 }
 export declare enum OnlineMode {
@@ -2554,10 +2879,13 @@ export interface InfoWidgetConfiguration {
     allowAutoSelect?: boolean;
     allowBookVisitor?: boolean;
     allowSkipTimeCheck?: boolean;
+    analyticsGoogle?: PurpleAnalyticsGoogle;
+    analyticsYandex?: PurpleAnalyticsYandex;
     appointment_confirmation_text?: string;
     appointment_confirmation_title?: string;
     askClientBirthday?: boolean;
     askClientGender?: boolean;
+    askClientPassportID?: boolean;
     bookableDateRanges?: PurpleBookableDateRanges;
     bookableMonthsCount?: number;
     calendarMode?: boolean;
@@ -2607,10 +2935,11 @@ export interface InfoWidgetConfiguration {
     noDefaultImages?: boolean;
     overrideFooter?: string;
     payment?: Payment;
-    paymentProvider?: PurplePaymentProvider;
+    paymentProvider?: PaymentProvider;
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
+    service_unavailability_text?: string;
     shortLink?: string;
     showAllWorkers?: boolean;
     showClientAddress?: boolean;
@@ -2634,6 +2963,10 @@ export interface InfoWidgetConfiguration {
     socialNetworkImage?: string;
     socialSharing?: PurpleSocialSharing;
     sortByMostFree?: boolean;
+    sortWorkers?: {
+        [key: string]: any;
+    };
+    sortWorkersByName?: boolean;
     sortWorkersByWorkload?: boolean;
     splitInsuranceClient?: boolean;
     splitName?: boolean;
@@ -2642,6 +2975,7 @@ export interface InfoWidgetConfiguration {
     strictSlotCutting?: boolean;
     tentativeTTL?: number;
     theme?: string;
+    toggleReminder?: boolean;
     useAppointmentReminder?: boolean;
     useBusinessScheduleForUnavailableLabel?: boolean;
     useClustersMap?: boolean;
@@ -2661,7 +2995,16 @@ export interface InfoWidgetConfiguration {
     widgetUseCRAC?: boolean;
     withoutWorkers?: boolean;
     worker_unavailability_text?: string;
+    worker_widget_unavailability_text?: string;
     workerNameReverse?: boolean;
+}
+export interface PurpleAnalyticsGoogle {
+    active?: boolean;
+    key?: string;
+}
+export interface PurpleAnalyticsYandex {
+    active?: boolean;
+    key?: string;
 }
 export interface PurpleBookableDateRanges {
     enabled?: boolean;
@@ -2712,6 +3055,21 @@ export declare enum UseDirectScheduleRead {
     Guest = "GUEST",
     None = "NONE"
 }
+export interface IntegrationDataObject {
+    ehr?: Ehr;
+}
+export interface Ehr {
+    active?: boolean;
+}
+export interface NetworkClientBlockingSettings {
+    appointmentClientBlock?: boolean;
+    appointmentClientBlockDays?: number;
+    appointmentClientBlockText?: string;
+    blockIfFutureRecordExists?: boolean;
+    blockRepeatedRecordsCount?: number;
+    blockRepeatedRecordsRange?: number;
+    blockRepeatedRecordsText?: string;
+}
 export interface NetworkWidgetConfiguration {
     _id?: string;
     businesses: NetworkConfigurationBusiness[];
@@ -2758,7 +3116,7 @@ export interface BusinessGetProfileByIdRequest {
  * параметры запроса business.get_profile_by_id
  */
 export interface BusinessGetProfileByIdRequestParams {
-    business: HilariousBusiness;
+    business: MagentaBusiness;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -2780,6 +3138,10 @@ export interface BusinessGetProfileByIdRequestParams {
      * если указано true - не приминяет сортировку работников
      */
     skip_worker_sorting?: boolean;
+    /**
+     * содержит только доступные для записи наборы услуг и работников
+     */
+    use_optimized_cache?: boolean;
     /**
      * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)
      */
@@ -2819,7 +3181,7 @@ export interface BusinessGetProfileByIdRequestParams {
      */
     worker_sorting_type?: WorkerSortingType;
 }
-export interface HilariousBusiness {
+export interface MagentaBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -2864,7 +3226,7 @@ export interface BusinessGetProfileByIdResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -2911,6 +3273,7 @@ export interface BusinessClass {
     integration_data?: {
         [key: string]: any;
     };
+    maxFilterDateDuration?: number;
     mini_widget_configuration: BusinessMiniWidgetConfiguration;
     mobileData?: any[];
     notifications?: any[];
@@ -2953,10 +3316,15 @@ export interface BusinessBackofficeConfiguration {
     enableCustomOnlinePaymentConfirmation?: boolean;
     enableExtendedPhone?: boolean;
     enableExtendedRecordsClientStatistics?: boolean;
+    enableInvoice?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
+    enablePrintingReportRecordsScreen?: boolean;
+    enableServiceOrModeFilter?: boolean;
     enableServiceTimeLimit?: boolean;
     enableSourceChoice?: boolean;
     enableTaxonomyChildrenAgeCheck?: boolean;
+    enableTelemed?: boolean;
     exportToExcelRemovedClients?: boolean;
     feedbackCustomerPortalMessage?: string;
     feedbackCustomerPortalThankYouMessage?: string;
@@ -2966,12 +3334,16 @@ export interface BusinessBackofficeConfiguration {
     finName?: string;
     hideCustomerPortalFooter?: boolean;
     highlightedResource?: boolean;
+    invoiceCondition?: AppointmentClientPayment[];
+    invoiceProvider?: InvoiceProvider;
     manualExceptionSupport?: boolean;
     noInternetAlert?: boolean;
     pastTimeEdit?: number;
-    paymentProvider?: FluffyPaymentProvider;
+    paymentProvider?: PaymentProvider;
     readonlyResourceSchedule?: boolean;
+    resourceSurnameFirst?: boolean;
     resourceTimetableType?: ResourceTimetableType;
+    resoureLoginHideCancelledAppointment?: boolean;
     revisionVersion?: number;
     schduleWeekViewIsDefault?: boolean;
     scheduleDefaultWorkersLimit?: number;
@@ -2984,12 +3356,14 @@ export interface BusinessBackofficeConfiguration {
     showAdditionalFields?: boolean;
     showAddress?: boolean;
     showBirthDate?: boolean;
+    showClientAddress?: boolean;
     showClientAppear?: boolean;
     showClientAppearOnSchedule?: boolean;
     showClientBirthdayFilter?: boolean;
     showClientContractNumber?: boolean;
     showClientImage?: boolean;
     showClientPayment?: boolean;
+    showCreatedUsername?: boolean;
     showDefaulterBlockscreen?: boolean;
     showDeliveryStatus?: boolean;
     showDepartmentFilter?: boolean;
@@ -3004,6 +3378,7 @@ export interface BusinessBackofficeConfiguration {
     showGender?: boolean;
     showGenderInRecords?: boolean;
     showGeneratableReportsScreen?: boolean;
+    showGuaranteeLettersScreen?: boolean;
     showHouseNumber?: boolean;
     showIsraelCity?: boolean;
     showKupatHolim?: boolean;
@@ -3031,6 +3406,8 @@ export interface BusinessBackofficeConfiguration {
     }[] | null;
     stateLevelHolidaysNotWorking?: boolean;
     taxonomyChildrenMaxAge?: number;
+    telemedApplication?: FluffyTelemedApplication;
+    telemedProvider?: TelemedProvider;
     useAdditionalDurations?: boolean;
     useAdjacentTaxonomies?: boolean;
     useAdjacentTaxonomiesSlotSplitting?: boolean;
@@ -3038,14 +3415,8 @@ export interface BusinessBackofficeConfiguration {
     workWeekEnd?: number;
     workWeekStart?: number;
 }
-export declare enum FluffyPaymentProvider {
-    Cloudpayments = "cloudpayments",
-    DeltaProcessing = "deltaProcessing",
-    Disable = "DISABLE",
-    Pelecard = "pelecard",
-    YandexMoney = "yandexMoney"
-}
 export interface ScheduleSplitDayTimeInterval {
+    _id?: string;
     endHour?: number;
     endMinute?: number;
     schedulerTick?: number;
@@ -3053,6 +3424,11 @@ export interface ScheduleSplitDayTimeInterval {
     startHour?: number;
     startMinute?: number;
     title?: string;
+}
+export interface FluffyTelemedApplication {
+    appleAppName?: string;
+    googleAppName?: string;
+    urlAppSchema?: string;
 }
 export interface BusinessBackofficeConfigurationObject {
     enableMasterImportance?: boolean;
@@ -3107,10 +3483,12 @@ export interface BusinessTaxonomy {
     childrenTaxonomyTypes?: ChildrenTaxonomyType[];
     color?: string;
     confirmationAlert?: string;
+    confirmationEmailAlert?: string;
     confirmationSmsAlert?: string;
     dateLimits?: FluffyDateLimit[];
     dateLimitType?: DateLimitType;
     designs?: string[];
+    disableClientSmsNotifications?: boolean;
     discounts?: Discount[];
     displayInWidget?: boolean;
     duration?: number;
@@ -3122,6 +3500,7 @@ export interface BusinessTaxonomy {
     id?: string;
     images?: string[];
     isOther?: boolean;
+    isTelemed?: boolean;
     lastModified?: Date;
     leaves?: string[];
     manualChanges?: boolean;
@@ -3220,7 +3599,7 @@ export interface TentacledPrice {
     /**
      * Значение цены, с учётом промо акций
      */
-    stockAmount: null | string;
+    stockAmount?: null | string;
     /**
      * Тип цены
      */
@@ -3264,10 +3643,13 @@ export interface BusinessWidgetConfiguration {
     allowAutoSelect?: boolean;
     allowBookVisitor?: boolean;
     allowSkipTimeCheck?: boolean;
+    analyticsGoogle?: FluffyAnalyticsGoogle;
+    analyticsYandex?: FluffyAnalyticsYandex;
     appointment_confirmation_text?: string;
     appointment_confirmation_title?: string;
     askClientBirthday?: boolean;
     askClientGender?: boolean;
+    askClientPassportID?: boolean;
     bookableDateRanges?: FluffyBookableDateRanges;
     bookableMonthsCount?: number;
     calendarMode?: boolean;
@@ -3317,10 +3699,11 @@ export interface BusinessWidgetConfiguration {
     noDefaultImages?: boolean;
     overrideFooter?: string;
     payment?: Payment;
-    paymentProvider?: FluffyPaymentProvider;
+    paymentProvider?: PaymentProvider;
     requireAgreement?: boolean;
     requireAgreementLink?: string;
     revisionVersion?: number;
+    service_unavailability_text?: string;
     shortLink?: string;
     showAllWorkers?: boolean;
     showClientAddress?: boolean;
@@ -3344,6 +3727,10 @@ export interface BusinessWidgetConfiguration {
     socialNetworkImage?: string;
     socialSharing?: FluffySocialSharing;
     sortByMostFree?: boolean;
+    sortWorkers?: {
+        [key: string]: any;
+    };
+    sortWorkersByName?: boolean;
     sortWorkersByWorkload?: boolean;
     splitInsuranceClient?: boolean;
     splitName?: boolean;
@@ -3352,6 +3739,7 @@ export interface BusinessWidgetConfiguration {
     strictSlotCutting?: boolean;
     tentativeTTL?: number;
     theme?: string;
+    toggleReminder?: boolean;
     useAppointmentReminder?: boolean;
     useBusinessScheduleForUnavailableLabel?: boolean;
     useClustersMap?: boolean;
@@ -3371,7 +3759,16 @@ export interface BusinessWidgetConfiguration {
     widgetUseCRAC?: boolean;
     withoutWorkers?: boolean;
     worker_unavailability_text?: string;
+    worker_widget_unavailability_text?: string;
     workerNameReverse?: boolean;
+}
+export interface FluffyAnalyticsGoogle {
+    active?: boolean;
+    key?: string;
+}
+export interface FluffyAnalyticsYandex {
+    active?: boolean;
+    key?: string;
 }
 export interface FluffyBookableDateRanges {
     enabled?: boolean;
@@ -3452,6 +3849,7 @@ export interface ClientController {
     add_client: AddClient;
     find_or_create_client: FindOrCreateClient;
     update_client: UpdateClient;
+    update_client_info: UpdateClientInfo;
 }
 export interface AddClient {
     request: ClientAddClientRequest;
@@ -3483,13 +3881,13 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business: AmbitiousBusiness;
+    business: FriskyBusiness;
     client: ClientClass;
     profile?: ParamsProfile;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface AmbitiousBusiness {
+export interface FriskyBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3501,20 +3899,22 @@ export interface AmbitiousBusiness {
 export interface ClientClass {
     address?: string;
     birthday?: Birthday;
-    blackList?: string;
+    blackList?: boolean;
     childrenClients?: ChildrenClient[];
     clientCardCreationDate?: string;
     clientCardNumber?: string;
     clientContractNumber?: string;
+    created?: string;
     creatorProfileID?: null | string;
     creatorProfileName?: null | string;
+    description?: string;
     discountCode?: string;
     driverLicense?: null | string;
     email?: string[];
     extraFields?: ClientExtraField[];
     extraID?: string;
-    favResources?: FavResource[];
-    fax?: FaxElement[];
+    favResources?: ClientFavResource[];
+    fax?: string;
     fromSms?: FromSms;
     fullAddress?: AddressSchema[];
     houseNumber?: string;
@@ -3524,10 +3924,16 @@ export interface ClientClass {
     insuranceNumber?: string;
     integrationData?: IntegrationDataClass;
     isLazy?: boolean;
-    israelCity?: string;
+    israelCity?: IsraelCityUnion;
     isVIP?: boolean;
-    kupatHolim?: string;
+    kupatHolim?: KupatHolimUnion;
     language?: LanguageList;
+    lastCreatedAppointment?: {
+        [key: string]: any;
+    } | null;
+    lastVisitedAppointment?: {
+        [key: string]: any;
+    } | null;
     lazyResolvedDate?: string;
     locality?: string;
     loyaltyInfo?: LoyaltyInfo;
@@ -3538,16 +3944,18 @@ export interface ClientClass {
     passportIssued?: string;
     passportSeries?: string;
     phone: FaxElement[];
-    receiveSmsAfterService?: string;
+    receiveSmsAfterService?: boolean;
     sex?: Sex;
     skipMarketingNotifications?: boolean;
     skipNotifications?: boolean;
     snils?: string;
+    statistics?: Statistics;
     status?: ResourceStatus;
     surname: string;
     taxiPark?: null | string;
     taxiParkMemberCount?: OrderWeight;
     twoFAUserID?: string;
+    updated?: string;
     workPlace?: string;
 }
 export interface ChildrenClient {
@@ -3560,19 +3968,29 @@ export interface ChildrenClient {
 export interface ClientExtraField {
     fieldID: string;
     fieldName: string;
-    value: FluffyValue;
+    value?: FluffyValue;
 }
 export declare type FluffyValue = boolean | number | {
     [key: string]: any;
 } | null | string;
-export interface FavResource {
+export interface ClientFavResource {
     businessID: number;
     networkID: string;
     resourceID: string;
 }
 export declare type FromSms = boolean | string;
 export interface IntegrationDataClass {
-    transactionID: string;
+    transactionID?: string;
+}
+export declare type IsraelCityUnion = any[] | boolean | number | number | null | IsraelCityObject | string;
+export interface IsraelCityObject {
+    cityId?: string;
+    name?: string;
+}
+export declare type KupatHolimUnion = any[] | boolean | number | number | null | KupatHolimObject | string;
+export interface KupatHolimObject {
+    kupatHolimId?: string;
+    name?: string;
 }
 export interface LoyaltyInfo {
     annualTurnover?: number;
@@ -3599,6 +4017,19 @@ export interface Purchase {
     goodID?: string;
     price?: number;
     transactionID?: string;
+}
+export interface Statistics {
+    appointmentsCount?: number;
+    businesses?: {
+        [key: string]: any;
+    }[];
+    lastAppointment?: string;
+    lastBusinessId?: string;
+    lastWorkerId?: string;
+    services?: {
+        [key: string]: any;
+    }[];
+    totalPrices?: any[];
 }
 export interface ParamsProfile {
     /**
@@ -3636,24 +4067,24 @@ export interface ClientAddClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
 export interface ClientAddClientResponseResult {
-    business: CunningBusiness;
+    business: MischievousBusiness;
     client: ClientClass;
-    documents?: string;
+    documents?: string[];
     profile?: PurpleProfile;
     source?: Source;
 }
-export interface CunningBusiness {
+export interface MischievousBusiness {
     id: string;
 }
 export interface PurpleProfile {
-    id: string;
+    id?: string;
 }
 export declare enum Source {
     Backoffice = "BACKOFFICE",
@@ -3691,13 +4122,13 @@ export interface ClientFindOrCreateClientRequest {
  * параметры запроса
  */
 export interface ClientFindOrCreateClientRequestParams {
-    business: MagentaBusiness;
+    business: BraggadociousBusiness;
     client?: ClientClass;
     network?: StickyNetwork;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface MagentaBusiness {
+export interface BraggadociousBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3739,19 +4170,19 @@ export interface ClientFindOfCreateClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
 export interface ClientFindOfCreateClientResponseResult {
-    business?: FriskyBusiness;
+    business?: Business1;
     client: ClientClass;
     documents?: any[];
     profile?: FluffyProfile;
 }
-export interface FriskyBusiness {
+export interface Business1 {
     id: string;
 }
 export interface FluffyProfile {
@@ -3787,11 +4218,11 @@ export interface ClientUpdateClientRequest {
  * параметры запроса
  */
 export interface ClientUpdateClientRequestParams {
-    business: MischievousBusiness;
+    business?: Business2;
     client: ClientClass;
     network?: IndigoNetwork;
 }
-export interface MischievousBusiness {
+export interface Business2 {
     /**
      * идентификатор бизнеса
      */
@@ -3833,13 +4264,131 @@ export interface ClientUpdateClientResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
     message: string;
 }
 export interface ClientUpdateClientResponseResult {
+    added_document?: {
+        [key: string]: any;
+    };
+    success: boolean;
+}
+export interface UpdateClientInfo {
+    request: ClientUpdateClientInfoRequest;
+    response: ClientUpdateClientInfoResponse;
+}
+export interface ClientUpdateClientInfoRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: ClientUpdateClientInfoRequestParams;
+}
+/**
+ * параметры запроса
+ */
+export interface ClientUpdateClientInfoRequestParams {
+    business?: Business3;
+    client: StickyClient;
+    network?: IndecentNetwork;
+}
+export interface Business3 {
+    /**
+     * идентификатор бизнеса
+     */
+    id: BackofficeIdUnion;
+}
+/**
+ * Данные клиента доступные для обновления клиентом
+ */
+export interface StickyClient {
+    address?: string;
+    birthday?: Birthday;
+    description?: string;
+    email?: string[];
+    extraFields?: PurpleExtraField[];
+    favResources?: PurpleFavResource[];
+    icon_url?: string;
+    id?: string;
+    insuranceNumber?: string;
+    language?: LanguageList;
+    middleName?: null | string;
+    name: string;
+    passportId?: string;
+    sex?: Sex;
+    surname: string;
+}
+export interface PurpleExtraField {
+    fieldID: string;
+    fieldName: string;
+    value?: FluffyValue;
+}
+export interface PurpleFavResource {
+    businessID: number;
+    networkID: string;
+    resourceID: string;
+}
+export interface IndecentNetwork {
+    /**
+     * идентификатор нетворка
+     */
+    id?: BackofficeIdUnion;
+}
+export interface ClientUpdateClientInfoResponse {
+    result?: ClientUpdateClientInfoResponseResult;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: ClientUpdateClientInfoResponseError;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id?: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc?: string;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface ClientUpdateClientInfoResponseError {
+    /**
+     * код ошибки
+     *
+     * код ошибки создания клиента
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
+export interface ClientUpdateClientInfoResponseResult {
     added_document?: {
         [key: string]: any;
     };
@@ -3880,11 +4429,11 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
     params: CracCracDistributedResourcesFreeByDateRequestParam[];
 }
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business: BraggadociousBusiness;
+    business: Business4;
     resources: string[];
     taxonomy: PurpleTaxonomy;
 }
-export interface BraggadociousBusiness {
+export interface Business4 {
     id: string;
 }
 export interface PurpleTaxonomy {
@@ -3918,7 +4467,7 @@ export interface CracCracDistributedResourcesFreeByDateResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -3995,7 +4544,7 @@ export interface CracCracResourcesFreeByDateResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4037,13 +4586,13 @@ export interface CracCracResourcesFreeByDateV2Request {
     params: CracCracResourcesFreeByDateV2RequestParam[];
 }
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business: Business1;
+    business: Business5;
     duration: number;
     durations: number[];
     resources: string[];
     taxonomy: TentacledTaxonomy;
 }
-export interface Business1 {
+export interface Business5 {
     id: string;
 }
 export interface TentacledTaxonomy {
@@ -4077,7 +4626,7 @@ export interface CracCracResourcesFreeByDateV2ResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4189,7 +4738,7 @@ export interface CracSlotsGetCracDistributedResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4283,7 +4832,7 @@ export interface CracSlotsGetCracInsuranceResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */
@@ -4377,7 +4926,7 @@ export interface CracSlotsGetCracResourcesAndRoomsResponseError {
     /**
      * дополнительные данные об ошибке
      */
-    data?: string;
+    data?: Data;
     /**
      * текстовая информация об ошибке
      */

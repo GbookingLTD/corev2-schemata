@@ -7,12 +7,13 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса business.get_profile_by_id
  */
 public class BusinessGetProfileByIDRequestParams {
-    private IndigoBusiness business;
+    private MagentaBusiness business;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
     private FluffyTimeFrameDate showcaseBusinessID;
     private Boolean skipWorkerSorting;
+    private Boolean useOptimizedCache;
     private Boolean withBilling;
     private Boolean withBop;
     private Boolean withCampaigns;
@@ -24,9 +25,9 @@ public class BusinessGetProfileByIDRequestParams {
     private WorkerSortingType workerSortingType;
 
     @JsonProperty("business")
-    public IndigoBusiness getBusiness() { return business; }
+    public MagentaBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(IndigoBusiness value) { this.business = value; }
+    public void setBusiness(MagentaBusiness value) { this.business = value; }
 
     /**
      * если указано true - меняет формат представления discounts
@@ -68,6 +69,14 @@ public class BusinessGetProfileByIDRequestParams {
     public Boolean getSkipWorkerSorting() { return skipWorkerSorting; }
     @JsonProperty("skip_worker_sorting")
     public void setSkipWorkerSorting(Boolean value) { this.skipWorkerSorting = value; }
+
+    /**
+     * содержит только доступные для записи наборы услуг и работников
+     */
+    @JsonProperty("use_optimized_cache")
+    public Boolean getUseOptimizedCache() { return useOptimizedCache; }
+    @JsonProperty("use_optimized_cache")
+    public void setUseOptimizedCache(Boolean value) { this.useOptimizedCache = value; }
 
     /**
      * если указано true - возвращает историю биллинга в поле billing (недоступно для роли guest)

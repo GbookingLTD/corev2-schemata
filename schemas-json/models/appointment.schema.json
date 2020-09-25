@@ -21,6 +21,15 @@
                 },
                 "extraId": {
                     "type": "string"
+                },
+                "siteId": {
+                    "type": "string"
+                },
+                "confirmationAlert": {
+                    "type": "string"
+                },
+                "extraDescription": {
+                    "type": "string"
                 }
             }
         },
@@ -50,6 +59,24 @@
                         "string",
                         "null"
                     ]
+                },
+                "siteId": {
+                    "type": "string"
+                },
+                "profession": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "degree": {
+                    "type": "string"
+                },
+                "experience": {
+                    "type": "string"
+                },
+                "icon_url": {
+                    "type": "string"
                 }
             }
         },
@@ -160,12 +187,7 @@
             ]
         },
         "AppointmentClientAppear": {
-            "type": "string",
-            "enum": [
-                "YES_APPEAR",
-                "NO_APPEAR",
-                "NONE"
-            ]
+            "$ref": "./partials/clientAppear.schema.json"
         },
         "Review": {
             "type": "object",
@@ -234,7 +256,9 @@
                         "number",
                         "string",
                         "object",
-                        "null"
+                        "null",
+                        "boolean",
+                        "array"
                     ]
                 }
             }
@@ -449,10 +473,16 @@
                     "type": "number"
                 },
                 "incomingPhone": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Phone"
-                    }
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Phone"
+                        },
+                        {
+                            "type": "object",
+                            "description": "пустой объект в момент резервирования",
+                            "required": []
+                        }
+                    ]
                 },
                 "shortId": {
                     "type": "string"
@@ -475,9 +505,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "amount",
-                "currency",
-                "additionalTaxonomyDiscount"
+                "currency"
             ],
             "properties": {
                 "amount": {
@@ -1126,8 +1154,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "status",
-                "time_reminder"
+                "status"
             ],
             "properties": {
                 "status": {
@@ -1153,10 +1180,67 @@
                 }
             }
         },
+        "telemedData": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Данные для телемед конференции",
+            "required": [],
+            "properties": {
+                "joinUrl": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "startUrl": {
+                    "type": "string"
+                },
+                "shortStartUrl": {
+                    "type": "string"
+                },
+                "shortJoinUrl": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
         "clientVisitors": {
             "type": "array",
             "items": {
                 "$ref": "#/definitions/AppointmentClientVisitor"
+            }
+        },
+        "createdUser": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                },
+                "middleName": {
+                    "type": "string"
+                }
+            }
+        },
+        "third_party": {
+            "type": "array",
+            "items": {
+                "type": "object"
             }
         }
     }

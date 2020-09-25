@@ -4,16 +4,16 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentByShowcaseRequestParams {
-    private TentacledBusiness business;
+    private IndigoBusiness business;
     private ParamsCreated created;
     private double page;
     private double pageSize;
     private String source;
 
     @JsonProperty("business")
-    public TentacledBusiness getBusiness() { return business; }
+    public IndigoBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(TentacledBusiness value) { this.business = value; }
+    public void setBusiness(IndigoBusiness value) { this.business = value; }
 
     @JsonProperty("created")
     public ParamsCreated getCreated() { return created; }

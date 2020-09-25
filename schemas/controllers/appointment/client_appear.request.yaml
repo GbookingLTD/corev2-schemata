@@ -1,0 +1,38 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "schemas-json/controllers/appointment/client_appear.schema.json"
+title: "appointment.client_appear.request"
+type: "object"
+definitions:
+  ClientAppearParams:
+    type: "object"
+    required:
+      - business
+      - appointment
+    properties:
+      business:
+        type: "object"
+        required: ["id"]
+        additionalProperties: false
+        properties:
+          id:
+            type: "string"
+      appointment:
+        type: "object"
+        required: ["id", "client_appear"]
+        additionalProperties: false
+        properties:
+          id:
+            type: "string"
+          client_appear:
+            $ref: "../../models/partials/clientAppear.schema.json"
+  Request:
+    type: "object"
+    required: ["params"]
+    properties:
+      params:
+        $ref: '#/definitions/ClientAppearParams'
+
+allOf:
+  - $ref: "../../common/request.schema.json"
+  - $ref: "#/definitions/Request"
+

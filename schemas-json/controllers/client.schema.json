@@ -51,12 +51,29 @@
                 "response"
             ],
             "additionalProperties": false
+        },
+        "update_client_info": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./client/update_client_info.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./client/update_client_info.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
         }
     },
     "required": [
         "add_client",
         "find_or_create_client",
-        "update_client"
+        "update_client",
+        "update_client_info"
     ],
     "additionalProperties": false
 }

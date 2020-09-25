@@ -373,7 +373,80 @@
                     "type": "boolean",
                     "default": false
                 },
+                "resourceSurnameFirst": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showCreatedUsername": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "showClientAddress": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableInvoice": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "invoiceProvider": {
+                    "type": "string",
+                    "enum": [
+                        "DISABLE",
+                        "icount"
+                    ],
+                    "default": "DISABLE"
+                },
+                "invoiceCondition": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "YES_PAYED_ONLINE",
+                            "YES_PAYED_FULL",
+                            "YES_PAYED_PART",
+                            "NO_PAYMENT",
+                            "NONE"
+                        ]
+                    }
+                },
+                "enableTelemed": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "telemedProvider": {
+                    "type": "string",
+                    "enum": [
+                        "DISABLE",
+                        "zoom",
+                        "mmconf"
+                    ],
+                    "default": "DISABLE"
+                },
+                "telemedApplication": {
+                    "type": "object",
+                    "properties": {
+                        "urlAppSchema": {
+                            "type": "string"
+                        },
+                        "googleAppName": {
+                            "type": "string"
+                        },
+                        "appleAppName": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "enablePhoneNationalMode": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "skipServiceFiltering": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableServiceOrModeFilter": {
                     "type": "boolean",
                     "default": false
                 },
@@ -386,6 +459,10 @@
                     "default": false
                 },
                 "enableExtendedRecordsClientStatistics": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "resoureLoginHideCancelledAppointment": {
                     "type": "boolean",
                     "default": false
                 },
@@ -521,6 +598,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "showGuaranteeLettersScreen": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "schedulerWeekViewType": {
                     "type": "string",
                     "enum": [
@@ -587,7 +668,10 @@
                     "type": "string",
                     "enum": [
                         "yandexMoney",
+                        "yandexMoneyv3",
                         "deltaProcessing",
+                        "cloudpayments",
+                        "pelecard",
                         "DISABLE"
                     ]
                 },
@@ -996,7 +1080,10 @@
                     "type": "string",
                     "enum": [
                         "yandexMoney",
+                        "yandexMoneyv3",
                         "deltaProcessing",
+                        "cloudpayments",
+                        "pelecard",
                         "DISABLE"
                     ],
                     "default": "yandexMoney"
@@ -1188,6 +1275,23 @@
                     "type": "boolean",
                     "default": false
                 },
+                "sortWorkersByName": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "sortWorkers": {
+                    "type": "object",
+                    "properies": {
+                        "field": {
+                            "type": "string",
+                            "default": "name"
+                        },
+                        "dir": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    }
+                },
                 "mostFreeEnable": {
                     "type": "boolean",
                     "default": false
@@ -1319,8 +1423,50 @@
                 "worker_unavailability_text": {
                     "type": "string"
                 },
+                "service_unavailability_text": {
+                    "type": "string"
+                },
+                "worker_widget_unavailability_text": {
+                    "type": "string"
+                },
                 "middleNameSupport": {
                     "type": "boolean"
+                },
+                "analyticsGoogle": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "active": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "key": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                },
+                "analyticsYandex": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "active": {
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "key": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                },
+                "toggleReminder": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "askClientPassportID": {
+                    "type": "boolean",
+                    "default": false
                 }
             },
             "additionalProperties": false
@@ -1440,7 +1586,10 @@
                     "type": "boolean"
                 },
                 "discounts": {
-                    "$ref": "./discount.schema.json"
+                    "type": "array",
+                    "items": {
+                        "$ref": "./discount.schema.json"
+                    }
                 },
                 "additionalDurations": {
                     "type": "array",
@@ -1495,6 +1644,17 @@
                 },
                 "isOther": {
                     "type": "boolean"
+                },
+                "isTelemed": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "disableClientSmsNotifications": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "confirmationEmailAlert": {
+                    "type": "string"
                 },
                 "chargeUnitsStep": {
                     "type": "number"

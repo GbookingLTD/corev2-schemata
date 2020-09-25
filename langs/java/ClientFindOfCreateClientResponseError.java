@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class ClientFindOfCreateClientResponseError {
     private double code;
-    private String data;
+    private Data data;
     private String message;
 
     /**
@@ -27,9 +27,9 @@ public class ClientFindOfCreateClientResponseError {
      * дополнительные данные об ошибке
      */
     @JsonProperty("data")
-    public String getData() { return data; }
+    public Data getData() { return data; }
     @JsonProperty("data")
-    public void setData(String value) { this.data = value; }
+    public void setData(Data value) { this.data = value; }
 
     /**
      * текстовая информация об ошибке

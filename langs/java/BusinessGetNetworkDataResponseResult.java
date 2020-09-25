@@ -8,6 +8,8 @@ public class BusinessGetNetworkDataResponseResult {
     private List<BusinessRefInNetwork> businesses;
     private List<String> clientVIPPhones;
     private List<Map<String, Object>> grantGroups;
+    private ResultIntegrationData integrationData;
+    private NetworkClientBlockingSettings networkClientBlockingSettings;
     private String networkID;
     private Map<String, Object> networkInfo;
     private String networkName;
@@ -32,6 +34,16 @@ public class BusinessGetNetworkDataResponseResult {
     public List<Map<String, Object>> getGrantGroups() { return grantGroups; }
     @JsonProperty("grantGroups")
     public void setGrantGroups(List<Map<String, Object>> value) { this.grantGroups = value; }
+
+    @JsonProperty("integrationData")
+    public ResultIntegrationData getIntegrationData() { return integrationData; }
+    @JsonProperty("integrationData")
+    public void setIntegrationData(ResultIntegrationData value) { this.integrationData = value; }
+
+    @JsonProperty("networkClientBlockingSettings")
+    public NetworkClientBlockingSettings getNetworkClientBlockingSettings() { return networkClientBlockingSettings; }
+    @JsonProperty("networkClientBlockingSettings")
+    public void setNetworkClientBlockingSettings(NetworkClientBlockingSettings value) { this.networkClientBlockingSettings = value; }
 
     @JsonProperty("networkID")
     public String getNetworkID() { return networkID; }

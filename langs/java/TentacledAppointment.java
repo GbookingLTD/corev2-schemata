@@ -4,16 +4,16 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class TentacledAppointment {
+    private AppointmentClientAppear clientAppear;
     private String id;
-    private String source;
+
+    @JsonProperty("client_appear")
+    public AppointmentClientAppear getClientAppear() { return clientAppear; }
+    @JsonProperty("client_appear")
+    public void setClientAppear(AppointmentClientAppear value) { this.clientAppear = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }
     @JsonProperty("id")
     public void setID(String value) { this.id = value; }
-
-    @JsonProperty("source")
-    public String getSource() { return source; }
-    @JsonProperty("source")
-    public void setSource(String value) { this.source = value; }
 }

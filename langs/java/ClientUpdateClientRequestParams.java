@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса
  */
 public class ClientUpdateClientRequestParams {
-    private MagentaBusiness business;
+    private Business2 business;
     private ClientClass client;
-    private TentacledNetwork network;
+    private IndigoNetwork network;
 
     @JsonProperty("business")
-    public MagentaBusiness getBusiness() { return business; }
+    public Business2 getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(MagentaBusiness value) { this.business = value; }
+    public void setBusiness(Business2 value) { this.business = value; }
 
     @JsonProperty("client")
     public ClientClass getClient() { return client; }
@@ -22,7 +22,7 @@ public class ClientUpdateClientRequestParams {
     public void setClient(ClientClass value) { this.client = value; }
 
     @JsonProperty("network")
-    public TentacledNetwork getNetwork() { return network; }
+    public IndigoNetwork getNetwork() { return network; }
     @JsonProperty("network")
-    public void setNetwork(TentacledNetwork value) { this.network = value; }
+    public void setNetwork(IndigoNetwork value) { this.network = value; }
 }

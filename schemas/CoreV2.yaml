@@ -24,7 +24,7 @@ properties:
       Client:
         $ref: "./controllers/client.schema.json"
       CracSlots:
-        $ref: "./controllers/cracSlots.schema.json"
+        $ref: "./controllers/CracSlots.schema.json"
     required:
       - Appointment
       - Business

@@ -8,7 +8,7 @@ public class AppointmentCancelAppointmentByClientRequest {
     private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
-    private AppointmentCancelAppointmentByClientRequestParams params;
+    private CancelAppointmentByClientParams params;
 
     /**
      * авторизационные параметры
@@ -46,7 +46,7 @@ public class AppointmentCancelAppointmentByClientRequest {
      * параметры запроса
      */
     @JsonProperty("params")
-    public AppointmentCancelAppointmentByClientRequestParams getParams() { return params; }
+    public CancelAppointmentByClientParams getParams() { return params; }
     @JsonProperty("params")
-    public void setParams(AppointmentCancelAppointmentByClientRequestParams value) { this.params = value; }
+    public void setParams(CancelAppointmentByClientParams value) { this.params = value; }
 }

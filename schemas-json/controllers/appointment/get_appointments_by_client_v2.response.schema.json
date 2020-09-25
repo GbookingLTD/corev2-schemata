@@ -30,6 +30,7 @@
                                         -10000,
                                         -10001,
                                         -10200,
+                                        -11200,
                                         -11800,
                                         -14100,
                                         -14500,
@@ -46,6 +47,7 @@
                                         "-10000": "UNKNOWN_ERROR - Unknown error occurred",
                                         "-10001": "BUSINESS_DATA_MISSING - Business data missing",
                                         "-10200": "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business",
+                                        "-11200": "CLIENT_RETRIEVE_FAILED - Failed to retrieve client",
                                         "-11800": "CLIENT_IN_BLACKLIST - Client in blacklist",
                                         "-14100": "APPOINTMENT_CREATE_FAILED - Failed to create appointment",
                                         "-14500": "APPOINTMENT_DATA_MISSING - Appointment data missing",
@@ -77,31 +79,11 @@
         },
         "AppointmentGetAppointmentsByClientV2ResponseResult": {
             "title": "AppointmentGetAppointmentsByClientV2ResponseResult",
-            "type": "object",
             "description": "данные, передаваемые в ответ",
             "additionalProperties": false,
-            "required": [
-                "page",
-                "unconfirmed",
-                "total",
-                "data"
-            ],
-            "properties": {
-                "page": {
-                    "type": "number"
-                },
-                "unconfirmed": {
-                    "type": "number"
-                },
-                "total": {
-                    "type": "number"
-                },
-                "data": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "../../models/appointment.schema.json"
-                    }
-                }
+            "type": "array",
+            "items": {
+                "$ref": "../../models/appointment.schema.json"
             }
         },
         "SuccessResponse": {

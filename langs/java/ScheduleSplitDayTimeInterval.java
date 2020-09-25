@@ -4,6 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class ScheduleSplitDayTimeInterval {
+    private String id;
     private Double endHour;
     private Double endMinute;
     private Double schedulerTick;
@@ -11,6 +12,11 @@ public class ScheduleSplitDayTimeInterval {
     private Double startHour;
     private Double startMinute;
     private String title;
+
+    @JsonProperty("_id")
+    public String getID() { return id; }
+    @JsonProperty("_id")
+    public void setID(String value) { this.id = value; }
 
     @JsonProperty("endHour")
     public Double getEndHour() { return endHour; }

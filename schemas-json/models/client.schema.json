@@ -39,16 +39,16 @@
             }
         },
         "fax": {
-            "type": "array",
-            "items": {
-                "$ref": "./phone.schema.json"
-            }
+            "type": "string"
         },
         "email": {
             "type": "array",
             "items": {
                 "type": "string"
             }
+        },
+        "description": {
+            "type": "string"
         },
         "fromSms": {
             "type": [
@@ -86,13 +86,13 @@
             ]
         },
         "receiveSmsAfterService": {
-            "type": "string"
+            "type": "boolean"
         },
         "icon_url": {
             "type": "string"
         },
         "blackList": {
-            "type": "string"
+            "type": "boolean"
         },
         "passportId": {
             "type": "string"
@@ -138,10 +138,24 @@
             "type": "string"
         },
         "israelCity": {
-            "type": "string"
+            "properties": {
+                "cityId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
         },
         "kupatHolim": {
-            "type": "string"
+            "properties": {
+                "kupatHolimId": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
         },
         "isVIP": {
             "type": "boolean",
@@ -165,8 +179,7 @@
                 "type": "object",
                 "required": [
                     "fieldID",
-                    "fieldName",
-                    "value"
+                    "fieldName"
                 ],
                 "additionalProperties": false,
                 "properties": {
@@ -249,9 +262,6 @@
         },
         "integrationData": {
             "type": "object",
-            "required": [
-                "transactionID"
-            ],
             "additionalProperties": false,
             "properties": {
                 "transactionID": {
@@ -288,6 +298,56 @@
                 "number",
                 "null",
                 "string"
+            ]
+        },
+        "statistics": {
+            "type": "object",
+            "properties": {
+                "appointmentsCount": {
+                    "type": "number"
+                },
+                "businesses": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "lastAppointment": {
+                    "type": "string"
+                },
+                "lastBusinessId": {
+                    "type": "string"
+                },
+                "lastWorkerId": {
+                    "type": "string"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "totalPrices": {
+                    "type": "array"
+                }
+            }
+        },
+        "created": {
+            "type": "string"
+        },
+        "updated": {
+            "type": "string"
+        },
+        "lastVisitedAppointment": {
+            "type": [
+                "object",
+                "null"
+            ]
+        },
+        "lastCreatedAppointment": {
+            "type": [
+                "object",
+                "null"
             ]
         }
     }

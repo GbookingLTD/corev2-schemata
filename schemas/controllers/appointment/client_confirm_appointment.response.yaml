@@ -24,6 +24,7 @@ definitions:
                   - -10200
                   - -11800
                   - -14100
+                  - -14302
                   - -14500
                   - -14600
                   - -14610
@@ -33,18 +34,21 @@ definitions:
                   - -14900
                   - -14901
                   - -15200
+                  - -14300
                   - -14308
                   - -14309
                   - -14310
                   - -14311
                   - -14312
                   - -14313
+                  - -14320
                 meta:enum:
                   -10000: "UNKNOWN_ERROR - Unknown error occurred"
                   -10001: "BUSINESS_DATA_MISSING - Business data missing"
                   -10200: "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business"
                   -11800: "CLIENT_IN_BLACKLIST - Client in blacklist"
                   -14100: "APPOINTMENT_CREATE_FAILED - Failed to create appointment"
+                  -14302: "APPOINTMENT_CLIENT_OVERLAPPED - Client has another record in this time"
                   -14500: "APPOINTMENT_DATA_MISSING - Appointment data missing"
                   -14600: "APPOINTMENT_RESOURCE_TAXONOMY_MISMATCH - Selected resource cannot supply requested service"
                   -14610: "APPOINTMENT_RESOURCE_TAXONOMY_UNAVAILABLE - Selected resource no longer provides requested service"
@@ -60,6 +64,7 @@ definitions:
                   -14311: "APPOINTMENT_MIS_CONFIRM_CLEINT_NOT_FOUND"
                   -14312: "APPOINTMENT_MIS_UPDATE_FATAL_ERROR"
                   -14313: "APPOINTMENT_MIS_UPDATE_FAIL"
+                  -14320: "APPOINTMENT_TELE_CREATE_FAIL"
 
   ErrorResponse:
     allOf:

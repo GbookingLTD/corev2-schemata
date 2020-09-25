@@ -148,6 +148,9 @@ properties:
         type: "boolean"
         default: false
 
+  maxFilterDateDuration: 
+    type: "number"
+
 required:
 - "general_info"
 - "widget_configuration"
@@ -217,7 +220,7 @@ definitions:
         - equal: "Цена ровно как указана в поле amount"
         - begin_with: "Цена \"от\" - в поле amount указано начальное значение"
         - average: "Средняя цена (deprecated)"
-    required: ["currency", "amount", "stockAmount", "type"]
+    required: ["currency", "amount", "type"]
     additionalProperties: false
 
   AdditionalBusinessTaxonomyPrice:
@@ -408,6 +411,15 @@ definitions:
         type: "boolean"
       chargeUnitsStep:
         type: "number"
+      isTelemed:
+        type: "boolean"
+        default: false
+      disableClientSmsNotifications:
+        type: "boolean"
+        default: false
+      confirmationEmailAlert:
+        type: "string"
+
       forPay:
         type: "boolean"
         default: false
@@ -550,6 +562,18 @@ definitions:
       skipServiceFiltering:
         type: "boolean"
         default: false
+      enableServiceOrModeFilter:
+        type: "boolean"
+        default: false
+      resourceSurnameFirst:
+        type: "boolean"
+        default: false
+      showCreatedUsername:
+        type: "boolean"
+        default: false
+      enablePhoneNationalMode:
+        type: "boolean"
+        default: false
       skipAppointmentPriceUpdate:
         type: "boolean"
         default: false
@@ -557,6 +581,9 @@ definitions:
         type: "boolean"
         default: false
       enableExtendedRecordsClientStatistics:
+        type: "boolean"
+        default: false
+      resoureLoginHideCancelledAppointment:
         type: "boolean"
         default: false
       pastTimeEdit:
@@ -571,6 +598,38 @@ definitions:
       showClientContractNumber:
         type: "boolean"
         default: false
+      showClientAddress:
+        type: "boolean"
+        default: false
+      enableTelemed:
+        type: "boolean"
+        default: false
+      enableInvoice:
+        type: "boolean"
+        default: false
+      invoiceProvider:
+        type: "string"
+        enum: ["DISABLE", "icount"]
+        default: "DISABLE"
+      invoiceCondition:
+        type: "array"
+        items:
+          type: "string"
+          enum: ["YES_PAYED_ONLINE", "YES_PAYED_FULL", "YES_PAYED_PART", "NO_PAYMENT", "NONE"]
+      telemedProvider:
+        type: "string"
+        enum: ["DISABLE", "zoom", "mmconf"]
+        default: "DISABLE"
+      telemedApplication:
+        type: "object"
+        properties:
+          urlAppSchema: 
+            type: "string"
+          googleAppName: 
+            type: "string"
+          appleAppName: 
+            type: "string"
+        additionalProperties: false
       showGapWindow:
         type: "boolean"
         default: false
@@ -658,6 +717,9 @@ definitions:
       showGeneratableReportsScreen:
         type: "boolean"
         default: false
+      showGuaranteeLettersScreen:
+        type: "boolean"
+        default: false
       schedulerWeekViewType:
         type: "string"
         enum: ["week", "workWeek"]
@@ -676,6 +738,8 @@ definitions:
         items:
           type: "object"
           properties:
+            _id:
+              type: "string"
             title:
               type: "string"
             selected:
@@ -731,7 +795,7 @@ definitions:
         default: false
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
+        enum: ["yandexMoney", "yandexMoneyv3", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
       showDefaulterBlockscreen:
         type: "boolean"
         default: false
@@ -794,6 +858,9 @@ definitions:
       finName:
         type: "string"
       enableServiceTimeLimit:
+        type: "boolean"
+        default: false
+      enablePrintingReportRecordsScreen:
         type: "boolean"
         default: false
       showGender:
@@ -1011,7 +1078,7 @@ definitions:
         default: "WITHOUT"
       paymentProvider:
         type: "string"
-        enum: ["yandexMoney", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
+        enum: ["yandexMoney", "yandexMoneyv3", "deltaProcessing", "cloudpayments", "pelecard", "DISABLE"]
         default: "yandexMoney"
       alignmentTaxonomySlots:
         type: "boolean"
@@ -1141,6 +1208,18 @@ definitions:
       sortWorkersByWorkload:
         type: "boolean"
         default: false
+      sortWorkersByName:
+        type: "boolean"
+        default: false
+      sortWorkers:
+        type: "object"
+        properies:
+          field:
+            type: "string"
+            default: "name"
+          dir:
+            type: "string"
+            default: "asc"          
       mostFreeEnable:
         type: "boolean"
         default: false
@@ -1233,6 +1312,41 @@ definitions:
         additionalProperties: true
       worker_unavailability_text:
         type: "string"
+      service_unavailability_text:
+        type: "string"
+      worker_widget_unavailability_text:
+        type: "string"
       middleNameSupport:
         type: "boolean"
+      analyticsGoogle:
+        type: "object"
+        additionalProperties: false
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          key:
+            type: "string"
+            default: ""
+
+      analyticsYandex:
+        type: "object"
+        additionalProperties: false
+        properties:
+          active:
+            type: "boolean"
+            default: false
+          key:
+            type: "string"
+            default: ""
+
+
+      toggleReminder:
+        type: "boolean"
+        default: false
+
+      askClientPassportID:
+        type: "boolean"
+        default: false
+
     additionalProperties: false

@@ -35,6 +35,7 @@ public class Appointment {
     private String clientComment;
     private List<AppointmentClientVisitor> clientVisitors;
     private String color;
+    private CreatedUser createdUser;
     private String destinationKeyword;
     private String destinationLink;
     private List<ExtraField> extraFields;
@@ -53,7 +54,7 @@ public class Appointment {
     private String promoCode;
     private String refererLink;
     private String referrer;
-    private Reminder reminder;
+    private ResultReminder reminder;
     private List<RemovedClientsDatum> removedClientsData;
     private AppointmentResource resource;
     private Review review;
@@ -62,6 +63,8 @@ public class Appointment {
     private String socialToken;
     private String source;
     private AppointmentTaxonomy taxonomy;
+    private AppointmentTelemedData telemedData;
+    private List<Map<String, Object>> thirdParty;
     private Map<String, Object> utm;
     private Boolean withCoSale;
 
@@ -205,6 +208,11 @@ public class Appointment {
     @JsonProperty("color")
     public void setColor(String value) { this.color = value; }
 
+    @JsonProperty("createdUser")
+    public CreatedUser getCreatedUser() { return createdUser; }
+    @JsonProperty("createdUser")
+    public void setCreatedUser(CreatedUser value) { this.createdUser = value; }
+
     @JsonProperty("destinationKeyword")
     public String getDestinationKeyword() { return destinationKeyword; }
     @JsonProperty("destinationKeyword")
@@ -296,9 +304,9 @@ public class Appointment {
     public void setReferrer(String value) { this.referrer = value; }
 
     @JsonProperty("reminder")
-    public Reminder getReminder() { return reminder; }
+    public ResultReminder getReminder() { return reminder; }
     @JsonProperty("reminder")
-    public void setReminder(Reminder value) { this.reminder = value; }
+    public void setReminder(ResultReminder value) { this.reminder = value; }
 
     @JsonProperty("removedClientsData")
     public List<RemovedClientsDatum> getRemovedClientsData() { return removedClientsData; }
@@ -339,6 +347,19 @@ public class Appointment {
     public AppointmentTaxonomy getTaxonomy() { return taxonomy; }
     @JsonProperty("taxonomy")
     public void setTaxonomy(AppointmentTaxonomy value) { this.taxonomy = value; }
+
+    /**
+     * Данные для телемед конференции
+     */
+    @JsonProperty("telemedData")
+    public AppointmentTelemedData getTelemedData() { return telemedData; }
+    @JsonProperty("telemedData")
+    public void setTelemedData(AppointmentTelemedData value) { this.telemedData = value; }
+
+    @JsonProperty("third_party")
+    public List<Map<String, Object>> getThirdParty() { return thirdParty; }
+    @JsonProperty("third_party")
+    public void setThirdParty(List<Map<String, Object>> value) { this.thirdParty = value; }
 
     @JsonProperty("utm")
     public Map<String, Object> getUtm() { return utm; }

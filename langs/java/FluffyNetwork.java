@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.*;
 public class FluffyNetwork {
     private FluffyTimeFrameDate id;
 
-    /**
-     * идентификатор нетворка
-     */
     @JsonProperty("id")
     public FluffyTimeFrameDate getID() { return id; }
     @JsonProperty("id")

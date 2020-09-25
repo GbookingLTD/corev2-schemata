@@ -11,7 +11,9 @@ import com.fasterxml.jackson.databind.annotation.*;
 @JsonSerialize(using = PurpleValue.Serializer.class)
 public class PurpleValue {
     public Double doubleValue;
+    public Boolean boolValue;
     public String stringValue;
+    public List<Object> anythingArrayValue;
     public Map<String, Object> anythingMapValue;
 
     static class Deserializer extends JsonDeserializer<PurpleValue> {
@@ -25,8 +27,15 @@ public class PurpleValue {
             case VALUE_NUMBER_FLOAT:
                 value.doubleValue = jsonParser.readValueAs(Double.class);
                 break;
+            case VALUE_TRUE:
+            case VALUE_FALSE:
+                value.boolValue = jsonParser.readValueAs(Boolean.class);
+                break;
             case VALUE_STRING:
                 value.stringValue = jsonParser.readValueAs(String.class);
+                break;
+            case START_ARRAY:
+                value.anythingArrayValue = jsonParser.readValueAs(new TypeReference<List<Object>>() {});
                 break;
             case START_OBJECT:
                 value.anythingMapValue = jsonParser.readValueAs(Map.class);
@@ -44,8 +53,16 @@ public class PurpleValue {
                 jsonGenerator.writeObject(obj.doubleValue);
                 return;
             }
+            if (obj.boolValue != null) {
+                jsonGenerator.writeObject(obj.boolValue);
+                return;
+            }
             if (obj.stringValue != null) {
                 jsonGenerator.writeObject(obj.stringValue);
+                return;
+            }
+            if (obj.anythingArrayValue != null) {
+                jsonGenerator.writeObject(obj.anythingArrayValue);
                 return;
             }
             if (obj.anythingMapValue != null) {

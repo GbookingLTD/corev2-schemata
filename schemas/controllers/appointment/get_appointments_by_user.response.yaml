@@ -56,25 +56,11 @@ definitions:
 
   AppointmentGetAppointmentsByUserResponseResult:
     title: "AppointmentGetAppointmentsByUserResponseResult"
-    type: "object"
     description: "данные, передаваемые в ответ"
     additionalProperties: false
-    required:
-      - page
-      - unconfirmed
-      - total
-      - data
-    properties:
-      page:
-        type: "number"
-      unconfirmed:
-        type: "number"
-      total:
-        type: "number"
-      data:
-        type: "array"
-        items:
-          $ref: "../../models/appointment.schema.json"
+    type: "array"
+    items:
+      $ref: "../../models/appointment.schema.json"
 
   SuccessResponse:
     type: "object"
@@ -88,7 +74,22 @@ definitions:
         description: "значение числового типа для идентификации запроса на сервере"
         type: "number"
       result:
-        $ref: "#/definitions/AppointmentGetAppointmentsByUserResponseResult"
+        type: "object"
+        required:
+          - page
+          - data
+          - total
+        properties:
+          page:
+            type: "number"
+          unconfirmed:
+            type: "number"
+          total:
+            type: "number"
+          data:
+            type: "array"
+            items:
+              $ref: "../../models/appointment.schema.json"
 
     required:
       - "jsonrpc"

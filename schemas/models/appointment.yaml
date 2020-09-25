@@ -15,6 +15,12 @@ definitions:
         type: "string"
       extraId:
         type: "string"
+      siteId:
+        type: "string"
+      confirmationAlert:
+        type: "string"
+      extraDescription:
+        type: "string"
 
   AppointmentResource:
     type: "object"
@@ -31,6 +37,18 @@ definitions:
         type: "string"
       extraID:
         type: ["string", "null"]
+      siteId:
+        type: "string"
+      profession:
+        type: "string"
+      description:
+        type: "string"
+      degree:
+        type: "string"
+      experience:
+        type: "string"
+      icon_url:
+        type: "string"
 
   CamelPhone:
     type: "object"
@@ -107,11 +125,7 @@ definitions:
       - "NONE"
 
   AppointmentClientAppear:
-    type: "string"
-    enum:
-      - "YES_APPEAR"
-      - "NO_APPEAR"
-      - "NONE"
+    $ref: "./partials/clientAppear.schema.json"
 
   Review:
     type: "object"
@@ -151,7 +165,7 @@ definitions:
       fieldName:
         type: "string"
       value:
-        type: ["number", "string", "object", "null"]
+        type: ["number", "string", "object", "null", "boolean", "array"]
 
   AppointmentClient:
     type: "object"
@@ -244,9 +258,11 @@ definitions:
       extraVisitors:
         type: "number"
       incomingPhone:
-        type: "array"
-        items:
-          $ref: "#/definitions/Phone"
+        oneOf:
+          - $ref: "#/definitions/Phone"
+          - type: "object"
+            description: "пустой объект в момент резервирования"
+            required: []
       shortId:
         type: "string"
       phone:
@@ -262,9 +278,7 @@ definitions:
     type: "object"
     additionalProperties: false
     required:
-      - amount
       - currency
-      - additionalTaxonomyDiscount
     properties:
       amount:
         type: "number"
@@ -359,7 +373,7 @@ definitions:
           extraId:
             type: ["string", "null"]
 
-  AppointmentClientVisitor:           
+  AppointmentClientVisitor:
     type: "object"
     additionalProperties: true
     properties:
@@ -705,7 +719,7 @@ properties:
   reminder:
     type: "object"
     additionalProperties: false
-    required: ["status", "time_reminder"]
+    required: ["status"]
     properties:
       status:
         type: "string"
@@ -713,11 +727,49 @@ properties:
       time_reminder:
         type: "number"
         enum: [0, 1, 2, 4, 6, 8, 12, 24]
+  telemedData:
+    type: "object"
+    additionalProperties: false
+    description: "Данные для телемед конференции"
+    required: []
+    properties:
+      joinUrl:
+        type: "string"
+      id:
+        type: "string"
+      startUrl:
+        type: "string"
+      shortStartUrl:
+        type: "string"
+      shortJoinUrl:
+        type: "string"
+      password:
+        type: "string"
 
   clientVisitors:
     type: "array"
     items:
       $ref: "#/definitions/AppointmentClientVisitor"
 
+  createdUser:
+    type: "object"
+    additionalProperties: false
+    required:
+      - "id"
+      - "name"
+    properties:
+      id:
+        type: "string"
+      email:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      middleName:
+        type: "string"
 
-
+  third_party:
+    type: "array"
+    items:
+      type: "object"

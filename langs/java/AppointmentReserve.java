@@ -4,22 +4,22 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentReserve {
-    private IndigoAppointment appointment;
-    private StickyBusiness business;
+    private HilariousAppointment appointment;
+    private AmbitiousBusiness business;
     private String originBusinessID;
     private PurpleResource resource;
     private String source;
     private PurpleTaxonomy taxonomy;
 
     @JsonProperty("appointment")
-    public IndigoAppointment getAppointment() { return appointment; }
+    public HilariousAppointment getAppointment() { return appointment; }
     @JsonProperty("appointment")
-    public void setAppointment(IndigoAppointment value) { this.appointment = value; }
+    public void setAppointment(HilariousAppointment value) { this.appointment = value; }
 
     @JsonProperty("business")
-    public StickyBusiness getBusiness() { return business; }
+    public AmbitiousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(StickyBusiness value) { this.business = value; }
+    public void setBusiness(AmbitiousBusiness value) { this.business = value; }
 
     @JsonProperty("originBusinessID")
     public String getOriginBusinessID() { return originBusinessID; }

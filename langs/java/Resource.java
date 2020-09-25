@@ -12,6 +12,7 @@ public class Resource {
     private double capacity;
     private String color;
     private String degree;
+    private Boolean denyWidgetBooking;
     private String departmentID;
     private String description;
     private Boolean displayInSchedule;
@@ -58,6 +59,8 @@ public class Resource {
     private List<String> taxonomies;
     private List<ResourceTaxonomyChildren> taxonomyChildren;
     private List<ResourceTaxonomyLevel> taxonomyLevels;
+    private ResourceTelemedData telemedData;
+    private Boolean telemedWorker;
     private Timetable timetable;
     private Map<String, Object> userData;
     private String workPlace;
@@ -95,6 +98,11 @@ public class Resource {
     public String getDegree() { return degree; }
     @JsonProperty("degree")
     public void setDegree(String value) { this.degree = value; }
+
+    @JsonProperty("denyWidgetBooking")
+    public Boolean getDenyWidgetBooking() { return denyWidgetBooking; }
+    @JsonProperty("denyWidgetBooking")
+    public void setDenyWidgetBooking(Boolean value) { this.denyWidgetBooking = value; }
 
     /**
      * идентификатор отделения, к которому привязан работник
@@ -428,6 +436,16 @@ public class Resource {
     public List<ResourceTaxonomyLevel> getTaxonomyLevels() { return taxonomyLevels; }
     @JsonProperty("taxonomyLevels")
     public void setTaxonomyLevels(List<ResourceTaxonomyLevel> value) { this.taxonomyLevels = value; }
+
+    @JsonProperty("telemedData")
+    public ResourceTelemedData getTelemedData() { return telemedData; }
+    @JsonProperty("telemedData")
+    public void setTelemedData(ResourceTelemedData value) { this.telemedData = value; }
+
+    @JsonProperty("telemedWorker")
+    public Boolean getTelemedWorker() { return telemedWorker; }
+    @JsonProperty("telemedWorker")
+    public void setTelemedWorker(Boolean value) { this.telemedWorker = value; }
 
     @JsonProperty("timetable")
     public Timetable getTimetable() { return timetable; }

@@ -4,8 +4,14 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class FluffyAppointment {
+    private String clientID;
     private String id;
     private String shortID;
+
+    @JsonProperty("clientID")
+    public String getClientID() { return clientID; }
+    @JsonProperty("clientID")
+    public void setClientID(String value) { this.clientID = value; }
 
     @JsonProperty("id")
     public String getID() { return id; }

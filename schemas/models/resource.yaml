@@ -221,6 +221,9 @@ properties:
   telemedWorker:
     definition: "сотрудник выполняет услуги связанные с телемедом"
     type: "boolean"
+  denyWidgetBooking:
+    definition: "Запретить запись с виджета на специалиста"
+    type: "boolean"
   timetable:
     definition: "таблица с регулярным еженедельным расписанием работника"
     $ref: "./timetable.schema.json"
@@ -267,6 +270,14 @@ properties:
     type: "string"
   badIconResolution:
     type: "boolean"
+  telemedData:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      active:
+        type: "boolean"
+      
 required:
   - "revisionVersion"
   - "capacity"

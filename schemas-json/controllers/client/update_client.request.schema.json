@@ -15,7 +15,6 @@
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
-                        "business",
                         "client"
                     ],
                     "properties": {

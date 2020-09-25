@@ -26,10 +26,15 @@ public class BusinessBackofficeConfiguration {
     private Boolean enableCustomOnlinePaymentConfirmation;
     private Boolean enableExtendedPhone;
     private Boolean enableExtendedRecordsClientStatistics;
+    private Boolean enableInvoice;
     private Boolean enableMasterImportance;
+    private Boolean enablePhoneNationalMode;
+    private Boolean enablePrintingReportRecordsScreen;
+    private Boolean enableServiceOrModeFilter;
     private Boolean enableServiceTimeLimit;
     private Boolean enableSourceChoice;
     private Boolean enableTaxonomyChildrenAgeCheck;
+    private Boolean enableTelemed;
     private Boolean exportToExcelRemovedClients;
     private String feedbackCustomerPortalMessage;
     private String feedbackCustomerPortalThankYouMessage;
@@ -39,12 +44,16 @@ public class BusinessBackofficeConfiguration {
     private String finName;
     private Boolean hideCustomerPortalFooter;
     private Boolean highlightedResource;
+    private List<AppointmentClientPayment> invoiceCondition;
+    private InvoiceProvider invoiceProvider;
     private Boolean manualExceptionSupport;
     private Boolean noInternetAlert;
     private Double pastTimeEdit;
-    private FluffyPaymentProvider paymentProvider;
+    private PaymentProvider paymentProvider;
     private Boolean readonlyResourceSchedule;
+    private Boolean resourceSurnameFirst;
     private ResourceTimetableType resourceTimetableType;
+    private Boolean resoureLoginHideCancelledAppointment;
     private Double revisionVersion;
     private Boolean schduleWeekViewIsDefault;
     private Double scheduleDefaultWorkersLimit;
@@ -57,12 +66,14 @@ public class BusinessBackofficeConfiguration {
     private Boolean showAdditionalFields;
     private Boolean showAddress;
     private Boolean showBirthDate;
+    private Boolean showClientAddress;
     private Boolean showClientAppear;
     private Boolean showClientAppearOnSchedule;
     private Boolean showClientBirthdayFilter;
     private Boolean showClientContractNumber;
     private Boolean showClientImage;
     private Boolean showClientPayment;
+    private Boolean showCreatedUsername;
     private Boolean showDefaulterBlockscreen;
     private Boolean showDeliveryStatus;
     private Boolean showDepartmentFilter;
@@ -77,6 +88,7 @@ public class BusinessBackofficeConfiguration {
     private Boolean showGender;
     private Boolean showGenderInRecords;
     private Boolean showGeneratableReportsScreen;
+    private Boolean showGuaranteeLettersScreen;
     private Boolean showHouseNumber;
     private Boolean showIsraelCity;
     private Boolean showKupatHolim;
@@ -102,6 +114,8 @@ public class BusinessBackofficeConfiguration {
     private List<Map<String, Object>> stateLevelHolidays;
     private Boolean stateLevelHolidaysNotWorking;
     private Double taxonomyChildrenMaxAge;
+    private FluffyTelemedApplication telemedApplication;
+    private TelemedProvider telemedProvider;
     private Boolean useAdditionalDurations;
     private Boolean useAdjacentTaxonomies;
     private Boolean useAdjacentTaxonomiesSlotSplitting;
@@ -219,10 +233,30 @@ public class BusinessBackofficeConfiguration {
     @JsonProperty("enableExtendedRecordsClientStatistics")
     public void setEnableExtendedRecordsClientStatistics(Boolean value) { this.enableExtendedRecordsClientStatistics = value; }
 
+    @JsonProperty("enableInvoice")
+    public Boolean getEnableInvoice() { return enableInvoice; }
+    @JsonProperty("enableInvoice")
+    public void setEnableInvoice(Boolean value) { this.enableInvoice = value; }
+
     @JsonProperty("enableMasterImportance")
     public Boolean getEnableMasterImportance() { return enableMasterImportance; }
     @JsonProperty("enableMasterImportance")
     public void setEnableMasterImportance(Boolean value) { this.enableMasterImportance = value; }
+
+    @JsonProperty("enablePhoneNationalMode")
+    public Boolean getEnablePhoneNationalMode() { return enablePhoneNationalMode; }
+    @JsonProperty("enablePhoneNationalMode")
+    public void setEnablePhoneNationalMode(Boolean value) { this.enablePhoneNationalMode = value; }
+
+    @JsonProperty("enablePrintingReportRecordsScreen")
+    public Boolean getEnablePrintingReportRecordsScreen() { return enablePrintingReportRecordsScreen; }
+    @JsonProperty("enablePrintingReportRecordsScreen")
+    public void setEnablePrintingReportRecordsScreen(Boolean value) { this.enablePrintingReportRecordsScreen = value; }
+
+    @JsonProperty("enableServiceOrModeFilter")
+    public Boolean getEnableServiceOrModeFilter() { return enableServiceOrModeFilter; }
+    @JsonProperty("enableServiceOrModeFilter")
+    public void setEnableServiceOrModeFilter(Boolean value) { this.enableServiceOrModeFilter = value; }
 
     @JsonProperty("enableServiceTimeLimit")
     public Boolean getEnableServiceTimeLimit() { return enableServiceTimeLimit; }
@@ -238,6 +272,11 @@ public class BusinessBackofficeConfiguration {
     public Boolean getEnableTaxonomyChildrenAgeCheck() { return enableTaxonomyChildrenAgeCheck; }
     @JsonProperty("enableTaxonomyChildrenAgeCheck")
     public void setEnableTaxonomyChildrenAgeCheck(Boolean value) { this.enableTaxonomyChildrenAgeCheck = value; }
+
+    @JsonProperty("enableTelemed")
+    public Boolean getEnableTelemed() { return enableTelemed; }
+    @JsonProperty("enableTelemed")
+    public void setEnableTelemed(Boolean value) { this.enableTelemed = value; }
 
     @JsonProperty("exportToExcelRemovedClients")
     public Boolean getExportToExcelRemovedClients() { return exportToExcelRemovedClients; }
@@ -284,6 +323,16 @@ public class BusinessBackofficeConfiguration {
     @JsonProperty("highlightedResource")
     public void setHighlightedResource(Boolean value) { this.highlightedResource = value; }
 
+    @JsonProperty("invoiceCondition")
+    public List<AppointmentClientPayment> getInvoiceCondition() { return invoiceCondition; }
+    @JsonProperty("invoiceCondition")
+    public void setInvoiceCondition(List<AppointmentClientPayment> value) { this.invoiceCondition = value; }
+
+    @JsonProperty("invoiceProvider")
+    public InvoiceProvider getInvoiceProvider() { return invoiceProvider; }
+    @JsonProperty("invoiceProvider")
+    public void setInvoiceProvider(InvoiceProvider value) { this.invoiceProvider = value; }
+
     @JsonProperty("manualExceptionSupport")
     public Boolean getManualExceptionSupport() { return manualExceptionSupport; }
     @JsonProperty("manualExceptionSupport")
@@ -300,19 +349,29 @@ public class BusinessBackofficeConfiguration {
     public void setPastTimeEdit(Double value) { this.pastTimeEdit = value; }
 
     @JsonProperty("paymentProvider")
-    public FluffyPaymentProvider getPaymentProvider() { return paymentProvider; }
+    public PaymentProvider getPaymentProvider() { return paymentProvider; }
     @JsonProperty("paymentProvider")
-    public void setPaymentProvider(FluffyPaymentProvider value) { this.paymentProvider = value; }
+    public void setPaymentProvider(PaymentProvider value) { this.paymentProvider = value; }
 
     @JsonProperty("readonlyResourceSchedule")
     public Boolean getReadonlyResourceSchedule() { return readonlyResourceSchedule; }
     @JsonProperty("readonlyResourceSchedule")
     public void setReadonlyResourceSchedule(Boolean value) { this.readonlyResourceSchedule = value; }
 
+    @JsonProperty("resourceSurnameFirst")
+    public Boolean getResourceSurnameFirst() { return resourceSurnameFirst; }
+    @JsonProperty("resourceSurnameFirst")
+    public void setResourceSurnameFirst(Boolean value) { this.resourceSurnameFirst = value; }
+
     @JsonProperty("resourceTimetableType")
     public ResourceTimetableType getResourceTimetableType() { return resourceTimetableType; }
     @JsonProperty("resourceTimetableType")
     public void setResourceTimetableType(ResourceTimetableType value) { this.resourceTimetableType = value; }
+
+    @JsonProperty("resoureLoginHideCancelledAppointment")
+    public Boolean getResoureLoginHideCancelledAppointment() { return resoureLoginHideCancelledAppointment; }
+    @JsonProperty("resoureLoginHideCancelledAppointment")
+    public void setResoureLoginHideCancelledAppointment(Boolean value) { this.resoureLoginHideCancelledAppointment = value; }
 
     @JsonProperty("revisionVersion")
     public Double getRevisionVersion() { return revisionVersion; }
@@ -374,6 +433,11 @@ public class BusinessBackofficeConfiguration {
     @JsonProperty("showBirthDate")
     public void setShowBirthDate(Boolean value) { this.showBirthDate = value; }
 
+    @JsonProperty("showClientAddress")
+    public Boolean getShowClientAddress() { return showClientAddress; }
+    @JsonProperty("showClientAddress")
+    public void setShowClientAddress(Boolean value) { this.showClientAddress = value; }
+
     @JsonProperty("showClientAppear")
     public Boolean getShowClientAppear() { return showClientAppear; }
     @JsonProperty("showClientAppear")
@@ -403,6 +467,11 @@ public class BusinessBackofficeConfiguration {
     public Boolean getShowClientPayment() { return showClientPayment; }
     @JsonProperty("showClientPayment")
     public void setShowClientPayment(Boolean value) { this.showClientPayment = value; }
+
+    @JsonProperty("showCreatedUsername")
+    public Boolean getShowCreatedUsername() { return showCreatedUsername; }
+    @JsonProperty("showCreatedUsername")
+    public void setShowCreatedUsername(Boolean value) { this.showCreatedUsername = value; }
 
     @JsonProperty("showDefaulterBlockscreen")
     public Boolean getShowDefaulterBlockscreen() { return showDefaulterBlockscreen; }
@@ -473,6 +542,11 @@ public class BusinessBackofficeConfiguration {
     public Boolean getShowGeneratableReportsScreen() { return showGeneratableReportsScreen; }
     @JsonProperty("showGeneratableReportsScreen")
     public void setShowGeneratableReportsScreen(Boolean value) { this.showGeneratableReportsScreen = value; }
+
+    @JsonProperty("showGuaranteeLettersScreen")
+    public Boolean getShowGuaranteeLettersScreen() { return showGuaranteeLettersScreen; }
+    @JsonProperty("showGuaranteeLettersScreen")
+    public void setShowGuaranteeLettersScreen(Boolean value) { this.showGuaranteeLettersScreen = value; }
 
     @JsonProperty("showHouseNumber")
     public Boolean getShowHouseNumber() { return showHouseNumber; }
@@ -598,6 +672,16 @@ public class BusinessBackofficeConfiguration {
     public Double getTaxonomyChildrenMaxAge() { return taxonomyChildrenMaxAge; }
     @JsonProperty("taxonomyChildrenMaxAge")
     public void setTaxonomyChildrenMaxAge(Double value) { this.taxonomyChildrenMaxAge = value; }
+
+    @JsonProperty("telemedApplication")
+    public FluffyTelemedApplication getTelemedApplication() { return telemedApplication; }
+    @JsonProperty("telemedApplication")
+    public void setTelemedApplication(FluffyTelemedApplication value) { this.telemedApplication = value; }
+
+    @JsonProperty("telemedProvider")
+    public TelemedProvider getTelemedProvider() { return telemedProvider; }
+    @JsonProperty("telemedProvider")
+    public void setTelemedProvider(TelemedProvider value) { this.telemedProvider = value; }
 
     @JsonProperty("useAdditionalDurations")
     public Boolean getUseAdditionalDurations() { return useAdditionalDurations; }

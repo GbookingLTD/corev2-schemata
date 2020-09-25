@@ -24,10 +24,12 @@ public class BusinessTaxonomy {
     private List<ChildrenTaxonomyType> childrenTaxonomyTypes;
     private String color;
     private String confirmationAlert;
+    private String confirmationEmailAlert;
     private String confirmationSMSAlert;
     private List<FluffyDateLimit> dateLimits;
     private DateLimitType dateLimitType;
     private List<String> designs;
+    private Boolean disableClientSMSNotifications;
     private List<Discount> discounts;
     private Boolean displayInWidget;
     private Double duration;
@@ -39,6 +41,7 @@ public class BusinessTaxonomy {
     private String id;
     private List<String> images;
     private Boolean isOther;
+    private Boolean isTelemed;
     private String lastModified;
     private List<String> leaves;
     private Boolean manualChanges;
@@ -165,6 +168,11 @@ public class BusinessTaxonomy {
     @JsonProperty("confirmationAlert")
     public void setConfirmationAlert(String value) { this.confirmationAlert = value; }
 
+    @JsonProperty("confirmationEmailAlert")
+    public String getConfirmationEmailAlert() { return confirmationEmailAlert; }
+    @JsonProperty("confirmationEmailAlert")
+    public void setConfirmationEmailAlert(String value) { this.confirmationEmailAlert = value; }
+
     @JsonProperty("confirmationSmsAlert")
     public String getConfirmationSMSAlert() { return confirmationSMSAlert; }
     @JsonProperty("confirmationSmsAlert")
@@ -184,6 +192,11 @@ public class BusinessTaxonomy {
     public List<String> getDesigns() { return designs; }
     @JsonProperty("designs")
     public void setDesigns(List<String> value) { this.designs = value; }
+
+    @JsonProperty("disableClientSmsNotifications")
+    public Boolean getDisableClientSMSNotifications() { return disableClientSMSNotifications; }
+    @JsonProperty("disableClientSmsNotifications")
+    public void setDisableClientSMSNotifications(Boolean value) { this.disableClientSMSNotifications = value; }
 
     @JsonProperty("discounts")
     public List<Discount> getDiscounts() { return discounts; }
@@ -239,6 +252,11 @@ public class BusinessTaxonomy {
     public Boolean getIsOther() { return isOther; }
     @JsonProperty("isOther")
     public void setIsOther(Boolean value) { this.isOther = value; }
+
+    @JsonProperty("isTelemed")
+    public Boolean getIsTelemed() { return isTelemed; }
+    @JsonProperty("isTelemed")
+    public void setIsTelemed(Boolean value) { this.isTelemed = value; }
 
     @JsonProperty("lastModified")
     public String getLastModified() { return lastModified; }

@@ -21,6 +21,7 @@ definitions:
                 enum:
                   - -10000
                   - -10200
+                  - -11200
                   - -14308
                   - -14309
                   - -14310
@@ -30,6 +31,7 @@ definitions:
                 meta:enum:
                   -10000: "UNKNOWN_ERROR - Unknown error occurred"
                   -10200: "BUSINESS_RETRIEVE_FAILED - Failed to retrieve business"
+                  -11200: "CLIENT_RETRIEVE_FAILED - Failed to retrieve client"
                   -14308: "APPOINTMENT_MIS_CONFIRM_FAILED"
                   -14309: "APPOINTMENT_MIS_RESERVE_FAILED"
                   -14310: "APPOINTMENT_MIS_CONFIRM_CLEINT_DUPLICATE_RECORD_ERROR"

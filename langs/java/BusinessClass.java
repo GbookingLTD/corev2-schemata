@@ -24,6 +24,7 @@ public class BusinessClass {
     private Group group;
     private String id;
     private Map<String, Object> integrationData;
+    private Double maxFilterDateDuration;
     private BusinessMiniWidgetConfiguration miniWidgetConfiguration;
     private List<Object> mobileData;
     private List<Object> notifications;
@@ -136,6 +137,11 @@ public class BusinessClass {
     public Map<String, Object> getIntegrationData() { return integrationData; }
     @JsonProperty("integration_data")
     public void setIntegrationData(Map<String, Object> value) { this.integrationData = value; }
+
+    @JsonProperty("maxFilterDateDuration")
+    public Double getMaxFilterDateDuration() { return maxFilterDateDuration; }
+    @JsonProperty("maxFilterDateDuration")
+    public void setMaxFilterDateDuration(Double value) { this.maxFilterDateDuration = value; }
 
     @JsonProperty("mini_widget_configuration")
     public BusinessMiniWidgetConfiguration getMiniWidgetConfiguration() { return miniWidgetConfiguration; }

@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.*;
 public class IndecentBusiness {
     private PurpleTimeFrameDate id;
 
-    /**
-     * идентификатор бизнеса
-     */
     @JsonProperty("id")
     public PurpleTimeFrameDate getID() { return id; }
     @JsonProperty("id")

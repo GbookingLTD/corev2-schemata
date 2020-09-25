@@ -4,11 +4,10 @@
     "title": "appointment.cancel_appointment_by_client.request",
     "type": "object",
     "definitions": {
-        "CancelAppointmentByClient": {
+        "CancelAppointmentByClientParams": {
             "type": "object",
             "required": [
-                "appointment",
-                "client"
+                "appointment"
             ],
             "properties": {
                 "appointment": {
@@ -23,6 +22,9 @@
                         },
                         "shortId": {
                             "type": "string"
+                        },
+                        "clientID": {
+                            "type": "string"
                         }
                     }
                 },
@@ -34,6 +36,9 @@
                     "additionalProperties": false,
                     "properties": {
                         "id": {
+                            "type": "string"
+                        },
+                        "clientID": {
                             "type": "string"
                         },
                         "comment": {
@@ -50,7 +55,7 @@
             ],
             "properties": {
                 "params": {
-                    "$ref": "#/definitions/CancelAppointmentByClient"
+                    "$ref": "#/definitions/CancelAppointmentByClientParams"
                 }
             }
         }

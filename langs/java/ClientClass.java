@@ -8,21 +8,23 @@ import com.fasterxml.jackson.annotation.*;
  */
 public class ClientClass {
     private String address;
-    private Birthday birthday;
-    private String blackList;
+    private Data birthday;
+    private Boolean blackList;
     private List<ChildrenClient> childrenClients;
     private String clientCardCreationDate;
     private String clientCardNumber;
     private String clientContractNumber;
+    private String created;
     private String creatorProfileID;
     private String creatorProfileName;
+    private String description;
     private String discountCode;
     private String driverLicense;
     private List<String> email;
     private List<ClientExtraField> extraFields;
     private String extraID;
-    private List<FavResource> favResources;
-    private List<FaxElement> fax;
+    private List<ClientFavResource> favResources;
+    private String fax;
     private FromSMS fromSMS;
     private List<AddressSchema> fullAddress;
     private String houseNumber;
@@ -30,12 +32,14 @@ public class ClientClass {
     private String id;
     private String insuranceCompany;
     private String insuranceNumber;
-    private IntegrationDataClass integrationData;
+    private ClientIntegrationData integrationData;
     private Boolean isLazy;
-    private String israelCity;
+    private IsraelCityUnion israelCity;
     private Boolean isVIP;
-    private String kupatHolim;
+    private KupatHolimUnion kupatHolim;
     private LanguageList language;
+    private Map<String, Object> lastCreatedAppointment;
+    private Map<String, Object> lastVisitedAppointment;
     private String lazyResolvedDate;
     private String locality;
     private LoyaltyInfo loyaltyInfo;
@@ -46,16 +50,18 @@ public class ClientClass {
     private String passportIssued;
     private String passportSeries;
     private List<FaxElement> phone;
-    private String receiveSMSAfterService;
+    private Boolean receiveSMSAfterService;
     private Sex sex;
     private Boolean skipMarketingNotifications;
     private Boolean skipNotifications;
     private String snils;
+    private Statistics statistics;
     private ResourceStatus status;
     private String surname;
     private String taxiPark;
     private FluffyTimeFrameDate taxiParkMemberCount;
     private String twoFAUserID;
+    private String updated;
     private String workPlace;
 
     @JsonProperty("address")
@@ -64,14 +70,14 @@ public class ClientClass {
     public void setAddress(String value) { this.address = value; }
 
     @JsonProperty("birthday")
-    public Birthday getBirthday() { return birthday; }
+    public Data getBirthday() { return birthday; }
     @JsonProperty("birthday")
-    public void setBirthday(Birthday value) { this.birthday = value; }
+    public void setBirthday(Data value) { this.birthday = value; }
 
     @JsonProperty("blackList")
-    public String getBlackList() { return blackList; }
+    public Boolean getBlackList() { return blackList; }
     @JsonProperty("blackList")
-    public void setBlackList(String value) { this.blackList = value; }
+    public void setBlackList(Boolean value) { this.blackList = value; }
 
     @JsonProperty("childrenClients")
     public List<ChildrenClient> getChildrenClients() { return childrenClients; }
@@ -93,6 +99,11 @@ public class ClientClass {
     @JsonProperty("clientContractNumber")
     public void setClientContractNumber(String value) { this.clientContractNumber = value; }
 
+    @JsonProperty("created")
+    public String getCreated() { return created; }
+    @JsonProperty("created")
+    public void setCreated(String value) { this.created = value; }
+
     @JsonProperty("creatorProfileID")
     public String getCreatorProfileID() { return creatorProfileID; }
     @JsonProperty("creatorProfileID")
@@ -102,6 +113,11 @@ public class ClientClass {
     public String getCreatorProfileName() { return creatorProfileName; }
     @JsonProperty("creatorProfileName")
     public void setCreatorProfileName(String value) { this.creatorProfileName = value; }
+
+    @JsonProperty("description")
+    public String getDescription() { return description; }
+    @JsonProperty("description")
+    public void setDescription(String value) { this.description = value; }
 
     @JsonProperty("discountCode")
     public String getDiscountCode() { return discountCode; }
@@ -129,14 +145,14 @@ public class ClientClass {
     public void setExtraID(String value) { this.extraID = value; }
 
     @JsonProperty("favResources")
-    public List<FavResource> getFavResources() { return favResources; }
+    public List<ClientFavResource> getFavResources() { return favResources; }
     @JsonProperty("favResources")
-    public void setFavResources(List<FavResource> value) { this.favResources = value; }
+    public void setFavResources(List<ClientFavResource> value) { this.favResources = value; }
 
     @JsonProperty("fax")
-    public List<FaxElement> getFax() { return fax; }
+    public String getFax() { return fax; }
     @JsonProperty("fax")
-    public void setFax(List<FaxElement> value) { this.fax = value; }
+    public void setFax(String value) { this.fax = value; }
 
     @JsonProperty("fromSms")
     public FromSMS getFromSMS() { return fromSMS; }
@@ -174,9 +190,9 @@ public class ClientClass {
     public void setInsuranceNumber(String value) { this.insuranceNumber = value; }
 
     @JsonProperty("integrationData")
-    public IntegrationDataClass getIntegrationData() { return integrationData; }
+    public ClientIntegrationData getIntegrationData() { return integrationData; }
     @JsonProperty("integrationData")
-    public void setIntegrationData(IntegrationDataClass value) { this.integrationData = value; }
+    public void setIntegrationData(ClientIntegrationData value) { this.integrationData = value; }
 
     @JsonProperty("isLazy")
     public Boolean getIsLazy() { return isLazy; }
@@ -184,9 +200,9 @@ public class ClientClass {
     public void setIsLazy(Boolean value) { this.isLazy = value; }
 
     @JsonProperty("israelCity")
-    public String getIsraelCity() { return israelCity; }
+    public IsraelCityUnion getIsraelCity() { return israelCity; }
     @JsonProperty("israelCity")
-    public void setIsraelCity(String value) { this.israelCity = value; }
+    public void setIsraelCity(IsraelCityUnion value) { this.israelCity = value; }
 
     @JsonProperty("isVIP")
     public Boolean getIsVIP() { return isVIP; }
@@ -194,14 +210,24 @@ public class ClientClass {
     public void setIsVIP(Boolean value) { this.isVIP = value; }
 
     @JsonProperty("kupatHolim")
-    public String getKupatHolim() { return kupatHolim; }
+    public KupatHolimUnion getKupatHolim() { return kupatHolim; }
     @JsonProperty("kupatHolim")
-    public void setKupatHolim(String value) { this.kupatHolim = value; }
+    public void setKupatHolim(KupatHolimUnion value) { this.kupatHolim = value; }
 
     @JsonProperty("language")
     public LanguageList getLanguage() { return language; }
     @JsonProperty("language")
     public void setLanguage(LanguageList value) { this.language = value; }
+
+    @JsonProperty("lastCreatedAppointment")
+    public Map<String, Object> getLastCreatedAppointment() { return lastCreatedAppointment; }
+    @JsonProperty("lastCreatedAppointment")
+    public void setLastCreatedAppointment(Map<String, Object> value) { this.lastCreatedAppointment = value; }
+
+    @JsonProperty("lastVisitedAppointment")
+    public Map<String, Object> getLastVisitedAppointment() { return lastVisitedAppointment; }
+    @JsonProperty("lastVisitedAppointment")
+    public void setLastVisitedAppointment(Map<String, Object> value) { this.lastVisitedAppointment = value; }
 
     @JsonProperty("lazyResolvedDate")
     public String getLazyResolvedDate() { return lazyResolvedDate; }
@@ -254,9 +280,9 @@ public class ClientClass {
     public void setPhone(List<FaxElement> value) { this.phone = value; }
 
     @JsonProperty("receiveSmsAfterService")
-    public String getReceiveSMSAfterService() { return receiveSMSAfterService; }
+    public Boolean getReceiveSMSAfterService() { return receiveSMSAfterService; }
     @JsonProperty("receiveSmsAfterService")
-    public void setReceiveSMSAfterService(String value) { this.receiveSMSAfterService = value; }
+    public void setReceiveSMSAfterService(Boolean value) { this.receiveSMSAfterService = value; }
 
     @JsonProperty("sex")
     public Sex getSex() { return sex; }
@@ -277,6 +303,11 @@ public class ClientClass {
     public String getSnils() { return snils; }
     @JsonProperty("snils")
     public void setSnils(String value) { this.snils = value; }
+
+    @JsonProperty("statistics")
+    public Statistics getStatistics() { return statistics; }
+    @JsonProperty("statistics")
+    public void setStatistics(Statistics value) { this.statistics = value; }
 
     @JsonProperty("status")
     public ResourceStatus getStatus() { return status; }
@@ -302,6 +333,11 @@ public class ClientClass {
     public String getTwoFAUserID() { return twoFAUserID; }
     @JsonProperty("twoFAUserID")
     public void setTwoFAUserID(String value) { this.twoFAUserID = value; }
+
+    @JsonProperty("updated")
+    public String getUpdated() { return updated; }
+    @JsonProperty("updated")
+    public void setUpdated(String value) { this.updated = value; }
 
     @JsonProperty("workPlace")
     public String getWorkPlace() { return workPlace; }

@@ -36,6 +36,11 @@
                             "type": "boolean",
                             "default": false
                         },
+                        "use_optimized_cache": {
+                            "description": "содержит только доступные для записи наборы услуг и работников",
+                            "type": "boolean",
+                            "default": false
+                        },
                         "with_bop": {
                             "description": "если указано true - возвращает список операций, доступных в БекОфисе в поле profiles (недоступно для роли guest)",
                             "type": "boolean",
