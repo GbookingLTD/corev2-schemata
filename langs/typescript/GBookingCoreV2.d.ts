@@ -169,9 +169,9 @@ export interface AppointmentCancelAppointmentByBusinessRequest {
     /**
      * параметры запроса
      */
-    params: ParamsObject;
+    params: CancelAppointmentByBusinessParams;
 }
-export interface ParamsObject {
+export interface CancelAppointmentByBusinessParams {
     appointment: PurpleAppointment;
     client?: PurpleClient;
 }
@@ -243,9 +243,9 @@ export interface AppointmentCancelAppointmentByClientRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentCancelAppointmentByClientRequestParams;
+    params: CancelAppointmentByClientParams;
 }
-export interface AppointmentCancelAppointmentByClientRequestParams {
+export interface CancelAppointmentByClientParams {
     appointment: FluffyAppointment;
     client?: FluffyClient;
 }
@@ -320,9 +320,9 @@ export interface AppointmentClientAppearRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentClientAppearRequestParams;
+    params: ClientAppearParams;
 }
-export interface AppointmentClientAppearRequestParams {
+export interface ClientAppearParams {
     appointment: TentacledAppointment;
     business: PurpleBusiness;
 }
@@ -399,9 +399,9 @@ export interface AppointmentClientConfirmAppointmentRequest {
     /**
      * параметры запроса
      */
-    params: ConfirmAppointment;
+    params: ConfirmAppointmentParams;
 }
-export interface ConfirmAppointment {
+export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client: ClientObject;
 }

@@ -189,10 +189,10 @@ export interface AppointmentCancelAppointmentByBusinessRequest {
     /**
      * параметры запроса
      */
-    params: ParamsObject;
+    params: CancelAppointmentByBusinessParams;
 }
 
-export interface ParamsObject {
+export interface CancelAppointmentByBusinessParams {
     appointment: PurpleAppointment;
     client?:     PurpleClient;
 }
@@ -270,10 +270,10 @@ export interface AppointmentCancelAppointmentByClientRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentCancelAppointmentByClientRequestParams;
+    params: CancelAppointmentByClientParams;
 }
 
-export interface AppointmentCancelAppointmentByClientRequestParams {
+export interface CancelAppointmentByClientParams {
     appointment: FluffyAppointment;
     client?:     FluffyClient;
 }
@@ -354,10 +354,10 @@ export interface AppointmentClientAppearRequest {
     /**
      * параметры запроса
      */
-    params: AppointmentClientAppearRequestParams;
+    params: ClientAppearParams;
 }
 
-export interface AppointmentClientAppearRequestParams {
+export interface ClientAppearParams {
     appointment: TentacledAppointment;
     business:    PurpleBusiness;
 }
@@ -441,10 +441,10 @@ export interface AppointmentClientConfirmAppointmentRequest {
     /**
      * параметры запроса
      */
-    params: ConfirmAppointment;
+    params: ConfirmAppointmentParams;
 }
 
-export interface ConfirmAppointment {
+export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client:      ClientObject;
 }
@@ -5359,9 +5359,9 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("ParamsObject") },
+        { json: "params", js: "params", typ: r("CancelAppointmentByBusinessParams") },
     ], false),
-    "ParamsObject": o([
+    "CancelAppointmentByBusinessParams": o([
         { json: "appointment", js: "appointment", typ: r("PurpleAppointment") },
         { json: "client", js: "client", typ: u(undefined, r("PurpleClient")) },
     ], "any"),
@@ -5392,9 +5392,9 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("AppointmentCancelAppointmentByClientRequestParams") },
+        { json: "params", js: "params", typ: r("CancelAppointmentByClientParams") },
     ], false),
-    "AppointmentCancelAppointmentByClientRequestParams": o([
+    "CancelAppointmentByClientParams": o([
         { json: "appointment", js: "appointment", typ: r("FluffyAppointment") },
         { json: "client", js: "client", typ: u(undefined, r("FluffyClient")) },
     ], "any"),
@@ -5428,9 +5428,9 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("AppointmentClientAppearRequestParams") },
+        { json: "params", js: "params", typ: r("ClientAppearParams") },
     ], false),
-    "AppointmentClientAppearRequestParams": o([
+    "ClientAppearParams": o([
         { json: "appointment", js: "appointment", typ: r("TentacledAppointment") },
         { json: "business", js: "business", typ: r("PurpleBusiness") },
     ], "any"),
@@ -5461,9 +5461,9 @@ const typeMap: any = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("ConfirmAppointment") },
+        { json: "params", js: "params", typ: r("ConfirmAppointmentParams") },
     ], false),
-    "ConfirmAppointment": o([
+    "ConfirmAppointmentParams": o([
         { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
     ], "any"),

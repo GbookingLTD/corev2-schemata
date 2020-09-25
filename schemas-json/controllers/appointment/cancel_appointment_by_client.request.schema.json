@@ -4,7 +4,7 @@
     "title": "appointment.cancel_appointment_by_client.request",
     "type": "object",
     "definitions": {
-        "CancelAppointmentByClient": {
+        "CancelAppointmentByClientParams": {
             "type": "object",
             "required": [
                 "appointment"
@@ -55,7 +55,7 @@
             ],
             "properties": {
                 "params": {
-                    "$ref": "#/definitions/CancelAppointmentByClient"
+                    "$ref": "#/definitions/CancelAppointmentByClientParams"
                 }
             }
         }

@@ -592,9 +592,9 @@ var typeMap = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("ParamsObject") },
+        { json: "params", js: "params", typ: r("CancelAppointmentByBusinessParams") },
     ], false),
-    "ParamsObject": o([
+    "CancelAppointmentByBusinessParams": o([
         { json: "appointment", js: "appointment", typ: r("PurpleAppointment") },
         { json: "client", js: "client", typ: u(undefined, r("PurpleClient")) },
     ], "any"),
@@ -625,9 +625,9 @@ var typeMap = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("AppointmentCancelAppointmentByClientRequestParams") },
+        { json: "params", js: "params", typ: r("CancelAppointmentByClientParams") },
     ], false),
-    "AppointmentCancelAppointmentByClientRequestParams": o([
+    "CancelAppointmentByClientParams": o([
         { json: "appointment", js: "appointment", typ: r("FluffyAppointment") },
         { json: "client", js: "client", typ: u(undefined, r("FluffyClient")) },
     ], "any"),
@@ -661,9 +661,9 @@ var typeMap = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("AppointmentClientAppearRequestParams") },
+        { json: "params", js: "params", typ: r("ClientAppearParams") },
     ], false),
-    "AppointmentClientAppearRequestParams": o([
+    "ClientAppearParams": o([
         { json: "appointment", js: "appointment", typ: r("TentacledAppointment") },
         { json: "business", js: "business", typ: r("PurpleBusiness") },
     ], "any"),
@@ -694,9 +694,9 @@ var typeMap = {
         { json: "id", js: "id", typ: u(3.14, "") },
         { json: "jsonrpc", js: "jsonrpc", typ: "" },
         { json: "method", js: "method", typ: "" },
-        { json: "params", js: "params", typ: r("ConfirmAppointment") },
+        { json: "params", js: "params", typ: r("ConfirmAppointmentParams") },
     ], false),
-    "ConfirmAppointment": o([
+    "ConfirmAppointmentParams": o([
         { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
     ], "any"),

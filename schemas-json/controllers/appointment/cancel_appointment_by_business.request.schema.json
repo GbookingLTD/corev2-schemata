@@ -4,7 +4,7 @@
     "title": "appointment.cancel_appointment_by_business.request",
     "type": "object",
     "definitions": {
-        "CancelAppointmentByBusiness": {
+        "CancelAppointmentByBusinessParams": {
             "type": "object",
             "required": [
                 "appointment"
@@ -46,7 +46,7 @@
             ],
             "properties": {
                 "params": {
-                    "$ref": "#/definitions/CancelAppointmentByBusiness"
+                    "$ref": "#/definitions/CancelAppointmentByBusinessParams"
                 }
             }
         }
