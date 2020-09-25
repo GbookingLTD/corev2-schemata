@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса business.get_profile_by_id
  */
 public class BusinessGetProfileByIDRequestParams {
-    private AmbitiousBusiness business;
+    private MagentaBusiness business;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
@@ -25,9 +25,9 @@ public class BusinessGetProfileByIDRequestParams {
     private WorkerSortingType workerSortingType;
 
     @JsonProperty("business")
-    public AmbitiousBusiness getBusiness() { return business; }
+    public MagentaBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(AmbitiousBusiness value) { this.business = value; }
+    public void setBusiness(MagentaBusiness value) { this.business = value; }
 
     /**
      * если указано true - меняет формат представления discounts

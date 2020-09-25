@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса
  */
 public class ClientFindOrCreateClientRequestParams {
-    private FriskyBusiness business;
+    private BraggadociousBusiness business;
     private ClientClass client;
     private StickyNetwork network;
     private Boolean skipEmailCheck;
     private Boolean skipProfileUpdate;
 
     @JsonProperty("business")
-    public FriskyBusiness getBusiness() { return business; }
+    public BraggadociousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(FriskyBusiness value) { this.business = value; }
+    public void setBusiness(BraggadociousBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public ClientClass getClient() { return client; }

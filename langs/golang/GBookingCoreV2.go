@@ -84,11 +84,13 @@ type AppointmentController struct {
 	ClientAppear                 *ClientAppear                `json:"client_appear,omitempty"`                 
 	ClientConfirmAppointment     *ClientConfirmAppointment    `json:"client_confirm_appointment,omitempty"`    
 	ClientRemoveEmptyAppointment ClientRemoveEmptyAppointment `json:"client_remove_empty_appointment"`         
+	FinishAppointment            *FinishAppointment           `json:"finish_appointment,omitempty"`            
 	GetAppointmentByFilter       *GetAppointmentByFilter      `json:"get_appointment_by_filter,omitempty"`     
 	GetAppointmentByShowcase     *GetAppointmentByShowcase    `json:"get_appointment_by_showcase,omitempty"`   
 	GetAppointmentsByClientV2    *GetAppointmentsByClientV2   `json:"get_appointments_by_client_v2,omitempty"` 
 	GetAppointmentsByUser        *GetAppointmentsByUser       `json:"get_appointments_by_user,omitempty"`      
 	ReserveAppointment           ReserveAppointment           `json:"reserve_appointment"`                     
+	StartAppointment             *StartAppointment            `json:"start_appointment,omitempty"`             
 }
 
 type CancelAppointmentByBusiness struct {
@@ -97,14 +99,14 @@ type CancelAppointmentByBusiness struct {
 }
 
 type AppointmentCancelAppointmentByBusinessRequest struct {
-	Cred    *Cred          `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string         `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string         `json:"method"`        // название jsonrpc метода
-	Params  ParamsClass    `json:"params"`        // параметры запроса
+	Cred    *Cred                             `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                    `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                            `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                            `json:"method"`        // название jsonrpc метода
+	Params  CancelAppointmentByBusinessParams `json:"params"`        // параметры запроса
 }
 
-type ParamsClass struct {
+type CancelAppointmentByBusinessParams struct {
 	Appointment PurpleAppointment `json:"appointment"`     
 	Client      *PurpleClient     `json:"client,omitempty"`
 }
@@ -140,14 +142,14 @@ type CancelAppointmentByClient struct {
 }
 
 type AppointmentCancelAppointmentByClientRequest struct {
-	Cred    *Cred                                             `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate                                    `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                                            `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string                                            `json:"method"`        // название jsonrpc метода
-	Params  AppointmentCancelAppointmentByClientRequestParams `json:"params"`        // параметры запроса
+	Cred    *Cred                           `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate                  `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                          `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                          `json:"method"`        // название jsonrpc метода
+	Params  CancelAppointmentByClientParams `json:"params"`        // параметры запроса
 }
 
-type AppointmentCancelAppointmentByClientRequestParams struct {
+type CancelAppointmentByClientParams struct {
 	Appointment FluffyAppointment `json:"appointment"`     
 	Client      *FluffyClient     `json:"client,omitempty"`
 }
@@ -186,14 +188,14 @@ type ClientAppear struct {
 }
 
 type AppointmentClientAppearRequest struct {
-	Cred    *Cred                                `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate                       `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string                               `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string                               `json:"method"`        // название jsonrpc метода
-	Params  AppointmentClientAppearRequestParams `json:"params"`        // параметры запроса
+	Cred    *Cred              `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate     `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string             `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string             `json:"method"`        // название jsonrpc метода
+	Params  ClientAppearParams `json:"params"`        // параметры запроса
 }
 
-type AppointmentClientAppearRequestParams struct {
+type ClientAppearParams struct {
 	Appointment TentacledAppointment `json:"appointment"`
 	Business    PurpleBusiness       `json:"business"`   
 }
@@ -229,14 +231,14 @@ type ClientConfirmAppointment struct {
 }
 
 type AppointmentClientConfirmAppointmentRequest struct {
-	Cred    *Cred              `json:"cred,omitempty"`// авторизационные параметры
-	ID      *TimeFrameDate     `json:"id"`            // значение числового типа для идентификации запроса на сервере
-	Jsonrpc string             `json:"jsonrpc"`       // версия протокола - 2.0
-	Method  string             `json:"method"`        // название jsonrpc метода
-	Params  ConfirmAppointment `json:"params"`        // параметры запроса
+	Cred    *Cred                    `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate           `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                   `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                   `json:"method"`        // название jsonrpc метода
+	Params  ConfirmAppointmentParams `json:"params"`        // параметры запроса
 }
 
-type ConfirmAppointment struct {
+type ConfirmAppointmentParams struct {
 	Appointment StickyAppointment `json:"appointment"`
 	Client      TentacledClient   `json:"client"`     
 }
@@ -676,6 +678,49 @@ type AppointmentClientRemoveEmptyAppointmentResponseError struct {
 	Message string  `json:"message"`// текстовая информация об ошибке
 }
 
+type FinishAppointment struct {
+	Request  AppointmentFinishAppointmentRequest  `json:"request"` 
+	Response AppointmentFinishAppointmentResponse `json:"response"`
+}
+
+type AppointmentFinishAppointmentRequest struct {
+	Cred    *Cred                   `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate          `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                  `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                  `json:"method"`        // название jsonrpc метода
+	Params  FinishAppointmentParams `json:"params"`        // параметры запроса
+}
+
+type FinishAppointmentParams struct {
+	Appointment IndecentAppointment `json:"appointment"`
+	Business    TentacledBusiness   `json:"business"`   
+}
+
+type IndecentAppointment struct {
+	Finish *string `json:"finish,omitempty"`
+	ID     string  `json:"id"`              
+}
+
+type TentacledBusiness struct {
+	ID string `json:"id"`
+}
+
+type AppointmentFinishAppointmentResponse struct {
+	ID      float64                                    `json:"id"`              // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                     `json:"jsonrpc"`         // версия протокола (2.0)
+	Result  *bool                                      `json:"result,omitempty"`// данные, передаваемые в ответ
+	Error   *AppointmentFinishAppointmentResponseError `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type AppointmentFinishAppointmentResponseError struct {
+	Code    float64 `json:"code"`   // код ошибки
+	Data    *Data   `json:"data"`   // дополнительные данные об ошибке
+	Message string  `json:"message"`// текстовая информация об ошибке
+}
+
 type GetAppointmentByFilter struct {
 	Request  AppointmentGetAppointmentByFilterRequest  `json:"request"` 
 	Response AppointmentGetAppointmentByFilterResponse `json:"response"`
@@ -690,7 +735,7 @@ type AppointmentGetAppointmentByFilterRequest struct {
 }
 
 type AppointmentGetAppointmentByFilterRequestParams struct {
-	Business              *TentacledBusiness  `json:"business,omitempty"`             
+	Business              *StickyBusiness     `json:"business,omitempty"`             
 	ExtraFilters          *PurpleExtraFilters `json:"extraFilters,omitempty"`         
 	Filter                *PurpleFilter       `json:"filter,omitempty"`               
 	Network               *PurpleNetwork      `json:"network,omitempty"`              
@@ -699,7 +744,7 @@ type AppointmentGetAppointmentByFilterRequestParams struct {
 	SkipBusinessCancelled *bool               `json:"skipBusinessCancelled,omitempty"`
 }
 
-type TentacledBusiness struct {
+type StickyBusiness struct {
 	ID *TimeFrameDate `json:"id"`
 }
 
@@ -768,14 +813,14 @@ type AppointmentGetAppointmentByShowcaseRequest struct {
 }
 
 type AppointmentGetAppointmentByShowcaseRequestParams struct {
-	Business StickyBusiness `json:"business"`         
+	Business IndigoBusiness `json:"business"`         
 	Created  *ParamsCreated `json:"created,omitempty"`
 	Page     float64        `json:"page"`             
 	PageSize float64        `json:"pageSize"`         
 	Source   *string        `json:"source,omitempty"` 
 }
 
-type StickyBusiness struct {
+type IndigoBusiness struct {
 	ID *TimeFrameDate `json:"id"`
 }
 
@@ -814,7 +859,7 @@ type AppointmentGetAppointmentsByClientV2Request struct {
 }
 
 type AppointmentGetAppointmentsByClientV2RequestParams struct {
-	Business              IndigoBusiness      `json:"business"`                       
+	Business              IndecentBusiness    `json:"business"`                       
 	Client                StickyClient        `json:"client"`                         
 	ExtraFilters          *FluffyExtraFilters `json:"extraFilters,omitempty"`         
 	Filter                *FluffyFilter       `json:"filter,omitempty"`               
@@ -822,7 +867,7 @@ type AppointmentGetAppointmentsByClientV2RequestParams struct {
 	SkipBusinessCancelled *bool               `json:"skipBusinessCancelled,omitempty"`
 }
 
-type IndigoBusiness struct {
+type IndecentBusiness struct {
 	ID *TimeFrameDate `json:"id"`
 }
 
@@ -888,7 +933,7 @@ type AppointmentGetAppointmentsByUserRequest struct {
 }
 
 type AppointmentGetAppointmentsByUserRequestParams struct {
-	Business              *IndecentBusiness      `json:"business,omitempty"`             
+	Business              *HilariousBusiness     `json:"business,omitempty"`             
 	ExtraFilters          *TentacledExtraFilters `json:"extraFilters,omitempty"`         
 	FillBusinessData      *bool                  `json:"fill_business_data,omitempty"`   
 	Filter                *TentacledFilter       `json:"filter,omitempty"`               
@@ -898,7 +943,7 @@ type AppointmentGetAppointmentsByUserRequestParams struct {
 	SkipBusinessCancelled *bool                  `json:"skipBusinessCancelled,omitempty"`
 }
 
-type IndecentBusiness struct {
+type HilariousBusiness struct {
 	ID *TimeFrameDate `json:"id"`
 }
 
@@ -966,15 +1011,15 @@ type AppointmentReserveAppointmentRequest struct {
 }
 
 type AppointmentReserve struct {
-	Appointment      IndecentAppointment `json:"appointment"`     
-	Business         HilariousBusiness   `json:"business"`        
-	OriginBusinessID *string             `json:"originBusinessID"`
-	Resource         PurpleResource      `json:"resource"`        
-	Source           string              `json:"source"`          
-	Taxonomy         PurpleTaxonomy      `json:"taxonomy"`        
+	Appointment      HilariousAppointment `json:"appointment"`     
+	Business         AmbitiousBusiness    `json:"business"`        
+	OriginBusinessID *string              `json:"originBusinessID"`
+	Resource         PurpleResource       `json:"resource"`        
+	Source           string               `json:"source"`          
+	Taxonomy         PurpleTaxonomy       `json:"taxonomy"`        
 }
 
-type IndecentAppointment struct {
+type HilariousAppointment struct {
 	Duration *float64     `json:"duration,omitempty"`
 	Price    *PurplePrice `json:"price,omitempty"`   
 	Start    string       `json:"start"`             
@@ -997,7 +1042,7 @@ type FluffyAdditionalTaxonomyDiscount struct {
 	TaxonomyID       *string           `json:"taxonomyID,omitempty"`      
 }
 
-type HilariousBusiness struct {
+type AmbitiousBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -1020,6 +1065,48 @@ type AppointmentReserveAppointmentResponse struct {
 //
 // Код ошибки авторизации
 type AppointmentReserveAppointmentResponseError struct {
+	Code    float64 `json:"code"`   // код ошибки
+	Data    *Data   `json:"data"`   // дополнительные данные об ошибке
+	Message string  `json:"message"`// текстовая информация об ошибке
+}
+
+type StartAppointment struct {
+	Request  AppointmentStartAppointmentRequest  `json:"request"` 
+	Response AppointmentStartAppointmentResponse `json:"response"`
+}
+
+type AppointmentStartAppointmentRequest struct {
+	Cred    *Cred                  `json:"cred,omitempty"`// авторизационные параметры
+	ID      *TimeFrameDate         `json:"id"`            // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                 `json:"jsonrpc"`       // версия протокола - 2.0
+	Method  string                 `json:"method"`        // название jsonrpc метода
+	Params  StartAppointmentParams `json:"params"`        // параметры запроса
+}
+
+type StartAppointmentParams struct {
+	Appointment AmbitiousAppointment `json:"appointment"`
+	Business    CunningBusiness      `json:"business"`   
+}
+
+type AmbitiousAppointment struct {
+	ID string `json:"id"`
+}
+
+type CunningBusiness struct {
+	ID string `json:"id"`
+}
+
+type AppointmentStartAppointmentResponse struct {
+	ID      float64                                   `json:"id"`              // значение числового типа для идентификации запроса на сервере
+	Jsonrpc string                                    `json:"jsonrpc"`         // версия протокола (2.0)
+	Result  *bool                                     `json:"result,omitempty"`// данные, передаваемые в ответ
+	Error   *AppointmentStartAppointmentResponseError `json:"error,omitempty"` // объект, содержащий информацию об ошибке
+}
+
+// объект, содержащий информацию об ошибке
+//
+// Код ошибки авторизации
+type AppointmentStartAppointmentResponseError struct {
 	Code    float64 `json:"code"`   // код ошибки
 	Data    *Data   `json:"data"`   // дополнительные данные об ошибке
 	Message string  `json:"message"`// текстовая информация об ошибке
@@ -1975,7 +2062,7 @@ type BusinessGetProfileByIDRequest struct {
 
 // параметры запроса business.get_profile_by_id
 type BusinessGetProfileByIDRequestParams struct {
-	Business             AmbitiousBusiness  `json:"business"`                        
+	Business             MagentaBusiness    `json:"business"`                        
 	DesktopDiscounts     *bool              `json:"desktop_discounts,omitempty"`     // если указано true - меняет формат представления discounts
 	OnlyActiveWorkers    *bool              `json:"only_active_workers,omitempty"`   // если указано true - возвращает только активных работников (status == 'INACTIVE')
 	ShowInactiveWorkers  *bool              `json:"show_inactive_workers,omitempty"` // если указано true - возвращает всех работников в том числе и неактивных (status ==; 'INACTIVE')
@@ -1993,7 +2080,7 @@ type BusinessGetProfileByIDRequestParams struct {
 	WorkerSortingType    *WorkerSortingType `json:"worker_sorting_type,omitempty"`   // тип сортировки работника
 }
 
-type AmbitiousBusiness struct {
+type MagentaBusiness struct {
 	ID string `json:"id"`// идентификатор бизнеса
 }
 
@@ -2606,14 +2693,14 @@ type ClientAddClientRequest struct {
 
 // параметры запроса
 type ClientAddClientRequestParams struct {
-	Business          CunningBusiness `json:"business"`                   
-	Client            ClientClass     `json:"client"`                     
-	Profile           *ParamsProfile  `json:"profile,omitempty"`          
-	SkipEmailCheck    *bool           `json:"skipEmailCheck,omitempty"`   
-	SkipProfileUpdate *bool           `json:"skipProfileUpdate,omitempty"`
+	Business          FriskyBusiness `json:"business"`                   
+	Client            ClientClass    `json:"client"`                     
+	Profile           *ParamsProfile `json:"profile,omitempty"`          
+	SkipEmailCheck    *bool          `json:"skipEmailCheck,omitempty"`   
+	SkipProfileUpdate *bool          `json:"skipProfileUpdate,omitempty"`
 }
 
-type CunningBusiness struct {
+type FriskyBusiness struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -2767,14 +2854,14 @@ type ClientAddClientResponseError struct {
 }
 
 type ClientAddClientResponseResult struct {
-	Business  MagentaBusiness `json:"business"`         
-	Client    ClientClass     `json:"client"`           
-	Documents []string        `json:"documents"`        
-	Profile   *PurpleProfile  `json:"profile,omitempty"`
-	Source    *Source         `json:"source,omitempty"` 
+	Business  MischievousBusiness `json:"business"`         
+	Client    ClientClass         `json:"client"`           
+	Documents []string            `json:"documents"`        
+	Profile   *PurpleProfile      `json:"profile,omitempty"`
+	Source    *Source             `json:"source,omitempty"` 
 }
 
-type MagentaBusiness struct {
+type MischievousBusiness struct {
 	ID string `json:"id"`
 }
 
@@ -2797,14 +2884,14 @@ type ClientFindOrCreateClientRequest struct {
 
 // параметры запроса
 type ClientFindOrCreateClientRequestParams struct {
-	Business          FriskyBusiness `json:"business"`                   
-	Client            *ClientClass   `json:"client,omitempty"`           
-	Network           *StickyNetwork `json:"network,omitempty"`          
-	SkipEmailCheck    *bool          `json:"skipEmailCheck,omitempty"`   
-	SkipProfileUpdate *bool          `json:"skipProfileUpdate,omitempty"`
+	Business          BraggadociousBusiness `json:"business"`                   
+	Client            *ClientClass          `json:"client,omitempty"`           
+	Network           *StickyNetwork        `json:"network,omitempty"`          
+	SkipEmailCheck    *bool                 `json:"skipEmailCheck,omitempty"`   
+	SkipProfileUpdate *bool                 `json:"skipProfileUpdate,omitempty"`
 }
 
-type FriskyBusiness struct {
+type BraggadociousBusiness struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -2829,13 +2916,13 @@ type ClientFindOfCreateClientResponseError struct {
 }
 
 type ClientFindOfCreateClientResponseResult struct {
-	Business  *MischievousBusiness `json:"business,omitempty"`
-	Client    ClientClass          `json:"client"`            
-	Documents []interface{}        `json:"documents"`         
-	Profile   *FluffyProfile       `json:"profile,omitempty"` 
+	Business  *Business1     `json:"business,omitempty"`
+	Client    ClientClass    `json:"client"`            
+	Documents []interface{}  `json:"documents"`         
+	Profile   *FluffyProfile `json:"profile,omitempty"` 
 }
 
-type MischievousBusiness struct {
+type Business1 struct {
 	ID string `json:"id"`
 }
 
@@ -2858,12 +2945,12 @@ type ClientUpdateClientRequest struct {
 
 // параметры запроса
 type ClientUpdateClientRequestParams struct {
-	Business *BraggadociousBusiness `json:"business,omitempty"`
-	Client   ClientClass            `json:"client"`            
-	Network  *IndigoNetwork         `json:"network,omitempty"` 
+	Business *Business2     `json:"business,omitempty"`
+	Client   ClientClass    `json:"client"`            
+	Network  *IndigoNetwork `json:"network,omitempty"` 
 }
 
-type BraggadociousBusiness struct {
+type Business2 struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -2907,12 +2994,12 @@ type ClientUpdateClientInfoRequest struct {
 
 // параметры запроса
 type ClientUpdateClientInfoRequestParams struct {
-	Business *Business1       `json:"business,omitempty"`
+	Business *Business3       `json:"business,omitempty"`
 	Client   IndigoClient     `json:"client"`            
 	Network  *IndecentNetwork `json:"network,omitempty"` 
 }
 
-type Business1 struct {
+type Business3 struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
 }
 
@@ -2995,12 +3082,12 @@ type CracCRACDistributedResourcesFreeByDateRequest struct {
 }
 
 type CracCRACDistributedResourcesFreeByDateRequestParam struct {
-	Business  Business2         `json:"business"` 
+	Business  Business4         `json:"business"` 
 	Resources []string          `json:"resources"`
 	Taxonomy  TentacledTaxonomy `json:"taxonomy"` 
 }
 
-type Business2 struct {
+type Business4 struct {
 	ID string `json:"id"`
 }
 
@@ -3099,14 +3186,14 @@ type CracCRACResourcesFreeByDateV2Request struct {
 }
 
 type CracCRACResourcesFreeByDateV2RequestParam struct {
-	Business  Business3      `json:"business"` 
+	Business  Business5      `json:"business"` 
 	Duration  float64        `json:"duration"` 
 	Durations []float64      `json:"durations"`
 	Resources []string       `json:"resources"`
 	Taxonomy  IndigoTaxonomy `json:"taxonomy"` 
 }
 
-type Business3 struct {
+type Business5 struct {
 	ID string `json:"id"`
 }
 

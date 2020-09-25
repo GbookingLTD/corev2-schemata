@@ -4,7 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentsByClientV2RequestParams {
-    private IndigoBusiness business;
+    private IndecentBusiness business;
     private StickyClient client;
     private FluffyExtraFilters extraFilters;
     private FluffyFilter filter;
@@ -12,9 +12,9 @@ public class AppointmentGetAppointmentsByClientV2RequestParams {
     private Boolean skipBusinessCancelled;
 
     @JsonProperty("business")
-    public IndigoBusiness getBusiness() { return business; }
+    public IndecentBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(IndigoBusiness value) { this.business = value; }
+    public void setBusiness(IndecentBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public StickyClient getClient() { return client; }

@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.*;
 public class MagentaBusiness {
     private String id;
 
+    /**
+     * идентификатор бизнеса
+     */
     @JsonProperty("id")
     public String getID() { return id; }
     @JsonProperty("id")

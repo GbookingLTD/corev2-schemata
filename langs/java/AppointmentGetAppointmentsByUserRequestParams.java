@@ -4,7 +4,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentsByUserRequestParams {
-    private IndecentBusiness business;
+    private HilariousBusiness business;
     private TentacledExtraFilters extraFilters;
     private Boolean fillBusinessData;
     private TentacledFilter filter;
@@ -14,9 +14,9 @@ public class AppointmentGetAppointmentsByUserRequestParams {
     private Boolean skipBusinessCancelled;
 
     @JsonProperty("business")
-    public IndecentBusiness getBusiness() { return business; }
+    public HilariousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(IndecentBusiness value) { this.business = value; }
+    public void setBusiness(HilariousBusiness value) { this.business = value; }
 
     @JsonProperty("extraFilters")
     public TentacledExtraFilters getExtraFilters() { return extraFilters; }

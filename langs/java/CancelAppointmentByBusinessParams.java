@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class ParamsClass {
+public class CancelAppointmentByBusinessParams {
     private PurpleAppointment appointment;
     private PurpleClient client;
 

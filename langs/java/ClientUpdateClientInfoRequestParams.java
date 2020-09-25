@@ -7,14 +7,14 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса
  */
 public class ClientUpdateClientInfoRequestParams {
-    private Business1 business;
+    private Business3 business;
     private IndigoClient client;
     private IndecentNetwork network;
 
     @JsonProperty("business")
-    public Business1 getBusiness() { return business; }
+    public Business3 getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(Business1 value) { this.business = value; }
+    public void setBusiness(Business3 value) { this.business = value; }
 
     @JsonProperty("client")
     public IndigoClient getClient() { return client; }

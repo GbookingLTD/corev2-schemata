@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AmbitiousBusiness {
+public class AmbitiousAppointment {
     private String id;
 
     @JsonProperty("id")

@@ -3,7 +3,7 @@ package ru.gbooking.apiv2;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
-public class AppointmentClientAppearRequestParams {
+public class ClientAppearParams {
     private TentacledAppointment appointment;
     private PurpleBusiness business;
 

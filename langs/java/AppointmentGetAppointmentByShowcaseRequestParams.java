@@ -4,16 +4,16 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentByShowcaseRequestParams {
-    private StickyBusiness business;
+    private IndigoBusiness business;
     private ParamsCreated created;
     private double page;
     private double pageSize;
     private String source;
 
     @JsonProperty("business")
-    public StickyBusiness getBusiness() { return business; }
+    public IndigoBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(StickyBusiness value) { this.business = value; }
+    public void setBusiness(IndigoBusiness value) { this.business = value; }
 
     @JsonProperty("created")
     public ParamsCreated getCreated() { return created; }

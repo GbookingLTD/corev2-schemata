@@ -8,7 +8,7 @@ public class AppointmentClientAppearRequest {
     private PurpleTimeFrameDate id;
     private String jsonrpc;
     private String method;
-    private AppointmentClientAppearRequestParams params;
+    private ClientAppearParams params;
 
     /**
      * авторизационные параметры
@@ -46,7 +46,7 @@ public class AppointmentClientAppearRequest {
      * параметры запроса
      */
     @JsonProperty("params")
-    public AppointmentClientAppearRequestParams getParams() { return params; }
+    public ClientAppearParams getParams() { return params; }
     @JsonProperty("params")
-    public void setParams(AppointmentClientAppearRequestParams value) { this.params = value; }
+    public void setParams(ClientAppearParams value) { this.params = value; }
 }
