@@ -409,6 +409,9 @@ definitions:
       showGuaranteeLettersScreen:
         type: "boolean"
         default: false
+      showPartnersContractScreen:
+        type: "boolean"
+        default: false
       schedulerWeekViewType:
         type: "string"
         enum: ["week", "workWeek"]
