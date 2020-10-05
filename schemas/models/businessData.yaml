@@ -599,6 +599,9 @@ definitions:
         type: "number"
         enum: [1, 5]
         default: 5
+      cracBuildDays:
+        type: "number"
+        default: 120
       widgetUseCRAC:
         type: "boolean"
         default: false
