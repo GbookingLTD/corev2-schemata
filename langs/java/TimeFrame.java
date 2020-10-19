@@ -1,18 +1,19 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
+import java.util.List;
 
 public class TimeFrame {
     private Double capacity;
     private double end;
-    private FluffyTimeFrameDate endDate;
+    private TimeFrameDate endDate;
     private String extraID;
     private String id;
     private List<String> resources;
     private String roomID;
     private double start;
-    private FluffyTimeFrameDate startDate;
+    private TimeFrameDate startDate;
 
     @JsonProperty("capacity")
     public Double getCapacity() { return capacity; }
@@ -28,9 +29,9 @@ public class TimeFrame {
     public void setEnd(double value) { this.end = value; }
 
     @JsonProperty("endDate")
-    public FluffyTimeFrameDate getEndDate() { return endDate; }
+    public TimeFrameDate getEndDate() { return endDate; }
     @JsonProperty("endDate")
-    public void setEndDate(FluffyTimeFrameDate value) { this.endDate = value; }
+    public void setEndDate(TimeFrameDate value) { this.endDate = value; }
 
     @JsonProperty("extraId")
     public String getExtraID() { return extraID; }
@@ -64,7 +65,7 @@ public class TimeFrame {
     public void setStart(double value) { this.start = value; }
 
     @JsonProperty("startDate")
-    public FluffyTimeFrameDate getStartDate() { return startDate; }
+    public TimeFrameDate getStartDate() { return startDate; }
     @JsonProperty("startDate")
-    public void setStartDate(FluffyTimeFrameDate value) { this.startDate = value; }
+    public void setStartDate(TimeFrameDate value) { this.startDate = value; }
 }

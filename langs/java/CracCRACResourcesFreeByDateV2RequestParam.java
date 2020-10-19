@@ -1,7 +1,7 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
 
 public class CracCRACResourcesFreeByDateV2RequestParam {
     private Business5 business;

@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,11 +9,11 @@ public enum BackofficeType {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case COMMON: return "COMMON";
-        case GT: return "GT";
-        case LL: return "LL";
-        case MB: return "MB";
-        case MU: return "MU";
+            case COMMON: return "COMMON";
+            case GT: return "GT";
+            case LL: return "LL";
+            case MB: return "MB";
+            case MU: return "MU";
         }
         return null;
     }

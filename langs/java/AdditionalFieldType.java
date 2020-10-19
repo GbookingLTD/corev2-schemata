@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,11 +9,11 @@ public enum AdditionalFieldType {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case BOOL: return "BOOL";
-        case COUPON: return "COUPON";
-        case FILE: return "FILE";
-        case RADIO: return "RADIO";
-        case STRING: return "STRING";
+            case BOOL: return "BOOL";
+            case COUPON: return "COUPON";
+            case FILE: return "FILE";
+            case RADIO: return "RADIO";
+            case STRING: return "STRING";
         }
         return null;
     }

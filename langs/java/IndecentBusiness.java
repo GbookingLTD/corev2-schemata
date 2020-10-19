@@ -1,13 +1,12 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class IndecentBusiness {
-    private PurpleTimeFrameDate id;
+    private BackofficeIDUnion id;
 
     @JsonProperty("id")
-    public PurpleTimeFrameDate getID() { return id; }
+    public BackofficeIDUnion getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleTimeFrameDate value) { this.id = value; }
+    public void setID(BackofficeIDUnion value) { this.id = value; }
 }

@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,10 +9,10 @@ public enum UseDirectScheduleRead {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case ALL: return "ALL";
-        case AUTHENTICATED: return "AUTHENTICATED";
-        case GUEST: return "GUEST";
-        case NONE: return "NONE";
+            case ALL: return "ALL";
+            case AUTHENTICATED: return "AUTHENTICATED";
+            case GUEST: return "GUEST";
+            case NONE: return "NONE";
         }
         return null;
     }

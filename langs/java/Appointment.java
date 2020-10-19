@@ -1,7 +1,8 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * данные, передаваемые в ответ
@@ -35,6 +36,7 @@ public class Appointment {
     private String clientComment;
     private List<AppointmentClientVisitor> clientVisitors;
     private String color;
+    private AppointmentContract contract;
     private CreatedUser createdUser;
     private String destinationKeyword;
     private String destinationLink;
@@ -207,6 +209,11 @@ public class Appointment {
     public String getColor() { return color; }
     @JsonProperty("color")
     public void setColor(String value) { this.color = value; }
+
+    @JsonProperty("contract")
+    public AppointmentContract getContract() { return contract; }
+    @JsonProperty("contract")
+    public void setContract(AppointmentContract value) { this.contract = value; }
 
     @JsonProperty("createdUser")
     public CreatedUser getCreatedUser() { return createdUser; }

@@ -221,6 +221,14 @@
                 "enableMasterImportance": {
                     "type": "boolean",
                     "default": false
+                },
+                "enablePhoneNationalMode": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "enableExtendedPhone": {
+                    "type": "boolean",
+                    "default": false
                 }
             }
         },
@@ -602,6 +610,10 @@
                     "type": "boolean",
                     "default": false
                 },
+                "showPartnersContractScreen": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "schedulerWeekViewType": {
                     "type": "string",
                     "enum": [
@@ -869,6 +881,10 @@
                         5
                     ],
                     "default": 5
+                },
+                "cracBuildDays": {
+                    "type": "number",
+                    "default": 120
                 },
                 "widgetUseCRAC": {
                     "type": "boolean",

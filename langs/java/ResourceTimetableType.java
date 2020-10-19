@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,8 +9,8 @@ public enum ResourceTimetableType {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case DEFAULT: return "DEFAULT";
-        case EVENODD: return "EVENODD";
+            case DEFAULT: return "DEFAULT";
+            case EVENODD: return "EVENODD";
         }
         return null;
     }

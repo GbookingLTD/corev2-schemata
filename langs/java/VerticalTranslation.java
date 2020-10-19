@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,13 +9,13 @@ public enum VerticalTranslation {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case BEAUTY: return "BEAUTY";
-        case FITNESS: return "FITNESS";
-        case GENERIC: return "GENERIC";
-        case MEDICAL: return "MEDICAL";
-        case NONE: return "NONE";
-        case SPORT: return "SPORT";
-        case YOGA: return "YOGA";
+            case BEAUTY: return "BEAUTY";
+            case FITNESS: return "FITNESS";
+            case GENERIC: return "GENERIC";
+            case MEDICAL: return "MEDICAL";
+            case NONE: return "NONE";
+            case SPORT: return "SPORT";
+            case YOGA: return "YOGA";
         }
         return null;
     }

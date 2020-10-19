@@ -449,6 +449,7 @@ export interface AppointmentClientConfirmAppointmentRequest {
 export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client:      ClientObject;
+    contract?:   ParamsContract;
 }
 
 export interface StickyAppointment {
@@ -471,6 +472,12 @@ export enum ReminderStatus {
 export interface ClientObject {
     comment?: string;
     id:       string;
+}
+
+export interface ParamsContract {
+    clientContractID?: string;
+    contractID?:       string;
+    id?:               string;
 }
 
 export interface AppointmentClientConfirmAppointmentResponse {
@@ -544,6 +551,7 @@ export interface Appointment {
     clientComment:                  string;
     clientVisitors?:                AppointmentClientVisitor[];
     color?:                         string;
+    contract?:                      AppointmentContract;
     createdUser?:                   CreatedUser;
     destinationKeyword?:            string;
     destinationLink?:               string;
@@ -891,6 +899,12 @@ export interface AppointmentClientVisitor {
     parentProfileID?: string;
     phone?:           AdditionalClientPhone[];
     sex?:             Sex;
+}
+
+export interface AppointmentContract {
+    clientContractID?: string;
+    contractID?:       string;
+    id?:               string;
 }
 
 export interface CreatedUser {
@@ -2031,6 +2045,7 @@ export interface InfoBackofficeConfiguration {
     showKupatHolim?:                                  boolean;
     showLeadsScreen?:                                 boolean;
     showManualChanges?:                               boolean;
+    showPartnersContractScreen?:                      boolean;
     showPassportId?:                                  boolean;
     showRooms?:                                       boolean;
     showSeasonTickets?:                               boolean;
@@ -2113,8 +2128,10 @@ export enum BackofficeType {
 }
 
 export interface InfoBackofficeConfigurationObject {
-    enableMasterImportance?: boolean;
-    resourceTimetableType?:  ResourceTimetableType;
+    enableExtendedPhone?:     boolean;
+    enableMasterImportance?:  boolean;
+    enablePhoneNationalMode?: boolean;
+    resourceTimetableType?:   ResourceTimetableType;
 }
 
 export interface InfoCabinet {
@@ -3109,6 +3126,7 @@ export interface InfoWidgetConfiguration {
     calendarModeHideTime?:                   boolean;
     clientBlockingSettings?:                 PurpleClientBlockingSettings;
     clientCommentTitle?:                     string;
+    cracBuildDays?:                          number;
     cracServer?:                             CracServer;
     cracSlotSize?:                           number;
     crunchv2?:                               boolean;
@@ -3616,6 +3634,7 @@ export interface BusinessBackofficeConfiguration {
     showKupatHolim?:                                  boolean;
     showLeadsScreen?:                                 boolean;
     showManualChanges?:                               boolean;
+    showPartnersContractScreen?:                      boolean;
     showPassportId?:                                  boolean;
     showRooms?:                                       boolean;
     showSeasonTickets?:                               boolean;
@@ -3664,8 +3683,10 @@ export interface FluffyTelemedApplication {
 }
 
 export interface BusinessBackofficeConfigurationObject {
-    enableMasterImportance?: boolean;
-    resourceTimetableType?:  ResourceTimetableType;
+    enableExtendedPhone?:     boolean;
+    enableMasterImportance?:  boolean;
+    enablePhoneNationalMode?: boolean;
+    resourceTimetableType?:   ResourceTimetableType;
 }
 
 export interface BusinessCabinet {
@@ -5331,7 +5352,7 @@ function invalidValue(typ: any, val: any): never {
 
 function jsonToJSProps(typ: any): any {
     if (typ.jsonToJS === undefined) {
-        var map: any = {};
+        const map: any = {};
         typ.props.forEach((p: any) => map[p.json] = { key: p.js, typ: p.typ });
         typ.jsonToJS = map;
     }
@@ -5340,7 +5361,7 @@ function jsonToJSProps(typ: any): any {
 
 function jsToJSONProps(typ: any): any {
     if (typ.jsToJSON === undefined) {
-        var map: any = {};
+        const map: any = {};
         typ.props.forEach((p: any) => map[p.js] = { key: p.json, typ: p.typ });
         typ.jsToJSON = map;
     }
@@ -5355,9 +5376,9 @@ function transform(val: any, typ: any, getProps: any): any {
 
     function transformUnion(typs: any[], val: any): any {
         // val must validate against one typ in typs
-        var l = typs.length;
-        for (var i = 0; i < l; i++) {
-            var typ = typs[i];
+        const l = typs.length;
+        for (let i = 0; i < l; i++) {
+            const typ = typs[i];
             try {
                 return transform(val, typ, getProps);
             } catch (_) {}
@@ -5376,7 +5397,7 @@ function transform(val: any, typ: any, getProps: any): any {
         return val.map(el => transform(el, typ, getProps));
     }
 
-    function transformDate(typ: any, val: any): any {
+    function transformDate(val: any): any {
         if (val === null) {
             return null;
         }
@@ -5391,7 +5412,7 @@ function transform(val: any, typ: any, getProps: any): any {
         if (val === null || typeof val !== "object" || Array.isArray(val)) {
             return invalidValue("object", val);
         }
-        var result: any = {};
+        const result: any = {};
         Object.getOwnPropertyNames(props).forEach(key => {
             const prop = props[key];
             const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
@@ -5422,7 +5443,7 @@ function transform(val: any, typ: any, getProps: any): any {
             : invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
-    if (typ === Date && typeof val !== "number") return transformDate(typ, val);
+    if (typ === Date && typeof val !== "number") return transformDate(val);
     return transformPrimitive(typ, val);
 }
 
@@ -5631,6 +5652,7 @@ const typeMap: any = {
     "ConfirmAppointmentParams": o([
         { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
+        { json: "contract", js: "contract", typ: u(undefined, r("ParamsContract")) },
     ], "any"),
     "StickyAppointment": o([
         { json: "id", js: "id", typ: "" },
@@ -5644,6 +5666,11 @@ const typeMap: any = {
     "ClientObject": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
+    ], "any"),
+    "ParamsContract": o([
+        { json: "clientContractID", js: "clientContractID", typ: u(undefined, "") },
+        { json: "contractID", js: "contractID", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "AppointmentClientConfirmAppointmentResponse": o([
         { json: "id", js: "id", typ: 3.14 },
@@ -5685,6 +5712,7 @@ const typeMap: any = {
         { json: "clientComment", js: "clientComment", typ: "" },
         { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AppointmentClientVisitor"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "contract", js: "contract", typ: u(undefined, r("AppointmentContract")) },
         { json: "createdUser", js: "createdUser", typ: u(undefined, r("CreatedUser")) },
         { json: "destinationKeyword", js: "destinationKeyword", typ: u(undefined, "") },
         { json: "destinationLink", js: "destinationLink", typ: u(undefined, "") },
@@ -5913,6 +5941,11 @@ const typeMap: any = {
         { json: "parentProfileID", js: "parentProfileID", typ: u(undefined, "") },
         { json: "phone", js: "phone", typ: u(undefined, a(r("AdditionalClientPhone"))) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
+    ], "any"),
+    "AppointmentContract": o([
+        { json: "clientContractID", js: "clientContractID", typ: u(undefined, "") },
+        { json: "contractID", js: "contractID", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "CreatedUser": o([
         { json: "email", js: "email", typ: u(undefined, "") },
@@ -6541,6 +6574,7 @@ const typeMap: any = {
         { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
         { json: "showLeadsScreen", js: "showLeadsScreen", typ: u(undefined, true) },
         { json: "showManualChanges", js: "showManualChanges", typ: u(undefined, true) },
+        { json: "showPartnersContractScreen", js: "showPartnersContractScreen", typ: u(undefined, true) },
         { json: "showPassportId", js: "showPassportId", typ: u(undefined, true) },
         { json: "showRooms", js: "showRooms", typ: u(undefined, true) },
         { json: "showSeasonTickets", js: "showSeasonTickets", typ: u(undefined, true) },
@@ -6575,7 +6609,9 @@ const typeMap: any = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
+        { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
     "InfoCabinet": o([
@@ -7042,6 +7078,7 @@ const typeMap: any = {
         { json: "calendarModeHideTime", js: "calendarModeHideTime", typ: u(undefined, true) },
         { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("PurpleClientBlockingSettings")) },
         { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, "") },
+        { json: "cracBuildDays", js: "cracBuildDays", typ: u(undefined, 3.14) },
         { json: "cracServer", js: "cracServer", typ: u(undefined, r("CracServer")) },
         { json: "cracSlotSize", js: "cracSlotSize", typ: u(undefined, 3.14) },
         { json: "crunchv2", js: "crunchv2", typ: u(undefined, true) },
@@ -7391,6 +7428,7 @@ const typeMap: any = {
         { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
         { json: "showLeadsScreen", js: "showLeadsScreen", typ: u(undefined, true) },
         { json: "showManualChanges", js: "showManualChanges", typ: u(undefined, true) },
+        { json: "showPartnersContractScreen", js: "showPartnersContractScreen", typ: u(undefined, true) },
         { json: "showPassportId", js: "showPassportId", typ: u(undefined, true) },
         { json: "showRooms", js: "showRooms", typ: u(undefined, true) },
         { json: "showSeasonTickets", js: "showSeasonTickets", typ: u(undefined, true) },
@@ -7436,7 +7474,9 @@ const typeMap: any = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
+        { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
     "BusinessCabinet": o([

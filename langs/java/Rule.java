@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,9 +9,9 @@ public enum Rule {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case CUSTOM: return "CUSTOM";
-        case NEAREST_INTEGER: return "NEAREST_INTEGER";
-        case TWO_DECIMALS: return "TWO_DECIMALS";
+            case CUSTOM: return "CUSTOM";
+            case NEAREST_INTEGER: return "NEAREST_INTEGER";
+            case TWO_DECIMALS: return "TWO_DECIMALS";
         }
         return null;
     }

@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,10 +9,10 @@ public enum DateLimitType {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case ALL_DATES: return "all_dates";
-        case FROM_DATE: return "from_date";
-        case RANGE_DATES: return "range_dates";
-        case TO_DATE: return "to_date";
+            case ALL_DATES: return "all_dates";
+            case FROM_DATE: return "from_date";
+            case RANGE_DATES: return "range_dates";
+            case TO_DATE: return "to_date";
         }
         return null;
     }

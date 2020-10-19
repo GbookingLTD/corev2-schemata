@@ -1,11 +1,11 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class ConfirmAppointmentParams {
     private StickyAppointment appointment;
     private TentacledClient client;
+    private ParamsContract contract;
 
     @JsonProperty("appointment")
     public StickyAppointment getAppointment() { return appointment; }
@@ -16,4 +16,9 @@ public class ConfirmAppointmentParams {
     public TentacledClient getClient() { return client; }
     @JsonProperty("client")
     public void setClient(TentacledClient value) { this.client = value; }
+
+    @JsonProperty("contract")
+    public ParamsContract getContract() { return contract; }
+    @JsonProperty("contract")
+    public void setContract(ParamsContract value) { this.contract = value; }
 }

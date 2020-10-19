@@ -1,11 +1,11 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
 
 public class CracCRACResourcesFreeByDateV2Request {
     private Cred cred;
-    private PurpleTimeFrameDate id;
+    private BackofficeIDUnion id;
     private String jsonrpc;
     private String method;
     private List<CracCRACResourcesFreeByDateV2RequestParam> params;
@@ -22,9 +22,9 @@ public class CracCRACResourcesFreeByDateV2Request {
      * значение числового типа для идентификации запроса на сервере
      */
     @JsonProperty("id")
-    public PurpleTimeFrameDate getID() { return id; }
+    public BackofficeIDUnion getID() { return id; }
     @JsonProperty("id")
-    public void setID(PurpleTimeFrameDate value) { this.id = value; }
+    public void setID(BackofficeIDUnion value) { this.id = value; }
 
     /**
      * версия протокола - 2.0

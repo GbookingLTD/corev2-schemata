@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -13,9 +12,9 @@ public enum AccessType {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case NONE: return "NONE";
-        case WORKER_EXTENDED: return "WORKER_EXTENDED";
-        case WORKER_SIMPLE: return "WORKER_SIMPLE";
+            case NONE: return "NONE";
+            case WORKER_EXTENDED: return "WORKER_EXTENDED";
+            case WORKER_SIMPLE: return "WORKER_SIMPLE";
         }
         return null;
     }

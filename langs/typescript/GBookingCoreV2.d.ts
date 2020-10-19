@@ -406,6 +406,7 @@ export interface AppointmentClientConfirmAppointmentRequest {
 export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client: ClientObject;
+    contract?: ParamsContract;
 }
 export interface StickyAppointment {
     id: string;
@@ -424,6 +425,11 @@ export declare enum ReminderStatus {
 export interface ClientObject {
     comment?: string;
     id: string;
+}
+export interface ParamsContract {
+    clientContractID?: string;
+    contractID?: string;
+    id?: string;
 }
 export interface AppointmentClientConfirmAppointmentResponse {
     /**
@@ -496,6 +502,7 @@ export interface Appointment {
     clientComment: string;
     clientVisitors?: AppointmentClientVisitor[];
     color?: string;
+    contract?: AppointmentContract;
     createdUser?: CreatedUser;
     destinationKeyword?: string;
     destinationLink?: string;
@@ -825,6 +832,11 @@ export interface AppointmentClientVisitor {
     parentProfileID?: string;
     phone?: AdditionalClientPhone[];
     sex?: Sex;
+}
+export interface AppointmentContract {
+    clientContractID?: string;
+    contractID?: string;
+    id?: string;
 }
 export interface CreatedUser {
     email?: string;
@@ -1874,6 +1886,7 @@ export interface InfoBackofficeConfiguration {
     showKupatHolim?: boolean;
     showLeadsScreen?: boolean;
     showManualChanges?: boolean;
+    showPartnersContractScreen?: boolean;
     showPassportId?: boolean;
     showRooms?: boolean;
     showSeasonTickets?: boolean;
@@ -1949,7 +1962,9 @@ export declare enum BackofficeType {
     Mu = "MU"
 }
 export interface InfoBackofficeConfigurationObject {
+    enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
 export interface InfoCabinet {
@@ -2892,6 +2907,7 @@ export interface InfoWidgetConfiguration {
     calendarModeHideTime?: boolean;
     clientBlockingSettings?: PurpleClientBlockingSettings;
     clientCommentTitle?: string;
+    cracBuildDays?: number;
     cracServer?: CracServer;
     cracSlotSize?: number;
     crunchv2?: boolean;
@@ -3384,6 +3400,7 @@ export interface BusinessBackofficeConfiguration {
     showKupatHolim?: boolean;
     showLeadsScreen?: boolean;
     showManualChanges?: boolean;
+    showPartnersContractScreen?: boolean;
     showPassportId?: boolean;
     showRooms?: boolean;
     showSeasonTickets?: boolean;
@@ -3431,7 +3448,9 @@ export interface FluffyTelemedApplication {
     urlAppSchema?: string;
 }
 export interface BusinessBackofficeConfigurationObject {
+    enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
 export interface BusinessCabinet {

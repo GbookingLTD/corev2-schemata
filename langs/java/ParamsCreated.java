@@ -1,19 +1,19 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
 
 public class ParamsCreated {
-    private String end;
-    private String start;
+    private OffsetDateTime end;
+    private OffsetDateTime start;
 
     @JsonProperty("end")
-    public String getEnd() { return end; }
+    public OffsetDateTime getEnd() { return end; }
     @JsonProperty("end")
-    public void setEnd(String value) { this.end = value; }
+    public void setEnd(OffsetDateTime value) { this.end = value; }
 
     @JsonProperty("start")
-    public String getStart() { return start; }
+    public OffsetDateTime getStart() { return start; }
     @JsonProperty("start")
-    public void setStart(String value) { this.start = value; }
+    public void setStart(OffsetDateTime value) { this.start = value; }
 }

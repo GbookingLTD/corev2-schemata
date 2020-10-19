@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,16 +9,16 @@ public enum SocialNetwork {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case FACEBOOK: return "Facebook";
-        case GOOGLE: return "Google";
-        case G_BOOKING: return "GBooking";
-        case LINKED_IN: return "LinkedIn";
-        case MAILRU: return "Mailru";
-        case ODNOKLASSNIKI: return "Odnoklassniki";
-        case TWITTER: return "Twitter";
-        case V_KONTAKTE: return "VKontakte";
-        case YAHOO: return "Yahoo";
-        case YANDEX: return "Yandex";
+            case FACEBOOK: return "Facebook";
+            case GOOGLE: return "Google";
+            case G_BOOKING: return "GBooking";
+            case LINKED_IN: return "LinkedIn";
+            case MAILRU: return "Mailru";
+            case ODNOKLASSNIKI: return "Odnoklassniki";
+            case TWITTER: return "Twitter";
+            case V_KONTAKTE: return "VKontakte";
+            case YAHOO: return "Yahoo";
+            case YANDEX: return "Yandex";
         }
         return null;
     }

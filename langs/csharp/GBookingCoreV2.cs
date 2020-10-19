@@ -637,6 +637,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("client")]
         public TentacledClient Client { get; set; }
+
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public ParamsContract Contract { get; set; }
     }
 
     public partial class StickyAppointment
@@ -666,6 +669,18 @@ namespace GBookingCoreV2
         public string Comment { get; set; }
 
         [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    public partial class ParamsContract
+    {
+        [JsonProperty("clientContractID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientContractId { get; set; }
+
+        [JsonProperty("contractID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractId { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
     }
 
@@ -810,6 +825,9 @@ namespace GBookingCoreV2
 
         [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
         public string Color { get; set; }
+
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public AppointmentContract Contract { get; set; }
 
         [JsonProperty("createdUser", NullValueHandling = NullValueHandling.Ignore)]
         public CreatedUser CreatedUser { get; set; }
@@ -1434,6 +1452,18 @@ namespace GBookingCoreV2
 
         [JsonProperty("sex", NullValueHandling = NullValueHandling.Ignore)]
         public Sex? Sex { get; set; }
+    }
+
+    public partial class AppointmentContract
+    {
+        [JsonProperty("clientContractID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ClientContractId { get; set; }
+
+        [JsonProperty("contractID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractId { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class CreatedUser
@@ -3418,6 +3448,9 @@ namespace GBookingCoreV2
         [JsonProperty("showManualChanges", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowManualChanges { get; set; }
 
+        [JsonProperty("showPartnersContractScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowPartnersContractScreen { get; set; }
+
         [JsonProperty("showPassportId", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowPassportId { get; set; }
 
@@ -3514,8 +3547,14 @@ namespace GBookingCoreV2
 
     public partial class InfoBackofficeConfigurationClass
     {
+        [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableExtendedPhone { get; set; }
+
         [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableMasterImportance { get; set; }
+
+        [JsonProperty("enablePhoneNationalMode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnablePhoneNationalMode { get; set; }
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
@@ -5101,6 +5140,9 @@ namespace GBookingCoreV2
         [JsonProperty("clientCommentTitle", NullValueHandling = NullValueHandling.Ignore)]
         public string ClientCommentTitle { get; set; }
 
+        [JsonProperty("cracBuildDays", NullValueHandling = NullValueHandling.Ignore)]
+        public double? CracBuildDays { get; set; }
+
         [JsonProperty("cracServer", NullValueHandling = NullValueHandling.Ignore)]
         public CracServer? CracServer { get; set; }
 
@@ -6185,6 +6227,9 @@ namespace GBookingCoreV2
         [JsonProperty("showManualChanges", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowManualChanges { get; set; }
 
+        [JsonProperty("showPartnersContractScreen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? ShowPartnersContractScreen { get; set; }
+
         [JsonProperty("showPassportId", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ShowPassportId { get; set; }
 
@@ -6311,8 +6356,14 @@ namespace GBookingCoreV2
 
     public partial class BusinessBackofficeConfigurationClass
     {
+        [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnableExtendedPhone { get; set; }
+
         [JsonProperty("enableMasterImportance", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableMasterImportance { get; set; }
+
+        [JsonProperty("enablePhoneNationalMode", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? EnablePhoneNationalMode { get; set; }
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }

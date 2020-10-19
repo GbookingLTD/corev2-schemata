@@ -1,7 +1,8 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 public class InfoWidgetConfiguration {
     private String additionalName;
@@ -22,6 +23,7 @@ public class InfoWidgetConfiguration {
     private Boolean calendarModeHideTime;
     private PurpleClientBlockingSettings clientBlockingSettings;
     private String clientCommentTitle;
+    private Double cracBuildDays;
     private CracServer cracServer;
     private Double cracSlotSize;
     private Boolean crunchv2;
@@ -213,6 +215,11 @@ public class InfoWidgetConfiguration {
     public String getClientCommentTitle() { return clientCommentTitle; }
     @JsonProperty("clientCommentTitle")
     public void setClientCommentTitle(String value) { this.clientCommentTitle = value; }
+
+    @JsonProperty("cracBuildDays")
+    public Double getCracBuildDays() { return cracBuildDays; }
+    @JsonProperty("cracBuildDays")
+    public void setCracBuildDays(Double value) { this.cracBuildDays = value; }
 
     @JsonProperty("cracServer")
     public CracServer getCracServer() { return cracServer; }

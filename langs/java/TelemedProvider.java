@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,9 +9,9 @@ public enum TelemedProvider {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case DISABLE: return "DISABLE";
-        case MMCONF: return "mmconf";
-        case ZOOM: return "zoom";
+            case DISABLE: return "DISABLE";
+            case MMCONF: return "mmconf";
+            case ZOOM: return "zoom";
         }
         return null;
     }

@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,12 +9,12 @@ public enum PaymentProvider {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case CLOUDPAYMENTS: return "cloudpayments";
-        case DELTA_PROCESSING: return "deltaProcessing";
-        case DISABLE: return "DISABLE";
-        case PELECARD: return "pelecard";
-        case YANDEX_MONEY: return "yandexMoney";
-        case YANDEX_MONEYV3: return "yandexMoneyv3";
+            case CLOUDPAYMENTS: return "cloudpayments";
+            case DELTA_PROCESSING: return "deltaProcessing";
+            case DISABLE: return "DISABLE";
+            case PELECARD: return "pelecard";
+            case YANDEX_MONEY: return "yandexMoney";
+            case YANDEX_MONEYV3: return "yandexMoneyv3";
         }
         return null;
     }

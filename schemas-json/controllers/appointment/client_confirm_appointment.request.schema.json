@@ -67,6 +67,20 @@
                             "type": "string"
                         }
                     }
+                },
+                "contract": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "contractID": {
+                            "type": "string"
+                        },
+                        "clientContractID": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },

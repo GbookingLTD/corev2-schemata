@@ -239,8 +239,9 @@ type AppointmentClientConfirmAppointmentRequest struct {
 }
 
 type ConfirmAppointmentParams struct {
-	Appointment StickyAppointment `json:"appointment"`
-	Client      TentacledClient   `json:"client"`     
+	Appointment StickyAppointment `json:"appointment"`       
+	Client      TentacledClient   `json:"client"`            
+	Contract    *ParamsContract   `json:"contract,omitempty"`
 }
 
 type StickyAppointment struct {
@@ -257,6 +258,12 @@ type AppointmentReminder struct {
 type TentacledClient struct {
 	Comment *string `json:"comment,omitempty"`
 	ID      string  `json:"id"`               
+}
+
+type ParamsContract struct {
+	ClientContractID *string `json:"clientContractID,omitempty"`
+	ContractID       *string `json:"contractID,omitempty"`      
+	ID               *string `json:"id,omitempty"`              
 }
 
 type AppointmentClientConfirmAppointmentResponse struct {
@@ -305,6 +312,7 @@ type Appointment struct {
 	ClientComment              string                     `json:"clientComment"`                          
 	ClientVisitors             []AppointmentClientVisitor `json:"clientVisitors"`                         
 	Color                      *string                    `json:"color,omitempty"`                        
+	Contract                   *AppointmentContract       `json:"contract,omitempty"`                     
 	CreatedUser                *CreatedUser               `json:"createdUser,omitempty"`                  
 	DestinationKeyword         *string                    `json:"destinationKeyword,omitempty"`           
 	DestinationLink            *string                    `json:"destinationLink,omitempty"`              
@@ -558,6 +566,12 @@ type AppointmentClientVisitor struct {
 	ParentProfileID *string                 `json:"parentProfileID,omitempty"`
 	Phone           []AdditionalClientPhone `json:"phone"`                    
 	Sex             *Sex                    `json:"sex,omitempty"`            
+}
+
+type AppointmentContract struct {
+	ClientContractID *string `json:"clientContractID,omitempty"`
+	ContractID       *string `json:"contractID,omitempty"`      
+	ID               *string `json:"id,omitempty"`              
 }
 
 type CreatedUser struct {
@@ -1316,6 +1330,7 @@ type InfoBackofficeConfiguration struct {
 	ShowKupatHolim                                  *bool                      `json:"showKupatHolim,omitempty"`                                 
 	ShowLeadsScreen                                 *bool                      `json:"showLeadsScreen,omitempty"`                                
 	ShowManualChanges                               *bool                      `json:"showManualChanges,omitempty"`                              
+	ShowPartnersContractScreen                      *bool                      `json:"showPartnersContractScreen,omitempty"`                     
 	ShowPassportID                                  *bool                      `json:"showPassportId,omitempty"`                                 
 	ShowRooms                                       *bool                      `json:"showRooms,omitempty"`                                      
 	ShowSeasonTickets                               *bool                      `json:"showSeasonTickets,omitempty"`                              
@@ -1352,8 +1367,10 @@ type PurpleTelemedApplication struct {
 }
 
 type InfoBackofficeConfigurationClass struct {
-	EnableMasterImportance *bool                  `json:"enableMasterImportance,omitempty"`
-	ResourceTimetableType  *ResourceTimetableType `json:"resourceTimetableType,omitempty"` 
+	EnableExtendedPhone     *bool                  `json:"enableExtendedPhone,omitempty"`    
+	EnableMasterImportance  *bool                  `json:"enableMasterImportance,omitempty"` 
+	EnablePhoneNationalMode *bool                  `json:"enablePhoneNationalMode,omitempty"`
+	ResourceTimetableType   *ResourceTimetableType `json:"resourceTimetableType,omitempty"`  
 }
 
 type InfoCabinet struct {
@@ -1870,6 +1887,7 @@ type InfoWidgetConfiguration struct {
 	CalendarModeHideTime                   *bool                          `json:"calendarModeHideTime,omitempty"`                  
 	ClientBlockingSettings                 *PurpleClientBlockingSettings  `json:"clientBlockingSettings,omitempty"`                
 	ClientCommentTitle                     *string                        `json:"clientCommentTitle,omitempty"`                    
+	CracBuildDays                          *float64                       `json:"cracBuildDays,omitempty"`                         
 	CracServer                             *CracServer                    `json:"cracServer,omitempty"`                            
 	CracSlotSize                           *float64                       `json:"cracSlotSize,omitempty"`                          
 	Crunchv2                               *bool                          `json:"crunchv2,omitempty"`                              
@@ -2245,6 +2263,7 @@ type BusinessBackofficeConfiguration struct {
 	ShowKupatHolim                                  *bool                          `json:"showKupatHolim,omitempty"`                                 
 	ShowLeadsScreen                                 *bool                          `json:"showLeadsScreen,omitempty"`                                
 	ShowManualChanges                               *bool                          `json:"showManualChanges,omitempty"`                              
+	ShowPartnersContractScreen                      *bool                          `json:"showPartnersContractScreen,omitempty"`                     
 	ShowPassportID                                  *bool                          `json:"showPassportId,omitempty"`                                 
 	ShowRooms                                       *bool                          `json:"showRooms,omitempty"`                                      
 	ShowSeasonTickets                               *bool                          `json:"showSeasonTickets,omitempty"`                              
@@ -2293,8 +2312,10 @@ type FluffyTelemedApplication struct {
 }
 
 type BusinessBackofficeConfigurationClass struct {
-	EnableMasterImportance *bool                  `json:"enableMasterImportance,omitempty"`
-	ResourceTimetableType  *ResourceTimetableType `json:"resourceTimetableType,omitempty"` 
+	EnableExtendedPhone     *bool                  `json:"enableExtendedPhone,omitempty"`    
+	EnableMasterImportance  *bool                  `json:"enableMasterImportance,omitempty"` 
+	EnablePhoneNationalMode *bool                  `json:"enablePhoneNationalMode,omitempty"`
+	ResourceTimetableType   *ResourceTimetableType `json:"resourceTimetableType,omitempty"`  
 }
 
 type BusinessCabinet struct {
