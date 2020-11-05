@@ -1,11 +1,13 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
+import java.io.IOException;
 import java.io.IOException;
 import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
+import com.fasterxml.jackson.core.type.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * параметры запроса
@@ -20,14 +22,14 @@ public class ParamsUnion {
         @Override
         public ParamsUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
             ParamsUnion value = new ParamsUnion();
-            switch (jsonParser.getCurrentToken()) {
-            case START_ARRAY:
-                value.anythingArrayValue = jsonParser.readValueAs(new TypeReference<List<Object>>() {});
-                break;
-            case START_OBJECT:
-                value.anythingMapValue = jsonParser.readValueAs(Map.class);
-                break;
-            default: throw new IOException("Cannot deserialize ParamsUnion");
+            switch (jsonParser.currentToken()) {
+                case START_ARRAY:
+                    value.anythingArrayValue = jsonParser.readValueAs(new TypeReference<List<Object>>() {});
+                    break;
+                case START_OBJECT:
+                    value.anythingMapValue = jsonParser.readValueAs(Map.class);
+                    break;
+                default: throw new IOException("Cannot deserialize ParamsUnion");
             }
             return value;
         }

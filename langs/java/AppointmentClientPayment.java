@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,11 +9,11 @@ public enum AppointmentClientPayment {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case NONE: return "NONE";
-        case NO_PAYMENT: return "NO_PAYMENT";
-        case YES_PAYED_FULL: return "YES_PAYED_FULL";
-        case YES_PAYED_ONLINE: return "YES_PAYED_ONLINE";
-        case YES_PAYED_PART: return "YES_PAYED_PART";
+            case NONE: return "NONE";
+            case NO_PAYMENT: return "NO_PAYMENT";
+            case YES_PAYED_FULL: return "YES_PAYED_FULL";
+            case YES_PAYED_ONLINE: return "YES_PAYED_ONLINE";
+            case YES_PAYED_PART: return "YES_PAYED_PART";
         }
         return null;
     }

@@ -1,11 +1,11 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
+import java.io.IOException;
 import java.io.IOException;
 import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.annotation.*;
+import com.fasterxml.jackson.core.type.*;
 
 @JsonDeserialize(using = FromSMS.Deserializer.class)
 @JsonSerialize(using = FromSMS.Serializer.class)
@@ -17,17 +17,18 @@ public class FromSMS {
         @Override
         public FromSMS deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
             FromSMS value = new FromSMS();
-            switch (jsonParser.getCurrentToken()) {
-            case VALUE_NULL:
-                break;
-            case VALUE_TRUE:
-            case VALUE_FALSE:
-                value.boolValue = jsonParser.readValueAs(Boolean.class);
-                break;
-            case VALUE_STRING:
-                value.stringValue = jsonParser.readValueAs(String.class);
-                break;
-            default: throw new IOException("Cannot deserialize FromSMS");
+            switch (jsonParser.currentToken()) {
+                case VALUE_NULL:
+                    break;
+                case VALUE_TRUE:
+                case VALUE_FALSE:
+                    value.boolValue = jsonParser.readValueAs(Boolean.class);
+                    break;
+                case VALUE_STRING:
+                    String string = jsonParser.readValueAs(String.class);
+                    value.stringValue = string;
+                    break;
+                default: throw new IOException("Cannot deserialize FromSMS");
             }
             return value;
         }

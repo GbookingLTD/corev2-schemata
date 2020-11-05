@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,9 +9,9 @@ public enum ReminderStatus {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case NOT_SET: return "NOT_SET";
-        case OFF: return "OFF";
-        case ON: return "ON";
+            case NOT_SET: return "NOT_SET";
+            case OFF: return "OFF";
+            case ON: return "ON";
         }
         return null;
     }

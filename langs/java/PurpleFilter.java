@@ -1,14 +1,15 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
+import java.util.List;
 
 public class PurpleFilter {
     private PurpleCreated created;
-    private String end;
+    private OffsetDateTime end;
     private List<String> services;
     private Boolean skipUpdated;
-    private String start;
+    private OffsetDateTime start;
     private List<String> workers;
 
     @JsonProperty("created")
@@ -17,9 +18,9 @@ public class PurpleFilter {
     public void setCreated(PurpleCreated value) { this.created = value; }
 
     @JsonProperty("end")
-    public String getEnd() { return end; }
+    public OffsetDateTime getEnd() { return end; }
     @JsonProperty("end")
-    public void setEnd(String value) { this.end = value; }
+    public void setEnd(OffsetDateTime value) { this.end = value; }
 
     @JsonProperty("services")
     public List<String> getServices() { return services; }
@@ -32,9 +33,9 @@ public class PurpleFilter {
     public void setSkipUpdated(Boolean value) { this.skipUpdated = value; }
 
     @JsonProperty("start")
-    public String getStart() { return start; }
+    public OffsetDateTime getStart() { return start; }
     @JsonProperty("start")
-    public void setStart(String value) { this.start = value; }
+    public void setStart(OffsetDateTime value) { this.start = value; }
 
     @JsonProperty("workers")
     public List<String> getWorkers() { return workers; }

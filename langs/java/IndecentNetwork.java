@@ -1,16 +1,15 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 
 public class IndecentNetwork {
-    private FluffyTimeFrameDate id;
+    private TaxiParkMemberCountUnion id;
 
     /**
      * идентификатор нетворка
      */
     @JsonProperty("id")
-    public FluffyTimeFrameDate getID() { return id; }
+    public TaxiParkMemberCountUnion getID() { return id; }
     @JsonProperty("id")
-    public void setID(FluffyTimeFrameDate value) { this.id = value; }
+    public void setID(TaxiParkMemberCountUnion value) { this.id = value; }
 }

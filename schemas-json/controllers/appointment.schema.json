@@ -195,6 +195,22 @@
                 "response"
             ],
             "additionalProperties": false
+        },
+        "open_appointment": {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "$ref": "./appointment/open_appointment.request.schema.json"
+                },
+                "response": {
+                    "$ref": "./appointment/open_appointment.response.schema.json"
+                }
+            },
+            "required": [
+                "request",
+                "response"
+            ],
+            "additionalProperties": false
         }
     },
     "required": [

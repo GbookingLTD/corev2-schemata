@@ -8,7 +8,6 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
-exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.Day = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.ReminderStatus = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -404,17 +403,17 @@ function invalidValue(typ, val) {
 }
 function jsonToJSProps(typ) {
     if (typ.jsonToJS === undefined) {
-        var map = {};
-        typ.props.forEach(function (p) { return map[p.json] = { key: p.js, typ: p.typ }; });
-        typ.jsonToJS = map;
+        var map_1 = {};
+        typ.props.forEach(function (p) { return map_1[p.json] = { key: p.js, typ: p.typ }; });
+        typ.jsonToJS = map_1;
     }
     return typ.jsonToJS;
 }
 function jsToJSONProps(typ) {
     if (typ.jsToJSON === undefined) {
-        var map = {};
-        typ.props.forEach(function (p) { return map[p.js] = { key: p.json, typ: p.typ }; });
-        typ.jsToJSON = map;
+        var map_2 = {};
+        typ.props.forEach(function (p) { return map_2[p.js] = { key: p.json, typ: p.typ }; });
+        typ.jsToJSON = map_2;
     }
     return typ.jsToJSON;
 }
@@ -428,9 +427,9 @@ function transform(val, typ, getProps) {
         // val must validate against one typ in typs
         var l = typs.length;
         for (var i = 0; i < l; i++) {
-            var typ = typs[i];
+            var typ_1 = typs[i];
             try {
-                return transform(val, typ, getProps);
+                return transform(val, typ_1, getProps);
             }
             catch (_) { }
         }
@@ -447,7 +446,7 @@ function transform(val, typ, getProps) {
             return invalidValue("array", val);
         return val.map(function (el) { return transform(el, typ, getProps); });
     }
-    function transformDate(typ, val) {
+    function transformDate(val) {
         if (val === null) {
             return null;
         }
@@ -496,7 +495,7 @@ function transform(val, typ, getProps) {
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number")
-        return transformDate(typ, val);
+        return transformDate(val);
     return transformPrimitive(typ, val);
 }
 function cast(val, typ) {
@@ -582,6 +581,7 @@ var typeMap = {
         { json: "get_appointment_by_showcase", js: "get_appointment_by_showcase", typ: u(undefined, r("GetAppointmentByShowcase")) },
         { json: "get_appointments_by_client_v2", js: "get_appointments_by_client_v2", typ: u(undefined, r("GetAppointmentsByClientV2")) },
         { json: "get_appointments_by_user", js: "get_appointments_by_user", typ: u(undefined, r("GetAppointmentsByUser")) },
+        { json: "open_appointment", js: "open_appointment", typ: u(undefined, r("OpenAppointment")) },
         { json: "reserve_appointment", js: "reserve_appointment", typ: r("ReserveAppointment") },
         { json: "start_appointment", js: "start_appointment", typ: u(undefined, r("StartAppointment")) },
     ], false),
@@ -701,6 +701,7 @@ var typeMap = {
     "ConfirmAppointmentParams": o([
         { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
+        { json: "contract", js: "contract", typ: u(undefined, r("ParamsContract")) },
     ], "any"),
     "StickyAppointment": o([
         { json: "id", js: "id", typ: "" },
@@ -714,6 +715,11 @@ var typeMap = {
     "ClientObject": o([
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
+    ], "any"),
+    "ParamsContract": o([
+        { json: "clientContractID", js: "clientContractID", typ: u(undefined, "") },
+        { json: "contractID", js: "contractID", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "AppointmentClientConfirmAppointmentResponse": o([
         { json: "id", js: "id", typ: 3.14 },
@@ -755,6 +761,7 @@ var typeMap = {
         { json: "clientComment", js: "clientComment", typ: "" },
         { json: "clientVisitors", js: "clientVisitors", typ: u(undefined, a(r("AppointmentClientVisitor"))) },
         { json: "color", js: "color", typ: u(undefined, "") },
+        { json: "contract", js: "contract", typ: u(undefined, r("AppointmentContract")) },
         { json: "createdUser", js: "createdUser", typ: u(undefined, r("CreatedUser")) },
         { json: "destinationKeyword", js: "destinationKeyword", typ: u(undefined, "") },
         { json: "destinationLink", js: "destinationLink", typ: u(undefined, "") },
@@ -983,6 +990,11 @@ var typeMap = {
         { json: "parentProfileID", js: "parentProfileID", typ: u(undefined, "") },
         { json: "phone", js: "phone", typ: u(undefined, a(r("AdditionalClientPhone"))) },
         { json: "sex", js: "sex", typ: u(undefined, r("Sex")) },
+    ], "any"),
+    "AppointmentContract": o([
+        { json: "clientContractID", js: "clientContractID", typ: u(undefined, "") },
+        { json: "contractID", js: "contractID", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "CreatedUser": o([
         { json: "email", js: "email", typ: u(undefined, "") },
@@ -1333,6 +1345,38 @@ var typeMap = {
         { json: "total", js: "total", typ: 3.14 },
         { json: "unconfirmed", js: "unconfirmed", typ: u(undefined, 3.14) },
     ], "any"),
+    "OpenAppointment": o([
+        { json: "request", js: "request", typ: r("AppointmentOpenAppointmentRequest") },
+        { json: "response", js: "response", typ: r("AppointmentOpenAppointmentResponse") },
+    ], false),
+    "AppointmentOpenAppointmentRequest": o([
+        { json: "cred", js: "cred", typ: u(undefined, r("Cred")) },
+        { json: "id", js: "id", typ: u(3.14, "") },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "method", js: "method", typ: "" },
+        { json: "params", js: "params", typ: r("OpenAppointmentParams") },
+    ], false),
+    "OpenAppointmentParams": o([
+        { json: "appointment", js: "appointment", typ: r("HilariousAppointment") },
+        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+    ], "any"),
+    "HilariousAppointment": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "AmbitiousBusiness": o([
+        { json: "id", js: "id", typ: "" },
+    ], false),
+    "AppointmentOpenAppointmentResponse": o([
+        { json: "id", js: "id", typ: 3.14 },
+        { json: "jsonrpc", js: "jsonrpc", typ: "" },
+        { json: "result", js: "result", typ: u(undefined, true) },
+        { json: "error", js: "error", typ: u(undefined, r("AppointmentOpenAppointmentResponseError")) },
+    ], false),
+    "AppointmentOpenAppointmentResponseError": o([
+        { json: "code", js: "code", typ: 3.14 },
+        { json: "data", js: "data", typ: u(undefined, u(m("any"), "")) },
+        { json: "message", js: "message", typ: "" },
+    ], "any"),
     "ReserveAppointment": o([
         { json: "request", js: "request", typ: r("AppointmentReserveAppointmentRequest") },
         { json: "response", js: "response", typ: r("AppointmentReserveAppointmentResponse") },
@@ -1346,7 +1390,7 @@ var typeMap = {
     ], false),
     "AppointmentReserve": o([
         { json: "appointment", js: "appointment", typ: r("AppointmentObject") },
-        { json: "business", js: "business", typ: r("AmbitiousBusiness") },
+        { json: "business", js: "business", typ: r("CunningBusiness") },
         { json: "originBusinessID", js: "originBusinessID", typ: u(undefined, u(null, "")) },
         { json: "resource", js: "resource", typ: r("ParamsResourceClass") },
         { json: "source", js: "source", typ: "" },
@@ -1372,7 +1416,7 @@ var typeMap = {
         { json: "discountType", js: "discountType", typ: u(undefined, "") },
         { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
     ], false),
-    "AmbitiousBusiness": o([
+    "CunningBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "ParamsResourceClass": o([
@@ -1404,13 +1448,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("StartAppointmentParams") },
     ], false),
     "StartAppointmentParams": o([
-        { json: "appointment", js: "appointment", typ: r("HilariousAppointment") },
-        { json: "business", js: "business", typ: r("CunningBusiness") },
+        { json: "appointment", js: "appointment", typ: r("AmbitiousAppointment") },
+        { json: "business", js: "business", typ: r("MagentaBusiness") },
     ], "any"),
-    "HilariousAppointment": o([
+    "AmbitiousAppointment": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "CunningBusiness": o([
+    "MagentaBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "AppointmentStartAppointmentResponse": o([
@@ -1611,6 +1655,7 @@ var typeMap = {
         { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
         { json: "showLeadsScreen", js: "showLeadsScreen", typ: u(undefined, true) },
         { json: "showManualChanges", js: "showManualChanges", typ: u(undefined, true) },
+        { json: "showPartnersContractScreen", js: "showPartnersContractScreen", typ: u(undefined, true) },
         { json: "showPassportId", js: "showPassportId", typ: u(undefined, true) },
         { json: "showRooms", js: "showRooms", typ: u(undefined, true) },
         { json: "showSeasonTickets", js: "showSeasonTickets", typ: u(undefined, true) },
@@ -1645,7 +1690,9 @@ var typeMap = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
+        { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
     "InfoCabinet": o([
@@ -2112,6 +2159,7 @@ var typeMap = {
         { json: "calendarModeHideTime", js: "calendarModeHideTime", typ: u(undefined, true) },
         { json: "clientBlockingSettings", js: "clientBlockingSettings", typ: u(undefined, r("PurpleClientBlockingSettings")) },
         { json: "clientCommentTitle", js: "clientCommentTitle", typ: u(undefined, "") },
+        { json: "cracBuildDays", js: "cracBuildDays", typ: u(undefined, 3.14) },
         { json: "cracServer", js: "cracServer", typ: u(undefined, r("CracServer")) },
         { json: "cracSlotSize", js: "cracSlotSize", typ: u(undefined, 3.14) },
         { json: "crunchv2", js: "crunchv2", typ: u(undefined, true) },
@@ -2289,7 +2337,7 @@ var typeMap = {
         { json: "params", js: "params", typ: r("BusinessGetProfileByIdRequestParams") },
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
-        { json: "business", js: "business", typ: r("MagentaBusiness") },
+        { json: "business", js: "business", typ: r("FriskyBusiness") },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -2306,7 +2354,7 @@ var typeMap = {
         { json: "with_taxonomy_showcase", js: "with_taxonomy_showcase", typ: u(undefined, true) },
         { json: "worker_sorting_type", js: "worker_sorting_type", typ: u(undefined, r("WorkerSortingType")) },
     ], false),
-    "MagentaBusiness": o([
+    "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "BusinessGetProfileByIdResponse": o([
@@ -2461,6 +2509,7 @@ var typeMap = {
         { json: "showKupatHolim", js: "showKupatHolim", typ: u(undefined, true) },
         { json: "showLeadsScreen", js: "showLeadsScreen", typ: u(undefined, true) },
         { json: "showManualChanges", js: "showManualChanges", typ: u(undefined, true) },
+        { json: "showPartnersContractScreen", js: "showPartnersContractScreen", typ: u(undefined, true) },
         { json: "showPassportId", js: "showPassportId", typ: u(undefined, true) },
         { json: "showRooms", js: "showRooms", typ: u(undefined, true) },
         { json: "showSeasonTickets", js: "showSeasonTickets", typ: u(undefined, true) },
@@ -2506,7 +2555,9 @@ var typeMap = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
+        { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
+        { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
     "BusinessCabinet": o([
@@ -2873,13 +2924,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientAddClientRequestParams") },
     ], false),
     "ClientAddClientRequestParams": o([
-        { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "business", js: "business", typ: r("MischievousBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "profile", js: "profile", typ: u(undefined, r("ParamsProfile")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "FriskyBusiness": o([
+    "MischievousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "ClientClass": o([
@@ -3014,13 +3065,13 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientAddClientResponseResult": o([
-        { json: "business", js: "business", typ: r("MischievousBusiness") },
+        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "documents", js: "documents", typ: u(undefined, a("")) },
         { json: "profile", js: "profile", typ: u(undefined, r("PurpleProfile")) },
         { json: "source", js: "source", typ: u(undefined, r("Source")) },
     ], "any"),
-    "MischievousBusiness": o([
+    "BraggadociousBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleProfile": o([
@@ -3038,13 +3089,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientFindOrCreateClientRequestParams") },
     ], false),
     "ClientFindOrCreateClientRequestParams": o([
-        { json: "business", js: "business", typ: r("BraggadociousBusiness") },
+        { json: "business", js: "business", typ: r("Business1") },
         { json: "client", js: "client", typ: u(undefined, r("ClientClass")) },
         { json: "network", js: "network", typ: u(undefined, r("StickyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
-    "BraggadociousBusiness": o([
+    "Business1": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "StickyNetwork": o([
@@ -3062,12 +3113,12 @@ var typeMap = {
         { json: "message", js: "message", typ: "" },
     ], "any"),
     "ClientFindOfCreateClientResponseResult": o([
-        { json: "business", js: "business", typ: u(undefined, r("Business1")) },
+        { json: "business", js: "business", typ: u(undefined, r("Business2")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "documents", js: "documents", typ: u(undefined, a("any")) },
         { json: "profile", js: "profile", typ: u(undefined, r("FluffyProfile")) },
     ], "any"),
-    "Business1": o([
+    "Business2": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "FluffyProfile": o([
@@ -3085,11 +3136,11 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientUpdateClientRequestParams") },
     ], false),
     "ClientUpdateClientRequestParams": o([
-        { json: "business", js: "business", typ: u(undefined, r("Business2")) },
+        { json: "business", js: "business", typ: u(undefined, r("Business3")) },
         { json: "client", js: "client", typ: r("ClientClass") },
         { json: "network", js: "network", typ: u(undefined, r("IndigoNetwork")) },
     ], false),
-    "Business2": o([
+    "Business3": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "IndigoNetwork": o([
@@ -3122,11 +3173,11 @@ var typeMap = {
         { json: "params", js: "params", typ: r("ClientUpdateClientInfoRequestParams") },
     ], false),
     "ClientUpdateClientInfoRequestParams": o([
-        { json: "business", js: "business", typ: u(undefined, r("Business3")) },
+        { json: "business", js: "business", typ: u(undefined, r("Business4")) },
         { json: "client", js: "client", typ: r("StickyClient") },
         { json: "network", js: "network", typ: u(undefined, r("IndecentNetwork")) },
     ], false),
-    "Business3": o([
+    "Business4": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
     "StickyClient": o([
@@ -3194,11 +3245,11 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracDistributedResourcesFreeByDateRequestParam")) },
     ], false),
     "CracCracDistributedResourcesFreeByDateRequestParam": o([
-        { json: "business", js: "business", typ: r("Business4") },
+        { json: "business", js: "business", typ: r("Business5") },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("PurpleTaxonomy") },
     ], false),
-    "Business4": o([
+    "Business5": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "PurpleTaxonomy": o([
@@ -3275,13 +3326,13 @@ var typeMap = {
         { json: "params", js: "params", typ: a(r("CracCracResourcesFreeByDateV2RequestParam")) },
     ], false),
     "CracCracResourcesFreeByDateV2RequestParam": o([
-        { json: "business", js: "business", typ: r("Business5") },
+        { json: "business", js: "business", typ: r("Business6") },
         { json: "duration", js: "duration", typ: 3.14 },
         { json: "durations", js: "durations", typ: a(3.14) },
         { json: "resources", js: "resources", typ: a("") },
         { json: "taxonomy", js: "taxonomy", typ: r("TentacledTaxonomy") },
     ], false),
-    "Business5": o([
+    "Business6": o([
         { json: "id", js: "id", typ: "" },
     ], false),
     "TentacledTaxonomy": o([

@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,8 +9,8 @@ public enum Dir {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case ASC: return "asc";
-        case DESC: return "desc";
+            case ASC: return "asc";
+            case DESC: return "desc";
         }
         return null;
     }

@@ -37,6 +37,15 @@ definitions:
             type: "string"
           comment:
             type: "string"
+      contract:
+        type: "object"
+        properties:
+          id:
+            type: "string"
+          contractID:
+            type: "string"
+          clientContractID:
+            type: "string"          
   Request:
     type: "object"
     required: ["params"]

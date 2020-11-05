@@ -1,7 +1,8 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 public class BusinessBackofficeConfiguration {
     private Double adjacentTaxonomiesTreshold;
@@ -94,6 +95,7 @@ public class BusinessBackofficeConfiguration {
     private Boolean showKupatHolim;
     private Boolean showLeadsScreen;
     private Boolean showManualChanges;
+    private Boolean showPartnersContractScreen;
     private Boolean showPassportID;
     private Boolean showRooms;
     private Boolean showSeasonTickets;
@@ -572,6 +574,11 @@ public class BusinessBackofficeConfiguration {
     public Boolean getShowManualChanges() { return showManualChanges; }
     @JsonProperty("showManualChanges")
     public void setShowManualChanges(Boolean value) { this.showManualChanges = value; }
+
+    @JsonProperty("showPartnersContractScreen")
+    public Boolean getShowPartnersContractScreen() { return showPartnersContractScreen; }
+    @JsonProperty("showPartnersContractScreen")
+    public void setShowPartnersContractScreen(Boolean value) { this.showPartnersContractScreen = value; }
 
     @JsonProperty("showPassportId")
     public Boolean getShowPassportID() { return showPassportID; }

@@ -1,33 +1,33 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.time.OffsetDateTime;
 
 /**
  * параметры запроса business.get_profile_by_id
  */
 public class BusinessGetProfileByIDRequestParams {
-    private MagentaBusiness business;
+    private FriskyBusiness business;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
-    private FluffyTimeFrameDate showcaseBusinessID;
+    private TaxiParkMemberCountUnion showcaseBusinessID;
     private Boolean skipWorkerSorting;
     private Boolean useOptimizedCache;
     private Boolean withBilling;
     private Boolean withBop;
     private Boolean withCampaigns;
     private Boolean withDiscounts;
-    private String withDiscountsFrom;
-    private String withDiscountsTo;
+    private OffsetDateTime withDiscountsFrom;
+    private OffsetDateTime withDiscountsTo;
     private Boolean withNetworks;
     private Boolean withTaxonomyShowcase;
     private WorkerSortingType workerSortingType;
 
     @JsonProperty("business")
-    public MagentaBusiness getBusiness() { return business; }
+    public FriskyBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(MagentaBusiness value) { this.business = value; }
+    public void setBusiness(FriskyBusiness value) { this.business = value; }
 
     /**
      * если указано true - меняет формат представления discounts
@@ -58,9 +58,9 @@ public class BusinessGetProfileByIDRequestParams {
      * идентификатор витрины (передаётся вместе с with_taxonomy_showcase)
      */
     @JsonProperty("showcase_business_id")
-    public FluffyTimeFrameDate getShowcaseBusinessID() { return showcaseBusinessID; }
+    public TaxiParkMemberCountUnion getShowcaseBusinessID() { return showcaseBusinessID; }
     @JsonProperty("showcase_business_id")
-    public void setShowcaseBusinessID(FluffyTimeFrameDate value) { this.showcaseBusinessID = value; }
+    public void setShowcaseBusinessID(TaxiParkMemberCountUnion value) { this.showcaseBusinessID = value; }
 
     /**
      * если указано true - не приминяет сортировку работников
@@ -115,17 +115,17 @@ public class BusinessGetProfileByIDRequestParams {
      * дата начала расписания, для которого нужно получить скидочные акции
      */
     @JsonProperty("with_discounts_from")
-    public String getWithDiscountsFrom() { return withDiscountsFrom; }
+    public OffsetDateTime getWithDiscountsFrom() { return withDiscountsFrom; }
     @JsonProperty("with_discounts_from")
-    public void setWithDiscountsFrom(String value) { this.withDiscountsFrom = value; }
+    public void setWithDiscountsFrom(OffsetDateTime value) { this.withDiscountsFrom = value; }
 
     /**
      * дата окончания расписания, для которого нужно получить скидочные акции
      */
     @JsonProperty("with_discounts_to")
-    public String getWithDiscountsTo() { return withDiscountsTo; }
+    public OffsetDateTime getWithDiscountsTo() { return withDiscountsTo; }
     @JsonProperty("with_discounts_to")
-    public void setWithDiscountsTo(String value) { this.withDiscountsTo = value; }
+    public void setWithDiscountsTo(OffsetDateTime value) { this.withDiscountsTo = value; }
 
     /**
      * если указано true - возвращает информацию о других филиалах сети в поле networks

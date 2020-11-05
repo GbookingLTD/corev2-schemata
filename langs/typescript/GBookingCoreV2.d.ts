@@ -144,6 +144,7 @@ export interface AppointmentController {
     get_appointment_by_showcase?: GetAppointmentByShowcase;
     get_appointments_by_client_v2?: GetAppointmentsByClientV2;
     get_appointments_by_user?: GetAppointmentsByUser;
+    open_appointment?: OpenAppointment;
     reserve_appointment: ReserveAppointment;
     start_appointment?: StartAppointment;
 }
@@ -406,6 +407,7 @@ export interface AppointmentClientConfirmAppointmentRequest {
 export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client: ClientObject;
+    contract?: ParamsContract;
 }
 export interface StickyAppointment {
     id: string;
@@ -424,6 +426,11 @@ export declare enum ReminderStatus {
 export interface ClientObject {
     comment?: string;
     id: string;
+}
+export interface ParamsContract {
+    clientContractID?: string;
+    contractID?: string;
+    id?: string;
 }
 export interface AppointmentClientConfirmAppointmentResponse {
     /**
@@ -496,6 +503,7 @@ export interface Appointment {
     clientComment: string;
     clientVisitors?: AppointmentClientVisitor[];
     color?: string;
+    contract?: AppointmentContract;
     createdUser?: CreatedUser;
     destinationKeyword?: string;
     destinationLink?: string;
@@ -825,6 +833,11 @@ export interface AppointmentClientVisitor {
     parentProfileID?: string;
     phone?: AdditionalClientPhone[];
     sex?: Sex;
+}
+export interface AppointmentContract {
+    clientContractID?: string;
+    contractID?: string;
+    id?: string;
 }
 export interface CreatedUser {
     email?: string;
@@ -1423,6 +1436,79 @@ export interface AppointmentGetAppointmentsByUserResponseResult {
     total: number;
     unconfirmed?: number;
 }
+export interface OpenAppointment {
+    request: AppointmentOpenAppointmentRequest;
+    response: AppointmentOpenAppointmentResponse;
+}
+export interface AppointmentOpenAppointmentRequest {
+    /**
+     * авторизационные параметры
+     */
+    cred?: Cred;
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: BackofficeIdUnion;
+    /**
+     * версия протокола - 2.0
+     */
+    jsonrpc: string;
+    /**
+     * название jsonrpc метода
+     */
+    method: string;
+    /**
+     * параметры запроса
+     */
+    params: OpenAppointmentParams;
+}
+export interface OpenAppointmentParams {
+    appointment: HilariousAppointment;
+    business: AmbitiousBusiness;
+}
+export interface HilariousAppointment {
+    id: string;
+}
+export interface AmbitiousBusiness {
+    id: string;
+}
+export interface AppointmentOpenAppointmentResponse {
+    /**
+     * значение числового типа для идентификации запроса на сервере
+     */
+    id: number;
+    /**
+     * версия протокола (2.0)
+     */
+    jsonrpc: string;
+    /**
+     * данные, передаваемые в ответ
+     */
+    result?: boolean;
+    /**
+     * объект, содержащий информацию об ошибке
+     */
+    error?: AppointmentOpenAppointmentResponseError;
+}
+/**
+ * объект, содержащий информацию об ошибке
+ *
+ * Код ошибки авторизации
+ */
+export interface AppointmentOpenAppointmentResponseError {
+    /**
+     * код ошибки
+     */
+    code: number;
+    /**
+     * дополнительные данные об ошибке
+     */
+    data?: Data;
+    /**
+     * текстовая информация об ошибке
+     */
+    message: string;
+}
 export interface ReserveAppointment {
     request: AppointmentReserveAppointmentRequest;
     response: AppointmentReserveAppointmentResponse;
@@ -1451,7 +1537,7 @@ export interface AppointmentReserveAppointmentRequest {
 }
 export interface AppointmentReserve {
     appointment: AppointmentObject;
-    business: AmbitiousBusiness;
+    business: CunningBusiness;
     originBusinessID?: null | string;
     resource: ParamsResourceClass;
     source: string;
@@ -1477,7 +1563,7 @@ export interface FluffyAdditionalTaxonomyDiscount {
     discountType?: string;
     taxonomyID?: string;
 }
-export interface AmbitiousBusiness {
+export interface CunningBusiness {
     id: string;
 }
 export interface ParamsResourceClass {
@@ -1551,13 +1637,13 @@ export interface AppointmentStartAppointmentRequest {
     params: StartAppointmentParams;
 }
 export interface StartAppointmentParams {
-    appointment: HilariousAppointment;
-    business: CunningBusiness;
+    appointment: AmbitiousAppointment;
+    business: MagentaBusiness;
 }
-export interface HilariousAppointment {
+export interface AmbitiousAppointment {
     id: string;
 }
-export interface CunningBusiness {
+export interface MagentaBusiness {
     id: string;
 }
 export interface AppointmentStartAppointmentResponse {
@@ -1874,6 +1960,7 @@ export interface InfoBackofficeConfiguration {
     showKupatHolim?: boolean;
     showLeadsScreen?: boolean;
     showManualChanges?: boolean;
+    showPartnersContractScreen?: boolean;
     showPassportId?: boolean;
     showRooms?: boolean;
     showSeasonTickets?: boolean;
@@ -1949,7 +2036,9 @@ export declare enum BackofficeType {
     Mu = "MU"
 }
 export interface InfoBackofficeConfigurationObject {
+    enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
 export interface InfoCabinet {
@@ -2892,6 +2981,7 @@ export interface InfoWidgetConfiguration {
     calendarModeHideTime?: boolean;
     clientBlockingSettings?: PurpleClientBlockingSettings;
     clientCommentTitle?: string;
+    cracBuildDays?: number;
     cracServer?: CracServer;
     cracSlotSize?: number;
     crunchv2?: boolean;
@@ -3116,7 +3206,7 @@ export interface BusinessGetProfileByIdRequest {
  * параметры запроса business.get_profile_by_id
  */
 export interface BusinessGetProfileByIdRequestParams {
-    business: MagentaBusiness;
+    business: FriskyBusiness;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -3181,7 +3271,7 @@ export interface BusinessGetProfileByIdRequestParams {
      */
     worker_sorting_type?: WorkerSortingType;
 }
-export interface MagentaBusiness {
+export interface FriskyBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -3384,6 +3474,7 @@ export interface BusinessBackofficeConfiguration {
     showKupatHolim?: boolean;
     showLeadsScreen?: boolean;
     showManualChanges?: boolean;
+    showPartnersContractScreen?: boolean;
     showPassportId?: boolean;
     showRooms?: boolean;
     showSeasonTickets?: boolean;
@@ -3431,7 +3522,9 @@ export interface FluffyTelemedApplication {
     urlAppSchema?: string;
 }
 export interface BusinessBackofficeConfigurationObject {
+    enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
+    enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
 export interface BusinessCabinet {
@@ -3881,13 +3974,13 @@ export interface ClientAddClientRequest {
  * параметры запроса
  */
 export interface ClientAddClientRequestParams {
-    business: FriskyBusiness;
+    business: MischievousBusiness;
     client: ClientClass;
     profile?: ParamsProfile;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface FriskyBusiness {
+export interface MischievousBusiness {
     /**
      * идентификатор бизнеса
      */
@@ -4074,13 +4167,13 @@ export interface ClientAddClientResponseError {
     message: string;
 }
 export interface ClientAddClientResponseResult {
-    business: MischievousBusiness;
+    business: BraggadociousBusiness;
     client: ClientClass;
     documents?: string[];
     profile?: PurpleProfile;
     source?: Source;
 }
-export interface MischievousBusiness {
+export interface BraggadociousBusiness {
     id: string;
 }
 export interface PurpleProfile {
@@ -4122,13 +4215,13 @@ export interface ClientFindOrCreateClientRequest {
  * параметры запроса
  */
 export interface ClientFindOrCreateClientRequestParams {
-    business: BraggadociousBusiness;
+    business: Business1;
     client?: ClientClass;
     network?: StickyNetwork;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
 }
-export interface BraggadociousBusiness {
+export interface Business1 {
     /**
      * идентификатор бизнеса
      */
@@ -4177,12 +4270,12 @@ export interface ClientFindOfCreateClientResponseError {
     message: string;
 }
 export interface ClientFindOfCreateClientResponseResult {
-    business?: Business1;
+    business?: Business2;
     client: ClientClass;
     documents?: any[];
     profile?: FluffyProfile;
 }
-export interface Business1 {
+export interface Business2 {
     id: string;
 }
 export interface FluffyProfile {
@@ -4218,11 +4311,11 @@ export interface ClientUpdateClientRequest {
  * параметры запроса
  */
 export interface ClientUpdateClientRequestParams {
-    business?: Business2;
+    business?: Business3;
     client: ClientClass;
     network?: IndigoNetwork;
 }
-export interface Business2 {
+export interface Business3 {
     /**
      * идентификатор бизнеса
      */
@@ -4306,11 +4399,11 @@ export interface ClientUpdateClientInfoRequest {
  * параметры запроса
  */
 export interface ClientUpdateClientInfoRequestParams {
-    business?: Business3;
+    business?: Business4;
     client: StickyClient;
     network?: IndecentNetwork;
 }
-export interface Business3 {
+export interface Business4 {
     /**
      * идентификатор бизнеса
      */
@@ -4429,11 +4522,11 @@ export interface CracCracDistributedResourcesFreeByDateRequest {
     params: CracCracDistributedResourcesFreeByDateRequestParam[];
 }
 export interface CracCracDistributedResourcesFreeByDateRequestParam {
-    business: Business4;
+    business: Business5;
     resources: string[];
     taxonomy: PurpleTaxonomy;
 }
-export interface Business4 {
+export interface Business5 {
     id: string;
 }
 export interface PurpleTaxonomy {
@@ -4586,13 +4679,13 @@ export interface CracCracResourcesFreeByDateV2Request {
     params: CracCracResourcesFreeByDateV2RequestParam[];
 }
 export interface CracCracResourcesFreeByDateV2RequestParam {
-    business: Business5;
+    business: Business6;
     duration: number;
     durations: number[];
     resources: string[];
     taxonomy: TentacledTaxonomy;
 }
-export interface Business5 {
+export interface Business6 {
     id: string;
 }
 export interface TentacledTaxonomy {

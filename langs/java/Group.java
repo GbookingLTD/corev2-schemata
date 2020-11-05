@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,10 +9,10 @@ public enum Group {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case FRENCH: return "FRENCH";
-        case GENERAL: return "GENERAL";
-        case HUNGARIAN: return "HUNGARIAN";
-        case LATVIAN: return "LATVIAN";
+            case FRENCH: return "FRENCH";
+            case GENERAL: return "GENERAL";
+            case HUNGARIAN: return "HUNGARIAN";
+            case LATVIAN: return "LATVIAN";
         }
         return null;
     }

@@ -1,19 +1,19 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import com.fasterxml.jackson.annotation.*;
+import java.util.List;
 
 public class ClientAddClientResponseResult {
-    private MischievousBusiness business;
+    private BraggadociousBusiness business;
     private ClientClass client;
     private List<String> documents;
     private PurpleProfile profile;
     private Source source;
 
     @JsonProperty("business")
-    public MischievousBusiness getBusiness() { return business; }
+    public BraggadociousBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(MischievousBusiness value) { this.business = value; }
+    public void setBusiness(BraggadociousBusiness value) { this.business = value; }
 
     @JsonProperty("client")
     public ClientClass getClient() { return client; }

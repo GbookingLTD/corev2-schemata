@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,10 +9,10 @@ public enum Sex {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case EMPTY: return "";
-        case FEMALE: return "FEMALE";
-        case MALE: return "MALE";
-        case NOT_SPECIFIED: return "NOT_SPECIFIED";
+            case EMPTY: return "";
+            case FEMALE: return "FEMALE";
+            case MALE: return "MALE";
+            case NOT_SPECIFIED: return "NOT_SPECIFIED";
         }
         return null;
     }

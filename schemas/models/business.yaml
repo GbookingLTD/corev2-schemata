@@ -147,7 +147,12 @@ properties:
       enableMasterImportance:
         type: "boolean"
         default: false
-
+      enablePhoneNationalMode:
+        type: "boolean"
+        default: false
+      enableExtendedPhone:
+        type: "boolean"
+        default: false
   maxFilterDateDuration: 
     type: "number"
 
@@ -718,6 +723,9 @@ definitions:
         type: "boolean"
         default: false
       showGuaranteeLettersScreen:
+        type: "boolean"
+        default: false
+      showPartnersContractScreen:
         type: "boolean"
         default: false
       schedulerWeekViewType:

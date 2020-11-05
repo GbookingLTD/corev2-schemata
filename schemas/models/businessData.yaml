@@ -147,6 +147,12 @@ properties:
       enableMasterImportance:
         type: "boolean"
         default: false
+      enablePhoneNationalMode:
+        type: "boolean"
+        default: false
+      enableExtendedPhone:
+        type: "boolean"
+        default: false
   
   activeResourceCount:
     type: "number"
@@ -409,6 +415,9 @@ definitions:
       showGuaranteeLettersScreen:
         type: "boolean"
         default: false
+      showPartnersContractScreen:
+        type: "boolean"
+        default: false
       schedulerWeekViewType:
         type: "string"
         enum: ["week", "workWeek"]
@@ -596,6 +605,9 @@ definitions:
         type: "number"
         enum: [1, 5]
         default: 5
+      cracBuildDays:
+        type: "number"
+        default: 120
       widgetUseCRAC:
         type: "boolean"
         default: false

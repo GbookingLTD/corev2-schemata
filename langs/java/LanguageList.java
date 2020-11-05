@@ -1,6 +1,5 @@
 package ru.gbooking.apiv2;
 
-import java.util.*;
 import java.io.IOException;
 import com.fasterxml.jackson.annotation.*;
 
@@ -10,21 +9,21 @@ public enum LanguageList {
     @JsonValue
     public String toValue() {
         switch (this) {
-        case AM_AM: return "am-am";
-        case DE_DE: return "de-de";
-        case EE_EE: return "ee-ee";
-        case EN_US: return "en-us";
-        case ES_ES: return "es-es";
-        case FI_FI: return "fi-fi";
-        case FR_FR: return "fr-fr";
-        case GE_GE: return "ge-ge";
-        case HE_IL: return "he-il";
-        case HU_HU: return "hu-hu";
-        case LT_LT: return "lt-lt";
-        case LV_LV: return "lv-lv";
-        case RU_RU: return "ru-ru";
-        case UZ_UZ: return "uz-uz";
-        case ZH_CN: return "zh-cn";
+            case AM_AM: return "am-am";
+            case DE_DE: return "de-de";
+            case EE_EE: return "ee-ee";
+            case EN_US: return "en-us";
+            case ES_ES: return "es-es";
+            case FI_FI: return "fi-fi";
+            case FR_FR: return "fr-fr";
+            case GE_GE: return "ge-ge";
+            case HE_IL: return "he-il";
+            case HU_HU: return "hu-hu";
+            case LT_LT: return "lt-lt";
+            case LV_LV: return "lv-lv";
+            case RU_RU: return "ru-ru";
+            case UZ_UZ: return "uz-uz";
+            case ZH_CN: return "zh-cn";
         }
         return null;
     }
