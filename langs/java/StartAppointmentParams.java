@@ -3,16 +3,16 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class StartAppointmentParams {
-    private AmbitiousAppointment appointment;
-    private CunningBusiness business;
+    private CunningAppointment appointment;
+    private MagentaBusiness business;
 
     @JsonProperty("appointment")
-    public AmbitiousAppointment getAppointment() { return appointment; }
+    public CunningAppointment getAppointment() { return appointment; }
     @JsonProperty("appointment")
-    public void setAppointment(AmbitiousAppointment value) { this.appointment = value; }
+    public void setAppointment(CunningAppointment value) { this.appointment = value; }
 
     @JsonProperty("business")
-    public CunningBusiness getBusiness() { return business; }
+    public MagentaBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(CunningBusiness value) { this.business = value; }
+    public void setBusiness(MagentaBusiness value) { this.business = value; }
 }

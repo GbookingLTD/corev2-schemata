@@ -13,6 +13,7 @@ public class AppointmentController {
     private GetAppointmentByShowcase getAppointmentByShowcase;
     private GetAppointmentsByClientV2 getAppointmentsByClientV2;
     private GetAppointmentsByUser getAppointmentsByUser;
+    private OpenAppointment openAppointment;
     private ReserveAppointment reserveAppointment;
     private StartAppointment startAppointment;
 
@@ -65,6 +66,11 @@ public class AppointmentController {
     public GetAppointmentsByUser getGetAppointmentsByUser() { return getAppointmentsByUser; }
     @JsonProperty("get_appointments_by_user")
     public void setGetAppointmentsByUser(GetAppointmentsByUser value) { this.getAppointmentsByUser = value; }
+
+    @JsonProperty("open_appointment")
+    public OpenAppointment getOpenAppointment() { return openAppointment; }
+    @JsonProperty("open_appointment")
+    public void setOpenAppointment(OpenAppointment value) { this.openAppointment = value; }
 
     @JsonProperty("reserve_appointment")
     public ReserveAppointment getReserveAppointment() { return reserveAppointment; }

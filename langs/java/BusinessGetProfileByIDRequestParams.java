@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
  * параметры запроса business.get_profile_by_id
  */
 public class BusinessGetProfileByIDRequestParams {
-    private MagentaBusiness business;
+    private FriskyBusiness business;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
@@ -25,9 +25,9 @@ public class BusinessGetProfileByIDRequestParams {
     private WorkerSortingType workerSortingType;
 
     @JsonProperty("business")
-    public MagentaBusiness getBusiness() { return business; }
+    public FriskyBusiness getBusiness() { return business; }
     @JsonProperty("business")
-    public void setBusiness(MagentaBusiness value) { this.business = value; }
+    public void setBusiness(FriskyBusiness value) { this.business = value; }
 
     /**
      * если указано true - меняет формат представления discounts

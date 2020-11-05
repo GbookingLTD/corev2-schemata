@@ -2,7 +2,7 @@ package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class MagentaBusiness {
+public class Business6 {
     private String id;
 
     @JsonProperty("id")

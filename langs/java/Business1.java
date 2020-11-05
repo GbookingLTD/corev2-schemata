@@ -3,10 +3,13 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class Business1 {
-    private String id;
+    private BackofficeIDUnion id;
 
+    /**
+     * идентификатор бизнеса
+     */
     @JsonProperty("id")
-    public String getID() { return id; }
+    public BackofficeIDUnion getID() { return id; }
     @JsonProperty("id")
-    public void setID(String value) { this.id = value; }
+    public void setID(BackofficeIDUnion value) { this.id = value; }
 }
