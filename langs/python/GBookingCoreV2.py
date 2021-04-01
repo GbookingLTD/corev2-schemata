@@ -4035,6 +4035,29 @@ class HilariousBusiness:
         return result
 
 
+class TentacledContract:
+    """данные по договору, если указано то будут переданы записи только по данному договору"""
+    extra_id: Optional[str]
+    id: Optional[str]
+
+    def __init__(self, extra_id: Optional[str], id: Optional[str]) -> None:
+        self.extra_id = extra_id
+        self.id = id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TentacledContract':
+        assert isinstance(obj, dict)
+        extra_id = from_union([from_str, from_none], obj.get("extraId"))
+        id = from_union([from_str, from_none], obj.get("id"))
+        return TentacledContract(extra_id, id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["extraId"] = from_union([from_str, from_none], self.extra_id)
+        result["id"] = from_union([from_str, from_none], self.id)
+        return result
+
+
 class TentacledSort:
     dir: Dir
     field: SortField
@@ -4155,6 +4178,8 @@ class TentacledNetwork:
 
 class AppointmentGetAppointmentsByUserRequestParams:
     business: Optional[HilariousBusiness]
+    """данные по договору, если указано то будут переданы записи только по данному договору"""
+    contract: Optional[TentacledContract]
     extra_filters: Optional[TentacledExtraFilters]
     fill_business_data: Optional[bool]
     filter: Optional[TentacledFilter]
@@ -4163,8 +4188,9 @@ class AppointmentGetAppointmentsByUserRequestParams:
     page_size: float
     skip_business_cancelled: Optional[bool]
 
-    def __init__(self, business: Optional[HilariousBusiness], extra_filters: Optional[TentacledExtraFilters], fill_business_data: Optional[bool], filter: Optional[TentacledFilter], network: Optional[TentacledNetwork], page: float, page_size: float, skip_business_cancelled: Optional[bool]) -> None:
+    def __init__(self, business: Optional[HilariousBusiness], contract: Optional[TentacledContract], extra_filters: Optional[TentacledExtraFilters], fill_business_data: Optional[bool], filter: Optional[TentacledFilter], network: Optional[TentacledNetwork], page: float, page_size: float, skip_business_cancelled: Optional[bool]) -> None:
         self.business = business
+        self.contract = contract
         self.extra_filters = extra_filters
         self.fill_business_data = fill_business_data
         self.filter = filter
@@ -4177,6 +4203,7 @@ class AppointmentGetAppointmentsByUserRequestParams:
     def from_dict(obj: Any) -> 'AppointmentGetAppointmentsByUserRequestParams':
         assert isinstance(obj, dict)
         business = from_union([HilariousBusiness.from_dict, from_none], obj.get("business"))
+        contract = from_union([TentacledContract.from_dict, from_none], obj.get("contract"))
         extra_filters = from_union([TentacledExtraFilters.from_dict, from_none], obj.get("extraFilters"))
         fill_business_data = from_union([from_bool, from_none], obj.get("fill_business_data"))
         filter = from_union([TentacledFilter.from_dict, from_none], obj.get("filter"))
@@ -4184,11 +4211,12 @@ class AppointmentGetAppointmentsByUserRequestParams:
         page = from_float(obj.get("page"))
         page_size = from_float(obj.get("pageSize"))
         skip_business_cancelled = from_union([from_bool, from_none], obj.get("skipBusinessCancelled"))
-        return AppointmentGetAppointmentsByUserRequestParams(business, extra_filters, fill_business_data, filter, network, page, page_size, skip_business_cancelled)
+        return AppointmentGetAppointmentsByUserRequestParams(business, contract, extra_filters, fill_business_data, filter, network, page, page_size, skip_business_cancelled)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["business"] = from_union([lambda x: to_class(HilariousBusiness, x), from_none], self.business)
+        result["contract"] = from_union([lambda x: to_class(TentacledContract, x), from_none], self.contract)
         result["extraFilters"] = from_union([lambda x: to_class(TentacledExtraFilters, x), from_none], self.extra_filters)
         result["fill_business_data"] = from_union([from_bool, from_none], self.fill_business_data)
         result["filter"] = from_union([lambda x: to_class(TentacledFilter, x), from_none], self.filter)
@@ -5112,7 +5140,7 @@ class AppointmentController:
         return result
 
 
-class TentacledContract:
+class StickyContract:
     """данные по договору, если указано то список работников и услуг формируется на основе
     переданного договора
     """
@@ -5124,11 +5152,11 @@ class TentacledContract:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'TentacledContract':
+    def from_dict(obj: Any) -> 'StickyContract':
         assert isinstance(obj, dict)
         extra_id = from_union([from_str, from_none], obj.get("extraId"))
         id = from_union([from_str, from_none], obj.get("id"))
-        return TentacledContract(extra_id, id)
+        return StickyContract(extra_id, id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -5182,7 +5210,7 @@ class BusinessGetNetworkDataRequestParams:
     """данные по договору, если указано то список работников и услуг формируется на основе
     переданного договора
     """
-    contract: Optional[TentacledContract]
+    contract: Optional[StickyContract]
     """идентификатор сети"""
     network_id: Union[float, str]
     resource: Optional[FluffyResource]
@@ -5192,7 +5220,7 @@ class BusinessGetNetworkDataRequestParams:
     """
     with_business_info: Optional[bool]
 
-    def __init__(self, contract: Optional[TentacledContract], network_id: Union[float, str], resource: Optional[FluffyResource], taxonomy: Optional[FluffyTaxonomy], with_business_info: Optional[bool]) -> None:
+    def __init__(self, contract: Optional[StickyContract], network_id: Union[float, str], resource: Optional[FluffyResource], taxonomy: Optional[FluffyTaxonomy], with_business_info: Optional[bool]) -> None:
         self.contract = contract
         self.network_id = network_id
         self.resource = resource
@@ -5202,7 +5230,7 @@ class BusinessGetNetworkDataRequestParams:
     @staticmethod
     def from_dict(obj: Any) -> 'BusinessGetNetworkDataRequestParams':
         assert isinstance(obj, dict)
-        contract = from_union([TentacledContract.from_dict, from_none], obj.get("contract"))
+        contract = from_union([StickyContract.from_dict, from_none], obj.get("contract"))
         network_id = from_union([from_float, from_str], obj.get("networkID"))
         resource = from_union([FluffyResource.from_dict, from_none], obj.get("resource"))
         taxonomy = from_union([FluffyTaxonomy.from_dict, from_none], obj.get("taxonomy"))
@@ -5211,7 +5239,7 @@ class BusinessGetNetworkDataRequestParams:
 
     def to_dict(self) -> dict:
         result: dict = {}
-        result["contract"] = from_union([lambda x: to_class(TentacledContract, x), from_none], self.contract)
+        result["contract"] = from_union([lambda x: to_class(StickyContract, x), from_none], self.contract)
         result["networkID"] = from_union([to_float, from_str], self.network_id)
         result["resource"] = from_union([lambda x: to_class(FluffyResource, x), from_none], self.resource)
         result["taxonomy"] = from_union([lambda x: to_class(FluffyTaxonomy, x), from_none], self.taxonomy)
@@ -9375,7 +9403,7 @@ class FriskyBusiness:
         return result
 
 
-class StickyContract:
+class IndigoContract:
     """данные по договору, если указано то список работников и услуг формируется на основе
     переданного договора
     """
@@ -9387,11 +9415,11 @@ class StickyContract:
         self.id = id
 
     @staticmethod
-    def from_dict(obj: Any) -> 'StickyContract':
+    def from_dict(obj: Any) -> 'IndigoContract':
         assert isinstance(obj, dict)
         extra_id = from_union([from_str, from_none], obj.get("extraId"))
         id = from_union([from_str, from_none], obj.get("id"))
-        return StickyContract(extra_id, id)
+        return IndigoContract(extra_id, id)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -9413,7 +9441,7 @@ class BusinessGetProfileByIDRequestParams:
     """данные по договору, если указано то список работников и услуг формируется на основе
     переданного договора
     """
-    contract: Optional[StickyContract]
+    contract: Optional[IndigoContract]
     """если указано true - меняет формат представления discounts"""
     desktop_discounts: Optional[bool]
     """если указано true - возвращает только активных работников (status == 'INACTIVE')"""
@@ -9451,7 +9479,7 @@ class BusinessGetProfileByIDRequestParams:
     """тип сортировки работника"""
     worker_sorting_type: Optional[WorkerSortingType]
 
-    def __init__(self, business: FriskyBusiness, contract: Optional[StickyContract], desktop_discounts: Optional[bool], only_active_workers: Optional[bool], show_inactive_workers: Optional[bool], showcase_business_id: Union[float, None, str], skip_worker_sorting: Optional[bool], use_optimized_cache: Optional[bool], with_billing: Optional[bool], with_bop: Optional[bool], with_campaigns: Optional[bool], with_discounts: Optional[bool], with_discounts_from: Optional[datetime], with_discounts_to: Optional[datetime], with_networks: Optional[bool], with_taxonomy_showcase: Optional[bool], worker_sorting_type: Optional[WorkerSortingType]) -> None:
+    def __init__(self, business: FriskyBusiness, contract: Optional[IndigoContract], desktop_discounts: Optional[bool], only_active_workers: Optional[bool], show_inactive_workers: Optional[bool], showcase_business_id: Union[float, None, str], skip_worker_sorting: Optional[bool], use_optimized_cache: Optional[bool], with_billing: Optional[bool], with_bop: Optional[bool], with_campaigns: Optional[bool], with_discounts: Optional[bool], with_discounts_from: Optional[datetime], with_discounts_to: Optional[datetime], with_networks: Optional[bool], with_taxonomy_showcase: Optional[bool], worker_sorting_type: Optional[WorkerSortingType]) -> None:
         self.business = business
         self.contract = contract
         self.desktop_discounts = desktop_discounts
@@ -9474,7 +9502,7 @@ class BusinessGetProfileByIDRequestParams:
     def from_dict(obj: Any) -> 'BusinessGetProfileByIDRequestParams':
         assert isinstance(obj, dict)
         business = FriskyBusiness.from_dict(obj.get("business"))
-        contract = from_union([StickyContract.from_dict, from_none], obj.get("contract"))
+        contract = from_union([IndigoContract.from_dict, from_none], obj.get("contract"))
         desktop_discounts = from_union([from_bool, from_none], obj.get("desktop_discounts"))
         only_active_workers = from_union([from_bool, from_none], obj.get("only_active_workers"))
         show_inactive_workers = from_union([from_bool, from_none], obj.get("show_inactive_workers"))
@@ -9495,7 +9523,7 @@ class BusinessGetProfileByIDRequestParams:
     def to_dict(self) -> dict:
         result: dict = {}
         result["business"] = to_class(FriskyBusiness, self.business)
-        result["contract"] = from_union([lambda x: to_class(StickyContract, x), from_none], self.contract)
+        result["contract"] = from_union([lambda x: to_class(IndigoContract, x), from_none], self.contract)
         result["desktop_discounts"] = from_union([from_bool, from_none], self.desktop_discounts)
         result["only_active_workers"] = from_union([from_bool, from_none], self.only_active_workers)
         result["show_inactive_workers"] = from_union([from_bool, from_none], self.show_inactive_workers)

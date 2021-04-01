@@ -1374,6 +1374,10 @@ export interface AppointmentGetAppointmentsByUserRequest {
 }
 export interface AppointmentGetAppointmentsByUserRequestParams {
     business?: HilariousBusiness;
+    /**
+     * данные по договору, если указано то будут переданы записи только по данному договору
+     */
+    contract?: TentacledContract;
     extraFilters?: TentacledExtraFilters;
     fill_business_data?: boolean;
     filter?: TentacledFilter;
@@ -1384,6 +1388,13 @@ export interface AppointmentGetAppointmentsByUserRequestParams {
 }
 export interface HilariousBusiness {
     id: BackofficeIdUnion;
+}
+/**
+ * данные по договору, если указано то будут переданы записи только по данному договору
+ */
+export interface TentacledContract {
+    extraId?: string;
+    id?: string;
 }
 export interface TentacledExtraFilters {
     sort?: TentacledSort[];
@@ -1734,7 +1745,7 @@ export interface BusinessGetNetworkDataRequestParams {
      * данные по договору, если указано то список работников и услуг формируется на основе
      * переданного договора
      */
-    contract?: TentacledContract;
+    contract?: StickyContract;
     /**
      * идентификатор сети
      */
@@ -1751,7 +1762,7 @@ export interface BusinessGetNetworkDataRequestParams {
  * данные по договору, если указано то список работников и услуг формируется на основе
  * переданного договора
  */
-export interface TentacledContract {
+export interface StickyContract {
     extraId?: string;
     id?: string;
 }
@@ -3235,7 +3246,7 @@ export interface BusinessGetProfileByIdRequestParams {
      * данные по договору, если указано то список работников и услуг формируется на основе
      * переданного договора
      */
-    contract?: StickyContract;
+    contract?: ContractClass;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -3310,7 +3321,7 @@ export interface FriskyBusiness {
  * данные по договору, если указано то список работников и услуг формируется на основе
  * переданного договора
  */
-export interface StickyContract {
+export interface ContractClass {
     extraId?: string;
     id?: string;
 }

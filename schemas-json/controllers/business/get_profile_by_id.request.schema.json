@@ -120,6 +120,8 @@
                         "contract": {
                             "description": "данные по договору, если указано то список работников и услуг формируется на основе переданного договора",
                             "type": "object",
+                            "additionalProperties": false,
+                            "required": [],
                             "properties": {
                                 "id": {
                                     "type": "string"

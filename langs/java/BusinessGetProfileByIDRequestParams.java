@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
  */
 public class BusinessGetProfileByIDRequestParams {
     private FriskyBusiness business;
-    private StickyContract contract;
+    private IndigoContract contract;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
@@ -35,9 +35,9 @@ public class BusinessGetProfileByIDRequestParams {
      * переданного договора
      */
     @JsonProperty("contract")
-    public StickyContract getContract() { return contract; }
+    public IndigoContract getContract() { return contract; }
     @JsonProperty("contract")
-    public void setContract(StickyContract value) { this.contract = value; }
+    public void setContract(IndigoContract value) { this.contract = value; }
 
     /**
      * если указано true - меняет формат представления discounts

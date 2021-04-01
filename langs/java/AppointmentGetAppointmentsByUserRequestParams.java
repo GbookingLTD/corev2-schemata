@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentsByUserRequestParams {
     private HilariousBusiness business;
+    private TentacledContract contract;
     private TentacledExtraFilters extraFilters;
     private Boolean fillBusinessData;
     private TentacledFilter filter;
@@ -16,6 +17,14 @@ public class AppointmentGetAppointmentsByUserRequestParams {
     public HilariousBusiness getBusiness() { return business; }
     @JsonProperty("business")
     public void setBusiness(HilariousBusiness value) { this.business = value; }
+
+    /**
+     * данные по договору, если указано то будут переданы записи только по данному договору
+     */
+    @JsonProperty("contract")
+    public TentacledContract getContract() { return contract; }
+    @JsonProperty("contract")
+    public void setContract(TentacledContract value) { this.contract = value; }
 
     @JsonProperty("extraFilters")
     public TentacledExtraFilters getExtraFilters() { return extraFilters; }

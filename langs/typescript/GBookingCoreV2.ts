@@ -1503,7 +1503,11 @@ export interface AppointmentGetAppointmentsByUserRequest {
 }
 
 export interface AppointmentGetAppointmentsByUserRequestParams {
-    business?:              HilariousBusiness;
+    business?: HilariousBusiness;
+    /**
+     * данные по договору, если указано то будут переданы записи только по данному договору
+     */
+    contract?:              TentacledContract;
     extraFilters?:          TentacledExtraFilters;
     fill_business_data?:    boolean;
     filter?:                TentacledFilter;
@@ -1515,6 +1519,14 @@ export interface AppointmentGetAppointmentsByUserRequestParams {
 
 export interface HilariousBusiness {
     id: BackofficeIdUnion;
+}
+
+/**
+ * данные по договору, если указано то будут переданы записи только по данному договору
+ */
+export interface TentacledContract {
+    extraId?: string;
+    id?:      string;
 }
 
 export interface TentacledExtraFilters {
@@ -1903,7 +1915,7 @@ export interface BusinessGetNetworkDataRequestParams {
      * данные по договору, если указано то список работников и услуг формируется на основе
      * переданного договора
      */
-    contract?: TentacledContract;
+    contract?: StickyContract;
     /**
      * идентификатор сети
      */
@@ -1921,7 +1933,7 @@ export interface BusinessGetNetworkDataRequestParams {
  * данные по договору, если указано то список работников и услуг формируется на основе
  * переданного договора
  */
-export interface TentacledContract {
+export interface StickyContract {
     extraId?: string;
     id?:      string;
 }
@@ -3478,7 +3490,7 @@ export interface BusinessGetProfileByIdRequestParams {
      * данные по договору, если указано то список работников и услуг формируется на основе
      * переданного договора
      */
-    contract?: StickyContract;
+    contract?: ContractClass;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -3555,7 +3567,7 @@ export interface FriskyBusiness {
  * данные по договору, если указано то список работников и услуг формируется на основе
  * переданного договора
  */
-export interface StickyContract {
+export interface ContractClass {
     extraId?: string;
     id?:      string;
 }
@@ -6376,6 +6388,7 @@ const typeMap: any = {
     ], false),
     "AppointmentGetAppointmentsByUserRequestParams": o([
         { json: "business", js: "business", typ: u(undefined, r("HilariousBusiness")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("TentacledContract")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
         { json: "fill_business_data", js: "fill_business_data", typ: u(undefined, true) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
@@ -6387,6 +6400,10 @@ const typeMap: any = {
     "HilariousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
+    "TentacledContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "TentacledExtraFilters": o([
         { json: "sort", js: "sort", typ: u(undefined, a(r("TentacledSort"))) },
     ], false),
@@ -6565,13 +6582,13 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("BusinessGetNetworkDataRequestParams") },
     ], false),
     "BusinessGetNetworkDataRequestParams": o([
-        { json: "contract", js: "contract", typ: u(undefined, r("TentacledContract")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
         { json: "networkID", js: "networkID", typ: u(3.14, "") },
         { json: "resource", js: "resource", typ: u(undefined, r("ResourceObject")) },
         { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("TaxonomyObject")) },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
-    "TentacledContract": o([
+    "StickyContract": o([
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
@@ -7424,7 +7441,7 @@ const typeMap: any = {
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
         { json: "business", js: "business", typ: r("FriskyBusiness") },
-        { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("ContractClass")) },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -7444,10 +7461,10 @@ const typeMap: any = {
     "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "StickyContract": o([
+    "ContractClass": o([
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
-    ], "any"),
+    ], false),
     "BusinessGetProfileByIdResponse": o([
         { json: "id", js: "id", typ: u(undefined, 3.14) },
         { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },

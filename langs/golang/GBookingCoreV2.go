@@ -956,6 +956,7 @@ type AppointmentGetAppointmentsByUserRequest struct {
 
 type AppointmentGetAppointmentsByUserRequestParams struct {
 	Business              *HilariousBusiness     `json:"business,omitempty"`             
+	Contract              *TentacledContract     `json:"contract,omitempty"`             // данные по договору, если указано то будут переданы записи только по данному договору
 	ExtraFilters          *TentacledExtraFilters `json:"extraFilters,omitempty"`         
 	FillBusinessData      *bool                  `json:"fill_business_data,omitempty"`   
 	Filter                *TentacledFilter       `json:"filter,omitempty"`               
@@ -967,6 +968,12 @@ type AppointmentGetAppointmentsByUserRequestParams struct {
 
 type HilariousBusiness struct {
 	ID *TimeFrameDate `json:"id"`
+}
+
+// данные по договору, если указано то будут переданы записи только по данному договору
+type TentacledContract struct {
+	ExtraID *string `json:"extraId,omitempty"`
+	ID      *string `json:"id,omitempty"`     
 }
 
 type TentacledExtraFilters struct {
@@ -1196,16 +1203,16 @@ type BusinessGetNetworkDataRequest struct {
 
 // параметры запроса business.get_network_data
 type BusinessGetNetworkDataRequestParams struct {
-	Contract         *TentacledContract `json:"contract,omitempty"`          // данные по договору, если указано то список работников и услуг формируется на основе; переданного договора
-	NetworkID        *TimeFrameDate     `json:"networkID"`                   // идентификатор сети
-	Resource         *FluffyResource    `json:"resource,omitempty"`          
-	Taxonomy         *FluffyTaxonomy    `json:"taxonomy,omitempty"`          
-	WithBusinessInfo *bool              `json:"with_business_info,omitempty"`// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу; в массиве businesses
+	Contract         *StickyContract `json:"contract,omitempty"`          // данные по договору, если указано то список работников и услуг формируется на основе; переданного договора
+	NetworkID        *TimeFrameDate  `json:"networkID"`                   // идентификатор сети
+	Resource         *FluffyResource `json:"resource,omitempty"`          
+	Taxonomy         *FluffyTaxonomy `json:"taxonomy,omitempty"`          
+	WithBusinessInfo *bool           `json:"with_business_info,omitempty"`// Если передано true - возвращает информацию business_info/general_info по каждому бизнесу; в массиве businesses
 }
 
 // данные по договору, если указано то список работников и услуг формируется на основе
 // переданного договора
-type TentacledContract struct {
+type StickyContract struct {
 	ExtraID *string `json:"extraId,omitempty"`
 	ID      *string `json:"id,omitempty"`     
 }
@@ -2139,7 +2146,7 @@ type BusinessGetProfileByIDRequest struct {
 // параметры запроса business.get_profile_by_id
 type BusinessGetProfileByIDRequestParams struct {
 	Business             FriskyBusiness     `json:"business"`                        
-	Contract             *StickyContract    `json:"contract,omitempty"`              // данные по договору, если указано то список работников и услуг формируется на основе; переданного договора
+	Contract             *IndigoContract    `json:"contract,omitempty"`              // данные по договору, если указано то список работников и услуг формируется на основе; переданного договора
 	DesktopDiscounts     *bool              `json:"desktop_discounts,omitempty"`     // если указано true - меняет формат представления discounts
 	OnlyActiveWorkers    *bool              `json:"only_active_workers,omitempty"`   // если указано true - возвращает только активных работников (status == 'INACTIVE')
 	ShowInactiveWorkers  *bool              `json:"show_inactive_workers,omitempty"` // если указано true - возвращает всех работников в том числе и неактивных (status ==; 'INACTIVE')
@@ -2163,7 +2170,7 @@ type FriskyBusiness struct {
 
 // данные по договору, если указано то список работников и услуг формируется на основе
 // переданного договора
-type StickyContract struct {
+type IndigoContract struct {
 	ExtraID *string `json:"extraId,omitempty"`
 	ID      *string `json:"id,omitempty"`     
 }

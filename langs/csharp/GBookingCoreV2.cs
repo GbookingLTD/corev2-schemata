@@ -2426,6 +2426,12 @@ namespace GBookingCoreV2
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
         public HilariousBusiness Business { get; set; }
 
+        /// <summary>
+        /// данные по договору, если указано то будут переданы записи только по данному договору
+        /// </summary>
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledContract Contract { get; set; }
+
         [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
         public TentacledExtraFilters ExtraFilters { get; set; }
 
@@ -2452,6 +2458,18 @@ namespace GBookingCoreV2
     {
         [JsonProperty("id")]
         public BackofficeIdUnion Id { get; set; }
+    }
+
+    /// <summary>
+    /// данные по договору, если указано то будут переданы записи только по данному договору
+    /// </summary>
+    public partial class TentacledContract
+    {
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class TentacledExtraFilters
@@ -3050,7 +3068,7 @@ namespace GBookingCoreV2
         /// переданного договора
         /// </summary>
         [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
-        public TentacledContract Contract { get; set; }
+        public StickyContract Contract { get; set; }
 
         /// <summary>
         /// идентификатор сети
@@ -3076,7 +3094,7 @@ namespace GBookingCoreV2
     /// данные по договору, если указано то список работников и услуг формируется на основе
     /// переданного договора
     /// </summary>
-    public partial class TentacledContract
+    public partial class StickyContract
     {
         [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
         public string ExtraId { get; set; }
@@ -5817,7 +5835,7 @@ namespace GBookingCoreV2
         /// переданного договора
         /// </summary>
         [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
-        public StickyContract Contract { get; set; }
+        public IndigoContract Contract { get; set; }
 
         /// <summary>
         /// если указано true - меняет формат представления discounts
@@ -5926,7 +5944,7 @@ namespace GBookingCoreV2
     /// данные по договору, если указано то список работников и услуг формируется на основе
     /// переданного договора
     /// </summary>
-    public partial class StickyContract
+    public partial class IndigoContract
     {
         [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
         public string ExtraId { get; set; }

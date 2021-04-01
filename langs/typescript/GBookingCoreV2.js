@@ -1306,6 +1306,7 @@ var typeMap = {
     ], false),
     "AppointmentGetAppointmentsByUserRequestParams": o([
         { json: "business", js: "business", typ: u(undefined, r("HilariousBusiness")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("TentacledContract")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("TentacledExtraFilters")) },
         { json: "fill_business_data", js: "fill_business_data", typ: u(undefined, true) },
         { json: "filter", js: "filter", typ: u(undefined, r("TentacledFilter")) },
@@ -1317,6 +1318,10 @@ var typeMap = {
     "HilariousBusiness": o([
         { json: "id", js: "id", typ: u(3.14, "") },
     ], false),
+    "TentacledContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "TentacledExtraFilters": o([
         { json: "sort", js: "sort", typ: u(undefined, a(r("TentacledSort"))) },
     ], false),
@@ -1495,13 +1500,13 @@ var typeMap = {
         { json: "params", js: "params", typ: r("BusinessGetNetworkDataRequestParams") },
     ], false),
     "BusinessGetNetworkDataRequestParams": o([
-        { json: "contract", js: "contract", typ: u(undefined, r("TentacledContract")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
         { json: "networkID", js: "networkID", typ: u(3.14, "") },
         { json: "resource", js: "resource", typ: u(undefined, r("ResourceObject")) },
         { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("TaxonomyObject")) },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
-    "TentacledContract": o([
+    "StickyContract": o([
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
@@ -2354,7 +2359,7 @@ var typeMap = {
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
         { json: "business", js: "business", typ: r("FriskyBusiness") },
-        { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("ContractClass")) },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -2374,10 +2379,10 @@ var typeMap = {
     "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "StickyContract": o([
+    "ContractClass": o([
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
-    ], "any"),
+    ], false),
     "BusinessGetProfileByIdResponse": o([
         { json: "id", js: "id", typ: u(undefined, 3.14) },
         { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },

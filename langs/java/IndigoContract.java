@@ -3,9 +3,10 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 /**
- * данные по договору, если указано то будут переданы записи только по данному договору
+ * данные по договору, если указано то список работников и услуг формируется на основе
+ * переданного договора
  */
-public class TentacledContract {
+public class IndigoContract {
     private String extraID;
     private String id;
 

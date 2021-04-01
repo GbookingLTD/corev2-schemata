@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.*;
  * параметры запроса business.get_network_data
  */
 public class BusinessGetNetworkDataRequestParams {
-    private TentacledContract contract;
+    private StickyContract contract;
     private BackofficeIDUnion networkID;
     private FluffyResource resource;
     private FluffyTaxonomy taxonomy;
@@ -17,9 +17,9 @@ public class BusinessGetNetworkDataRequestParams {
      * переданного договора
      */
     @JsonProperty("contract")
-    public TentacledContract getContract() { return contract; }
+    public StickyContract getContract() { return contract; }
     @JsonProperty("contract")
-    public void setContract(TentacledContract value) { this.contract = value; }
+    public void setContract(StickyContract value) { this.contract = value; }
 
     /**
      * идентификатор сети
