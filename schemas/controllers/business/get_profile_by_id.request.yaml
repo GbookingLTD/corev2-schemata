@@ -103,10 +103,11 @@ definitions:
             description: "идентификатор витрины (передаётся вместе с with_taxonomy_showcase)"
             type: ["number", "string"]
 
-
           contract:
             description: "данные по договору, если указано то список работников и услуг формируется на основе переданного договора"
             type: "object"
+            additionalProperties: false
+            required: []
             properties:
               id:
                 type: "string"
