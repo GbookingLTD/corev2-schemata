@@ -36,6 +36,15 @@ definitions:
                 description: "идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой"
                 type: "string"
 
+          contract:
+            description: "данные по договору, если указано то список работников и услуг формируется на основе переданного договора"
+            type: "object"
+            properties:
+              id:
+                type: "string"
+              extraId: 
+                type: "string"
+
 allOf:
   - $ref: "../../common/request.schema.json"
   - $ref: "#/definitions/Request"
