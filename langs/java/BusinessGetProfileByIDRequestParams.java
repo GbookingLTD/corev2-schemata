@@ -8,6 +8,7 @@ import java.time.OffsetDateTime;
  */
 public class BusinessGetProfileByIDRequestParams {
     private FriskyBusiness business;
+    private StickyContract contract;
     private Boolean desktopDiscounts;
     private Boolean onlyActiveWorkers;
     private Boolean showInactiveWorkers;
@@ -28,6 +29,15 @@ public class BusinessGetProfileByIDRequestParams {
     public FriskyBusiness getBusiness() { return business; }
     @JsonProperty("business")
     public void setBusiness(FriskyBusiness value) { this.business = value; }
+
+    /**
+     * данные по договору, если указано то список работников и услуг формируется на основе
+     * переданного договора
+     */
+    @JsonProperty("contract")
+    public StickyContract getContract() { return contract; }
+    @JsonProperty("contract")
+    public void setContract(StickyContract value) { this.contract = value; }
 
     /**
      * если указано true - меняет формат представления discounts

@@ -8,6 +8,7 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 exports.__esModule = true;
+exports.Convert = exports.Source = exports.PresentStatus = exports.YandexFeedType = exports.WorkerSortingType = exports.UseDirectScheduleRead = exports.DiscountType = exports.Payment = exports.Rule = exports.CracServer = exports.TaxonomyType = exports.OnlineMode = exports.Repeats = exports.Day = exports.DateLimitType = exports.ChildrenTaxonomyType = exports.AdditionalPriceType = exports.ResourceStatus = exports.AccessType = exports.StartPeriod = exports.FieldElement = exports.Group = exports.VerticalTranslation = exports.SocialNetwork = exports.PricingType = exports.PaymentMethods = exports.LanguageList = exports.Country = exports.BackofficeType = exports.TelemedProvider = exports.SchedulerWeekViewType = exports.ResourceTimetableType = exports.PaymentProvider = exports.InvoiceProvider = exports.FeedBackMinRating = exports.AppointmentExtensionType = exports.SortField = exports.Dir = exports.TalkAnswer = exports.CurrencyList = exports.DiscountProvider = exports.DrinkAnswer = exports.AdditionalFieldType = exports.Sex = exports.ComplaintStatus = exports.AppointmentStatus = exports.AppointmentClientPayment = exports.ReminderStatus = exports.AppointmentClientAppear = void 0;
 var AppointmentClientAppear;
 (function (AppointmentClientAppear) {
     AppointmentClientAppear["NoAppear"] = "NO_APPEAR";
@@ -398,7 +399,11 @@ var Convert = /** @class */ (function () {
     return Convert;
 }());
 exports.Convert = Convert;
-function invalidValue(typ, val) {
+function invalidValue(typ, val, key) {
+    if (key === void 0) { key = ''; }
+    if (key) {
+        throw Error("Invalid value for key \"" + key + "\". Expected type " + JSON.stringify(typ) + " but got " + JSON.stringify(val));
+    }
     throw Error("Invalid value " + JSON.stringify(val) + " for type " + JSON.stringify(typ));
 }
 function jsonToJSProps(typ) {
@@ -417,11 +422,12 @@ function jsToJSONProps(typ) {
     }
     return typ.jsToJSON;
 }
-function transform(val, typ, getProps) {
+function transform(val, typ, getProps, key) {
+    if (key === void 0) { key = ''; }
     function transformPrimitive(typ, val) {
         if (typeof typ === typeof val)
             return val;
-        return invalidValue(typ, val);
+        return invalidValue(typ, val, key);
     }
     function transformUnion(typs, val) {
         // val must validate against one typ in typs
@@ -464,11 +470,11 @@ function transform(val, typ, getProps) {
         Object.getOwnPropertyNames(props).forEach(function (key) {
             var prop = props[key];
             var v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
-            result[prop.key] = transform(v, prop.typ, getProps);
+            result[prop.key] = transform(v, prop.typ, getProps, prop.key);
         });
         Object.getOwnPropertyNames(val).forEach(function (key) {
             if (!Object.prototype.hasOwnProperty.call(props, key)) {
-                result[key] = transform(val[key], additional, getProps);
+                result[key] = transform(val[key], additional, getProps, key);
             }
         });
         return result;
@@ -701,7 +707,7 @@ var typeMap = {
     "ConfirmAppointmentParams": o([
         { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
-        { json: "contract", js: "contract", typ: u(undefined, r("ParamsContract")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("PurpleContract")) },
     ], "any"),
     "StickyAppointment": o([
         { json: "id", js: "id", typ: "" },
@@ -716,7 +722,7 @@ var typeMap = {
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
     ], "any"),
-    "ParamsContract": o([
+    "PurpleContract": o([
         { json: "clientContractID", js: "clientContractID", typ: u(undefined, "") },
         { json: "contractID", js: "contractID", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
@@ -1138,6 +1144,7 @@ var typeMap = {
     ], false),
     "AppointmentGetAppointmentByFilterRequestParams": o([
         { json: "business", js: "business", typ: u(undefined, r("StickyBusiness")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("FluffyContract")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("PurpleExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("PurpleFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("PurpleNetwork")) },
@@ -1148,6 +1155,10 @@ var typeMap = {
     "StickyBusiness": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
+    "FluffyContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "PurpleExtraFilters": o([
         { json: "sort", js: "sort", typ: u(undefined, a(r("PurpleSort"))) },
     ], false),
@@ -1484,11 +1495,16 @@ var typeMap = {
         { json: "params", js: "params", typ: r("BusinessGetNetworkDataRequestParams") },
     ], false),
     "BusinessGetNetworkDataRequestParams": o([
+        { json: "contract", js: "contract", typ: u(undefined, r("TentacledContract")) },
         { json: "networkID", js: "networkID", typ: u(3.14, "") },
         { json: "resource", js: "resource", typ: u(undefined, r("ResourceObject")) },
         { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("TaxonomyObject")) },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
+    "TentacledContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "ResourceObject": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
@@ -2338,6 +2354,7 @@ var typeMap = {
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
         { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -2357,6 +2374,10 @@ var typeMap = {
     "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
+    "StickyContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "BusinessGetProfileByIdResponse": o([
         { json: "id", js: "id", typ: u(undefined, 3.14) },
         { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },

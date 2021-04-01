@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 public class AppointmentGetAppointmentByFilterRequestParams {
     private StickyBusiness business;
+    private FluffyContract contract;
     private PurpleExtraFilters extraFilters;
     private PurpleFilter filter;
     private PurpleNetwork network;
@@ -15,6 +16,14 @@ public class AppointmentGetAppointmentByFilterRequestParams {
     public StickyBusiness getBusiness() { return business; }
     @JsonProperty("business")
     public void setBusiness(StickyBusiness value) { this.business = value; }
+
+    /**
+     * данные по договору, если указано то будут переданы записи только по данному договору
+     */
+    @JsonProperty("contract")
+    public FluffyContract getContract() { return contract; }
+    @JsonProperty("contract")
+    public void setContract(FluffyContract value) { this.contract = value; }
 
     @JsonProperty("extraFilters")
     public PurpleExtraFilters getExtraFilters() { return extraFilters; }

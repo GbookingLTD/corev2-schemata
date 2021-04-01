@@ -128,6 +128,18 @@
                             }
                         }
                     }
+                },
+                "contract": {
+                    "description": "данные по договору, если указано то будут переданы записи только по данному договору",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "extraId": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },

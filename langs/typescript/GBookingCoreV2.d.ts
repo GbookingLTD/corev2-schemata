@@ -407,7 +407,7 @@ export interface AppointmentClientConfirmAppointmentRequest {
 export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client: ClientObject;
-    contract?: ParamsContract;
+    contract?: PurpleContract;
 }
 export interface StickyAppointment {
     id: string;
@@ -427,7 +427,7 @@ export interface ClientObject {
     comment?: string;
     id: string;
 }
-export interface ParamsContract {
+export interface PurpleContract {
     clientContractID?: string;
     contractID?: string;
     id?: string;
@@ -1081,6 +1081,10 @@ export interface AppointmentGetAppointmentByFilterRequest {
 }
 export interface AppointmentGetAppointmentByFilterRequestParams {
     business?: StickyBusiness;
+    /**
+     * данные по договору, если указано то будут переданы записи только по данному договору
+     */
+    contract?: FluffyContract;
     extraFilters?: PurpleExtraFilters;
     filter?: PurpleFilter;
     network?: PurpleNetwork;
@@ -1090,6 +1094,13 @@ export interface AppointmentGetAppointmentByFilterRequestParams {
 }
 export interface StickyBusiness {
     id?: BackofficeIdUnion;
+}
+/**
+ * данные по договору, если указано то будут переданы записи только по данному договору
+ */
+export interface FluffyContract {
+    extraId?: string;
+    id?: string;
 }
 export interface PurpleExtraFilters {
     sort?: PurpleSort[];
@@ -1720,6 +1731,11 @@ export interface BusinessGetNetworkDataRequest {
  */
 export interface BusinessGetNetworkDataRequestParams {
     /**
+     * данные по договору, если указано то список работников и услуг формируется на основе
+     * переданного договора
+     */
+    contract?: TentacledContract;
+    /**
      * идентификатор сети
      */
     networkID: BackofficeIdUnion;
@@ -1730,6 +1746,14 @@ export interface BusinessGetNetworkDataRequestParams {
      * в массиве businesses
      */
     with_business_info?: boolean;
+}
+/**
+ * данные по договору, если указано то список работников и услуг формируется на основе
+ * переданного договора
+ */
+export interface TentacledContract {
+    extraId?: string;
+    id?: string;
 }
 export interface ResourceObject {
     /**
@@ -3208,6 +3232,11 @@ export interface BusinessGetProfileByIdRequest {
 export interface BusinessGetProfileByIdRequestParams {
     business: FriskyBusiness;
     /**
+     * данные по договору, если указано то список работников и услуг формируется на основе
+     * переданного договора
+     */
+    contract?: StickyContract;
+    /**
      * если указано true - меняет формат представления discounts
      */
     desktop_discounts?: boolean;
@@ -3276,6 +3305,14 @@ export interface FriskyBusiness {
      * идентификатор бизнеса
      */
     id: string;
+}
+/**
+ * данные по договору, если указано то список работников и услуг формируется на основе
+ * переданного договора
+ */
+export interface StickyContract {
+    extraId?: string;
+    id?: string;
 }
 /**
  * тип сортировки работника

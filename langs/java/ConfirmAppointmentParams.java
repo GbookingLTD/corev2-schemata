@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 public class ConfirmAppointmentParams {
     private StickyAppointment appointment;
     private TentacledClient client;
-    private ParamsContract contract;
+    private PurpleContract contract;
 
     @JsonProperty("appointment")
     public StickyAppointment getAppointment() { return appointment; }
@@ -18,7 +18,7 @@ public class ConfirmAppointmentParams {
     public void setClient(TentacledClient value) { this.client = value; }
 
     @JsonProperty("contract")
-    public ParamsContract getContract() { return contract; }
+    public PurpleContract getContract() { return contract; }
     @JsonProperty("contract")
-    public void setContract(ParamsContract value) { this.contract = value; }
+    public void setContract(PurpleContract value) { this.contract = value; }
 }

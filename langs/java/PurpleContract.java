@@ -2,7 +2,7 @@ package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class ParamsContract {
+public class PurpleContract {
     private String clientContractID;
     private String contractID;
     private String id;

@@ -642,7 +642,7 @@ namespace GBookingCoreV2
         public TentacledClient Client { get; set; }
 
         [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
-        public ParamsContract Contract { get; set; }
+        public PurpleContract Contract { get; set; }
     }
 
     public partial class StickyAppointment
@@ -675,7 +675,7 @@ namespace GBookingCoreV2
         public string Id { get; set; }
     }
 
-    public partial class ParamsContract
+    public partial class PurpleContract
     {
         [JsonProperty("clientContractID", NullValueHandling = NullValueHandling.Ignore)]
         public string ClientContractId { get; set; }
@@ -1913,6 +1913,12 @@ namespace GBookingCoreV2
         [JsonProperty("business", NullValueHandling = NullValueHandling.Ignore)]
         public StickyBusiness Business { get; set; }
 
+        /// <summary>
+        /// данные по договору, если указано то будут переданы записи только по данному договору
+        /// </summary>
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public FluffyContract Contract { get; set; }
+
         [JsonProperty("extraFilters", NullValueHandling = NullValueHandling.Ignore)]
         public PurpleExtraFilters ExtraFilters { get; set; }
 
@@ -1936,6 +1942,18 @@ namespace GBookingCoreV2
     {
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public BackofficeIdUnion? Id { get; set; }
+    }
+
+    /// <summary>
+    /// данные по договору, если указано то будут переданы записи только по данному договору
+    /// </summary>
+    public partial class FluffyContract
+    {
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class PurpleExtraFilters
@@ -3028,6 +3046,13 @@ namespace GBookingCoreV2
     public partial class BusinessGetNetworkDataRequestParams
     {
         /// <summary>
+        /// данные по договору, если указано то список работников и услуг формируется на основе
+        /// переданного договора
+        /// </summary>
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public TentacledContract Contract { get; set; }
+
+        /// <summary>
         /// идентификатор сети
         /// </summary>
         [JsonProperty("networkID")]
@@ -3045,6 +3070,19 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("with_business_info", NullValueHandling = NullValueHandling.Ignore)]
         public bool? WithBusinessInfo { get; set; }
+    }
+
+    /// <summary>
+    /// данные по договору, если указано то список работников и услуг формируется на основе
+    /// переданного договора
+    /// </summary>
+    public partial class TentacledContract
+    {
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public string Id { get; set; }
     }
 
     public partial class FluffyResource
@@ -5775,6 +5813,13 @@ namespace GBookingCoreV2
         public FriskyBusiness Business { get; set; }
 
         /// <summary>
+        /// данные по договору, если указано то список работников и услуг формируется на основе
+        /// переданного договора
+        /// </summary>
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public StickyContract Contract { get; set; }
+
+        /// <summary>
         /// если указано true - меняет формат представления discounts
         /// </summary>
         [JsonProperty("desktop_discounts", NullValueHandling = NullValueHandling.Ignore)]
@@ -5874,6 +5919,19 @@ namespace GBookingCoreV2
         /// идентификатор бизнеса
         /// </summary>
         [JsonProperty("id")]
+        public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// данные по договору, если указано то список работников и услуг формируется на основе
+    /// переданного договора
+    /// </summary>
+    public partial class StickyContract
+    {
+        [JsonProperty("extraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ExtraId { get; set; }
+
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
     }
 

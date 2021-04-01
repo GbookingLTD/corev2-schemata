@@ -450,7 +450,7 @@ export interface AppointmentClientConfirmAppointmentRequest {
 export interface ConfirmAppointmentParams {
     appointment: StickyAppointment;
     client:      ClientObject;
-    contract?:   ParamsContract;
+    contract?:   PurpleContract;
 }
 
 export interface StickyAppointment {
@@ -475,7 +475,7 @@ export interface ClientObject {
     id:       string;
 }
 
-export interface ParamsContract {
+export interface PurpleContract {
     clientContractID?: string;
     contractID?:       string;
     id?:               string;
@@ -1176,7 +1176,11 @@ export interface AppointmentGetAppointmentByFilterRequest {
 }
 
 export interface AppointmentGetAppointmentByFilterRequestParams {
-    business?:              StickyBusiness;
+    business?: StickyBusiness;
+    /**
+     * данные по договору, если указано то будут переданы записи только по данному договору
+     */
+    contract?:              FluffyContract;
     extraFilters?:          PurpleExtraFilters;
     filter?:                PurpleFilter;
     network?:               PurpleNetwork;
@@ -1187,6 +1191,14 @@ export interface AppointmentGetAppointmentByFilterRequestParams {
 
 export interface StickyBusiness {
     id?: BackofficeIdUnion;
+}
+
+/**
+ * данные по договору, если указано то будут переданы записи только по данному договору
+ */
+export interface FluffyContract {
+    extraId?: string;
+    id?:      string;
 }
 
 export interface PurpleExtraFilters {
@@ -1888,6 +1900,11 @@ export interface BusinessGetNetworkDataRequest {
  */
 export interface BusinessGetNetworkDataRequestParams {
     /**
+     * данные по договору, если указано то список работников и услуг формируется на основе
+     * переданного договора
+     */
+    contract?: TentacledContract;
+    /**
      * идентификатор сети
      */
     networkID: BackofficeIdUnion;
@@ -1898,6 +1915,15 @@ export interface BusinessGetNetworkDataRequestParams {
      * в массиве businesses
      */
     with_business_info?: boolean;
+}
+
+/**
+ * данные по договору, если указано то список работников и услуг формируется на основе
+ * переданного договора
+ */
+export interface TentacledContract {
+    extraId?: string;
+    id?:      string;
 }
 
 export interface ResourceObject {
@@ -3449,6 +3475,11 @@ export interface BusinessGetProfileByIdRequest {
 export interface BusinessGetProfileByIdRequestParams {
     business: FriskyBusiness;
     /**
+     * данные по договору, если указано то список работников и услуг формируется на основе
+     * переданного договора
+     */
+    contract?: StickyContract;
+    /**
      * если указано true - меняет формат представления discounts
      */
     desktop_discounts?: boolean;
@@ -3518,6 +3549,15 @@ export interface FriskyBusiness {
      * идентификатор бизнеса
      */
     id: string;
+}
+
+/**
+ * данные по договору, если указано то список работников и услуг формируется на основе
+ * переданного договора
+ */
+export interface StickyContract {
+    extraId?: string;
+    id?:      string;
 }
 
 /**
@@ -5427,8 +5467,11 @@ export class Convert {
     }
 }
 
-function invalidValue(typ: any, val: any): never {
-    throw Error(`Invalid value ${JSON.stringify(val)} for type ${JSON.stringify(typ)}`);
+function invalidValue(typ: any, val: any, key: any = ''): never {
+    if (key) {
+        throw Error(`Invalid value for key "${key}". Expected type ${JSON.stringify(typ)} but got ${JSON.stringify(val)}`);
+    }
+    throw Error(`Invalid value ${JSON.stringify(val)} for type ${JSON.stringify(typ)}`, );
 }
 
 function jsonToJSProps(typ: any): any {
@@ -5449,10 +5492,10 @@ function jsToJSONProps(typ: any): any {
     return typ.jsToJSON;
 }
 
-function transform(val: any, typ: any, getProps: any): any {
+function transform(val: any, typ: any, getProps: any, key: any = ''): any {
     function transformPrimitive(typ: string, val: any): any {
         if (typeof typ === typeof val) return val;
-        return invalidValue(typ, val);
+        return invalidValue(typ, val, key);
     }
 
     function transformUnion(typs: any[], val: any): any {
@@ -5497,11 +5540,11 @@ function transform(val: any, typ: any, getProps: any): any {
         Object.getOwnPropertyNames(props).forEach(key => {
             const prop = props[key];
             const v = Object.prototype.hasOwnProperty.call(val, key) ? val[key] : undefined;
-            result[prop.key] = transform(v, prop.typ, getProps);
+            result[prop.key] = transform(v, prop.typ, getProps, prop.key);
         });
         Object.getOwnPropertyNames(val).forEach(key => {
             if (!Object.prototype.hasOwnProperty.call(props, key)) {
-                result[key] = transform(val[key], additional, getProps);
+                result[key] = transform(val[key], additional, getProps, key);
             }
         });
         return result;
@@ -5734,7 +5777,7 @@ const typeMap: any = {
     "ConfirmAppointmentParams": o([
         { json: "appointment", js: "appointment", typ: r("StickyAppointment") },
         { json: "client", js: "client", typ: r("ClientObject") },
-        { json: "contract", js: "contract", typ: u(undefined, r("ParamsContract")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("PurpleContract")) },
     ], "any"),
     "StickyAppointment": o([
         { json: "id", js: "id", typ: "" },
@@ -5749,7 +5792,7 @@ const typeMap: any = {
         { json: "comment", js: "comment", typ: u(undefined, "") },
         { json: "id", js: "id", typ: "" },
     ], "any"),
-    "ParamsContract": o([
+    "PurpleContract": o([
         { json: "clientContractID", js: "clientContractID", typ: u(undefined, "") },
         { json: "contractID", js: "contractID", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
@@ -6171,6 +6214,7 @@ const typeMap: any = {
     ], false),
     "AppointmentGetAppointmentByFilterRequestParams": o([
         { json: "business", js: "business", typ: u(undefined, r("StickyBusiness")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("FluffyContract")) },
         { json: "extraFilters", js: "extraFilters", typ: u(undefined, r("PurpleExtraFilters")) },
         { json: "filter", js: "filter", typ: u(undefined, r("PurpleFilter")) },
         { json: "network", js: "network", typ: u(undefined, r("PurpleNetwork")) },
@@ -6181,6 +6225,10 @@ const typeMap: any = {
     "StickyBusiness": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },
     ], false),
+    "FluffyContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "PurpleExtraFilters": o([
         { json: "sort", js: "sort", typ: u(undefined, a(r("PurpleSort"))) },
     ], false),
@@ -6517,11 +6565,16 @@ const typeMap: any = {
         { json: "params", js: "params", typ: r("BusinessGetNetworkDataRequestParams") },
     ], false),
     "BusinessGetNetworkDataRequestParams": o([
+        { json: "contract", js: "contract", typ: u(undefined, r("TentacledContract")) },
         { json: "networkID", js: "networkID", typ: u(3.14, "") },
         { json: "resource", js: "resource", typ: u(undefined, r("ResourceObject")) },
         { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("TaxonomyObject")) },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
+    "TentacledContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "ResourceObject": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
@@ -7371,6 +7424,7 @@ const typeMap: any = {
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
         { json: "business", js: "business", typ: r("FriskyBusiness") },
+        { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -7390,6 +7444,10 @@ const typeMap: any = {
     "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
+    "StickyContract": o([
+        { json: "extraId", js: "extraId", typ: u(undefined, "") },
+        { json: "id", js: "id", typ: u(undefined, "") },
+    ], "any"),
     "BusinessGetProfileByIdResponse": o([
         { json: "id", js: "id", typ: u(undefined, 3.14) },
         { json: "jsonrpc", js: "jsonrpc", typ: u(undefined, "") },

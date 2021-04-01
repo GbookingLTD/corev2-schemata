@@ -116,6 +116,18 @@
                                 "number",
                                 "string"
                             ]
+                        },
+                        "contract": {
+                            "description": "данные по договору, если указано то список работников и услуг формируется на основе переданного договора",
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "extraId": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }
