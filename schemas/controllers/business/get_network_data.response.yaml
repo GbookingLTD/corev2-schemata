@@ -143,6 +143,14 @@ definitions:
                   properties:
                     active: 
                       type: "boolean"
+                    protocol: 
+                      type: "string"
+                    host: 
+                      type: "string"
+                    port: 
+                      type: "string"
+                    path: 
+                      type: "string"
           networkClientBlockingSettings:
             type: "object"
             properties:
