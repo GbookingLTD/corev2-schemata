@@ -3185,6 +3185,10 @@ export interface IntegrationDataObject {
 }
 export interface Ehr {
     active?: boolean;
+    host?: string;
+    path?: string;
+    port?: string;
+    protocol?: string;
 }
 export interface NetworkClientBlockingSettings {
     appointmentClientBlock?: boolean;

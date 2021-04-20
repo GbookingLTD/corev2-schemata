@@ -208,6 +208,18 @@
                                     "properties": {
                                         "active": {
                                             "type": "boolean"
+                                        },
+                                        "protocol": {
+                                            "type": "string"
+                                        },
+                                        "host": {
+                                            "type": "string"
+                                        },
+                                        "port": {
+                                            "type": "string"
+                                        },
+                                        "path": {
+                                            "type": "string"
                                         }
                                     }
                                 }

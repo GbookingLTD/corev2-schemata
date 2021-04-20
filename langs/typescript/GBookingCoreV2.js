@@ -2322,6 +2322,10 @@ var typeMap = {
     ], "any"),
     "Ehr": o([
         { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "host", js: "host", typ: u(undefined, "") },
+        { json: "path", js: "path", typ: u(undefined, "") },
+        { json: "port", js: "port", typ: u(undefined, "") },
+        { json: "protocol", js: "protocol", typ: u(undefined, "") },
     ], "any"),
     "NetworkClientBlockingSettings": o([
         { json: "appointmentClientBlock", js: "appointmentClientBlock", typ: u(undefined, true) },

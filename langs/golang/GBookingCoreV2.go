@@ -2101,7 +2101,11 @@ type ResultIntegrationData struct {
 }
 
 type Ehr struct {
-	Active *bool `json:"active,omitempty"`
+	Active   *bool   `json:"active,omitempty"`  
+	Host     *string `json:"host,omitempty"`    
+	Path     *string `json:"path,omitempty"`    
+	Port     *string `json:"port,omitempty"`    
+	Protocol *string `json:"protocol,omitempty"`
 }
 
 type NetworkClientBlockingSettings struct {

@@ -9129,19 +9129,35 @@ class BusinessRefInNetwork:
 
 class Ehr:
     active: Optional[bool]
+    host: Optional[str]
+    path: Optional[str]
+    port: Optional[str]
+    protocol: Optional[str]
 
-    def __init__(self, active: Optional[bool]) -> None:
+    def __init__(self, active: Optional[bool], host: Optional[str], path: Optional[str], port: Optional[str], protocol: Optional[str]) -> None:
         self.active = active
+        self.host = host
+        self.path = path
+        self.port = port
+        self.protocol = protocol
 
     @staticmethod
     def from_dict(obj: Any) -> 'Ehr':
         assert isinstance(obj, dict)
         active = from_union([from_bool, from_none], obj.get("active"))
-        return Ehr(active)
+        host = from_union([from_str, from_none], obj.get("host"))
+        path = from_union([from_str, from_none], obj.get("path"))
+        port = from_union([from_str, from_none], obj.get("port"))
+        protocol = from_union([from_str, from_none], obj.get("protocol"))
+        return Ehr(active, host, path, port, protocol)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["active"] = from_union([from_bool, from_none], self.active)
+        result["host"] = from_union([from_str, from_none], self.host)
+        result["path"] = from_union([from_str, from_none], self.path)
+        result["port"] = from_union([from_str, from_none], self.port)
+        result["protocol"] = from_union([from_str, from_none], self.protocol)
         return result
 
 

@@ -5716,6 +5716,18 @@ namespace GBookingCoreV2
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
+
+        [JsonProperty("host", NullValueHandling = NullValueHandling.Ignore)]
+        public string Host { get; set; }
+
+        [JsonProperty("path", NullValueHandling = NullValueHandling.Ignore)]
+        public string Path { get; set; }
+
+        [JsonProperty("port", NullValueHandling = NullValueHandling.Ignore)]
+        public string Port { get; set; }
+
+        [JsonProperty("protocol", NullValueHandling = NullValueHandling.Ignore)]
+        public string Protocol { get; set; }
     }
 
     public partial class NetworkClientBlockingSettings
