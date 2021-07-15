@@ -2,7 +2,7 @@ package ru.gbooking.apiv2;
 
 import com.fasterxml.jackson.annotation.*;
 
-public class BackofficeConfigurationClientCancellationRestriction {
+public class TentacledClientCancellationRestriction {
     private Boolean active;
     private Double disableInHours;
 

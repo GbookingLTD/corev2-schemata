@@ -1596,6 +1596,7 @@ var typeMap = {
         { json: "blockNotificationForAnyAvailableAdjacentService", js: "blockNotificationForAnyAvailableAdjacentService", typ: u(undefined, true) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "checkClientOverlapping", js: "checkClientOverlapping", typ: u(undefined, true) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("PurpleClientCancellationRestriction")) },
         { json: "customOnlinePaymentConfirmationTemplate", js: "customOnlinePaymentConfirmationTemplate", typ: u(undefined, "") },
         { json: "defaultGTScheduleDayView", js: "defaultGTScheduleDayView", typ: u(undefined, true) },
         { json: "disableAppointmentClientInlineEditor", js: "disableAppointmentClientInlineEditor", typ: u(undefined, true) },
@@ -1705,19 +1706,23 @@ var typeMap = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
+    "PurpleClientCancellationRestriction": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
+    ], "any"),
     "PurpleTelemedApplication": o([
         { json: "appleAppName", js: "appleAppName", typ: u(undefined, "") },
         { json: "googleAppName", js: "googleAppName", typ: u(undefined, "") },
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
-        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("BackofficeConfigurationClientCancellationRestriction")) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("FluffyClientCancellationRestriction")) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
-    "BackofficeConfigurationClientCancellationRestriction": o([
+    "FluffyClientCancellationRestriction": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
@@ -2462,7 +2467,7 @@ var typeMap = {
         { json: "blockNotificationForAnyAvailableAdjacentService", js: "blockNotificationForAnyAvailableAdjacentService", typ: u(undefined, true) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "checkClientOverlapping", js: "checkClientOverlapping", typ: u(undefined, true) },
-        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("BackofficeConfigurationClientCancellationRestrictionObject")) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("TentacledClientCancellationRestriction")) },
         { json: "customOnlinePaymentConfirmationTemplate", js: "customOnlinePaymentConfirmationTemplate", typ: u(undefined, "") },
         { json: "defaultGTScheduleDayView", js: "defaultGTScheduleDayView", typ: u(undefined, true) },
         { json: "disableAppointmentClientInlineEditor", js: "disableAppointmentClientInlineEditor", typ: u(undefined, true) },
@@ -2575,7 +2580,7 @@ var typeMap = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
-    "BackofficeConfigurationClientCancellationRestrictionObject": o([
+    "TentacledClientCancellationRestriction": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
@@ -2595,10 +2600,15 @@ var typeMap = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("StickyClientCancellationRestriction")) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+    ], "any"),
+    "StickyClientCancellationRestriction": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
     "BusinessCabinet": o([
         { json: "active", js: "active", typ: u(undefined, true) },

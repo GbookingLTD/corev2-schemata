@@ -2084,6 +2084,7 @@ export interface InfoBackofficeConfiguration {
     blockNotificationForAnyAvailableAdjacentService?: boolean;
     cabinetsEnabled?:                                 boolean;
     checkClientOverlapping?:                          boolean;
+    clientCancellationRestriction?:                   PurpleClientCancellationRestriction;
     customOnlinePaymentConfirmationTemplate?:         string;
     defaultGTScheduleDayView?:                        boolean;
     disableAppointmentClientInlineEditor?:            boolean;
@@ -2194,6 +2195,11 @@ export interface InfoBackofficeConfiguration {
     workWeekStart?:                                   number;
 }
 
+export interface PurpleClientCancellationRestriction {
+    active?:         boolean;
+    disableInHours?: number;
+}
+
 export enum FeedBackMinRating {
     The1 = "1",
     The2 = "2",
@@ -2247,14 +2253,14 @@ export enum BackofficeType {
 }
 
 export interface InfoBackofficeConfigurationObject {
-    clientCancellationRestriction?: BackofficeConfigurationClientCancellationRestriction;
+    clientCancellationRestriction?: FluffyClientCancellationRestriction;
     enableExtendedPhone?:           boolean;
     enableMasterImportance?:        boolean;
     enablePhoneNationalMode?:       boolean;
     resourceTimetableType?:         ResourceTimetableType;
 }
 
-export interface BackofficeConfigurationClientCancellationRestriction {
+export interface FluffyClientCancellationRestriction {
     active?:         boolean;
     disableInHours?: number;
 }
@@ -3695,7 +3701,7 @@ export interface BusinessBackofficeConfiguration {
     blockNotificationForAnyAvailableAdjacentService?: boolean;
     cabinetsEnabled?:                                 boolean;
     checkClientOverlapping?:                          boolean;
-    clientCancellationRestriction?:                   BackofficeConfigurationClientCancellationRestrictionObject;
+    clientCancellationRestriction?:                   TentacledClientCancellationRestriction;
     customOnlinePaymentConfirmationTemplate?:         string;
     defaultGTScheduleDayView?:                        boolean;
     disableAppointmentClientInlineEditor?:            boolean;
@@ -3809,7 +3815,7 @@ export interface BusinessBackofficeConfiguration {
     workWeekStart?:                                   number;
 }
 
-export interface BackofficeConfigurationClientCancellationRestrictionObject {
+export interface TentacledClientCancellationRestriction {
     active?:         boolean;
     disableInHours?: number;
 }
@@ -3832,10 +3838,16 @@ export interface FluffyTelemedApplication {
 }
 
 export interface BusinessBackofficeConfigurationObject {
-    enableExtendedPhone?:     boolean;
-    enableMasterImportance?:  boolean;
-    enablePhoneNationalMode?: boolean;
-    resourceTimetableType?:   ResourceTimetableType;
+    clientCancellationRestriction?: StickyClientCancellationRestriction;
+    enableExtendedPhone?:           boolean;
+    enableMasterImportance?:        boolean;
+    enablePhoneNationalMode?:       boolean;
+    resourceTimetableType?:         ResourceTimetableType;
+}
+
+export interface StickyClientCancellationRestriction {
+    active?:         boolean;
+    disableInHours?: number;
 }
 
 export interface BusinessCabinet {
@@ -6694,6 +6706,7 @@ const typeMap: any = {
         { json: "blockNotificationForAnyAvailableAdjacentService", js: "blockNotificationForAnyAvailableAdjacentService", typ: u(undefined, true) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "checkClientOverlapping", js: "checkClientOverlapping", typ: u(undefined, true) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("PurpleClientCancellationRestriction")) },
         { json: "customOnlinePaymentConfirmationTemplate", js: "customOnlinePaymentConfirmationTemplate", typ: u(undefined, "") },
         { json: "defaultGTScheduleDayView", js: "defaultGTScheduleDayView", typ: u(undefined, true) },
         { json: "disableAppointmentClientInlineEditor", js: "disableAppointmentClientInlineEditor", typ: u(undefined, true) },
@@ -6803,19 +6816,23 @@ const typeMap: any = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
+    "PurpleClientCancellationRestriction": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
+    ], "any"),
     "PurpleTelemedApplication": o([
         { json: "appleAppName", js: "appleAppName", typ: u(undefined, "") },
         { json: "googleAppName", js: "googleAppName", typ: u(undefined, "") },
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
-        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("BackofficeConfigurationClientCancellationRestriction")) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("FluffyClientCancellationRestriction")) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
     ], "any"),
-    "BackofficeConfigurationClientCancellationRestriction": o([
+    "FluffyClientCancellationRestriction": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
@@ -7560,7 +7577,7 @@ const typeMap: any = {
         { json: "blockNotificationForAnyAvailableAdjacentService", js: "blockNotificationForAnyAvailableAdjacentService", typ: u(undefined, true) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "checkClientOverlapping", js: "checkClientOverlapping", typ: u(undefined, true) },
-        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("BackofficeConfigurationClientCancellationRestrictionObject")) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("TentacledClientCancellationRestriction")) },
         { json: "customOnlinePaymentConfirmationTemplate", js: "customOnlinePaymentConfirmationTemplate", typ: u(undefined, "") },
         { json: "defaultGTScheduleDayView", js: "defaultGTScheduleDayView", typ: u(undefined, true) },
         { json: "disableAppointmentClientInlineEditor", js: "disableAppointmentClientInlineEditor", typ: u(undefined, true) },
@@ -7673,7 +7690,7 @@ const typeMap: any = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
-    "BackofficeConfigurationClientCancellationRestrictionObject": o([
+    "TentacledClientCancellationRestriction": o([
         { json: "active", js: "active", typ: u(undefined, true) },
         { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
@@ -7693,10 +7710,15 @@ const typeMap: any = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "BusinessBackofficeConfigurationObject": o([
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("StickyClientCancellationRestriction")) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+    ], "any"),
+    "StickyClientCancellationRestriction": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
     "BusinessCabinet": o([
         { json: "active", js: "active", typ: u(undefined, true) },

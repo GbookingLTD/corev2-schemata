@@ -1915,6 +1915,7 @@ export interface InfoBackofficeConfiguration {
     blockNotificationForAnyAvailableAdjacentService?: boolean;
     cabinetsEnabled?: boolean;
     checkClientOverlapping?: boolean;
+    clientCancellationRestriction?: PurpleClientCancellationRestriction;
     customOnlinePaymentConfirmationTemplate?: string;
     defaultGTScheduleDayView?: boolean;
     disableAppointmentClientInlineEditor?: boolean;
@@ -2026,6 +2027,10 @@ export interface InfoBackofficeConfiguration {
     workWeekEnd?: number;
     workWeekStart?: number;
 }
+export interface PurpleClientCancellationRestriction {
+    active?: boolean;
+    disableInHours?: number;
+}
 export declare enum FeedBackMinRating {
     The1 = "1",
     The2 = "2",
@@ -2071,13 +2076,13 @@ export declare enum BackofficeType {
     Mu = "MU"
 }
 export interface InfoBackofficeConfigurationObject {
-    clientCancellationRestriction?: BackofficeConfigurationClientCancellationRestriction;
+    clientCancellationRestriction?: FluffyClientCancellationRestriction;
     enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
     enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
 }
-export interface BackofficeConfigurationClientCancellationRestriction {
+export interface FluffyClientCancellationRestriction {
     active?: boolean;
     disableInHours?: number;
 }
@@ -3449,7 +3454,7 @@ export interface BusinessBackofficeConfiguration {
     blockNotificationForAnyAvailableAdjacentService?: boolean;
     cabinetsEnabled?: boolean;
     checkClientOverlapping?: boolean;
-    clientCancellationRestriction?: BackofficeConfigurationClientCancellationRestrictionObject;
+    clientCancellationRestriction?: TentacledClientCancellationRestriction;
     customOnlinePaymentConfirmationTemplate?: string;
     defaultGTScheduleDayView?: boolean;
     disableAppointmentClientInlineEditor?: boolean;
@@ -3564,7 +3569,7 @@ export interface BusinessBackofficeConfiguration {
     workWeekEnd?: number;
     workWeekStart?: number;
 }
-export interface BackofficeConfigurationClientCancellationRestrictionObject {
+export interface TentacledClientCancellationRestriction {
     active?: boolean;
     disableInHours?: number;
 }
@@ -3584,10 +3589,15 @@ export interface FluffyTelemedApplication {
     urlAppSchema?: string;
 }
 export interface BusinessBackofficeConfigurationObject {
+    clientCancellationRestriction?: StickyClientCancellationRestriction;
     enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
     enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
+}
+export interface StickyClientCancellationRestriction {
+    active?: boolean;
+    disableInHours?: number;
 }
 export interface BusinessCabinet {
     active?: boolean;

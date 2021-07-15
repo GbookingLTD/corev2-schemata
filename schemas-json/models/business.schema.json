@@ -229,6 +229,17 @@
                 "enableExtendedPhone": {
                     "type": "boolean",
                     "default": false
+                },
+                "clientCancellationRestriction": {
+                    "type": "object",
+                    "properties": {
+                        "active": {
+                            "type": "boolean"
+                        },
+                        "disableInHours": {
+                            "type": "number"
+                        }
+                    }
                 }
             }
         },

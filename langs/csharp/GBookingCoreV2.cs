@@ -3383,6 +3383,9 @@ namespace GBookingCoreV2
         [JsonProperty("checkClientOverlapping", NullValueHandling = NullValueHandling.Ignore)]
         public bool? CheckClientOverlapping { get; set; }
 
+        [JsonProperty("clientCancellationRestriction", NullValueHandling = NullValueHandling.Ignore)]
+        public PurpleClientCancellationRestriction ClientCancellationRestriction { get; set; }
+
         [JsonProperty("customOnlinePaymentConfirmationTemplate", NullValueHandling = NullValueHandling.Ignore)]
         public string CustomOnlinePaymentConfirmationTemplate { get; set; }
 
@@ -3708,6 +3711,15 @@ namespace GBookingCoreV2
         public double? WorkWeekStart { get; set; }
     }
 
+    public partial class PurpleClientCancellationRestriction
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("disableInHours", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DisableInHours { get; set; }
+    }
+
     public partial class PurpleTelemedApplication
     {
         [JsonProperty("appleAppName", NullValueHandling = NullValueHandling.Ignore)]
@@ -3723,7 +3735,7 @@ namespace GBookingCoreV2
     public partial class InfoBackofficeConfigurationClass
     {
         [JsonProperty("clientCancellationRestriction", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeConfigurationClientCancellationRestriction ClientCancellationRestriction { get; set; }
+        public FluffyClientCancellationRestriction ClientCancellationRestriction { get; set; }
 
         [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableExtendedPhone { get; set; }
@@ -3738,7 +3750,7 @@ namespace GBookingCoreV2
         public ResourceTimetableType? ResourceTimetableType { get; set; }
     }
 
-    public partial class BackofficeConfigurationClientCancellationRestriction
+    public partial class FluffyClientCancellationRestriction
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -6201,7 +6213,7 @@ namespace GBookingCoreV2
         public bool? CheckClientOverlapping { get; set; }
 
         [JsonProperty("clientCancellationRestriction", NullValueHandling = NullValueHandling.Ignore)]
-        public BackofficeConfigurationClientCancellationRestrictionClass ClientCancellationRestriction { get; set; }
+        public TentacledClientCancellationRestriction ClientCancellationRestriction { get; set; }
 
         [JsonProperty("customOnlinePaymentConfirmationTemplate", NullValueHandling = NullValueHandling.Ignore)]
         public string CustomOnlinePaymentConfirmationTemplate { get; set; }
@@ -6537,7 +6549,7 @@ namespace GBookingCoreV2
         public double? WorkWeekStart { get; set; }
     }
 
-    public partial class BackofficeConfigurationClientCancellationRestrictionClass
+    public partial class TentacledClientCancellationRestriction
     {
         [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Active { get; set; }
@@ -6587,6 +6599,9 @@ namespace GBookingCoreV2
 
     public partial class BusinessBackofficeConfigurationClass
     {
+        [JsonProperty("clientCancellationRestriction", NullValueHandling = NullValueHandling.Ignore)]
+        public StickyClientCancellationRestriction ClientCancellationRestriction { get; set; }
+
         [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableExtendedPhone { get; set; }
 
@@ -6598,6 +6613,15 @@ namespace GBookingCoreV2
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
+    }
+
+    public partial class StickyClientCancellationRestriction
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("disableInHours", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DisableInHours { get; set; }
     }
 
     public partial class BusinessCabinet

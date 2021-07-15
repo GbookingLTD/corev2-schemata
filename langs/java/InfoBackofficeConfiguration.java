@@ -13,6 +13,7 @@ public class InfoBackofficeConfiguration {
     private Boolean blockNotificationForAnyAvailableAdjacentService;
     private Boolean cabinetsEnabled;
     private Boolean checkClientOverlapping;
+    private PurpleClientCancellationRestriction clientCancellationRestriction;
     private String customOnlinePaymentConfirmationTemplate;
     private Boolean defaultGTScheduleDayView;
     private Boolean disableAppointmentClientInlineEditor;
@@ -161,6 +162,11 @@ public class InfoBackofficeConfiguration {
     public Boolean getCheckClientOverlapping() { return checkClientOverlapping; }
     @JsonProperty("checkClientOverlapping")
     public void setCheckClientOverlapping(Boolean value) { this.checkClientOverlapping = value; }
+
+    @JsonProperty("clientCancellationRestriction")
+    public PurpleClientCancellationRestriction getClientCancellationRestriction() { return clientCancellationRestriction; }
+    @JsonProperty("clientCancellationRestriction")
+    public void setClientCancellationRestriction(PurpleClientCancellationRestriction value) { this.clientCancellationRestriction = value; }
 
     @JsonProperty("customOnlinePaymentConfirmationTemplate")
     public String getCustomOnlinePaymentConfirmationTemplate() { return customOnlinePaymentConfirmationTemplate; }
