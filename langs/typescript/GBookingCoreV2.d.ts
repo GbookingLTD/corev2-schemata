@@ -2071,10 +2071,15 @@ export declare enum BackofficeType {
     Mu = "MU"
 }
 export interface InfoBackofficeConfigurationObject {
+    clientCancellationRestriction?: BackofficeConfigurationClientCancellationRestriction;
     enableExtendedPhone?: boolean;
     enableMasterImportance?: boolean;
     enablePhoneNationalMode?: boolean;
     resourceTimetableType?: ResourceTimetableType;
+}
+export interface BackofficeConfigurationClientCancellationRestriction {
+    active?: boolean;
+    disableInHours?: number;
 }
 export interface InfoCabinet {
     active?: boolean;
@@ -3444,6 +3449,7 @@ export interface BusinessBackofficeConfiguration {
     blockNotificationForAnyAvailableAdjacentService?: boolean;
     cabinetsEnabled?: boolean;
     checkClientOverlapping?: boolean;
+    clientCancellationRestriction?: BackofficeConfigurationClientCancellationRestrictionObject;
     customOnlinePaymentConfirmationTemplate?: string;
     defaultGTScheduleDayView?: boolean;
     disableAppointmentClientInlineEditor?: boolean;
@@ -3557,6 +3563,10 @@ export interface BusinessBackofficeConfiguration {
     useGtAppMethod?: boolean;
     workWeekEnd?: number;
     workWeekStart?: number;
+}
+export interface BackofficeConfigurationClientCancellationRestrictionObject {
+    active?: boolean;
+    disableInHours?: number;
 }
 export interface ScheduleSplitDayTimeInterval {
     _id?: string;

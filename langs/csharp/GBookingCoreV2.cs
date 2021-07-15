@@ -3722,6 +3722,9 @@ namespace GBookingCoreV2
 
     public partial class InfoBackofficeConfigurationClass
     {
+        [JsonProperty("clientCancellationRestriction", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeConfigurationClientCancellationRestriction ClientCancellationRestriction { get; set; }
+
         [JsonProperty("enableExtendedPhone", NullValueHandling = NullValueHandling.Ignore)]
         public bool? EnableExtendedPhone { get; set; }
 
@@ -3733,6 +3736,15 @@ namespace GBookingCoreV2
 
         [JsonProperty("resourceTimetableType", NullValueHandling = NullValueHandling.Ignore)]
         public ResourceTimetableType? ResourceTimetableType { get; set; }
+    }
+
+    public partial class BackofficeConfigurationClientCancellationRestriction
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("disableInHours", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DisableInHours { get; set; }
     }
 
     public partial class InfoCabinet
@@ -6188,6 +6200,9 @@ namespace GBookingCoreV2
         [JsonProperty("checkClientOverlapping", NullValueHandling = NullValueHandling.Ignore)]
         public bool? CheckClientOverlapping { get; set; }
 
+        [JsonProperty("clientCancellationRestriction", NullValueHandling = NullValueHandling.Ignore)]
+        public BackofficeConfigurationClientCancellationRestrictionClass ClientCancellationRestriction { get; set; }
+
         [JsonProperty("customOnlinePaymentConfirmationTemplate", NullValueHandling = NullValueHandling.Ignore)]
         public string CustomOnlinePaymentConfirmationTemplate { get; set; }
 
@@ -6520,6 +6535,15 @@ namespace GBookingCoreV2
 
         [JsonProperty("workWeekStart", NullValueHandling = NullValueHandling.Ignore)]
         public double? WorkWeekStart { get; set; }
+    }
+
+    public partial class BackofficeConfigurationClientCancellationRestrictionClass
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("disableInHours", NullValueHandling = NullValueHandling.Ignore)]
+        public double? DisableInHours { get; set; }
     }
 
     public partial class ScheduleSplitDayTimeInterval

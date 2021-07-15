@@ -3,10 +3,16 @@ package ru.gbooking.apiv2;
 import com.fasterxml.jackson.annotation.*;
 
 public class InfoBackofficeConfigurationClass {
+    private BackofficeConfigurationClientCancellationRestriction clientCancellationRestriction;
     private Boolean enableExtendedPhone;
     private Boolean enableMasterImportance;
     private Boolean enablePhoneNationalMode;
     private ResourceTimetableType resourceTimetableType;
+
+    @JsonProperty("clientCancellationRestriction")
+    public BackofficeConfigurationClientCancellationRestriction getClientCancellationRestriction() { return clientCancellationRestriction; }
+    @JsonProperty("clientCancellationRestriction")
+    public void setClientCancellationRestriction(BackofficeConfigurationClientCancellationRestriction value) { this.clientCancellationRestriction = value; }
 
     @JsonProperty("enableExtendedPhone")
     public Boolean getEnableExtendedPhone() { return enableExtendedPhone; }

@@ -1711,10 +1711,15 @@ var typeMap = {
         { json: "urlAppSchema", js: "urlAppSchema", typ: u(undefined, "") },
     ], false),
     "InfoBackofficeConfigurationObject": o([
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("BackofficeConfigurationClientCancellationRestriction")) },
         { json: "enableExtendedPhone", js: "enableExtendedPhone", typ: u(undefined, true) },
         { json: "enableMasterImportance", js: "enableMasterImportance", typ: u(undefined, true) },
         { json: "enablePhoneNationalMode", js: "enablePhoneNationalMode", typ: u(undefined, true) },
         { json: "resourceTimetableType", js: "resourceTimetableType", typ: u(undefined, r("ResourceTimetableType")) },
+    ], "any"),
+    "BackofficeConfigurationClientCancellationRestriction": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
     ], "any"),
     "InfoCabinet": o([
         { json: "active", js: "active", typ: u(undefined, true) },
@@ -2457,6 +2462,7 @@ var typeMap = {
         { json: "blockNotificationForAnyAvailableAdjacentService", js: "blockNotificationForAnyAvailableAdjacentService", typ: u(undefined, true) },
         { json: "cabinetsEnabled", js: "cabinetsEnabled", typ: u(undefined, true) },
         { json: "checkClientOverlapping", js: "checkClientOverlapping", typ: u(undefined, true) },
+        { json: "clientCancellationRestriction", js: "clientCancellationRestriction", typ: u(undefined, r("BackofficeConfigurationClientCancellationRestrictionObject")) },
         { json: "customOnlinePaymentConfirmationTemplate", js: "customOnlinePaymentConfirmationTemplate", typ: u(undefined, "") },
         { json: "defaultGTScheduleDayView", js: "defaultGTScheduleDayView", typ: u(undefined, true) },
         { json: "disableAppointmentClientInlineEditor", js: "disableAppointmentClientInlineEditor", typ: u(undefined, true) },
@@ -2569,6 +2575,10 @@ var typeMap = {
         { json: "workWeekEnd", js: "workWeekEnd", typ: u(undefined, 3.14) },
         { json: "workWeekStart", js: "workWeekStart", typ: u(undefined, 3.14) },
     ], false),
+    "BackofficeConfigurationClientCancellationRestrictionObject": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "disableInHours", js: "disableInHours", typ: u(undefined, 3.14) },
+    ], "any"),
     "ScheduleSplitDayTimeInterval": o([
         { json: "_id", js: "_id", typ: u(undefined, "") },
         { json: "endHour", js: "endHour", typ: u(undefined, 3.14) },
