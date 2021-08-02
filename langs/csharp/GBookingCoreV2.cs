@@ -7742,6 +7742,9 @@ namespace GBookingCoreV2
         [JsonProperty("clientContractNumber", NullValueHandling = NullValueHandling.Ignore)]
         public string ClientContractNumber { get; set; }
 
+        [JsonProperty("contractAttachments", NullValueHandling = NullValueHandling.Ignore)]
+        public List<ContractAttachment> ContractAttachments { get; set; }
+
         [JsonProperty("created", NullValueHandling = NullValueHandling.Ignore)]
         public string Created { get; set; }
 
@@ -7906,6 +7909,66 @@ namespace GBookingCoreV2
 
         [JsonProperty("surname", NullValueHandling = NullValueHandling.Ignore)]
         public string Surname { get; set; }
+    }
+
+    public partial class ContractAttachment
+    {
+        [JsonProperty("active", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Active { get; set; }
+
+        [JsonProperty("attachmentExtraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string AttachmentExtraId { get; set; }
+
+        [JsonProperty("attachmentID", NullValueHandling = NullValueHandling.Ignore)]
+        public string AttachmentId { get; set; }
+
+        [JsonProperty("attachmentName", NullValueHandling = NullValueHandling.Ignore)]
+        public string AttachmentName { get; set; }
+
+        [JsonProperty("attachmentNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string AttachmentNumber { get; set; }
+
+        [JsonProperty("businessID", NullValueHandling = NullValueHandling.Ignore)]
+        public string BusinessId { get; set; }
+
+        [JsonProperty("contractExtraID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractExtraId { get; set; }
+
+        [JsonProperty("contractID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractId { get; set; }
+
+        [JsonProperty("contractName", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractName { get; set; }
+
+        [JsonProperty("contractNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractNumber { get; set; }
+
+        [JsonProperty("contractOwnerName", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractOwnerName { get; set; }
+
+        [JsonProperty("dateBegin", NullValueHandling = NullValueHandling.Ignore)]
+        public string DateBegin { get; set; }
+
+        [JsonProperty("dateEnd", NullValueHandling = NullValueHandling.Ignore)]
+        public string DateEnd { get; set; }
+
+        [JsonProperty("networkID", NullValueHandling = NullValueHandling.Ignore)]
+        public string NetworkId { get; set; }
+
+        [JsonProperty("provider", NullValueHandling = NullValueHandling.Ignore)]
+        public string Provider { get; set; }
+
+        [JsonProperty("taxonomies", NullValueHandling = NullValueHandling.Ignore)]
+        public List<TaxonomyElement> Taxonomies { get; set; }
+    }
+
+    public partial class TaxonomyElement
+    {
+        [JsonProperty("count", NullValueHandling = NullValueHandling.Ignore)]
+        public double? Count { get; set; }
+
+        [JsonProperty("taxonomyID", NullValueHandling = NullValueHandling.Ignore)]
+        public string TaxonomyId { get; set; }
     }
 
     public partial class ClientExtraField
@@ -8181,6 +8244,12 @@ namespace GBookingCoreV2
         [JsonProperty("client", NullValueHandling = NullValueHandling.Ignore)]
         public ClientClass Client { get; set; }
 
+        /// <summary>
+        /// данные о договоре
+        /// </summary>
+        [JsonProperty("contract", NullValueHandling = NullValueHandling.Ignore)]
+        public IndecentContract Contract { get; set; }
+
         [JsonProperty("network", NullValueHandling = NullValueHandling.Ignore)]
         public StickyNetwork Network { get; set; }
 
@@ -8198,6 +8267,18 @@ namespace GBookingCoreV2
         /// </summary>
         [JsonProperty("id")]
         public BackofficeIdUnion Id { get; set; }
+    }
+
+    /// <summary>
+    /// данные о договоре
+    /// </summary>
+    public partial class IndecentContract
+    {
+        [JsonProperty("contractExtraId", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractExtraId { get; set; }
+
+        [JsonProperty("contractID", NullValueHandling = NullValueHandling.Ignore)]
+        public string ContractId { get; set; }
     }
 
     public partial class StickyNetwork

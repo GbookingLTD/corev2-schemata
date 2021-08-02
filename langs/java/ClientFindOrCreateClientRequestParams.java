@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.*;
 public class ClientFindOrCreateClientRequestParams {
     private Business1 business;
     private ClientClass client;
+    private IndecentContract contract;
     private StickyNetwork network;
     private Boolean skipEmailCheck;
     private Boolean skipProfileUpdate;
@@ -21,6 +22,14 @@ public class ClientFindOrCreateClientRequestParams {
     public ClientClass getClient() { return client; }
     @JsonProperty("client")
     public void setClient(ClientClass value) { this.client = value; }
+
+    /**
+     * данные о договоре
+     */
+    @JsonProperty("contract")
+    public IndecentContract getContract() { return contract; }
+    @JsonProperty("contract")
+    public void setContract(IndecentContract value) { this.contract = value; }
 
     @JsonProperty("network")
     public StickyNetwork getNetwork() { return network; }

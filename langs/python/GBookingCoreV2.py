@@ -12255,6 +12255,106 @@ class ChildrenClient:
         return result
 
 
+class TaxonomyElement:
+    count: Optional[float]
+    taxonomy_id: Optional[str]
+
+    def __init__(self, count: Optional[float], taxonomy_id: Optional[str]) -> None:
+        self.count = count
+        self.taxonomy_id = taxonomy_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'TaxonomyElement':
+        assert isinstance(obj, dict)
+        count = from_union([from_float, from_none], obj.get("count"))
+        taxonomy_id = from_union([from_str, from_none], obj.get("taxonomyID"))
+        return TaxonomyElement(count, taxonomy_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["count"] = from_union([to_float, from_none], self.count)
+        result["taxonomyID"] = from_union([from_str, from_none], self.taxonomy_id)
+        return result
+
+
+class ContractAttachment:
+    active: Optional[bool]
+    attachment_extra_id: Optional[str]
+    attachment_id: Optional[str]
+    attachment_name: Optional[str]
+    attachment_number: Optional[str]
+    business_id: Optional[str]
+    contract_extra_id: Optional[str]
+    contract_id: Optional[str]
+    contract_name: Optional[str]
+    contract_number: Optional[str]
+    contract_owner_name: Optional[str]
+    date_begin: Optional[str]
+    date_end: Optional[str]
+    network_id: Optional[str]
+    provider: Optional[str]
+    taxonomies: Optional[List[TaxonomyElement]]
+
+    def __init__(self, active: Optional[bool], attachment_extra_id: Optional[str], attachment_id: Optional[str], attachment_name: Optional[str], attachment_number: Optional[str], business_id: Optional[str], contract_extra_id: Optional[str], contract_id: Optional[str], contract_name: Optional[str], contract_number: Optional[str], contract_owner_name: Optional[str], date_begin: Optional[str], date_end: Optional[str], network_id: Optional[str], provider: Optional[str], taxonomies: Optional[List[TaxonomyElement]]) -> None:
+        self.active = active
+        self.attachment_extra_id = attachment_extra_id
+        self.attachment_id = attachment_id
+        self.attachment_name = attachment_name
+        self.attachment_number = attachment_number
+        self.business_id = business_id
+        self.contract_extra_id = contract_extra_id
+        self.contract_id = contract_id
+        self.contract_name = contract_name
+        self.contract_number = contract_number
+        self.contract_owner_name = contract_owner_name
+        self.date_begin = date_begin
+        self.date_end = date_end
+        self.network_id = network_id
+        self.provider = provider
+        self.taxonomies = taxonomies
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'ContractAttachment':
+        assert isinstance(obj, dict)
+        active = from_union([from_bool, from_none], obj.get("active"))
+        attachment_extra_id = from_union([from_str, from_none], obj.get("attachmentExtraID"))
+        attachment_id = from_union([from_str, from_none], obj.get("attachmentID"))
+        attachment_name = from_union([from_str, from_none], obj.get("attachmentName"))
+        attachment_number = from_union([from_str, from_none], obj.get("attachmentNumber"))
+        business_id = from_union([from_str, from_none], obj.get("businessID"))
+        contract_extra_id = from_union([from_str, from_none], obj.get("contractExtraID"))
+        contract_id = from_union([from_str, from_none], obj.get("contractID"))
+        contract_name = from_union([from_str, from_none], obj.get("contractName"))
+        contract_number = from_union([from_str, from_none], obj.get("contractNumber"))
+        contract_owner_name = from_union([from_str, from_none], obj.get("contractOwnerName"))
+        date_begin = from_union([from_str, from_none], obj.get("dateBegin"))
+        date_end = from_union([from_str, from_none], obj.get("dateEnd"))
+        network_id = from_union([from_str, from_none], obj.get("networkID"))
+        provider = from_union([from_str, from_none], obj.get("provider"))
+        taxonomies = from_union([lambda x: from_list(TaxonomyElement.from_dict, x), from_none], obj.get("taxonomies"))
+        return ContractAttachment(active, attachment_extra_id, attachment_id, attachment_name, attachment_number, business_id, contract_extra_id, contract_id, contract_name, contract_number, contract_owner_name, date_begin, date_end, network_id, provider, taxonomies)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["active"] = from_union([from_bool, from_none], self.active)
+        result["attachmentExtraID"] = from_union([from_str, from_none], self.attachment_extra_id)
+        result["attachmentID"] = from_union([from_str, from_none], self.attachment_id)
+        result["attachmentName"] = from_union([from_str, from_none], self.attachment_name)
+        result["attachmentNumber"] = from_union([from_str, from_none], self.attachment_number)
+        result["businessID"] = from_union([from_str, from_none], self.business_id)
+        result["contractExtraID"] = from_union([from_str, from_none], self.contract_extra_id)
+        result["contractID"] = from_union([from_str, from_none], self.contract_id)
+        result["contractName"] = from_union([from_str, from_none], self.contract_name)
+        result["contractNumber"] = from_union([from_str, from_none], self.contract_number)
+        result["contractOwnerName"] = from_union([from_str, from_none], self.contract_owner_name)
+        result["dateBegin"] = from_union([from_str, from_none], self.date_begin)
+        result["dateEnd"] = from_union([from_str, from_none], self.date_end)
+        result["networkID"] = from_union([from_str, from_none], self.network_id)
+        result["provider"] = from_union([from_str, from_none], self.provider)
+        result["taxonomies"] = from_union([lambda x: from_list(lambda x: to_class(TaxonomyElement, x), x), from_none], self.taxonomies)
+        return result
+
+
 class ClientExtraField:
     field_id: str
     field_name: str
@@ -12531,6 +12631,7 @@ class ClientClass:
     client_card_creation_date: Optional[str]
     client_card_number: Optional[str]
     client_contract_number: Optional[str]
+    contract_attachments: Optional[List[ContractAttachment]]
     created: Optional[str]
     creator_profile_id: Optional[str]
     creator_profile_name: Optional[str]
@@ -12581,7 +12682,7 @@ class ClientClass:
     updated: Optional[str]
     work_place: Optional[str]
 
-    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], black_list: Optional[bool], children_clients: Optional[List[ChildrenClient]], client_card_creation_date: Optional[str], client_card_number: Optional[str], client_contract_number: Optional[str], created: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], description: Optional[str], discount_code: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[ClientExtraField]], extra_id: Optional[str], fav_resources: Optional[List[ClientFavResource]], fax: Optional[str], from_sms: Union[bool, None, str], full_address: Optional[List[AddressSchema]], house_number: Optional[str], icon_url: Optional[str], id: Optional[str], insurance_company: Optional[str], insurance_number: Optional[str], integration_data: Optional[ClientIntegrationData], is_lazy: Optional[bool], israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str], is_vip: Optional[bool], kupat_holim: Union[List[Any], bool, KupatHolimKupatHolim, float, int, None, str], language: Optional[LanguageList], last_created_appointment: Optional[Dict[str, Any]], last_visited_appointment: Optional[Dict[str, Any]], lazy_resolved_date: Optional[str], locality: Optional[str], loyalty_info: Optional[LoyaltyInfo], middle_name: Optional[str], name: str, passport_date: Optional[str], passport_id: Optional[str], passport_issued: Optional[str], passport_series: Optional[str], phone: List[FaxElement], receive_sms_after_service: Optional[bool], sex: Optional[Sex], skip_marketing_notifications: Optional[bool], skip_notifications: Optional[bool], snils: Optional[str], statistics: Optional[Statistics], status: Optional[ResourceStatus], surname: str, taxi_park: Optional[str], taxi_park_member_count: Union[float, None, str], two_fa_user_id: Optional[str], updated: Optional[str], work_place: Optional[str]) -> None:
+    def __init__(self, address: Optional[str], birthday: Union[Dict[str, Any], None, str], black_list: Optional[bool], children_clients: Optional[List[ChildrenClient]], client_card_creation_date: Optional[str], client_card_number: Optional[str], client_contract_number: Optional[str], contract_attachments: Optional[List[ContractAttachment]], created: Optional[str], creator_profile_id: Optional[str], creator_profile_name: Optional[str], description: Optional[str], discount_code: Optional[str], driver_license: Optional[str], email: Optional[List[str]], extra_fields: Optional[List[ClientExtraField]], extra_id: Optional[str], fav_resources: Optional[List[ClientFavResource]], fax: Optional[str], from_sms: Union[bool, None, str], full_address: Optional[List[AddressSchema]], house_number: Optional[str], icon_url: Optional[str], id: Optional[str], insurance_company: Optional[str], insurance_number: Optional[str], integration_data: Optional[ClientIntegrationData], is_lazy: Optional[bool], israel_city: Union[List[Any], bool, IsraelCityIsraelCity, float, int, None, str], is_vip: Optional[bool], kupat_holim: Union[List[Any], bool, KupatHolimKupatHolim, float, int, None, str], language: Optional[LanguageList], last_created_appointment: Optional[Dict[str, Any]], last_visited_appointment: Optional[Dict[str, Any]], lazy_resolved_date: Optional[str], locality: Optional[str], loyalty_info: Optional[LoyaltyInfo], middle_name: Optional[str], name: str, passport_date: Optional[str], passport_id: Optional[str], passport_issued: Optional[str], passport_series: Optional[str], phone: List[FaxElement], receive_sms_after_service: Optional[bool], sex: Optional[Sex], skip_marketing_notifications: Optional[bool], skip_notifications: Optional[bool], snils: Optional[str], statistics: Optional[Statistics], status: Optional[ResourceStatus], surname: str, taxi_park: Optional[str], taxi_park_member_count: Union[float, None, str], two_fa_user_id: Optional[str], updated: Optional[str], work_place: Optional[str]) -> None:
         self.address = address
         self.birthday = birthday
         self.black_list = black_list
@@ -12589,6 +12690,7 @@ class ClientClass:
         self.client_card_creation_date = client_card_creation_date
         self.client_card_number = client_card_number
         self.client_contract_number = client_contract_number
+        self.contract_attachments = contract_attachments
         self.created = created
         self.creator_profile_id = creator_profile_id
         self.creator_profile_name = creator_profile_name
@@ -12649,6 +12751,7 @@ class ClientClass:
         client_card_creation_date = from_union([from_str, from_none], obj.get("clientCardCreationDate"))
         client_card_number = from_union([from_str, from_none], obj.get("clientCardNumber"))
         client_contract_number = from_union([from_str, from_none], obj.get("clientContractNumber"))
+        contract_attachments = from_union([lambda x: from_list(ContractAttachment.from_dict, x), from_none], obj.get("contractAttachments"))
         created = from_union([from_str, from_none], obj.get("created"))
         creator_profile_id = from_union([from_none, from_str], obj.get("creatorProfileID"))
         creator_profile_name = from_union([from_none, from_str], obj.get("creatorProfileName"))
@@ -12698,7 +12801,7 @@ class ClientClass:
         two_fa_user_id = from_union([from_str, from_none], obj.get("twoFAUserID"))
         updated = from_union([from_str, from_none], obj.get("updated"))
         work_place = from_union([from_str, from_none], obj.get("workPlace"))
-        return ClientClass(address, birthday, black_list, children_clients, client_card_creation_date, client_card_number, client_contract_number, created, creator_profile_id, creator_profile_name, description, discount_code, driver_license, email, extra_fields, extra_id, fav_resources, fax, from_sms, full_address, house_number, icon_url, id, insurance_company, insurance_number, integration_data, is_lazy, israel_city, is_vip, kupat_holim, language, last_created_appointment, last_visited_appointment, lazy_resolved_date, locality, loyalty_info, middle_name, name, passport_date, passport_id, passport_issued, passport_series, phone, receive_sms_after_service, sex, skip_marketing_notifications, skip_notifications, snils, statistics, status, surname, taxi_park, taxi_park_member_count, two_fa_user_id, updated, work_place)
+        return ClientClass(address, birthday, black_list, children_clients, client_card_creation_date, client_card_number, client_contract_number, contract_attachments, created, creator_profile_id, creator_profile_name, description, discount_code, driver_license, email, extra_fields, extra_id, fav_resources, fax, from_sms, full_address, house_number, icon_url, id, insurance_company, insurance_number, integration_data, is_lazy, israel_city, is_vip, kupat_holim, language, last_created_appointment, last_visited_appointment, lazy_resolved_date, locality, loyalty_info, middle_name, name, passport_date, passport_id, passport_issued, passport_series, phone, receive_sms_after_service, sex, skip_marketing_notifications, skip_notifications, snils, statistics, status, surname, taxi_park, taxi_park_member_count, two_fa_user_id, updated, work_place)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -12709,6 +12812,7 @@ class ClientClass:
         result["clientCardCreationDate"] = from_union([from_str, from_none], self.client_card_creation_date)
         result["clientCardNumber"] = from_union([from_str, from_none], self.client_card_number)
         result["clientContractNumber"] = from_union([from_str, from_none], self.client_contract_number)
+        result["contractAttachments"] = from_union([lambda x: from_list(lambda x: to_class(ContractAttachment, x), x), from_none], self.contract_attachments)
         result["created"] = from_union([from_str, from_none], self.created)
         result["creatorProfileID"] = from_union([from_none, from_str], self.creator_profile_id)
         result["creatorProfileName"] = from_union([from_none, from_str], self.creator_profile_name)
@@ -13041,6 +13145,29 @@ class Business1:
         return result
 
 
+class IndecentContract:
+    """данные о договоре"""
+    contract_extra_id: Optional[str]
+    contract_id: Optional[str]
+
+    def __init__(self, contract_extra_id: Optional[str], contract_id: Optional[str]) -> None:
+        self.contract_extra_id = contract_extra_id
+        self.contract_id = contract_id
+
+    @staticmethod
+    def from_dict(obj: Any) -> 'IndecentContract':
+        assert isinstance(obj, dict)
+        contract_extra_id = from_union([from_str, from_none], obj.get("contractExtraId"))
+        contract_id = from_union([from_str, from_none], obj.get("contractID"))
+        return IndecentContract(contract_extra_id, contract_id)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["contractExtraId"] = from_union([from_str, from_none], self.contract_extra_id)
+        result["contractID"] = from_union([from_str, from_none], self.contract_id)
+        return result
+
+
 class StickyNetwork:
     """идентификатор нетворка"""
     id: Union[float, None, str]
@@ -13064,13 +13191,16 @@ class ClientFindOrCreateClientRequestParams:
     """параметры запроса"""
     business: Business1
     client: Optional[ClientClass]
+    """данные о договоре"""
+    contract: Optional[IndecentContract]
     network: Optional[StickyNetwork]
     skip_email_check: Optional[bool]
     skip_profile_update: Optional[bool]
 
-    def __init__(self, business: Business1, client: Optional[ClientClass], network: Optional[StickyNetwork], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
+    def __init__(self, business: Business1, client: Optional[ClientClass], contract: Optional[IndecentContract], network: Optional[StickyNetwork], skip_email_check: Optional[bool], skip_profile_update: Optional[bool]) -> None:
         self.business = business
         self.client = client
+        self.contract = contract
         self.network = network
         self.skip_email_check = skip_email_check
         self.skip_profile_update = skip_profile_update
@@ -13080,15 +13210,17 @@ class ClientFindOrCreateClientRequestParams:
         assert isinstance(obj, dict)
         business = Business1.from_dict(obj.get("business"))
         client = from_union([ClientClass.from_dict, from_none], obj.get("client"))
+        contract = from_union([IndecentContract.from_dict, from_none], obj.get("contract"))
         network = from_union([StickyNetwork.from_dict, from_none], obj.get("network"))
         skip_email_check = from_union([from_bool, from_none], obj.get("skipEmailCheck"))
         skip_profile_update = from_union([from_bool, from_none], obj.get("skipProfileUpdate"))
-        return ClientFindOrCreateClientRequestParams(business, client, network, skip_email_check, skip_profile_update)
+        return ClientFindOrCreateClientRequestParams(business, client, contract, network, skip_email_check, skip_profile_update)
 
     def to_dict(self) -> dict:
         result: dict = {}
         result["business"] = to_class(Business1, self.business)
         result["client"] = from_union([lambda x: to_class(ClientClass, x), from_none], self.client)
+        result["contract"] = from_union([lambda x: to_class(IndecentContract, x), from_none], self.contract)
         result["network"] = from_union([lambda x: to_class(StickyNetwork, x), from_none], self.network)
         result["skipEmailCheck"] = from_union([from_bool, from_none], self.skip_email_check)
         result["skipProfileUpdate"] = from_union([from_bool, from_none], self.skip_profile_update)

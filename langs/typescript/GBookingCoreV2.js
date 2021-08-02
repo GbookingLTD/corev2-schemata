@@ -1503,7 +1503,7 @@ var typeMap = {
         { json: "contract", js: "contract", typ: u(undefined, r("StickyContract")) },
         { json: "networkID", js: "networkID", typ: u(3.14, "") },
         { json: "resource", js: "resource", typ: u(undefined, r("ResourceObject")) },
-        { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("TaxonomyObject")) },
+        { json: "taxonomy", js: "taxonomy", typ: u(undefined, r("ParamsTaxonomyObject")) },
         { json: "with_business_info", js: "with_business_info", typ: u(undefined, true) },
     ], false),
     "StickyContract": o([
@@ -1513,7 +1513,7 @@ var typeMap = {
     "ResourceObject": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
-    "TaxonomyObject": o([
+    "ParamsTaxonomyObject": o([
         { json: "id", js: "id", typ: u(undefined, "") },
     ], "any"),
     "BusinessGetNetworkDataResponse": o([
@@ -2373,7 +2373,7 @@ var typeMap = {
     ], false),
     "BusinessGetProfileByIdRequestParams": o([
         { json: "business", js: "business", typ: r("FriskyBusiness") },
-        { json: "contract", js: "contract", typ: u(undefined, r("ContractClass")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("IndigoContract")) },
         { json: "desktop_discounts", js: "desktop_discounts", typ: u(undefined, true) },
         { json: "only_active_workers", js: "only_active_workers", typ: u(undefined, true) },
         { json: "show_inactive_workers", js: "show_inactive_workers", typ: u(undefined, true) },
@@ -2393,7 +2393,7 @@ var typeMap = {
     "FriskyBusiness": o([
         { json: "id", js: "id", typ: "" },
     ], false),
-    "ContractClass": o([
+    "IndigoContract": o([
         { json: "extraId", js: "extraId", typ: u(undefined, "") },
         { json: "id", js: "id", typ: u(undefined, "") },
     ], false),
@@ -2991,6 +2991,7 @@ var typeMap = {
         { json: "clientCardCreationDate", js: "clientCardCreationDate", typ: u(undefined, "") },
         { json: "clientCardNumber", js: "clientCardNumber", typ: u(undefined, "") },
         { json: "clientContractNumber", js: "clientContractNumber", typ: u(undefined, "") },
+        { json: "contractAttachments", js: "contractAttachments", typ: u(undefined, a(r("ContractAttachment"))) },
         { json: "created", js: "created", typ: u(undefined, "") },
         { json: "creatorProfileID", js: "creatorProfileID", typ: u(undefined, u(null, "")) },
         { json: "creatorProfileName", js: "creatorProfileName", typ: u(undefined, u(null, "")) },
@@ -3048,6 +3049,28 @@ var typeMap = {
         { json: "name", js: "name", typ: u(undefined, "") },
         { json: "surname", js: "surname", typ: u(undefined, "") },
     ], false),
+    "ContractAttachment": o([
+        { json: "active", js: "active", typ: u(undefined, true) },
+        { json: "attachmentExtraID", js: "attachmentExtraID", typ: u(undefined, "") },
+        { json: "attachmentID", js: "attachmentID", typ: u(undefined, "") },
+        { json: "attachmentName", js: "attachmentName", typ: u(undefined, "") },
+        { json: "attachmentNumber", js: "attachmentNumber", typ: u(undefined, "") },
+        { json: "businessID", js: "businessID", typ: u(undefined, "") },
+        { json: "contractExtraID", js: "contractExtraID", typ: u(undefined, "") },
+        { json: "contractID", js: "contractID", typ: u(undefined, "") },
+        { json: "contractName", js: "contractName", typ: u(undefined, "") },
+        { json: "contractNumber", js: "contractNumber", typ: u(undefined, "") },
+        { json: "contractOwnerName", js: "contractOwnerName", typ: u(undefined, "") },
+        { json: "dateBegin", js: "dateBegin", typ: u(undefined, "") },
+        { json: "dateEnd", js: "dateEnd", typ: u(undefined, "") },
+        { json: "networkID", js: "networkID", typ: u(undefined, "") },
+        { json: "provider", js: "provider", typ: u(undefined, "") },
+        { json: "taxonomies", js: "taxonomies", typ: u(undefined, a(r("TaxonomyElement"))) },
+    ], false),
+    "TaxonomyElement": o([
+        { json: "count", js: "count", typ: u(undefined, 3.14) },
+        { json: "taxonomyID", js: "taxonomyID", typ: u(undefined, "") },
+    ], "any"),
     "ClientExtraField": o([
         { json: "fieldID", js: "fieldID", typ: "" },
         { json: "fieldName", js: "fieldName", typ: "" },
@@ -3141,12 +3164,17 @@ var typeMap = {
     "ClientFindOrCreateClientRequestParams": o([
         { json: "business", js: "business", typ: r("Business1") },
         { json: "client", js: "client", typ: u(undefined, r("ClientClass")) },
+        { json: "contract", js: "contract", typ: u(undefined, r("IndecentContract")) },
         { json: "network", js: "network", typ: u(undefined, r("StickyNetwork")) },
         { json: "skipEmailCheck", js: "skipEmailCheck", typ: u(undefined, true) },
         { json: "skipProfileUpdate", js: "skipProfileUpdate", typ: u(undefined, true) },
     ], false),
     "Business1": o([
         { json: "id", js: "id", typ: u(3.14, "") },
+    ], false),
+    "IndecentContract": o([
+        { json: "contractExtraId", js: "contractExtraId", typ: u(undefined, "") },
+        { json: "contractID", js: "contractID", typ: u(undefined, "") },
     ], false),
     "StickyNetwork": o([
         { json: "id", js: "id", typ: u(undefined, u(3.14, "")) },

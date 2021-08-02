@@ -2835,6 +2835,7 @@ type ClientClass struct {
 	ClientCardCreationDate     *string                `json:"clientCardCreationDate,omitempty"`    
 	ClientCardNumber           *string                `json:"clientCardNumber,omitempty"`          
 	ClientContractNumber       *string                `json:"clientContractNumber,omitempty"`      
+	ContractAttachments        []ContractAttachment   `json:"contractAttachments,omitempty"`       
 	Created                    *string                `json:"created,omitempty"`                   
 	CreatorProfileID           *string                `json:"creatorProfileID"`                    
 	CreatorProfileName         *string                `json:"creatorProfileName"`                  
@@ -2892,6 +2893,30 @@ type ChildrenClient struct {
 	MiddleName *string `json:"middleName,omitempty"`
 	Name       *string `json:"name,omitempty"`      
 	Surname    *string `json:"surname,omitempty"`   
+}
+
+type ContractAttachment struct {
+	Active            *bool             `json:"active,omitempty"`           
+	AttachmentExtraID *string           `json:"attachmentExtraID,omitempty"`
+	AttachmentID      *string           `json:"attachmentID,omitempty"`     
+	AttachmentName    *string           `json:"attachmentName,omitempty"`   
+	AttachmentNumber  *string           `json:"attachmentNumber,omitempty"` 
+	BusinessID        *string           `json:"businessID,omitempty"`       
+	ContractExtraID   *string           `json:"contractExtraID,omitempty"`  
+	ContractID        *string           `json:"contractID,omitempty"`       
+	ContractName      *string           `json:"contractName,omitempty"`     
+	ContractNumber    *string           `json:"contractNumber,omitempty"`   
+	ContractOwnerName *string           `json:"contractOwnerName,omitempty"`
+	DateBegin         *string           `json:"dateBegin,omitempty"`        
+	DateEnd           *string           `json:"dateEnd,omitempty"`          
+	NetworkID         *string           `json:"networkID,omitempty"`        
+	Provider          *string           `json:"provider,omitempty"`         
+	Taxonomies        []TaxonomyElement `json:"taxonomies,omitempty"`       
+}
+
+type TaxonomyElement struct {
+	Count      *float64 `json:"count,omitempty"`     
+	TaxonomyID *string  `json:"taxonomyID,omitempty"`
 }
 
 type ClientExtraField struct {
@@ -3006,15 +3031,22 @@ type ClientFindOrCreateClientRequest struct {
 
 // параметры запроса
 type ClientFindOrCreateClientRequestParams struct {
-	Business          Business1      `json:"business"`                   
-	Client            *ClientClass   `json:"client,omitempty"`           
-	Network           *StickyNetwork `json:"network,omitempty"`          
-	SkipEmailCheck    *bool          `json:"skipEmailCheck,omitempty"`   
-	SkipProfileUpdate *bool          `json:"skipProfileUpdate,omitempty"`
+	Business          Business1         `json:"business"`                   
+	Client            *ClientClass      `json:"client,omitempty"`           
+	Contract          *IndecentContract `json:"contract,omitempty"`         // данные о договоре
+	Network           *StickyNetwork    `json:"network,omitempty"`          
+	SkipEmailCheck    *bool             `json:"skipEmailCheck,omitempty"`   
+	SkipProfileUpdate *bool             `json:"skipProfileUpdate,omitempty"`
 }
 
 type Business1 struct {
 	ID *TimeFrameDate `json:"id"`// идентификатор бизнеса
+}
+
+// данные о договоре
+type IndecentContract struct {
+	ContractExtraID *string `json:"contractExtraId,omitempty"`
+	ContractID      *string `json:"contractID,omitempty"`     
 }
 
 type StickyNetwork struct {

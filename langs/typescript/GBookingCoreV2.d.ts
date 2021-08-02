@@ -1751,7 +1751,7 @@ export interface BusinessGetNetworkDataRequestParams {
      */
     networkID: BackofficeIdUnion;
     resource?: ResourceObject;
-    taxonomy?: TaxonomyObject;
+    taxonomy?: ParamsTaxonomyObject;
     /**
      * Если передано true - возвращает информацию business_info/general_info по каждому бизнесу
      * в массиве businesses
@@ -1773,7 +1773,7 @@ export interface ResourceObject {
      */
     id?: string;
 }
-export interface TaxonomyObject {
+export interface ParamsTaxonomyObject {
     /**
      * идентификатор услуги, если передано - возвращает все бизнесы нетворка с такой услугой
      */
@@ -3260,7 +3260,7 @@ export interface BusinessGetProfileByIdRequestParams {
      * данные по договору, если указано то список работников и услуг формируется на основе
      * переданного договора
      */
-    contract?: ContractClass;
+    contract?: IndigoContract;
     /**
      * если указано true - меняет формат представления discounts
      */
@@ -3335,7 +3335,7 @@ export interface FriskyBusiness {
  * данные по договору, если указано то список работников и услуг формируется на основе
  * переданного договора
  */
-export interface ContractClass {
+export interface IndigoContract {
     extraId?: string;
     id?: string;
 }
@@ -4069,6 +4069,7 @@ export interface ClientClass {
     clientCardCreationDate?: string;
     clientCardNumber?: string;
     clientContractNumber?: string;
+    contractAttachments?: ContractAttachment[];
     created?: string;
     creatorProfileID?: null | string;
     creatorProfileName?: null | string;
@@ -4129,6 +4130,28 @@ export interface ChildrenClient {
     middleName?: string;
     name?: string;
     surname?: string;
+}
+export interface ContractAttachment {
+    active?: boolean;
+    attachmentExtraID?: string;
+    attachmentID?: string;
+    attachmentName?: string;
+    attachmentNumber?: string;
+    businessID?: string;
+    contractExtraID?: string;
+    contractID?: string;
+    contractName?: string;
+    contractNumber?: string;
+    contractOwnerName?: string;
+    dateBegin?: string;
+    dateEnd?: string;
+    networkID?: string;
+    provider?: string;
+    taxonomies?: TaxonomyElement[];
+}
+export interface TaxonomyElement {
+    count?: number;
+    taxonomyID?: string;
 }
 export interface ClientExtraField {
     fieldID: string;
@@ -4289,6 +4312,10 @@ export interface ClientFindOrCreateClientRequest {
 export interface ClientFindOrCreateClientRequestParams {
     business: Business1;
     client?: ClientClass;
+    /**
+     * данные о договоре
+     */
+    contract?: IndecentContract;
     network?: StickyNetwork;
     skipEmailCheck?: boolean;
     skipProfileUpdate?: boolean;
@@ -4298,6 +4325,13 @@ export interface Business1 {
      * идентификатор бизнеса
      */
     id: BackofficeIdUnion;
+}
+/**
+ * данные о договоре
+ */
+export interface IndecentContract {
+    contractExtraId?: string;
+    contractID?: string;
 }
 export interface StickyNetwork {
     /**

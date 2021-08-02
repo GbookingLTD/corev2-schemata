@@ -15,6 +15,7 @@ public class ClientClass {
     private String clientCardCreationDate;
     private String clientCardNumber;
     private String clientContractNumber;
+    private List<ContractAttachment> contractAttachments;
     private String created;
     private String creatorProfileID;
     private String creatorProfileName;
@@ -99,6 +100,11 @@ public class ClientClass {
     public String getClientContractNumber() { return clientContractNumber; }
     @JsonProperty("clientContractNumber")
     public void setClientContractNumber(String value) { this.clientContractNumber = value; }
+
+    @JsonProperty("contractAttachments")
+    public List<ContractAttachment> getContractAttachments() { return contractAttachments; }
+    @JsonProperty("contractAttachments")
+    public void setContractAttachments(List<ContractAttachment> value) { this.contractAttachments = value; }
 
     @JsonProperty("created")
     public String getCreated() { return created; }
