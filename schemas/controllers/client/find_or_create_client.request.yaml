@@ -31,6 +31,16 @@ definitions:
               id:
                 type: ["string", "number"]
                 description: "идентификатор нетворка"
+          contract:
+            type: "object"
+            description: "данные о договоре"
+            additionalProperties: false
+            required: []
+            properties:
+              contractExtraId:
+                type: "string"
+              contractID:
+                type: "string"
           skipEmailCheck:
             type: "boolean"
             default: false

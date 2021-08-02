@@ -196,6 +196,53 @@ properties:
     type: "string"
   updated:
     type: "string"
+  contractAttachments:
+    type: "array"
+    items:
+      type: "object"
+      required: []
+      additionalProperties: false
+      properties:
+        active:
+          type: "boolean"
+        taxonomies: 
+          type: "array"
+          items:
+            required: []
+            type: "object"
+              properties:
+                count: 
+                  type: "number"
+                taxonomyID:
+                  type: "string"
+        businessID:
+          type: "string"
+        networkID:
+          type: "string"
+        provider: 
+          type: "string"
+        contractID:
+          type: "string"
+        contractNumber:
+          type: "string"
+        contractName:
+          type: "string"
+        contractOwnerName:
+          type: "string"
+        contractExtraID:
+          type: "string"
+        attachmentID:
+          type: "string"
+        attachmentName:
+          type: "string"
+        attachmentExtraID:
+          type: "string"
+        attachmentNumber:
+          type: "string"
+        dateBegin:
+          type: "string"
+        dateEnd:
+          type: "string"
   lastVisitedAppointment:
     type: ["object", "null"]
   lastCreatedAppointment:
