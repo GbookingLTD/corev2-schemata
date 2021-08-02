@@ -210,11 +210,11 @@ properties:
           items:
             required: []
             type: "object"
-              properties:
-                count: 
-                  type: "number"
-                taxonomyID:
-                  type: "string"
+            properties:
+              count: 
+                type: "number"
+              taxonomyID:
+                type: "string"
         businessID:
           type: "string"
         networkID:
@@ -247,4 +247,3 @@ properties:
     type: ["object", "null"]
   lastCreatedAppointment:
     type: ["object", "null"]
-
