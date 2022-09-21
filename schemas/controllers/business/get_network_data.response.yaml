@@ -151,6 +151,10 @@ definitions:
                       type: "string"
                     path: 
                       type: "string"
+                    availableEntities: 
+                      type: "array"
+                      items: 
+                        type: "string"
           networkClientBlockingSettings:
             type: "object"
             properties:
